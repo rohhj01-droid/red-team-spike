@@ -1,11 +1,12 @@
 # Phase 2 Contract
 
-Status: **draft, not yet executed (revision A2).** No benchmark data, no
+Status: **draft, not yet executed (revision A3).** No benchmark data, no
 algorithm code exists for Phase 2 yet. This document is Commit A in the
 sequence below -- it is meant to be reviewed and locked *before* any of
-that is written. A2 revises the original Commit A after review caught a
-reverse-leakage risk in the commit order and several grading/definition
-issues; see the Commit sequence table for what changed.
+that is written. A2 fixed a reverse-leakage risk in the commit order and
+several grading/definition issues; A3 closed three gaps A2 left open
+(BUDGET/MAX_DEPTH freeze timing, RQ3 scope, shared- vs isolated-environment
+benchmark design). See the Commit sequence table for what changed.
 
 ## Research questions
 
@@ -79,6 +80,47 @@ predeclared novel mechanism categories," never "unseen mechanism
 generalization" -- the mechanism *category* was known in advance by
 design; only the exact instance parameters were decided after the freeze.
 
+### Every case is an isolated environment, not a shared one
+
+Phase 0 put E1-E5 together in one economy. Phase 2 does not repeat that:
+**each of the 8 cases (5 dev + 3 held-out) is its own environment,
+containing exactly that case's exploit mechanism plus a few benign,
+non-profitable distractor items/actions -- nothing else.** Reason: a
+shared environment plus a binary "found *some* profit" reward (which is
+exactly what MCTS's reward is defined as, above) creates a confound. If
+E1's trivial 2-action loop sits in the same environment as H2, an MCTS
+tree can satisfy its reward by repeatedly rediscovering E1 and never gets
+pushed toward the deep, currently-negative-looking branch that leads to
+H2. A weak result on H2 would then be ambiguous: is lookahead genuinely
+failing to help, or did the search just never need to try, because reward
+was already flowing from somewhere easy? Isolating each case removes that
+confound -- profit in H2's environment can only mean H2 was found.
+
+This also means dev's re-declaration in Commit B is not a literal reuse of
+`../economy.py` (Phase 0's shared file, which stays frozen and untouched)
+-- it is five *new*, isolated single-exploit environments faithful to the
+original E1-E5 mechanisms, so calibration (Commit D) happens under the
+same structural conditions as the held-out evaluation (Commit E). If dev
+stayed shared while held-out was isolated, hyperparameters calibrated
+under the shared-environment reward dynamics might not transfer to the
+isolated-environment evaluation, which would quietly undermine the whole
+point of calibrating on dev in the first place.
+
+Consequence for the exploit detector: with only one exploit possible per
+environment, `profit_check.py`'s `FAMILY`-based isolate-and-replay trick
+(needed in Phase 0 because multiple exploits shared one environment) is no
+longer necessary for Phase 2's own cases -- "did total value increase in
+this environment" is sufficient and unambiguous. Phase 0/1's
+`profit_check.py` stays as-is (historical record); Phase 2 case checking
+is a new, simpler function written in Commit B, and it still does not
+attempt to solve cross-system attribution -- that stays Phase 3's open
+problem, which isolated single-mechanism environments deliberately don't
+have to face.
+
+One metric is dropped as a result: **`Unique Exploits Per Run` no longer
+applies** -- with one exploit per environment, its maximum value is
+always 1, so it carries no information. Removed from Metrics below.
+
 ## Algorithms
 
 | Algorithm | What it is | Primarily informs |
@@ -125,11 +167,20 @@ Fixed mapping, no exceptions:
 - Same fairness principle as Phase 0: every algorithm gets the same
   transition-evaluation budget (Random and MCTS get it per-seed, not split
   across seeds).
-- Exact numbers are set once Commit B's categories are turned into
-  instances (D.5), using the rule: budget stays large enough that Random
-  has a realistic chance on the *dev* set's hardest case (E5's
-  40,012-evaluation median is the current reference point), and
-  `MAX_DEPTH` >= 2x the longest known minimal sequence in either suite.
+- **`BUDGET` and `MAX_DEPTH` are frozen at the end of Commit D, using dev
+  (E1-E5) evidence only** -- the same rule as every other hyperparameter.
+  Setting them *after* seeing H1-H3's exact minimal sequence lengths (the
+  original A2 wording) would itself be held-out leakage into the
+  evaluation setup, not just into an algorithm's parameters. Concretely:
+  `MAX_DEPTH` is set to comfortably exceed the longest dev minimal
+  sequence (E5's 12 actions is the current reference; something like 3x
+  that, decided during Commit D, not tied to any held-out number) and
+  `BUDGET` stays large enough that Random has a realistic shot at the
+  hardest *dev* case (E5's 40,012-evaluation median).
+- **D.5 authors H1-H3 to fit inside the already-frozen `MAX_DEPTH`.** This
+  is a constraint on how the held-out instances get written, not a
+  post-hoc adjustment of the harness -- the benchmark conforms to a
+  pre-declared budget, the budget never conforms to the benchmark.
 - Random and MCTS: 10 seeds, same as Phase 0. Median AND IQR reported (see
   Metrics).
 - Beam variants stay deterministic, one run each.
@@ -151,13 +202,13 @@ New this phase:
 - **Success Rate**: for stochastic algorithms (Random, MCTS), fraction of
   seeds that find a given exploit at all, not just the median cost among
   the seeds that did.
-- **Unique Exploits Per Run**: within a single run/seed, how many distinct
-  exploits does it stumble onto, not just whether the union across seeds
-  eventually covers everything. Distinguishes "reliably broad" from
-  "occasionally gets lucky on one, over and over."
 - **Cost distribution**: median *and* IQR for stochastic algorithms, not
   median alone -- a tight IQR and a wide one with the same median are
   different reliability stories.
+
+(`Unique Exploits Per Run` was considered and dropped -- see "Every case
+is an isolated environment" above. With exactly one exploit possible per
+environment, it would always equal 0 or 1 and carry no signal.)
 
 ## Hyperparameter calibration rules
 
@@ -213,13 +264,19 @@ each STRONG / WEAK / NO EVIDENCE, evaluated on the **held-out suite only**:
   Note for the results doc: with only 3 held-out cases, even a STRONG
   verdict is suite-internal evidence, not a general scientific claim.
 - **RQ3 (lookahead)**: the RQ asks whether MCTS beats 1-step heuristic
-  search -- so the comparison target is **Beam-Diverse**, not Random
-  (Random stays in the results table for context, but does not drive this
-  verdict). STRONG: on H2 (or any held-out case Beam-Diverse fails), MCTS
-  success rate >= 8/10 seeds AND (Beam-Diverse fails within budget OR
-  MCTS's median cost <= 50% of Beam-Diverse's cost). WEAK: MCTS finds it
-  but success rate < 8/10 or no cost advantage over Beam-Diverse.
-  NO EVIDENCE: MCTS also fails.
+  search specifically on delayed-reward / long-horizon exploits -- H2 is
+  the case built for exactly that, so **H2 is the sole verdict-driving
+  case.** "H2 or any held-out case Beam-Diverse fails" (the A2 wording)
+  would let a good MCTS result on H1 or H3 satisfy a verdict about
+  lookahead even if MCTS never actually beats Beam on the delayed-reward
+  case -- quietly answering a different, easier question than RQ3 asks.
+  The comparison target is **Beam-Diverse**, not Random (Random stays in
+  the results table for context only). STRONG: on H2, MCTS success rate
+  >= 8/10 seeds AND (Beam-Diverse fails within budget OR MCTS's median
+  cost <= 50% of Beam-Diverse's cost). WEAK: MCTS finds H2 but success
+  rate < 8/10 or no cost advantage over Beam-Diverse. NO EVIDENCE: MCTS
+  also fails H2. Any MCTS result on H1/H3 is reported only as a
+  supporting observation in the RQ1 table, never as evidence for RQ3.
 - **RQ1 (structure-dependent method choice)**: not a pass/fail -- a
   results table across all 5 algorithms x all 8 cases (5 dev + 3
   held-out), reported as-is. The "ideal" outcome described earlier
@@ -235,12 +292,12 @@ verdict; it does not trigger a Round 3.
 
 | Commit | Content | Gate |
 |---|---|---|
-| A | This contract (A2 revision: commit order fixed to prevent reverse leakage, baseline scope narrowed, RQ2/RQ3 grading corrected, cost unit defined, calibration rule corrected, UCT reward normalized). | Needs review before B. |
-| B | Dev suite re-declared (E1-E5, referencing Phase 0/1 code) + held-out **categories only** (H1/H2/H3 conditions, no exact item/price/path). Sealed on commit -- no algorithm code exists yet. | Needs review before C. |
+| A | This contract (A3 revision: BUDGET/MAX_DEPTH freeze timing fixed, RQ3 narrowed to H2 as sole verdict case, benchmark cases redefined as isolated single-exploit environments). | Needs review before B. |
+| B | Dev suite declared as **five new isolated environments** faithful to E1-E5's mechanisms (not a reuse of `../economy.py`, which stays frozen) + held-out **categories only** (H1/H2/H3 conditions, no exact item/price/path). Sealed on commit -- no algorithm code exists yet. | Needs review before C. |
 | C | Static Conversion-Cycle Baseline + MCTS implementations, Beam-Naive/Beam-Diverse ported unchanged from Phase 1. Implemented against the dev suite and the H-category *descriptions* only -- no exact held-out instance exists yet. | -- |
-| D | Calibration run: all hyperparameters selected on the dev suite only, per the rules above. Every algorithm and parameter frozen at the end of this commit. | Frozen before D.5. |
-| D.5 | Exact H1-H3 instances authored (item names, prices, recipes, stock caps) and committed. No algorithm or parameter changes after this point, for any reason. | Frozen before E. |
-| E | Held-out evaluation: run once, grade RQ1-3, write results. No further tuning afterward regardless of outcome. | Terminal. |
+| D | Calibration run: all hyperparameters, **including `BUDGET` and `MAX_DEPTH`**, selected on the dev suite only, per the rules above. Everything frozen at the end of this commit. | Frozen before D.5. |
+| D.5 | Exact H1-H3 instances authored (item names, prices, recipes, stock caps), each fitting inside the already-frozen `MAX_DEPTH`, and committed. No algorithm or parameter changes after this point, for any reason. | Frozen before E. |
+| E | Held-out evaluation: run once, grade RQ1-3 (RQ3 verdict from H2 alone), write results. No further tuning afterward regardless of outcome. | Terminal. |
 
 ## Explicit non-goals (unchanged from Phase 0/1)
 
