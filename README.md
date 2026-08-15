@@ -127,10 +127,14 @@ meaningful regardless of how large raw scores get.
 
 **`novelty_weight = 3.0`**: chosen by checking the family-diversity
 diagnostic (the same kind used to diagnose Round 1, NOT the sealed
-success metric) at weight = 1, 2, 3, 5, and picking the value with the
-healthiest spread. This calibration happened before looking at whether E4
-or E5 were actually found, so it is a legitimate implementation check, not
-after-the-fact benchmark tuning.
+PASS/AMBIGUOUS/FAIL success metric) at weight = 1, 2, 3, 5, and picking the
+value with the healthiest spread. This calibration happened before looking
+at whether E4 or E5 were actually found, so it is not after-the-fact
+benchmark-score tuning -- but it is **not** exploit-ID-free either: the
+diagnostic it was calibrated against is literally `FAMILY` (E1..E5). See
+"What this does and doesn't prove" below -- the runtime algorithm never
+sees `FAMILY`, but the human calibration step did, and that distinction
+matters for what Round 2 can honestly be claimed to show.
 
 ### Round 2 grading (sealed before this run)
 
@@ -155,6 +159,28 @@ after-the-fact benchmark tuning.
 1,255 -- genuinely cheaper, ~43% fewer expansions, but short of the
 pre-sealed 50%-of-median bar of 627.5). E1-E3 unaffected. E5 still
 unsolved by either Beam variant.
+
+### What this does and doesn't prove
+
+`behavior_descriptor()` and the selection rule (`obj_rank + novelty_weight *
+novelty_rank`) never reference `FAMILY`/E1..E5 at runtime -- that part of
+the exploit-ID-leakage guard held. But `novelty_weight = 3.0` was picked by
+a human (me) looking at a family-diversity diagnostic across weight = 1, 2,
+3, 5, and `FAMILY` **is** the sealed answer key. So the honest claim is:
+
+- The search algorithm's features contain no exploit-identity information. ✅
+- The overall Round 2 *experiment*, including hyperparameter selection,
+  used exploit-family labels indirectly. ⚠️
+
+This does not invalidate the WEAK SUCCESS verdict -- Phase 0 is a
+feasibility spike, not a generalization claim. But Round 2 must not be
+cited later as "Beam-Diverse generalizes to unseen exploits without any
+information about where they are." It is an exploratory result, calibrated
+on the same benchmark it was evaluated against. Phase 2 fixes this by
+splitting a calibration set from a held-out evaluation set, and by
+calibrating hyperparameters with answer-key-free diagnostics (descriptor
+entropy, average pairwise novelty, occupied behavior bins, unique reachable
+states) instead of family-diversity counts.
 
 No further tuning was done after this run (no weight/`k` re-sweeps chasing
 E4 over the strong-success line or chasing E5) -- that was the point of
@@ -198,3 +224,8 @@ sealing the grading bands in advance.
   of an open-ended unknown.
 - MCTS is deliberately **not** added now -- E5 stays reserved as its first
   benchmark case instead of being used to rescue Phase 0's grade.
+- **Round 2 is an exploratory result, not a generalization claim.** Its
+  runtime features never used `FAMILY`, but `novelty_weight` was calibrated
+  against a `FAMILY`-based diagnostic, so it must not later be cited as
+  "generalizes to unseen exploits." Phase 2 separates calibration from
+  held-out evaluation. See "What this does and doesn't prove" above.
