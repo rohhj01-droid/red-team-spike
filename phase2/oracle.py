@@ -22,7 +22,17 @@ from __future__ import annotations
 
 from typing import List
 
-from engine import Action, GameData, apply, initial_state, legal_actions
+from engine import Action, GameData, GameState, apply, initial_state, legal_actions
+
+
+def is_profitable_state(data: GameData, state: GameState) -> bool:
+    """The one canonical definition of 'profitable' -- used both here
+    (replay-based, for grading a completed trace) and by search algorithms
+    doing a fast online check as they go. Keeping this in one place is
+    exactly the insurance Phase 0 needed twice already: two independent
+    definitions of the same condition drifting apart is how a false
+    positive/negative gets in."""
+    return state.gold > data.starting_gold
 
 
 def is_exploit_found(data: GameData, path: List[Action]) -> bool:
@@ -38,7 +48,7 @@ def is_exploit_found(data: GameData, path: List[Action]) -> bool:
         if action not in legal_actions(data, state):
             return False
         state = apply(data, state, action)
-    return state.gold > data.starting_gold
+    return is_profitable_state(data, state)
 
 
 def realized_gold_gain(data: GameData, path: List[Action]) -> int:
