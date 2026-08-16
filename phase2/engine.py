@@ -25,6 +25,14 @@ class GameData:
     # item to shop_buy. Needed for H1 (scarcity/planning) and H3
     # (irrecoverable branching) -- neither is expressible without this.
     # Dev cases (E1-E5) all use the default () and are unaffected.
+    #
+    # ORACLE-VALIDITY WARNING: oracle.is_profitable_state() only compares
+    # final gold to starting_gold -- it has no notion of "value already
+    # held" at the start. A non-empty initial_inventory is only safe to
+    # use if that starting resource has NO legitimate sell/liquidation
+    # path outside whatever exploit the case is built around (see
+    # cases_heldout.py H1's condition). This is a benchmark-authoring
+    # responsibility this field does not enforce by itself.
 
 
 @dataclass(frozen=True)

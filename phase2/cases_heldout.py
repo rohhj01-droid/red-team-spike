@@ -23,9 +23,22 @@ H1 = HeldOutCategory(
     name="H1",
     condition=(
         "Resource bottleneck: a profitable action is available only a "
-        "limited number of times (capped stock or a one-time source), "
-        "forcing planning around scarcity instead of an infinitely "
-        "repeatable cycle."
+        "limited number of times (capped stock or a one-time source, via "
+        "`GameData.initial_inventory`), forcing planning around scarcity "
+        "instead of an infinitely repeatable cycle. "
+        "ORACLE-VALIDITY CONSTRAINT (sealed before D.5, not optional): "
+        "oracle.py defines profit as `final gold > starting_gold` alone -- "
+        "it says nothing about inventory value, because dev (E1-E5) never "
+        "starts with any. The moment `initial_inventory` is non-empty, "
+        "that definition only stays correct if the starting resource has "
+        "NO legitimate sell/liquidation path outside the planted "
+        "exploit -- no shop_sell entry for it, and no recipe/dismantle "
+        "chain that turns it into anything sellable except through the "
+        "one intended mechanism. Otherwise D.5 accidentally plants a "
+        "trivial 'just sell what you started with' false positive, not "
+        "H1's actual mechanism. This must be true by construction, not "
+        "just checked after the fact -- design H1 so there is nothing "
+        "else the extra resource could ever legitimately become."
     ),
     targets_rq="RQ1 (supporting observation only; does not drive RQ3)",
 )
@@ -58,9 +71,14 @@ H2 = HeldOutCategory(
 H3 = HeldOutCategory(
     name="H3",
     condition=(
-        "Branching recipe choice: a shared input is consumable by two or "
+        "Branching recipe choice: a shared input (plausibly via "
+        "`GameData.initial_inventory`, finite) is consumable by two or "
         "more recipes, only one of which leads anywhere profitable, and "
-        "the wrong choice burns the resource with no easy recovery."
+        "the wrong choice burns the resource with no easy recovery. "
+        "SAME ORACLE-VALIDITY CONSTRAINT AS H1 applies if H3 uses "
+        "initial_inventory: the shared resource must have no legitimate "
+        "sell/liquidation path outside the intended (correct-branch) "
+        "mechanism -- see H1's condition for why."
     ),
     targets_rq="RQ1 (supporting observation only; does not drive RQ3)",
 )

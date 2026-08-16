@@ -117,10 +117,15 @@ suite instead of trusting dev-only evidence.
 
 Every search algorithm (Random, Beam-Naive, Beam-Diverse, MCTS) reaches
 100% recall on every dev case under these frozen settings -- the dev
-suite is now confirmed easy across the board for all four, which is the
-correct state to enter Commit E in: nothing left to shake out of the
-harness itself, so a held-out failure will mean something about the
-held-out case's structure, not leftover plumbing bugs.
+suite is now confirmed easy across the board for all four. A held-out
+failure is less likely to be caused by already-exercised core search
+plumbing (legal_actions/apply/budget accounting/oracle checks against
+empty initial_inventory, all run thousands of times above without issue)
+-- **though held-out-only engine features remain a possible implementation
+confound.** In particular, `initial_inventory` (added for H1/H3) is never
+exercised by any dev case above, since all five use the default `()` --
+so nothing here has actually tested that code path yet. That gets tested
+for the first time in D.5, not before.
 
 Graph baseline: `exploit_found` on E1 (as in Commit C), `N/A` on E2
 (multi-input, as designed), `cycle_only` (structural signal, not exploit
@@ -129,7 +134,11 @@ Commit D did not touch the graph baseline.
 
 Note for RQ1 interpretation later: Random beats both Beam variants and
 MCTS on E5's median cost (384 vs 573/517) in this isolated environment,
-the opposite of Phase 0's original (non-isolated) result. Isolating each
-case removed the distractor-dilution that made blind search expensive in
-Phase 0 -- worth remembering when comparing across the two designs.
+the opposite of Phase 0's original (non-isolated) result. This is
+consistent with isolation removing the shared-environment action/reward
+competition that made blind search expensive in Phase 0 -- not a
+controlled-experiment-verified causal claim (no A/B holding everything
+else constant was run), just the most plausible explanation on hand.
+Worth remembering when comparing across the two designs, worth stating
+carefully if it comes up in a results writeup.
 

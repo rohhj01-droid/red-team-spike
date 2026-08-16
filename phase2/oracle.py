@@ -17,6 +17,16 @@ inventory to count as profit (e.g. an item that's obviously convertible
 but the path doesn't bother selling it), that requires a new,
 benchmark-declared ground-truth liquidation rule written here explicitly
 -- never a shortcut through a search module's derived value estimate.
+
+PRECONDITION this file assumes but does not check: `is_profitable_state`
+compares final gold to `data.starting_gold` alone, with no accounting for
+any value the case may have started with in `data.initial_inventory`
+(introduced for H1/H3's finite resources). That comparison is only
+correct if the starting resource has no legitimate way to become gold
+outside the case's intended mechanism -- otherwise "sell what you already
+had" would register as a false-positive exploit. Enforcing that is a
+benchmark-authoring discipline (cases_heldout.py H1's condition), not
+something this file can verify on its own.
 """
 from __future__ import annotations
 
