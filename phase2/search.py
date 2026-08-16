@@ -204,6 +204,15 @@ def beam_diverse_search(
 
 # ---------------------------------------------------------------------------
 # MCTS (new) -- textbook UCT, binary reward, uniform-random rollout policy.
+#
+# Interpretation note for later results docs: search stops at the FIRST
+# discovery, so every reward backpropagated before that point is 0 -- UCT's
+# exploitation term (mean reward) carries no signal until the one lucky
+# rollout that finds it. Any advantage MCTS shows on a held-out case comes
+# from tree-structured exploration + multi-step rollout lookahead, not
+# from "learning" which branches are promising via a reward gradient (there
+# isn't one to learn from, structurally, under a first-hit objective).
+# Don't describe a good result as reward-driven branch focusing.
 # ---------------------------------------------------------------------------
 
 UCT_C = math.sqrt(2)  # CONTRACT.md default; valid because reward is binary [0,1]

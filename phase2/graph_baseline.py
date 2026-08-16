@@ -8,10 +8,23 @@ arbitrage trick (a cycle whose rate PRODUCT > 1 becomes, after -log, a
 cycle whose weight SUM < 0).
 
 Scope is deliberately narrow (CONTRACT.md): a case is either fully
-`is_supported` (every recipe has exactly one input item AND every
-dismantle rule has exactly one output item type) or it is reported
-entirely N/A -- never partially solved. Multi-input recipes are a
-hypergraph problem this baseline does not attempt.
+`is_supported` (no finite initial_inventory -- H1/H3's whole point is
+scarcity a static infinite-supply graph can't see -- AND every recipe has
+exactly one input item AND every dismantle rule has exactly one output
+item type) or it is reported entirely N/A -- never partially solved.
+Multi-input recipes are a hypergraph problem this baseline does not
+attempt.
+
+`cycle_detected` and `exploit_found` are deliberately separate fields, not
+one `found`. Bellman-Ford can correctly detect a positive-rate cycle that
+still isn't realizable as a legal action sequence -- either because the
+tightest cycle it extracts doesn't happen to touch gold (a pure item-
+duplication loop), or because it needs batch quantities the naive one-
+edge-per-step reconstruction can't satisfy. That's a real, honest
+"structural arbitrage signal", not an exploit find -- Phase 2's one
+definition of "found" is realized gold from an oracle-validated executable
+trace (CONTRACT.md), and only `exploit_found` (with `path` set) counts
+toward Exploit Recall.
 """
 from __future__ import annotations
 
@@ -29,14 +42,20 @@ GOLD = "__GOLD__"
 @dataclass
 class GraphResult:
     supported: bool
-    found: bool
-    path: Optional[List[Action]]
+    cycle_detected: bool   # mathematical: a positive-rate cycle exists
+    exploit_found: bool    # oracle-validated: an executable trace realizes it -- ONLY this counts as Exploit Recall
+    path: Optional[List[Action]]  # set iff exploit_found
     wall_seconds: float
     nodes_inspected: int
     edges_inspected: int
 
 
 def is_supported(data: GameData) -> bool:
+    if data.initial_inventory:
+        # A finite starting resource (H1/H3) can't be represented as a
+        # static infinite-supply conversion graph -- the whole point of
+        # those categories is scarcity, which this model has no node for.
+        return False
     for inputs in data.recipes.values():
         if len(inputs) != 1:
             return False
@@ -68,7 +87,10 @@ def _build_edges(data: GameData) -> List[Tuple[str, str, float, Action]]:
 def find_positive_cycle(data: GameData) -> GraphResult:
     t0 = time.perf_counter()
     if not is_supported(data):
-        return GraphResult(supported=False, found=False, path=None, wall_seconds=time.perf_counter() - t0, nodes_inspected=0, edges_inspected=0)
+        return GraphResult(
+            supported=False, cycle_detected=False, exploit_found=False, path=None,
+            wall_seconds=time.perf_counter() - t0, nodes_inspected=0, edges_inspected=0,
+        )
 
     edges = _build_edges(data)
     nodes: Set[str] = {GOLD}
@@ -90,7 +112,10 @@ def find_positive_cycle(data: GameData) -> GraphResult:
 
     wall = time.perf_counter() - t0
     if x is None:
-        return GraphResult(supported=True, found=False, path=None, wall_seconds=wall, nodes_inspected=len(nodes), edges_inspected=len(edges))
+        return GraphResult(
+            supported=True, cycle_detected=False, exploit_found=False, path=None,
+            wall_seconds=wall, nodes_inspected=len(nodes), edges_inspected=len(edges),
+        )
 
     # x is guaranteed on (or reachable-into) a negative cycle; walk back
     # len(nodes) times to land strictly inside it.
@@ -124,9 +149,14 @@ def find_positive_cycle(data: GameData) -> GraphResult:
     # input, e.g., isn't satisfiable by one prior buy). Validate against
     # the real oracle rather than claim a path that would fail if run.
     if is_exploit_found(data, cycle_actions):
-        return GraphResult(supported=True, found=True, path=cycle_actions, wall_seconds=wall, nodes_inspected=len(nodes), edges_inspected=len(edges))
+        return GraphResult(
+            supported=True, cycle_detected=True, exploit_found=True, path=cycle_actions,
+            wall_seconds=wall, nodes_inspected=len(nodes), edges_inspected=len(edges),
+        )
+    # A profitable rate cycle exists (cycle_detected), but this baseline
+    # doesn't attempt batch-quantity scaling to turn it into a literal
+    # legal sequence -- structural signal only, NOT an exploit find.
     return GraphResult(
-        supported=True, found=True, path=None,
+        supported=True, cycle_detected=True, exploit_found=False, path=None,
         wall_seconds=wall, nodes_inspected=len(nodes), edges_inspected=len(edges),
-    )  # a profitable rate cycle exists, but this baseline doesn't attempt
-       # batch-quantity scaling to turn it into a literal legal sequence
+    )
