@@ -33,11 +33,24 @@ H1 = HeldOutCategory(
 H2 = HeldOutCategory(
     name="H2",
     condition=(
-        "Genuinely lossy intermediate step: a step that reduces REALIZED "
-        "value at the moment it's taken (not just looks flat under some "
-        "heuristic) and only pays off through a later, separate "
-        "combination. No cushion of the kind E5's Herb (which had "
-        "derived heuristic value) provided."
+        "Genuinely lossy intermediate step -- OPERATIONAL DEFINITION, "
+        "sealed before Commit C: along the ONLY path from the initial "
+        "state to H2's payoff, there is at least one state the design "
+        "requires passing through where Beam-Diverse's frozen score() "
+        "(as it exists after Commit D's calibration -- gold plus "
+        "estimated inventory value, not raw gold alone) is STRICTLY LESS "
+        "than score(initial_state). Not just gold dipping (buying always "
+        "dips gold, that alone would make E1 count) -- the *heuristic's "
+        "own estimate* has to dip and stay below baseline until the final "
+        "combination. This is what distinguishes H2 from E5: E5's Herb "
+        "had positive derived value under the Phase 0/1 value heuristic, "
+        "so score() never actually dropped below baseline during "
+        "accumulation, only raw gold did. Constructing this is D.5's job "
+        "(e.g. a payoff recipe with 2+ required intermediates, since the "
+        "single-input-only value propagation rule fixed in Phase 0 "
+        "assigns no derived value to any item that's part of a "
+        "multi-input recipe) -- exact numbers stay undecided until then, "
+        "but the condition itself is locked now."
     ),
     targets_rq="RQ3 (sole verdict-driving case, per CONTRACT.md)",
 )

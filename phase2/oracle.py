@@ -26,19 +26,29 @@ from engine import Action, GameData, apply, initial_state, legal_actions
 
 
 def is_exploit_found(data: GameData, path: List[Action]) -> bool:
+    """A single illegal action anywhere in `path` invalidates the WHOLE
+    trace -- not skip-and-continue. Phase 0's family-isolated replay had a
+    reason to skip (the sub-path was deliberately extracted out of its
+    original context); Phase 2 replays a complete claimed trace exactly as
+    given, so an illegal step means the claim itself is invalid. Silently
+    dropping it and crediting whatever legal actions remained would let a
+    garbled trace still get counted as a real find."""
     state = initial_state(data)
     for action in path:
         if action not in legal_actions(data, state):
-            continue
+            return False
         state = apply(data, state, action)
     return state.gold > data.starting_gold
 
 
 def realized_gold_gain(data: GameData, path: List[Action]) -> int:
-    """For reporting, not for grading -- how much realized profit a path made."""
+    """Benchmark-authoring/debugging helper, not part of grading. Raises
+    on an illegal action instead of skipping it -- this function exists to
+    catch wiring mistakes in a case's declared minimal_path, and a silent
+    skip would hide exactly the bug it's meant to surface."""
     state = initial_state(data)
     for action in path:
         if action not in legal_actions(data, state):
-            continue
+            raise ValueError(f"illegal action {action} at state {state}")
         state = apply(data, state, action)
     return state.gold - data.starting_gold

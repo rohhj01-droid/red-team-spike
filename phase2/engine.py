@@ -20,6 +20,11 @@ class GameData:
     shop_sell: Dict[str, int]
     recipes: Dict[str, Dict[str, int]]     # output -> {input: qty}
     dismantle: Dict[str, Dict[str, int]]   # item -> {output: qty}
+    initial_inventory: Tuple[Tuple[str, int], ...] = ()
+    # A finite, non-purchasable resource: give qty here and DON'T add the
+    # item to shop_buy. Needed for H1 (scarcity/planning) and H3
+    # (irrecoverable branching) -- neither is expressible without this.
+    # Dev cases (E1-E5) all use the default () and are unaffected.
 
 
 @dataclass(frozen=True)
@@ -35,7 +40,8 @@ class GameState:
 
 
 def initial_state(data: GameData) -> GameState:
-    return GameState(gold=data.starting_gold, inventory=())
+    inventory = tuple(sorted((k, v) for k, v in data.initial_inventory if v > 0))
+    return GameState(gold=data.starting_gold, inventory=inventory)
 
 
 @dataclass(frozen=True)
