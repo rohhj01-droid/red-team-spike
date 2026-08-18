@@ -132,8 +132,13 @@ disappointing one:
   signals (`cycle_only`), and it is entirely unsupported on the held-out
   scarcity/multi-input cases. Detection and executable-witness generation
   are two separate capabilities with two different success rates here
-  (4/4 vs. 1/4) -- search is "necessary" both past the detection boundary
-  and, within it, for turning a detected cycle into something runnable.
+  (4/4 vs. 1/4): the current static-cycle baseline is insufficient both
+  beyond its supported modeling boundary and, in E3-E5, for converting
+  detected profitable structure into an executable witness -- doing so
+  would require additional sequence construction/search/optimization
+  machinery. That machinery could in principle be non-search (e.g. a
+  batch-scaling/stoichiometric reconstruction step); Phase 2 scoped that
+  out rather than showing search is the only possible fix.
 - **RQ2**: no evidence diversity preservation helps in this suite. None
   of these smaller, isolated environments reproduce the crowding/
   mode-collapse dynamic diversity addressed in Phase 0 -- plausibly why,
