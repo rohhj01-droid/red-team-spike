@@ -24,9 +24,27 @@ not written to match code that already exists.
 > equipment is re-equipped later. The planted bug re-checks only the
 > current equipment at claim time and forgets the historical violation.
 
-Minimal witness (5 actions): `equip(Flame) -> accept -> equip(Wood) ->
-equip(Flame) -> claim`. The buggy engine permits step 5; the stated rule
-says it shouldn't.
+**Sealed catalog and initial conditions** (C1b correction -- the first
+draft left these unstated, and an initial `equipped = FlameSword` would
+have collapsed the witness to 4 actions):
+
+```python
+EQUIPMENT_CATALOG = {"FlameSword", "WoodenSword"}
+REQUIRED_EQUIPMENT = "FlameSword"
+
+initial WorldState:   equipped="WoodenSword", quest_status="NOT_ACCEPTED"
+initial MonitorState: continuity_broken=False
+```
+
+**`equip(item)` is illegal when `item == currently_equipped`** -- not a
+performance tweak, a sealed action-semantics rule. Without it, no-op
+self-loops inflate exhaustive path counts and search cost for no reason.
+
+Minimal witness (5 actions, exact under the sealed initial state):
+`equip(Flame) -> accept -> equip(Wood) -> equip(Flame) -> claim`. The
+buggy engine permits step 5; the stated rule says it shouldn't. QA below
+proves this is actually the *shortest* executable exploit, not just *a*
+witness.
 
 Deliberately excluded from C1 (would be imagining ahead, not evidence-
 forced): no gold/economy, no item-instance provenance (type-level
@@ -49,10 +67,11 @@ Buggy World Engine                 Independent Property Monitor
 
 Search
   carries SearchState = (world: WorldState, monitor: MonitorState)
-  dedup identity = full SearchState
-  heuristics/policies/reward can read monitor VALUES but must not be
-  *tunable against* them the way FAMILY was in Phase 2 -- see visibility
-  rules below for the precise line
+  Beam dedup key = full SearchState; MCTS carries SearchState per node
+  but does not deduplicate at all (no transposition table, unchanged)
+  ranking/guidance (score, descriptor, UCT selection) CANNOT read
+  MonitorState; reward/oracle MAY -- see visibility rules below for the
+  precise per-component line
 
 Oracle (runtime, one-shot check per candidate)
   quest_status == CLAIMED and monitor.continuity_broken == True
@@ -73,7 +92,8 @@ class WorldState:
     quest_status: Literal["NOT_ACCEPTED", "ACTIVE", "CLAIMED"]
 
 # equip(item):
-#   requires: item in EQUIPMENT_CATALOG (a small fixed set, e.g. 2-3 types)
+#   requires: item in EQUIPMENT_CATALOG (sealed: {"FlameSword", "WoodenSword"})
+#             and item != currently_equipped (no-op equip is illegal)
 #   effect:   equipped = item
 #
 # accept:
@@ -104,8 +124,14 @@ def monitor_step(prev_world, action, new_world, prev_monitor) -> MonitorState:
     return MonitorState(continuity_broken=broken)
 ```
 
-Monotonic: once `True`, an accept resets it to `False` (fresh quest
-attempt), nothing else ever clears it mid-quest.
+Monotonic: initial value `False`; once it becomes `True`, it never becomes
+`False` again anywhere in C1. (No reset-on-accept logic: `accept` is only
+ever legal once in C1's entire reachable space -- `quest_status ==
+NOT_ACCEPTED` is required and nothing in the action set ever returns
+`quest_status` to `NOT_ACCEPTED` after it leaves that value -- so a
+"fresh attempt" reset is dead code that would never execute. C2, if it
+ever adds a way to abandon and re-accept a quest, is where that logic
+would first become real.)
 
 ## SearchState and visibility rules (sealed, applies to every algorithm)
 
@@ -125,7 +151,8 @@ class SearchState:
 | Beam-Diverse `behavior_descriptor()` | `WorldState` + generic path/action-kind features only |
 | Random policy | `WorldState` only (uniform over legal actions, unchanged from Phase 2) |
 | MCTS UCT selection | visit counts / accumulated reward only (never state fields directly, same as Phase 2) |
-| **Dedup identity** (Beam's `candidates` dict key, MCTS node identity) | **full `SearchState`** -- required for correctness, not a hint |
+| **Beam dedup key** (`candidates` dict) | **full `SearchState`** -- required for correctness, not a hint (a `monitor_step` bug that falsely collides two histories would otherwise be hidden by this exact dedup, which is precisely why the QA equivalence check below runs before any dedup) |
+| **MCTS node payload** | **full `SearchState`** per node -- no dedup/transposition table at all (unchanged from Phase 2); carrying `SearchState` is required so each node's own reward computation is correct, independent of whether nodes are ever merged |
 | **Reward / online exploit check** (what MCTS backprops, what triggers early-exit) | **full `SearchState`** (`world.quest_status == CLAIMED and monitor.continuity_broken`) -- this is just the same oracle predicate computed incrementally, not new information |
 | Oracle (final grading) | full `SearchState`, replayed independently start-to-finish |
 
@@ -151,6 +178,15 @@ analogue of "reward accumulating value" in Phase 2. No bonus term for
 toward the specific exploit's shape (imagining ahead), and the ordinal
 score alone still lets Beam distinguish "made progress" from "didn't."
 
+**Approved as C1's frozen default -- not retuned after seeing search
+results.** One known, accepted weakness: a legitimate `CLAIMED` state
+with `continuity_broken=False` scores identically to the exploited
+`CLAIMED` state (score only sees `WorldState`, both are `quest_status ==
+CLAIMED`), so a valid completion can occupy a Beam slot alongside the
+exploit. This is an ordinary limitation of a simple progress heuristic,
+not a leakage problem, and since RQ-B is secondary for C1, if it turns
+out to matter it gets recorded as a finding, not patched.
+
 ## Oracle (runtime)
 
 ```python
@@ -158,7 +194,7 @@ def is_exploit(state: SearchState) -> bool:
     return state.world.quest_status == "CLAIMED" and state.monitor.continuity_broken
 ```
 
-## QA: independent reference + exhaustive equivalence (this is the actual RQ-A1 test)
+## QA: two ordered steps, not one (this is the actual RQ-A1/RQ-A3 test)
 
 A second, completely separate function computes the same fact a
 different way -- reading the full action history from scratch rather
@@ -173,19 +209,43 @@ def reference_continuity_broken(history: List[Action]) -> bool:
     QA-only, so a bug in monitor_step() can't confirm itself."""
 ```
 
-Verification step (before C1 is sealed, mirrors `verify_cases.py`'s
-role): exhaustively enumerate every reachable `SearchState` up to a
-depth bound and confirm, for every one, `monitor.continuity_broken ==
-reference_continuity_broken(path_to_it)`. Any mismatch fails C1's QA
-outright -- it would mean the incremental summary and the full-history
-definition disagree, exactly the kind of self-confirming bug Phase 0
-already taught us to distrust.
+**Step 1 -- equivalence check, over undeduplicated PATHS, before any
+SearchState dedup exists.** D.5b-review catch: enumerating by
+*deduplicated `SearchState`* first (one `path_to_it` per state) is
+exactly the wrong order -- if `monitor_step()` has a bug that makes two
+genuinely different histories (one truly violated, one not) compute the
+*same* (wrong) `MonitorState`, SearchState-based dedup collapses them
+into one bucket before the comparison ever runs, and whichever path
+happens to survive could be the one where the bug doesn't show. That
+would hide precisely the common-mode failure this check exists to catch.
+Fix: generate every action history up to the depth bound *without*
+merging by state at all, and check `monitor_step`-vs-`reference` on
+every single one as it's generated, before any dedup structure exists.
+C1's branching factor is small enough (at most ~2-3 legal actions per
+state) that full path enumeration to a depth of ~10-12 stays cheap; if it
+doesn't, that's itself the first real data point on whether exhaustive
+QA scales past Phase 0-2's state spaces (see below). Any mismatch fails
+C1's QA outright.
 
-This run is also Phase 3's first real measurement of the open risk
+**Step 2 -- minimality, using SearchState-deduped exhaustive search (only
+trustworthy once Step 1 has passed).** Confirms two things separately,
+directly answering RQ-A3:
+- No path of length < 5 reaches `is_exploit(state) == True` (exhaustive
+  over all reachable `SearchState` at depth 0-4).
+- The declared 5-action witness is legal and does reach
+  `is_exploit(state) == True`.
+
+Together these let C1 claim, with actual proof rather than assertion:
+*this benchmark's shortest executable exploit witness is 5 actions.* No
+generic minimizer is built for this (that's Phase 5 territory, pulled
+forward for nothing) -- exhaustive search over a case this small proves
+minimality directly.
+
+Step 2's run is also Phase 3's first real measurement of the open risk
 flagged earlier ("does exhaustive QA scale past Phase 0-2's small state
-spaces") -- record reachable-state count, wall-clock, and peak depth
-here as a reference point for C2 (which adds Buff and will grow the
-state space further).
+spaces") -- record reachable-state count, wall-clock, and peak depth for
+both Step 1 (undeduped) and Step 2 (deduped) as a reference point for C2
+(which adds Buff and will grow the state space further).
 
 ## RQ-A2, precisely (not "solved for free")
 
