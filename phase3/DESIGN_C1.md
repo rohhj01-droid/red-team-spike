@@ -209,23 +209,71 @@ def reference_continuity_broken(history: List[Action]) -> bool:
     QA-only, so a bug in monitor_step() can't confirm itself."""
 ```
 
-**Step 1 -- equivalence check, over undeduplicated PATHS, before any
-SearchState dedup exists.** D.5b-review catch: enumerating by
-*deduplicated `SearchState`* first (one `path_to_it` per state) is
-exactly the wrong order -- if `monitor_step()` has a bug that makes two
-genuinely different histories (one truly violated, one not) compute the
-*same* (wrong) `MonitorState`, SearchState-based dedup collapses them
-into one bucket before the comparison ever runs, and whichever path
-happens to survive could be the one where the bug doesn't show. That
-would hide precisely the common-mode failure this check exists to catch.
-Fix: generate every action history up to the depth bound *without*
-merging by state at all, and check `monitor_step`-vs-`reference` on
-every single one as it's generated, before any dedup structure exists.
-C1's branching factor is small enough (at most ~2-3 legal actions per
-state) that full path enumeration to a depth of ~10-12 stays cheap; if it
-doesn't, that's itself the first real data point on whether exhaustive
-QA scales past Phase 0-2's state spaces (see below). Any mismatch fails
-C1's QA outright.
+**Step 1 -- equivalence check via semantic closure, not an arbitrary depth
+bound.** C1b review catch #1: enumerating by *deduplicated `SearchState`*
+first (one `path_to_it` per state) is exactly the wrong order -- if
+`monitor_step()` has a bug that makes two genuinely different histories
+(one truly violated, one not) compute the *same* (wrong) `MonitorState`,
+SearchState-based dedup collapses them into one bucket before the
+comparison ever runs, hiding the common-mode failure this check exists to
+catch. C1c review catch #2: fixing that by enumerating raw action
+histories up to "depth ~10-12" doesn't work either -- `equip(Flame) <->
+equip(Wood)` can toggle forever, so **the set of legal histories is
+literally infinite**; any fixed depth is an arbitrary, unjustified number
+exactly like the ones this project has repeatedly had to walk back
+elsewhere.
+
+Fix: closure over the *finite semantic space* `(WorldState, reference
+value)` instead of a raw-path depth bound. `WorldState` itself has at
+most 2 (equipped) x 3 (quest_status) = 6 combinations, so the semantic
+space (crossed with the 2-valued reference bit) has at most 12
+combinations, provably small and finite even though the raw path space
+isn't -- some of the 12 won't actually be reachable (e.g. `NOT_ACCEPTED`
+with `continuity_broken=True` shouldn't occur), which the closure result
+itself will show.
+
+```
+seen = {}                                    # (WorldState, ref_value) -> representative path
+frontier = {(initial_world, initial_monitor): []}
+checked = 0
+
+while frontier:
+    discovered_this_layer = {}
+    for (world, monitor), path in frontier.items():
+        for action in legal_actions(world):          # EVERY legal action, every representative
+            new_world = apply(world, action)
+            new_path = path + [action]
+            new_monitor = monitor_step(world, action, new_world, monitor)
+            ref = reference_continuity_broken(new_path)
+            checked += 1
+            assert new_monitor.continuity_broken == ref, f"MISMATCH at {new_path}"   # checked
+                                                                                       # for EVERY
+                                                                                       # generated
+                                                                                       # transition,
+                                                                                       # new or not
+            key = (new_world, ref)
+            if key not in seen and key not in discovered_this_layer:
+                discovered_this_layer[key] = (new_world, new_monitor, new_path)
+    if not discovered_this_layer:                      # closure reached: no new semantic state
+        break                                           # found this layer -> guaranteed to stop
+    seen.update(discovered_this_layer)
+    frontier = {(w, m): p for w, m, p in discovered_this_layer.values()}
+```
+
+Two things make this sufficient, not just convenient: (1) the equivalence
+`assert` runs on *every* transition generated from *every* frontier
+representative, whether or not that transition turns out to reach an
+already-seen semantic pair -- so a mismatch is caught the first time it's
+produced, regardless of newness; (2) `monitor_step` is a pure function of
+`(prev_world, action, new_world, prev_monitor)` only, so once every
+reachable `(WorldState, monitor)` pair has appeared as a frontier
+representative at least once, every input `monitor_step` can ever
+actually receive has been exercised -- checking additional, longer, or
+differently-ordered paths that revisit an already-seen semantic pair
+cannot exercise `monitor_step` on any input it hasn't already been
+checked against. Termination is guaranteed within at most 12 layers (the
+size of the semantic space), not asserted by picking a number that felt
+big enough. Any mismatch fails C1's QA outright.
 
 **Step 2 -- minimality, using SearchState-deduped exhaustive search (only
 trustworthy once Step 1 has passed).** Confirms two things separately,
@@ -241,11 +289,12 @@ generic minimizer is built for this (that's Phase 5 territory, pulled
 forward for nothing) -- exhaustive search over a case this small proves
 minimality directly.
 
-Step 2's run is also Phase 3's first real measurement of the open risk
-flagged earlier ("does exhaustive QA scale past Phase 0-2's small state
-spaces") -- record reachable-state count, wall-clock, and peak depth for
-both Step 1 (undeduped) and Step 2 (deduped) as a reference point for C2
-(which adds Buff and will grow the state space further).
+Both steps' runs are also Phase 3's first real measurement of the open
+risk flagged earlier ("does exhaustive QA scale past Phase 0-2's small
+state spaces") -- record semantic-space size, transitions checked, layers
+to closure, and wall-clock for Step 1, and reachable-state count/wall-
+clock for Step 2, as a reference point for C2 (which adds Buff and will
+grow the state space further).
 
 ## RQ-A2, precisely (not "solved for free")
 
