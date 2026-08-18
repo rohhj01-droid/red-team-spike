@@ -160,7 +160,10 @@ if __name__ == "__main__":
         ok &= check_fits_frozen_depth(case)
         ok &= check_initial_inventory_no_direct_sale(case)
         if case.name == "H2":
-            ok &= h2_valley_check(case, max_depth=len(case.minimal_path) + 6)
+            # Full frozen MAX_DEPTH, not minimal_path+headroom -- Commit E's
+            # algorithms search up to 36, so "no valley-free path" must be
+            # proven over that whole horizon, not just near the minimal path.
+            ok &= h2_valley_check(case, max_depth=FROZEN_MAX_DEPTH)
         results.append(ok)
         print()
 

@@ -3,11 +3,17 @@
 the evidence, not this comment. cases_heldout.py (category-only, sealed
 back in Commit B) is untouched; this is a new, separate file.
 
-Numbers here were NOT chosen by asking "would MCTS/Beam do well on this."
-They were chosen by asking "does this satisfy H1/H2/H3's sealed category
-condition, fit inside frozen MAX_DEPTH, and pass the same QA
-verify_cases.py already applied to dev" -- see verify_heldout.py, which
-never imports search.py or graph_baseline.py.
+PRECISE CLAIM (D.5b correction -- an earlier commit message overstated
+this): exact instances were not shaped around OBSERVED held-out algorithm
+OUTCOMES -- no Random/Beam/MCTS/Graph result on H1-H3 existed anywhere
+before this file did, and none is looked at while writing it. That is a
+narrower claim than "algorithm-agnostic." H2 in particular is explicitly
+built around a KNOWN, FROZEN algorithmic property (Beam-Diverse's
+single-input-only value propagation rule assigns 0 derived value to
+multi-input recipe ingredients) -- using that by design is exactly what
+CONTRACT.md's H2 operational definition calls for, and is not the thing
+being avoided. What's avoided is peeking at how H1-H3 actually turn out
+under search and adjusting numbers to fit.
 """
 from __future__ import annotations
 
@@ -62,23 +68,29 @@ CASE_H2 = Case(
 )
 
 # --- H3: branching recipe choice -----------------------------------------
-# 3 Gem, given only via initial_inventory. Two recipes consume Gem: Amulet
-# (profitable) and Trinket3 (a real recipe that's a net loss once its
-# Scrap cost is included). Committing a Gem to Trinket3 forfeits it
-# permanently -- Gem is never purchasable again. Gem has no shop_sell
-# entry and no dismantle rule, so its only two possible fates are the two
-# recipes; the oracle-validity constraint holds because Trinket3, while a
-# "real" path, is a loss on its own (verified below), not a free liquidation.
+# Corrected in D.5b: the first version sold Trinket3 for 5 gold (a net
+# loss once its Scrap cost is included, but still a REAL gold-liquidation
+# path for Gem outside the intended mechanism -- a loss is still a
+# liquidation, and the sealed oracle-validity constraint says NO
+# legitimate liquidation path exists other than the intended one, full
+# stop, not "no profitable one"). Fixed by removing Trinket3 from
+# shop_sell entirely -- it is now a genuine dead end, like H1's Husk.
+# Also reduced Gem from 3 to 1: with 3, a search could waste a Gem on
+# Trinket3 and still recover via the other 2, which undercuts what
+# "irreversible branching" is supposed to test. With exactly 1, the first
+# choice is the only choice -- get it right or the exploit is permanently
+# gone, matching the category condition ("wrong choice burns the resource
+# with no easy recovery") much more literally.
 CASE_H3 = Case(
     name="H3",
-    mechanism="3 Gem (never purchasable); Amulet (profitable) and Trinket3 (a real recipe, net loss) both consume Gem -- wrong choice is unrecoverable per unit.",
+    mechanism="1 Gem (never purchasable, all-or-nothing); Amulet (profitable) and Trinket3 (a real recipe leading nowhere -- no sell path) both consume the single Gem.",
     data=GameData(
         starting_gold=300,
         shop_buy={"Scrap": 10, "Widget2": 12},
-        shop_sell={"Amulet": 40, "Trinket3": 5, "Widget2": 9},
+        shop_sell={"Amulet": 40, "Widget2": 9},
         recipes={"Amulet": {"Gem": 1}, "Trinket3": {"Gem": 1, "Scrap": 1}},
         dismantle={},
-        initial_inventory=(("Gem", 3),),
+        initial_inventory=(("Gem", 1),),
     ),
     minimal_path=[Action("craft", "Amulet"), Action("sell", "Amulet")],
     distractor_items=["Scrap", "Trinket3", "Widget2"],
