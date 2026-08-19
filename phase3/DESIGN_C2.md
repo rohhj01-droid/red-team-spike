@@ -113,11 +113,29 @@ def monitor_step(prev_world, action, new_world, prev_monitor):
     buff_source_broken = prev_monitor.buff_source_broken
     if action.kind == "channel":
         buff_source_broken = False
-    elif new_world.equipped != REQUIRED_EQUIPMENT:
+    elif prev_world.has_flame_buff and new_world.equipped != REQUIRED_EQUIPMENT:
         buff_source_broken = True
 
     return MonitorState(continuity_broken=continuity_broken, buff_source_broken=buff_source_broken)
 ```
+
+**C2b correction**: the `buff_source_broken` branch now gates on
+`prev_world.has_flame_buff`. Without that gate, the field could become
+`True` before any buff has ever existed -- e.g. `equip(Flame) ->
+equip(Wood)` with no `channel()` in between sets it `True` even though
+`has_flame_buff` is still `False`, which has no coherent reading under
+the sealed meaning ("has the source broken *since the buff was last
+validated*" presupposes a buff to validate). This never changes the
+oracle's judgment at any *reachable claimed* state -- `claim()` requires
+`has_flame_buff == True`, so any completed claim's history already
+contains at least one `channel()` call, and `channel()` unconditionally
+overwrites whatever came before -- but it does pollute Step 1's closure
+with semantically meaningless extra states and, worse, was exactly
+ambiguous enough that an independently-written `monitor_step` and
+`reference_*` could plausibly disagree on it by accident, producing a
+false "mismatch" that's really just an unresolved spec question, not a
+real bug. Sealed now so neither implementation has to guess.
+`buff_source_broken` stays `False` for as long as no buff exists.
 
 ## Oracle -- honest, OR-based, three-way attribution
 
@@ -210,12 +228,40 @@ the closure, not hardcoded as an expected-4-tuple list to assert against
 (same principle as C1's "9 of 12" being a discovered result, not an
 input).
 
+**Negative control -- sealed now, as a permanent regression test (C1's
+was a throwaway process; C2's becomes part of the QA suite going
+forward, per `RESULTS_C1.md`'s architecture decision).** Exactly one
+`known_bad_monitor_step`, chosen for hitting C2's actual new lesson
+(re-equipping is not revalidating -- `channel()` is the only
+revalidation) rather than an arbitrary unrelated defect:
+
+```python
+def known_bad_monitor_step(prev_world, action, new_world, prev_monitor):
+    continuity_broken = prev_monitor.continuity_broken
+    if new_world.quest_status == "ACTIVE" and new_world.equipped != REQUIRED_EQUIPMENT:
+        continuity_broken = True
+
+    buff_source_broken = prev_monitor.buff_source_broken
+    if new_world.equipped == REQUIRED_EQUIPMENT:
+        buff_source_broken = False   # BUG: re-equipping alone "revalidates" -- no channel() needed
+    elif prev_world.has_flame_buff and new_world.equipped != REQUIRED_EQUIPMENT:
+        buff_source_broken = True
+
+    return MonitorState(continuity_broken=continuity_broken, buff_source_broken=buff_source_broken)
+```
+
+Requirement, sealed before either monitor is run: the production
+`monitor_step` passes Step 1's closure equivalence with zero mismatches
+(as required above); `known_bad_monitor_step`, run through the identical
+Step 1 procedure, **must** produce at least one mismatch against the
+independent reference. The exact mismatch count is not sealed and isn't
+asserted to any specific number -- only that it's `>= 1` -- the count
+itself is a result to report, not a target to hit.
+
 ## Non-goals for C2
 
 No third lifecycle, no item-instance provenance beyond what C1 already
 excluded, no generic cross-system oracle framework (two data points, C1
-and C2, is still not "evidence" -- same standing rule), no negative
-control added retroactively to C1 (deferred to become a permanent
-regression test starting with C2's own QA suite, per the prior review),
-no search-algorithm parameters decided yet (mirrors C1: core first,
-search contract sealed separately once QA passes).
+and C2, is still not "evidence" -- same standing rule), no search-
+algorithm parameters decided yet (mirrors C1: core first, search
+contract sealed separately once QA passes).
