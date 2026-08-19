@@ -137,14 +137,50 @@ false "mismatch" that's really just an unresolved spec question, not a
 real bug. Sealed now so neither implementation has to guess.
 `buff_source_broken` stays `False` for as long as no buff exists.
 
-## Oracle -- honest, OR-based, three-way attribution
+## Oracle -- transition-based, not state-based (C2c correction)
+
+**C2c correction**: the oracle first sealed here evaluated
+`classify(world, monitor)` as a predicate on *whatever the current
+world/monitor happen to be* -- correct for C1, where it was never
+actually exercised, but wrong here. Running `verify_c2.py`'s Step 2
+minimality check surfaced a real 5-action sequence, `equip(Flame),
+accept, channel, claim, equip(Wood)`, that a state-based oracle
+misclassifies as `BUFF_SOURCE_LIFECYCLE_VIOLATION` even though the
+`claim` at step 4 was completely legitimate (`continuity_broken` and
+`buff_source_broken` were both `False` at that moment) -- the final
+`equip(Wood)` at step 5, entirely after the quest was already claimed,
+is what flips `buff_source_broken` back to `True` and fools a query on
+the final state.
+
+Root cause: `quest_status` latches at `CLAIMED` forever, but
+`buff_source_broken` keeps tracking honestly *after* claim too (it
+describes present buff validity, not claim legitimacy -- correctly so,
+see below). `continuity_broken` never exposed this because its own
+trigger condition requires `quest_status == "ACTIVE"`, which structurally
+can never hold again once claimed -- so continuity_broken was
+accidentally frozen post-claim, and C1 never had a second fact around to
+reveal that this was an accident rather than a designed guarantee.
+
+**Rejected fix: freeze `MonitorState` once `quest_status == "CLAIMED"`.**
+This would make `monitor_step` lie -- `buff_source_broken` is defined as
+*current* buff-source validity, and un-equipping the required item after
+a legitimate claim really does invalidate the buff going forward. A
+property monitor that stops reflecting reality once a judgment has been
+made about it conflates "tracking a fact" with "having ruled on a fact."
+
+**Adopted fix: the oracle judges a `claim` *event*, not a state.**
+`MonitorState` and `monitor_step` are unchanged -- `buff_source_broken`
+keeps updating honestly forever, exactly as before. What changes is that
+"is this an exploit" is no longer a question askable of an arbitrary
+state; it is asked exactly once, at the instant a `claim` action
+executes, using the monitor value as of immediately before that action:
 
 ```python
-def classify(world, monitor):
-    if world.quest_status != "CLAIMED":
+def classify_claim(action, prev_monitor):
+    if action.kind != "claim":
         return None
-    eq = monitor.continuity_broken
-    buf = monitor.buff_source_broken
+    eq = prev_monitor.continuity_broken
+    buf = prev_monitor.buff_source_broken
     if eq and buf:
         return "BOTH"
     if eq:
@@ -153,18 +189,30 @@ def classify(world, monitor):
         return "BUFF_SOURCE_LIFECYCLE_VIOLATION"
     return None   # legitimate completion, not an exploit
 
-def is_exploit(world, monitor):
-    return classify(world, monitor) is not None
+def is_exploit(action, prev_monitor):
+    return classify_claim(action, prev_monitor) is not None
 ```
 
-Sealed, and sealed for a reason worth restating: an earlier draft
-required *both* `continuity_broken` and `buff_source_broken` before
-calling something an exploit. That was rejected -- it would make the
-oracle silently ignore a genuine equipment-continuity-only violation
-(already proven to be a real bug by C1) purely to manufacture a "needs
-both" research result, i.e. shaping ground truth around the desired
-finding. The oracle reports every real violation; what C2 actually needs
-to demonstrate is independence (next section), not joint necessity.
+The OR-based, honest, three-way attribution is unchanged in substance --
+only *when* it is evaluated changed, from "any time you ask" to "the
+moment claim fires." The earlier rejection of a "both required" draft
+(same reasoning as before: reports every real violation, doesn't shape
+ground truth to manufacture a "needs both" result) is unaffected by this
+correction.
+
+**Architecture finding, carried forward:** C1's WorldState/MonitorState
+boundary implicitly assumed the exploit predicate is state-local --
+Markov in `(WorldState, MonitorState)`, askable at any point and always
+answering the same live question. C2 is the first case where that
+assumption breaks: a violation is a judgment about a specific past
+*event* (the `claim` transition), not a fact about the present. Going
+forward there are three distinct things, not two: **world dynamics**
+(`apply`), **property dynamics** (`monitor_step`, always current, always
+honest), and **violation events** (evaluated only at the transition that
+matters, never re-derived later). `RESULTS_C1.md` framed C2's open
+question as whether the C1 boundary "survives" a second lifecycle; the
+more precise answer is that the boundary survives but needed a third
+piece next to it.
 
 ## What C2 must demonstrate: independence, not joint necessity
 
@@ -215,11 +263,23 @@ against C1's (12, 13, 7).
 passes.** Not one minimality claim -- three, since C2 introduces
 three-way attribution: for each of `EQUIPMENT_CONTINUITY_VIOLATION`,
 `BUFF_SOURCE_LIFECYCLE_VIOLATION`, and `BOTH`, exhaustively confirm no
-shorter witness reaches that specific classification, and that the
-candidate witness above does. (The legitimate 4-action path is not a
+shorter history's `claim` *transition* reaches that specific
+classification (per the C2c oracle correction above -- checked at
+`claim` actions specifically, not at arbitrary visited states), and that
+the candidate witness above does. (The legitimate 4-action path is not a
 minimality claim -- there's nothing to minimize about a non-exploit --
 but is worth confirming reachable as a sanity check that the case isn't
 accidentally impossible to complete honestly.)
+
+**Step 3 -- post-claim mutation regression (new in C2c), permanent
+alongside the negative control.** Proof the transition-based oracle
+actually behaves differently from the rejected state-based one, in both
+directions: (a) a legitimate `claim` followed by an unrelated post-claim
+equipment swap must **not** retroactively read as an exploit; (b) a
+violating `claim` followed by a post-claim `channel()` (which resets
+*current* `buff_source_broken`) must **not** erase the already-recorded
+verdict. Both are regression tests against the exact failure mode Step 2
+found, not hypothetical edge cases.
 
 **Independence check**: after Step 1's closure completes, confirm both
 `(True, False)` and `(False, True)` appear among the reachable
