@@ -60,6 +60,8 @@ Evidence roles are deliberately non-flat:
 | official internal-structure docs | intended organization | medium | medium; intent != implementation |
 | black-box behavior/persistence probes | indirect persistence facts | weak/supporting | very weak alone |
 
+**Single designated source location.** The candidate must additionally have **exactly one externally designated canonical source location** — a repository or source distribution that the external project itself identifies as authoritative for the system under examination. A project that designates none, or several with no primary among them, fails E2-REP: adjudicating which of several repositories "really" holds the system would be our judgment about the target's identity, and it also supplies the tie-break key of Section 2. This is a real narrowing of the candidate pool and is accepted for the same reason as the rest of Section 2's strictness.
+
 ### E3 — Architecture-neutral validity eligibility
 
 At least one validity observation must be externally enumerable without requiring the project to first decide that the system contains a lifecycle, provenance chain, cross-system interaction, or any other Phase 3-shaped mechanism.
@@ -82,7 +84,24 @@ A huge open-source system whose relevant state is spread across an unbounded imp
 
 E1-E5 are pass/fail admission gates, not a ranking. If more than one candidate is eligible, the choice must not fall to researcher interest — otherwise target-selection bias simply replaces the slice-selection bias E4 exists to prevent, one step earlier.
 
-Ranking uses exactly two steps, in this fixed order, both fully decidable from screening-level evidence:
+#### Candidate inventories are frozen before E5 and before ranking
+
+Both E5 ("the **entire frozen primary universe** is boundedly traceable") and ranking criterion 1 ("**every admitted** enforcement enumerator is `enforced`") are statements about a candidate's enumerators and universe. Neither can be evaluated before those exist. Freezing them only after target selection would make the selection basis circular: a candidate could be ranked class A, and then a further `asserted` enumerator found afterwards would retroactively invalidate the ranking that chose it.
+
+Therefore, for **each candidate surviving E1-E4**, freeze a candidate-level inventory before E5 is judged and before any ranking:
+
+```text
+authoritative-source inventory     (Section 3.1 admissible sources)
+admissible-enumerator inventory    (Section 3.2, EN1-EN6)
+enumerator completeness tags       (Section 3.3, enforced / asserted)
+mechanically enumerated universe   (Section 3, U_normative ∪ U_enforced)
+```
+
+This is safe to do before selection because building it is **mechanical enumeration under already-fixed rules, not semantic analysis**: it applies the external project's own segmentation and enumerators, and it does not require tracing information flow, mapping to Phase 3 roles, or forming any architectural judgment. The candidate-screening firewall still applies to everything beyond it.
+
+If an admissible enumerator or authoritative source is discovered **after** target selection, it is recorded as a **screening/inventory protocol failure** and reported as such. It is not silently folded into the universe, because doing so would alter both `P_raw` and the completeness class that justified the selection.
+
+Ranking then uses exactly two steps, in this fixed order, both fully decidable from the frozen candidate inventories:
 
 1. **Enumeration completeness class**, a binary class, not a score:
 
@@ -113,7 +132,18 @@ normalized canonical repository URL =
     no trailing ".git"
 ```
 
-   A candidate with no project-designated source repository cannot have satisfied E2-REP and is therefore not eligible in the first place, so this ordering is total over the eligible set. The rule is fixed at seal time precisely because choosing between ascending and descending, or between repository name and URL, after seeing the candidate list would itself be a selection.
+   **The key is a pair, because the URL alone is not total.** Two distinct eligible candidates can share one source location — for example, two separately delimited systems inside the same monorepo — and would then be unordered by URL alone. The full sort key is therefore:
+
+```text
+tie key = ( normalized canonical source location URL,
+            externally designated target identifier )
+
+compared componentwise, each ascending by UTF-8 byte sequence
+```
+
+   The second component is the name the **external project itself** uses to delimit the candidate system; E4 already requires such an external delimitation to exist, so this component is available for every eligible candidate and is not our invention. E2-REP's single-designated-source-location requirement guarantees the first component exists and is unique per candidate.
+
+   The ordering is then total over the eligible set: if two candidates tie on **both** components, they carry the same external source location and the same external identifier, which means they are the same externally delimited system — one candidate, not two. The rule is fixed at seal time precisely because choosing between ascending and descending, or between repository name and URL, after seeing the candidate list would itself be a selection.
 
 **No traceability ranking step is used.** An earlier draft ranked eligible candidates by how directly their evidence supported tracing every unit. That is dropped for two reasons: it was qualitative and never operationalized, and judging it would require inspecting candidate implementations more deeply than the candidate-screening firewall permits — the ranking step would itself breach the firewall it sits behind. E5 already gates exhaustive traceability as pass/fail; among candidates that pass it, no further traceability comparison is made.
 
@@ -123,7 +153,7 @@ Every screened candidate is recorded, including rejected ones, with the specific
 
 ### Candidate-screening firewall
 
-Before a target is frozen, screening may inspect only what is necessary to determine E1-E5 and the existence/admissibility of enumeration mechanisms. Screening must not inspect known-bug root causes, fix diffs, or use interesting-looking validity behavior to hand-pick the target's primary slices.
+Before a target is frozen, screening may inspect only what is necessary to determine E1-E5, to establish the existence/admissibility of enumeration mechanisms, and to build each surviving candidate's frozen inventory by applying those mechanisms. Screening must not inspect known-bug root causes, fix diffs, trace information flow, form architectural mappings, or use interesting-looking validity behavior to hand-pick the target's primary counting units.
 
 Target candidates are evaluated only after this methodology document is sealed.
 
@@ -147,7 +177,9 @@ Source selection rules:
 
 - Prefer the external project's own self-designated canonical/authoritative source.
 - If multiple admissible canonical sources exist, take their union rather than choosing the cleaner or smaller one.
-- A third-party wiki does not become authoritative merely because it is convenient; it must be designated by the external project or otherwise satisfy the target-specific authority rule frozen before analysis.
+- A source is admissible to `U_normative` only if it is **project-owned** or **explicitly project-designated**. There is no third route.
+
+An earlier draft allowed a third-party source to qualify by satisfying "the target-specific authority rule frozen before analysis." That escape hatch is removed: no such rule is defined anywhere in this document, and letting us author one after seeing a target would reopen universe selection at its root — authority determines sources, sources determine observations, observations and cross-links determine `P_raw`. Third-party material may be used as **supporting evidence** during analysis, but never as primary-universe membership. Phase 3.5 needs exactly one target, so declining to adjudicate third-party authority costs little and closes a large hole.
 
 ### 3.2 U_enforced — mechanically enumerable enforcement observations
 
@@ -247,6 +279,8 @@ unit.
 ```
 
 This decides pairwise, one-to-many, and chained/many-to-many cases identically and without discretion. All source observations in a component are retained inside its unit, and divergence among any of them remains reportable as a finding of that unit.
+
+**Cross-link edges may not come from known-failure material.** An edge is admissible only if it appears in an artifact already admissible before the known-failure lane opens (Section 11). A bug report, fix discussion, patch, or postmortem that reveals `rule N1 corresponds to validator E3` must **not** create or alter a primary cross-link edge. Edges change connected components, components change `P_raw`, and `P_raw` is the coverage denominator — so allowing KF material to supply edges would let known-failure knowledge reach back and reshape the primary lane's accounting, which Section 12's firewall exists to prevent. Such a correspondence may still be reported in KF-3 as a post-hoc observation.
 
 Otherwise, with no external link:
 
@@ -416,23 +450,58 @@ are positively supported in a way inconsistent with ours
 → F3
 ```
 
+This list reads as a decision procedure for each finding individually, **not** as a set of mutually exclusive outcomes; see Section 7.0.
+
 ---
 
 ## 7. Architectural outcome taxonomy
 
-### R0 — retained within this case
+### 7.0 F1/F2/F3 are findings, not one exclusive label
 
-Native evidence supports the Phase 3 role/boundary under examination, or rules out the relevant simpler/alternative representation strongly enough that the role remains needed for this case.
+Nothing makes the three counterexample types mutually exclusive. One native case can easily support more than one at once — for example, a provenance responsibility that collapses into ordinary item state (F1) while a validity monitor's ownership sits on a different lifetime than ours (F3); or a role that collapses (F1) alongside a concurrency structure the four roles cannot express (F2).
+
+If a single label were required, the analyst would pick a "most essential" one after seeing the evidence, which is exactly the discretion this document removes everywhere else.
+
+```text
+For each resolved counting unit:
+
+  counterexample findings = any subset of {F1, F2, F3}
+  record EVERY supported finding; no precedence rule
+  suppresses another supported finding
+
+  if that subset is empty:
+      classify as R0 or F0 (Sections 7.1/7.2), which are
+      mutually exclusive with each other
+```
+
+Section 8's existence logic is unaffected: **any** supported F1/F2/F3 finding establishes that a counterexample exists. Counting reports the number of counting units carrying each finding, with a unit carrying two findings reported under both — never split into fractions and never reduced to one.
+
+### 7.1 R0 — retained within this case
+
+**Absence of F1/F2/F3 is not sufficient for R0.** R0 requires **positive native evidence privileging the Phase 3 responsibility/boundary over a concrete competing representation** — the same positive-evidence standard Section 6.2 imposes on F3, applied symmetrically so that the retention outcome is not the cheap default.
+
+```text
+native flow privileges the Phase-3 boundary over a named alternative
+→ R0
+
+native flow is compatible with the Phase-3 mapping AND with at least
+one materially different mapping, privileging neither
+→ F0
+```
+
+Mere compatibility with our architecture is therefore never R0. The competing representation must be named, and the evidence must discriminate between them.
+
+An earlier draft allowed R0 when evidence ruled out alternatives "strongly enough," which left the R0/F0 line to be drawn after the result was visible — cheap in whichever direction the analyst preferred.
 
 R0 is corroboration from one external case, never proof of general necessity.
 
-### F0 — underdetermined
+### 7.2 F0 — underdetermined
 
 The native flow is sufficiently observed, but competing representations fit equally well and the system itself does not privilege one decomposition.
 
 F0 is **not** evidence insufficiency. It means we looked successfully and the system does not identify the boundary question.
 
-The allowed claim is target-local: this slice does not establish that the Phase 3 boundary is necessary. Do not automatically upgrade one F0 result into a universal statement that the architecture is case-dependent.
+The allowed claim is target-local: this unit does not establish that the Phase 3 boundary is necessary. Do not automatically upgrade one F0 result into a universal statement that the architecture is case-dependent.
 
 ### F1 — component collapse
 
@@ -624,6 +693,25 @@ The actual qualifying items are enumerated only after the primary lane and all t
 
 Known-failure items never enter `P_raw`.
 
+**Constraints on the KF-0 rule itself.** Banning hand-picked challenge items accomplishes nothing if the *rule* can be composed after seeing the tracker so that it yields a convenient set — rule-picking is hand-picking with extra steps. The rule is therefore bound by:
+
+```text
+It may condition only on externally supplied metadata
+(tracker of record, project-applied labels, affected component/scope,
+status, declared time range). It may not condition on mechanism,
+content, or root cause.
+
+Every item satisfying the frozen rule is included.
+
+No post-enumeration subsampling, for any reason.
+
+If the mechanically generated set is too large to analyze
+exhaustively, report the known-failure lane as a boundedness
+failure / N/A -- do not select a convenient subset from it.
+```
+
+The last clause mirrors the primary lane's no-optional-stopping rule (Section 8.6) and E5's treatment of unbounded universes: when exhaustiveness is unavailable, the honest result is that this lane did not produce evidence, not a smaller lane chosen by us.
+
 ### KF-1 — symptom-only reveal + disclosure log
 
 For each mechanically selected challenge item, expose only what is needed to establish the reported symptom before causal diagnosis:
@@ -767,7 +855,7 @@ The final Phase 3.5 result must include, in the main body:
 4. `P_resolved / P_raw` and `E? / P_raw` coverage;
 5. reason log for every E?, naming which of the five sufficiency questions lacked located evidence, plus the explicit F2 re-check;
 6. post-analysis correspondence matrix and correspondence-collapsed `C` count without changing `P_raw`;
-7. R0/F0/F1/F2/F3 outcomes for resolved cases;
+7. per resolved counting unit, the full supported subset of {F1,F2,F3} with no suppressed findings, or R0/F0 where that subset is empty, plus for R0 the named competing representation the evidence discriminated against;
 8. all counterexamples and the evidence-sufficiency/positive-evidence basis for them;
 9. explicit absence/inconclusive wording under Section 8's rules;
 10. three separately frozen primary artifacts, including Artifact 3's frozen applicability domain stated separately from its decision procedure;
@@ -782,18 +870,19 @@ No result table may imply prevalence of architectural outcomes from this single 
 
 ```text
 1. Seal this methodology before target evaluation, including the concrete deterministic tie-break rule (Section 2), which must be fixed before any candidate list exists.
-2. Screen candidates only against E1-E5 / enumeration admissibility.
-3. Select one external target by the Section 2 ranking (enumeration completeness class -> deterministic tie-break); record every screened candidate, including rejections, with the eligibility criterion failed or the ranking step lost -- never an architectural outcome.
-4. Freeze target-specific authoritative sources and all admissible normative/enforcement enumerators.
-5. Freeze U_primary and P_raw before architectural analysis.
-6. Freeze the target-specific KF-0 mechanical known-failure selection rule without opening failure causes.
-7. Analyze every primary slice: native-first → sufficiency gate → native case → R0/F0/F1/F2/F3 or E?. No optional stopping.
-8. Freeze Artifact 1 (native description), Artifact 2 (architectural mapping), Artifact 3 (derived judgment specification).
-9. Seal the primary-lane result and coverage.
-10. Only now enumerate/open known-failure challenge items under KF-1.
-11. Seal KF-2 representability / judgment-applicability / optional native-replay results.
-12. Reveal KF-3 cause/fix evidence and compare without retroactive edits.
-13. Write RESULTS for Phase 3.5.
+2. Screen candidates against E1-E4 / enumeration admissibility only.
+3. For EACH candidate surviving E1-E4, freeze its candidate-level inventory: authoritative sources, admissible enumerators, enforced/asserted tags, and the mechanically enumerated universe. This is mechanical enumeration under already-fixed rules, not analysis.
+4. Judge E5 against each candidate's now-frozen universe. (E5 and the ranking both quantify over these inventories, so they cannot precede step 3.)
+5. Rank the eligible candidates by the Section 2 ranking (enumeration completeness class -> deterministic tie-break) and select one; record every screened candidate, including rejections, with the eligibility criterion failed or the ranking step lost -- never an architectural outcome.
+6. Promote the selected candidate's frozen inventory to U_primary and P_raw. Any admissible source or enumerator discovered after this point is a screening/inventory protocol failure, reported as such, not folded in.
+7. Freeze the target-specific KF-0 mechanical known-failure selection rule, under Section 11's constraints on the rule itself, without opening failure causes.
+8. Analyze every primary counting unit: native-first → sufficiency gate → native case → the supported subset of {F1,F2,F3}, or R0/F0 if that subset is empty, or E?. No optional stopping.
+9. Freeze Artifact 1 (native description), Artifact 2 (architectural mapping), Artifact 3 (applicability domain + decision procedure).
+10. Seal the primary-lane result and coverage.
+11. Only now enumerate/open known-failure challenge items under KF-1.
+12. Seal KF-2 representability / judgment-applicability / optional native-replay results.
+13. Reveal KF-3 cause/fix evidence and compare without retroactive edits.
+14. Write RESULTS for Phase 3.5.
 ```
 
 No external target candidate is selected by this document. No implementation plan follows until the methodology spec itself is reviewed and approved; Phase 3.5 may remain an analysis-only phase with no code implementation at all.
