@@ -52,12 +52,14 @@ case where something does.
 (C3 and C4 have identically-sized theoretical spaces -- 24 `WorldState`
 combinations x 8 spec-state combinations in both, arriving there by
 different routes: C3 via a third monitor bit, C4 via a fourth
-`WorldState` field plus a provenance bit. C4's *reachable* count is half
-C3's because its new field, `reward_owned`, is gated behind `claim` and
-zeroed by `consume`, so most of the added combinations are structurally
-unreachable -- whereas C3's `enchanted` is freely toggleable from the
-start. Not a scalability regression, and not a like-for-like difficulty
-comparison either.)
+`WorldState` field plus a provenance bit. C4's reachable count is lower
+than C3's, consistent with `reward_owned` being gated behind the
+one-shot `claim`/`consume` lifecycle while C3's `enchanted` dimension is
+directly manipulable from the start -- but the exact 31-vs-62 ratio is
+descriptive, not attributed to a single cause: C3 and C4 differ in
+their whole mechanism, not just that one field's gating. Not a
+scalability regression, and not a like-for-like difficulty comparison
+either.)
 
 `monitor_step` and `event_provenance_step` matched their independent
 full-history references on all 69 transitions, and both oracles matched
