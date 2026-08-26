@@ -78,6 +78,24 @@ E2-REP and E5 form a joint practical constraint. It is not enough that source co
 
 A huge open-source system whose relevant state is spread across an unbounded implementation surface can pass E2-REP but fail E5.
 
+### Selecting among multiple eligible candidates
+
+E1-E5 are pass/fail admission gates, not a ranking. If more than one candidate is eligible, the choice must not fall to researcher interest — otherwise target-selection bias simply replaces the slice-selection bias E4 exists to prevent, one step earlier.
+
+Ranking is by evidence quality only, in this fixed order:
+
+1. **Enumeration completeness.** Prefer the candidate whose primary universe rests more on `enforced` (complete-by-construction) enumerators than on `asserted` ones. This directly strengthens absence claims, which Section 3.3 weakens whenever an `asserted` enumerator is admitted.
+2. **Evidence traceability.** Prefer the candidate whose joint `E2-REP × E5` evidence more directly supports tracing every primary slice's information flow to the sufficiency gate.
+3. **Deterministic tie-break.** A fully mechanical, architecture-neutral ordering rule.
+
+**`P_raw` size is excluded as a ranking criterion in both directions.** A small universe is easier to analyze but offers fewer chances to observe a counterexample; a large universe makes `U == 0` nearly unreachable and therefore makes an absence claim easy to avoid committing to. Either direction lets a preference about the result enter target selection.
+
+The deterministic tie-break must be written in concrete form (for example, ascending lexicographic order of the canonical repository URL) and **sealed before any candidate list is enumerated**. Choosing between ascending and descending, or between repository name and URL, after seeing the list is itself a selection.
+
+Ranking criterion 2 is not fully architecture-neutral: highly traceable systems tend to be less tangled, and Section 13.2's concern applies to them. It is retained for a different reason — an untraceable system yields only `E?`, which blocks absence claims while supplying no positive evidence either. Traceability favors *any determinate outcome over none*, rather than favoring retention over falsification.
+
+Every screened candidate is recorded, including rejected ones, with the specific eligibility criterion failed or the ranking step lost. A record showing only the selected target hides how many candidates were screened and whether near-misses were rejected on soft grounds.
+
 ### Candidate-screening firewall
 
 Before a target is frozen, screening may inspect only what is necessary to determine E1-E5 and the existence/admissibility of enumeration mechanisms. Screening must not inspect known-bug root causes, fix diffs, or use interesting-looking validity behavior to hand-pick the target's primary slices.
@@ -178,6 +196,8 @@ Normative and enforcement observations are **not deduplicated** because determin
 
 An exception is allowed only when the external project itself explicitly asserts the correspondence, e.g. a validator cites a rule ID, a test names the exact rule clause, or another project-owned artifact links them.
 
+**When such an external link exists, merge the counting unit but not the observations.** The linked observations count as **one** externally-linked primary unit in `P_raw`, while **both source observations are retained inside that unit**. The external project's link asserts that the two concern the same rule; it does not assert that their contents agree. Collapsing the observations as well as the count would erase exactly the `divergent` relationship of Section 4.3 — a documented rule stating `X` while the linked validator checks `X'`. The objection that justified refusing analyst-inferred crosswalk (our judgment entering universe construction) is resolved by the external link; the separate objection (losing the divergence observation) is not, and must be handled separately.
+
 Otherwise:
 
 ```text
@@ -218,6 +238,8 @@ U          = raw observations classified E? (evidence insufficient)
 P_raw = P_resolved + U
 coverage = P_resolved / P_raw
 ```
+
+An externally-linked primary unit (Section 4.2) contributes **1** to `P_raw` while carrying two retained source observations inside it; those observations are reported individually within the unit, and their agreement or divergence is a finding of the unit, not a change to the denominator.
 
 Coverage must always be reported with its denominator. `E?` is never silently dropped.
 
@@ -269,6 +291,14 @@ Architectural classification is allowed only after the native information flow f
 5. Does it persist after consumption, reset, migrate to another owner, or disappear?
 
 Module/file boundaries are not architectural evidence by themselves. A 3,000-line God class may still contain a clear information-flow boundary; a beautifully separated directory tree may not.
+
+### 6.0 Sufficiency must be evidenced, not asserted
+
+The sufficiency gate is the only thing separating `E?` from a resolved case, and `E?` is expensive: it blocks absence claims (Section 8.4) while producing no architectural finding of its own. That creates a standing incentive to declare sufficiency too readily — the one judgment in this protocol with a built-in directional pull and, as originally written, no constraint on it.
+
+Therefore each resolved slice must record, for each of questions 1-5 above, the **specific located native evidence** answering it (file/symbol/schema/document reference). A question answered by plausible inference rather than located evidence does not count as answered: the slice is recorded `E?` with that specific question named as the gap.
+
+This makes sufficiency a checklist with citations rather than an overall impression, and makes the cost of an `E?` fall on evidence that is missing rather than on the analyst's willingness to call it missing.
 
 ### 6.1 E? — evidence insufficient, outside the taxonomy
 
@@ -447,6 +477,8 @@ From the frozen native description + mapping + external validity evidence, write
 
 This is a specification, not an executable simulator. It must state enough to determine a verdict on a described history/event without consulting future known-bug root-cause information.
 
+**Artifact 3 must be determinate enough to be wrong.** A judgment specification written vaguely enough that most KF-2 cases return `indeterminate` is an escape hatch, not a neutral outcome: a specification that never returns a determinate verdict can never be `DISCORDANT` (Section 11.2.2), and therefore can never be falsified by the challenge lane at all. Write it as a decision procedure that commits to verdicts, including verdicts that may later prove wrong. A high rate of `not applicable / indeterminate` in KF-2 is reported as **a limitation of Artifact 3**, not as a neutral property of the challenge items.
+
 Artifact 3 depends on Artifact 2. If KF-3 later shows that the mapping was wrong and the derived judgment therefore changes automatically, record that as **one coupled post-hoc mapping→judgment finding**, not two independent failures.
 
 ---
@@ -616,11 +648,11 @@ Because Phase 3.5 creates no project-authored simulator and runs no external sea
 
 The final Phase 3.5 result must include, in the main body:
 
-1. target eligibility evidence for E1-E5;
+1. target eligibility evidence for E1-E5, plus the full screened-candidate log (rejections with criterion failed, finalists with ranking step lost) and the pre-sealed deterministic tie-break rule;
 2. all admitted normative/enforcement universe sources and enforcement `enforced/asserted` tags;
-3. frozen `P_raw` with raw source provenance;
+3. frozen `P_raw` with raw source provenance, marking any externally-linked units and the observations retained inside them;
 4. `P_resolved / P_raw` and `E? / P_raw` coverage;
-5. reason log for every E? and explicit F2 re-check;
+5. reason log for every E?, naming which of the five sufficiency questions lacked located evidence, plus the explicit F2 re-check;
 6. post-analysis correspondence matrix and correspondence-collapsed `C` count without changing `P_raw`;
 7. R0/F0/F1/F2/F3 outcomes for resolved cases;
 8. all counterexamples and the evidence-sufficiency/positive-evidence basis for them;
@@ -636,9 +668,9 @@ No result table may imply prevalence of architectural outcomes from this single 
 ## 15. Order of operations after this methodology is approved
 
 ```text
-1. Seal this methodology before target evaluation.
+1. Seal this methodology before target evaluation, including the concrete deterministic tie-break rule (Section 2), which must be fixed before any candidate list exists.
 2. Screen candidates only against E1-E5 / enumeration admissibility.
-3. Select one external target; record why other finalists failed or lost on predeclared eligibility/feasibility grounds, not architectural outcome.
+3. Select one external target by the Section 2 ranking (enumeration completeness -> evidence traceability -> deterministic tie-break); record every screened candidate, including rejections, with the eligibility criterion failed or the ranking step lost -- never an architectural outcome.
 4. Freeze target-specific authoritative sources and all admissible normative/enforcement enumerators.
 5. Freeze U_primary and P_raw before architectural analysis.
 6. Freeze the target-specific KF-0 mechanical known-failure selection rule without opening failure causes.
