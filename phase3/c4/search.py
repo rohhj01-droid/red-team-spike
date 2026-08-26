@@ -1,0 +1,296 @@
+"""C4 search algorithms: Random, Beam-Naive, Beam-Diverse, MCTS.
+
+Ported from phase3/c3/search.py -- the OFFICIAL file (ecbd536), never
+phase3/c3/diagnostic_claimed_terminal.py (SEARCH_CONTRACT_C4.md). Two
+structural changes from C3: SearchState grows to a 3-tuple with
+EventProvenanceState, and _step() computes classify_claim internally
+(to feed event_provenance_step) but never returns it -- discovery is
+consume_verdict-only, and this makes the wrong check impossible to
+write, not just documented as wrong. No quest_status == "CLAIMED"
+skip/continue logic anywhere in this file -- C4's target
+(TAINTED_REWARD_CONSUMPTION) is only reachable past CLAIMED.
+
+Same discipline as C1-C3: four independent search functions, no shared
+SearchStrategy interface.
+"""
+from __future__ import annotations
+
+import math
+import random
+from collections import Counter
+from dataclasses import dataclass
+from typing import Dict, List, Optional, Tuple
+
+from budget import Budget, BudgetExhausted
+from engine import Action, WorldState, initial_world, legal_actions
+from event_provenance import EventProvenanceState, event_provenance_step, initial_event_provenance
+from monitor import MonitorState, initial_monitor, monitor_step
+from oracle import classify_claim, classify_consume
+
+SearchState = Tuple[WorldState, MonitorState, EventProvenanceState]
+
+
+@dataclass
+class Discovery:
+    cost: int
+    path: List[Action]
+    classification: str  # "TAINTED_REWARD_CONSUMPTION" -- the only value classify_consume can return
+
+
+def score(world: WorldState) -> float:
+    return {"NOT_ACCEPTED": 0, "ACTIVE": 1, "CLAIMED": 2}[world.quest_status]
+
+
+def behavior_descriptor(world: WorldState, path: List[Action], max_depth: int) -> Tuple[float, ...]:
+    path_len = len(path) or 1
+    kind_counts = Counter(a.kind for a in path)
+    action_ratio = tuple(
+        kind_counts.get(k, 0) / path_len
+        for k in ("equip", "accept", "channel", "claim", "consume")
+    )
+    quest_ordinal = {"NOT_ACCEPTED": 0, "ACTIVE": 1, "CLAIMED": 2}[world.quest_status] / 2.0
+    return action_ratio + (quest_ordinal, len(path) / max_depth)
+
+
+def _step(budget: Budget, world: WorldState, monitor: MonitorState, provenance: EventProvenanceState, action: Action) -> Tuple[WorldState, MonitorState, EventProvenanceState, Optional[str]]:
+    """Returns (new_world, new_monitor, new_provenance, consume_verdict).
+    claim_verdict is computed here (to feed event_provenance_step) but
+    deliberately never returned -- per SEARCH_CONTRACT_C4.md, a caller
+    cannot check it even by accident."""
+    new_world = budget.step(world, action)
+    new_monitor = monitor_step(world, action, new_world, monitor)
+    claim_verdict = classify_claim(action, monitor)
+    consume_verdict = classify_consume(action, provenance)
+    new_provenance = event_provenance_step(action, claim_verdict, provenance)
+    return new_world, new_monitor, new_provenance, consume_verdict
+
+
+def _euclidean(a: Tuple[float, ...], b: Tuple[float, ...]) -> float:
+    return sum((x - y) ** 2 for x, y in zip(a, b)) ** 0.5
+
+
+def _novelty_scores(descriptors: List[Tuple[float, ...]], k: int) -> List[float]:
+    scores = []
+    for i, d in enumerate(descriptors):
+        dists = sorted(_euclidean(d, other) for j, other in enumerate(descriptors) if j != i)
+        neighbors = dists[:k] if dists else [0.0]
+        scores.append(sum(neighbors) / len(neighbors) if neighbors else 0.0)
+    return scores
+
+
+def _rank_normalize(values: List[float]) -> List[float]:
+    n = len(values)
+    if n <= 1:
+        return [1.0] * n
+    order = sorted(range(n), key=lambda i: values[i])
+    ranks = [0.0] * n
+    for rank, i in enumerate(order):
+        ranks[i] = rank / (n - 1)
+    return ranks
+
+
+# ---------------------------------------------------------------------------
+# Random
+# ---------------------------------------------------------------------------
+
+def random_search(seed: int, budget_limit: int, max_depth: int) -> Optional[Discovery]:
+    rng = random.Random(seed)
+    budget = Budget(budget_limit)
+    start_world, start_monitor, start_provenance = initial_world(), initial_monitor(), initial_event_provenance()
+    try:
+        while budget.remaining():
+            world, monitor, provenance = start_world, start_monitor, start_provenance
+            path: List[Action] = []
+            for _ in range(max_depth):
+                actions = legal_actions(world)
+                if not actions:
+                    break
+                action = rng.choice(actions)
+                world, monitor, provenance, consume_verdict = _step(budget, world, monitor, provenance, action)
+                path.append(action)
+                if consume_verdict is not None:
+                    return Discovery(budget.used, path, consume_verdict)
+                if not budget.remaining():
+                    break
+    except BudgetExhausted:
+        pass
+    return None
+
+
+# ---------------------------------------------------------------------------
+# Beam-Naive / Beam-Diverse
+# ---------------------------------------------------------------------------
+
+def beam_naive_search(budget_limit: int, max_depth: int, beam_width: int) -> Optional[Discovery]:
+    budget = Budget(budget_limit)
+    start: SearchState = (initial_world(), initial_monitor(), initial_event_provenance())
+    beam: List[Tuple[SearchState, List[Action]]] = [(start, [])]
+    try:
+        for _ in range(max_depth):
+            if not beam or not budget.remaining():
+                break
+            candidates: Dict[SearchState, Tuple[float, List[Action]]] = {}
+            for (world, monitor, provenance), path in beam:
+                if not budget.remaining():
+                    break
+                for action in legal_actions(world):
+                    if not budget.remaining():
+                        break
+                    new_world, new_monitor, new_provenance, consume_verdict = _step(budget, world, monitor, provenance, action)
+                    new_state = (new_world, new_monitor, new_provenance)
+                    new_path = path + [action]
+                    if consume_verdict is not None:
+                        return Discovery(budget.used, new_path, consume_verdict)
+                    existing = candidates.get(new_state)
+                    if existing is None or len(new_path) < len(existing[1]):
+                        candidates[new_state] = (score(new_world), new_path)
+            ranked = sorted(candidates.items(), key=lambda kv: kv[1][0], reverse=True)
+            beam = [(s, p) for s, (_, p) in ranked[:beam_width]]
+    except BudgetExhausted:
+        pass
+    return None
+
+
+def beam_diverse_search(
+    budget_limit: int, max_depth: int, beam_width: int,
+    novelty_k: int = 4, novelty_weight: float = 1.0,
+) -> Optional[Discovery]:
+    budget = Budget(budget_limit)
+    start: SearchState = (initial_world(), initial_monitor(), initial_event_provenance())
+    beam: List[Tuple[SearchState, List[Action]]] = [(start, [])]
+    try:
+        for _ in range(max_depth):
+            if not beam or not budget.remaining():
+                break
+            candidates: Dict[SearchState, Tuple[float, List[Action]]] = {}
+            for (world, monitor, provenance), path in beam:
+                if not budget.remaining():
+                    break
+                for action in legal_actions(world):
+                    if not budget.remaining():
+                        break
+                    new_world, new_monitor, new_provenance, consume_verdict = _step(budget, world, monitor, provenance, action)
+                    new_state = (new_world, new_monitor, new_provenance)
+                    new_path = path + [action]
+                    if consume_verdict is not None:
+                        return Discovery(budget.used, new_path, consume_verdict)
+                    existing = candidates.get(new_state)
+                    if existing is None or len(new_path) < len(existing[1]):
+                        candidates[new_state] = (score(new_world), new_path)
+            if not candidates:
+                break
+            states = list(candidates.keys())
+            descriptors = [behavior_descriptor(s[0], candidates[s][1], max_depth) for s in states]
+            k = min(novelty_k, len(states) - 1)
+            novelty = _novelty_scores(descriptors, k) if k > 0 else [0.0] * len(states)
+            obj_rank = _rank_normalize([candidates[s][0] for s in states])
+            novelty_rank = _rank_normalize(novelty)
+            combined = [o + novelty_weight * v for o, v in zip(obj_rank, novelty_rank)]
+            ranked = sorted(zip(states, combined), key=lambda sc: sc[1], reverse=True)
+            beam = [(s, candidates[s][1]) for s, _ in ranked[:beam_width]]
+    except BudgetExhausted:
+        pass
+    return None
+
+
+# ---------------------------------------------------------------------------
+# MCTS -- textbook UCT, binary first-hit reward, uniform-random rollout.
+# ---------------------------------------------------------------------------
+
+UCT_C = math.sqrt(2)  # inert under first-hit reward -- see SEARCH_CONTRACT_C4.md
+
+
+class _Node:
+    __slots__ = ("state", "parent", "action_from_parent", "children", "untried", "visits", "reward")
+
+    def __init__(self, state: SearchState, parent: Optional["_Node"], action_from_parent: Optional[Action], untried: List[Action]):
+        self.state = state
+        self.parent = parent
+        self.action_from_parent = action_from_parent
+        self.children: Dict[Action, "_Node"] = {}
+        self.untried = untried
+        self.visits = 0
+        self.reward = 0.0
+
+
+def _path_to(node: _Node) -> List[Action]:
+    path = []
+    while node.parent is not None:
+        path.append(node.action_from_parent)
+        node = node.parent
+    path.reverse()
+    return path
+
+
+def _uct_select(node: _Node, c: float) -> _Node:
+    log_n = math.log(node.visits)
+    return max(
+        node.children.values(),
+        key=lambda ch: ch.reward / ch.visits + c * math.sqrt(log_n / ch.visits),
+    )
+
+
+def mcts_search(seed: int, budget_limit: int, max_depth: int, c: float = UCT_C) -> Optional[Discovery]:
+    rng = random.Random(seed)
+    budget = Budget(budget_limit)
+    start_state: SearchState = (initial_world(), initial_monitor(), initial_event_provenance())
+    root = _Node(start_state, None, None, legal_actions(start_state[0]))
+    best: Optional[Discovery] = None
+
+    try:
+        while budget.remaining() and best is None:
+            # Selection
+            node = root
+            depth = 0
+            while not node.untried and node.children and depth < max_depth:
+                node = _uct_select(node, c)
+                depth += 1
+
+            # Expansion. consume_verdict stays None if no expansion
+            # happens this iteration -- any node already in the tree was
+            # reached by a transition that provably didn't fire a
+            # discovery (otherwise `best` would already be set and the
+            # loop would have stopped), so there is nothing to re-check.
+            consume_verdict: Optional[str] = None
+            if node.untried and depth < max_depth:
+                action = rng.choice(node.untried)
+                node.untried.remove(action)
+                world, monitor, provenance = node.state
+                new_world, new_monitor, new_provenance, consume_verdict = _step(budget, world, monitor, provenance, action)
+                new_state: SearchState = (new_world, new_monitor, new_provenance)
+                child = _Node(new_state, node, action, legal_actions(new_world))
+                node.children[action] = child
+                node = child
+                depth += 1
+                if consume_verdict is not None:
+                    best = Discovery(budget.used, _path_to(node), consume_verdict)
+
+            # Rollout: uniform random, no shaping.
+            reward = 1.0 if consume_verdict is not None else 0.0
+            rollout_world, rollout_monitor, rollout_provenance = node.state
+            rollout_extra: List[Action] = []
+            rollout_verdict = consume_verdict
+            d = depth
+            while reward == 0.0 and d < max_depth and budget.remaining():
+                actions = legal_actions(rollout_world)
+                if not actions:
+                    break
+                a = rng.choice(actions)
+                rollout_world, rollout_monitor, rollout_provenance, rollout_verdict = _step(budget, rollout_world, rollout_monitor, rollout_provenance, a)
+                rollout_extra.append(a)
+                d += 1
+                if rollout_verdict is not None:
+                    reward = 1.0
+
+            if reward == 1.0 and best is None:
+                best = Discovery(budget.used, _path_to(node) + rollout_extra, rollout_verdict)
+
+            # Backpropagation
+            n: Optional[_Node] = node
+            while n is not None:
+                n.visits += 1
+                n.reward += reward
+                n = n.parent
+    except BudgetExhausted:
+        pass
+    return best
