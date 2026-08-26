@@ -87,15 +87,33 @@ Ranking uses exactly two steps, in this fixed order, both fully decidable from s
 1. **Enumeration completeness class**, a binary class, not a score:
 
 ```text
-class A: every admitted enforcement enumerator is `enforced`
-class B: one or more admitted enumerators are `asserted`
+class A: at least one enforcement enumerator is admitted
+         AND every admitted enforcement enumerator is `enforced`
+
+class B: otherwise
+         (any admitted enumerator is `asserted`,
+          OR no enforcement enumerator is admitted at all)
 
 class A outranks class B; within a class this criterion is a tie.
 ```
 
    The threshold is binary because Section 3.3's absence rule is binary: a single `asserted` enumerator already weakens every absence claim, regardless of how many `enforced` ones accompany it. No ratio or count-based refinement is introduced, precisely so that a case like `2 enforced / 0 asserted` versus `20 enforced / 1 asserted` is decided by a rule fixed now rather than by a comparison invented after seeing the candidates.
 
-2. **Deterministic tie-break.** A fully mechanical, architecture-neutral ordering rule, written in concrete form (for example, ascending lexicographic order of the canonical repository URL) and **sealed before any candidate list is enumerated**. Choosing between ascending and descending, or between repository name and URL, after seeing the list is itself a selection.
+   Class A's first conjunct is not redundant. A candidate may satisfy E4 from `U_normative` alone and admit **no** enforcement enumerator; "every admitted enumerator is `enforced`" would then be vacuously true over the empty set and would promote a normative-only candidate to class A, which is the opposite of the intent. A normative-only candidate has no complete-by-construction enforcement evidence at all, so it belongs in class B alongside `asserted` candidates, and the choice between them falls to the tie-break rather than to a new discretionary comparison.
+
+2. **Deterministic tie-break, sealed here rather than by example.** Order the tied candidates by their **normalized canonical repository URL**, ascending, comparing the byte sequences of its UTF-8 encoding; select the first.
+
+```text
+normalized canonical repository URL =
+  the HTTPS form of the primary source repository that the
+  external project itself designates, with:
+    scheme and host lowercased
+    no credentials, query, or fragment
+    no trailing slash
+    no trailing ".git"
+```
+
+   A candidate with no project-designated source repository cannot have satisfied E2-REP and is therefore not eligible in the first place, so this ordering is total over the eligible set. The rule is fixed at seal time precisely because choosing between ascending and descending, or between repository name and URL, after seeing the candidate list would itself be a selection.
 
 **No traceability ranking step is used.** An earlier draft ranked eligible candidates by how directly their evidence supported tracing every unit. That is dropped for two reasons: it was qualitative and never operationalized, and judging it would require inspecting candidate implementations more deeply than the candidate-screening firewall permits — the ranking step would itself breach the firewall it sits behind. E5 already gates exhaustive traceability as pass/fail; among candidates that pass it, no further traceability comparison is made.
 
@@ -176,7 +194,7 @@ This asymmetry is intentional: enumeration incompleteness threatens absence clai
 
 If multiple enumerators satisfy EN1-EN6, include the union of all of them. Do not select the one with the cleanest structure or smallest list.
 
-Every raw observation retains source provenance, including normative source ID or enforcement enumerator ID and the enumerator's `enforced/asserted` tag.
+Every **source observation** retains its own source provenance — normative source ID or enforcement enumerator ID, plus that enumerator's `enforced/asserted` tag — including when it sits inside an externally-linked counting unit alongside others.
 
 ---
 
@@ -219,7 +237,18 @@ An exception is allowed only when the external project itself explicitly asserts
 
 **When such an external link exists, merge the counting unit but not the observations.** The linked source observations form **one** externally-linked primary counting unit (Section 4.1), while **both source observations are retained inside it**. The external project's link asserts that the two concern the same rule; it does not assert that their contents agree. Collapsing the observations as well as the count would erase exactly the `divergent` relationship of Section 4.3 — a documented rule stating `X` while the linked validator checks `X'`. The objection that justified refusing analyst-inferred crosswalk (our judgment entering universe construction) is resolved by the external link; the separate objection (losing the divergence observation) is not, and must be handled separately.
 
-Otherwise:
+**Grouping when links are not pairwise.** External cross-links need not come in isolated pairs: a project may link `N1↔E1` and `N1↔E2`, or `N1↔E1` and `E1↔N2`. Leaving the grouping to analyst judgment would put `P_raw` back under our control, so it is fixed mechanically:
+
+```text
+Treat every externally declared cross-link as an undirected edge
+between source observations. Each connected component of the
+resulting graph is exactly one externally-linked primary counting
+unit.
+```
+
+This decides pairwise, one-to-many, and chained/many-to-many cases identically and without discretion. All source observations in a component are retained inside its unit, and divergence among any of them remains reportable as a finding of that unit.
+
+Otherwise, with no external link:
 
 ```text
 N7 and E12 remain two source observations and two separate counting units
@@ -288,13 +317,14 @@ No prevalence inference is permitted from either count.
 ### 5.2 Three levels must remain separate
 
 ```text
-1. Primary slice
-   preregistered atomic source observation
-   coverage unit
+1. Primary slice (= primary counting unit)
+   normally one source observation;
+   an externally-linked unit may contain several source observations
+   the unit at which sufficiency, E?, and coverage are judged
 
 2. Native information-flow case
    recovered from evidence after analysis
-   multiple raw slices may converge here
+   multiple counting units may converge here
 
 3. Architectural classification
    R0 / F0 / F1 / F2 / F3
@@ -447,7 +477,7 @@ E? / P_raw
 
 and list E? slices with reasons in the main results, not only an appendix.
 
-Every architectural claim must be scoped to the evidence actually resolved, e.g. `among the X/Y preregistered primary observations whose native information flow was recoverable...`.
+Every architectural claim must be scoped to the evidence actually resolved, e.g. `among the X/Y preregistered primary counting units whose native information flow was recoverable...`.
 
 ### 8.3 Counterexample found
 
@@ -469,7 +499,7 @@ If any admitted universe enumerator is tagged `asserted`, even the `U == 0` abse
 
 ### 8.5 The protocol is intentionally hard on clean absence
 
-With atomic raw slices, `U == 0` may be difficult or rare. This cost is accepted **before** seeing target results. It must not later be used as justification to loosen the sufficiency gate, group slices post hoc, change the denominator, or reduce the primary set.
+With source-segmented primary counting units, `U == 0` may be difficult or rare. This cost is accepted **before** seeing target results. It must not later be used as justification to loosen the sufficiency gate, group slices post hoc, change the denominator, or reduce the primary set.
 
 ### 8.6 No optional stopping and no denominator drift
 
@@ -532,6 +562,18 @@ This is a specification, not an executable simulator. It must state enough to de
 ```
 
 Both are frozen together, before any known-bug symptom is revealed.
+
+**Domain inclusion is not discretionary.** Freezing the domain before seeing any bug removes post-hoc bias, but an *ex ante* discretion would remain if we could simply declare a narrow domain and later route every inconvenient challenge item to `out-of-domain`. The inclusion rule is therefore mechanical:
+
+```text
+frozen external validity evidence supplies a verdict for the case
+    → the case MUST be inside the applicability domain
+
+frozen external validity evidence does not define the case's validity
+    → the case may be outside it
+```
+
+Analyst convenience, expected difficulty, or a guess about what the challenge lane will contain is never a valid ground for exclusion. The only admissible ground is that the frozen external evidence itself does not determine that case.
 
 Freezing the domain first is what keeps the totality requirement honest in **both** directions. A specification vague enough to return `indeterminate` on everything is an escape hatch, not a neutral outcome — it can never be `DISCORDANT` (Section 11.2.2), so the challenge lane can never falsify it. But a requirement to return a verdict on *every* case would be equally wrong in the other direction: where the external validity evidence defines no judgment, forcing one means **inventing an external rule** and then testing our own invention, which is the self-validation failure this whole phase exists to break.
 
@@ -705,9 +747,9 @@ Systems with explicit enumeration mechanisms and documentation conventions may b
 
 An `asserted` convention may miss ad-hoc exceptions, and those exceptions may be exactly where F2/F3-like behavior lives. Counterexamples found inside the asserted set remain valid; absence claims are weaker and explicitly scoped.
 
-### 13.4 Source segmentation determines P_raw
+### 13.4 External segmentation and external cross-links determine P_raw
 
-External editorial/structural segmentation can make similar targets produce very different raw observation counts. `coverage` is therefore a within-target transparency measure, not a cross-target comparison metric.
+`P_raw` is fixed by two things we do not control: how the external sources segment themselves, and which cross-links the external project happens to declare (Section 4.2's connected components). Similar targets can therefore produce very different counting-unit totals for reasons unrelated to their architectural content. `coverage` is a within-target transparency measure, not a cross-target comparison metric.
 
 ### 13.5 No executable-search generalization claim
 
