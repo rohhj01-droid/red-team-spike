@@ -158,16 +158,25 @@ Every result the frozen query returns enters the frame. Candidates are screened 
 
 ```text
 Enumeration source
-  the official OpenBSD 7.9 `ports.tar.gz` release artifact
+  the official OpenBSD 7.9 `ports.tar.gz` release artifact,
+  retrieved from https://cdn.openbsd.org/pub/OpenBSD/7.9/ports.tar.gz
 
-Frame source revision (membership-determining)
-  the content hash of that exact artifact, computed and recorded
-  BEFORE enumeration. Membership identity rests on the hash, never
-  on a label.
+Frame source revision (membership-determining) -- RECORDED
+  SHA256 937aef3d19bc288a838bfa168733872c1a33064db7fe00caf60ea29d9476c6db
+  size   56386078 bytes
+  Last-Modified 2026-05-06T12:39:58Z (as served)
+
+  Computed locally from the retrieved bytes and cross-checked against
+  OpenBSD's own published checksum at
+  https://cdn.openbsd.org/pub/OpenBSD/7.9/SHA256, which lists the
+  identical value. Membership identity rests on this hash, never on a
+  label.
+
+  The artifact was retrieved and hashed WITHOUT being extracted; the
+  `games` category was not enumerated, listed, or read at this step.
 
 Release label (provenance only)
-  the OpenBSD 7.9 release designation and, if present, its ports
-  tag name -- recorded for traceability, not relied on for identity
+  OpenBSD 7.9 -- recorded for traceability, not relied on for identity
 
 Enumeration execution timestamp
   recorded when the list is generated; provenance for the frame,
@@ -518,7 +527,7 @@ O_raw      = number of underlying source observations (descriptive only,
              externally-linked units exist)
 ```
 
-An externally-linked primary counting unit (Section 4.2) contributes **1** to `P_raw` while carrying its retained source observations inside it. Those observations are reported individually within the unit, and their agreement or divergence is a finding of that unit, not a change to the denominator. Sufficiency and `E?` are judged for the unit as a whole, not separately per contained observation.
+An externally-linked primary counting unit (Section 4.2) contributes **1** to `P_raw` while carrying its retained source observations inside it. Those observations are reported individually within the unit, and their agreement or divergence is a finding of that unit, not a change to the denominator. `E?` and coverage are assigned to the unit as a whole rather than per contained observation; sufficiency itself is evaluated on the unit's native cases, and the unit is resolved only if every one of them passes (Section 6).
 
 Coverage must always be reported with its denominator. `E?` is never silently dropped.
 
@@ -545,7 +554,7 @@ No prevalence inference is permitted from either count.
 1. Primary slice (= primary counting unit)
    normally one source observation;
    an externally-linked unit may contain several source observations
-   the unit at which sufficiency, E?, and coverage are judged
+   the unit at which E?, coverage, and P_raw are assigned
 
 2. Native information-flow case
    recovered from evidence after analysis
@@ -561,8 +570,11 @@ No prevalence inference is permitted from either count.
 **The unit↔case relation is many-to-many, and the two levels carry different things.** Convergence was already noted (several counting units describing one native case). Divergence is equally possible and was not: because we never subdivide a source observation, one observation may state `A ∧ B ∧ C`, and a connected-component linked unit may bundle several observations — either can resolve into **several distinct native information-flow cases**. Assigning one `{F1,F2,F3}` subset per counting unit would then be incoherent whenever a unit's cases differ (case A retained, case B underdetermined; case A collapsing a role, case B misplacing a boundary).
 
 ```text
-counting unit   → coverage, E?, P_raw, and the sufficiency gate
-native case     → R0 / F0 / the supported subset of {F1,F2,F3}
+native case     → the sufficiency gate,
+                  then R0 / F0 / the supported subset of {F1,F2,F3}
+counting unit   → P_raw, E?, coverage;
+                  resolved iff every associated native case
+                  passes sufficiency
 
 the mapping between them is many-to-many and is reported as such
 ```
