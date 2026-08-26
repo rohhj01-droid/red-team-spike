@@ -82,17 +82,24 @@ A huge open-source system whose relevant state is spread across an unbounded imp
 
 E1-E5 are pass/fail admission gates, not a ranking. If more than one candidate is eligible, the choice must not fall to researcher interest — otherwise target-selection bias simply replaces the slice-selection bias E4 exists to prevent, one step earlier.
 
-Ranking is by evidence quality only, in this fixed order:
+Ranking uses exactly two steps, in this fixed order, both fully decidable from screening-level evidence:
 
-1. **Enumeration completeness.** Prefer the candidate whose primary universe rests more on `enforced` (complete-by-construction) enumerators than on `asserted` ones. This directly strengthens absence claims, which Section 3.3 weakens whenever an `asserted` enumerator is admitted.
-2. **Evidence traceability.** Prefer the candidate whose joint `E2-REP × E5` evidence more directly supports tracing every primary slice's information flow to the sufficiency gate.
-3. **Deterministic tie-break.** A fully mechanical, architecture-neutral ordering rule.
+1. **Enumeration completeness class**, a binary class, not a score:
+
+```text
+class A: every admitted enforcement enumerator is `enforced`
+class B: one or more admitted enumerators are `asserted`
+
+class A outranks class B; within a class this criterion is a tie.
+```
+
+   The threshold is binary because Section 3.3's absence rule is binary: a single `asserted` enumerator already weakens every absence claim, regardless of how many `enforced` ones accompany it. No ratio or count-based refinement is introduced, precisely so that a case like `2 enforced / 0 asserted` versus `20 enforced / 1 asserted` is decided by a rule fixed now rather than by a comparison invented after seeing the candidates.
+
+2. **Deterministic tie-break.** A fully mechanical, architecture-neutral ordering rule, written in concrete form (for example, ascending lexicographic order of the canonical repository URL) and **sealed before any candidate list is enumerated**. Choosing between ascending and descending, or between repository name and URL, after seeing the list is itself a selection.
+
+**No traceability ranking step is used.** An earlier draft ranked eligible candidates by how directly their evidence supported tracing every unit. That is dropped for two reasons: it was qualitative and never operationalized, and judging it would require inspecting candidate implementations more deeply than the candidate-screening firewall permits — the ranking step would itself breach the firewall it sits behind. E5 already gates exhaustive traceability as pass/fail; among candidates that pass it, no further traceability comparison is made.
 
 **`P_raw` size is excluded as a ranking criterion in both directions.** A small universe is easier to analyze but offers fewer chances to observe a counterexample; a large universe makes `U == 0` nearly unreachable and therefore makes an absence claim easy to avoid committing to. Either direction lets a preference about the result enter target selection.
-
-The deterministic tie-break must be written in concrete form (for example, ascending lexicographic order of the canonical repository URL) and **sealed before any candidate list is enumerated**. Choosing between ascending and descending, or between repository name and URL, after seeing the list is itself a selection.
-
-Ranking criterion 2 is not fully architecture-neutral: highly traceable systems tend to be less tangled, and Section 13.2's concern applies to them. It is retained for a different reason — an untraceable system yields only `E?`, which blocks absence claims while supplying no positive evidence either. Traceability favors *any determinate outcome over none*, rather than favoring retention over falsification.
 
 Every screened candidate is recorded, including rejected ones, with the specific eligibility criterion failed or the ranking step lost. A record showing only the selected target hides how many candidates were screened and whether near-misses were rejected on soft grounds.
 
@@ -177,13 +184,27 @@ Every raw observation retains source provenance, including normative source ID o
 
 ### 4.1 Atomicity: use the source's own segmentation
 
-A **primary slice** is one preregistered atomic source observation.
+Two levels must be distinguished, because Section 4.2's externally-linked exception makes them come apart:
 
-Atomicity is never inferred semantically by this project. Each source is segmented at the finest level that the source itself explicitly exposes.
+```text
+Source observation
+= one atomic item, as the external source itself segmented it
 
-- A numbered rule item is one normative slice if the source exposes it as one item.
-- If that item says `A AND B AND C`, it remains one slice unless the source itself subdivides A/B/C.
-- One mechanically enumerated enforcement item is one enforcement slice, even if later analysis shows that it checks several semantic conditions.
+Primary slice (= primary counting unit)
+= normally exactly one source observation
+= but one linked unit holding several source observations where the
+  external project explicitly cross-links them (Section 4.2)
+
+P_raw = number of preregistered primary counting units
+```
+
+**The sufficiency gate, `E?`, and coverage all apply at the counting-unit level.** Inside a linked unit, both source observations are retained and their agreement or divergence is reported as a finding of that unit; recovering the unit's native information flow may draw on the evidence attached to any of its observations.
+
+Atomicity of the source observations themselves is never inferred semantically by this project. Each source is segmented at the finest level that the source itself explicitly exposes.
+
+- A numbered rule item is one normative source observation if the source exposes it as one item.
+- If that item says `A AND B AND C`, it remains one source observation unless the source itself subdivides A/B/C.
+- One mechanically enumerated enforcement item is one enforcement source observation, even if later analysis shows that it checks several semantic conditions.
 - If a normative source is an undifferentiated prose blob with no mechanically usable segmentation, that source is not admissible as a primary-universe source; researchers do not rescue it by manually splitting it.
 
 Why: deciding whether `A` and `B` are semantically separable requires understanding their meaning and information flows, which is part of the analysis. Universe construction must precede that analysis.
@@ -196,12 +217,12 @@ Normative and enforcement observations are **not deduplicated** because determin
 
 An exception is allowed only when the external project itself explicitly asserts the correspondence, e.g. a validator cites a rule ID, a test names the exact rule clause, or another project-owned artifact links them.
 
-**When such an external link exists, merge the counting unit but not the observations.** The linked observations count as **one** externally-linked primary unit in `P_raw`, while **both source observations are retained inside that unit**. The external project's link asserts that the two concern the same rule; it does not assert that their contents agree. Collapsing the observations as well as the count would erase exactly the `divergent` relationship of Section 4.3 — a documented rule stating `X` while the linked validator checks `X'`. The objection that justified refusing analyst-inferred crosswalk (our judgment entering universe construction) is resolved by the external link; the separate objection (losing the divergence observation) is not, and must be handled separately.
+**When such an external link exists, merge the counting unit but not the observations.** The linked source observations form **one** externally-linked primary counting unit (Section 4.1), while **both source observations are retained inside it**. The external project's link asserts that the two concern the same rule; it does not assert that their contents agree. Collapsing the observations as well as the count would erase exactly the `divergent` relationship of Section 4.3 — a documented rule stating `X` while the linked validator checks `X'`. The objection that justified refusing analyst-inferred crosswalk (our judgment entering universe construction) is resolved by the external link; the separate objection (losing the divergence observation) is not, and must be handled separately.
 
 Otherwise:
 
 ```text
-N7 and E12 remain two raw primary observations
+N7 and E12 remain two source observations and two separate counting units
 ```
 
 even if they later turn out to describe one native information-flow case.
@@ -231,15 +252,19 @@ one-to-many / many-to-one
 Let:
 
 ```text
-P_raw      = number of preregistered raw primary source observations
-P_resolved = raw observations that pass the evidence-sufficiency gate
-U          = raw observations classified E? (evidence insufficient)
+P_raw      = number of preregistered primary counting units (Section 4.1)
+P_resolved = counting units that pass the evidence-sufficiency gate
+U          = counting units classified E? (evidence insufficient)
 
 P_raw = P_resolved + U
 coverage = P_resolved / P_raw
+
+O_raw      = number of underlying source observations (descriptive only,
+             never a coverage denominator; differs from P_raw only where
+             externally-linked units exist)
 ```
 
-An externally-linked primary unit (Section 4.2) contributes **1** to `P_raw` while carrying two retained source observations inside it; those observations are reported individually within the unit, and their agreement or divergence is a finding of the unit, not a change to the denominator.
+An externally-linked primary counting unit (Section 4.2) contributes **1** to `P_raw` while carrying its retained source observations inside it. Those observations are reported individually within the unit, and their agreement or divergence is a finding of that unit, not a change to the denominator. Sufficiency and `E?` are judged for the unit as a whole, not separately per contained observation.
 
 Coverage must always be reported with its denominator. `E?` is never silently dropped.
 
@@ -251,10 +276,10 @@ C = number of distinct native information-flow / architectural cases
 
 `C` never replaces `P_raw` as the coverage denominator because correspondence is learned after analysis.
 
-If two raw observations later map to the same F3 case, report both:
+If two counting units later map to the same native case, report both:
 
 ```text
-raw F3 observations = 2
+counting units classified F3 = 2
 distinct F3 architectural cases = 1
 ```
 
@@ -296,9 +321,26 @@ Module/file boundaries are not architectural evidence by themselves. A 3,000-lin
 
 The sufficiency gate is the only thing separating `E?` from a resolved case, and `E?` is expensive: it blocks absence claims (Section 8.4) while producing no architectural finding of its own. That creates a standing incentive to declare sufficiency too readily — the one judgment in this protocol with a built-in directional pull and, as originally written, no constraint on it.
 
-Therefore each resolved slice must record, for each of questions 1-5 above, the **specific located native evidence** answering it (file/symbol/schema/document reference). A question answered by plausible inference rather than located evidence does not count as answered: the slice is recorded `E?` with that specific question named as the gap.
+Therefore each resolved counting unit must record, for each of questions 1-5 above, the **specific located native evidence** answering it (file/symbol/schema/document reference).
 
-This makes sufficiency a checklist with citations rather than an overall impression, and makes the cost of an `E?` fall on evidence that is missing rather than on the analyst's willingness to call it missing.
+Inference is not the thing being banned. Reading that one function sets a flag and another reads it, and concluding that the flag's lifetime spans those two transitions, is inference — and essentially all source-level analysis is of that kind. What is banned is inference that cannot be traced back to located evidence:
+
+```text
+located evidence + stated reasoning connecting it to the answer
+    → question satisfied
+
+answer asserted without identifiable evidence behind it
+    → gap
+```
+
+A question may also be satisfied by an **evidenced `N/A`**. If a validity check is recomputed on the spot and creates no persistent fact, then question 3 (lifetime/persistence) is legitimately answered `N/A: no persistent value is created`, with the specific code path cited. An unsupported `N/A` is a gap exactly as an unsupported answer is.
+
+```text
+located answer, or evidenced N/A   → sufficiency question satisfied
+unsupported answer, or bare N/A    → gap → unit recorded E?
+```
+
+An `E?` names the specific question(s) left as gaps. This makes sufficiency a checklist with citations rather than an overall impression, and makes the cost of an `E?` fall on evidence that is genuinely missing rather than on the analyst's willingness to call it missing.
 
 ### 6.1 E? — evidence insufficient, outside the taxonomy
 
@@ -477,7 +519,33 @@ From the frozen native description + mapping + external validity evidence, write
 
 This is a specification, not an executable simulator. It must state enough to determine a verdict on a described history/event without consulting future known-bug root-cause information.
 
-**Artifact 3 must be determinate enough to be wrong.** A judgment specification written vaguely enough that most KF-2 cases return `indeterminate` is an escape hatch, not a neutral outcome: a specification that never returns a determinate verdict can never be `DISCORDANT` (Section 11.2.2), and therefore can never be falsified by the challenge lane at all. Write it as a decision procedure that commits to verdicts, including verdicts that may later prove wrong. A high rate of `not applicable / indeterminate` in KF-2 is reported as **a limitation of Artifact 3**, not as a neutral property of the challenge items.
+**Artifact 3 freezes two things, and must be total within the first:**
+
+```text
+1. Applicability domain
+   which transitions/histories this judgment claims to decide,
+   bounded by what the external validity evidence actually covers
+
+2. Decision procedure
+   total within that domain: every case inside it receives a
+   determinate verdict, including verdicts that may prove wrong
+```
+
+Both are frozen together, before any known-bug symptom is revealed.
+
+Freezing the domain first is what keeps the totality requirement honest in **both** directions. A specification vague enough to return `indeterminate` on everything is an escape hatch, not a neutral outcome — it can never be `DISCORDANT` (Section 11.2.2), so the challenge lane can never falsify it. But a requirement to return a verdict on *every* case would be equally wrong in the other direction: where the external validity evidence defines no judgment, forcing one means **inventing an external rule** and then testing our own invention, which is the self-validation failure this whole phase exists to break.
+
+Consequently `not applicable` and `indeterminate` are **different results and must not be reported as one bucket**:
+
+```text
+case outside the frozen applicability domain
+→ scope mismatch / N/A; not a defect of Artifact 3
+
+case inside the domain but no determinate verdict
+→ Artifact 3 limitation (the procedure was not total where it claimed to be)
+```
+
+A high rate of in-domain `indeterminate` is reported as a limitation of Artifact 3. A high rate of out-of-domain cases is reported as a scope observation about the challenge set, and may indicate that the frozen domain was narrow — but narrowness declared in advance is legitimate, whereas narrowness discovered by declining to decide is not.
 
 Artifact 3 depends on Artifact 2. If KF-3 later shows that the mapping was wrong and the derived judgment therefore changes automatically, record that as **one coupled post-hoc mapping→judgment finding**, not two independent failures.
 
@@ -552,11 +620,14 @@ Can the reported symptom/history be expressed using the frozen native descriptio
 
 Using only the frozen judgment specification, classify the externally reported case:
 
-- **applicable & concordant:** a determinate verdict is produced and agrees with the external expected/violation judgment.
-- **applicable but DISCORDANT:** a determinate verdict is produced but conflicts with the external system's own expected/violation judgment.
-- **not applicable / indeterminate:** the frozen judgment specification cannot determine the case.
+First place the case against Artifact 3's **frozen applicability domain** (Section 9), then classify:
 
-Discordance is not collapsed into a generic `applicable PASS`; it is direct evidence that the frozen judgment layer does not capture the external system's stated validity judgment for that case.
+- **in-domain, concordant:** a determinate verdict is produced and agrees with the external expected/violation judgment.
+- **in-domain, DISCORDANT:** a determinate verdict is produced but conflicts with the external system's own expected/violation judgment.
+- **in-domain, indeterminate:** the frozen specification claimed to decide this case and did not. This is an **Artifact 3 limitation**, not a neutral outcome.
+- **out-of-domain:** the case falls outside the frozen applicability domain — scope mismatch, reported as `N/A`. Not a defect of Artifact 3, and never repaired by extending the domain after seeing the case.
+
+Discordance is not collapsed into a generic `applicable PASS`; it is direct evidence that the frozen judgment layer does not capture the external system's stated validity judgment for that case. In-domain indeterminacy and out-of-domain scope mismatch are likewise never merged into a single `not applicable` bucket: the first is our failure, the second is a boundary declared in advance.
 
 #### 11.2.3 Native reproduction — optional ground-truth support only
 
@@ -657,7 +728,7 @@ The final Phase 3.5 result must include, in the main body:
 7. R0/F0/F1/F2/F3 outcomes for resolved cases;
 8. all counterexamples and the evidence-sufficiency/positive-evidence basis for them;
 9. explicit absence/inconclusive wording under Section 8's rules;
-10. three separately frozen primary artifacts;
+10. three separately frozen primary artifacts, including Artifact 3's frozen applicability domain stated separately from its decision procedure;
 11. known-failure selection rule, disclosure logs, separate KF-2 axes, optional native-replay modification logs, and KF-3 comparison if the challenge lane is available;
 12. the pre-registered limitations in Section 13.
 
@@ -670,7 +741,7 @@ No result table may imply prevalence of architectural outcomes from this single 
 ```text
 1. Seal this methodology before target evaluation, including the concrete deterministic tie-break rule (Section 2), which must be fixed before any candidate list exists.
 2. Screen candidates only against E1-E5 / enumeration admissibility.
-3. Select one external target by the Section 2 ranking (enumeration completeness -> evidence traceability -> deterministic tie-break); record every screened candidate, including rejections, with the eligibility criterion failed or the ranking step lost -- never an architectural outcome.
+3. Select one external target by the Section 2 ranking (enumeration completeness class -> deterministic tie-break); record every screened candidate, including rejections, with the eligibility criterion failed or the ranking step lost -- never an architectural outcome.
 4. Freeze target-specific authoritative sources and all admissible normative/enforcement enumerators.
 5. Freeze U_primary and P_raw before architectural analysis.
 6. Freeze the target-specific KF-0 mechanical known-failure selection rule without opening failure causes.
