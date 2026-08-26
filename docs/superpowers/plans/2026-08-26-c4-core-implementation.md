@@ -134,7 +134,7 @@ w2 = apply(w, Action('equip', 'FlameSword'))
 print(sorted(str(a) for a in legal_actions(w2)))
 "
 ```
-Expected: first line `['enchant'... ` -- no wait, C4 has no `enchant`. Expected first line `['channel', 'equip(FlameSword)']` (no `accept` yet -- still `WoodenSword`); second line (after equipping Flame) `['accept', 'channel', 'equip(WoodenSword)']` -- no `consume` yet (`reward_owned` still `False`).
+Expected: first line `['equip(FlameSword)']` (`channel` requires `equipped == REQUIRED_EQUIPMENT`, not yet true at the initial `WoodenSword` state, so it isn't legal here despite having no other precondition; no `accept` yet either -- still `WoodenSword`); second line (after equipping Flame) `['accept', 'channel', 'equip(WoodenSword)']` -- no `consume` yet (`reward_owned` still `False`).
 
 No commit yet -- committed together with Tasks 2-6 at the end (matches C1's `9ec6249` / C2's `6aab686` / C3's `2441a86` convention).
 
