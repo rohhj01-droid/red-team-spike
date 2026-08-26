@@ -1,6 +1,6 @@
 # Phase 3.5 External-Validation Methodology Design
 
-**Status:** pre-target methodology design. This document defines how Phase 3.5 will select, analyze, classify, and report one external system before any target-specific architectural conclusion is allowed. It does **not** select a target, enumerate target properties, inspect a target's known bugs, or authorize implementation/search work.
+**Status:** pre-target methodology design, with the candidate discovery frame now filled (Section 2) and therefore sealable. This document defines how Phase 3.5 will select, analyze, classify, and report one external system before any target-specific architectural conclusion is allowed. It does **not** select a target, enumerate the frame's contents, inspect a target's known bugs, or authorize implementation/search work.
 
 **Purpose:** break the self-validation loop left by Phase 3's four synthetic cases. C1-C4 were intentionally designed by this project to force specific representation pressures; Phase 3.5 asks what happens when the rules, native state representation, and implementation boundaries were designed by someone else.
 
@@ -120,8 +120,16 @@ Frozen before any candidate is inspected:
   2. exact query or filter applied to it
      literal, reproducible, no post-hoc adjustment
 
-  3. frame snapshot timestamp
-     the point in time at which the query is run
+  3a. frame source revision
+      the immutable revision of the enumeration source that DETERMINES
+      membership. For a fixed release index this is a release tag or
+      equivalent; for a live index, membership is instead determined by
+      3b and this field records "live".
+
+  3b. enumeration execution timestamp
+      when the list was actually generated. This is provenance only
+      wherever 3a already fixes membership, and is membership-
+      determining only for a live index.
 
   4. screening order
      ascending UTF-8 byte order of the identifier the enumeration
@@ -135,14 +143,49 @@ Frozen before any candidate is inspected:
 
 Every result the frozen query returns enters the frame. Candidates are screened **in the frozen screening order** until the frame is exhausted or the screening budget is reached, whichever comes first, and the report states which of the two occurred and how far screening got.
 
-> **UNFILLED — THIS DOCUMENT IS NOT YET SEALABLE.** The five frame
-> values above are specified in form but not in content. Section 15
-> step 1 requires them to be fixed as part of the methodology seal, so
-> until an actual enumeration source, query, timestamp, and budget are
-> written into this section, the document does not satisfy its own
-> preregistration prerequisite. Choosing the enumeration source is a
-> substantive decision about the candidate population, not an editorial
-> one, and is left for explicit approval rather than filled in here.
+#### The sealed frame values
+
+```text
+Enumeration source
+  Official OpenBSD Ports Collection
+
+Frame source revision (membership-determining)
+  the OpenBSD 7.9 ports release snapshot, recorded by its exact
+  release tag at enumeration time; if the actual tag name differs
+  from the expected OPENBSD_7_9_BASE form, the recorded value governs
+
+Enumeration execution timestamp (provenance only)
+  recorded when the list is generated
+
+Query
+  all ports whose OpenBSD-assigned categories include `games`;
+  a port listing several categories qualifies on `games` alone.
+  No additional genre, popularity, activity, language, or
+  maintenance filter of any kind.
+
+Raw-frame membership granularity
+  one frame item per PORT DIRECTORY, flavors and subpackages
+  collapsed. FULLPKGPATH distinguishes flavors of one port
+  (`games/foo` vs `games/foo,-data`), but a flavor is a packaging
+  variant of a single upstream system, and a candidate is an
+  external system. Counting flavors separately would let one
+  upstream project consume several budget slots and repeat in the
+  screening order.
+
+Raw screening order
+  ascending UTF-8 byte-wise order of the port directory path
+
+Screening budget
+  128 frame items
+```
+
+**Frame item to candidate.** A port is packaging metadata and patches; the external system under examination is its **upstream**. Each frame item therefore resolves to a candidate via the port's own recorded upstream pointer, and E1-E4 are judged against that upstream — which is also where E2-REP's canonical source location must exist. Ports whose upstream is a tarball with no stable URL-bearing canonical source location simply fail E2-REP during screening; that is an expected screening outcome, not a frame defect.
+
+**Why a package-repository category, and why this one.** A curated "best open-source games" list would have been assembled by someone selecting for quality, fame, or interest, which plausibly correlates with maturity, documentation quality, and structural cleanliness — all things this study measures. Category membership in a source-building package repository is a far less semantic criterion: roughly "someone ported it" plus "the repository classified it as a game." A code-hosting search was rejected for the opposite reason — its result set is so large that the screening budget would become the de facto sampling mechanism rather than a workload ceiling.
+
+**Frame-choice provenance, recorded because this document demands it of itself.** While comparing enumeration sources, some candidate names from Debian, Flathub, and F-Droid game listings were incidentally seen. Selecting any of those indices afterwards would violate this section's own "sealed before any candidate is seen" rule in appearance even if not in intent. For the OpenBSD Ports Collection, only the category mechanism and the source-building structure were examined; the `games` category membership list was not enumerated or read. That is the operative reason this index was chosen over the others, and it is recorded rather than left implicit.
+
+**The budget is a workload ceiling, not a sample size.** 128 carries no statistical claim; frame membership is not sample inference. It is the screening workload fixed in advance. If no eligible candidate appears within the first 128 items under the frozen order, that is the reported candidate-discovery outcome of this run — looking at the 129th is forbidden.
 
 Nothing about the frame may be adjusted after seeing its results — not the query, not the budget, not the order. If the frame returns nothing eligible, that is the reported outcome of this run; re-framing afterwards would let the first frame's contents inform the second, which is the same free-look problem E5's boundedness rule guards against.
 
@@ -982,7 +1025,7 @@ Because Phase 3.5 creates no project-authored simulator and runs no external sea
 
 The final Phase 3.5 result must include, in the main body:
 
-1. the sealed candidate discovery frame (enumeration source, exact query, frame snapshot timestamp, screening order, screening budget) and whether screening exhausted the frame or hit the budget; target eligibility evidence for E1-E4 plus the post-selection E5 checkpoint result; the recorded primary snapshot revision; the full screened-candidate log (rejections with criterion failed, finalists with ranking step lost); and the pre-sealed deterministic tie-break rule;
+1. the sealed candidate discovery frame (enumeration source, frame source revision as recorded at enumeration, enumeration execution timestamp, exact query, membership granularity, screening order, screening budget) and whether screening exhausted the frame or hit the budget; target eligibility evidence for E1-E4 plus the post-selection E5 checkpoint result; the recorded primary snapshot revision; the full screened-candidate log (rejections with criterion failed, finalists with ranking step lost); and the pre-sealed deterministic tie-break rule;
 2. all admitted normative/enforcement universe sources and enforcement `enforced/asserted` tags;
 3. frozen `P_raw` with raw source provenance, marking any externally-linked units and the observations retained inside them;
 4. `P_resolved / P_raw` and `E? / P_raw` coverage;
@@ -1002,8 +1045,8 @@ No result table may imply prevalence of architectural outcomes from this single 
 ## 15. Order of operations after this methodology is approved
 
 ```text
-1. Seal this methodology before any candidate is seen, including the candidate discovery frame (enumeration source, exact query, frame snapshot timestamp, screening order, screening budget) and the concrete deterministic tie-break rule -- all of Section 2, fixed before any candidate list exists.
-2. Run the frozen query at the frozen timestamp; every result enters the frame. Screen in the frozen screening order until the frame is exhausted or the screening budget is reached, and record which occurred.
+1. Seal this methodology before any candidate is seen, including the candidate discovery frame (enumeration source, frame source revision, exact query, membership granularity, screening order, screening budget) and the concrete deterministic tie-break rule -- all of Section 2, fixed before any candidate list exists.
+2. Run the frozen query against the frozen frame source revision, recording the enumeration execution timestamp as provenance; every result enters the frame. Screen in the frozen screening order until the frame is exhausted or the screening budget is reached, and record which occurred.
 3. Screen candidates against E1-E4 / enumeration admissibility only. E5 is NOT judged here.
 4. For EACH candidate surviving E1-E4, freeze its primary snapshot (exact revision) and then its candidate-level inventory: authoritative sources, admissible enumerators, enforced/asserted tags, and the mechanically enumerated universe. This is mechanical enumeration under already-fixed rules, not analysis.
 5. Rank the eligible candidates by the Section 2 ranking (enumeration completeness class -> deterministic tie-break) and select one; record every screened candidate, including rejections, with the eligibility criterion failed or the ranking step lost -- never an architectural outcome.
