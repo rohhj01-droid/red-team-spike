@@ -25,9 +25,9 @@ given `channel()` was a trustworthy grant, without `channel()` itself
 ever becoming illegitimate (see the dedicated section below -- this is
 the critical distinction this design round exists to nail down).
 
-Three monitor facts, three different recovery semantics -- deliberately,
-so no two facts are reducible to each other by pattern-matching their
-shape alone:
+Three monitor facts with distinct triggers, but only two recovery
+families -- `continuity_broken` and `enchant_broken` are both permanent,
+`buff_source_broken` is channel-resettable:
 
 - `continuity_broken` -- unchanged from C1/C2. Permanent per quest
   attempt, no reset.
@@ -215,18 +215,37 @@ reached through a second, causally distinct pathway.
 
 ## What C3 must demonstrate
 
-**1. The cross-reference is load-bearing, not cosmetic.** Any monitor
-fact is, by definition, some function of the raw action history --
-`qa_reference.py`-style full-history rescans can always reproduce any of
-them without ever materializing intermediate fields. So "can
-`buff_source_broken`'s value be reproduced some other way" is not the
-question (trivially yes, always). The question is representational: does
-correct *incremental* computation of `buff_source_broken` require
-reading `enchant_broken` as a stored sibling field, rather than being
-foldable in isolation the way both C1's and C2's original facts were.
-The `monitor_step` above already answers this by construction -- QA's
-job is to confirm the independent reference agrees, not to re-litigate
-the representation choice.
+**1. The cross-reference is load-bearing, not cosmetic -- proven by a
+constructive indistinguishability pair, not inferred from how
+`monitor_step` happens to be written.** Implementing `monitor_step` with
+a sibling read is not evidence that the read is *necessary* -- that
+would be circular, since we chose to write it that way. The actual proof
+is that two reachable legal histories exist which agree on every input
+any component-wise-independent function of `buff_source_broken` could
+possibly see, and yet require different outputs:
+
+```text
+Hclean:    equip(Flame), enchant
+Htainted:  equip(Flame), enchant, unenchant, enchant
+```
+
+Immediately before a `channel()`, both reach the identical `WorldState`
+(`equipped=Flame, quest_status=NOT_ACCEPTED, has_flame_buff=False,
+enchanted=True`) and the identical prior `buff_source_broken` (`False`
+in both). The only thing that differs between them is `enchant_broken`
+(`False` vs. `True`) -- a sibling field, not `buff_source_broken`'s own
+prior value and not anything in `WorldState`. Executing the same
+`channel()` from both must produce different results
+(`buff_source_broken = False` after `Hclean`, `True` after `Htainted`,
+per the mechanism's intent). Therefore: **no function
+`f(prev_buff_source_broken, prev_world, action, new_world)` -- i.e., no
+component-wise-independent fold -- can get both cases right**, because
+it would receive identical arguments for both and could only ever return
+one answer. The sibling-read in `monitor_step` isn't an implementation
+choice QA merely confirms; it's the only way to pass this pair at all.
+`verify_c3.py` must replay both histories explicitly and assert the
+divergent post-`channel()` values as its own dedicated check, not just
+rely on this falling out of the general closure sweep.
 
 **2. The new pathway is real, not redundant with the old one.** C2's
 existing route to `BUFF_SOURCE_LIFECYCLE_VIOLATION` (grant a buff, then
@@ -264,32 +283,118 @@ minimality of each; the fourth row (new-pathway BUFF witness, with
 `continuity_broken == False` for its entire length) is the one Section
 "What C3 must demonstrate" actually depends on.
 
-## QA (method carried forward from C1/C2, exact mechanics next round)
+## QA (method carried forward from C1/C2, mechanics sealed now -- C3b)
 
-Same two-ordered-steps discipline: **Step 1**, closure equivalence over
-the semantic space, checked against an independent full-history
-reference for all three facts before any dedup, exactly as C1c and C2c
-require. **Step 1b**, a permanent negative control (a `known_bad`
-variant that gets the grant-time capture wrong -- e.g. capturing
-`enchant_broken`'s value *after* processing the channel rather than
-before, or omitting the capture and leaving `buff_source_broken`
-untouched by `channel()` entirely). **Step 2**, per-category minimality,
-now including the pathway-isolation witness above as its own explicit
-check, not folded into the general `BUFF_SOURCE_LIFECYCLE_VIOLATION`
-minimality claim. **Step 3**, the post-claim mutation regression C2c
-added, carried forward unchanged (still applicable -- `claim` is still
-the only judged event).
+Same discipline, four ordered steps:
 
-Left open for the next design round, deliberately not decided here: the
-exact independent-reference formula for `buff_source_broken` (does
-`qa_reference.py` need its own `reference_enchant_broken` that
-`reference_buff_source_broken` calls, or must the two stay fully
-textually independent the way `monitor_step`'s fields do internally --
-this is a real methodological question, not a detail). Resolving it by
-staring at the mechanism in the abstract risks getting it wrong the same
-way the original C2 oracle did; better to draft `qa_reference.py` and let
-an actual closure run surface the real issue, per this project's
-established pattern.
+**Step 1 -- closure equivalence.** Enumerate by semantic closure over
+`(WorldState, reference_continuity, reference_enchant, reference_buff)`
+-- a 4-tuple key, extending C2's 3-tuple by one field. `monitor_step`'s
+incremental output for all three facts is checked against the
+independent references below on every generated transition, before any
+dedup, exactly as C1c/C2c require. Includes the explicit `Hclean`/
+`Htainted` pair check from the previous section as a named, individually
+reported check -- not left to be an incidental byproduct of the general
+sweep.
+
+**Step 1b -- permanent negative control, sealed exactly:**
+
+```python
+def known_bad_monitor_step(prev_world, action, new_world, prev_monitor):
+    """Reverts to C2's exact channel rule -- channel unconditionally
+    cleanses buff_source_broken, ignoring upstream enchant provenance
+    entirely. The precise inverse of C3's new lesson."""
+    continuity_broken = prev_monitor.continuity_broken
+    if new_world.quest_status == "ACTIVE" and new_world.equipped != REQUIRED_EQUIPMENT:
+        continuity_broken = True
+
+    enchant_broken = prev_monitor.enchant_broken
+    if prev_world.enchanted and not new_world.enchanted:
+        enchant_broken = True
+
+    buff_source_broken = prev_monitor.buff_source_broken
+    if action.kind == "channel":
+        buff_source_broken = False   # BUG: ignores prev_monitor.enchant_broken
+    elif prev_world.has_flame_buff and new_world.equipped != REQUIRED_EQUIPMENT:
+        buff_source_broken = True
+
+    return MonitorState(continuity_broken=continuity_broken,
+                         enchant_broken=enchant_broken,
+                         buff_source_broken=buff_source_broken)
+```
+
+The earlier draft candidate (capture `enchant_broken` *after* processing
+the channel instead of before) is rejected -- `channel()` never changes
+`enchanted`, so `prev_monitor.enchant_broken == new_monitor.enchant_broken`
+always holds at a channel transition, meaning that candidate could never
+produce a mismatch and would silently pass as a vacuous, non-sensitive
+check. The candidate above is real: run against `Htainted` above, it
+returns `buff_source_broken=False` where the reference requires `True`.
+Contract, sealed before either monitor runs: production `monitor_step`
+passes Step 1 with zero mismatches; `known_bad_monitor_step`, run
+through the identical closure procedure, must produce at least one.
+Exact count unsealed, reported as a result.
+
+**Step 1c -- independent full-history references, sealed exactly.**
+`reference_buff_source_broken` does not call `reference_enchant_broken`
+as a subroutine (would reintroduce a shared-implementation risk between
+the two independence checks) and does not mirror `monitor_step`'s
+single-pass incremental fold (would just be the same computation
+restated, not an independent one) -- it locates the last `channel` by a
+plain scan, then checks the two sides of it via separate replays:
+
+```python
+def reference_enchant_broken(history):
+    world = initial_world()
+    broken = False
+    for action in history:
+        prev_enchanted = world.enchanted
+        world = apply(world, action)
+        if prev_enchanted and not world.enchanted:
+            broken = True
+    return broken
+
+
+def reference_buff_source_broken(history):
+    last_channel_index = None
+    for i, action in enumerate(history):
+        if action.kind == "channel":
+            last_channel_index = i
+    if last_channel_index is None:
+        return False
+
+    # Was the source already tainted before this grant?
+    world = initial_world()
+    tainted_at_grant = False
+    for action in history[:last_channel_index]:
+        prev_enchanted = world.enchanted
+        world = apply(world, action)
+        if prev_enchanted and not world.enchanted:
+            tainted_at_grant = True
+
+    # Did equipment leave REQUIRED_EQUIPMENT at any point after the grant?
+    world = initial_world()
+    for action in history[:last_channel_index + 1]:
+        world = apply(world, action)
+    broken_after_grant = False
+    for action in history[last_channel_index + 1:]:
+        world = apply(world, action)
+        if world.equipped != REQUIRED_EQUIPMENT:
+            broken_after_grant = True
+
+    return tainted_at_grant or broken_after_grant
+```
+
+`reference_continuity_broken` is unchanged from C1/C2.
+
+**Step 2 -- per-category minimality**, now including the pathway-
+isolation witness (Candidate table, row 4) as its own explicit check,
+not folded into the general `BUFF_SOURCE_LIFECYCLE_VIOLATION` claim --
+per "What C3 must demonstrate" #2, both the new and old pathways need
+their own confirmed-minimal witness.
+
+**Step 3 -- post-claim mutation regression**, carried forward unchanged
+from C2c (still applicable -- `claim` is still the only judged event).
 
 ## Non-goals for C3
 
