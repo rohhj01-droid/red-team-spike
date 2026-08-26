@@ -68,12 +68,20 @@ Evidence roles are deliberately non-flat:
 
 ```text
 primary snapshot = the state of the designated canonical source
-location at the sealed snapshot timestamp, taken from the project's
-own default development branch (not a release channel), and
-recorded as a full commit hash.
+location at the ENUMERATION EXECUTION TIMESTAMP (Section 2's frame
+field 3b -- no separate time axis is introduced), taken from the
+project's own default development branch (not a release channel):
+
+  repository candidate
+    the commit the default branch pointed at that instant,
+    recorded as a full commit hash
+
+  distribution candidate
+    the externally designated canonical artifact at that instant,
+    recorded by content hash
 ```
 
-Two ambiguities are closed deliberately. **Default branch, not release:** a project offering both would otherwise leave the choice open, and the default branch is the one revision every such project has. **Commit hash, not tag or version:** tags and release labels can be moved or re-cut, so they are not immutable identifiers; only the hash pins the state that was actually analyzed. If the canonical source location is a distribution rather than a repository and exposes no commit hash, record the distribution artifact's own content hash instead.
+Three ambiguities are closed deliberately. **Default branch, not release:** a project offering both would otherwise leave the choice open, and the default branch is the one revision every such project has. **Hash, not tag or version:** tags and release labels can be moved or re-cut, so they are not immutable identifiers; only the hash pins the state that was actually analyzed — the same rule Section 2 applies to the frame's own source revision. **The enumeration execution timestamp, not a new one:** an earlier draft referred to a "sealed snapshot timestamp" that no longer exists as a field, which left the snapshot moment undefined; reusing the frame's execution timestamp fixes it without adding a second time axis to keep consistent.
 
 Every later step — inventory, `U_primary`, `P_raw`, information-flow tracing, all three frozen artifacts — is defined against that one recorded revision. The KF lane's `affected version` may differ from it; where it does, that mismatch is recorded as a cross-lane condition on the challenge result rather than silently resolved by re-analyzing at another revision.
 
@@ -121,10 +129,13 @@ Frozen before any candidate is inspected:
      literal, reproducible, no post-hoc adjustment
 
   3a. frame source revision
-      the immutable revision of the enumeration source that DETERMINES
-      membership. For a fixed release index this is a release tag or
-      equivalent; for a live index, membership is instead determined by
-      3b and this field records "live".
+      the revision of the enumeration source that DETERMINES
+      membership, identified by CONTENT HASH, not by label. A release
+      tag or version name is recorded as provenance only, for the same
+      reason the primary-snapshot rule refuses them: tags and release
+      labels can be moved or re-cut, so they do not pin the bytes that
+      were actually enumerated. For a live index, membership is instead
+      determined by 3b and this field records "live".
 
   3b. enumeration execution timestamp
       when the list was actually generated. This is provenance only
@@ -147,15 +158,21 @@ Every result the frozen query returns enters the frame. Candidates are screened 
 
 ```text
 Enumeration source
-  Official OpenBSD Ports Collection
+  the official OpenBSD 7.9 `ports.tar.gz` release artifact
 
 Frame source revision (membership-determining)
-  the OpenBSD 7.9 ports release snapshot, recorded by its exact
-  release tag at enumeration time; if the actual tag name differs
-  from the expected OPENBSD_7_9_BASE form, the recorded value governs
+  the content hash of that exact artifact, computed and recorded
+  BEFORE enumeration. Membership identity rests on the hash, never
+  on a label.
 
-Enumeration execution timestamp (provenance only)
-  recorded when the list is generated
+Release label (provenance only)
+  the OpenBSD 7.9 release designation and, if present, its ports
+  tag name -- recorded for traceability, not relied on for identity
+
+Enumeration execution timestamp
+  recorded when the list is generated; provenance for the frame,
+  and additionally the fixed point in time at which each candidate's
+  primary snapshot is taken (see E2-REP)
 
 Query
   all ports whose OpenBSD-assigned categories include `games`;
@@ -179,7 +196,36 @@ Screening budget
   128 frame items
 ```
 
-**Frame item to candidate.** A port is packaging metadata and patches; the external system under examination is its **upstream**. Each frame item therefore resolves to a candidate via the port's own recorded upstream pointer, and E1-E4 are judged against that upstream — which is also where E2-REP's canonical source location must exist. Ports whose upstream is a tarball with no stable URL-bearing canonical source location simply fail E2-REP during screening; that is an expected screening outcome, not a frame defect.
+**Frame item to candidate: upstream-resolution screening.** A port is packaging metadata and patches; the external system under examination is its **upstream**. But OpenBSD has no single guaranteed upstream field — `HOMEPAGE` is populated only where applicable, and fetching may go through distfile sites, mirrors, or hosting-specific metadata. An analyst reading several plausible URLs and picking "the real upstream" would reinsert discretion directly into candidate identity, at the one place the whole frame exists to remove it. Therefore:
+
+```text
+The frozen port metadata identifies exactly one upstream system
+unambiguously
+    → the frame item resolves to that candidate;
+      E1-E4 are judged against the UPSTREAM, which is also where
+      E2-REP's canonical source location must exist
+
+It does not
+    → the frame item FAILS upstream-resolution screening
+      and is recorded as such
+
+The analyst never selects among several plausible upstreams.
+```
+
+Failing upstream resolution — like failing E2-REP because the upstream is a tarball with no stable URL-bearing canonical source location — is an ordinary screening outcome, not a frame defect.
+
+**Two frame items, one upstream.** Distinct port directories can package the same external system:
+
+```text
+several frame items resolve to the same externally identified upstream
+    → ONE candidate after identity resolution
+      (the same project must not enter ranking twice)
+
+    → but every original frame item stays in the screening log,
+      and each already consumed its screening-budget slot
+```
+
+Collapsing them for ranking prevents one project from occupying several ranking positions; refusing to refund their budget slots prevents the sealed frame accounting from being quietly reduced after the fact.
 
 **Why a package-repository category, and why this one.** A curated "best open-source games" list would have been assembled by someone selecting for quality, fame, or interest, which plausibly correlates with maturity, documentation quality, and structural cleanliness — all things this study measures. Category membership in a source-building package repository is a far less semantic criterion: roughly "someone ported it" plus "the repository classified it as a game." A code-hosting search was rejected for the opposite reason — its result set is so large that the screening budget would become the de facto sampling mechanism rather than a workload ceiling.
 
@@ -393,7 +439,7 @@ Primary slice (= primary counting unit)
 P_raw = number of preregistered primary counting units
 ```
 
-**The sufficiency gate, `E?`, and coverage all apply at the counting-unit level.** Inside a linked unit, both source observations are retained and their agreement or divergence is reported as a finding of that unit; recovering the unit's native information flow may draw on the evidence attached to any of its observations.
+**Sufficiency is evaluated per native case; `E?` and coverage are assigned per counting unit, by conjunction over that unit's native cases** (Sections 5.2 and 6). Inside a linked unit, both source observations are retained and their agreement or divergence is reported as a finding of that unit; recovering the unit's native information flow may draw on the evidence attached to any of its observations.
 
 Atomicity of the source observations themselves is never inferred semantically by this project. Each source is segmented at the finest level that the source itself explicitly exposes.
 
@@ -487,8 +533,8 @@ C = number of distinct native information-flow / architectural cases
 If two counting units later map to the same native case, report both:
 
 ```text
-native cases carrying an F3 finding = 2
-distinct F3 architectural cases = 1
+counting units linked to that F3 native case = 2
+native cases carrying an F3 finding = 1
 ```
 
 No prevalence inference is permitted from either count.
@@ -713,7 +759,7 @@ E? / P_raw
 
 and list E? slices with reasons in the main results, not only an appendix.
 
-Every architectural claim must be scoped to the evidence actually resolved, e.g. `among the X/Y preregistered primary counting units whose native information flow was recoverable...`.
+Every architectural claim must be scoped to the evidence actually resolved, e.g. `among the native cases recovered from the X/Y preregistered primary counting units that passed the sufficiency gate...`.
 
 ### 8.3 Counterexample found
 
