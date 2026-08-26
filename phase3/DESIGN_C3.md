@@ -264,7 +264,10 @@ confirm two witnesses, not one:
 If only one of the two is reachable, the "chain" claim is weaker than
 intended -- either the new pathway doesn't actually work, or it turned
 out to be the only way left to reach that category, which would itself
-be worth reporting honestly rather than smoothing over.
+be worth reporting honestly rather than smoothing over. Executable
+predicate for "purely through" each pathway: `classify_pathway`, sealed
+in the QA section below -- not left as prose here for the BFS to
+approximate.
 
 ## Candidate witnesses (hand-derived, not asserted as proven)
 
@@ -387,11 +390,59 @@ def reference_buff_source_broken(history):
 
 `reference_continuity_broken` is unchanged from C1/C2.
 
-**Step 2 -- per-category minimality**, now including the pathway-
-isolation witness (Candidate table, row 4) as its own explicit check,
-not folded into the general `BUFF_SOURCE_LIFECYCLE_VIOLATION` claim --
-per "What C3 must demonstrate" #2, both the new and old pathways need
-their own confirmed-minimal witness.
+**Step 2 -- minimality, two kinds.** C2's three category claims
+(`EQUIPMENT_CONTINUITY_VIOLATION` / `BUFF_SOURCE_LIFECYCLE_VIOLATION` /
+`BOTH`, unchanged), **plus** two pathway-constrained claims specific to
+"What C3 must demonstrate" #2 -- and those need an executable predicate,
+not just prose, or the BFS has nothing to check against:
+
+```python
+def classify_pathway(path):
+    """Only ever called when classify_claim(path's claim, ...) already
+    returned "BUFF_SOURCE_LIFECYCLE_VIOLATION" -- that precondition is
+    what pins continuity_broken == False (classify_claim cannot return
+    this category otherwise); restated here as a gate, not re-derived,
+    since the pathway predicate itself never inspects continuity_broken."""
+    last_channel_index = None
+    for i, action in enumerate(path):
+        if action.kind == "channel":
+            last_channel_index = i
+    if last_channel_index is None:
+        return None
+
+    world, monitor = initial_world(), initial_monitor()
+    for action in path[:last_channel_index + 1]:
+        new_world = apply(world, action)
+        monitor = monitor_step(world, action, new_world, monitor)
+        world = new_world
+    tainted_at_grant = monitor.buff_source_broken  # == enchant_broken at that instant, by the capture rule
+
+    broken_after_grant = False
+    for action in path[last_channel_index + 1:]:
+        world = apply(world, action)
+        if world.equipped != REQUIRED_EQUIPMENT:
+            broken_after_grant = True
+
+    if tainted_at_grant and not broken_after_grant:
+        return "NEW_CHAIN_PATHWAY"
+    if not tainted_at_grant and broken_after_grant:
+        return "OLD_EQUIPMENT_SOURCE_PATHWAY"
+    return None   # both causes present, or (contradiction if gated correctly) neither
+```
+
+`NEW_CHAIN_PATHWAY` and `OLD_EQUIPMENT_SOURCE_PATHWAY` are mutually
+exclusive by construction (`tainted_at_grant` can't be both `True` and
+`False`). A witness with both causes present is deliberately left
+unnamed by this predicate -- proving each isolated cause is independently
+sufficient doesn't require classifying every combination.
+
+Five minimality claims total for C3, all exhaustive to the same depth
+bound used for the category claims: `EQUIPMENT_CONTINUITY_VIOLATION`,
+`BUFF_SOURCE_LIFECYCLE_VIOLATION` (global, either pathway),
+`NEW_CHAIN_PATHWAY`, `OLD_EQUIPMENT_SOURCE_PATHWAY`, `BOTH` -- confirming
+no shorter `claim` transition reaches each, and that the corresponding
+candidate witness does (row 3 of the table for `OLD_EQUIPMENT_SOURCE_PATHWAY`,
+row 4 for `NEW_CHAIN_PATHWAY`).
 
 **Step 3 -- post-claim mutation regression**, carried forward unchanged
 from C2c (still applicable -- `claim` is still the only judged event).
