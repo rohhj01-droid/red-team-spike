@@ -12,17 +12,31 @@ depends on an **earlier** violation event's own verdict.
 
 ## C4 mechanism (sealed)
 
-**Base: C2, unchanged, not C3.** `WorldState` (`equipped`, `quest_status`,
-`has_flame_buff`), `MonitorState` (`continuity_broken`,
-`buff_source_broken`), `claim()`'s single fault, and `classify_claim`
-are reused byte-for-byte from C2c -- C3's Enchantment chain is
-deliberately not carried forward. C3 already tested "does property
-provenance need to be chained" (RESULTS_C3.md, RQ-A1); stacking that
-same axis under C4 would make any C4 failure ambiguous between two
-causes (chained property provenance vs. event-verdict persistence) --
-exactly the attribution risk this project has avoided at every prior
-choice point (C3's own A/B framing, C3's B/B' framing). C4 moves exactly
-one new axis, built on the simplest base that's already fully verified.
+**Base: C2, not C3 -- reused unchanged where "unchanged" actually
+applies, extended precisely where C4's new axis requires it.**
+
+```text
+Reused unchanged from C2c:
+- equipment / quest / buff WorldState fields and their legality
+- MonitorState / monitor_step
+- classify_claim
+
+Added by C4 (nothing above this line moved):
+- WorldState.reward_owned
+- claim's additive reward_owned=True effect (fires after the existing,
+  unchanged claim precondition-check; the check itself didn't move)
+- consume (new action)
+- EventProvenanceState (new)
+```
+
+C3's Enchantment chain is deliberately not carried forward. C3 already
+tested "does property provenance need to be chained" (RESULTS_C3.md,
+RQ-A1); stacking that same axis under C4 would make any C4 failure
+ambiguous between two causes (chained property provenance vs.
+event-verdict persistence) -- exactly the attribution risk this project
+has avoided at every prior choice point (C3's own A/B framing, C3's
+B/B' framing). C4 moves exactly one new axis, built on the simplest
+base that's already fully verified.
 
 **New: a second violation event, `consume`, whose legitimacy depends on
 the frozen verdict of the one `claim` event that can ever occur.**
@@ -135,8 +149,13 @@ avoid. **This is not the only logically possible implementation -- it is
 the one that preserves the sealed C2 boundaries while moving exactly one
 new axis.**
 
-**Adopted: a fourth, distinct state bucket**, computed strictly after
-both `monitor_step` and `classify_claim`, never before:
+**Adopted: a third persistent state bucket** (`WorldState`,
+`MonitorState`, `EventProvenanceState` -- `violation events` was never a
+stored bucket in C1-C3, only a transition-local computation, so this is
+C4's fourth *architectural component*, counting `RESULTS_C2.md`'s
+`world dynamics / property dynamics / violation events` alongside it,
+but its third literal data bucket), computed strictly after both
+`monitor_step` and `classify_claim`, never before:
 
 ```text
 prev_world, prev_monitor, prev_provenance
@@ -266,20 +285,35 @@ if it weren't.
 
 `claim`'s own three C2 categories (`EQUIPMENT_CONTINUITY_VIOLATION` /
 `BUFF_SOURCE_LIFECYCLE_VIOLATION` / `BOTH`, all still real, judged,
-recorded events) are not re-tabulated here -- their reachability and
-minimality are C2's already-sealed result, inherited unchanged since
-`claim()` itself didn't change. QA re-confirms they still hold under
-C4's engine (sanity check that adding `reward_owned`/`consume` didn't
-accidentally perturb them), not as new research content.
+recorded events) are not re-tabulated here. `claim`'s legality and every
+input `classify_claim` reads are unchanged; the new `reward_owned=True`
+effect fires only *after* the claim transition is already decided, so it
+cannot influence that decision. C2's witnesses for these three
+categories should therefore still be exactly reachable and minimal
+under C4's engine -- QA re-checks this as regression evidence (did
+adding `reward_owned`/`consume` accidentally perturb something it
+shouldn't have), not as new research content.
 
 ## QA (method carried forward, mechanics sealed as far as this round supports)
 
-**Step 1 -- closure equivalence**, extended to the 3-tuple
-`(WorldState, MonitorState, EventProvenanceState)` -- dedup/pruning key
-`(WorldState, ref_continuity, ref_buff, ref_provenance)`. `monitor_step`
-checked against `reference_continuity_broken`/`reference_buff_source_broken`
-(both unchanged from C2c) exactly as before; `event_provenance_step`
-checked against a new reference:
+**Step 1 -- closure equivalence, four independent comparisons per
+transition, sealed exactly (not deferred).** One closure sweep. For
+every transition the sweep generates:
+
+```python
+new_world = apply(prev_world, action)
+new_monitor = monitor_step(prev_world, action, new_world, prev_monitor)
+claim_verdict = classify_claim(action, prev_monitor)
+consume_verdict = classify_consume(action, prev_provenance)
+new_provenance = event_provenance_step(action, claim_verdict, prev_provenance)
+new_history = prev_history + [action]
+
+ref_continuity = reference_continuity_broken(new_history)
+ref_buff = reference_buff_source_broken(new_history)
+ref_provenance = reference_reward_provenance_tainted(new_history)
+ref_claim_verdict = reference_classify_claim(prev_history, action)
+ref_consume_verdict = reference_classify_consume(prev_history, action)
+```
 
 ```python
 def reference_reward_provenance_tainted(history):
@@ -292,18 +326,60 @@ def reference_reward_provenance_tainted(history):
         return False
     prefix = history[:claim_index]
     return reference_continuity_broken(prefix) or reference_buff_source_broken(prefix)
+
+def reference_classify_claim(history_before, action):
+    if action.kind != "claim":
+        return None
+    eq = reference_continuity_broken(history_before)
+    buf = reference_buff_source_broken(history_before)
+    if eq and buf:
+        return "BOTH"
+    if eq:
+        return "EQUIPMENT_CONTINUITY_VIOLATION"
+    if buf:
+        return "BUFF_SOURCE_LIFECYCLE_VIOLATION"
+    return None
+
+def reference_classify_consume(history_before, action):
+    if action.kind != "consume":
+        return None
+    if reference_reward_provenance_tainted(history_before):
+        return "TAINTED_REWARD_CONSUMPTION"
+    return None
 ```
 
-Independent of `event_provenance_step`'s incremental fold and of
-`classify_claim` -- re-derives claim legitimacy directly from reference
-property facts on the history prefix, the same "don't call the
+`reference_classify_claim`/`reference_classify_consume` are new: C4 is
+the first case where the *oracle itself*, not just the monitor fold
+beneath it, gets an independent reference -- because C4's actual
+research content is downstream event judgment, checking only the
+property facts underneath it would leave the most important layer
+unverified. Neither calls `classify_claim`/`classify_consume`/
+`event_provenance_step` -- both re-derive from reference property
+functions on `history_before` directly, the same "don't call the
 production pipeline" discipline as C3's `reference_buff_source_broken`.
-Includes Witnesses P and Q from the previous section as named, explicitly
-reported checks, not left to fall out of the general sweep.
 
-**Step 1b -- negative control**, sealed at the oracle layer rather than
-the monitor layer for the first time (C4's boundary under test is
-`classify_consume`'s input source, not a `monitor_step` fold):
+**Four separate comparisons, four separate mismatch counters -- never
+one combined pass/fail**, so a mismatch in one can never be masked by
+another passing:
+
+1. `(new_monitor.continuity_broken, new_monitor.buff_source_broken) == (ref_continuity, ref_buff)`
+2. `new_provenance.reward_provenance_tainted == ref_provenance`
+3. `claim_verdict == ref_claim_verdict`
+4. `consume_verdict == ref_consume_verdict`
+
+**Dedup/pruning key for closure traversal:** `(new_world, ref_continuity,
+ref_buff, ref_provenance)` -- reference-derived, never production-derived,
+same discipline as C1-C3 (canonical closure identity must not depend on
+whatever production happens to compute, including when production is
+wrong). Includes Witnesses P and Q as named, explicitly reported checks
+inside this sweep, not left to fall out of it by chance.
+
+**Step 1b -- negative control, run through the identical sweep,
+two-directional, sealed exactly.** `known_bad_classify_consume`
+substituted for `classify_consume` in the same closure procedure --
+`comparison 4` above becomes `known_bad_classify_consume(action,
+prev_monitor) == ref_consume_verdict`, tracked with two separate
+counters rather than one:
 
 ```python
 def known_bad_classify_consume(action, prev_monitor):
@@ -318,13 +394,19 @@ def known_bad_classify_consume(action, prev_monitor):
     return None
 ```
 
-Run against Witness P: returns `TAINTED_REWARD_CONSUMPTION` where the
-reference says legitimate (false positive). Run against Witness Q:
-returns `None` where the reference says tainted (false negative). A
-single negative control producing mismatches in both directions from
-the two witnesses already required by Section "What C4 must
-demonstrate" -- stronger sensitivity evidence than C2's or C3's
-negative controls, which only had to fail in one direction.
+- `false_positive_count`: known_bad returns `"TAINTED_REWARD_CONSUMPTION"`
+  where the reference says legitimate.
+- `false_negative_count`: known_bad returns `None` where the reference
+  says tainted.
+
+**Requirement, sealed before either classifier runs:** production's four
+comparisons all reach 0 mismatches; `known_bad_classify_consume`'s
+substitution produces `false_positive_count >= 1` **and**
+`false_negative_count >= 1` -- both directions required, not just one,
+since Witnesses P and Q were specifically constructed to force each
+independently. Witness P's `consume` transition must appear among the
+false positives; Witness Q's must appear among the false negatives --
+checked as named assertions, not inferred from a nonzero total.
 
 **Step 2 -- minimality**, for `TAINTED_REWARD_CONSUMPTION` (the actual
 search target) plus a reachability sanity check for legitimate consume;
@@ -335,14 +417,6 @@ not a new claim.
 from C2c, but the interesting instance now *is* Witnesses P and Q --
 they already are the "does a later thing get confused by ambient drift"
 check, at the event level rather than the state level.
-
-**Left for closer scrutiny when `verify_c4.py` is actually drafted,**
-per this project's established pattern (C2's oracle bug and C3's
-negative-control/reference fixes were both caught at exactly this
-stage, not before): the precise closure-traversal restructuring needed
-to check two oracle functions (`classify_claim`, `classify_consume`)
-against one reference-key tuple without accidentally letting one
-mask the other's mismatches.
 
 ## Non-goals for C4
 
