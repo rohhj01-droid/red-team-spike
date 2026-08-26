@@ -35,7 +35,7 @@ This follows the same discipline used earlier when a frozen search policy failed
 
 Phase 3.5 is a single-target external-validation case, not a population survey. Candidate scarcity is acceptable if it buys cleaner falsification.
 
-A candidate must satisfy all of the following.
+Eligibility requires **E1-E4**. E5 is listed with them for readability but is **not** an eligibility gate: it is a post-selection checkpoint, for the reasons given in its own section.
 
 ### E1 — External authorship
 
@@ -69,9 +69,11 @@ Evidence roles are deliberately non-flat:
 ```text
 primary snapshot = the state of the designated canonical source
 location at the sealed snapshot timestamp, taken from the project's
-own default/release channel, recorded as an exact immutable
-revision identifier (commit hash, tag, or release version).
+own default development branch (not a release channel), and
+recorded as a full commit hash.
 ```
+
+Two ambiguities are closed deliberately. **Default branch, not release:** a project offering both would otherwise leave the choice open, and the default branch is the one revision every such project has. **Commit hash, not tag or version:** tags and release labels can be moved or re-cut, so they are not immutable identifiers; only the hash pins the state that was actually analyzed. If the canonical source location is a distribution rather than a repository and exposes no commit hash, record the distribution artifact's own content hash instead.
 
 Every later step — inventory, `U_primary`, `P_raw`, information-flow tracing, all three frozen artifacts — is defined against that one recorded revision. The KF lane's `affected version` may differ from it; where it does, that mismatch is recorded as a cross-lane condition on the challenge result rather than silently resolved by re-analyzing at another revision.
 
@@ -122,13 +124,25 @@ Frozen before any candidate is inspected:
      the point in time at which the query is run
 
   4. screening order
-     the Section 2 tie-break key, applied to the frame's results
+     ascending UTF-8 byte order of the identifier the enumeration
+     source itself returns for each result
 
   5. screening budget
      a number fixed now, not after seeing how many results returned
 ```
 
+**The frame's ordering key is not the Section 2 tie-break key.** The tie-break key is `(canonical source-location URL, external target identifier)`, and both components are guaranteed only by E2-REP — that is, only for candidates that have already been screened. Ordering the *unscreened* frame by it would require knowing eligibility before screening, and screening in an order that requires screening. The frame is therefore ordered by whatever identifier the enumeration source itself attaches to every result it returns (a catalog entry ID, a `owner/name` pair, a list position), which exists for every frame item by construction. Two keys, two stages, each total over its own set.
+
 Every result the frozen query returns enters the frame. Candidates are screened **in the frozen screening order** until the frame is exhausted or the screening budget is reached, whichever comes first, and the report states which of the two occurred and how far screening got.
+
+> **UNFILLED — THIS DOCUMENT IS NOT YET SEALABLE.** The five frame
+> values above are specified in form but not in content. Section 15
+> step 1 requires them to be fixed as part of the methodology seal, so
+> until an actual enumeration source, query, timestamp, and budget are
+> written into this section, the document does not satisfy its own
+> preregistration prerequisite. Choosing the enumeration source is a
+> substantive decision about the candidate population, not an editorial
+> one, and is left for explicit approval rather than filled in here.
 
 Nothing about the frame may be adjusted after seeing its results — not the query, not the budget, not the order. If the frame returns nothing eligible, that is the reported outcome of this run; re-framing afterwards would let the first frame's contents inform the second, which is the same free-look problem E5's boundedness rule guards against.
 
@@ -189,11 +203,12 @@ class A outranks class B; within a class this criterion is a tie.
 
    Class A's first conjunct is not redundant. A candidate may satisfy E4 from `U_normative` alone and admit **no** enforcement enumerator; "every admitted enumerator is `enforced`" would then be vacuously true over the empty set and would promote a normative-only candidate to class A, which is the opposite of the intent. A normative-only candidate has no complete-by-construction enforcement evidence at all, so it belongs in class B alongside `asserted` candidates, and the choice between them falls to the tie-break rather than to a new discretionary comparison.
 
-2. **Deterministic tie-break, sealed here rather than by example.** Order the tied candidates by their **normalized canonical repository URL**, ascending, comparing the byte sequences of its UTF-8 encoding; select the first.
+2. **Deterministic tie-break, sealed here rather than by example.** Order the tied candidates by their **normalized canonical source-location URL**, ascending, comparing the byte sequences of its UTF-8 encoding; select the first.
 
 ```text
-normalized canonical repository URL =
-  the HTTPS form of the primary source repository that the
+normalized canonical source-location URL =
+  the HTTPS form of the canonical source location (repository or
+  source distribution) that the
   external project itself designates, with:
     scheme and host lowercased
     no credentials, query, or fragment
@@ -212,9 +227,9 @@ compared componentwise, each ascending by UTF-8 byte sequence
 
    **Both components are guaranteed by eligibility, not assumed.** An earlier draft justified the second component by appeal to E4, which requires the *universe* to be externally delimited but does not by itself guarantee a single external *name* for the target — the totality argument rested on a premise the document did not actually state. E2-REP now requires exactly one URL-bearing designated canonical source location (first component) **and** exactly one external target identifier (second component), so both exist and are single-valued for every eligible candidate.
 
-   The ordering is then total over the eligible set: if two candidates tie on **both** components, they carry the same external source location and the same external identifier, which means they are the same externally delimited system — one candidate, not two. The rule is fixed at seal time precisely because choosing between ascending and descending, or between repository name and URL, after seeing the candidate list would itself be a selection.
+   The ordering is then total over the eligible set: if two candidates tie on **both** components, they carry the same external source location and the same external identifier, which means they are the same externally delimited system — one candidate, not two. The rule is fixed at seal time precisely because choosing between ascending and descending, or between a project's name and its source-location URL, after seeing the candidate list would itself be a selection.
 
-**No traceability ranking step is used.** An earlier draft ranked eligible candidates by how directly their evidence supported tracing every unit. That is dropped for two reasons: it was qualitative and never operationalized, and judging it would require inspecting candidate implementations more deeply than the candidate-screening firewall permits — the ranking step would itself breach the firewall it sits behind. E5 already gates exhaustive traceability as pass/fail; among candidates that pass it, no further traceability comparison is made.
+**No traceability ranking step is used.** An earlier draft ranked eligible candidates by how directly their evidence supported tracing every unit. That is dropped for two reasons: it was qualitative and never operationalized, and judging it would require inspecting candidate implementations more deeply than the candidate-screening firewall permits — the ranking step would itself breach the firewall it sits behind. That same firewall conflict is why E5 is no longer an eligibility gate either: traceability is assessed once, against the single selected target's frozen `U_primary`, and never as a comparison across candidates.
 
 **`P_raw` size is excluded as a ranking criterion in both directions.** A small universe is easier to analyze but offers fewer chances to observe a counterexample; a large universe makes `U == 0` nearly unreachable and therefore makes an absence claim easy to avoid committing to. Either direction lets a preference about the result enter target selection.
 
@@ -240,14 +255,13 @@ Known bugs do not contribute to `U_primary`.
 
 ### 3.1 U_normative — externally stated validity observations
 
-`U_normative` contains atomic observations emitted by project-owned or project-designated authoritative rule sources that explicitly state validity requirements.
+`U_normative` contains atomic observations emitted by rule sources the external project has **explicitly designated as authoritative**, and that explicitly state validity requirements.
 
 Source selection rules:
 
 - **Only sources the external project explicitly designates as authoritative for its rules are admissible.** Project ownership alone is not sufficient: a README, a manual, test files, docstrings, and design notes can all be project-owned while disagreeing with each other, and "which project-owned text states the rules" would then be our judgment — a judgment that determines sources, hence observations, hence `P_raw`. An earlier draft said only to *prefer* the self-designated canonical source, which left open whether other project-owned material could also be admitted.
 - If the project designates **no** authoritative rule source, the normative route is simply unavailable for that candidate; it must then satisfy E4 through `U_enforced` alone, or fail E4. We do not promote a project-owned source to authoritative on its behalf.
 - If multiple designated authoritative sources exist, take their union rather than choosing the cleaner or smaller one.
-- A source is admissible to `U_normative` only if it is **project-owned** or **explicitly project-designated**. There is no third route.
 
 An earlier draft allowed a third-party source to qualify by satisfying "the target-specific authority rule frozen before analysis." That escape hatch is removed: no such rule is defined anywhere in this document, and letting us author one after seeing a target would reopen universe selection at its root — authority determines sources, sources determine observations, observations and cross-links determine `P_raw`. Third-party material may be used as **supporting evidence** during analysis, but never as primary-universe membership. Phase 3.5 needs exactly one target, so declining to adjudicate third-party authority costs little and closes a large hole.
 
@@ -293,7 +307,7 @@ a hedged description
     → NOT ADMISSIBLE (asserts no closure at all)
 ```
 
-These three outcomes are exhaustive for EN5: a basis either closes the set operationally, claims closure of the current state unconditionally, or does neither. Section 3.3's `enforced`/`asserted` tag follows directly from which of the first two applies, rather than being assigned separately.
+These cases are exhaustive for EN5: a closure basis either closes the set operationally (admissible, `enforced`), claims closure of the current state unconditionally (admissible, `asserted`), or does neither — the last covering both aspirational policy and hedged description, which fail for different reasons but fail alike. Section 3.3's `enforced`/`asserted` tag follows directly from which admissible case applies, rather than being assigned separately.
 
 #### EN6 — outcome independence
 
@@ -430,7 +444,7 @@ C = number of distinct native information-flow / architectural cases
 If two counting units later map to the same native case, report both:
 
 ```text
-counting units classified F3 = 2
+native cases carrying an F3 finding = 2
 distinct F3 architectural cases = 1
 ```
 
@@ -470,7 +484,7 @@ A counting unit is `P_resolved` only if **every** native case it resolves into p
 
 ## 6. Evidence-sufficiency gate
 
-Architectural classification is allowed only after the native information flow for the slice is recoverable with enough evidence to answer, in native terminology:
+Architectural classification of a **native case** is allowed only after that case's native information flow is recoverable with enough evidence to answer, in native terminology (and a **counting unit** is `P_resolved` only when every native case it resolves into clears this gate):
 
 1. What value/fact is created?
 2. Where is it written or updated?
@@ -484,7 +498,7 @@ Module/file boundaries are not architectural evidence by themselves. A 3,000-lin
 
 The sufficiency gate is the only thing separating `E?` from a resolved case, and `E?` is expensive: it blocks absence claims (Section 8.4) while producing no architectural finding of its own. That creates a standing incentive to declare sufficiency too readily — the one judgment in this protocol with a built-in directional pull and, as originally written, no constraint on it.
 
-Therefore each resolved counting unit must record, for each of questions 1-5 above, the **specific located native evidence** answering it (file/symbol/schema/document reference).
+Therefore each native case must record, for each of questions 1-5 above, the **specific located native evidence** answering it (file/symbol/schema/document reference); a counting unit's sufficiency is the conjunction over its cases.
 
 Inference is not the thing being banned. Reading that one function sets a flag and another reads it, and concluding that the flag's lifetime spans those two transitions, is inference — and essentially all source-level analysis is of that kind. What is banned is inference that cannot be traced back to located evidence:
 
@@ -611,7 +625,7 @@ The native flow is sufficiently observed, but competing representations fit equa
 
 F0 is **not** evidence insufficiency. It means we looked successfully and the system does not identify the boundary question.
 
-The allowed claim is target-local: this unit does not establish that the Phase 3 boundary is necessary. Do not automatically upgrade one F0 result into a universal statement that the architecture is case-dependent.
+The allowed claim is target-local: this native case does not establish that the Phase 3 boundary is necessary. Do not automatically upgrade one F0 result into a universal statement that the architecture is case-dependent.
 
 ### F1 — component collapse
 
@@ -660,7 +674,7 @@ Every architectural claim must be scoped to the evidence actually resolved, e.g.
 
 ### 8.3 Counterexample found
 
-If any primary slice passes sufficiency and yields F1/F2/F3, the counterexample remains informative regardless of how many other slices are E?. However:
+If any native case passes sufficiency and yields F1/F2/F3, the counterexample remains informative regardless of how many counting units are E?. However:
 
 - continue analyzing **all** preregistered primary slices,
 - do not infer prevalence,
@@ -944,7 +958,7 @@ Known-failure evidence may evaluate a representation already frozen from the pri
 
 ### 13.1 Open-source / inspectability selection effect
 
-Requiring source-level E2-REP and a bounded mechanically enumerable universe selects for systems that are open, inspectable, and comparatively well-structured/documented. This is not a random sample of game systems and may differ materially from commercial engines.
+Requiring source-level E2-REP, a mechanically enumerable universe (E4), and a candidate frame drawn from an external index of inspectable projects selects for systems that are open, inspectable, and comparatively well-structured/documented. (E5's boundedness requirement no longer contributes to this effect, since it no longer filters candidates — but it can still end a run, so an unbounded target is excluded from *results* even though it was not excluded from *selection*.) This is not a random sample of game systems and may differ materially from commercial engines.
 
 ### 13.2 F2 may be especially under-observed
 
@@ -974,7 +988,7 @@ The final Phase 3.5 result must include, in the main body:
 4. `P_resolved / P_raw` and `E? / P_raw` coverage;
 5. reason log for every E?, naming which of the five sufficiency questions lacked located evidence, plus the explicit F2 re-check;
 6. post-analysis correspondence matrix and correspondence-collapsed `C` count without changing `P_raw`;
-7. per resolved counting unit, the full supported subset of {F1,F2,F3} with no suppressed findings, or R0/F0 where that subset is empty, plus for R0 the named competing representation the evidence discriminated against;
+7. per resolved **native case**, the full supported subset of {F1,F2,F3} with no suppressed findings, or R0/F0 where that subset is empty, plus for R0 the named competing representation the evidence discriminated against; and the many-to-many map between counting units and native cases;
 8. all counterexamples and the evidence-sufficiency/positive-evidence basis for them;
 9. explicit absence/inconclusive wording under Section 8's rules;
 10. three separately frozen primary artifacts, including Artifact 3's frozen applicability domain stated separately from its decision procedure;
