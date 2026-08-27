@@ -1272,3 +1272,58 @@ launder that selection into a rate.
 
 Frame-wide proportions wait for completion, on the same footing as
 QA-16's E4 hypothesis.
+
+## QA-24 — an admitted surface cannot be declined for a reason that only bounds it
+
+C018's first E2-REP entry reached the right verdict by an argument with
+three defects, one of them structural enough to name.
+
+The entry stated that no other allowed upstream path existed, and then
+that the OpenOrphanage account page was an admissible starting point.
+Both cannot hold. The second is correct: the contract admits "the URLs
+and identifiers found in the frozen OpenBSD metadata", and the DIST_TUPLE
+account token is one.
+
+Having admitted it, the entry declined to open it, reasoning that
+choosing a differently-named repository from that account would be our
+adjudication of the target's identity. That reasoning is sound about
+what must not be DONE at the surface. It is not a reason to leave the
+surface unobserved.
+
+```text
+a reason that constrains WHAT MAY BE OBSERVED at a surface
+  -> bound the observation, declare the bound first, then look
+
+a reason that makes a surface UNNECESSARY
+  -> the criterion no longer needs it, or already-observed structure
+     has settled the question
+```
+
+QA-11 fixed necessity as the second of these. C018 met it: the gate was
+unsettled and this was the remaining admitted identifier. So the surface
+was necessary, and skipping it was the mirror image of the error QA-11
+was written for -- there a necessary surface was pre-named and then
+substituted for; here one was admitted and then skipped.
+
+Bounding it costs little and is auditable. The scope written into
+EV-C018-E2REP-02 was fixed before the request: account existence, an
+explicit profile website or migration notice, an explicit designation of
+where the source now lives -- and explicitly not selecting a repository
+by name similarity or inferring a successor. As it happened the account
+returns 404 as well, so the bounded observations had nothing to return
+and the prohibited ones nothing to tempt with. The verdict is the same
+UNRESOLVED, now closed on both admitted surfaces instead of one.
+
+**Two smaller corrections, recorded because both were arguments the
+verdict did not need.** The entry asserted the candidate "would have
+been UNRESOLVED had the endpoint returned 200", which is not knowable
+before opening it -- QA-23 had just generalised the designation signal
+to include labels, link relations and structured markings, any of which
+could have sat in owner-controlled metadata. And it argued from GitHub's
+301-on-rename behaviour that no rename had occurred; two 404s and a
+same-host control establish the endpoint's present state, which is all
+the gate asks, and the platform-semantics claim is dropped.
+
+**Rule carried forward.** When a surface is admitted and the gate is
+unsettled, it gets observed. If there is something at that surface we
+must not do, write the bound down first and then look.

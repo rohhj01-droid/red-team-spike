@@ -2271,3 +2271,101 @@ Surfaces considered and NOT opened, with the reason: the account page for `OpenO
 Recorded as an observation of the frame rather than of the candidate: this is the first item whose packaged upstream location has disappeared between the frozen metadata and screening. The frame was frozen from OpenBSD 7.9; upstream state is observed now. The two times do not merge, and this is what their divergence looks like in practice.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## RETRACTION 10 — C018 E2-REP reasoning withdrawn; the verdict is unchanged, the argument was not sound
+
+EV-C018-E2REP-01 is **superseded**. The verdict it reached, UNRESOLVED,
+stands. Three defects in how it got there:
+
+**A counterfactual it could not know.** It asserted the candidate "would
+have been UNRESOLVED had the endpoint returned 200". The frozen
+DIST_TUPLE alone does not establish designation -- that much is right --
+but what an open repository root would have carried is not knowable
+before opening it. QA-23 had just generalised the designation signal to
+include a label, a link relation or a structured marking, any of which
+could have been present in owner-controlled metadata. The counterfactual
+is withdrawn.
+
+**A platform-semantics claim the verdict did not need.** It argued that
+because GitHub issues a 301 for a repository renamed within its own
+tracking, the absence of a redirect ruled out a rename. Two 404s and a
+same-host 200 control establish the endpoint's present state, which is
+all the gate requires. Whether a rename ever occurred is an extra claim
+about another system's behaviour, and it is dropped.
+
+**A contradiction.** The entry said "no other allowed upstream path
+exists" and then, two paragraphs later, that the OpenOrphanage account
+page "is an admissible starting point". Both cannot be true. The second
+is correct: `OpenOrphanage` is an identifier in the frozen metadata, so
+the account surface is admitted. And once admitted, QA-11's test makes
+it NECESSARY -- the verdict could not be settled and it was the
+remaining admitted surface. Declining to open it was wrong, and the
+reason given -- that a differently-named repository must not be selected
+-- was a reason to bound the observation, not to skip the surface.
+
+## EV-C018-E2REP-02  (supersedes EV-C018-E2REP-01)
+Candidate: C018 (frame rank 18, games/2048-qt)
+Gate: E2-REP
+
+The frozen metadata names no HOMEPAGE and no SITES. Its DIST_TUPLE
+yields two admitted starting identifiers: the repository path and the
+account.
+
+Surface 1: https://github.com/OpenOrphanage/2048-Qt
+Necessary because: it is the location the frozen identifiers resolve to, and E2-REP asks what upstream designates.
+observed_at_utc: 2026-08-27T11:44:49Z (GET), 11:45:44Z (HEAD)
+http_status: 404, 404; redirect_chain: NONE (num_redirects 0 both)
+control: https://github.com/TASEmulators/fceux -> 200 at 11:45:44Z, same host, same moment
+Observed: a definitive 404 at both attempts. With a same-host control succeeding at the same moment, this is evidence about the requested endpoint rather than transport indeterminacy, so no retry-for-indeterminacy applies. No claim is made about whether the repository was ever renamed, moved or deleted; the gate needs the endpoint's present state and nothing further.
+
+Surface 2: https://github.com/OpenOrphanage
+Necessary because: E2-REP cannot be settled from surface 1, and the account token is the one remaining identifier the frozen metadata admits. Under QA-11 a surface the criterion still needs, and which the already-observed structure has not made redundant, is necessary rather than optional.
+
+Observation scope, fixed before the request rather than after seeing the result:
+
+```text
+observe only
+  whether the account exists
+  an explicit profile website or migration notice
+  an explicit link or structured marking designating where 2048-Qt's
+  source now lives
+
+do not
+  select a differently named repository because it looks related
+  search the account's repositories by semantic similarity
+  infer a successor from names or descriptions
+```
+
+observed_at_utc: 2026-08-27T11:53:28Z (GET), 11:53:40Z (HEAD)
+http_status: 404, 404; redirect_chain: NONE (num_redirects 0 both); body "Not Found"
+control: https://github.com/TASEmulators -> 200 at 11:53:40Z, an account-shaped URL on the same host at the same moment
+Observed: the account does not exist. There is therefore no profile, no migration notice, and no repository list -- the bounded observations above have nothing to return, and the prohibited ones have nothing to be tempted by.
+
+Adjudication:
+
+```text
+PASS not established
+  every admitted starting surface returns a definitive 404. No
+  admissible designation signal -- sentence, label, link relation or
+  structured marking -- was obtainable from any of them.
+
+FAIL not established
+  no E2-REP failure code applies. Each is a statement about a
+  DESIGNATED canonical source location: that there is none, that
+  there are several, that it lacks a stable URL, or that its source
+  representation is inaccessible. No designation was established, so
+  there is no designated location for any of those claims to be
+  about. What the 404s establish is that the location the packaging
+  metadata fetches from, and the account holding it, are absent now.
+  Coding that as E2REP-NO-SOURCE would turn a fact about a packaging
+  fetch path into a claim about upstream.
+```
+
+Recorded as an observation of the frame rather than of the candidate:
+this is the first item in this run where the packaged upstream location
+recorded by the frozen frame returned a definitive disappearance signal
+at screening time. The claim is about divergence between the frozen
+packaging location and what is observable now, not about the project
+having ceased to exist somewhere.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
