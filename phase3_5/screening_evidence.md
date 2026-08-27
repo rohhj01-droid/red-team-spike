@@ -2448,3 +2448,57 @@ Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
 
 Gates after E2-REP are NOT_REACHED. Screening stopped here rather than
 continuing to read, per QA-21.
+
+## EV-C020-UR-01
+Candidate: C020 (frame rank 20, games/ace)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/ace/Makefile
+Observed: HOMEPAGE=http://www.delorie.com/store/ace/; SITES=http://www.delorie.com/store/ace/ (identical to HOMEPAGE); DISTNAME=ace-1.4; COMMENT="solitaire games".
+Inference: every field names one packaged system, and HOMEPAGE and SITES are the same URL, so the metadata resolves to a single location. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C020-E1-01
+Candidate: C020
+Gate: E1
+Source: same frozen metadata; https://www.delorie.com/store/ace/
+observed_at_utc: 2026-08-27T12:09:25Z; http_status 200
+Observed: a third-party set of X11 solitaire games -- "The Ace of Penguins is a set of Unix/X solitaire games" -- unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C020-E2REP-01
+Candidate: C020
+Gate: E2-REP
+
+Surface: the frozen HOMEPAGE, which is also the frozen SITES. No navigation past step 1 was performed and none was needed: both designations below are in the landing page's own body.
+Necessary because: E2-REP asks whether upstream designates exactly one canonical source location, and this is the project's own page.
+
+requested_url: http://www.delorie.com/store/ace/
+final_url: https://www.delorie.com/store/ace/
+observed_at_utc: 2026-08-27T12:09:25Z-12:09:27Z; http_status 200; redirect_chain: 1 redirect, http -> https on the same host
+evidence_role: official-project-page
+
+Observed: the page's "Downloading" table lists source distributions on the project's own path, and its prose designates a repository. Both in upstream's own words:
+
+```text
+source   CVS   518K   Mar 24, 2012   "Unreleased snapshot of CVS repository"
+source   1.4   518K   Mar 24, 2012
+source   1.3   517K   May 28, 2010
+source   1.2 / 1.1 / 1.0                (older releases)
+                                        plus linux, agenda, irix,
+                                        solaris and freebsd rows, which
+                                        are platform binaries
+
+prose    "You can also use anonymous cvs to get the latest development
+          sources."        -> cvs.html
+```
+
+Inference: the criterion admits BOTH a repository and a source distribution as source-location types, and fails a project that "designates several with no primary among them". Upstream here designates one of each, on one page, and marks no primary between them. The word "also" adds a second route; it does not rank the two. Describing the CVS route as giving "the latest development sources" and the table's 1.4 row as a release distinguishes what each CONTAINS, not which location is canonical.
+
+The reading deliberately repeats C015's and avoids the one withdrawn at C002: treating the repository as the real source and the tarballs as mere releases -- or the reverse -- supplies a hierarchy the criterion refuses to let us supply.
+
+Nothing beyond step 1 was opened. cvs.html would give the checkout details, but the landing page has already designated the repository, and the gate is determined without it. The remaining outbound links are the PNG and ZLib project pages, an Agenda hardware vendor, and delorie.com's own site chrome -- none a source-location designation for this system.
+
+Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
+
+Gates after E2-REP are NOT_REACHED under the first-fail stop rule.
