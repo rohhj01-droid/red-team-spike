@@ -586,3 +586,51 @@ observed_at_utc: 2026-08-27T05:33:39Z; http_status 200
 Observed: the documentation index exposes manual sections for automapping, export, preferences, interface/theme/plugins/keyboard settings, and a scripting API reference. A scan of the index for temporal or state-dependent validity topics found only two incidental occurrences of "session" and no topic covering state over time. The validity questions the project documents concern map/tileset structure and the map file format, which are properties of a static artifact.
 Inference: E3 requires the external source to expose a stateful/temporal validity question that can be examined -- a validity property whose correctness depends on history or evolving state, not merely on a snapshot's structure. Structural file-format validity does not meet this, and no temporal validity topic is exposed. Recorded as observed; the gate is deliberately weak, and this candidate does not clear even that bar.
 Decision: FAIL (E3-NO-STATEFUL-TEMPORAL-VALIDITY)
+
+## RETRACTION — C004 (frame rank 4, editors/tiled)
+
+The C004 verdicts recorded in 8549944 are **withdrawn** and the
+candidate returns to in-flight. Entries EV-C004-E2RULE-01 and
+EV-C004-E3-01 above are superseded and must not be cited.
+
+EV-C004-E2RULE-01 inferred that "at least one validity requirement can
+be determined" from the mere existence of a documentation site and of
+docs/ and tests/ directories. The sealed criterion requires more: the
+externally authored evidence must be sufficient to DETERMINE at least
+one validity requirement, and its example is not tests in general but
+"tests that explicitly state expected validity". No concrete statement
+of the form "under condition X the result must be Y" or "state Z is
+invalid" was ever located, so the gate was passed on the existence of
+artifacts rather than on their content.
+
+EV-C004-E3-01 then inherits that defect and adds its own. It concluded
+that no stateful/temporal validity question exists by examining only the
+documentation index, while E2-RULE had admitted the repository's tests/
+directory as validity evidence. A surface admitted at one gate cannot be
+ignored at the next: the tests were never examined for temporal validity
+before E3 was failed.
+
+UR, E1 and E2-REP for C004 are unaffected -- they rest on the frozen
+metadata and on the project page's source designation, neither of which
+is implicated. They will be re-recorded unchanged when the candidate is
+re-determined.
+
+## EV-C004-E2RULE-02  (supersedes the withdrawn EV-C004-E2RULE-01)
+Candidate: C004 (frame rank 4, editors/tiled)
+Gate: E2-RULE
+Source: https://doc.mapeditor.org/en/stable/reference/tmx-map-format/ -- the project's own designated format reference
+observed_at_utc: 2026-08-27T05:46:12Z; http_status 200
+Observed: located witness, quoted from that reference: "When used on objects in the Tile Collision Editor, they can only refer to other objects on the same tile."
+Inference: this states a concrete validity requirement -- an object reference to an object on a different tile is invalid -- authored externally and readable without inventing it. This is a located statement of expected validity, not an inference from the existence of documentation.
+Decision: PASS
+
+## EV-C004-E3-02  (supersedes the withdrawn EV-C004-E3-01, which reached the OPPOSITE verdict)
+Candidate: C004
+Gate: E3
+Source: same designated format reference
+observed_at_utc: 2026-08-27T05:46:12Z, 05:46:40Z; http_status 200
+Observed: located witness, quoted from the `nextlayerid` description: "Stores the next available ID for new layers. This number is stored to prevent reuse of the same ID after layers have been removed. (since 1.2)"
+Inference: the validity of assigning a layer ID is not determined by the current snapshot. The set of layers present does not reveal which IDs previously existed, so "this ID is unused" is a claim about history, and the format stores a counter precisely because the current state cannot answer it. That is a stateful/temporal validity question exposed by the external source, which is what E3 asks for. Structurally this is the same shape as the properties Phase 3 modelled -- validity depending on what has happened, not on what is presently visible.
+Decision: PASS
+
+Note on the reversal: the withdrawn EV-C004-E3-01 recorded FAIL after examining only the documentation INDEX and finding no temporal topic among its section titles. The witness above sits inside the format reference, one level below that index. The index-level survey was not sufficient evidence for a negative verdict.

@@ -214,3 +214,67 @@ requires reading the project's actual designated documentation, which
 is substantially more expensive per item than UR, E1, E2-REP or
 E2-RULE were. Ranks 5, 8, 10 and 12 remain in flight at E3 for this
 reason, not because the gate is ambiguous.
+
+## QA-08 — E2-RULE applied on artifact existence rather than content (VERDICTS WITHDRAWN)
+
+E2-RULE was passed for all seven E2-REP survivors in batch 4-13 on the
+grounds that each designates documentation, a test suite, or both. That
+is weaker than the sealed criterion, which requires the external
+evidence to be *sufficient to determine* at least one validity
+requirement, and whose example is "tests that explicitly state expected
+validity" rather than tests in general.
+
+**Disposition.** The C004 verdicts are withdrawn and the candidate
+returns to in-flight; the retraction is recorded in
+`screening_evidence.md` rather than deleted. No other candidate had
+E2-RULE recorded, so nothing else needs withdrawing.
+
+The corrected standard, applied from here: E2-RULE passes only with a
+located witness -- a specific documented or tested statement of the form
+"under condition X the result must be Y" or "state Z is invalid" -- cited
+in the evidence entry. Existence of a docs/ or tests/ directory is not a
+witness.
+
+**Second defect, specific to C004.** Its E3 failure was determined from
+the documentation index alone, while its E2-RULE had admitted the
+repository's tests/ directory as validity evidence. A surface admitted
+at one gate cannot be disregarded at the next; the tests were never
+examined for a temporal validity witness before E3 was failed. Rule
+carried forward: an E3 FAIL must survey every surface that E2-RULE
+admitted, not a subset of it.
+
+## QA-09 — the withdrawn C004 E3 verdict was not merely under-evidenced; it was wrong
+
+QA-08 withdrew C004's E3 FAIL for being determined from too narrow a
+surface. Re-determination on the proper surface reversed it: **E3
+PASSES**, on a located witness in Tiled's own designated format
+reference:
+
+```text
+nextlayerid — "Stores the next available ID for new layers. This number
+is stored to prevent reuse of the same ID after layers have been
+removed."
+```
+
+Whether a layer ID may be assigned is not decidable from the current
+snapshot: the layers present do not reveal which IDs once existed. The
+format carries a counter precisely because present state cannot answer
+the question. That is history-dependent validity, structurally the same
+shape as the properties Phase 3 was built around.
+
+**What produced the wrong verdict.** The original check read the
+documentation *index* and concluded from its section titles
+(automapping, export, preferences, scripting) that no temporal validity
+topic existed. The witness is one level below that index. Section
+titles are a summary surface and cannot support a negative finding
+about content.
+
+**Rule carried forward, joining QA-04 and QA-07:** a negative verdict
+requires surveying the surface that would carry the fact, not a surface
+that would merely mention it. Index pages, directory listings, and
+repository trees can support "found it" and cannot support "it is not
+there."
+
+This is the third instrument-surface error in this screening run and
+the first that had actually reached a recorded verdict. It was caught
+only because the verdict was re-opened rather than accepted.
