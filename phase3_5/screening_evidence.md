@@ -3937,3 +3937,54 @@ FAIL not established
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C032-UR-01
+Candidate: C032 (frame rank 32, games/arx-libertatis)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/arx-libertatis/Makefile
+Observed: GH_ACCOUNT=arx; GH_PROJECT=ArxLibertatis; GH_TAGNAME=1.2.1; PKGNAME=arx-libertatis-${GH_TAGNAME}; COMMENT="cross-platform port of Arx Fatalis, a first-person RPG". There is no HOMEPAGE and no SITES.
+Inference: the frozen fields name one system, Arx Libertatis. "Arx Fatalis" names the game this ports, not a second packaged system, in the same way flycast's "based on reicast" did. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C032-E1-01
+Candidate: C032
+Gate: E1
+Source: same frozen metadata; https://github.com/arx/ArxLibertatis
+observed_at_utc: 2026-08-27T16:38:05Z; http_status 200
+Observed: a third-party port, its repository described as "Cross-platform port of Arx Fatalis, a first-person role-playing game", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C032-E2REP-01
+Candidate: C032
+Gate: E2-REP
+
+Per QA-27, the frozen metadata's URLs and identifiers are enumerated: there is no HOMEPAGE and no SITES, so the only admitted starting point is the GH_ACCOUNT/GH_PROJECT pair. Navigation step 1 has no target. This is C017's shape.
+
+Surface: https://github.com/arx/ArxLibertatis
+observed_at_utc: 2026-08-27T16:38:05Z-16:38:06Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed, restricted to metadata the contract allows: repository ArxLibertatis, owner login arx, default branch master, isFork false, isMirror false, isArchived false, isTemplate false, and a source tree present at the root -- CMakeLists.txt, AUTHORS, CHANGELOG, CONTRIBUTING.md, COPYING, OPTIONS.md, VERSION, .github/workflows and the licence files. Source-tree presence is directly observable here, unlike C028's client-rendered root.
+
+The repository's website metadata field reads https://arx-libertatis.org/.
+
+That field is observed and is NOT followed, for the reason established at C025's fork parent: it is a repository fact, not a route the contract authorizes. arx-libertatis.org is not an identifier in the frozen metadata, so it is not an admitted starting point, and the sealed navigation runs landing page -> source link -> repository root. Going from a repository root outward to a project site reverses that path; no step provides for it.
+
+```text
+PASS not established
+  arriving at this repository through a packaging identifier yields
+  affiliation, not designation (QA-22). The website field adds a
+  one-way arrow from repository to site -- the same shape C014
+  already found insufficient, since designation requires the project
+  to identify the repository as its canonical source, not the
+  repository to name a site.
+
+FAIL not established
+  no admissible surface was examined that could have carried a
+  designation, so nothing observed bears on whether upstream
+  designates one. E2REP-NO-SOURCE is not established either: a source
+  tree WAS observed, so source access is not what is missing.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
