@@ -2586,3 +2586,135 @@ FAIL not established
 The `source CVS` row is not a second location either: by its own annotation it is a snapshot distribution taken from the repository, served from the same path as the versioned tarballs.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## EV-C022-UR-01
+Candidate: C022 (frame rank 22, games/alephone/alephone)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/alephone/alephone/Makefile (games/alephone/Makefile is a SUBDIR stub and games/alephone/Makefile.inc is empty)
+Observed: HOMEPAGE=https://alephone.lhowon.org/; SITES=https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${DATE}/; DISTNAME=AlephOne-${DATE}; PKGNAME=alephone-1.11; COMMENT="open source game engine based on Marathon 2: Durandal".
+Inference: every field names one packaged system, Aleph One. "Marathon 2: Durandal" names the game whose engine this continues, not a second packaged system, in the same way flycast's "based on reicast" did. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C022-E1-01
+Candidate: C022
+Gate: E1
+Source: same frozen metadata; https://alephone.lhowon.org/
+observed_at_utc: 2026-08-27T12:19:41Z; http_status 200
+Observed: a third-party engine, "the open source continuation of Bungie's Marathon 2 game engine", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C022-E2REP-01
+Candidate: C022
+Gate: E2-REP
+
+Step 1: https://alephone.lhowon.org/ -- the frozen HOMEPAGE.
+observed_at_utc: 2026-08-27T12:19:41Z-12:19:43Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed: the page's navigation exposes a link labelled "GitHub" whose DESTINATION is https://github.com/Aleph-One-Marathon/alephone, and its body reads "Aleph One is available under the terms of the GNU General Public License (GPL). Download the source code.", where "source code" links to https://github.com/Aleph-One-Marathon/alephone/releases/download/release-20250829/AlephOne-... . A closing line states "alephone.lhowon.org is hosted by lhowon.org and mirrored at aleph-one-marathon.github.io".
+
+Step 2: the "GitHub" link. Its label is a host name rather than one of the contract's four words, and the reading is the one established at C009: step 2 classifies a link by what it LEADS TO, and this destination is the repository root itself. QA-25's distinction is satisfied in its strongest form here -- the link's destination IS the location, not a page of instructions for reaching one.
+
+Step 3: https://github.com/Aleph-One-Marathon/alephone -- the repository root.
+observed_at_utc: 2026-08-27T12:20:25Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-source-location
+Observed: repository name alephone, owner Aleph-One-Marathon, default branch master, isFork false, isMirror false, isArchived false, isTemplate false, website metadata field https://alephone.lhowon.org/, and a source tree present at the root -- Source_Files, Resources, Cheats, Extras, MML Scripts, Steam, VisualStudio, Xcode, changelogs, and Makefile.am, AlephOne.spec.in, AUTHORS, COPYING, CONTRIBUTING.md.
+
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Aleph One). The designation runs both ways: the project's own site links to the repository, and the repository's website field names that site.
+
+Applying the three distinctions this run has had to separate:
+
+```text
+affiliation vs designation
+  not merely a repository that belongs to the project. The project's
+  OWN SITE performs the arrow, which is what C010, C012 and C017
+  lacked.
+
+route vs location
+  the link's destination is the location, not instructions for
+  reaching it. C020's failure mode is absent.
+
+content vs location
+  the "Download the source code" link resolves to a RELEASE ASSET of
+  that same repository. By C016's reading it names an artifact OF the
+  one designated location, not a second location. The frozen SITES,
+  which points into the same releases path, is likewise not a second
+  designation.
+```
+
+Not counted as designations, with reasons: aleph-one-marathon.github.io is described by upstream itself as a mirror of the WEBSITE, not of the source; marathon-ios.com, Steam, Discord and Patreon are distribution and community channels; lhowon.org is the hosting and accounts site.
+
+Decision: PASS
+
+## EV-C022-E2RULE-01
+Candidate: C022
+Gate: E2-RULE
+Source: the landing page's "Wiki" link -> https://github.com/Aleph-One-Marathon/alephone/wiki -> .../wiki/Plugins
+observed_at_utc: 2026-08-27T12:20:45Z (index), 12:21:05Z (page); http_status 200
+
+Observed: located witness. The Plugins page specifies the Plugin.xml manifest and states its validity conditions in the project's own words:
+
+```text
+minimum_version="..."   "the minimum Aleph One date version (e.g.
+                         20091015) required to run this plugin. If the
+                         version is not new enough, the plugin will be
+                         disabled"
+
+<scenario>              "if given, the plugin will only be loaded for
+                         listed scenarios. All fields must exactly
+                         match scenario MML."
+
+requires_opengl="true"  "shapes patches that require OpenGL will not be
+                         loaded when the software renderer is active"
+```
+
+Inference: these determine concrete validity requirements on an input artifact without our inventing them. A plugin declaring a minimum_version newer than the running engine is disabled; a plugin whose <scenario> fields do not exactly match is not loaded. The consequences are stated, not inferred.
+Decision: PASS
+
+## EV-C022-E3-01
+Candidate: C022
+Gate: E3
+Source: same designated wiki, the Plugins and Plugin-Guide pages
+observed_at_utc: 2026-08-27T12:20:55Z, 12:21:05Z; http_status 200
+
+Observed: located witness. The Plugin-Guide states of a plugin installed in the user data directory rather than a scenario's own folder -- "Note: plugins are activated automatically, so installing a global plugin will activate it for all games." The Plugins page then gives the rules that make this consequential: "All MML Plugins are run in alphabetical order, based on their name"; "Only one solo Lua plugin can be run at once; the engine will run the last one in the list that is enabled"; "Theme plugins will override the current theme setting".
+
+Inference: whether a given scenario runs with the MML, script or theme its own files specify is not decidable from that scenario's data. It depends on what was installed globally at some earlier time -- an action taken outside this scenario and recorded nowhere in it -- and on where that plugin falls in an ordering whose last enabled entry wins. That is a stateful/temporal validity question that can be examined, which is what E3 requires.
+
+No stronger claim is made about what any single artifact determines. Positive gate: one located witness ends the survey.
+Decision: PASS
+
+## EV-C022-E4-01
+Candidate: C022
+Gate: E4
+
+No positive construction was obtained. Observations are at the primary snapshot: master resolves to 4f7aa7b430177da3d7a55de7a047a11236225fab, committed 2026-08-21T00:06:38Z, before the enumeration execution timestamp.
+
+Source: https://raw.githubusercontent.com/Aleph-One-Marathon/alephone/master/Source_Files/XML/XML_MakeRoot.cpp ; .../Source_Files/XML/Plugins.cpp ; the Source_Files and Source_Files/XML listings
+observed_at_utc: 2026-08-27T12:21:41Z-12:22:36Z; http_status 200 throughout
+
+Attempted, and why each falls short:
+
+```text
+_ParseAllMML  (XML_MakeRoot.cpp:94 onward)
+  dispatches MML by element name -- children_named("stringset"),
+  ("interface"), ("player"), ("weapons") and so on. The element names
+  are extractable, but they are a hardcoded CALL SEQUENCE, not a
+  registry the program walks. EN5's admissible closure bases are
+  runtime construction or an unconditional universal claim about the
+  codebase; here the closure basis would be our reading of one
+  function's body, which is neither. The file's own comment describes
+  what ResetAllMMLValues does; it makes no closure claim.
+
+Plugins.cpp
+  enforces exactly the validity rules the E2-RULE witness documents --
+  "if (required_version.size() > 0 && A1_DATE_VERSION < required_version)"
+  at line 72, and the scenario match at 75-80. These are direct
+  conditionals. They enforce, but they do not ENUMERATE: there is no
+  membership set from which a property-level universe could be built.
+```
+
+Inference: E4 PASS requires a positive construction -- an EN1-EN6 mechanism, or a Section 3.1 designated source, from which the property-level universe is ACTUALLY mechanically constructible. None was exhibited. Under the post-seal amendment the absence of a positive construction does not establish E4 FAIL, because no preregistered discovery procedure makes that universal claim decidable.
+
+The normative route was not pursued: the landing page designates the wiki as documentation, not as an authoritative source for the project's rules, and Section 3.1 admits only explicit designation. No claim is made that no such designation exists anywhere.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)

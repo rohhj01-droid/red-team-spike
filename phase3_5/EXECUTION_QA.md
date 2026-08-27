@@ -622,6 +622,20 @@ HYPOTHESIS, not established
   because that idiom is ordinary practice in them
 ```
 
+Amended twice since, and in opposite directions. C010 and C012 were
+later withdrawn at E2-REP (QA-22), so their E4 entries are quarantined
+too; the admissible base for the idiom observation is now C009 and C013.
+And C022 reached E4 and did NOT pass it -- its MML dispatch is a
+hardcoded call sequence rather than a registry the program walks, and
+its plugin validity rules are direct conditionals that enforce without
+enumerating.
+
+C022 is the first candidate adjudicated at E4 under the amendment from
+the start, and it lands on UNRESOLVED. The hypothesis above is
+correspondingly weaker than when it was written: the idiom is common,
+but it is not universal, and a project can state and enforce validity
+rules without exposing an enumerator at all.
+
 Two admissible cases cannot support a proportion over 128 items, and the
 frame-wide claim is written as a hypothesis so that the eventual number
 tests it rather than confirms it.
