@@ -435,11 +435,18 @@ rejected candidates carry `NOT_REACHED` there.
 
 ### Stage marker for eligible candidates awaiting inventory
 
-Those seven fields do not all become available at the same moment. Four
-are already determined by gates that have run -- E2-REP settles the
-source location and the target identifier, the sealed snapshot rule
-resolves `primary_snapshot` mechanically, and `tie_key` is computed from
-the first two. The remaining three require the inventory stage, which
+Those seven fields do not all become available at the same moment. For
+an eligible candidate WHOSE `primary_snapshot` RESOLVES, four are
+already determined by gates that have run -- E2-REP settles the source
+location and the target identifier, the sealed snapshot rule resolves
+`primary_snapshot`, and `tie_key` is computed from the first two.
+
+The conditional matters, and was not in an earlier draft of this
+paragraph, which said the snapshot rule resolves mechanically full stop.
+QA-28 found that it does not always: the rule says which bytes to
+analyse, and for a candidate first examined after the sealed instant
+this run has no preregistered way to reconstruct what was designated or
+pointed at then. See "When the snapshot itself is unresolved" below. The remaining three require the inventory stage, which
 runs after screening. Until it does, an eligible candidate carries:
 
 ```text
@@ -507,12 +514,33 @@ class. Every survivor's inventory is then frozen before ranking.
 ```text
 screen all 128 frame items
   -> fix the E1-E4 survivor set
-  -> freeze each survivor's candidate inventory
-  -> compute completeness classes
-  -> rank / tie-break
-  -> select the target
-  -> E5
+  -> resolve each survivor's primary_snapshot        <- checkpoint
+
+     no survivor's snapshot resolves
+       -> inventory        NOT_REACHED
+       -> ranking          NOT DECIDABLE
+       -> target           NOT SELECTED
+       -> report a survivor-stage snapshot-resolution failure
+
+     otherwise
+       -> freeze each survivor's candidate inventory
+       -> compute completeness classes
+       -> rank / tie-break
+       -> select the target
+       -> E5
 ```
+
+The checkpoint is written this way on purpose, and the gap in it is
+deliberate. **This run does not introduce a partial-resolution rule.**
+What happens when some survivors' snapshots resolve and others' do not
+is not settled by the sealed methodology, and settling it now would
+decide whether an unresolved survivor may be dropped from ranking --
+which is a post-screening dropout, and exactly the kind of rule this run
+has refused to invent after seeing candidates.
+
+For this run the question does not arise: all three E1-E4 survivors have
+unresolved primary snapshots, so no survivor can enter inventory and
+ranking is not decidable on any reading.
 
 **Survivors are inventoried in ascending `first_frame_rank`.** Fixed
 here, before the survivor set is known. The order must not affect any
