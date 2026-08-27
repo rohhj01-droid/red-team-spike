@@ -2217,3 +2217,57 @@ C015  both designations quoted from the landing page body, with the
 All three are positive-shaped findings: several designations were seen
 at a permitted surface and no primary was marked among them. None
 depends on a surface the contract does not reach.
+
+## EV-C018-UR-01
+Candidate: C018 (frame rank 18, games/2048-qt)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/2048-qt/Makefile
+Observed: DIST_TUPLE = github OpenOrphanage 2048-Qt v0.1.7 . ; COMMENT="2048 game in Qt"; PKGNAME=${DISTNAME:L}. There is no HOMEPAGE field and no SITES field. The Makefile also carries a COMMENTED-OUT line naming a different upstream, "#DIST_TUPLE = github keshavbhatt 2048-qt 3.0 .", under the note "# different port using WebKit, needing W^X...".
+
+Inference: the port packages one system, OpenOrphanage/2048-Qt. The commented line names a system the port explicitly does NOT package -- it records an alternative the maintainer considered and disabled, and a disabled line is not metadata in effect. Recording it here because it names a second system and a reader of the Makefile will see it, not because it creates ambiguity. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C018-E1-01
+Candidate: C018
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party Qt implementation of the 2048 puzzle game, packaged from the account OpenOrphanage, unrelated to this project.
+Inference: external-authorship requirement satisfied. This is determinable from the frozen metadata alone and does not depend on the endpoint observation below.
+Decision: PASS
+
+## EV-C018-E2REP-01
+Candidate: C018
+Gate: E2-REP
+
+Surface: https://github.com/OpenOrphanage/2048-Qt, the only location any frozen-metadata identifier resolves to. The metadata names no HOMEPAGE and no SITES, so navigation step 1 has no target and no other allowed upstream path exists.
+
+requested_url: https://github.com/OpenOrphanage/2048-Qt
+final_url: https://github.com/OpenOrphanage/2048-Qt
+observed_at_utc: 2026-08-27T11:44:49Z (GET), 11:45:44Z (HEAD, confirmation)
+http_status: 404, 404; redirect_chain: NONE (num_redirects 0 on both)
+control: https://github.com/TASEmulators/fceux returned 200 at 11:45:44Z, same host, same moment
+
+Observed: a definitive 404 at both attempts, with no redirect. GitHub issues a 301 for a repository that has been renamed within its own tracking, so the absence of a redirect means this is not a rename. The same-host control succeeded at the same moment, so this is not a host-wide or network condition. Under the contract this is genuine evidence about that endpoint rather than transport indeterminacy, and no retry-for-indeterminacy applies.
+
+Adjudication. Two independent grounds point the same way, and neither supports a failure code.
+
+```text
+first, and prior to the endpoint's state
+  the metadata names no HOMEPAGE. The only thing pointing at this
+  location is a packaging fetch identifier. QA-21 and QA-22 settled
+  that arriving at a repository via such an identifier yields
+  affiliation, not upstream designation. This candidate was in C017's
+  shape before the request was made, and would have been UNRESOLVED
+  had the endpoint returned 200.
+
+second
+  the location is gone, so even affiliation cannot be observed.
+```
+
+Why no failure code, including E2REP-NO-SOURCE. Every E2-REP failure code is a statement about a DESIGNATED canonical source location -- that there is none, that there are several, that it has no stable URL, or that its source representation is inaccessible. No designation was ever established here. What the 404 establishes is that the location OpenBSD fetches from is no longer present; it does not establish anything about a designated upstream source, because none was identified. Coding it as `E2REP-NO-SOURCE` would convert a fact about a packaging fetch path into a claim about upstream.
+
+Surfaces considered and NOT opened, with the reason: the account page for `OpenOrphanage`. It is a frozen-metadata identifier and so an admissible starting point, but it is not necessary. If the account exists and holds a differently-named repository, selecting that repository would be our adjudication of the target's identity, which is exactly what UR and E2-REP exist to prevent; and if it does not exist, the verdict is unchanged. A negative that does not need a surface should not open it.
+
+Recorded as an observation of the frame rather than of the candidate: this is the first item whose packaged upstream location has disappeared between the frozen metadata and screening. The frame was frozen from OpenBSD 7.9; upstream state is observed now. The two times do not merge, and this is what their divergence looks like in practice.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
