@@ -869,3 +869,68 @@ Observed, enforced route: the repository's top-level units include AUTHORS, BUGS
 
 Inference: neither route yields a mechanically constructible property-level universe. U_normative has no designated authoritative source at all. U_enforced fails EN2, EN4 and EN5 on the project's own descriptions: tests/ has no declared scope in validity terms, is connected by the project to testing functions rather than to validation or eligibility, and is explicitly open-ended -- "write more" is the opposite of a closure claim, and CONTRIBUTING.md separately disclaims that its rules are followed. Only one route is required and neither is available.
 Decision: FAIL (E4-NO-MECHANICAL-PRIMARY-UNIVERSE)
+
+## RETRACTION 4 — C008 E4 (EV-C008-E4-01 withdrawn); E3 inference narrowed
+
+EV-C008-E4-01 is withdrawn and replaced by EV-C008-E4-02. EV-C008-E3-01
+is superseded by EV-C008-E3-02, which keeps the PASS but drops an
+over-strong sentence. UR, E1, E2-REP and E2-RULE are unaffected.
+
+The E4 entry's enforcement claim examined the repository's top-level
+NAMES, picked out "the two plausible candidates" among them, and
+concluded from those two that no EN1-EN6 mechanism exists. Choosing
+which candidates are plausible is analyst selection, and the source
+tree's interior was never examined -- which is precisely where C004's
+src/plugins/ was found after an identical shortcut had missed it. Its
+normative claim likewise moved from "not found on four pages" to "no
+designation anywhere".
+
+The E3 entry claimed the validity of a format operation "is not
+decidable from ... the image's current appearance alone". That is not
+needed for the gate and is probably wrong: a partition table is
+observable in present state. E3 only asks whether a stateful/temporal
+validity question exists, and an ordering prerequisite supplies one
+without the stronger claim.
+
+## EV-C008-E3-02  (supersedes EV-C008-E3-01; same verdict, narrower inference)
+Candidate: C008
+Gate: E3
+Source: https://dosbox-x.com/wiki/Guide%3AManaging-image-files-in-DOSBox-X
+observed_at_utc: 2026-08-27T07:00:00Z; http_status 200
+Observed: located witness, quoted -- "Note A harddisk image MUST be partitioned before it can be formatted."
+Inference: the validity of FORMAT is conditioned on a prerequisite state -- the image must already be partitioned before formatting is permitted. The validity question therefore concerns an ordered state transition rather than a static property of the FORMAT command alone. That is a stateful/temporal validity question, which is all this gate requires. No stronger claim is made about what is or is not observable in the image's present state.
+Decision: PASS
+
+## EV-C008-E4-02  (supersedes the withdrawn EV-C008-E4-01)
+Candidate: C008
+Gate: E4
+
+Closed search surfaces, justified before investigating:
+
+  U_normative -- the project's own enumeration of its documentation.
+  DOSBox-X publishes /wiki/List-of-Guide-Pages, which lists its guide
+  pages; that list is authored by the project, not by us, so it closes
+  the set of documents in which the project could designate an
+  authoritative rules source. Surveyed together with the entry points
+  outside it: the landing page, /about.html, the wiki Home, README.md
+  and CONTRIBUTING.md.
+
+  U_enforced -- EN4 requires the PROJECT ITSELF to connect a mechanism
+  to validation, eligibility or rule enforcement. That is a claim about
+  what the project states, and a project's statements about its own
+  mechanisms appear in its documents. The documented set above is
+  therefore closed for this question too: a registry, interface or
+  annotation may exist anywhere in the source, but if no project
+  document declares it as carrying validity or eligibility rules, it
+  fails EN4 regardless. This is why the negative does not require an
+  exhaustive walk of src/ -- and it is stated as the reason, rather
+  than the source tree being sampled for "plausible candidates" as the
+  withdrawn entry did.
+
+Source: https://dosbox-x.com/wiki/List-of-Guide-Pages and all 24 guide pages it enumerates; https://dosbox-x.com/ ; /about.html ; /wiki/Home ; raw README.md ; raw CONTRIBUTING.md
+observed_at_utc: 2026-08-27T06:58:54Z-07:14:06Z; http_status 200 throughout
+
+Observed: across the 24 project-enumerated guide pages, zero contain designating language (authoritative, canonical, normative, "the specification of", "defines the format", "reference implementation"). The entry points outside that list carry none either: /about.html and README.md each use "specification" once, of the PC 2001 hardware specifications and of Microsoft specifications mandating ISA slot removal respectively; the wiki Home and CONTRIBUTING.md have none. Scanning the same 24 pages for declared-mechanism language (registry, "all validators/checks/rules are", interface implementation, annotation, "every validator/rule/check") produced one hit, in the networking guide, and it is a false positive: the matched text is a DHCP failure message about cabling and packet driver settings, not a declaration about the project's structure.
+
+Inference: neither route yields a mechanically constructible property-level universe. U_normative -- the project designates no document as an authoritative rules source anywhere in its own declared documentation inventory or at its entry points. U_enforced -- no project document connects any mechanism to validation, eligibility or rule enforcement, so EN4 is unsatisfied for every candidate mechanism whatever the source tree contains; EN2 and EN5 are likewise unmet, the project describing tests/ as an open-ended TODO ("Write more unit tests...") and disclaiming that its coding rules are followed ("there are many places where these rules are simply not followed"). Only one route is required and neither is available.
+Decision: FAIL (E4-NO-MECHANICAL-PRIMARY-UNIVERSE)

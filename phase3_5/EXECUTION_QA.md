@@ -377,3 +377,44 @@ their already-collected findings quarantined as post-stop exposure. The
 sealed stop rule exists precisely to prevent looking further past an
 unresolved gate, and having looked, the honest remedy is to record the
 exposure and refuse to use it.
+
+## QA-12 — a negative needs a JUSTIFIED CLOSED search surface, not a sample of it
+
+C008's withdrawn E4 read the repository's top-level names, selected
+"the two plausible candidates" among them, and concluded from those two
+that no EN1-EN6 mechanism exists. Selecting which candidates are
+plausible is analyst selection wearing a different hat, and the source
+interior went unexamined -- exactly where C004's src/plugins/ turned up
+after the same shortcut had missed it.
+
+Naming surfaces in advance (QA-10) and refusing to abandon a necessary
+one (QA-11) are not enough on their own. A negative also requires an
+argument for why the surface set is CLOSED: why, if the fact existed,
+it would have to appear inside what was searched.
+
+Two closure arguments were available here and are worth reusing:
+
+```text
+the project's own enumeration
+  DOSBox-X publishes List-of-Guide-Pages. That list is authored
+  upstream, so it closes the set of documents in which the project
+  could designate an authoritative source.
+
+the criterion's own shape
+  EN4 requires the PROJECT to connect a mechanism to validation. That
+  is a fact about what the project SAYS, so project documents close
+  the question. A registry may exist anywhere in src/; if no project
+  document declares it as carrying validity rules, it fails EN4
+  regardless.
+```
+
+The second is the more useful pattern: when a criterion asks what the
+project declares, the search surface is the project's declarations, and
+an exhaustive code walk is not owed. That has to be argued, though, not
+assumed -- the withdrawn entry reached a similar conclusion with no
+argument at all.
+
+**Rule carried forward.** A negative verdict states its closure
+argument. "I looked at these and found nothing" is not a negative;
+"if it existed it would have to be here, and here is what here
+contains" is.
