@@ -1457,7 +1457,13 @@ observed_at_utc: 2026-08-27T08:53:20Z; http_status 200
 
 Observed: located witness, quoted -- "A movie file is a file which contains data needed to reconstruct actions in a game. In most emulators, the movie files consist of simply the buttons that were pressed during the game. Because the emulation is completely predictable (deterministic), it will always play back the same way. Unless the movie starts from the console power-on or from reset, the movie file might also contain a savestate that loads the beginning point of the game." The page also states a mode-dependent rule: "If a movie is in read-only mode, the movie file can not be altered in any way. If you make a savestate while playing the movie and load that state, the playback will simply 'rewind' to that state. If the movie is not in read-only, however, loading a state will set the movie to record mode and begin recording from that savestate."
 
-Inference: a movie file stores inputs, not outcomes, so whether it reproduces the run it recorded is not decidable from the file's contents. It depends on the starting point the recording began from -- power-on, reset, or an embedded savestate -- and on the deterministic replay of everything since. The second quotation adds a second history dependence: the same action, loading a savestate, either rewinds playback or truncates the movie and starts recording, according to a mode set earlier. That is a stateful/temporal validity question that can be examined, which is what E3 requires. Positive gate: one located witness ends the survey.
+Inference: two stateful/temporal conditions are documented, and the gate needs only that they can be examined.
+
+First, replay semantics depend on an ordered starting-state condition: power-on, reset, or a savestate establishes the state from which the recorded inputs are replayed. Second -- and this is the cleaner witness -- loading a savestate has a different effect and a different validity depending on a mode established earlier: in read-only mode it rewinds playback, and otherwise it switches the movie into recording from that state. The same action means two different things according to prior state.
+
+No stronger claim is made. An earlier draft of this entry said that whether a movie reproduces its run "is not decidable from the file's contents"; that overreaches, since the same page says a movie may itself carry the savestate that establishes its starting point, so a sufficiently self-contained movie could supply its own replay condition. E3 does not need that claim and it is withdrawn here.
+
+Positive gate: one located witness ends the survey.
 Decision: PASS
 
 ## EV-C009-E4-01
