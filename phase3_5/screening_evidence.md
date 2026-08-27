@@ -1163,3 +1163,102 @@ Recorded so the entry claims no more than was seen: this construction is thinner
 Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether libchdr designates an authoritative rules source.
 
 Decision: PASS
+
+## EV-C014-UR-01
+Candidate: C014 (frame rank 14, emulators/snes9x)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/snes9x/Makefile
+Observed: GH_ACCOUNT=snes9xgit; GH_PROJECT=snes9x; GH_TAGNAME=1.63; HOMEPAGE=http://www.snes9x.com/; COMMENT="emulates the Super Nintendo Entertainment System".
+Inference: every field names one packaged system, Snes9x. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C014-E1-01
+Candidate: C014
+Gate: E1
+Source: same frozen metadata; https://github.com/snes9xgit/snes9x
+observed_at_utc: 2026-08-27T08:20:23Z; http_status 200
+Observed: a third-party SNES emulator, described by its own repository as "Snes9x - Portable Super Nintendo Entertainment System (TM) emulator", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C014-E2REP-01
+Candidate: C014
+Gate: E2-REP
+
+Unlike C010 and C012, HOMEPAGE here is NOT the repository, so the navigation actually has to be walked.
+
+Surface 1: the upstream landing page, http://www.snes9x.com/ (frozen HOMEPAGE).
+Necessary because: it is the project's own official site and step 1 of the sealed navigation; whether upstream designates a canonical source location cannot be settled without it.
+observed_at_utc: 2026-08-27T08:19:15Z-08:19:16Z; http_status 200; redirect_chain: NONE
+Observed: the page exposes nine links, whose labels are Gary, News, Developers Journal, Screenshots, Snes9x Forums, Downloads, Games/Demo's, Privacy Policy, Webmaster. None is a Source, Code, Repository or Development link in the sense the navigation contract's step 2 lists.
+
+Surface 2: http://www.snes9x.com/downloads.php.
+Necessary because: E2-REP's criterion admits "a repository OR SOURCE DISTRIBUTION" as the designated location. With no Source/Code/Repository link exposed, the Downloads page is the one surface this site offers that could carry a source-distribution designation, and declaring "the site designates nothing" without reading it would be asserting what was never checked. The label is not literally one of the four the contract enumerates, and that departure is recorded here rather than glossed: the contract's step-2 list is about links that lead to source, and the criterion's own wording makes a downloads page the place a project without a repository link would designate its source distribution.
+observed_at_utc: 2026-08-27T08:19:58Z; http_status 200
+Observed: the page's entire content is "Here is a list of all the known available mirrors for Snes9x", followed by four third-party hosts -- zophar.net, emulator-zone.com, ipherswipsite.com, s9x-w32.de -- and a Copyright 1998,1999 notice. No source archive, no repository link, no designation of any location as the project's source.
+
+Surface 3: https://github.com/snes9xgit/snes9x, reached from the frozen metadata's GH_ACCOUNT/GH_PROJECT, which the contract admits as a starting point.
+observed_at_utc: 2026-08-27T08:20:23Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-source-location
+Observed: repository snes9xgit/snes9x, default branch master, isFork false, isArchived false, isTemplate false, no mirror or primary/secondary marking. A source tree is present at the root -- 115 files including 65c816.h, cpu.cpp, cpuexec.cpp, memmap.cpp, and directories apu, common, data, docs, external, filter, gtk, jma, libretro, macosx, qt, unix, unzip, win32. Its only non-GitHub outbound links are http://www.snes9x.com and an AppVeyor CI project.
+
+The designation itself, quoted: "This is the official source code repository for the Snes9x project."
+
+On how that was obtained: the contract forbids "reading README prose" but lists among allowed observations at the repository "whether upstream designates this location as its source; any primary/mirror marking". Those two clauses meet here, since a code-hosting page renders the README automatically and that is where such a designation lives. The check performed was narrow by construction -- a targeted scan of the rendered README region for designation and mirror vocabulary (official, canonical, authoritative, mirror, upstream, source code, repository, fork, primary) rather than a read of its content -- and it is recorded this way so the reader can see exactly how far it went.
+
+Inference: exactly one canonical source location, at a stable URL, explicitly designated by upstream as its official source code repository, actually holding a source tree, with one external target identifier (Snes9x). The official website designates no competing source location: what it offers is a list of third-party BINARY mirrors, which is not a designation of canonical source. This is therefore not the C002 shape (several designations, no primary) -- there is one designation and one only.
+
+Decision: PASS
+
+## EV-C014-E2RULE-01
+Candidate: C014
+Gate: E2-RULE
+Source: repository README ("Please check the Wiki for additional information") -> https://github.com/snes9xgit/snes9x/wiki -> https://github.com/snes9xgit/snes9x/wiki/Compiling
+observed_at_utc: 2026-08-27T08:21:18Z (wiki index), 08:22:00Z (page); http_status 200
+
+Observed: located witness, quoted from the GTK requirements section -- "gtkmm-3.24 or greater with gtk and all dependencies", "SDL 2.0", "X11 development libraries, even if only using Wayland". The Windows section states requirements in the same form, including that a Unicode build requires a special zlib build and that building without USE_SLANG requires removing the spirv_*.cpp files from the project's Shaders group.
+
+Inference: these determine concrete validity requirements without our inventing them -- a build environment carrying gtkmm older than 3.24, or lacking X11 development libraries, does not satisfy the project's stated requirements. Externally authored, reached through upstream's own designation chain.
+
+Recorded rather than left implicit: this witness is a BUILD-ENVIRONMENT requirement, not a data-artifact requirement as C010's ROM file-set and C012's file-header format were. E2-RULE as sealed asks for "at least one validity requirement" and does not restrict the domain, so narrowing it to artifact validity would be adding a premise the criterion does not contain. The gate that asks about stateful validity is E3, and it is carried separately below.
+Decision: PASS
+
+## EV-C014-E3-01
+Candidate: C014
+Gate: E3
+Source: https://github.com/snes9xgit/snes9x/wiki/I've-mixed-using-in-game-saves-and-save-states-and-I've-lost-my-progress.-How-can-I-restore-it%3F (reached from the designated wiki's FAQ index)
+observed_at_utc: 2026-08-27T08:21:40Z; http_status 200
+
+Observed: located witness, quoted -- "Snes9x stores the in-game saves in a file called gamename.srm. This is actually a part of the cartridge memory and can be used for other things than saving games. For that reason, Snes9x needs to keep also store this same memory in a save-state for when it is being used for such a purpose. If you load a save-state file, it will overwrite the memory that makes up gamename.srm, and all the in-game saves will revert to whatever they were when you saved the state." The project treats the outcome as a defect to be guarded rather than as intended behaviour: the Windows port writes a gamename.oops fallback and the GTK port a gamename.undo backup on state load.
+
+Inference: whether the current in-game save is the player's own latest save is not decidable from the .srm file or from the in-game save operations alone. It depends on whether a save-state load intervened, and on when that state was captured -- one artifact's contents are determined by the interleaving of two independent save mechanisms over time. That is a stateful/temporal validity question that can be examined, which is what E3 requires. Positive gate: one located witness ends the survey.
+Decision: PASS
+
+## EV-C014-E4-01
+Candidate: C014
+Gate: E4
+
+Positive construction exhibited, via U_enforced. All observations are at the primary snapshot: master had not moved since 2026-08-17T18:29:55Z, so raw reads of master on 2026-08-27 resolve to commit 2971061cf07fdc6fc7d18883edf4e648eb16a6d2, the revision the snapshot rule fixes.
+
+Source: https://raw.githubusercontent.com/snes9xgit/snes9x/master/controls.cpp
+observed_at_utc: 2026-08-27T08:23:01Z-08:24:08Z; http_status 200
+
+The mechanism: the command registry "static const char *command_names[LAST_COMMAND + 1]" at controls.cpp:284, generated together with "enum command_numbers" from a single X-macro list THE_COMMANDS at controls.cpp:207-278, and consumed by S9xGetCommandT at controls.cpp:1153-1577.
+
+EN1 external authorship: the registry and the emulator existed independently of this analysis.
+
+EN2 explicit scope: the project names the domain itself, and does so in public API rather than in a comment -- "const char ** S9xGetAllSnes9xCommands (void) { return (command_names); }" (controls.cpp:1580-1583). The enumerator is exposed by the project as the set of all Snes9x commands. This is a stronger EN2 leg than C010's or C012's, where the domain was carried by declarations and error vocabulary alone.
+
+EN3 mechanical membership: membership is array membership in command_names[], bounded by LAST_COMMAND, which is the final enumerator of the same X-macro expansion. 65 commands are listed, from S(BeginRecordingMovie) onward. No semantic reading of individual entries is required.
+
+EN4 enforcement meaning: the project makes registry membership the acceptance condition for a control-mapping name, and the rejection path is executed, not inferred. S9xGetCommandT initialises "cmd.type = S9xBadMapping" (controls.cpp:1160), looks the name up with "i = findstr(name, command_names, LAST_COMMAND)" and on a miss ("if (i < 0)") returns that value unchanged (controls.cpp:1569-1571). maptype() falls through to its default and yields MAP_UNKNOWN (controls.cpp:378), and S9xMapButton then refuses the mapping: "if (t != MAP_BUTTON) return (false);" (controls.cpp:1646). A configuration naming a command outside the registry is refused by the project's own code.
+
+EN5 closed within scope: the lookup bound is LAST_COMMAND, produced by the same macro list that produces the table, and walked at runtime by the code that accepts or refuses the mapping. That is Section 3.2's first admissible case -- runtime construction closes the set. Tag: enforced.
+
+EN6 outcome independence: membership is the set of supported commands. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible: expand THE_COMMANDS and emit, per entry, the command name a configuration may bind, with membership deciding acceptance.
+
+Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Snes9x designates an authoritative rules source.
+
+Decision: PASS

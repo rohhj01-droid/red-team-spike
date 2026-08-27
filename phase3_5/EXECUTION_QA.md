@@ -584,3 +584,41 @@ One note for the inventory stage: C010's E4 record already asserts a
 354-entry universe. That number and the observation granularity behind
 it are re-established mechanically at inventory time rather than
 inherited from the screening entry.
+
+## QA-16 — E4 as sealed is satisfied by a common idiom (OBSERVATION, no change made)
+
+Three candidates have now reached E4 and all three passed, each on the
+same structure:
+
+```text
+C010 flycast   Games[]            sentinel loop   -> "Unknown game"
+C012 libchdr   codec_interfaces[] ARRAY_LENGTH    -> CHDERR_UNSUPPORTED_FORMAT
+C014 snes9x    command_names[]    LAST_COMMAND    -> S9xBadMapping, mapping refused
+```
+
+A static table, walked to its own declared bound at runtime, with a miss
+producing a rejection the project itself executes. That is not a loose
+reading of EN1-EN6; it is close to a transcription of them -- EN3 names
+"all entries in a registry", EN5's first admissible case is "runtime
+construction closes the set", and EN4 is met because the rejection is
+executed rather than inferred from a name.
+
+The consequence worth recording before it becomes visible in aggregate:
+**E4 is likely to admit a large fraction of the C codebases in this
+frame**, because table-plus-bound-plus-reject is ordinary practice in
+them. The gates that have actually been eliminating candidates are
+earlier -- four of the five terminal REJECTED/UNRESOLVED verdicts stopped
+at E2-REP.
+
+**Nothing is changed in response to this.** Tightening E4 now, having
+seen three passes, would be exactly the post-hoc criterion narrowing
+this run has withdrawn verdicts over twice (QA-12, QA-13). The
+observation is recorded so that it is on the record BEFORE the eligible
+set is complete, rather than discovered afterwards as a surprise about
+what the screening measured.
+
+What it does mean for reporting: if the run ends with many eligible
+candidates, that is a finding about E4's discriminating power, not a
+finding that these projects are unusually well-structured. The
+tie-break, not the gate, will then be doing most of the selection work
+-- which is precisely why it was sealed in advance.
