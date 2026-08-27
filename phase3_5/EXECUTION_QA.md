@@ -509,7 +509,7 @@ Also corrected there: EN1-EN6 live in Section 3.2, not Section 3.1.
 Section 3.1 carries the authoritative-designation requirement. The
 amendment had cited them as one.
 
-## QA-15 — the candidate schema has no value for "inventory not built yet" (FLAGGED, provisional)
+## QA-15 — the candidate schema had no value for "inventory not built yet" (CLOSED)
 
 C010 is the run's first ELIGIBLE candidate, and it is the first row to
 reach the seven fields the schema places after `evidence_refs`. The
@@ -537,27 +537,50 @@ also the revision the E4 observations were read at.
 
 The other three -- `authoritative_source_inventory_ref`,
 `enumerator_inventory_ref`, `completeness_class` -- genuinely require
-the inventory stage, and the sealed methodology places that stage after
-screening: Section 2 has screening run until the frame is exhausted or
-the budget is reached, and the inventory is built between screening and
-selection, with a discovery made *after* target selection recorded as a
-protocol failure. Building inventories mid-screening would also let the
-first survivor's structure inform how later candidates are read.
+the inventory stage.
 
-**Provisional disposition, flagged rather than settled.** Those three
-carry `PENDING_INVENTORY`. `NOT_REACHED` was rejected because the
-protocol defines it as "never evaluated", which would be false here --
-the fields are not-yet, not never, and recording a false permanence to
-avoid an unlisted token is the wrong trade.
+**Resolution: all survivor inventories are built after screening
+completes**, and `PENDING_INVENTORY` is formalized in
+`SCREENING_PROTOCOL.md` as a bounded lifecycle state rather than left
+as a note here.
 
-`PENDING_INVENTORY` is a stage marker, not an outcome. It says nothing
-about the candidate, cannot be a verdict, and appears in no gate
-vocabulary. That is the reason it is admissible where a new *outcome*
-code would not have been -- the amendment's objection to minting
-vocabulary after seeing results is an objection to vocabulary that
-changes what a result says.
+The ordering argument is stated at its actual strength, which is
+narrower than this entry first put it. The sealed methodology requires
+screening through the frozen frame/budget and requires every survivor
+inventory to be frozen before ranking; performing all survivor
+inventories only after screening is therefore the least discretionary
+execution order for this run. It is **not** claimed that the sealed
+text forbids mid-screening inventory in so many words -- an earlier
+draft of this entry said the methodology "places that stage after
+screening", which reads as a prohibition the document does not contain.
 
-This is recorded as flagged rather than closed: the choice governs
-every future ELIGIBLE row, and if the run instead builds each
-survivor's inventory as it is found, the token disappears and these
-three fields are filled at screening time.
+The independent reason is contamination, and it is the stronger one.
+Building Flycast's inventory means reading its structure far deeper
+than E4 required. Screening the remaining 104 items from that state
+would let the first survivor's structure shape how witnesses are
+searched for in later candidates. The explicit rules would stay fixed;
+search habits are not covered by explicit rules. The path is avoidable
+at no cost, so it is closed rather than argued about afterwards.
+
+Two consequences follow, both recorded in the protocol:
+
+```text
+finding an eligible candidate does not stop screening
+  later ranks may also be eligible, and may carry a higher
+  completeness class
+
+survivors are inventoried in ascending first_frame_rank
+  fixed before the survivor set is known, so that "which survivor
+  do we examine closely first" is not a live choice
+```
+
+`PENDING_INVENTORY` says nothing about the candidate, cannot be a
+verdict, and appears in no gate vocabulary; it may not be used in
+ranking, and must be replaced at the inventory stage. That is why it is
+admissible where a new *outcome* code would not have been -- the
+amendment's objection is to vocabulary that changes what a result says.
+
+One note for the inventory stage: C010's E4 record already asserts a
+354-entry universe. That number and the observation granularity behind
+it are re-established mechanically at inventory time rather than
+inherited from the screening entry.

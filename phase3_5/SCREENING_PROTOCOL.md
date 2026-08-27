@@ -433,6 +433,78 @@ Fields from `canonical_source_location` down are inventory work that
 the sealed methodology performs only for candidates surviving E1-E4;
 rejected candidates carry `NOT_REACHED` there.
 
+### Stage marker for eligible candidates awaiting inventory
+
+Those seven fields do not all become available at the same moment. Four
+are already determined by gates that have run -- E2-REP settles the
+source location and the target identifier, the sealed snapshot rule
+resolves `primary_snapshot` mechanically, and `tie_key` is computed from
+the first two. The remaining three require the inventory stage, which
+runs after screening. Until it does, an eligible candidate carries:
+
+```text
+authoritative_source_inventory_ref = PENDING_INVENTORY
+enumerator_inventory_ref           = PENDING_INVENTORY
+completeness_class                 = PENDING_INVENTORY
+```
+
+`PENDING_INVENTORY` is a lifecycle state, and it is bounded so that it
+cannot become anything else:
+
+```text
+not a screening outcome
+not a gate state
+may not be used in ranking or tie-break
+MUST be replaced with a real value at the inventory stage
+```
+
+`NOT_REACHED` is not used here. The protocol defines it as "never
+evaluated", which for a survivor is false -- these fields are not-yet,
+not never, and recording a false permanence to stay inside the existing
+tokens would be the wrong trade. This adds no outcome vocabulary: it
+fills a lifecycle state the schema could not previously express.
+
+### Execution order for the inventory stage
+
+Screening runs through the frozen frame until the frame is exhausted or
+the budget is reached. Finding an eligible candidate does not end it:
+later ranks may also be eligible, and may carry a higher completeness
+class. Every survivor's inventory is then frozen before ranking.
+
+```text
+screen all 128 frame items
+  -> fix the E1-E4 survivor set
+  -> freeze each survivor's candidate inventory
+  -> compute completeness classes
+  -> rank / tie-break
+  -> select the target
+  -> E5
+```
+
+**Survivors are inventoried in ascending `first_frame_rank`.** Fixed
+here, before the survivor set is known. The order must not affect any
+result, which is exactly why leaving it open would cost something and
+gain nothing: with several survivors, "which one do we look at closely
+first" is discretion, and it is cheaper to remove it than to argue
+afterwards that it did no work.
+
+**Why the inventories are not built as each survivor is found.** Two
+reasons, and the second is the load-bearing one.
+
+The sealed methodology requires screening through the frozen
+frame/budget, and requires every survivor inventory to be frozen before
+ranking. Performing all survivor inventories only after screening is
+therefore the least discretionary execution order available for this
+run. It is not claimed that the sealed text forbids mid-screening
+inventory in so many words.
+
+The stronger reason is contamination. Building a candidate inventory
+means reading its structure far more deeply than E4 needs. Screening the
+remaining items in that state would let the first survivor's structure
+shape how witnesses are looked for in later candidates -- the explicit
+rules stay fixed, but search habits are not covered by them. The path is
+avoidable at no cost, so it is closed.
+
 ## Evidence log format
 
 TSVs carry verdicts; `screening_evidence.md` carries grounds. Every
