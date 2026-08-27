@@ -730,3 +730,47 @@ fitting the contract to a result.
 **Effect on the ledger.** C014 becomes UNRESOLVED at E2-REP; its
 E2-RULE, E3 and E4 entries are quarantined as post-stop exposure. The
 eligible set returns to C010 and C012.
+
+## QA-18 - two frame items were skipped in the frozen order (DEVIATION, correctable)
+
+Ranks 9 (`emulators/fceux`) and 13 (`emulators/mednafen`) have no frame
+row, no candidate row and no verdict. Screening ran 8 -> 10 -> 12 -> 14,
+passing over both.
+
+```text
+terminal ranks   1 2 3 4 5 6 7 8 _ 10 11 12 _ 14 ...
+missing                          9          13
+```
+
+Neither is absorbed by anything: no row carries them in `frame_items`,
+and the only DUPLICATE in the ledger maps rank 106 to C105.
+
+**Cause.** After the session resumed at rank 10, the next-rank pointer
+was carried forward from what the previous turn named rather than
+recomputed from the ledger. The even-numbered sequence looked
+deliberate, and nothing checked it against the frozen list until now.
+
+**Why this is worse than QA-06 in one respect and better in another.**
+Worse: QA-06 reordered items that were all eventually screened, while
+this dropped two entirely, and had it gone unnoticed the run would have
+reported 128 items screened while having screened 126. Better: it is
+still correctable at no methodological cost. Both ranks are unscreened,
+so screening them now restores the frozen order without re-observing any
+rank that already reached a terminal verdict -- the thing QA-06 could
+not undo.
+
+**Disposition.** Screening resumes at rank 9, then 13, then 15. The
+frozen order is sealed and takes precedence over the working assumption
+that everything below 15 was finished.
+
+**Prior exposure to log.** Both ranks were touched during the voided
+QA-07 batch: fceux's documentation.html and mednafen's /documentation/
+were read while determining E3 for a group of candidates, and QA-07
+records that no verdict was issued from that batch. That exposure is
+recorded here so it is visible in each candidate's evidence when those
+gates are reached, rather than surfacing as an unexplained familiarity.
+
+**Rule carried forward.** The next rank to screen is read from the
+ledger -- the lowest rank in the frozen set with no terminal row -- not
+from what the previous turn said it would be. A pointer carried in prose
+is not a pointer.
