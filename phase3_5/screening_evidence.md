@@ -3036,9 +3036,9 @@ Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/amnesia-tdd/Makefile
 Observed: HOMEPAGE=https://www.amnesiagame.com/; GH_ACCOUNT=shamazmazum; GH_PROJECT=AmnesiaTheDarkDescent; GH_TAGNAME=v${V} with V=0.3.2; DISTNAME=amnesia-tdd-${V}; COMMENT="first person survival horror game".
 
-Inference: the fields name one system by name -- Amnesia: The Dark Descent. The protocol settles this shape explicitly: "A port whose HOMEPAGE points at a project website while GH_ACCOUNT/GH_PROJECT point at a repository ... is not ambiguous: those are several facts about one system. UR-AMBIGUOUS applies only where the metadata points at genuinely different systems with no external basis for choosing."
+Inference: the frozen fields name one system by name -- Amnesia: The Dark Descent. The protocol settles this shape explicitly: "A port whose HOMEPAGE points at a project website while GH_ACCOUNT/GH_PROJECT point at a repository ... is not ambiguous: those are several facts about one system. UR-AMBIGUOUS applies only where the metadata points at genuinely different systems with no external basis for choosing."
 
-Recorded because it is the tension a reader will notice, and because it is deliberately NOT resolved here: the account named is an individual's rather than the publisher's, and the version line, 0.3.2, is not the commercial game's. Neither observation is a metadata field saying "different system", and inferring party identity from an account name would be reading discretion back into candidate identity at exactly the place the frame exists to remove it. Which location is canonical is not decided from OpenBSD's metadata at all; that belongs to E2-REP.
+UR is decided from the frozen metadata alone, and nothing beyond it is used here. Which location is canonical is not decided from OpenBSD's metadata at all; that belongs to E2-REP.
 Decision: PASS
 
 ## EV-C025-E1-01
@@ -3082,26 +3082,42 @@ Observed: repository AmnesiaTheDarkDescent, owner login shamazmazum, default bra
 
 And the marking that matters here, which the contract names among allowed observations: **isFork: true**, with the page's own banner reading "AmnesiaTheDarkDescent Public forked from TiManGames/AmnesiaTheDarkDescent".
 
-The parent was not followed. Doing so would select among plausible upstreams, which the upstream-resolution rule forbids outright -- "The analyst never selects among several plausible upstreams" -- and it was excluded by the scope fixed above.
+The parent was not followed, and the reason is narrower than an earlier draft of this entry gave. That draft said following it "would select among plausible upstreams". That is not accurate: TiManGames/AmnesiaTheDarkDescent is not a candidate an analyst picked by name resemblance -- it is supplied directly by GitHub's structured fork relation. The actual reason is simply that the sealed navigation does not reach it:
+
+```text
+allowed navigation
+  1. official landing page
+  2. a Source/Code/Repository/Development link that page exposes
+  3. the repository root that link reaches
+
+following a fork-parent relation is not among these, and the fork
+parent is not an identifier in the frozen metadata, so it is not an
+admitted starting point either
+```
+
+Contextual note, carrying no verdict work and recorded here rather than at UR because it depends on this surface: the frozen metadata's account is an individual's rather than the publisher's whose site the frozen HOMEPAGE names, and the packaged version line, 0.3.2, is not the commercial game's. Neither observation is used to adjudicate anything. They are logged because a reader will notice them, and because inferring party identity from an account name is exactly the discretion the upstream-resolution rule removes.
 
 Adjudication:
 
 ```text
 PASS not established
-  no upstream surface performs a designation. The official site
-  designates no source location at all, and the repository reached by
-  the packaging identifier yields affiliation rather than designation
-  (QA-22). Here that is weaker than at C017: the repository is marked
-  as a fork, so even the affiliation runs to an account the frozen
+  no designation signal was observed on either admissible surface
+  examined -- the frozen HOMEPAGE landing page, and the frozen GH
+  repository root's metadata. The repository reached by the packaging
+  identifier yields affiliation rather than designation (QA-22), and
+  here that is weaker than at C017: the repository is marked as a
+  fork, so even the affiliation runs to an account the frozen
   metadata does not name.
 
 FAIL not established
-  "designates none" is not established by a marketing page having no
-  source link. E2REP-NO-SOURCE is a claim about a DESIGNATED canonical
-  location, and none was established for such a claim to be about.
+  "designates none" is a claim about upstream, and what was observed
+  is that two examined surfaces carried no designation signal. That
+  is not the same statement.
 ```
 
-Recorded as a first for the run: every previous candidate's fetch target carried isFork false. This is the first where the location the packaging metadata fetches from is explicitly marked a fork.
+`E2REP-NO-SOURCE` in particular does not apply, and the reason is worth stating because it inverts the usual shape. That code means no access to the actual source representation. Access is not the problem here: a source tree was observed at the frozen GH location -- HPL2, amnesia/src. What is missing is upstream designation of that location as this candidate's canonical source. The gate is undetermined because the designation was not established, not because the source was unreachable.
+
+Recorded as a first for the run, scoped to what was actually recorded: among repository-root observations for which fork status was noted, C025 is the first with isFork true. Candidates that stopped earlier, or whose upstream was not a code-hosting repository, carry no such observation either way.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
