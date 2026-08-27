@@ -1636,3 +1636,62 @@ An earlier draft added that "the inventory stage should not have to rediscover i
 Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Mednafen designates an authoritative rules source.
 
 Decision: PASS
+
+## EV-C015-UR-01
+Candidate: C015 (frame rank 15, emulators/virtualjaguar)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/virtualjaguar/Makefile
+Observed: HOMEPAGE=https://icculus.org/virtualjaguar/; V=2.1.3; DISTNAME=virtualjaguar-${V}; EXTRACT_SUFX=.tar.bz2; SITES=https://icculus.org/virtualjaguar/tarballs/; COMMENT="Atari Jaguar emulator". There is no GH_ACCOUNT/GH_PROJECT.
+Inference: every field names one packaged system, Virtual Jaguar. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C015-E1-01
+Candidate: C015
+Gate: E1
+Source: same frozen metadata; https://icculus.org/virtualjaguar/
+observed_at_utc: 2026-08-27T09:44:16Z; http_status 200
+Observed: a third-party Atari Jaguar emulator with a documented lineage from a CoJag driver through Starscream, Musashi and a customized UAE 68000 core, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C015-E2REP-01
+Candidate: C015
+Gate: E2-REP
+
+Surface: https://icculus.org/virtualjaguar/ -- the frozen HOMEPAGE, navigation step 1. No further navigation was performed, and none was needed: every designation below is on this page.
+Necessary because: E2-REP asks whether upstream designates EXACTLY ONE canonical source location, and this is the project's own page.
+
+observed_at_utc: 2026-08-27T09:44:16Z-09:44:18Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-project-page
+
+Observed: the page designates two live source locations, of the two different types the criterion admits.
+
+```text
+source distribution
+  "The latest official release is 2.1.2. Pick your poison:"
+  "Linux (source only*)" -> tarballs/virtualjaguar-2.1.2.tar.bz2
+  under the project's own path
+
+source repository
+  "Those of you who like to live on the bleeding edge can grab
+   sources from anonymous GIT. To download from GIT use the
+   following command:  git clone
+   http://shamusworld.gotdns.org/git/virtualjaguar"
+  on a different host
+```
+
+Neither is marked canonical, primary or authoritative relative to the other. "Official" attaches to the release, not to the location; "bleeding edge" describes the repository's contents, not its rank.
+
+Also observed, and NOT counted as a third designation: a CVS repository on icculus.org, which upstream deprecates explicitly -- "the CVS repository on icculus.org is pretty much dead, and will probably stay that way ... Please keep this in mind if you plan to contribute patches; build against GIT, not CVS!" That is upstream ranking GIT above CVS, so CVS is not a live competing location. It is worth stating because it shows the project does designate primacy when it intends to, and makes no comparable statement ranking GIT against the release tarball.
+
+Two further links, "here" and "here", point at third-party hosts offering automated Win32 builds of GIT. Those are binary builds by other parties, not upstream designations of canonical source. The remaining outbound links are community sites and forums.
+
+Inference: the sealed criterion admits BOTH a repository and a source distribution as source-location types, and states directly that a project which "designates several with no primary among them" fails E2-REP. Upstream here exposes one of each, live, and designates no primary between them. That is the same case as C002, C006, C007 and C011, and this failure code is positive in shape: several designations were found and no primary among them, not nothing found.
+
+The reading is deliberately not the one this run has already had to withdraw once. Treating the GIT repository as "the real source" and the tarball as merely a release -- or the reverse, treating the official release as canonical and GIT as a preview -- imposes a hierarchy the criterion refuses to let us supply, since adjudicating which location "really" holds the system would be our judgment about the target's identity.
+
+Recorded as an observation with no inference drawn from it: the page's latest release is 2.1.2, while the frozen port packages 2.1.3. Nothing in this verdict depends on that, and OpenBSD metadata cannot substitute for upstream designation in either direction.
+
+Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
+
+Gates after E2-REP are NOT_REACHED under the first-fail stop rule.
