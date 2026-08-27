@@ -2502,3 +2502,87 @@ Nothing beyond step 1 was opened. cvs.html would give the checkout details, but 
 Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
 
 Gates after E2-REP are NOT_REACHED under the first-fail stop rule.
+
+## RETRACTION 11 — C020 E2-REP withdrawn; the second location was never located
+
+EV-C020-E2REP-01 is **quarantined**. It recorded FAIL
+(E2REP-NO-SINGLE-CANONICAL-LOCATION) on the finding that upstream
+designates a source distribution and a repository with no primary
+between them. The first half holds. The second does not.
+
+**What the landing page actually gives for the repository.** Its prose
+reads "You can also use anonymous cvs to get the latest development
+sources", linking to cvs.html. That is a strong signal that a CVS source
+route EXISTS. It is not an observation of a repository location. No
+checkout endpoint, host or repository URL appears on the permitted
+surface, and cvs.html -- which would presumably supply them -- was not
+opened.
+
+**Why this is not C015 or C009 after all.** Both of those completed the
+arrow to an actual location on the permitted surface:
+
+```text
+C015   landing page body carried the location itself:
+       "git clone http://shamusworld.gotdns.org/git/virtualjaguar"
+
+C009   the link's DESTINATION was the repository:
+       "commit browser" -> github.com/TASEmulators/fceux/commits/master
+
+C020   landing page -> cvs.html, a repository-instructions page.
+       The location is one hop further on, and unobserved.
+```
+
+The withdrawn entry treated "a repository route is designated" as
+equivalent to "a second canonical source location is designated at a
+stable URL". E2-REP asks how many canonical source LOCATIONS upstream
+designates, and a location that was never seen cannot be counted.
+
+**A second error in the same entry.** Its evidence block presented the
+table's `source | CVS | "Unreleased snapshot of CVS repository"` row
+alongside `source | 1.4` as if the two might be distinct locations. By
+its own wording that row is a source DISTRIBUTION -- a snapshot taken
+from the CVS repository -- served from the same path as the versioned
+tarballs. Both rows are the same source-distribution location.
+
+**cvs.html is deliberately not being opened now.** C020 was recorded as
+a terminal FAIL; adding a fresh upstream observation to repair it would
+be observation after a terminal verdict, which is the pattern QA-21 was
+written to stop. The gate is re-determined on what was admissibly
+observed.
+
+## EV-C020-E2REP-02  (supersedes the quarantined EV-C020-E2REP-01)
+Candidate: C020 (frame rank 20, games/ace)
+Gate: E2-REP
+
+Surface: the frozen HOMEPAGE, which is also the frozen SITES. Nothing past step 1 was opened.
+requested_url: http://www.delorie.com/store/ace/
+final_url: https://www.delorie.com/store/ace/
+observed_at_utc: 2026-08-27T12:09:25Z-12:09:27Z; http_status 200; redirect_chain: 1 redirect, http -> https, same host
+evidence_role: official-project-page
+
+Observed: the "Downloading" table serves source distributions from the project's own path -- rows `source 1.4`, `1.3`, `1.2`, `1.1`, `1.0`, and a `source CVS` row annotated "Unreleased snapshot of CVS repository", all on the same path, alongside platform binary rows. The prose adds "You can also use anonymous cvs to get the latest development sources", linking to cvs.html.
+
+```text
+established
+  upstream designates source distributions directly on this page, and
+  states that an anonymous CVS route to development sources exists.
+
+not established
+  the CVS repository's location. No checkout endpoint or repository
+  URL appears on the permitted surface; cvs.html was not opened.
+
+PASS not established
+  E2-REP requires exactly one designated canonical source location,
+  at a stable URL, holding a source tree. With a second route
+  announced but its location unobserved, neither the count nor the
+  URL can be settled.
+
+FAIL not established
+  the multi-location finding needs two LOCATIONS. One was announced,
+  not located. A route whose endpoint was never seen cannot be
+  counted as a second canonical source location.
+```
+
+The `source CVS` row is not a second location either: by its own annotation it is a snapshot distribution taken from the repository, served from the same path as the versioned tarballs.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)

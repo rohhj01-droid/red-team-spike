@@ -1360,3 +1360,54 @@ the criterion's question was still potentially answerable there
   -> scope fixed in advance
   -> observed
 ```
+
+## QA-25 — a designated ROUTE is not a designated LOCATION
+
+C020's withdrawn E2-REP counted "You can also use anonymous cvs to get
+the latest development sources" as a second canonical source location.
+It is not one. It is an announcement that a route exists, with the
+location one hop further on, in a page that was not opened.
+
+E2-REP counts canonical source LOCATIONS, and requires each to sit at a
+stable URL. A location that was never observed cannot be counted, in
+either direction -- it cannot complete a multi-designation FAIL, and it
+cannot be assumed absent.
+
+The distinction is visible by comparison with the two candidates whose
+arrows did complete on the permitted surface:
+
+```text
+C015  the landing page body carried the location itself
+      "git clone http://shamusworld.gotdns.org/git/virtualjaguar"
+
+C009  the link's DESTINATION was the repository
+      "commit browser" -> github.com/TASEmulators/fceux/commits/master
+
+C020  landing page -> cvs.html, an instructions page
+      location unobserved
+```
+
+QA-23 generalised the designation signal to include a link relation
+precisely so that C009's case would not have to be forced into prose.
+That generalisation is about the FORM the signal may take. It does not
+license treating a link to instructions as equivalent to a link whose
+destination is the location.
+
+**A second slip in the same entry, worth naming separately.** It
+presented the download table's `source | CVS | "Unreleased snapshot of
+CVS repository"` row next to `source | 1.4` as though they might be
+distinct locations. By its own annotation that row is a source
+DISTRIBUTION taken from the repository, served from the same path as the
+versioned tarballs. Reading a row's CONTENTS as though they indicated a
+different LOCATION is the same conflation one level down.
+
+**cvs.html was not opened to repair this.** C020 had been recorded as a
+terminal FAIL, and adding a fresh upstream observation to rescue a
+terminal verdict is what QA-21 exists to stop. The gate is re-determined
+on what was admissibly observed, and lands on UNRESOLVED.
+
+**Rule carried forward.** Before counting a location toward E2-REP --
+for a PASS or for a multi-designation FAIL -- record the location
+itself: a URL, an endpoint, or a link whose destination is the location.
+"Upstream says you can get source this way" establishes a route, and a
+route is not a location.
