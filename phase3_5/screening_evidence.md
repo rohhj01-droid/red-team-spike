@@ -2339,7 +2339,7 @@ do not
 observed_at_utc: 2026-08-27T11:53:28Z (GET), 11:53:40Z (HEAD)
 http_status: 404, 404; redirect_chain: NONE (num_redirects 0 both); body "Not Found"
 control: https://github.com/TASEmulators -> 200 at 11:53:40Z, an account-shaped URL on the same host at the same moment
-Observed: the account does not exist. There is therefore no profile, no migration notice, and no repository list -- the bounded observations above have nothing to return, and the prohibited ones have nothing to be tempted by.
+Observed: the admitted account URL returned a definitive 404. No profile, migration notice, repository list or designation signal was observable at that surface. No claim is made about the account's existence as such -- the observation is of what the URL returned now, on the same footing as the repository endpoint above, where rename and deletion history were likewise left alone. The bounded observations had nothing to return, and the prohibited ones nothing to tempt with.
 
 Adjudication:
 

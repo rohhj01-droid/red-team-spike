@@ -1324,6 +1324,39 @@ could have sat in owner-controlled metadata. And it argued from GitHub's
 same-host control establish the endpoint's present state, which is all
 the gate asks, and the platform-semantics claim is dropped.
 
-**Rule carried forward.** When a surface is admitted and the gate is
-unsettled, it gets observed. If there is something at that surface we
-must not do, write the bound down first and then look.
+**Rule carried forward, stated narrowly.** An earlier draft of this
+entry read "when a surface is admitted and the gate is unsettled, it
+gets observed". That is too strong, and it collides with a distinction
+the contract and QA-11 already make: **admitted is not necessary.**
+
+```text
+admitted + necessary under QA-11  -> observe
+  and if the surface carries a risk of analyst overreach:
+    1. fix the allowed observation scope before opening it
+    2. observe only within that scope
+
+admitted alone                    -> no obligation to observe
+```
+
+QA-11 fixed necessity as the criterion's live question plus
+already-observed structure leaving the verdict unsettled WITHOUT that
+surface. Admission says where we may look, not where we must.
+
+The run already relies on this. C010's frozen SITES was an admitted
+starting point and was deliberately not opened, because the port
+Makefile's own dist: target had already shown the host to be
+packager-side -- observed structure had made it unnecessary to the
+designation question. If admission alone created an obligation, that
+decision would have been wrong, and it was not.
+
+C018 holds under the narrower rule for the reason it always did:
+
+```text
+repository endpoint -> definitive 404
+gate still unsettled
+account token = the remaining admitted identifier
+the criterion's question was still potentially answerable there
+  -> necessary
+  -> scope fixed in advance
+  -> observed
+```
