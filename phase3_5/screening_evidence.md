@@ -3363,3 +3363,144 @@ QA-20 predicted this conditionally, on the shape rather than the host: "if a lat
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C029-UR-01
+Candidate: C029 (frame rank 29, games/angband)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/angband/Makefile
+Observed: HOMEPAGE=http://rephial.org; SITES=https://github.com/angband/angband/releases/download/${V}/ with V=4.2.5; DISTNAME=Angband-${V}; PKGNAME=${DISTNAME:L}; COMMENT="rogue-like game with X11 support".
+Inference: the frozen fields name one system, Angband. HOMEPAGE pointing at a project site while SITES points at a release-download path is the shape the protocol names non-ambiguous -- several facts about one system. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C029-E1-01
+Candidate: C029
+Gate: E1
+Source: same frozen metadata; https://rephial.org/
+observed_at_utc: 2026-08-27T15:22:48Z; http_status 200
+Observed: a third-party roguelike, described on its own About page as descending from Moria and UMoria and "currently maintained by a rather loose-knit development team", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C029-E2REP-01
+Candidate: C029
+Gate: E2-REP
+
+Per QA-27, both URLs the frozen metadata supplies are accounted for. HOMEPAGE was observed as step 1. SITES resolves into the same GitHub release-download path as the designation found below -- content of the same distribution channel rather than a separate location (the C022 reading) -- and was not separately opened.
+
+Step 1: the frozen HOMEPAGE.
+requested_url: http://rephial.org ; final_url: https://rephial.org/
+observed_at_utc: 2026-08-27T15:22:48Z-15:22:49Z; http_status 200; redirect_chain: 1 redirect, http -> https
+evidence_role: official-project-page
+Observed: the page exposes a link labelled **"Source code"** whose destination is https://github.com/angband/angband/releases/download/4.2.6/Angband-4.2.6.tar.gz, beside Windows and macOS binary links for the same version. Its navigation is About (/develop), Releases (/release), Docs (angband.readthedocs.io) and Forum.
+
+The designation signal is a label in the plainest form QA-23 admits: the page's own word for the link is "Source code", and its destination is a location -- a URL -- not a page of instructions. QA-25 is satisfied directly.
+
+Step 2 and the uniqueness check: /develop, the destination of the "About" link.
+Necessary because: recording "exactly one designated location" requires having looked where a second could be, which C019 established after claiming uniqueness it had not checked. /develop is the site's own development path and is where a repository designation would sit.
+observed_at_utc: 2026-08-27T15:23:31Z; http_status 200; redirect_chain: NONE
+Observed: an About page giving the project's history and contribution guidance. Its only github.com link is https://github.com/angband/angband/issues -- an issue tracker, which the contract names among forbidden E2-REP surfaces and which is not a designation of a source location in any case; it was not opened. Its other outbound links are nickmcconnell.github.io/AngbandPlus and tangaria.com/variants, which upstream introduces as sources and descriptions for **variants** -- other systems, stated as such: "Source code for many of the variants is available at ...". No canonical source location for Angband itself is designated there.
+
+Source-tree presence at the designated location, which E2-REP requires of the designated artifact:
+observed_at_utc: 2026-08-27T15:23:56Z; http_status 200; 25932904 bytes
+sha256 8c0ffa2b85d74bd0cc273752f61c0440dba93323cd790be460f90c8dced7cbf4
+Listing entry names only, reading no file: 1181 entries, with src/ carrying borg, cocoa, sdl2, win, nds, tests, stats, cmake and doc beneath it, alongside lib/, docs/, tests/, configure.ac, CMakeLists.txt, README.md and CONTRIBUTING.md.
+
+Inference: exactly one designated canonical source location, a source distribution at a stable URL, designated by upstream on its own page under the label "Source code", and holding a source tree. One external target identifier: Angband.
+
+Recorded rather than glossed: the tarball's URL form reveals a repository at github.com/angband/angband, but no admissible surface DESIGNATES that repository. Under QA-25 a location counts only when observed as designated, not when inferred from a URL's shape, so this is not the C015 distribution-plus-repository shape.
+
+Snapshot caveat, for the inventory stage: the designated artifact observed is 4.2.6, while the frozen port packages 4.2.5. The snapshot rule fixes the artifact designated at the enumeration execution timestamp, 2026-08-26T19:23:05Z, and nothing observed establishes which version was designated at that instant rather than a day later when this page was read. The hash recorded is of the artifact designated at observation time, and the gap is flagged here rather than smoothed over.
+
+Decision: PASS
+
+## EV-C029-E2RULE-01
+Candidate: C029
+Gate: E2-RULE
+Source: lib/gamedata/constants.txt in the designated artifact
+observed_at_utc: 2026-08-27T15:23:56Z (artifact retrieved), read shortly after
+
+Observed: located witness, stated by the project in the data file's own comment and immediately applied by the value beneath it:
+
+```text
+# Maximum dungeon level; must be at least 100.
+# Setting it below 128 may prevent the creation of some objects.
+world:max-depth:128
+```
+
+The same file states ordering constraints in the same voice -- "the cutoffs for all levels but the last must be in scrictly ascending order" -- and "The first value must be positive."
+
+Inference: this determines a concrete validity requirement on an input artifact without our inventing it. A gamedata file setting world:max-depth below 100 does not satisfy the project's stated requirement. The requirement is numeric and sits in the file it governs.
+Decision: PASS
+
+## EV-C029-E3-01
+Candidate: C029
+Gate: E3
+Source: docs/hacking/modifying.rst in the designated artifact, the object.txt description
+observed_at_utc: same retrieval
+
+Observed: located witness, quoted -- "A tval-sval pair completely identifies an object - since the tval and sval are saved to savefiles, removing or adding objects is likely to render existing save files unusable." The same document adds, of ego items, that "removing or changing one with an instance currently in the game might cause problems."
+
+Inference: whether an existing save file remains loadable is not decidable from that save file alone. It depends on whether the gamedata files were edited after the save was written -- the identifiers the save stores are indices into tables that the data files define, so an edit performed later invalidates a file written earlier. That is validity conditioned on history, the shape E3 asks for, and it is stated by the project rather than inferred.
+Decision: PASS
+
+## EV-C029-E4-01
+Candidate: C029
+Gate: E4
+
+Positive construction exhibited, via U_enforced, in the designated artifact at the recorded hash.
+
+The mechanism: the gamedata parser registry, src/init.c:4349-4387, introduced by the project's own comment -- "A list of all the above parsers, plus those found in mon-init.c and obj-init.c".
+
+```text
+static struct {
+    const char *name;
+    struct file_parser *parser;
+} pl[] = {
+    { "world", &world_parser },
+    { "object bases", &object_base_parser },
+    { "objects", &object_parser },
+    { "artifacts", &artifact_parser },
+    { "monsters", &monster_parser },
+    { "traps", &trap_parser },
+    ...
+};
+```
+
+EN1 external authorship: the game and this registry existed independently of this analysis.
+
+EN2 explicit scope: the project names the domain in its own comment -- a list of ALL the parsers -- and each entry pairs a domain label with the parser that reads that domain's data file. 37 entries, from "world" through "random names".
+
+EN3 mechanical membership: array membership in pl[], bounded by N_ELEMENTS(pl). No semantic reading of individual entries is required.
+
+EN4 enforcement meaning: the project executes the enforcement over exactly this set, and a failure is fatal.
+
+```text
+for (i = 0; i < N_ELEMENTS(pl); i++) {
+    ...
+    if (run_parser(pl[i].parser))
+        quit_fmt("Cannot initialize %s.", pl[i].name);
+}
+```
+
+Each registered parser decides whether its data file is acceptable, and rejection aborts startup with the project's own message naming the domain. This meaning is executed, not inferred from a name.
+
+EN5 closed within scope: the loop bound is N_ELEMENTS(pl), the enumerator's own extent, walked at runtime by init_arrays. Section 3.2's first admissible case -- runtime construction closes the set. Tag: enforced.
+
+EN6 outcome independence: membership is the set of data domains the game parses. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations rather than as a list:
+
+```text
+one enforcement observation per registered parser
+
+  "data domain D is validated at initialization by parser P, and a
+   parse failure aborts startup"
+
+retained as externally segmented fields, per observation
+  the project's own domain label
+  the parser it names
+```
+
+Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Angband designates an authoritative rules source.
+
+Decision: PASS
