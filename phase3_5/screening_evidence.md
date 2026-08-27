@@ -2843,7 +2843,20 @@ EN5 closed within scope: the set is constructed at runtime by the loader's own t
 
 EN6 outcome independence: membership is the set of admissible plugins. It is not a bug list, fix list or known-failure registry.
 
-The universe is therefore ACTUALLY mechanically constructible: enumerate the types under the declared Plugins directories that satisfy all four admission conditions, and emit, per entry, the plugin's declared Name and which entry points it provides.
+The universe is therefore ACTUALLY mechanically constructible, and it is worth stating as observations rather than as a list, so that it is not mistaken for a bare element inventory at the later stages:
+
+```text
+one enforcement observation per runtime-admitted type
+
+  "type T is admitted by Weland's plugin loader under the fixed
+   Compatible / Name / Run-or-GtkRun admission predicates"
+
+retained as externally segmented fields, per observation
+  declared Name
+  Run / GtkRun entry-point availability
+```
+
+The universe is not "the plugins Weland has". It is the eligibility verdict the loader produces for each type it reflects over -- the same shape as counting "mapper number N is accepted" from a supported-mapper registry rather than counting the registry's rows.
 
 Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Weland designates an authoritative rules source.
 
