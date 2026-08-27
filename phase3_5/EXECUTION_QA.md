@@ -508,3 +508,56 @@ UNRESOLVED, no candidate made eligible, no PASS relaxed.
 Also corrected there: EN1-EN6 live in Section 3.2, not Section 3.1.
 Section 3.1 carries the authoritative-designation requirement. The
 amendment had cited them as one.
+
+## QA-15 — the candidate schema has no value for "inventory not built yet" (FLAGGED, provisional)
+
+C010 is the run's first ELIGIBLE candidate, and it is the first row to
+reach the seven fields the schema places after `evidence_refs`. The
+protocol says of them only that they are "inventory work that the sealed
+methodology performs only for candidates surviving E1-E4", and that
+"rejected candidates carry `NOT_REACHED` there". It says nothing about
+what a survivor carries between passing E4 and the inventory stage
+actually running.
+
+Four of the seven are already determined by gates that have run, so
+they are filled with their real values:
+
+```text
+canonical_source_location    https://github.com/flyinghead/flycast   (E2-REP)
+external_target_identifier   Flycast                                 (E2-REP)
+primary_snapshot             c3763d8fc4208dd6f8f0bc456383543b8406a8a0
+tie_key                      (URL, identifier), computed from the two above
+```
+
+`primary_snapshot` is not a judgement: the sealed rule resolves it
+mechanically to the commit the default branch pointed at at the
+enumeration execution timestamp, 2026-08-26T19:23:05Z. Master had not
+moved since 2026-08-23T11:29:03Z, so it resolves to c3763d8 -- which is
+also the revision the E4 observations were read at.
+
+The other three -- `authoritative_source_inventory_ref`,
+`enumerator_inventory_ref`, `completeness_class` -- genuinely require
+the inventory stage, and the sealed methodology places that stage after
+screening: Section 2 has screening run until the frame is exhausted or
+the budget is reached, and the inventory is built between screening and
+selection, with a discovery made *after* target selection recorded as a
+protocol failure. Building inventories mid-screening would also let the
+first survivor's structure inform how later candidates are read.
+
+**Provisional disposition, flagged rather than settled.** Those three
+carry `PENDING_INVENTORY`. `NOT_REACHED` was rejected because the
+protocol defines it as "never evaluated", which would be false here --
+the fields are not-yet, not never, and recording a false permanence to
+avoid an unlisted token is the wrong trade.
+
+`PENDING_INVENTORY` is a stage marker, not an outcome. It says nothing
+about the candidate, cannot be a verdict, and appears in no gate
+vocabulary. That is the reason it is admissible where a new *outcome*
+code would not have been -- the amendment's objection to minting
+vocabulary after seeing results is an objection to vocabulary that
+changes what a result says.
+
+This is recorded as flagged rather than closed: the choice governs
+every future ELIGIBLE row, and if the run instead builds each
+survivor's inventory as it is found, the token disappears and these
+three fields are filled at screening time.

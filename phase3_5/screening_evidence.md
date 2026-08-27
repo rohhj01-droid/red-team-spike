@@ -981,3 +981,96 @@ amendment. The earlier entry additionally rested on a docs-only closure
 argument that would have excluded runtime construction, which the
 sealed rules admit as evidence; that argument is withdrawn with it.
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## EV-C010-UR-01
+Candidate: C010 (frame rank 10, emulators/flycast)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/flycast/Makefile
+Observed: HOMEPAGE=https://github.com/flyinghead/flycast; DISTNAME=flycast-${V}; COMMENT="emulator for Sega Dreamcast and Sega Naomi based on reicast"; the port's own dist: target runs "git clone https://github.com/flyinghead/flycast.git".
+Inference: every field names one packaged system, Flycast. "based on reicast" states lineage, not a second packaged system. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C010-E1-01
+Candidate: C010
+Gate: E1
+Source: same frozen metadata; https://raw.githubusercontent.com/flyinghead/flycast/master/README.md
+observed_at_utc: 2026-08-27T07:47:58Z; http_status 200
+Observed: a third-party emulator authored by flyinghead, "derived from reicast", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C010-E2REP-01
+Candidate: C010
+Gate: E2-REP
+
+Surfaces: the upstream landing page named by the frozen metadata's HOMEPAGE, which is itself the repository root at https://github.com/flyinghead/flycast. Under the network-access contract this is simultaneously navigation step 1 (landing page) and step 3 (repository metadata/root surface), so no further navigation is available or needed.
+Necessary because: E2-REP asks whether upstream designates EXACTLY ONE canonical source location at a stable URL. That is a question about upstream's own designation, and the only upstream surface the frozen metadata resolves to is this one.
+
+Source: https://github.com/flyinghead/flycast
+observed_at_utc: 2026-08-27T07:46:55Z-07:46:56Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-project-page / official-source-location
+
+Observed: repository flyinghead/flycast, default branch master, isFork false, isArchived false, isTemplate false, no mirror or primary/secondary marking, no repository website field. A source tree is present at the root: directories .github, core, docs, fonts, intl, resources, shell, tests, tools and files including CMakeLists.txt, CMakePresets.json, LICENSE, README.md. The only non-GitHub outbound links are brew.sh, flathub.org, play.google.com, repology.org, flatpak.org and a Discord invite -- binary distribution channels and a chat server, none of them a source-location designation.
+
+Inference: exactly one canonical source location, at a stable URL, designated by upstream as its own repository, actually holding a source tree, with one external target identifier (Flycast). No competing designation is exposed.
+
+Surface considered and NOT observed, with the reason: the frozen metadata also carries SITES=https://messagemode2.com/source/. It is an allowed starting point, but it cannot bear on this gate, and the reason is criterion-grounded rather than convenience. E2-REP asks what UPSTREAM designates; the port Makefile's own dist: target shows the OpenBSD maintainer generating flycast-${V}.tar.gz locally from a git clone and uploading it to a source/ directory ("scp flycast-${V}.tar.gz train:source/"). That distfile is therefore packager-side by the frozen metadata's own construction, and a packager's re-rolled tarball is not an upstream designation whatever it contains. It is also not reachable from any upstream surface: it appears in OpenBSD metadata only.
+
+Incidental exposure logged (not used to pre-judge later gates): the repository page renders README.md automatically, and the root listing shows a .gitlab-ci.yml. The contract forbids opening source files at this gate, so it was not opened; a CI configuration is in any case not a designation of a canonical source location.
+
+Decision: PASS
+
+## EV-C010-E2RULE-01
+Candidate: C010
+Gate: E2-RULE
+Source: https://raw.githubusercontent.com/flyinghead/flycast/master/README.md -> https://github.com/TheArcadeStriker/flycast-wiki/wiki -> https://github.com/TheArcadeStriker/flycast-wiki/wiki/Verifying-your-BIOS-and-Arcade-ROMs
+observed_at_utc: 2026-08-27T07:47:58Z (README), 07:48:22Z (wiki index), 07:48:34Z (page); http_status 200 throughout
+
+Observed: the upstream README designates the documentation surface -- "Information about configuration and supported features can be found on TheArcadeStriker's flycast wiki". On the page that wiki devotes to BIOS and ROM verification, the located witness, quoted: "Flycast uses the latest MAME ROMs (0.219 at the time of this writing), and while most work fine out of the box, others may have new files added in recent MAME which could be missing from your old ROM but be required by Flycast." The same page states of arcade BIOS files that anything other than the listed contents "will give a warning about using an incorrect BIOS".
+
+Inference: this states a concrete validity requirement on an input artifact without our inventing it -- a ROM archive is valid for Flycast only if it contains the file set Flycast's MAME romset level requires, and a BIOS outside the specified contents is incorrect. Externally authored in the sense E2-RULE uses (it existed independently of this analysis) and reached only through upstream's own designation of it.
+
+Recorded because it matters later, not because it changes this gate: this wiki is owned by a third-party account, TheArcadeStriker, not by the project. Section 3.1 bars third-party material from U_normative membership regardless of designation, and that bar is applied at E4 below, where the normative route is accordingly unavailable. E2-RULE asks only whether externally authored validity evidence exists, which it does.
+Decision: PASS
+
+## EV-C010-E3-01
+Candidate: C010
+Gate: E3
+Source: https://github.com/TheArcadeStriker/flycast-wiki/wiki/Flycast-GGPO-Information-and-Guide (reached from the same designated wiki index)
+observed_at_utc: 2026-08-27T07:49:02Z; http_status 200
+
+Observed: located witness, quoted -- of downloading a pre-configured netplay save state, "Both players should do this otherwise your game will never be in sync." The same page states that creating one is "critical to avoid crashes and desyncs", describes the ordered procedure (start the game offline, reach the desired state, save it, rename it with a .net suffix, send it to the opponent), and lists as the first remedy for a GGPO assertion failure: "First make sure you are using a save state to play."
+
+Inference: whether a netplay session is valid is not decidable from the session's present configuration. It depends on whether a matching save state was produced and exchanged BEFORE the session began; an omitted prior step invalidates the later session rather than the step itself. That is validity conditioned on history -- the same ordering shape Phase 3 modelled, and the same shape C008's partition-before-format witness carried. Positive gate: one located witness ends the survey.
+Decision: PASS
+
+## EV-C010-E4-01
+Candidate: C010
+Gate: E4
+
+Positive construction exhibited, via U_enforced. All observations are at the primary snapshot: master had not moved since 2026-08-23T11:29:03Z, so raw reads of master on 2026-08-27 resolve to commit c3763d8fc4208dd6f8f0bc456383543b8406a8a0, the revision the snapshot rule fixes.
+
+Source: https://raw.githubusercontent.com/flyinghead/flycast/master/core/hw/naomi/naomi_roms.h ; .../naomi_cart.h ; .../naomi_cart.cpp ; .../naomi_roms.cpp
+observed_at_utc: 2026-08-27T07:50:04Z-07:51:11Z; http_status 200 throughout
+
+The mechanism: the ROM-set table Games[], declared "extern const Game Games[];" in core/hw/naomi/naomi_roms.h and defined in core/hw/naomi/naomi_roms.cpp lines 248-8517, consumed by FindGame() in core/hw/naomi/naomi_cart.cpp:153-165.
+
+EN1 external authorship: the file's own header records "Created on: Nov 2, 2018, Copyright 2018 flyinghead". It existed independently of this analysis.
+
+EN2 explicit scope: the project identifies the domain in its own terms rather than ours -- the table's header comment states "Rom information from mame (https://github.com/mamedev/mame)", the declared type is Game with a blobs[] array of per-file filename, offset, length, crc and blob_type, and the consuming function is loadMameRom. This leg is carried by the project's declarations and error vocabulary rather than by prose, and is recorded that way rather than stated more strongly.
+
+EN3 mechanical membership: membership is array membership in Games[]. No semantic reading of individual entries is required; 354 entries carry a RotationType field, one per game.
+
+EN4 enforcement meaning: the project itself makes table membership the eligibility condition for loading. loadMameRom calls FindGame(fileName) and, on a miss, executes "throw NaomiCartException(Ts("Unknown game"))" (naomi_cart.cpp:216-217). Per-entry requirements are enforced the same way: for each blob the loader resolves the file by its declared CRC and then by its declared filename, and if neither resolves it throws "Cannot find %s" keyed on game->blobs[romid].filename (naomi_cart.cpp:328-345), with the project's own comment marking the one exemption -- "Default eeprom file is optional". This meaning is stated by the project's code, not inferred by us from a name.
+
+EN5 closed within scope: FindGame iterates "for (int i = 0; Games[i].name != nullptr; i++)", and the table's definition ends with a "{ nullptr }" sentinel at naomi_roms.cpp:8513-8515. The set is closed at runtime by the enumerator the loader actually walks, which is Section 3.2's first admissible case -- runtime construction closes the set. Tag: enforced.
+
+EN6 outcome independence: membership is the set of supported arcade ROM sets. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible: enumerate Games[] to its sentinel and emit, per entry, its required constituent files with declared CRC32, filename, offset, length and blob type, plus the project's stated optionality rule for Eeprom blobs. A worked entry, naomi_roms.cpp:1236-1248: "crzytaxi" / "Crazy Taxi", cart type M2, BIOS "naomi", requiring "epr-21684.ic22" at offset 0x0000000, length 0x400000, CRC 0xf1de77b7, and further mpr-*.ic* blobs on the same pattern.
+
+One accuracy note, recorded so the entry is not read as claiming more than was seen: the crc field is used as a LOOKUP key (OpenFileByCrc) with filename as fallback, not as a post-read integrity comparison. The requirement it expresses is that a file with that CRC or that name be present, not that the loader verifies the bytes it read.
+
+Normative route, for completeness: unavailable, and by rule rather than by absence. The only documentation source upstream designates is TheArcadeStriker's flycast wiki, which is third-party. Section 3.1 removed the third-party escape hatch outright -- such material "may be used as supporting evidence during analysis, but never as primary-universe membership". No claim is made here about whether some other designation exists; only one route is required, and U_enforced supplies it.
+
+Decision: PASS
