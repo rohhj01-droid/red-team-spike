@@ -3336,25 +3336,27 @@ observed_at_utc: 2026-08-27T14:52:18Z; http_status 200; redirect_chain: NONE (nu
 Observed: an Apache directory index, "Index of /debian/pool/main/a/an", listing per-architecture .deb binaries together with an_1.2-6.debian.tar.xz, an_1.2-6.dsc and their successors. It carries no headings, labels or statements beyond the index furniture -- no designation of a canonical source location, no primary or mirror marking.
 
 ```text
-PASS not established, on two independent legs
+PASS not established, for two separately unmet prerequisites of the
+same requirement
 
-  designation
-    no designation signal was observed on either admissible surface.
-    Arriving at the repository through the frozen HOMEPAGE yields
-    affiliation, not designation (QA-22), and the archive index makes
-    no statement at all.
+  1. canonical designation not established
+     no designation signal was observed on either admissible surface.
+     Arriving at the repository through the frozen HOMEPAGE yields
+     affiliation, not designation (QA-22), and the archive index makes
+     no statement at all.
 
-  source-tree presence
-    not observable at the repository root, which renders its tree
-    client-side. This is QA-20's gap: the root establishes repository
-    IDENTITY -- name, owner, default branch, non-emptiness -- and
-    carries no source-tree evidence, and the sealed navigation
-    provides no authorized follow-up surface.
+  2. source-tree presence at the repository root not established
+     the root renders its tree client-side. This is QA-20's gap: it
+     establishes repository IDENTITY -- name, owner, default branch,
+     non-emptiness -- and carries no source-tree evidence, and the
+     sealed navigation provides no authorized follow-up surface.
 
 FAIL not established
   two surfaces carrying no designation signal is not a demonstration
   that upstream designates none.
 ```
+
+These are prerequisites of one requirement rather than separate criteria: E2-REP asks for a designated canonical location that actually holds a source tree. Calling them "independent legs", as an earlier draft did, reads as though two different tests failed.
 
 QA-20 predicted this conditionally, on the shape rather than the host: "if a later candidate reaches an allowed repository root that establishes IDENTITY but carries no source-tree evidence, the same gap applies, whatever the hosting vendor." C028 is the first candidate to meet that condition since it was written, and the prediction is recorded as borne out on one case, not as a rate.
 
