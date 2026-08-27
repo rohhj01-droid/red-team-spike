@@ -3576,43 +3576,105 @@ established at screening time
 NOT established
   which artifact was the externally designated canonical artifact at
   the enumeration execution timestamp. The landing page dates neither
-  the release it presents nor its predecessors, and the frozen port
-  packages a different version, 4.2.5 -- so a designation change
-  occurred at some unbounded point. Nothing observed places 4.2.6's
-  designation before or after 2026-08-26T19:23:05Z.
+  the release it presents nor its predecessors, so nothing observed
+  places 4.2.6's designation before or after 2026-08-26T19:23:05Z.
+
+  The frozen port packages 4.2.5 while the artifact designated at
+  screening time is 4.2.6. An earlier draft read that difference as
+  showing "a designation change occurred at some unbounded point". It
+  shows no such thing: it establishes only what OpenBSD packaged, and
+  packaging metadata is not upstream designation -- the principle this
+  run applies everywhere else.
 
   uniqueness. The withdrawn entry closed this by opening /develop,
   which was not an authorized surface; that observation is
   quarantined, and no admissible replacement was obtained.
 ```
 
-Frozen SITES, accounted for per QA-27 rather than silently dropped: `${SITES}` resolves to https://github.com/angband/angband/releases/download/4.2.5/. It is an admitted starting point and was NOT observed. The reason is necessity rather than convenience: the snapshot ground above is independently decisive and is not curable by anything at that path -- it is a 4.2.5 release path, and OpenBSD metadata cannot establish upstream designation in any case. Under QA-24's narrowed test, admitted alone creates no obligation where the verdict does not turn on it.
+Frozen SITES, observed rather than reasoned about. An earlier draft skipped it, arguing the snapshot ground was "not curable by anything at that path". That decided the outcome from the URL's shape before looking, which is the C018 error, so the surface was opened under a scope fixed first: existence and HTTP status, labels or headings the surface itself carries, artifact names and link relations it exposes, and any timestamp, release metadata or marking that binds a designation to a moment -- and explicitly not navigating to /release or /develop, not opening files, and not inferring from filenames.
+
+requested_url and final_url: https://github.com/angband/angband/releases/download/4.2.5/
+observed_at_utc: 2026-08-27T15:43:15Z (GET), 15:43:28Z (HEAD)
+http_status: 404, 404; redirect_chain: NONE on both
+control: the designated 4.2.6 artifact returned 200 at 15:43:28Z, same host, same moment
+Observed: a 9-byte body, "Not Found". No labels, no headings, no artifact names, no timestamps, no release metadata, no designation marking. The surface yields nothing bearing on what was designated at the enumeration instant.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
-## AUDIT NOTE — C013's primary snapshot, record-only
+## RETRACTION 15 — C013's primary snapshot does not survive the same audit
 
-Audited on the same rule, using only what EV-C013-E2REP-01 already
-records. No new upstream access.
+An audit note written alongside C029's retraction concluded that C013's
+snapshot survived, because the mednafen page presents releases as a
+dated News list whose top entry reads "Mednafen 1.32.1, April 5, 2024".
+The argument was: the newest entry predates the enumeration timestamp by
+over two years, so the designation could not have changed in between.
 
-C013's snapshot survives, and for a reason the entry observed but did
-not spell out. The mednafen landing page presents its releases as a
-dated News list, newest first, and the top entry reads "Mednafen 1.32.1,
-April 5, 2024" with the SHA-256 published beside the artifact.
+That argument is wrong, and it is the same substitution C029 was
+withdrawn for -- one gate later and in gentler clothing.
 
 ```text
-newest dated release entry on the page   2024-04-05
-enumeration execution timestamp          2026-08-26T19:23:05Z
-observation of the page                  2026-08-27T09:01:57Z
+what was directly observed, on 2026-08-27T09:01:57Z
+  the page shows 1.32.1 as the current release
+  that entry carries the date 2024-04-05
+
+what it establishes
+  1.32.1 was released on 2024-04-05
+  1.32.1 is the designated artifact AT OBSERVATION TIME
+
+what it does not establish
+  what was designated at 2026-08-26T19:23:05Z
 ```
 
-Because the newest entry is dated more than two years before the
-enumeration timestamp, and no entry newer than it exists on the page,
-the designated artifact did not change between that timestamp and
-observation. 1.32.1 was therefore the designated canonical artifact at
-the enumeration instant, and the hash recorded is the right one. The
-argument is mechanical and rests on the page's own dating.
+A release date is not a designation interval. Nothing in the record
+closes the window between the enumeration instant and observation: a
+different artifact could have been designated in between and the page
+returned to this state, or the artifact at that URL could have been
+replaced and restored. Those are not likely; they are simply not
+excluded, and "not excluded" is where this run has consistently drawn
+the line.
 
-The difference from C029 is exactly that dating. rephial.org presents
-"Download version 4.2.6" with no date on the artifact it designates, so
-no equivalent bound is available there.
+Accordingly, and on the same footing as C029:
+
+```text
+primary_snapshot          UNRESOLVED
+EV-C013-E2RULE-01         quarantined as post-stop exposure
+EV-C013-E3-01             quarantined
+EV-C013-E4-01             quarantined
+overall                   UNRESOLVED, stop gate E2-REP
+```
+
+The quarantined observations remain accurate -- the 32768-triplet
+palette requirement, the multi-CD disc-switch witness, and the
+MDFNSetting registry with its explicit Finalize() closure are all really
+in that tarball. What is unestablished is that that tarball is the one
+the sealed rule selects.
+
+## EV-C013-E2REP-02  (supersedes EV-C013-E2REP-01)
+Candidate: C013 (frame rank 13, emulators/mednafen)
+Gate: E2-REP
+
+The designation findings of the superseded entry are unaffected and are not re-argued here: upstream presents the source tarball on its own landing page, under its own domain, with the SHA-256 published beside it, and the retrieved artifact's hash matched that published value. Exactly one source location was designated at screening time.
+
+What fails is the Primary snapshot requirement, which the sealed spec places inside this same E2-REP section.
+
+```text
+established
+  at screening time, upstream designates
+  https://mednafen.github.io/releases/files/mednafen-1.32.1.tar.xz,
+  hash verified against upstream's own published SHA-256, holding a
+  source tree.
+
+NOT established
+  that this was the externally designated canonical artifact at the
+  enumeration execution timestamp, 2026-08-26T19:23:05Z. The page's
+  dated News entry establishes the release date, not the designation
+  state at that instant, and no observation bounds the interval
+  between then and observation.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## RETRACTION 15a — C013 gates after E2-REP
+EV-C013-E2RULE-01, EV-C013-E3-01 and EV-C013-E4-01 are quarantined as
+post-stop exposure, on the principle applied at C005, C014, C016, C017
+and C029. Kept on the record, used for nothing.

@@ -1611,17 +1611,45 @@ instant. Observing today's designation does not do that.
 C013 mednafen
   landing page presents releases as a DATED News list, newest first
   top entry: "Mednafen 1.32.1, April 5, 2024", SHA-256 published
-  -> newest entry predates the enumeration timestamp by over two
-     years, and nothing newer exists on the page, so the designation
-     could not have changed in between. Snapshot established.
 
 C029 angband
   landing page presents "Download version 4.2.6" with NO date, and no
   dated release list on the permitted surface
-  -> no bound available. And the frozen port packages 4.2.5, so a
-     designation change did occur at some unbounded point.
-     Snapshot NOT established.
 ```
+
+An earlier draft of this entry read C013's dating as closing the
+question -- "the newest entry predates the enumeration timestamp by over
+two years, so the designation could not have changed in between" -- and
+declared its snapshot established. That is the same substitution C029
+was withdrawn for, one gate later and in gentler clothing.
+
+```text
+a dated release entry establishes
+  when that release was published
+  what is designated AT OBSERVATION TIME
+
+it does not establish
+  what was designated at the sealed instant
+```
+
+A release date is not a designation interval. Nothing in either record
+closes the window between the enumeration instant and observation. Both
+snapshots are therefore UNRESOLVED, and both candidates' E2-RULE, E3 and
+E4 entries are quarantined as post-stop exposure. C013 was withdrawn
+under RETRACTION 15 for exactly this reason.
+
+**The same structure exists on the repository branch, and is flagged
+rather than decided.** For a repository candidate the rule fixes "the
+commit the default branch pointed at that instant". What C009 and C023
+record is the branch's HEAD at observation time plus that commit's date,
+and the inference to the sealed instant rests on no rewind having
+happened in between -- which is unobserved, exactly as the distribution
+case's stability is unobserved. The evidence is stronger there, because
+a commit chain is not silently replaceable the way a file at a URL is,
+but it is not closed. Whether that difference is enough is a ruling this
+entry does not make: applying the strict reading would empty the
+eligible set, and that is not a call to take unilaterally in the middle
+of screening.
 
 **Why this could not be patched.** Two repairs suggest themselves and
 both change the sealed rule. Taking 4.2.5 because the port packages it
