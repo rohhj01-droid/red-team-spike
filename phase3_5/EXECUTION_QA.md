@@ -624,9 +624,31 @@ HYPOTHESIS, not established
 
 Two admissible cases cannot support a proportion over 128 items, and the
 frame-wide claim is written as a hypothesis so that the eventual number
-tests it rather than confirms it. What is already firm is that the gates
-eliminating candidates are earlier ones: five of the six terminal
-verdicts stopped at E2-REP.
+tests it rather than confirms it.
+
+What is firm about the earlier gates has to be stated more carefully
+than an earlier draft of this entry managed. It said "the gates
+eliminating candidates are earlier ones", counting every E2-REP stop as
+an elimination. Most of them are not. As of rank 15:
+
+```text
+non-eligible terminal candidates      24
+  stopped at E2-REP                   22
+  stopped at E4                        2
+
+of the 22 E2-REP stops
+  REJECTED by the criterion            5   all
+                                           E2REP-NO-SINGLE-CANONICAL-LOCATION
+  UNRESOLVED, protocol/transport      17   16 PI-TRANSPORT-INDETERMINATE
+                                            1 PI-UNCLASSIFIED-SHAPE (C014)
+```
+
+So E2-REP is the dominant STOP gate, and every criterion rejection in
+the run so far occurred there -- but most E2-REP stops are protocol or
+transport indeterminacy, which is a fact about our observation
+conditions, not an elimination by the criterion. Conflating the two
+would inflate what the gate is doing, in the same direction as the
+withdrawn "large fraction" claim above.
 
 **Nothing is changed in response to this.** Tightening E4 now, having
 seen three passes, would be exactly the post-hoc criterion narrowing
