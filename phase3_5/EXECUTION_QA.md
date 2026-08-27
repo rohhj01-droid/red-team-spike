@@ -332,12 +332,45 @@ one step later -- when a surface we had ourselves declared necessary
 became unobservable, its absence was reasoned around instead of
 accepted. Naming surfaces in advance is only half the rule.
 
-**Rule carried forward.** If a surface is named in advance as necessary
-to a negative determination, and it cannot be observed, the gate is
-UNRESOLVED. Indirect inference from a different surface does not
-substitute for it. The pre-naming is what makes the surface necessary;
-it cannot be quietly demoted to optional once it turns out to be
-unreachable.
+**Rule carried forward, in its corrected form.** An earlier draft of
+this entry said "the pre-naming is what makes the surface necessary".
+That is too strong, and opens the opposite discretion: an analyst could
+declare any page necessary, find it dead, and make the candidate
+UNRESOLVED at will. Naming is not what confers necessity.
+
+```text
+A surface does not become necessary because the analyst names it.
+
+Necessity must be justified ex ante from
+  the sealed criterion's actual question
+  + the upstream link/designation structure already lawfully observed
+
+Once justified on those grounds and recorded as necessary, transport
+indeterminacy on that surface cannot later be bypassed by indirect
+inference from a different surface.
+```
+
+C005 remains UNRESOLVED under the corrected form. The AdvanceMAME
+landing page did expose a SourceForge project hub, and E2-REP asks
+whether *exactly one* source location is designated -- so checking
+whether that hub is a competing designation was grounded in the
+criterion and in observed structure, not merely asserted. It was then
+never observed.
+
+**Evidence-format consequence.** From here, any negative component of a
+gate determination records, alongside the surfaces, one line:
+
+```text
+Necessary because:
+  [which question in the sealed criterion requires it]
+  + [which already-observed upstream structure raises it]
+  so the verdict cannot be settled without reading this surface.
+```
+
+That single line closes both of today's failures at once: it stops a
+necessary surface being dropped after the fact (QA-11's original case),
+and it stops an unnecessary surface being conscripted into necessity to
+force an UNRESOLVED.
 
 Consequence for C005: E2-REP UNRESOLVED, E2-RULE/E3/E4 NOT_REACHED,
 their already-collected findings quarantined as post-stop exposure. The

@@ -327,6 +327,25 @@ Inference: why that observation entails the verdict
 Decision: PASS | FAIL
 ```
 
+When a gate determination has a **negative component** -- E2-REP's
+"exactly one", an E3 or E4 failure, or any verdict resting on something
+not being there -- the entry additionally records, before the
+investigation:
+
+```text
+Surfaces:  the surfaces that would carry the fact if it existed
+Necessary because:
+  [which question in the sealed criterion requires this surface]
+  + [which already-observed upstream structure raises it]
+  so the verdict cannot be settled without reading it.
+```
+
+Necessity is justified from the criterion and from structure already
+lawfully observed -- never from the act of naming. A surface justified
+this way and then found unobservable makes the gate UNRESOLVED; it is
+not demoted to optional, and indirect inference from another surface
+does not stand in for it.
+
 **`Observed` and `Inference` stay separate**, for the same reason the
 sufficiency gate distinguishes located evidence from traced reasoning:
 a later reader must be able to see which parts were external fact and
