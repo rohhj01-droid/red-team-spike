@@ -62,8 +62,19 @@ observed_at_utc: 2026-08-27T03:20:44Z, 03:20:54Z, 03:21:27Z
 http_status: 200, 200, 200; redirect_chain: NONE, NONE, 3 redirects http://sf.net/projects/plib -> https://sourceforge.net/projects/plib/
 evidence_role: official-project-page / official-source-location
 Observed: the project's own landing page exposes exactly one download-related link (download.html). That page exposes source distribution tarballs under dist/ (including dist/plib-1.8.5.tar.gz, matching the packaged DISTNAME) and a link to the project's SourceForge hub. The SourceForge project page exposes a code repository at /p/plib/code/. Neither the project pages nor the hub marks either location as canonical, primary, or authoritative relative to the other.
-Inference: the sealed E2-REP criterion requires "exactly one externally designated canonical source location", treating a repository OR a source distribution as admissible, and fails a candidate that designates "several with no primary among them". Here upstream exposes both admissible kinds and designates neither as primary. The criterion as sealed supports two contradictory readings -- (i) two undesignated locations, therefore FAIL, or (ii) the repository is the source and the tarballs are releases of it, therefore PASS -- and choosing between them would be exactly the analyst discretion this protocol exists to remove. No sealed criterion determines the verdict.
-Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+Inference: the sealed E2-REP criterion admits BOTH a repository and a source distribution as source-location types, and states directly that a project which "designates several with no primary among them" fails E2-REP. Upstream here exposes one of each and designates no primary, which is that case exactly.
+Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
+
+CORRECTION (recorded, not silently replaced): this entry first recorded
+UNRESOLVED / PI-UNCLASSIFIED-SHAPE, on the reasoning that the criterion
+allowed a second reading -- repository-is-source, tarballs-are-releases
+-- and so did not determine the verdict. That was a misapplication, not
+a gap in the spec. Treating the repository as the "real" source and the
+tarballs as derived imposes a semantic hierarchy between the two; the
+sealed criterion deliberately avoids that judgment by admitting both
+types equally and disqualifying on the absence of an upstream-designated
+primary. The observed facts are unchanged; only the application of the
+rule to them was wrong.
 
 ## EV-C003-UR-01
 Candidate: C003 (frame rank 3, devel/pygame)
