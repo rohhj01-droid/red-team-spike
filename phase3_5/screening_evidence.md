@@ -2678,7 +2678,7 @@ observed_at_utc: 2026-08-27T12:20:55Z, 12:21:05Z; http_status 200
 
 Observed: located witness. The Plugin-Guide states of a plugin installed in the user data directory rather than a scenario's own folder -- "Note: plugins are activated automatically, so installing a global plugin will activate it for all games." The Plugins page then gives the rules that make this consequential: "All MML Plugins are run in alphabetical order, based on their name"; "Only one solo Lua plugin can be run at once; the engine will run the last one in the list that is enabled"; "Theme plugins will override the current theme setting".
 
-Inference: whether a given scenario runs with the MML, script or theme its own files specify is not decidable from that scenario's data. It depends on what was installed globally at some earlier time -- an action taken outside this scenario and recorded nowhere in it -- and on where that plugin falls in an ordering whose last enabled entry wins. That is a stateful/temporal validity question that can be examined, which is what E3 requires.
+Inference: whether a given scenario runs with the MML, script or theme its own files specify is not decidable from that scenario's data. It depends on globally installed plugin state established earlier and outside the scenario, and on where that plugin falls in an ordering whose last enabled entry wins. No claim is made about what the scenario's own files do or do not record. That is a stateful/temporal validity question that can be examined, which is what E3 requires.
 
 No stronger claim is made about what any single artifact determines. Positive gate: one located witness ends the survey.
 Decision: PASS

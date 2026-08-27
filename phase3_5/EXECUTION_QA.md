@@ -622,19 +622,37 @@ HYPOTHESIS, not established
   because that idiom is ordinary practice in them
 ```
 
-Amended twice since, and in opposite directions. C010 and C012 were
-later withdrawn at E2-REP (QA-22), so their E4 entries are quarantined
-too; the admissible base for the idiom observation is now C009 and C013.
-And C022 reached E4 and did NOT pass it -- its MML dispatch is a
-hardcoded call sequence rather than a registry the program walks, and
-its plugin validity rules are direct conditionals that enforce without
-enumerating.
+Amended twice since, and in opposite directions.
 
-C022 is the first candidate adjudicated at E4 under the amendment from
-the start, and it lands on UNRESOLVED. The hypothesis above is
-correspondingly weaker than when it was written: the idiom is common,
-but it is not universal, and a project can state and enforce validity
-rules without exposing an enumerator at all.
+C010 and C012 were later withdrawn at E2-REP (QA-22), so their E4
+entries are quarantined too. The admissible base is now:
+
+```text
+C009   positive construction obtained            -> PASS
+C013   positive construction obtained            -> PASS
+C022   no positive construction obtained under
+       the observations made                     -> UNRESOLVED
+```
+
+So the confirmed observation above -- that every admissible candidate
+reaching E4 passed it -- is no longer true. C022 is the first admissible
+candidate to reach E4 without yielding a positive construction under
+this run's observation process, and it weakens the hypothesis that the
+table/bound/reject idiom will commonly support E4 PASS.
+
+**What C022 does not establish, and an earlier draft of this paragraph
+wrongly said it did.** That draft read "the idiom is common, but it is
+not universal, and a project can state and enforce validity rules
+without exposing an enumerator at all". Both clauses convert an
+UNRESOLVED into a negative fact, and they contradict C022's own E4
+entry, which says in as many words that no preregistered discovery
+procedure makes that universal claim decidable. "Not found" was
+established; "not there" was not. Withdrawn.
+
+What can be said stays inside what was examined: Aleph One visibly
+states and executes validity rules through direct conditionals, and the
+mechanisms actually examined -- its MML dispatch and its plugin loader
+-- did not yield an admissible property-level enumerator.
 
 Two admissible cases cannot support a proportion over 128 items, and the
 frame-wide claim is written as a hypothesis so that the eventual number
