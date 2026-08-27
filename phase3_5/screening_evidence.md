@@ -807,3 +807,65 @@ were investigated before this correction, so their content was seen.
 The findings are quarantined above and take no part in C005's verdict.
 Their substance is preserved only because deleting observations would
 be worse for audit than marking them unusable.
+
+## EV-C008-UR-01
+Candidate: C008 (frame rank 8, emulators/dosbox-x)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/dosbox-x/Makefile
+Observed: GH_ACCOUNT=joncampbell123; GH_PROJECT=dosbox-x; GH_TAGNAME=dosbox-x-v${VERSION}; HOMEPAGE=https://dosbox-x.com/; DISTNAME=dosbox-x-${VERSION}.
+Inference: every field names one packaged system, DOSBox-X. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C008-E1-01
+Candidate: C008
+Gate: E1
+Source: same frozen metadata; https://raw.githubusercontent.com/joncampbell123/dosbox-x/master/README.md
+Observed: third-party authored emulator, a fork of DOSBox, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C008-E2REP-01
+Candidate: C008
+Gate: E2-REP
+Surfaces: http://dosbox-x.software -- the second project domain the landing page exposes.
+Necessary because: E2-REP asks whether EXACTLY ONE source location is designated, and the landing page exposes a second project-branded domain, which could carry its own source designation; the verdict cannot be settled without reading it.
+Source: https://dosbox-x.com/ ; http://dosbox-x.software
+observed_at_utc: 2026-08-27T04:50:25Z-04:52:01Z (landing), 06:58:16Z (second domain)
+http_status: 200, 200; redirect_chain: NONE (the second domain redirects client-side, not by HTTP)
+evidence_role: official-project-page / official-source-location
+Observed: the landing page designates https://github.com/joncampbell123/dosbox-x, and its source archive links point into that same repository's tag archives (archive/refs/tags/dosbox-x-v2026.08.02.tar.gz and .zip). It hosts no source archives of its own. Other links are binary package distributions (Flathub, Fedora COPR), a different project (sourceforge.net/projects/winprint), the ancestor project (dosbox.com), and account pages. The second project domain, dosbox-x.software, is a 132-byte page whose entire content is "Redirecting you to dosbox-x.com..." with no links at all.
+Inference: the named surface was observed and carries no competing designation -- it is an alias for the main site. GitHub tag archives are part of the designated repository rather than a separate location, and binary package distributions are not upstream designations of canonical source. Exactly one canonical source location at a stable URL, with one external target identifier (DOSBox-X).
+Decision: PASS
+
+## EV-C008-E2RULE-01
+Candidate: C008
+Gate: E2-RULE
+Source: https://dosbox-x.com/wiki/Guide%3AVideo-card-support-in-DOSBox-X (project-designated wiki, reached via /wiki -> List-of-Guide-Pages)
+observed_at_utc: 2026-08-27T06:59:18Z-07:00:00Z; http_status 200
+Observed: located witness, quoted -- "vga bios rom image default value: <none> If set, load the VGA BIOS from the specified file (must be between 1KB to 64KB in size)."
+Inference: this states a concrete validity requirement on an input artifact -- a VGA BIOS image outside 1KB-64KB is invalid for this setting. Externally authored and readable without inventing it.
+Decision: PASS
+
+## EV-C008-E3-01
+Candidate: C008
+Gate: E3
+Source: https://dosbox-x.com/wiki/Guide%3AManaging-image-files-in-DOSBox-X (same admitted documentation surface)
+observed_at_utc: 2026-08-27T07:00:00Z; http_status 200
+Observed: located witness, quoted -- "Note A harddisk image MUST be partitioned before it can be formatted."
+Inference: whether a format operation is valid is not decidable from the operation or from the image's current appearance alone; it depends on whether a partitioning step occurred earlier. That is validity conditioned on history, which is what E3 asks for, and it is structurally the same shape as the ordering properties Phase 3 modelled. Positive gate: one located witness ends the survey.
+Decision: PASS
+
+## EV-C008-E4-01
+Candidate: C008
+Gate: E4
+Surfaces: normative -- the dosbox-x.com landing page, /about.html, the wiki Home, and the repository README.md. Enforced -- the repository's top-level declared units, plus README.md and CONTRIBUTING.md where the project describes them.
+Necessary because: E4 asks whether a property-level universe is mechanically constructible via U_normative or U_enforced. A designation of an authoritative rules source would appear on the project's own pages, and a declared enumerator would appear among its top-level units and in the documents that describe them; neither route can be settled without reading these.
+Source: https://dosbox-x.com/ ; /about.html ; /wiki/Home ; https://github.com/joncampbell123/dosbox-x ; raw README.md ; raw CONTRIBUTING.md
+observed_at_utc: 2026-08-27T07:00:33Z-07:01:11Z; http_status 200 throughout
+
+Observed, normative route: the wiki Home carries no designating language. /about.html contains "specification" once, referring to the "PC 2001" hardware specifications published in 2001. README.md contains it once, referring to specifications from Microsoft that mandated removal of ISA slots. Neither refers to any document's own status, and no surface designates the wiki or any other document as an authoritative rules source.
+
+Observed, enforced route: the repository's top-level units include AUTHORS, BUGS, BUILD.md, CHANGELOG, CONTRIBUTING.md, CREDITS.md, Doxyfile, INSTALL.md, NOTES, NOTES-TESTING-LOG, OLD-REFERENCE, experiments, include, ref, scripts, snapshots, src, tests, vs and build files. No unit is named for validation, conformance, schema, enforcement or rules. Of the two plausible candidates, the project describes them itself: README.md lists as a TODO "Write more unit tests to test various functions (see existing unit tests in tests/)", and CONTRIBUTING.md states of its coding rules that "there are many places where these rules are simply not followed".
+
+Inference: neither route yields a mechanically constructible property-level universe. U_normative has no designated authoritative source at all. U_enforced fails EN2, EN4 and EN5 on the project's own descriptions: tests/ has no declared scope in validity terms, is connected by the project to testing functions rather than to validation or eligibility, and is explicitly open-ended -- "write more" is the opposite of a closure claim, and CONTRIBUTING.md separately disclaims that its rules are followed. Only one route is required and neither is available.
+Decision: FAIL (E4-NO-MECHANICAL-PRIMARY-UNIVERSE)
