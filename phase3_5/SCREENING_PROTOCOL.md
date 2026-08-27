@@ -82,6 +82,115 @@ to identify it, so that judgment belongs to E2-REP and rests on
 upstream's own designation. Reading it off the port's fields would make
 OpenBSD's packaging convenience our identity criterion.
 
+## E2-REP network-access contract
+
+E2-REP asks a question about the upstream system, so it is answered
+from the upstream system — frozen OpenBSD metadata cannot substitute,
+and this document already rejects letting it. That means live network
+access, which brings its own discretion to remove: without limits,
+"screen a candidate" quietly becomes "read about the project until
+satisfied."
+
+**Purpose.** Establish only whether a canonical source location exists,
+is designated by upstream itself, sits at a stable URL, carries one
+external target identifier, and actually holds a source tree.
+
+**Allowed starting points.** Only the URLs and identifiers found in the
+frozen OpenBSD metadata that UR already resolved to one system.
+
+**Allowed navigation, in order:**
+
+```text
+1. the upstream official landing/project page
+2. a Source / Code / Repository / Development link that page
+   explicitly exposes
+3. the metadata/root surface of the official source repository reached
+```
+
+**Allowed observations at the repository:** existence; project or
+repository name; owning project or account; default branch; that a
+source tree is actually present; whether upstream designates this
+location as its source; any primary/mirror marking.
+
+**Forbidden at E2-REP:**
+
+```text
+reading README prose            opening any source file
+browsing docs                   issues / PRs / changelog / releases
+searching for bugs or exploits  checking validity semantics
+any extra look justified by "this might help E3/E4 later"
+```
+
+**Stop rule.** Navigation ends the moment a `PASS` or a specific
+failure code is determined. Not one page further.
+
+### Unavoidable exposure
+
+"Never see a README" is not achievable — code-hosting landing pages
+render one automatically. So the rule is not blindness but quarantine:
+
+```text
+Content encountered incidentally at E2-REP is recorded in the exposure
+log and is NOT used to pre-judge E2-RULE, E3, or E4, nor to reorder or
+shortcut any later gate.
+```
+
+The same discipline the known-failure lane applies to cause leakage:
+log what was unavoidably seen, and refuse to let it do work.
+
+### Transport failure is not criterion failure
+
+A candidate must not be rejected because of our network conditions.
+Distinguish what the endpoint said from what we failed to learn:
+
+```text
+definitive HTTP answer (404, 410, or an equivalent permanent absence)
+  → genuine evidence; a failure code may be assigned
+
+transport-level indeterminacy (timeout, DNS failure, connection
+refused, 5xx)
+  → NOT evidence of absence. Retry twice at recorded times; if still
+    indeterminate, record a PROTOCOL ISSUE for that item rather than
+    forcing it into a failure code.
+```
+
+Coding a timeout as `E2REP-NO-STABLE-URL` would reject a candidate for
+a fact about us, and would be indistinguishable in the record from a
+genuinely dead location. This mirrors the methodology's own `E?`
+separation: a claim about our observation never becomes a claim about
+the system.
+
+### Evidence fields for network observations
+
+```text
+observed_at_utc      when the request was made
+requested_url
+final_url
+http_status
+redirect_chain       NONE when there was none
+evidence_role        official-project-page | official-source-location
+observed             only what was directly seen
+inference            why that entails the verdict
+decision             PASS | FAIL
+```
+
+### Two times that must never merge
+
+```text
+E2-REP observation time
+  now, during screening — provenance for "what does upstream
+  designate as its source TODAY"
+
+primary snapshot time
+  2026-08-26T19:23:05Z — the sealed instant fixing which revision
+  gets analyzed
+```
+
+Confirming today that upstream's canonical repository is `X` does
+**not** license analyzing `X`'s current `HEAD`. Identifying the
+location and fixing the revision are separate acts, and only the second
+is already sealed.
+
 ## Controlled vocabularies
 
 `upstream_resolution`:
@@ -198,4 +307,10 @@ candidate rows                             == count of distinct
 budget slots consumed by duplicates        never refunded
 gates after the first FAIL                 NOT_REACHED, never evaluated
 failure codes outside the vocabulary       protocol issue, not OTHER
+transport-level network indeterminacy      protocol issue, not a
+                                           failure code
+incidental content seen at E2-REP          logged, never used by
+                                           E2-RULE / E3 / E4
+E2-REP observation time                    never substituted for the
+                                           sealed primary snapshot time
 ```
