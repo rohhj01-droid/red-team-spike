@@ -4156,3 +4156,119 @@ Recorded only as a snapshot-related structural note -- C033 stops at E2-REP and 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C034-UR-01
+Candidate: C034 (frame rank 34, games/astromenace)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/astromenace/Makefile
+Observed: HOMEPAGE=http://www.viewizard.com/; GH_ACCOUNT=viewizard; GH_PROJECT=astromenace; GH_TAGNAME=v${V} with V=1.4.3; COMMENT="hardcore 3D space shmup".
+Inference: the frozen fields name one system, AstroMenace. HOMEPAGE pointing at a project site while GH_ACCOUNT/GH_PROJECT point at a repository is the shape the protocol names non-ambiguous. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C034-E1-01
+Candidate: C034
+Gate: E1
+Source: same frozen metadata; https://viewizard.com/
+observed_at_utc: 2026-08-27T18:05:49Z; http_status 200
+Observed: a third-party game, its repository described as "Hardcore 3D space scroll-shooter with spaceship upgrade possibilities", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C034-E2REP-01
+Candidate: C034
+Gate: E2-REP
+
+Per QA-27 both frozen items are accounted for: HOMEPAGE is step 1 below, and the GH_ACCOUNT/GH_PROJECT pair resolves to the same repository the step-2 link reaches, so it is not a separate surface.
+
+Step 1: the frozen HOMEPAGE.
+requested_url: http://www.viewizard.com/ ; final_url: https://viewizard.com/
+observed_at_utc: 2026-08-27T18:05:49Z-18:05:50Z; http_status 200; redirect_chain: 1 redirect (www/http -> apex/https)
+Observed: the navigation exposes English, Russian, Download, **Source Code**, Support and Company. "Source Code" points at https://github.com/viewizard/astromenace. The Windows, macOS and Linux links are anchors into ./download.html.
+
+Step 2: the "Source Code" link -- one of the contract's four labels, verbatim, with a destination that is a location rather than instructions. QA-25 satisfied in its plainest form.
+
+On uniqueness, and on what was not opened: ./download.html was not followed. It is not among the four step-2 labels, and QA-17 settled that the criterion's "source distribution" phrase may not widen the whitelist. Upstream's own navigation separates the two roles -- "Download" carries the Windows/macOS/Linux anchors, "Source Code" points at the repository -- so the unopened page is labelled by upstream as the builds surface. That is a use of upstream's own delimitation, as QA-26 endorses, not an inference about unseen contents: no claim is made about what download.html holds, only that upstream labels it as something other than its source designation.
+
+Step 3: https://github.com/viewizard/astromenace
+observed_at_utc: 2026-08-27T18:06:15Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-source-location
+Observed: repository astromenace, owner login viewizard, default branch master, isFork false, isMirror false, isArchived false, isTemplate false, website metadata field https://viewizard.com, and a source tree present at the root -- src, gamedata, docs, share, licenses, CMakeLists.txt, AUTHORS.md, CHANGELOG.md, README.md, LICENSE.md.
+
+Inference: exactly one designated canonical source location on the permitted surfaces, at a stable URL, holding a source tree, with one external target identifier (AstroMenace). The designation runs both ways -- the project's own site links to the repository under the label "Source Code", and the repository's website field names that site.
+
+Decision: PASS
+
+## EV-C034-E2RULE-01
+Candidate: C034
+Gate: E2-RULE
+Source: README.md in the designated repository
+observed_at_utc: 2026-08-27T18:06:53Z; http_status 200
+Provenance: read against the source state available at screening observation time; no claim is made about the sealed primary snapshot (QA-28).
+
+Observed: located witness, under "Build (macOS, Linux, BSD)" -- "Build dependencies: libSDL2 (ver 2.0.5+), libopenal (ver 1.0+), libalut (ver 1.0+), libogg (ver 1.1+), libvorbis (ver 1.1+), freetype (ver 2.1.6+)", and separately "gcc or clang or any compiler with full ISO/IEC 14882:2011 (C++11) support".
+
+Inference: these determine concrete validity requirements without our inventing them -- a build environment carrying libSDL2 older than 2.0.5, or a compiler without full C++11 support, does not satisfy the project's stated requirements.
+
+Recorded rather than left implicit, as at C014 and C023: this is a BUILD-ENVIRONMENT requirement, not a data-artifact one. E2-RULE asks for "at least one validity requirement" and does not restrict the domain, so narrowing it to artifact validity would add a premise the criterion does not carry.
+Decision: PASS
+
+## EV-C034-E3-01
+Candidate: C034
+Gate: E3
+Source: src/config/config.cpp in the designated repository
+observed_at_utc: 2026-08-27T18:07:43Z; http_status 200
+Provenance: as above -- observation-time source state.
+
+Observed: located witness. The pilot-profile store's filename embeds the configuration version:
+
+```text
+const std::string ProfilesFileName{std::string{"PilotProfiles_"} +
+                                   std::string{CONFIG_VERSION} +
+                                   std::string{".data"}};
+```
+
+and the file opens with the project's own note on the consequence:
+
+```text
+// TODO we need store previous versions Top Scores and Pilot Profiles,
+//      in case player will back to old game version by some reason
+```
+
+Inference: which stored profiles a running build can use is fixed by the CONFIG_VERSION it was built with, not by anything in the profile data itself, and the project states the consequence -- a player returning to an older version does not find their Top Scores and Pilot Profiles there. Whether a given profile store is usable therefore depends on which version wrote it, which is validity conditioned on history. That is what E3 asks for, and it is stated by the project rather than inferred from the naming alone.
+Decision: PASS
+
+## EV-C034-E4-01
+Candidate: C034
+Gate: E4
+
+No positive construction was obtained.
+observed_at_utc: 2026-08-27T18:07:31Z-18:08:08Z; http_status 200 throughout
+Provenance: observation-time source state, as above.
+
+Attempted, and why each falls short:
+
+```text
+src/script/script.cpp
+  dispatches mission-script elements by name, and rejects unknown ones
+  in the project's own words -- "tag " << xmlEntry.Name << " not
+  found, line " << xmlEntry.LineNumber. But the dispatch is
+  switch (xmlEntry.NameHash) over case constexpr_hash_djb2a("TimeLine")
+  and its siblings: a COMPILE-TIME switch, not a registry the program
+  walks. EN5's admissible closure bases are runtime construction or an
+  unconditional universal claim about the codebase; a switch's case
+  labels are neither, and the closure would rest on our reading of the
+  switch body. This is C022's shape exactly.
+
+src/config/config.cpp
+  reads and writes configuration through 39 individual
+  GetEntryAttribute / SetEntryAttribute calls rather than a declared
+  settings table. It enforces, but it does not ENUMERATE, so there is
+  no membership set from which a property-level universe could be
+  built. C022's plugin loader failed the same way.
+```
+
+Inference: E4 PASS requires a positive construction -- an EN1-EN6 mechanism, or a Section 3.1 designated source, from which the property-level universe is ACTUALLY mechanically constructible. None was exhibited by the mechanisms examined. Under the post-seal amendment the absence of a positive construction does not establish E4 FAIL, because no preregistered discovery procedure makes that universal claim decidable. No claim is made that AstroMenace exposes no admissible enumerator anywhere.
+
+The normative route was not pursued: only one route is required, and nothing observed designates an authoritative rules source.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
