@@ -216,22 +216,39 @@ Confirming today that upstream's canonical repository is `X` does
 location and fixing the revision are separate acts, and only the second
 is already sealed.
 
-## AMENDMENT (post-seal, corrective) — E4 is asymmetric for this run
+## AMENDMENT (post-seal, corrective) — the existential gates are asymmetric for this run
 
 **Status.** This is not part of the methodology sealed at `401924d`, and
 must never be cited as though it were. It is a *post-seal corrective
 amendment*, triggered mid-run by the discovery of an unoperationalized
 negative branch. It is dated to its cause, not backdated to the seal.
 
-**The gap.** The sealed methodology specifies in detail what makes an
-enumerator or authoritative source *admissible* — EN1-EN6, and Section
-3.1's designation requirement. It specifies no procedure for
-establishing that **no** admissible enumerator or source exists. E4
-PASS needs one positive construction; E4 FAIL is a universal claim, and
-nothing sealed makes it decidable. The gap is specific to E4: other
-gates' negatives are bounded by structure the upstream itself
-enumerates, while E4's would have to quantify over everything a project
-might contain.
+**The gap.** Three of the screening gates are *existential*: each asks
+whether at least one thing exists.
+
+```text
+E2-RULE  at least one externally authored validity requirement
+E3       at least one stateful/temporal validity question
+E4       at least one constructible property-level universe
+```
+
+For every one of them, PASS is decidable by exhibiting a single located
+witness, and FAIL is a universal absence claim over everything the
+project might contain. The sealed methodology specifies admissibility
+in detail — Section 3.1's designation requirement, Section 3.2's
+EN1-EN6 — and specifies no discovery procedure by which such an absence
+could be established.
+
+**Why E2-REP is not included.** E2-REP is the one gate whose search is
+bounded by something sealed: its network-access contract fixes the
+starting points and the navigation whitelist, so "what was there to
+look at" is defined by upstream's own link structure rather than by us.
+Its failure code in use, `E2REP-NO-SINGLE-CANONICAL-LOCATION`, is also
+positive in shape — it records that several designations were found
+with no primary among them, not that nothing was found. The remaining
+E2-REP codes are absence-shaped but stay inside that bounded whitelist.
+The other three gates have no equivalent contract, which is exactly the
+difference.
 
 This matters because the sealed rules explicitly admit runtime
 construction — registry contents, interface dispatch, annotation
@@ -243,20 +260,36 @@ Two such arguments were attempted and withdrawn before this amendment.
 **The amendment.** For this run only, E4 is asymmetric:
 
 ```text
-a positive construction is exhibited
-  a mechanism or source satisfying EN1-EN6 (or Section 3.1
-  designation), from which the property-level universe is ACTUALLY
-  mechanically constructible
-    -> E4 PASS
+E2-RULE   a concrete externally-authored validity witness is located
+            -> PASS
+          otherwise
+            -> UNRESOLVED / PI-UNCLASSIFIED-SHAPE
 
-no such positive construction is obtained
-    -> NOT E4 FAIL
-    -> E4              = UNRESOLVED
-       overall         = UNRESOLVED
-       stop_gate       = E4
-       failure_code    = NONE
-       protocol_issue_code = PI-UNCLASSIFIED-SHAPE
+E3        a concrete stateful/temporal validity witness is located
+            -> PASS
+          otherwise
+            -> UNRESOLVED / PI-UNCLASSIFIED-SHAPE
+
+E4        a positive construction is exhibited: a mechanism satisfying
+          Section 3.2's EN1-EN6, or a source meeting Section 3.1's
+          designation requirement, from which the property-level
+          universe is ACTUALLY mechanically constructible
+            -> PASS
+          otherwise
+            -> UNRESOLVED / PI-UNCLASSIFIED-SHAPE
+
+in every UNRESOLVED case
+    overall             = UNRESOLVED
+    stop_gate           = the gate in question
+    failure_code        = NONE
+    protocol_issue_code = PI-UNCLASSIFIED-SHAPE
 ```
+
+The three gates now share one principle: **existence is proved by
+witness; absence without a preregistered complete discovery procedure
+is not recorded as a property of the system.** That is the same
+separation the methodology already makes with `E?` and with transport
+indeterminacy, applied to the screening gates themselves.
 
 `PI-UNCLASSIFIED-SHAPE` is reused deliberately rather than a new code
 being minted. That code was sealed for exactly this situation — a real
@@ -264,17 +297,19 @@ screening outcome the sealed criteria do not describe — and inventing
 fresh vocabulary after seeing results is the habit this amendment
 exists to avoid.
 
-E4 PASS is **not** relaxed. Locating a validator, a registry, or a
-plausible-looking mechanism is not a positive construction on its own;
-the mechanism must satisfy every one of EN1-EN6 and the universe must
-actually be constructible from it.
+No gate's PASS is relaxed. E2-RULE and E3 still require a quoted,
+located witness, not the existence of documentation or of a test
+directory. E4 still requires a positive construction: locating a
+validator, a registry, or a plausible-looking mechanism is not one on
+its own -- the mechanism must satisfy every one of EN1-EN6 and the
+universe must actually be constructible from it.
 
 **Effects, stated plainly:**
 
 ```text
 creates no new eligible candidate
 does not relax E4 PASS in any way
-removes an E4 FAIL capability this run could not support
+removes an E2-RULE / E3 / E4 FAIL capability this run could not support
 increases the number of UNRESOLVED outcomes
 ```
 
@@ -283,8 +318,8 @@ uncertainty. That is the opposite direction from an adjustment made to
 obtain a preferred result, and it is why it is admissible mid-run at
 all.
 
-**Future runs.** A run may restore E4 FAIL by preregistering a
-discovery procedure **before any candidate is seen**: a discovery
+**Future runs.** A run may restore FAIL at these gates by
+preregistering a discovery procedure **before any candidate is seen**: a discovery
 grammar, a source-traversal rule, language-specific probes, hit
 adjudication against EN1-EN6, and an explicit termination/closure rule.
 The hard part is defining discovery *completeness* in advance, so that

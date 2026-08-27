@@ -419,7 +419,7 @@ argument. "I looked at these and found nothing" is not a negative;
 "if it existed it would have to be here, and here is what here
 contains" is.
 
-## QA-13 — E4's negative branch was never operationalized (POST-SEAL AMENDMENT)
+## QA-13 — the existential gates' negative branch was never operationalized (POST-SEAL AMENDMENT)
 
 Three successive attempts to fail a candidate at E4 were withdrawn, and
 the third withdrawal showed the problem is not in the attempts.
@@ -438,10 +438,10 @@ admit. Narrowing what counts as evidence in order to make a negative
 tractable is criterion change wearing procedural clothes.
 
 The root cause is structural, not local. The sealed methodology defines
-admissibility exhaustively (EN1-EN6, Section 3.1) and defines no
-discovery procedure at all. E4 PASS needs one positive construction and
-is therefore decidable; E4 FAIL quantifies over everything a project
-might contain and is not.
+admissibility exhaustively (Section 3.1's designation requirement,
+Section 3.2's EN1-EN6) and defines no discovery procedure at all. E4
+PASS needs one positive construction and is therefore decidable; E4
+FAIL quantifies over everything a project might contain and is not.
 
 **Resolution: a post-seal corrective amendment**, recorded in
 `SCREENING_PROTOCOL.md` and dated to its cause rather than backdated to
@@ -469,3 +469,42 @@ candidate, no relaxation of E4 PASS, one unsupported capability
 removed, more UNRESOLVED outcomes. The amendment reduces what the run
 claims. That direction is why it is admissible mid-run; the reverse
 would not have been.
+
+## QA-14 — the same gap is not E4-specific; E2-RULE and E3 share it
+
+QA-13 asserted "the gap is specific to E4". That is wrong, and the
+error is the same kind the amendment was written to correct: a claim
+wider than what was checked.
+
+E2-RULE and E3 are existential in exactly the same way.
+
+```text
+E2-RULE  PASS  one located externally-authored validity requirement
+         FAIL  no such requirement exists anywhere in the project
+
+E3       PASS  one located stateful/temporal validity question
+         FAIL  no such question exists anywhere in the project
+```
+
+Both FAILs are universal absence claims, and neither gate has a sealed
+discovery procedure. E2-REP is the genuine exception, and for a reason
+worth naming: its network-access contract fixes starting points and a
+navigation whitelist, so what there was to look at is bounded by
+upstream's own link structure rather than by our choice.
+
+**No existing verdict is affected.** The ledger carries four REJECTED
+candidates, all stopped at E2-REP with
+`E2REP-NO-SINGLE-CANONICAL-LOCATION`, which is positive in shape -- it
+records finding several designations with no primary, not finding
+nothing. No candidate has ever been failed at E2-RULE or E3; C004 and
+C008 passed both on located witnesses, and every other candidate
+stopped earlier. The correction is therefore preventive rather than
+retroactive, which is the first time in this run that has been true.
+
+The amendment in `SCREENING_PROTOCOL.md` is extended to all three
+gates. Its effect is unchanged in direction: fewer claims, more
+UNRESOLVED, no candidate made eligible, no PASS relaxed.
+
+Also corrected there: EN1-EN6 live in Section 3.2, not Section 3.1.
+Section 3.1 carries the authoritative-designation requirement. The
+amendment had cited them as one.
