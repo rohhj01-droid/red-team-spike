@@ -3993,3 +3993,74 @@ FAIL not established
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C033-UR-01
+Candidate: C033 (frame rank 33, games/asciiquarium)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/asciiquarium/Makefile
+Observed: HOMEPAGE=https://www.robobunny.com/projects/asciiquarium/html/; SITES=https://www.robobunny.com/projects/asciiquarium/; DISTNAME=asciiquarium_1.1; COMMENT="aquarium animation in ASCII art".
+Inference: the frozen fields name one system, ASCIIQuarium, and SITES is the parent path of HOMEPAGE on the same host, so the metadata resolves to one place. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C033-E1-01
+Candidate: C033
+Gate: E1
+Source: same frozen metadata; https://robobunny.com/projects/asciiquarium/html/
+observed_at_utc: 2026-08-27T16:45:41Z; http_status 200
+Observed: a third-party terminal animation, its page contacting "Kirk Baucom", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C033-E2REP-01
+Candidate: C033
+Gate: E2-REP
+
+Per QA-27 both frozen URLs are accounted for. HOMEPAGE was observed as step 1; SITES is the same host's parent directory, reachable from step 1 as "View Directory", and is discussed below rather than opened separately.
+
+Surface: the frozen HOMEPAGE.
+requested_url: https://www.robobunny.com/projects/asciiquarium/html/ ; final_url: https://robobunny.com/projects/asciiquarium/html/
+observed_at_utc: 2026-08-27T16:45:41Z-16:45:43Z; http_status 200; redirect_chain: 1 redirect (www -> apex)
+evidence_role: official-project-page
+
+Observed: under a "Download" heading the page exposes "Latest Version (v1.1)" -> ../asciiquarium.tar.gz, "Previous Versions", and "View Directory" -> ../ . Its navigation is Projects, Main, Changes, Read_Me, Download. Its body credits third-party derivatives: a Windows screensaver, a Mac packaged build, a KDE screensaver and an Android live wallpaper.
+
+The page uses the phrase "source code" exactly once, and upstream attaches it to a different system: "Russel Goring has updated J. Sommer's Windows screensaver, and has posted the source code on Github", linking to github.com/rgoring/asciiquarium. Under QA-26 that is another delimited system's source, labelled as such by upstream, and it is not a designation for this candidate.
+
+The designated artifact was retrieved, and listing its entry names only:
+observed_at_utc: 2026-08-27T16:46:18Z; http_status 200; 15436 bytes; sha256 1b08c6613525e75e87546f4e8984ab3b33f1e922080268c749f1777d56c9d361
+Six entries: asciiquarium_1.1/ containing CHANGES, README, MANIFEST, gpl.txt and a file named asciiquarium.
+
+```text
+PASS not established, on two counts
+
+  designation AS SOURCE
+    the link's label is "Latest Version (v1.1)", under a "Download"
+    heading. No permitted surface designates it as a source location.
+    The comparison with the two candidates that did pass is exact:
+    C029's link was labelled "Source code" outright, and C013's
+    .tar.xz stood beside win64/win32 zips, so the contrast identified
+    it. Neither device is present here -- a single artifact under a
+    Download heading.
+
+  source-tree presence
+    the listing shows a version-named directory with CHANGES, README,
+    MANIFEST, gpl.txt and one program file. Whether that file is
+    source rather than a built artifact was not established from
+    names alone, and opening it was outside what this gate permits.
+    C030 set that restraint: an artifact is not source because its
+    filename suggests it.
+
+FAIL not established
+  the surface carried no source designation, which is a bounded
+  observation about this page and not a demonstration that upstream
+  designates none. E2REP-NO-SOURCE is unavailable too: an artifact was
+  retrieved, so source access is not shown absent.
+```
+
+The frozen SITES, https://www.robobunny.com/projects/asciiquarium/, is the directory that holds the artifact just retrieved -- the "View Directory" target. It is the container of the observed location rather than a second location, on the reading applied at C016, and no separate designation could follow from it that this page has not already shown.
+
+Recorded because it bears on the survivor stage if this candidate is ever revisited: the designated artifact's URL carries no version. The same URL serves whatever is current, which is precisely the silent-replacement shape QA-28 describes.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
