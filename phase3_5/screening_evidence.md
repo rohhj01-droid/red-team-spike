@@ -3302,3 +3302,62 @@ On the code: `PI-TRANSPORT-INDETERMINATE` would be wrong here, since transport c
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C028-UR-01
+Candidate: C028 (frame rank 28, games/an)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/an/Makefile
+Observed: HOMEPAGE=https://salsa.debian.org/pm/an; SITES=${SITE_DEBIAN:=main/a/an/}; DISTNAME=an_1.2.orig; PKGNAME=an-1.2; COMMENT="fast anagram generator".
+Inference: the frozen fields name one system, `an`. HOMEPAGE pointing at a repository while SITES points at a distribution archive is the shape the protocol names as non-ambiguous -- "several facts about one system". Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C028-E1-01
+Candidate: C028
+Gate: E1
+Source: same frozen metadata; https://salsa.debian.org/pm/an
+observed_at_utc: 2026-08-27T14:51:40Z; http_status 200
+Observed: a third-party anagram generator, the repository titled "Paul Martin / an", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C028-E2REP-01
+Candidate: C028
+Gate: E2-REP
+
+Per QA-27, both URLs the frozen metadata supplies are accounted for, and both were observed.
+
+Surface 1: https://salsa.debian.org/pm/an -- the frozen HOMEPAGE, which is a GitLab repository root.
+observed_at_utc: 2026-08-27T14:51:40Z-14:51:41Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed, restricted to metadata the contract allows: repository titled "Paul Martin / an", project id 27883, default branch master, data-is-project-empty="false". The served page carries no fork-of, archived or mirror marking, no website field, and no description meta. Its file tree is rendered client-side, so the served root carries no listing.
+
+Surface 2: https://ftp.debian.org/debian/pool/main/a/an/ -- the frozen SITES.
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point. It was NOT lawfully skippable the way C010's SITES was: there the port Makefile's own dist: target showed the host to be the packager's, and nothing here establishes an equivalent. That C026 lesson is applied rather than re-learned.
+observed_at_utc: 2026-08-27T14:52:18Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed: an Apache directory index, "Index of /debian/pool/main/a/an", listing per-architecture .deb binaries together with an_1.2-6.debian.tar.xz, an_1.2-6.dsc and their successors. It carries no headings, labels or statements beyond the index furniture -- no designation of a canonical source location, no primary or mirror marking.
+
+```text
+PASS not established, on two independent legs
+
+  designation
+    no designation signal was observed on either admissible surface.
+    Arriving at the repository through the frozen HOMEPAGE yields
+    affiliation, not designation (QA-22), and the archive index makes
+    no statement at all.
+
+  source-tree presence
+    not observable at the repository root, which renders its tree
+    client-side. This is QA-20's gap: the root establishes repository
+    IDENTITY -- name, owner, default branch, non-emptiness -- and
+    carries no source-tree evidence, and the sealed navigation
+    provides no authorized follow-up surface.
+
+FAIL not established
+  two surfaces carrying no designation signal is not a demonstration
+  that upstream designates none.
+```
+
+QA-20 predicted this conditionally, on the shape rather than the host: "if a later candidate reaches an allowed repository root that establishes IDENTITY but carries no source-tree evidence, the same gap applies, whatever the hosting vendor." C028 is the first candidate to meet that condition since it was written, and the prediction is recorded as borne out on one case, not as a rate.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
