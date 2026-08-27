@@ -4117,7 +4117,7 @@ Observation scope, fixed before the request: HTTP status; headings the surface i
 
 requested_url: https://www.robobunny.com/projects/asciiquarium/ ; final_url: https://robobunny.com/projects/asciiquarium/
 observed_at_utc: 2026-08-27T17:04:13Z; http_status 200; redirect_chain: 1 redirect (www -> apex)
-Observed: an Apache directory index headed "Index of /projects/asciiquarium", listing CHANGES, MANIFEST, README, asciiquarium, asciiquarium.tar.gz, asciiquarium_1.0.tar.gz, asciiquarium_1.1.tar.gz, gpl.txt, html/, screenshot.png and small_screenshot.png, all dated 2013-03-09. Beyond the index's own sort controls and a Parent Directory link it carries no headings, no labels, no statement designating anything as source, and no primary or mirror marking.
+Observed: an Apache directory index headed "Index of /projects/asciiquarium", listing CHANGES, MANIFEST, README, asciiquarium, asciiquarium.tar.gz, asciiquarium_1.0.tar.gz, asciiquarium_1.1.tar.gz, gpl.txt, html/, screenshot.png and small_screenshot.png. Beyond the index's own sort controls and a Parent Directory link it carries no headings, no labels, no statement designating anything as source, and no primary or mirror marking.
 
 ```text
 PASS not established
@@ -4151,7 +4151,7 @@ E2REP-NO-SOURCE not established either
   proves neither source access nor its absence.
 ```
 
-Recorded for the survivor stage, at the strength the observation supports: the artifact the landing page designates as "Latest Version (v1.1)" sits at a versionless URL, ../asciiquarium.tar.gz, while the same directory also carries asciiquarium_1.0.tar.gz and asciiquarium_1.1.tar.gz. The versionless URL therefore does not itself encode an immutable version identity. No claim is made that its bytes have ever been replaced -- only that nothing in the URL would record it, which is the reconstruction problem QA-28 describes.
+Recorded only as a snapshot-related structural note -- C033 stops at E2-REP and does not reach the survivor stage in this run -- and at the strength the observation supports: the artifact the landing page designates as "Latest Version (v1.1)" sits at a versionless URL, ../asciiquarium.tar.gz, while the same directory also carries asciiquarium_1.0.tar.gz and asciiquarium_1.1.tar.gz. The versionless URL therefore does not itself encode an immutable version identity. No claim is made that its bytes have ever been replaced -- only that nothing in the URL would record it, which is the reconstruction problem QA-28 describes.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
