@@ -1585,7 +1585,7 @@ A URL in the metadata does not become inadmissible because the landing
 page happens to reach the same place through a label the whitelist
 omits.
 
-## QA-28 — the distribution snapshot branch needs a dating bound, and C029 had none
+## QA-28 — observation-time identity cannot reconstruct pointer or designation state at the sealed instant
 
 C029 exposed a gap in how this run has been resolving `primary_snapshot`
 for distribution candidates, and it is a firewall gap rather than a
@@ -1638,18 +1638,90 @@ snapshots are therefore UNRESOLVED, and both candidates' E2-RULE, E3 and
 E4 entries are quarantined as post-stop exposure. C013 was withdrawn
 under RETRACTION 15 for exactly this reason.
 
-**The same structure exists on the repository branch, and is flagged
-rather than decided.** For a repository candidate the rule fixes "the
-commit the default branch pointed at that instant". What C009 and C023
-record is the branch's HEAD at observation time plus that commit's date,
-and the inference to the sealed instant rests on no rewind having
-happened in between -- which is unobserved, exactly as the distribution
-case's stability is unobserved. The evidence is stronger there, because
-a commit chain is not silently replaceable the way a file at a URL is,
-but it is not closed. Whether that difference is enough is a ruling this
-entry does not make: applying the strict reading would empty the
-eligible set, and that is not a call to take unilaterally in the middle
-of screening.
+**The same structure exists on the repository branch, and it does not
+survive either.** The general form of the error is one substitution:
+
+```text
+object history  !=  designation / ref history
+
+distribution   a release date fixes when a release was published,
+               not the interval over which it was designated
+
+repository     a commit date fixes when a commit was made, not where
+               the default branch ref pointed at a given instant
+```
+
+A commit object is immutable; a branch ref is not. That C009's HEAD
+predates the sealed instant shows the commit existed by then, and
+nothing about where master pointed then. "Master had not moved since
+2026-05-30" was never observed -- what was observed is where it points
+now. The evidence is stronger than the distribution case, since a commit
+chain is not silently replaceable the way a file at a URL is, but it is
+not closed, and this run has consistently stopped at "not excluded".
+
+**Where the failure belongs, which an earlier draft got wrong by one
+level.** RETRACTION 15 withdrew C013's E2-REP over this. That was a
+stage error. The E2-REP network contract states its own purpose --
+location, designation, stable URL, one target identifier, actual source
+tree -- and the snapshot is not among them. The schema files
+`primary_snapshot` with the fields "performed only for candidates
+surviving E1-E4".
+
+```text
+NOT   an E2-REP criterion failure
+BUT   a survivor-stage primary_snapshot resolution failure
+```
+
+C013 is restored as a survivor, and its E2-RULE, E3 and E4 entries come
+out of quarantine: those gates were determined on their own witnesses,
+and screening gates are not conditioned on a survivor-stage field.
+
+**What is blocked, and what is not.**
+
+```text
+E1-E4 survivors          C009, C013, C023 -- three, unchanged
+
+primary_snapshot         UNRESOLVED for all three
+candidate inventory      blocked; cannot begin without frozen bytes
+U_primary, P_raw         not obtainable
+completeness class       not obtainable
+ranking                  not decidable
+primary target           not selected
+```
+
+The survivor set is not empty. Three candidates survive screening and
+all three are stopped at the same later checkpoint, which is a different
+and more informative outcome than having nothing survive.
+
+**No resolution procedure is invented now.** A rule like "take the
+newest ancestor of current HEAD dated before the instant" would select
+from today's commit graph, which is not the same as recovering the ref,
+and it would be a procedure written after seeing the candidates -- the
+objection that has already sunk two attempted repairs in this run.
+Nothing about a candidate's contents may be used to choose it either.
+
+**The third preregistration hole.** This joins the two the run has
+already recorded, and they are the same species:
+
+```text
+QA-13/amendment   E4 admissibility defined; discovery never
+                  operationalized
+QA-19/amendment   inventory completeness required; discovery never
+                  operationalized
+QA-28             snapshot rule preregistered; RECONSTRUCTION of the
+                  sealed-instant state never operationalized
+```
+
+Each preregistered what it wanted and left unspecified how to obtain it
+for a candidate first examined afterwards. That is the pattern worth
+reporting, more than any individual verdict.
+
+**Not applied to C004, C008 and C022.** Those ended UNRESOLVED at E4 and
+never reached the survivor stage where a snapshot is resolved. Their
+entries use "primary snapshot" loosely for an observation-time revision,
+which is imprecise wording rather than a verdict defect, and re-filing
+their stop gates would assert a survivor-stage failure they never
+reached.
 
 **Why this could not be patched.** Two repairs suggest themselves and
 both change the sealed rule. Taking 4.2.5 because the port packages it

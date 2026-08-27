@@ -3573,23 +3573,17 @@ established at screening time
   upstream designates a source distribution, labelled "Source code",
   at a stable URL, and that artifact holds a source tree.
 
-NOT established
-  which artifact was the externally designated canonical artifact at
-  the enumeration execution timestamp. The landing page dates neither
-  the release it presents nor its predecessors, so nothing observed
-  places 4.2.6's designation before or after 2026-08-26T19:23:05Z.
-
-  The frozen port packages 4.2.5 while the artifact designated at
-  screening time is 4.2.6. An earlier draft read that difference as
-  showing "a designation change occurred at some unbounded point". It
-  shows no such thing: it establishes only what OpenBSD packaged, and
-  packaging metadata is not upstream designation -- the principle this
-  run applies everywhere else.
-
+NOT established, and this alone decides the gate
   uniqueness. The withdrawn entry closed this by opening /develop,
   which was not an authorized surface; that observation is
-  quarantined, and no admissible replacement was obtained.
+  quarantined, and no admissible replacement was obtained. Whether
+  upstream designates exactly one canonical source location is
+  therefore open.
 ```
+
+The snapshot question is deliberately NOT a ground here. An earlier draft made "which artifact was designated at the enumeration instant" part of this gate's failure. It is not part of this gate: `primary_snapshot` is a survivor-stage field the sealed rule fills for candidates that survive E1-E4, and the E2-REP network contract's own purpose list -- location, designation, stable URL, one target identifier, actual source tree -- does not include it. C029 stops at E2-REP on uniqueness, and never reaches the stage where its snapshot would be resolved.
+
+Also withdrawn from this entry: the claim that because the frozen port packages 4.2.5 while screening-time designation is 4.2.6, "a designation change occurred at some unbounded point". It shows no such thing -- it establishes what OpenBSD packaged, and packaging metadata is not upstream designation.
 
 Frozen SITES, observed rather than reasoned about. An earlier draft skipped it, arguing the snapshot ground was "not curable by anything at that path". That decided the outcome from the URL's shape before looking, which is the C018 error, so the surface was opened under a scope fixed first: existence and HTTP status, labels or headings the surface itself carries, artifact names and link relations it exposes, and any timestamp, release metadata or marking that binds a designation to a moment -- and explicitly not navigating to /release or /develop, not opening files, and not inferring from filenames.
 
@@ -3678,3 +3672,106 @@ Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 EV-C013-E2RULE-01, EV-C013-E3-01 and EV-C013-E4-01 are quarantined as
 post-stop exposure, on the principle applied at C005, C014, C016, C017
 and C029. Kept on the record, used for nothing.
+
+## RETRACTION 16 — the snapshot failure was filed at the wrong stage
+
+RETRACTION 15 withdrew C013's E2-REP on the ground that its primary
+snapshot was unestablished. That disposition is wrong by one level, and
+C013 is restored.
+
+**`primary_snapshot` is not part of the E2-REP gate.** The network
+contract states this gate's purpose as: a canonical source location
+exists, is designated by upstream, sits at a stable URL, carries one
+external target identifier, and actually holds a source tree. The
+snapshot is not among them. The schema places it with the fields
+"performed only for candidates surviving E1-E4", and the sealed order
+runs screen-all-128 -> fix the survivor set -> freeze inventories ->
+rank. It is a survivor-stage resolution, not a candidate verdict.
+
+So what was found is real but belongs one stage later:
+
+```text
+NOT      an E2-REP criterion failure
+BUT      a survivor-stage primary_snapshot resolution failure
+```
+
+**Restored:** C013 is an E1-E4 survivor again. Its E2-REP designation
+findings were never in question -- upstream presents the source tarball
+on its own domain with the SHA-256 beside it, the retrieved artifact
+matched that published hash, and it holds a source tree. Its E2-RULE, E3
+and E4 entries come out of quarantine: those gates were determined on
+their own witnesses, and screening gates are not conditioned on the
+snapshot field.
+
+**Withdrawn instead, and for all three survivors:** the recorded
+`primary_snapshot` values.
+
+```text
+C009 FCEUX     a62b868e...      -> UNRESOLVED
+C013 Mednafen  sha256:de7eb94a. -> UNRESOLVED
+C023 Weland    ca7ed579...      -> UNRESOLVED
+```
+
+## EV-C013-E2REP-03  (supersedes EV-C013-E2REP-02; restores the verdict of -01)
+Candidate: C013 (frame rank 13, emulators/mednafen)
+Gate: E2-REP
+
+The designation findings of EV-C013-E2REP-01 stand and are not re-argued: upstream presents the source tarball on its own landing page under its own domain with the SHA-256 published beside it; the retrieved artifact's hash matched that published value byte for byte; listing its entries showed a source tree; the .zip artifacts are named as Windows builds; older releases in the same directory are a version history rather than competing designations.
+
+EV-C013-E2REP-02 withdrew that verdict over the primary snapshot. That was a stage error, corrected here: the snapshot is a survivor-stage field, not one of this gate's conditions.
+
+Decision: PASS
+
+## EV-C013-SNAPSHOT-01
+Candidate: C013
+Stage: survivor-stage primary snapshot resolution (not a screening gate)
+
+```text
+sealed rule, distribution branch
+  the externally designated canonical artifact at the enumeration
+  execution timestamp, 2026-08-26T19:23:05Z, recorded by content hash
+
+what the record establishes
+  at observation time, 2026-08-27T09:01:57Z, upstream designates
+  mednafen-1.32.1.tar.xz, and that entry carries the date 2024-04-05
+
+what it does not establish
+  the designation state at the sealed instant. A release date fixes
+  when a release was published, not the interval over which it was
+  the designated artifact.
+```
+
+primary_snapshot: UNRESOLVED
+
+## EV-C009-SNAPSHOT-01
+Candidate: C009
+Stage: survivor-stage primary snapshot resolution
+
+```text
+sealed rule, repository branch
+  the commit the default branch pointed at at the enumeration
+  execution timestamp, recorded as a full commit hash
+
+what the record establishes
+  at observation time the default branch pointed at
+  a62b868e9247c4aafd66f597cdfa8d2609704087, whose commit date is
+  2026-05-30T00:35:55Z
+
+what it does not establish
+  where the branch pointed at 2026-08-26T19:23:05Z. A commit object
+  is immutable; a branch ref is not. That the current HEAD predates
+  the sealed instant shows the commit existed by then, not that the
+  ref pointed at it then.
+```
+
+The withdrawn wording read "master had not moved since 2026-05-30, so raw reads on 2026-08-27 resolve to the revision the snapshot rule fixes". "Had not moved" was never observed; what was observed is where it points now.
+
+primary_snapshot: UNRESOLVED
+
+## EV-C023-SNAPSHOT-01
+Candidate: C023
+Stage: survivor-stage primary snapshot resolution
+
+Same structure as C009. At observation time the default branch pointed at ca7ed57956034b25af1137378027b5ad6e7c15f0, commit date 2025-09-06T00:34:34Z. Where the ref pointed at 2026-08-26T19:23:05Z is not established.
+
+primary_snapshot: UNRESOLVED
