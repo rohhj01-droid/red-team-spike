@@ -3853,17 +3853,25 @@ Observed: a 623-byte Apache directory index headed "Index of /openbsd/distfiles"
 
 ```text
 PASS not established
-  no upstream surface was reached. The frozen metadata supplies no
-  HOMEPAGE and no repository identifier, so no landing page exists to
-  navigate from, and the one admitted surface is a directory index
-  that designates nothing.
+  no upstream project or designation surface was established. The
+  frozen metadata supplies no HOMEPAGE and no repository identifier,
+  so no landing page exists to navigate from, and the one admitted
+  surface is a directory index that designates nothing.
 
 FAIL not established
   an index page carrying no designation is not a demonstration that
-  upstream designates none. E2REP-NO-SOURCE is likewise unavailable:
-  it is a claim about a DESIGNATED canonical location, and none was
-  established for such a claim to be about.
+  upstream designates none.
+
+E2REP-NO-SOURCE not established either, and for its own reason
+  the sealed vocabulary defines that code as "no access to actual
+  source representation". The index exposes two .tar.gz artifact
+  names. Whether either is this candidate's actual source
+  representation was not established -- opening them was outside the
+  scope fixed above -- so the ABSENCE of source access is not
+  established, and the code cannot be applied.
 ```
+
+An earlier draft ruled that code out on a different ground -- that it is "a claim about a DESIGNATED canonical location, and none was established". The sealed vocabulary carries no such restriction; the reason it does not apply here is that source access has not been shown absent, not that it is reserved for designated locations.
 
 Recorded as an observation and not used as a ground: the index sits under an /openbsd/ path and holds only this port's two distfiles. Nothing in the verdict depends on whose host it is; the surface simply makes no designation, which is enough.
 

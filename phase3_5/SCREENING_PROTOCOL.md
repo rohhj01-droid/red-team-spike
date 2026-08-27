@@ -435,11 +435,22 @@ rejected candidates carry `NOT_REACHED` there.
 
 ### Stage marker for eligible candidates awaiting inventory
 
-Those seven fields do not all become available at the same moment. For
-an eligible candidate WHOSE `primary_snapshot` RESOLVES, four are
-already determined by gates that have run -- E2-REP settles the source
-location and the target identifier, the sealed snapshot rule resolves
-`primary_snapshot`, and `tie_key` is computed from the first two.
+Those seven fields do not all become available at the same moment. For a
+survivor whose `primary_snapshot` resolves, four are determined before
+inventory begins:
+
+```text
+canonical_source_location    by E2-REP
+external_target_identifier   by E2-REP
+primary_snapshot             by the sealed snapshot rule, at the
+                             survivor-stage checkpoint -- not by a gate
+tie_key                      from location + identifier
+```
+
+The distinction in the third line was blurred in an earlier draft, which
+grouped all four as "determined by gates that have run". Two come from a
+gate; the snapshot comes from a checkpoint that runs after the survivor
+set is fixed, and can fail there without any gate having failed.
 
 The conditional matters, and was not in an earlier draft of this
 paragraph, which said the snapshot rule resolves mechanically full stop.
@@ -516,27 +527,36 @@ screen all 128 frame items
   -> fix the E1-E4 survivor set
   -> resolve each survivor's primary_snapshot        <- checkpoint
 
-     no survivor's snapshot resolves
+     NONE resolve
        -> inventory        NOT_REACHED
        -> ranking          NOT DECIDABLE
        -> target           NOT SELECTED
        -> report a survivor-stage snapshot-resolution failure
 
-     otherwise
+     ALL resolve
        -> freeze each survivor's candidate inventory
        -> compute completeness classes
        -> rank / tie-break
        -> select the target
        -> E5
+
+     SOME resolve and SOME do not
+       -> UNSPECIFIED BY THE SEALED METHODOLOGY
+       -> this run introduces no rule for this branch
 ```
 
-The checkpoint is written this way on purpose, and the gap in it is
-deliberate. **This run does not introduce a partial-resolution rule.**
-What happens when some survivors' snapshots resolve and others' do not
-is not settled by the sealed methodology, and settling it now would
-decide whether an unresolved survivor may be dropped from ranking --
-which is a post-screening dropout, and exactly the kind of rule this run
-has refused to invent after seeing candidates.
+The third branch is stated explicitly because an earlier draft wrote the
+second as `otherwise`, which silently swallowed it: a mixed outcome would
+have been routed straight into inventory while the paragraph beneath
+claimed no partial-resolution rule was being introduced. Declaring a gap
+and then closing it in the same block is worse than either.
+
+**This run introduces no partial-resolution rule.** What to do when some
+survivors' snapshots resolve and others' do not is not settled by the
+sealed methodology, and settling it now would decide whether an
+unresolved survivor may be dropped from ranking -- a post-screening
+dropout, and exactly the kind of rule this run has refused to invent
+after seeing candidates.
 
 For this run the question does not arise: all three E1-E4 survivors have
 unresolved primary snapshots, so no survivor can enter inventory and
