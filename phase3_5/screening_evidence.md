@@ -1392,3 +1392,101 @@ gates were only reached because a withdrawn PASS stood at E2-REP. Their
 observations -- the Compiling page's gtkmm-3.24 requirement, the
 save-state/.srm interleaving witness, and the command_names[] positive
 construction -- are kept on the record and used for nothing.
+
+## EV-C009-UR-01
+Candidate: C009 (frame rank 9, emulators/fceux)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/fceux/Makefile
+Observed: GH_ACCOUNT=TASEmulators; GH_PROJECT=fceux; GH_TAGNAME=v2.6.6; HOMEPAGE=https://fceux.com/web/home.html; COMMENT="emulator for Nintendo Entertainment System".
+Inference: every field names one packaged system, FCEUX. Not UR-AMBIGUOUS.
+Decision: PASS
+
+Rank-order note: this rank was skipped when screening ran 8 -> 10 -> 12 -> 14, and is being screened now under QA-18. The omission is recovered as coverage; the frozen order is not restored retroactively.
+
+## EV-C009-E1-01
+Candidate: C009
+Gate: E1
+Source: same frozen metadata; https://fceux.com/web/home.html
+observed_at_utc: 2026-08-27T08:51:47Z; http_status 200
+Observed: a third-party NES/Famicom/Dendy emulator, described by its own site as "an evolution of the original FCE Ultra emulator", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C009-E2REP-01
+Candidate: C009
+Gate: E2-REP
+
+Same shape as C014 -- HOMEPAGE is a project site, not the repository -- so the navigation was walked, and this time it completes inside the contract.
+
+Step 1: https://fceux.com/web/home.html (frozen HOMEPAGE).
+observed_at_utc: 2026-08-27T08:51:47Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed: the page's links are Home, Download, Documentation, Versions, Contact, Links, a link to tasvideos.org, "version history", "Full changelog", and one link whose destination is the project's source repository: "commit browser" -> https://github.com/TASEmulators/fceux/commits/master. Its sentence reads "You can find out what we've been up to since the last release by checking the commit browser."
+
+Step 2, and the reading it rests on, stated rather than assumed: the contract admits "a Source / Code / Repository / Development link that page explicitly exposes". The anchor text here is "commit browser", which is not literally one of those four words, but its href IS the project's source repository, and the contract's step 2 classifies links by what they lead to. Requiring the anchor text itself to read "Repository" would be a stricter rule than the contract states and an arbitrary one, since labels vary. This is not the C014 move: nothing here is opened because an expected link was missing, and the widening that QA-17 forbids -- letting the search scope become a function of what was found -- does not occur, since this link was on the landing page before anything was looked for.
+
+Step 3: https://github.com/TASEmulators/fceux -- the repository root the step-2 link reaches.
+observed_at_utc: 2026-08-27T08:52:31Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-source-location
+Observed, restricted to metadata the contract allows at a repository: repository name fceux, owner login TASEmulators, description "FCEUX, a NES Emulator", default branch master, isFork false, isMirror false, isArchived false, isTemplate false, website metadata field http://fceux.com, and a source tree present at the root including src, documentation, scripts, pipelines, vc, vcpkg, m4, icons, attic, output, fceux-server, getSDLKey, gfceu.
+
+Inference: exactly one canonical source location, at a stable URL, with the designation running both ways -- the project's official site points at this repository as where its development is, and the repository's website field points back at that site. It is not a fork, not a mirror, not archived, and holds the source tree. One external target identifier: FCEUX. This is precisely the arrow C014 lacked, and it is established without touching README prose.
+
+Surfaces NOT opened, recorded so the restraint is visible: download.html and links.html. Both are outside the navigation whitelist, and under QA-17 a criterion phrase may not be used to reach them. The stop rule also applies -- navigation ended the moment PASS was determined at step 3.
+
+Decision: PASS
+
+## EV-C009-E2RULE-01
+Candidate: C009
+Gate: E2-RULE
+
+Prior exposure: fceux's documentation.html was read during the voided QA-07 batch. Use: not used as a gate shortcut and not used to choose which surfaces to name; this gate is adjudicated from the start under the current protocol, and the page below was reached by following the site's own Documentation index.
+
+Source: https://fceux.com/web/documentation.html -> https://fceux.com/web/help/Gamefilecompatibility.html
+observed_at_utc: 2026-08-27T08:52:55Z (index), 08:53:04Z (page); http_status 200
+
+Observed: located witness, under a heading the project itself titles "Valid Game Types" -- "FCEUX supports the iNES, FDS(raw and with a header), UNIF, and NSF file formats. FDS ROM images in the iNES format are not supported; it would be silly to do so and storing them in that format is nonsensical." The same page states of compressed inputs "Only the 'deflate' algorithm is supported", enumerates the extensions an archive is scanned for -- ".nes, .fds, .nsf, .unf, .nez, .unif" -- and gives the IPS patch naming rule, "name it [filename.extension].ips".
+
+Inference: these determine concrete validity requirements on input artifacts without our inventing them. A file in a format outside that list is not a valid game file for FCEUX, and an FDS image wrapped in an iNES container is explicitly excluded even though both formats are individually supported. The section is headed with the word valid, so this is content stating validity, not the existence of a documentation page -- the distinction QA-08 turned on. Unlike C014's witness, this is a data-artifact requirement rather than a build-environment one.
+Decision: PASS
+
+## EV-C009-E3-01
+Candidate: C009
+Gate: E3
+Source: https://fceux.com/web/movies.html (reached from the same Documentation index)
+observed_at_utc: 2026-08-27T08:53:20Z; http_status 200
+
+Observed: located witness, quoted -- "A movie file is a file which contains data needed to reconstruct actions in a game. In most emulators, the movie files consist of simply the buttons that were pressed during the game. Because the emulation is completely predictable (deterministic), it will always play back the same way. Unless the movie starts from the console power-on or from reset, the movie file might also contain a savestate that loads the beginning point of the game." The page also states a mode-dependent rule: "If a movie is in read-only mode, the movie file can not be altered in any way. If you make a savestate while playing the movie and load that state, the playback will simply 'rewind' to that state. If the movie is not in read-only, however, loading a state will set the movie to record mode and begin recording from that savestate."
+
+Inference: a movie file stores inputs, not outcomes, so whether it reproduces the run it recorded is not decidable from the file's contents. It depends on the starting point the recording began from -- power-on, reset, or an embedded savestate -- and on the deterministic replay of everything since. The second quotation adds a second history dependence: the same action, loading a savestate, either rewinds playback or truncates the movie and starts recording, according to a mode set earlier. That is a stateful/temporal validity question that can be examined, which is what E3 requires. Positive gate: one located witness ends the survey.
+Decision: PASS
+
+## EV-C009-E4-01
+Candidate: C009
+Gate: E4
+
+Positive construction exhibited, via U_enforced. All observations are at the primary snapshot: master had not moved since 2026-05-30T00:35:55Z, so raw reads of master on 2026-08-27 resolve to commit a62b868e9247c4aafd66f597cdfa8d2609704087, the revision the snapshot rule fixes.
+
+Source: https://raw.githubusercontent.com/TASEmulators/fceux/master/src/ines.cpp
+observed_at_utc: 2026-08-27T08:53:44Z-08:54:25Z; http_status 200
+
+The mechanism: the iNES mapper registry "BMAPPINGLocal bmap[]", defined at src/ines.cpp:531-819, consumed by iNES_Init at src/ines.cpp:1187 and following.
+
+EN1 external authorship: the emulator and this table existed independently of this analysis.
+
+EN2 explicit scope: the project identifies the domain in its own words, in the message it emits when the lookup fails -- "iNES mapper #%d is not supported at all." (src/ines.cpp:1075). The table enumerates which iNES mapper numbers FCEUX accepts, and each entry pairs that number with the board name the project uses for it, e.g. {"NROM", 0, NROM_Init}, {"MMC3", 4, Mapper4_Init}, {"KONAMI QTAi Board", 547, QTAi_Init}.
+
+EN3 mechanical membership: membership is array membership in bmap[]. 236 entries, each of the form {board name, mapper number, init function}. No semantic reading of individual entries is required.
+
+EN4 enforcement meaning: the project makes table membership the acceptance condition for a ROM's declared mapper, and the rejection is executed. iNES_Init walks the table -- "BMAPPINGLocal *tmp = bmap; ... while (tmp->init) { if (num == tmp->number) ... }" -- returning 0 on a match; falling off the end returns 1, and the caller then executes FCEU_PrintError("iNES mapper #%d is not supported at all.", MapperNo) and the load does not proceed (src/ines.cpp:1069-1076). The file-level requirement the documentation states is enforced in the same function: "if (FCEU_fread(&head, 1, 16, fp) != 16 || memcmp(&head, "NES\x1A", 4)) return LOADER_INVALID_FORMAT;" (src/ines.cpp:827-828).
+
+EN5 closed within scope: the walk terminates on the table's own sentinel, {"", 0, NULL} at src/ines.cpp:818, which is exactly the loop's condition. The set is closed at runtime by the enumerator the loader walks -- Section 3.2's first admissible case. Tag: enforced.
+
+EN6 outcome independence: membership is the set of supported mappers. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible: enumerate bmap[] to its sentinel and emit, per entry, the iNES mapper number a ROM may declare together with the board name the project assigns it.
+
+Worth recording, since it is the first time the two gates have met on one fact: the E2-RULE witness above states the format requirement in prose ("FCEUX supports the iNES ... file formats") and this gate finds the same requirement enforced in code (the "NES\x1A" header check). No weight is placed on the agreement -- E4 rests on the mapper registry alone -- but the coincidence is noted rather than left for the inventory stage to rediscover.
+
+Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether FCEUX designates an authoritative rules source.
+
+Decision: PASS
