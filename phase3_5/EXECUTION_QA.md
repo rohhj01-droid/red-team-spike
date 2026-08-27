@@ -310,3 +310,37 @@ authoritative source". Both are cheap negatives that would recur on
 every remaining candidate if left standing. E4 negatives require
 surveying the project's own designating surfaces and its declared
 source units.
+
+## QA-11 — a pre-named necessary surface cannot be filled by inference from another
+
+C005's E2-REP was recorded PASS after one of the two surfaces named in
+advance -- the SourceForge project hub -- proved unobservable across
+three attempts with healthy controls. The gap was filled by reasoning
+from the surface that HAD been read: /download routes this system to
+GitHub and the family's other products to SourceForge, therefore the
+hub is not a competing designation.
+
+That substitutes a positive fact about one page for a negative claim
+about another. The contract already classifies the situation directly:
+no HTTP answer after two recorded retries is transport indeterminacy,
+the gate is UNRESOLVED, later gates are NOT_REACHED.
+
+**The new part, and the reason this is its own entry:** the
+surface-naming discipline adopted after QA-10 was followed correctly
+here. Both surfaces were named before investigating. The failure came
+one step later -- when a surface we had ourselves declared necessary
+became unobservable, its absence was reasoned around instead of
+accepted. Naming surfaces in advance is only half the rule.
+
+**Rule carried forward.** If a surface is named in advance as necessary
+to a negative determination, and it cannot be observed, the gate is
+UNRESOLVED. Indirect inference from a different surface does not
+substitute for it. The pre-naming is what makes the surface necessary;
+it cannot be quietly demoted to optional once it turns out to be
+unreachable.
+
+Consequence for C005: E2-REP UNRESOLVED, E2-RULE/E3/E4 NOT_REACHED,
+their already-collected findings quarantined as post-stop exposure. The
+sealed stop rule exists precisely to prevent looking further past an
+unresolved gate, and having looked, the honest remedy is to record the
+exposure and refuse to use it.

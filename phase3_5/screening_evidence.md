@@ -760,3 +760,50 @@ Observed, enforced route: the repository's top-level units are build and platfor
 
 Inference: neither route yields a mechanically constructible property-level universe. U_normative fails twice over: no source is designated authoritative, and even the well-segmented option documentation would require hand-picking which option descriptions carry a requirement, which E4 excludes in as many words. U_enforced fails EN2, EN4 and EN5 -- conf.c is an implementation file with no declared scope, no project-stated connection to validation or eligibility, and no externally declared closure. Only one route is required and neither is available.
 Decision: FAIL (E4-NO-MECHANICAL-PRIMARY-UNIVERSE)
+
+## RETRACTION 3 — C005 E2-REP, and quarantine of everything after it
+
+EV-C005-E2REP-01 is withdrawn and replaced by EV-C005-E2REP-02 below.
+EV-C005-E2RULE-01, EV-C005-E3-01 and EV-C005-E4-01 are **quarantined**:
+they remain on the record but must not be cited for any screening
+verdict, because the gate that preceded them never resolved.
+
+What went wrong is specific and worth stating exactly, because the
+surface-naming discipline was followed and still produced a bad
+verdict. Before investigating E2-REP, two surfaces were named as the
+places a SECOND designated source location would appear: the project's
+own /download page, and the SourceForge project hub the landing page
+exposes. One of those two was then never observed -- three attempts,
+no HTTP exchange, controls healthy. The verdict was nevertheless
+recorded PASS, on the reasoning that /download routes this system to
+GitHub while routing the family's other products to SourceForge.
+
+That reasoning answers a different question than the one asked.
+"/download designates GitHub as where AdvanceMAME's source comes from"
+is a positive fact about /download. "The SourceForge hub does not
+expose a second source designation for AdvanceMAME" is a claim about a
+page that was never read. Substituting the first for the second is
+exactly the negative-evidence substitution this run has already
+corrected three times (QA-04, QA-07, QA-09, QA-10) -- here in a new
+form, since the missing observation was of a surface we ourselves had
+declared necessary.
+
+## EV-C005-E2REP-02  (supersedes EV-C005-E2REP-01)
+Candidate: C005 (frame rank 5, emulators/advancemame)
+Gate: E2-REP
+Surfaces named before investigation: the project's /download page, and
+the SourceForge project hub exposed by the landing page.
+Source: https://www.advancemame.it/ ; https://www.advancemame.it/download ; http://sourceforge.net/projects/advancemame/
+observed_at_utc: 2026-08-27T06:39:12Z (download), 06:39:57Z and 06:40:12Z x2 (SF hub)
+http_status: 200 for /download; 000 on all three attempts for the hub
+redirect_chain: NONE
+evidence_role: official-project-page / official-source-location
+Observed: /download designates https://github.com/amadvance/advancemame/releases/download/v5.0/advancemame-5.0.tar.gz for this system, and SourceForge prdownloads links for the family's other products. The SourceForge project hub produced no HTTP answer on three recorded attempts, while sourceforge.net itself returned 200 and a cdn.openbsd.org control returned 200 at the same times. No scheme variant of the exposed URL was constructed, per the eliot precedent.
+Inference: one of the two surfaces required to decide "exactly one designated canonical source location" could not be observed. A positive designation was located, but the question at this gate is not only whether one exists; it is whether more than one does, and that could not be determined. The contract classifies an endpoint that yields no HTTP answer after two recorded retries as transport indeterminacy rather than evidence of absence, and requires the gate to be recorded UNRESOLVED with later gates NOT_REACHED.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+Post-stop exposure, logged rather than concealed: E2-RULE, E3 and E4
+were investigated before this correction, so their content was seen.
+The findings are quarantined above and take no part in C005's verdict.
+Their substance is preserved only because deleting observations would
+be worse for audit than marking them unusable.
