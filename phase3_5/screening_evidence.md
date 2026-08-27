@@ -3878,3 +3878,62 @@ Recorded as an observation and not used as a ground: the index sits under an /op
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C031-UR-01
+Candidate: C031 (frame rank 31, games/armagetronad)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/armagetronad/Makefile
+Observed: HOMEPAGE=http://armagetronad.org/; SITES=${SITE_SOURCEFORGE:=armagetronad/}; V=0.2.9; DISTNAME=armagetronad-${V}.${P}; EXTRACT_SUFX=.tbz; COMMENT="3D light cycle game".
+Inference: the frozen fields name one system, Armagetron Advanced. HOMEPAGE pointing at a project site while SITES points at a distfile mirror is the shape the protocol names non-ambiguous. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C031-E1-01
+Candidate: C031
+Gate: E1
+Source: same frozen metadata; https://armagetronad.org/
+observed_at_utc: 2026-08-27T16:29:38Z; http_status 200
+Observed: a third-party game, its own page titled "Armagetron Advanced :: a Tron clone in 3D", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C031-E2REP-01
+Candidate: C031
+Gate: E2-REP
+
+Per QA-27, both URLs the frozen metadata supplies are accounted for, and both were observed.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url: http://armagetronad.org/ ; final_url: https://armagetronad.org/
+observed_at_utc: 2026-08-27T16:29:38Z-16:29:41Z; http_status 200; redirect_chain: 1 redirect, http -> https
+evidence_role: official-project-page
+Observed: the navigation exposes News, News Archive, About, Contacts, Downloads, Release Candidate, Maps, Models, Moviepacks, Textures, Screenshots, Links, Servers, Forums and Wiki. None is a Source, Code, Repository or Development link, so navigation step 2 has no target here. The body's outbound links are release blog posts, Flathub, itch.io, forum threads, and third-party ports (Armapitron, Androgetron).
+
+One link needs naming because its label reads like a designation and its destination is not one: "our own repository" points at https://download.armagetronad.org/docs/flatpak/, and upstream's own sentence places it -- "We now support installation via Flatpak for the 64-bit Linux client. Get the stable versions from Flathub; our own repository has those and also carries the usual test builds." It is a Flatpak package repository for installing the client. Under QA-25 a location counts when it is observed as designated AS A CANONICAL SOURCE LOCATION, and this one is designated as something else, by upstream, in as many words.
+
+`Downloads` was not opened. It is not among the contract's four step-2 labels, and QA-17 settled that the criterion's phrase "source distribution" may not widen the whitelist. `Wiki` likewise.
+
+Surface 2: the frozen SITES. `${SITE_SOURCEFORGE:=armagetronad/}` resolves, through the ports infrastructure's own definition of that macro, to https://downloads.sourceforge.net/sourceforge/armagetronad/.
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point.
+requested_url and final_url: https://downloads.sourceforge.net/sourceforge/armagetronad/
+observed_at_utc: 2026-08-27T16:30:17Z (GET), 16:30:31Z (HEAD)
+http_status: 404, 404; redirect_chain: NONE on both
+control: the landing page returned 200 at 16:30:31Z
+Observed: a 154-byte "404 Not Found -- The resource could not be found." No labels, no artifact names, no designation signal. Transport completed and the endpoint answered definitely, so this is not the timeout / DNS / refused / 5xx family.
+
+```text
+PASS not established
+  no designation signal was observed on either admissible surface.
+  The landing page exposes no Source/Code/Repository/Development link,
+  and the one link whose label says "repository" is designated by
+  upstream as a Flatpak install repository. The SITES path returns 404.
+
+FAIL not established
+  two surfaces carrying no designation signal is not a demonstration
+  that upstream designates none. E2REP-NO-SOURCE is not established
+  either: nothing observed shows source access to be absent -- what
+  was observed is that neither examined surface offered a designation.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
