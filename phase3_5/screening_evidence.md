@@ -461,3 +461,84 @@ Source: frozen metadata, games/eboard/Makefile and games/eboard-extras/Makefile
 Observed: both ports carry HOMEPAGE=http://www.bergo.eng.br/eboard/ and SITES=${SITE_SOURCEFORGE:=eboard/}; DISTNAMEs differ (eboard-1.1.1, eboard-extras).
 Inference: the two ports package different distributed artifacts of one externally identified upstream project (eboard). Per the sealed duplicate rule they collapse to one candidate for ranking, while rank 106 remains logged and keeps the screening-budget slot it consumed.
 Decision: DUPLICATE of C105
+
+## EV-C006-UR-01
+Candidate: C006 (frame rank 6, emulators/dgen-sdl)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/dgen-sdl/Makefile
+Observed: metadata identifies one packaged system (DGen/SDL); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C006-E1-01
+Candidate: C006
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C006-E2REP-01
+Candidate: C006
+Gate: E2-REP
+Source: https://dgen.sourceforge.net/ (frozen-metadata starting point) and the pages it explicitly exposes
+observed_at_utc: 2026-08-27T04:50:25Z-04:52:01Z (landing pages); 05:32:16Z (DOSBox SourceForge hub, rank 7 only)
+http_status: 200; redirect_chain: NONE except rank 7's hub (www.sourceforge.net -> sourceforge.net)
+evidence_role: official-project-page / official-source-location
+Observed: the project page designates BOTH https://sourceforge.net/p/dgen/dgen/ (a SourceForge code repository) and http://sourceforge.net/projects/dgen/files/dgen/ (a release file area); neither is marked canonical, primary, or authoritative.
+Inference: the sealed criterion admits a repository OR a source distribution as source-location types, and disqualifies a project that "designates several with no primary among them". That is this case. Same application as the corrected C002 verdict.
+Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
+
+## EV-C007-UR-01
+Candidate: C007 (frame rank 7, emulators/dosbox)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/dosbox/Makefile
+Observed: metadata identifies one packaged system (DOSBox); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C007-E1-01
+Candidate: C007
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C007-E2REP-01
+Candidate: C007
+Gate: E2-REP
+Source: https://www.dosbox.com/ (frozen-metadata starting point) and the pages it explicitly exposes
+observed_at_utc: 2026-08-27T04:50:25Z-04:52:01Z (landing pages); 05:32:16Z (DOSBox SourceForge hub, rank 7 only)
+http_status: 200; redirect_chain: NONE except rank 7's hub (www.sourceforge.net -> sourceforge.net)
+evidence_role: official-project-page / official-source-location
+Observed: the project page designates its own download page and https://www.sourceforge.net/projects/dosbox; that hub in turn exposes BOTH /p/dosbox/code-0/ (a code repository) and /projects/dosbox/files/ (a release file area), with no primary marked.
+Inference: the sealed criterion admits a repository OR a source distribution as source-location types, and disqualifies a project that "designates several with no primary among them". That is this case. Same application as the corrected C002 verdict.
+Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
+
+## EV-C011-UR-01
+Candidate: C011 (frame rank 11, emulators/frodo)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/frodo/Makefile
+Observed: metadata identifies one packaged system (Frodo); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C011-E1-01
+Candidate: C011
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C011-E2REP-01
+Candidate: C011
+Gate: E2-REP
+Source: http://frodo.cebix.net/ (frozen-metadata starting point) and the pages it explicitly exposes
+observed_at_utc: 2026-08-27T04:50:25Z-04:52:01Z (landing pages); 05:32:16Z (DOSBox SourceForge hub, rank 7 only)
+http_status: 200; redirect_chain: NONE except rank 7's hub (www.sourceforge.net -> sourceforge.net)
+evidence_role: official-project-page / official-source-location
+Observed: the project page hosts its own source archives (downloads/Frodo-4.5.tar.gz among others) AND links several repositories including github.com/cebix/frodo4; no location is marked canonical or primary.
+Inference: the sealed criterion admits a repository OR a source distribution as source-location types, and disqualifies a project that "designates several with no primary among them". That is this case. Same application as the corrected C002 verdict.
+Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
