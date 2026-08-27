@@ -2880,3 +2880,73 @@ therefore
 Had E3 depended on anything read at or after the E4 exposure, the correct outcome would have been to quarantine, as at C014, C016 and C017.
 
 Decision: PASS
+
+## EV-C024-UR-01
+Candidate: C024 (frame rank 24, games/allegro)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/allegro/Makefile
+Observed: HOMEPAGE=http://liballeg.org/; V=4.2.3; DISTNAME=allegro-$V; SITES=${SITE_SOURCEFORGE:=alleg/}; COMMENT="game programming library for C/C++ developers".
+Inference: every field names one packaged system, Allegro, at version 4.2.3. The metadata names a version, not a second system. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C024-E1-01
+Candidate: C024
+Gate: E1
+Source: same frozen metadata; https://liballeg.org/
+observed_at_utc: 2026-08-27T14:01:55Z; http_status 200
+Observed: a third-party library -- "Allegro is a cross-platform library mainly aimed at video game and multimedia programming" -- unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C024-E2REP-01
+Candidate: C024
+Gate: E2-REP
+
+Surface: the frozen HOMEPAGE. Both designations below are on it, so nothing past step 1 was opened.
+requested_url: http://liballeg.org/ ; final_url: https://liballeg.org/
+observed_at_utc: 2026-08-27T14:01:55Z-14:01:56Z; http_status 200; redirect_chain: 1 redirect, http -> https
+evidence_role: official-project-page
+
+Observed: the page designates two repository locations, in its own words, and distinguishes them by version line rather than by rank.
+
+```text
+navigation
+  "Git repository"      -> https://github.com/liballeg/allegro5
+
+news item, 2025-04-20, "Allegro 4 moved to its own repository"
+  "We've moved Allegro 4 sources to its own repository."
+                        -> https://github.com/liballeg/allegro4
+  "Previously (and, in fact, currently) Allegro 4 was placed in a few
+   separate branches in the main Allegro 5 repository. This made it
+   hard to find and cumbersome to use. So, we've moved the relevant
+   branches, tags and issues to ..."
+```
+
+Both are locations rather than routes, in QA-25's sense: each is the destination of a link on the permitted surface, and each has the `github.com/<owner>/<repo>` form of a repository root, the same basis on which C022's "GitHub" nav link was accepted.
+
+Inference: the port packages allegro-4.2.3 -- Allegro 4 -- and upstream's own page places Allegro 4's sources in one repository and its "Git repository" navigation link on another. No primary is marked between them for the system this port packages.
+
+Two readings would rescue a single designation, and each requires supplying a rank upstream does not state:
+
+```text
+"the system is Allegro 4, so allegro4 is its one location"
+  -> this selects which of two designated repositories corresponds to
+     the packaged version. The criterion reserves exactly that:
+     adjudicating which of several repositories really holds the system
+     "would be our judgment about the target's identity".
+
+"the navigation link is THE designation; the news item concerns a
+ sub-part"
+  -> this ranks navigation above a dated news item, a hierarchy the
+     page does not assert. The phrase "the main Allegro 5 repository"
+     appears while describing where Allegro 4 USED to live, and does
+     not settle which location is canonical for Allegro 4.
+```
+
+Not counted: "Other Git repositories" and "GitHub project" both point at https://github.com/liballeg, an account page rather than a repository location. The frozen SITES is a SourceForge files area reached by the packager, not an upstream designation, and was not opened. download.html and git.html are outside the navigation whitelist and were not opened.
+
+Recorded as a first for the run: every previous E2REP-NO-SINGLE-CANONICAL-LOCATION arose between a source distribution and a repository. This one is between two repositories of the same project, split by version line.
+
+Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
+
+Gates after E2-REP are NOT_REACHED under the first-fail stop rule.
