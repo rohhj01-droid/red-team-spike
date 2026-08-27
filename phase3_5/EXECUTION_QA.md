@@ -836,30 +836,80 @@ inventory   universal     needs the complete set
 
 **Why this is not the same finding as QA-13.** QA-13 was about a gate's
 negative branch, and the fix was available: make PASS positive-only and
-send everything else to UNRESOLVED. Ranking has no positive-only form.
-Class A asks whether EVERY admitted enumerator is `enforced`; class B is
-its complement. One missed `asserted` enumerator flips the class, and
-the sealed methodology already says an enumerator found after selection
-is a protocol failure — it knows the risk, it just never operationalized
-the search.
+send everything else to UNRESOLVED. Class A has no positive-only form,
+because its second conjunct is an absence claim.
 
-So the same asymmetry that was contained at the gate is load-bearing one
-stage later, where containment does not work.
+Class B is NOT simply class A's complement, and an earlier draft of this
+entry got that wrong. The sealed definition is a disjunction, and its
+first disjunct is existential:
+
+```text
+DECIDABLE BY WITNESS
+  class A, first conjunct   one located enforcement enumerator
+  class B, first disjunct   one located `asserted` enumerator
+                            -- positive and stable; later discoveries
+                            cannot undo it
+
+NOT DECIDABLE without a complete inventory
+  class A, second conjunct  no hidden `asserted` enumerator exists
+  class B, second disjunct  no enforcement enumerator exists at all
+```
+
+So a candidate CAN be placed in class B, by finding one `asserted`
+enumerator. What cannot be done is placing a candidate whose located
+enumerators are all `enforced`: class A would need the absence proof,
+and class B's available route needs a witness that has not been found.
+
+```text
+found an `asserted` enumerator  -> class B
+otherwise                       -> UNRESOLVED
+```
+
+The sealed methodology already treats an enumerator discovered after
+selection as a protocol failure -- it knows the risk, it just never
+operationalized the search. So the asymmetry contained at the gate is
+load-bearing one stage later, where containment does not work.
 
 **Resolution.** A second post-seal corrective amendment, in
-`SCREENING_PROTOCOL.md`, dated to its cause. `completeness_class` is
-UNRESOLVED for every survivor; with more than one eligible candidate the
-class-ordered step is undecidable, ranking is NOT DECIDABLE, and primary
-target selection is INCONCLUSIVE.
+`SCREENING_PROTOCOL.md`, dated to its cause.
+
+```text
+CLASS       located `asserted` enumerator -> B ; otherwise UNRESOLVED
+
+THIS RUN    C009  UNRESOLVED      every located E4 witness is
+            C010  UNRESOLVED      `enforced`, so none of the four has
+            C012  UNRESOLVED      the positive class B route
+            C013  UNRESOLVED
+
+OUTCOME     multiple eligible + an undecided class boundary
+              -> ranking NOT DECIDABLE
+              -> primary target NOT SELECTED
+              -> selection INCONCLUSIVE
+```
+
+With exactly one eligible candidate the outcome would differ in one
+respect only: target identity would be settled, since there is nothing
+to rank. `U_primary`, `P_raw` and E5 would still be unavailable, because
+they depend on a complete frozen inventory rather than on the count of
+candidates.
+
+**Where the code goes.** `PI-UNCLASSIFIED-SHAPE` marks this at the run
+and inventory level -- here and in the report -- and NOT in the
+candidate ledger's `protocol_issue_code` column. That column is a
+gate-level candidate outcome paired with `overall = UNRESOLVED`; putting
+it on an ELIGIBLE row would assert a gate was left undetermined, which
+is false. All six gates were determined for each survivor. Eligible rows
+keep `protocol_issue_code = NONE`.
 
 The tie-break is explicitly barred as a fallback. Using it across an
 undecided class boundary assumes the survivors share a class — a claim
 about them, not a simplification — and it would return a wrong candidate
 while looking as principled as it does when used correctly.
 
-**Already knowable, so stated now.** Four candidates are eligible, so
-ranking will be required and the selection outcome is already determined
-to be inconclusive. Recording that at the moment it becomes knowable is
+**Already knowable, so stated now.** Four candidates are eligible and
+every located E4 witness is `enforced`, so no survivor has class B's
+positive route; ranking will be required across an undecided boundary
+and the selection outcome is already determined to be inconclusive. Recording that at the moment it becomes knowable is
 the same discipline QA-16 applied to E4's discriminating power.
 
 **Screening still completes.** The 128-item result is the run's outcome

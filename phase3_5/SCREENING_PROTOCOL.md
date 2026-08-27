@@ -508,42 +508,85 @@ NOT establishable
   hence not establishable that EVERY admitted enumerator is `enforced`
 ```
 
-Section 3.3's completeness classes need the universal form:
+The sealed classes are not symmetric in what they need, and the
+distinction matters:
 
 ```text
-class A   at least one enforcement enumerator
+class A   at least one enforcement enumerator is admitted
           AND every admitted enumerator is `enforced`
 
-class B   otherwise
+class B   any admitted enumerator is `asserted`
+          OR no enforcement enumerator is admitted at all
 ```
 
-The first conjunct is decidable by witness. The second quantifies over
-everything the candidate might contain, and no discovery procedure was
-preregistered — the same absence the E4 amendment recorded. Class B is
-not a refuge either: "otherwise" would require showing that some
-admitted enumerator is *not* `enforced`, which is equally unavailable.
-A single missed `asserted` enumerator flips the class, and the sealed
+```text
+DECIDABLE BY WITNESS
+  class A, first conjunct   one located enforcement enumerator
+  class B, first disjunct   one located `asserted` enumerator
+                            -- positive and STABLE: further hidden
+                            enumerators cannot undo it
+
+NOT DECIDABLE without a complete inventory
+  class A, second conjunct  no hidden `asserted` enumerator exists
+  class B, second disjunct  no enforcement enumerator exists at all
+```
+
+So class B has a positive route and class A does not. A candidate whose
+located enumerators are all `enforced` cannot be placed: class A needs
+an absence proof, and the only available class B route needs a located
+`asserted` enumerator that has not been found. A single missed
+`asserted` enumerator would flip such a candidate, and the sealed
 methodology says so itself, treating an enumerator discovered after
 target selection as a protocol failure precisely because it can move
 both the class and `P_raw`.
 
-E4 could absorb this by making PASS positive-only. Ranking cannot: it
-has no positive-only form.
+E4 could absorb its gap by making PASS positive-only. Ranking cannot:
+class A has no positive-only form.
 
 **The amendment.**
 
 ```text
-completeness_class      = UNRESOLVED  for every eligible candidate
-protocol_issue_code     = PI-UNCLASSIFIED-SHAPE
+CLASS DETERMINATION
+  a located admissible `asserted` enumerator exists
+    -> completeness_class = B          (positive, stable)
+  otherwise
+    -> completeness_class = UNRESOLVED
+```
 
-exactly one eligible candidate
-  -> no ranking is required; selection proceeds
+```text
+SELECTION
+  exactly one eligible candidate
+    -> target identity     = SELECTED   (no ranking is required)
+    -> but completeness is still unresolved, so
+       U_primary / P_raw   = NOT OBTAINED
+       E5 and downstream   = CANNOT PROCEED
 
-more than one eligible candidate
-  -> the class-ordered step is undecidable
-  -> ranking             = NOT DECIDABLE
-  -> primary target      = NOT SELECTED
-  -> Phase 3.5 primary target selection = INCONCLUSIVE
+  more than one eligible candidate, with any class UNRESOLVED
+    -> ranking             = NOT DECIDABLE
+    -> primary target      = NOT SELECTED
+    -> U_primary / P_raw   = NOT OBTAINED
+    -> E5 and downstream   = NOT REACHED
+    -> Phase 3.5 primary target selection = INCONCLUSIVE
+```
+
+The single-candidate branch is worth separating rather than collapsing:
+identity and inventory are different questions. With one survivor there
+is nothing to rank, so WHICH system is the target is settled — but
+`U_primary`, `P_raw` and E5 all depend on a complete frozen inventory,
+which the gap withholds regardless of how many candidates there are.
+
+**Where the protocol-issue code goes.** `PI-UNCLASSIFIED-SHAPE` records
+this at the run and inventory level, in QA-19 and in the report, and
+NOT in the candidate ledger's `protocol_issue_code` column. That column
+is defined as a gate-level candidate outcome, and the schema pairs it
+with `overall = UNRESOLVED`; writing it on an ELIGIBLE row would assert
+that the candidate failed to be determined at a gate, which is false --
+all six of its gates were determined. Eligible rows keep:
+
+```text
+overall              = ELIGIBLE
+protocol_issue_code  = NONE
+completeness_class   = B | UNRESOLVED   (filled at the inventory stage)
 ```
 
 **The tie-break is not a fallback, and must not be used as one.** It is
@@ -576,9 +619,11 @@ REPORTED AS NOT OBTAINED
 coverage claim depends on finishing it, and the frame budget is sealed.
 
 **Stated plainly, because it is already knowable.** Four candidates are
-eligible as of this amendment, so ranking will be required and the
-selection outcome under this rule is already determined to be
-INCONCLUSIVE. That is recorded now rather than presented as a surprise
+eligible as of this amendment, and every E4 witness located so far is
+`enforced` -- none is `asserted` -- so none of them has the positive
+class B route, and all four will be UNRESOLVED. Ranking will therefore
+be required across an undecided class boundary, and the selection
+outcome under this rule is already determined to be INCONCLUSIVE. That is recorded now rather than presented as a surprise
 at the end. It is also why this amendment is admissible mid-run: like
 the first, it reduces what the run claims. An amendment that produced a
 target where none was available would not be.
