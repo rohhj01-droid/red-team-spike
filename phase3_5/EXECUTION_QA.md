@@ -149,3 +149,36 @@ would be tuning the rules to the run:
    this holds across the frame, eligibility may be very low — which is
    a legitimate result, not a defect, and must not be softened to avoid
    it.
+
+## QA-06 — out-of-order screening (DEVIATION, recorded, not reversed)
+
+The sealed methodology requires screening in the frozen rank order.
+The batch committed as `d3aff92` did not follow it: ranks 21, 27, 39,
+40, 41, 55, 70, 73, 79, 86, 105, 106, 109 and 110 were screened before
+ranks 4-20.
+
+**Cause.** Those ranks were the ones whose verdicts the network
+contract already determined (three recorded attempts, no HTTP answer,
+control succeeding), and they were grouped and recorded first as a way
+of separating contract-determined outcomes from ones needing judgment.
+
+**Why this is a deviation and not merely a reordering.** Selecting the
+items to process first *by the shape of their outcome* is selective
+inspection, the thing the frozen order exists to prevent. Screening
+"the easy ones first" once invites doing it again — a proposed batch of
+16 items whose HOMEPAGE happens to be a repository page was rejected
+for exactly this reason, since that subset is defined by a property
+discovered after looking.
+
+**Impact assessment.** Bounded. The screening set was already frozen at
+the first 128 items, every rank touched lies inside it, and neither the
+denominator nor the budget changed. What was affected is the order of
+observation, not the population.
+
+**Disposition.** The affected evidence is kept as recorded and is not
+re-observed: re-measuring would grant those endpoints a second
+observation opportunity under different network state, which is worse
+than the original deviation. Screening resumes at rank 4 in frozen
+order, and a rank already sealed is passed over as such rather than
+re-examined. Batch boundaries from here are contiguous rank ranges
+only, never groupings by outcome type.
