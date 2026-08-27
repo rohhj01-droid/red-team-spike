@@ -816,3 +816,65 @@ in the ledger. Not read from what the previous turn said, and not read
 from this entry either -- "9, then 13, then 15" is a prediction, not a
 pointer, and trusting it would reproduce exactly the failure being
 recorded. A pointer carried in prose is not a pointer.
+
+## QA-19 — the completeness gap survives one stage past E4, in ranking (POST-SEAL AMENDMENT)
+
+C013's E4 entry ended with "the inventory stage should not have to
+rediscover it". That sentence is wrong in the direction that matters,
+and following it up is what exposed the gap.
+
+The inventory stage must rediscover everything, and must look where E4
+never went. E4 stops at the first positive construction; the inventory
+has to be exhaustive, because Section 3.3's classes and the union rule
+both depend on having found ALL admissible enumerators and authoritative
+sources.
+
+```text
+E4          existential   one witness -> PASS -> stop looking
+inventory   universal     needs the complete set
+```
+
+**Why this is not the same finding as QA-13.** QA-13 was about a gate's
+negative branch, and the fix was available: make PASS positive-only and
+send everything else to UNRESOLVED. Ranking has no positive-only form.
+Class A asks whether EVERY admitted enumerator is `enforced`; class B is
+its complement. One missed `asserted` enumerator flips the class, and
+the sealed methodology already says an enumerator found after selection
+is a protocol failure — it knows the risk, it just never operationalized
+the search.
+
+So the same asymmetry that was contained at the gate is load-bearing one
+stage later, where containment does not work.
+
+**Resolution.** A second post-seal corrective amendment, in
+`SCREENING_PROTOCOL.md`, dated to its cause. `completeness_class` is
+UNRESOLVED for every survivor; with more than one eligible candidate the
+class-ordered step is undecidable, ranking is NOT DECIDABLE, and primary
+target selection is INCONCLUSIVE.
+
+The tie-break is explicitly barred as a fallback. Using it across an
+undecided class boundary assumes the survivors share a class — a claim
+about them, not a simplification — and it would return a wrong candidate
+while looking as principled as it does when used correctly.
+
+**Already knowable, so stated now.** Four candidates are eligible, so
+ranking will be required and the selection outcome is already determined
+to be inconclusive. Recording that at the moment it becomes knowable is
+the same discipline QA-16 applied to E4's discriminating power.
+
+**Screening still completes.** The 128-item result is the run's outcome
+in its own right, and the coverage claim depends on finishing it.
+
+**What the run becomes.** Not a target study. A screening-methodology
+result: a protocol can be rigorous enough to ADMIT candidates and still
+unable to SELECT among them, because admission is existential and
+selection is universal. That is a finding about the design, obtained
+because the design was written down before it was executed and its
+verdicts were checked against it. It is worth more than a target chosen
+by a rule that could not support the choice.
+
+**Alternatives rejected:** writing the discovery procedure now (no
+longer preregisterable — four registry idioms have been seen, and probes
+would be fitted to them), and treating the screening-stage positive
+enumerator as the inventory (nullifies the union rule and the
+late-discovery failure rule together).

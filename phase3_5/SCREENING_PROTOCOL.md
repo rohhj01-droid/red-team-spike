@@ -488,6 +488,123 @@ gain nothing: with several survivors, "which one do we look at closely
 first" is discretion, and it is cheaper to remove it than to argue
 afterwards that it did no work.
 
+### AMENDMENT (post-seal, corrective) — survivor inventory completeness is not operationalized
+
+**Status.** Not part of the methodology sealed at `401924d`, and never
+to be cited as though it were. A second post-seal corrective amendment,
+triggered mid-run, dated to its cause.
+
+**The gap.** It is the same asymmetry the first amendment addressed at
+E4, reappearing one stage later, where it is load-bearing for the
+selection rule rather than for a single verdict.
+
+```text
+establishable by witness
+  at least one admissible enumerator exists, located, with its
+  Section 3.3 tag
+
+NOT establishable
+  that the located set is COMPLETE
+  hence not establishable that EVERY admitted enumerator is `enforced`
+```
+
+Section 3.3's completeness classes need the universal form:
+
+```text
+class A   at least one enforcement enumerator
+          AND every admitted enumerator is `enforced`
+
+class B   otherwise
+```
+
+The first conjunct is decidable by witness. The second quantifies over
+everything the candidate might contain, and no discovery procedure was
+preregistered — the same absence the E4 amendment recorded. Class B is
+not a refuge either: "otherwise" would require showing that some
+admitted enumerator is *not* `enforced`, which is equally unavailable.
+A single missed `asserted` enumerator flips the class, and the sealed
+methodology says so itself, treating an enumerator discovered after
+target selection as a protocol failure precisely because it can move
+both the class and `P_raw`.
+
+E4 could absorb this by making PASS positive-only. Ranking cannot: it
+has no positive-only form.
+
+**The amendment.**
+
+```text
+completeness_class      = UNRESOLVED  for every eligible candidate
+protocol_issue_code     = PI-UNCLASSIFIED-SHAPE
+
+exactly one eligible candidate
+  -> no ranking is required; selection proceeds
+
+more than one eligible candidate
+  -> the class-ordered step is undecidable
+  -> ranking             = NOT DECIDABLE
+  -> primary target      = NOT SELECTED
+  -> Phase 3.5 primary target selection = INCONCLUSIVE
+```
+
+**The tie-break is not a fallback, and must not be used as one.** It is
+a within-class device. Applying it across an undecided class boundary
+silently assumes the survivors share a class, which is a substantive
+claim about them, not a neutral simplification: if one is really class A
+and another really class B, the tie-break returns the wrong candidate
+while looking exactly as principled as it does when used correctly.
+Each survivor's `tie_key` stays recorded in the ledger and is used for
+nothing.
+
+**What the run still reports.** The inconclusive outcome is confined to
+selection. It does not propagate backwards.
+
+```text
+REPORTED IN FULL
+  the frozen frame and its enumeration
+  every screening verdict with its grounds
+  the eligible set, each survivor with its located enumerator witness
+  every deviation, retraction and quarantine on the record
+
+REPORTED AS NOT OBTAINED
+  a primary target
+  U_primary and P_raw
+  E5 and everything downstream of it
+```
+
+**Screening still completes.** Nothing here licenses stopping early. The
+128-item screening result is the run's outcome in its own right, the
+coverage claim depends on finishing it, and the frame budget is sealed.
+
+**Stated plainly, because it is already knowable.** Four candidates are
+eligible as of this amendment, so ranking will be required and the
+selection outcome under this rule is already determined to be
+INCONCLUSIVE. That is recorded now rather than presented as a surprise
+at the end. It is also why this amendment is admissible mid-run: like
+the first, it reduces what the run claims. An amendment that produced a
+target where none was available would not be.
+
+**Alternatives considered and rejected.**
+
+```text
+preregister an inventory discovery procedure now
+  -> the right instrument, and no longer preregisterable. Four
+     candidates' registry idioms have been seen; probes written now
+     would be fitted to them.
+
+treat the screening-stage positive enumerator as the inventory
+  -> nullifies the union rule and the late-discovery failure rule at
+     once, and would let the first thing found define the universe
+```
+
+**Future runs.** A run may restore a decidable completeness class by
+preregistering, before any candidate is seen, an enumerator-discovery
+procedure with the same components the E4 entry lists — a discovery
+grammar, a source-traversal rule, language/artifact-specific probes,
+adjudication against Section 3.2's EN1-EN6, and an explicit
+termination/completeness rule. The hard part is unchanged: defining
+completeness in advance, so that "our probes found one" cannot become
+"there is only one".
+
 **Why the inventories are not built as each survivor is found.** Two
 reasons, and the second is the load-bearing one.
 

@@ -1559,7 +1559,9 @@ observed_at_utc: 2026-08-27T09:03:48Z; http_status 200
 
 Observed: located witness, in the Custom Palettes section -- "Custom palettes for a system should generally(with caveats; refer to the table near the end of this section) be named <system>.pal, IE "snes.pal", "pce.pal", etc., and placed in the "palettes" directory beneath the Mednafen base directory. Per-game custom palettes are also supported, and should be named as <FileBase>.pal or <FileBase>.<MD5 Hash>.pal ... Each entry in a custom palette file consists of 3 8-bit color components; Red, Green, Blue, in that order." The section's table then states the exact size required per system, among them "gb gb.pal GameBoy(mono) 4 or 8 or 12 RGB triplets", "gbc.pal GameBoy Color 15-bit BGR 32768 RGB triplets", "gg gg.pal GG 12-bit BGR 4096 RGB triplets", "nes nes-pal.pal PAL NES 64 or 512 RGB triplets".
 
-Inference: these determine concrete validity requirements on an input artifact without our inventing them -- a GameBoy Color palette file is valid only if it contains 32768 RGB triplets, a Game Gear one 4096, and the entry encoding is fixed at three 8-bit components in a stated order. Naming is constrained as well. This is the most precise E2-RULE witness in the run so far: the requirement is numeric and per-system, not a prose recommendation.
+Inference: these determine concrete validity requirements on an input artifact without our inventing them -- a GameBoy Color palette file is valid only if it contains 32768 RGB triplets, a Game Gear one 4096, a PAL NES one 64 or 512, and the entry encoding is fixed at three 8-bit components in a stated order. The requirement is numeric and per-system, which makes it the most precise E2-RULE witness in the run so far.
+
+The naming rule is deliberately NOT counted among the requirements: the documentation says palettes "should generally(with caveats...)" be named that way, which is a recommendation with stated exceptions, not a validity constraint. The verdict rests on the triplet counts and the component encoding alone.
 Decision: PASS
 
 ## EV-C013-E3-01
@@ -1614,7 +1616,22 @@ EN6 outcome independence: membership is the set of settings the program accepts.
 
 The universe is therefore ACTUALLY mechanically constructible, and at a finer grain than the previous four candidates: enumerate the merged MDFNSetting tables and emit, per setting, its declared type together with its validity constraint -- minimum and maximum for numeric types, the enum_list members for enumerated ones, {0,1} for booleans, and the presence of a validate_func where one is declared. That is a property-level universe in the most literal sense the phrase allows, since each entry states its own admissible values rather than merely being a member of an accepted set.
 
-Recorded so the difference is visible rather than flattened: C009, C010, C012 and C014 all passed on a table whose entries are the accepted values. Here the entries CARRY their validity constraints, which is a different and richer thing. Nothing follows from that for the verdict -- E4 asks whether the universe is externally delimited and mechanically constructible, not how rich it is -- but the inventory stage should not have to rediscover it.
+Recorded so the difference is visible rather than flattened:
+
+```text
+admissible prior E4 passes   C009, C010, C012
+  each on a table whose ENTRIES ARE the accepted values
+
+quarantined observation      C014
+  structurally the same, but withdrawn as post-stop exposure and
+  carrying no weight
+
+this candidate               entries CARRY their validity constraints
+```
+
+Nothing follows from that for the verdict -- E4 asks whether the universe is externally delimited and mechanically constructible, not how rich it is.
+
+An earlier draft added that "the inventory stage should not have to rediscover it". That is exactly backwards and has been withdrawn. The inventory stage MUST rediscover it, and must additionally look for admissible enumerators and authoritative sources this gate never went looking for, because E4 stops at the first positive construction while the inventory has to be exhaustive. Nothing in this entry may be treated as an inventory result. See QA-19.
 
 Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Mednafen designates an authoritative rules source.
 
