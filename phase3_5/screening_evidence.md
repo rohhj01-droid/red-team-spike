@@ -102,3 +102,362 @@ evidence_role: official-project-page
 Observed: the official project page returned 502 Bad Gateway on all three attempts. A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 03:22:12Z, so local network egress was functioning. No source-location link could be read from the page.
 Inference: 5xx is transport-level indeterminacy under the sealed contract, not evidence that no canonical source location exists; retries are exhausted. The contract restricts allowed starting points to URLs present in the frozen OpenBSD metadata, so no alternative entry point was attempted -- reaching the project by other means known outside that metadata would have violated the navigation whitelist.
 Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C021-UR-01
+Candidate: C021 (frame rank 21, games/afternoonstalker)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/afternoonstalker/Makefile
+Observed: metadata identifies one packaged system (Afternoon Stalker); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C021-E1-01
+Candidate: C021
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C021-E2REP-01
+Candidate: C021
+Gate: E2-REP
+Source: http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: DNS: could not resolve perso.b2b2c.ca (nslookup: NXDOMAIN). A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C027-UR-01
+Candidate: C027 (frame rank 27, games/amph)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/amph/Makefile
+Observed: metadata identifies one packaged system (Amph); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C027-E1-01
+Candidate: C027
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C027-E2REP-01
+Candidate: C027
+Gate: E2-REP
+Source: http://n.ethz.ch/student/loehrerl/amph/amph.html (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: DNS: could not resolve n.ethz.ch. A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C039-UR-01
+Candidate: C039 (frame rank 39, games/batrachians)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/batrachians/Makefile
+Observed: metadata identifies one packaged system (Batrachians); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C039-E1-01
+Candidate: C039
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C039-E2REP-01
+Candidate: C039
+Gate: E2-REP
+Source: http://perso.b2b2c.ca/~sarrazip/dev/batrachians.html (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: DNS: could not resolve perso.b2b2c.ca (nslookup: NXDOMAIN). A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C040-UR-01
+Candidate: C040 (frame rank 40, games/belooted)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/belooted/Makefile
+Observed: metadata identifies one packaged system (Belooted); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C040-E1-01
+Candidate: C040
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C040-E2REP-01
+Candidate: C040
+Gate: E2-REP
+Source: http://gnomefiles.org/content/show.php/Belooted?content=131848 (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: HTTP 526 on all attempts (5xx class). A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C041-UR-01
+Candidate: C041 (frame rank 41, games/beret)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/beret/Makefile
+Observed: metadata identifies one packaged system (Beret); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C041-E1-01
+Candidate: C041
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C041-E2REP-01
+Candidate: C041
+Gate: E2-REP
+Source: https://kiwisauce.com/beret/ (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: DNS: curl could not resolve kiwisauce.com (nslookup resolves; client resolver disagreement). A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C055-UR-01
+Candidate: C055 (frame rank 55, games/burgerspace)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/burgerspace/Makefile
+Observed: metadata identifies one packaged system (BurgerSpace); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C055-E1-01
+Candidate: C055
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C055-E2REP-01
+Candidate: C055
+Gate: E2-REP
+Source: http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: DNS: could not resolve perso.b2b2c.ca (nslookup: NXDOMAIN). A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C070-UR-01
+Candidate: C070 (frame rank 70, games/circuit)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/circuit/Makefile
+Observed: metadata identifies one packaged system (circuit); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C070-E1-01
+Candidate: C070
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C070-E2REP-01
+Candidate: C070
+Gate: E2-REP
+Source: https://distfiles.sigtrap.nl/ (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: TLS: schannel InitializeSecurityContext failed (no HTTP exchange). A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C073-UR-01
+Candidate: C073 (frame rank 73, games/clines)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/clines/Makefile
+Observed: metadata identifies one packaged system (clines); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C073-E1-01
+Candidate: C073
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C073-E2REP-01
+Candidate: C073
+Gate: E2-REP
+Source: http://manticore.2y.net/prj/clines-a.html (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: Connection timed out. A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C079-UR-01
+Candidate: C079 (frame rank 79, games/cosmosmash)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cosmosmash/Makefile
+Observed: metadata identifies one packaged system (CosmoSmash); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C079-E1-01
+Candidate: C079
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C079-E2REP-01
+Candidate: C079
+Gate: E2-REP
+Source: http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: DNS: could not resolve perso.b2b2c.ca (nslookup: NXDOMAIN). A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C086-UR-01
+Candidate: C086 (frame rank 86, games/crossfire-client)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/crossfire-client/Makefile
+Observed: metadata identifies one packaged system (Crossfire client); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C086-E1-01
+Candidate: C086
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C086-E2REP-01
+Candidate: C086
+Gate: E2-REP
+Source: http://crossfire.real-time.com/ (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: Connection timed out (nslookup resolves). A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C105-UR-01
+Candidate: C105 (frame rank 105, games/eboard)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/eboard/Makefile
+Observed: metadata identifies one packaged system (eboard); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C105-E1-01
+Candidate: C105
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C105-E2REP-01
+Candidate: C105
+Gate: E2-REP
+Source: http://www.bergo.eng.br/eboard/ (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: DNS: could not resolve www.bergo.eng.br. A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C109-UR-01
+Candidate: C109 (frame rank 109, games/einstein)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/einstein/Makefile
+Observed: metadata identifies one packaged system (Einstein); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C109-E1-01
+Candidate: C109
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C109-E2REP-01
+Candidate: C109
+Gate: E2-REP
+Source: http://games.flowix.com/ (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: DNS: could not resolve games.flowix.com. A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C110-UR-01
+Candidate: C110 (frame rank 110, games/eliot)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/eliot/Makefile
+Observed: metadata identifies one packaged system (Eliot); no field names a different packaged system.
+Inference: one external system identified; not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C110-E1-01
+Candidate: C110
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C110-E2REP-01
+Candidate: C110
+Gate: E2-REP
+Source: https://nongnu.org/eliot/ (from frozen metadata; the only allowed starting point)
+observed_at_utc: 2026-08-27T04:44:52Z-04:47:59Z (initial), 04:48:24Z-04:50:00Z (retries 1 and 2)
+requested_url: as above; final_url: unchanged; http_status: no HTTP answer obtained; redirect_chain: NONE
+evidence_role: official-project-page
+Observed: TLS: SNI/certificate check failed for nongnu.org (no HTTP exchange). A control request to https://cdn.openbsd.org/pub/OpenBSD/7.9/ returned 200 at 04:50:00Z, so local egress was functioning.
+Inference: no HTTP-level answer about the endpoint was obtained on any of three recorded attempts, so the contract's "definitive HTTP answer" category cannot apply; this is transport-level indeterminacy, and retries are exhausted. Starting points are limited to frozen-metadata URLs, so no constructed variant was attempted.
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+## EV-C105-DUP-01
+Candidate: C105 (duplicate contributed by frame rank 106, games/eboard-extras)
+Gate: UR
+Source: frozen metadata, games/eboard/Makefile and games/eboard-extras/Makefile
+Observed: both ports carry HOMEPAGE=http://www.bergo.eng.br/eboard/ and SITES=${SITE_SOURCEFORGE:=eboard/}; DISTNAMEs differ (eboard-1.1.1, eboard-extras).
+Inference: the two ports package different distributed artifacts of one externally identified upstream project (eboard). Per the sealed duplicate rule they collapse to one candidate for ranking, while rank 106 remains logged and keeps the screening-budget slot it consumed.
+Decision: DUPLICATE of C105
