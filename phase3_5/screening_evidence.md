@@ -4364,3 +4364,111 @@ Recorded as a shape the run keeps meeting rather than as a claim about this cand
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## RETRACTION 18 — C035 accounted for a metadata FIELD, not for the starting points it supplies
+
+EV-C035-E2REP-01 is **superseded**. Its verdict, UNRESOLVED, stands.
+Four defects, one of them a QA-27 failure and one an over-general
+finding.
+
+**The QA-27 failure.** The entry noted that SITE_GNOME "lists four
+further mirrors; the first was used", and in the same breath claimed the
+frozen metadata's URLs were enumerated and accounted for. QA-27 asks for
+an accounting of each admitted STARTING POINT, not of each metadata
+field. Four remained unaccounted, and treating them as covered because
+OpenBSD groups them under one macro gives packaging metadata evidential
+force over what upstream surfaces display -- the move this run has
+withdrawn repeatedly. All four are observed below.
+
+**Three overstatements.**
+
+```text
+"publishes a checksum for the artifact"
+  what was observed within scope is a companion file NAMED
+  atomix-3.22.0.sha256sum. It was not opened, so no checksum value
+  was read.
+
+"QA-23 admits a structured marking as a designation signal, and
+ LATEST-IS-3.22.0 is one"
+  QA-23 admits that a structured marking CAN be the form a
+  source-location designation takes. It does not make every structured
+  marking one. LATEST-IS-3.22.0's semantic relation is "latest release
+  = 3.22.0", not "this location is the canonical source".
+
+"the gate is not failing these candidates; it is unreachable for
+ them ... C030 and C033 ended the same way"
+  Withdrawn. SITES is itself an admitted surface that COULD carry a
+  designation -- an archive index stating "official source
+  distribution" would be positive evidence. What happened is that the
+  surfaces examined carried none, which is an observation, not a
+  structural impossibility. C033 is also not this shape: it had a
+  frozen HOMEPAGE and its official project page was observed. The near
+  precedent is C030 alone.
+```
+
+## EV-C035-E2REP-02  (supersedes EV-C035-E2REP-01)
+Candidate: C035 (frame rank 35, games/atomix)
+Gate: E2-REP
+
+Per QA-27, every admitted starting point is accounted for. The frozen metadata supplies no HOMEPAGE and no repository identifier, so navigation step 1 has no target; SITES is the only field, and it resolves through the ports infrastructure's own SITE_GNOME definition to five distinct URLs. All five were observed, under one scope fixed before the first request: HTTP status; headings the surface carries; artifact names and link relations it exposes; any explicit source or source-code label; any primary or mirror marking. Not: opening any listed artifact, and not searching elsewhere.
+
+```text
+1  https://download.gnome.org/sources/atomix/3.22/
+   observed_at_utc 2026-08-27T18:33:32Z; 200; no redirect; 2009 bytes
+   index headed "Index of /sources/atomix/3.22/", exposing
+   LATEST-IS-3.22.0, atomix-3.22.0.news, atomix-3.22.0.sha256sum,
+   atomix-3.22.0.tar.xz
+
+2  https://ftp.acc.umu.se/pub/GNOME/sources/atomix/3.22/
+   observed_at_utc 2026-08-27T19:32:26Z; 403 Forbidden; 373 bytes
+   nothing observable
+
+3  https://ftp.gnome.org/pub/GNOME/sources/atomix/3.22/
+   observed_at_utc 2026-08-27T19:32:26Z; 200 after 1 redirect
+   redirects to surface 1; not a distinct surface
+
+4  https://ftp1.nluug.nl/windowing/gnome/sources/atomix/3.22/
+   observed_at_utc 2026-08-27T19:32:26Z, 19:32:52Z (x2); HTTP 000
+   TLS connection failure on all three attempts, no body.
+   Transport indeterminacy under the contract; retried twice as it
+   requires, and recorded as a protocol issue for this surface rather
+   than forced into a finding.
+
+5  ftp://ftp.nara.wide.ad.jp/pub/X11/GNOME/sources/atomix/3.22/
+   observed_at_utc 2026-08-27T19:33:10Z; FTP 226; 337 bytes
+   lrwxrwxrwx ... LATEST-IS-3.22.0 -> atomix-3.22.0.tar.xz
+   -rw-rw-r-- ... atomix-3.22.0.news
+   -rw-rw-r-- ... atomix-3.22.0.sha256sum
+   -rw-rw-r-- ... atomix-3.22.0.tar.xz
+```
+
+Surface 5 shows what surface 1 could not: LATEST-IS-3.22.0 is a symbolic link whose target is atomix-3.22.0.tar.xz. That is a link relation, and QA-23 admits link relations as a form a designation may take -- but the relation it expresses is "the latest release is this artifact", not "this location is the project's canonical source".
+
+```text
+PASS not established
+  none of the five surfaces carries a canonical-source designation.
+  Each identifies WHICH RELEASE is latest and exposes companion files
+  named .news and .sha256sum; none states, labels or relates the
+  location to the project as its source.
+
+  No other admitted starting point was supplied: the frozen metadata
+  names no project page or repository, so no such surface entered the
+  accounting.
+
+FAIL not established
+  archive surfaces carrying no designation do not demonstrate that
+  upstream designates none.
+
+E2REP-NO-SOURCE not established
+  an artifact is exposed, alongside a file named for its checksum.
+  Whether that artifact is this candidate's actual source
+  representation was not established, opening it being outside the
+  fixed scope. An unclassified artifact proves neither source access
+  nor its absence -- the C030 position.
+```
+
+Recorded at the strength the observations support: where the frozen metadata supplies only distribution starting points, and the surfaces examined carry no canonical-source designation, this run has not been able to establish E2-REP PASS. That is a statement about the evidence obtained, not a claim that E2-REP is structurally unreachable for such candidates -- an archive index that stated its role would be positive evidence. The near precedent is C030.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
