@@ -3136,3 +3136,52 @@ Recorded as a first for the run, scoped to what was actually recorded: among rep
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED. Screening stopped here rather than reading on, per QA-21.
+
+## EV-C026-UR-01
+Candidate: C026 (frame rank 26, games/amoebax)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/amoebax/Makefile
+Observed: HOMEPAGE=http://www.emma-soft.com/games/amoebax/; SITES=${HOMEPAGE}download/; DISTNAME=amoebax-0.2.1; EXTRACT_SUFX=.tar.bz2; COMMENT="cute and addictive action-puzzle game".
+Inference: every field names one packaged system, Amoebax, and SITES resolves inside HOMEPAGE, so the frozen metadata points at a single host. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C026-E1-01
+Candidate: C026
+Gate: E1
+Source: same frozen metadata; https://www.emma-soft.com/games/amoebax/
+observed_at_utc: 2026-08-27T14:29:52Z; http_status 200
+Observed: a third-party puzzle game credited on its own page to Safareig Creatiu, Alex Almarza, Jordi Fita and Ferran Brugat, "Copyright (c) 2007 Emma's Software", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C026-E2REP-01
+Candidate: C026
+Gate: E2-REP
+
+Surface: the frozen HOMEPAGE, which is also the parent of the frozen SITES path. It is the only admissible surface, and nothing past step 1 was opened.
+requested_url: http://www.emma-soft.com/games/amoebax/ ; final_url: https://www.emma-soft.com/games/amoebax/
+observed_at_utc: 2026-08-27T14:29:52Z-14:29:54Z; http_status 200; redirect_chain: 1 redirect, http -> https
+evidence_role: official-project-page
+
+Observed: under "Free Download" the page exposes three artifacts, all platform binaries -- download/amoebax-0.2.0.msi, download/amoebax-0.2.0.dmg, download/amoebax-0.2.0.x86.package -- plus a link labelled "Other downloads" to download.html. Its body gives an introduction, screenshots, a features list, system requirements and author credits. It states "Software libre and free of charge" among the features. It exposes no Source, Code, Repository or Development link, and no link whose destination is a source location.
+
+```text
+PASS not established
+  no designation signal was observed on the one admissible surface
+  examined. The three exposed artifacts are platform binaries; a
+  licence statement in a features list is not a designation of a
+  source location.
+
+FAIL not established
+  "designates none" is a claim about upstream, and what was observed
+  is that one page carried no designation signal. The page also
+  exposes "Other downloads", which was not opened.
+```
+
+download.html was NOT opened. "Downloads" is not among the navigation contract's four labels, and QA-17 settled that the criterion's phrase "source distribution" may not be used to widen the whitelist -- the exact move withdrawn at C014 and again at C002. The frozen SITES points into that same download area and is a packaging fetch path, which cannot substitute for upstream designation.
+
+Recorded so the shape is visible: this is the plainest instance yet of a candidate stopping for want of a designation rather than for anything about the project. The source tarball the port fetches presumably sits one click away, behind a label the contract does not admit.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
