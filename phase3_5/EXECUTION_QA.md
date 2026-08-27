@@ -1175,7 +1175,81 @@ README sentence, a generated archive, and now a field name. The gate
 asks one narrow question, and nearly everything available at screening
 depth is adjacent to it rather than an answer to it.
 
-**Rule carried forward.** Before recording E2-REP PASS, name the
-upstream surface that performs the designation and quote what it says.
-If the answer is "the repository exists and is the project's", that is
-affiliation, and the verdict is UNRESOLVED.
+**Rule carried forward.** Before recording an E2-REP PASS or a
+positive-shaped FAIL, name the upstream surface that performs the
+designation and record its exact designation signal -- a sentence, a
+label, a link relation, or a structured marking. Not every designation
+arrives as prose: C009's is a link on the project's own page whose
+destination IS the repository, and forcing that into a quoted sentence
+would misdescribe it. If the answer is "the repository exists and is the
+project's", that is affiliation, and the verdict is UNRESOLVED.
+
+## QA-23 — record-only audit of every REJECTED verdict against QA-17 and QA-22
+
+QA-22 named a pattern across four withdrawn E2-REP verdicts: something
+that was not upstream designation was allowed to stand in for it. A rule
+that only binds future verdicts leaves the ledger inconsistent with
+itself, so the five standing REJECTED verdicts were audited against it.
+
+**Method, and its limits, fixed before looking.**
+
+```text
+scope       the five REJECTED candidates only
+material    the evidence file as already written
+forbidden   any new upstream access, any new surface, any new fact
+
+questions   1. was every designation signal the verdict needs
+               observed at a permitted surface?
+            2. did a forbidden Downloads page, hub expansion or extra
+               hop do verdict work?
+            3. does the positive multi-designation FAIL still stand on
+               permitted evidence alone?
+
+            any no -> UNRESOLVED
+```
+
+The prohibition on new access matters: re-visiting these endpoints to
+shore up a verdict would grant them a second observation opportunity
+under different conditions, which QA-06 already ruled worse than the
+deviation it would repair.
+
+**Withdrawn: C002 and C007.**
+
+C002's path ran landing page -> download.html -> tarballs and hub ->
+the hub's repository. QA-17 had already settled that `Downloads` is
+outside step 2 and that the criterion's "source distribution" may not
+widen the whitelist. Both designations came from past the contract.
+
+C007's two locations were read off the SourceForge hub, not the landing
+page, and a generic project hub is not a repository root either -- so
+the finding needed a hop past step 3 as well.
+
+**Standing: C006, C011, C015.** The batch header shared by C006, C007
+and C011 says "and the pages it explicitly exposes", which is over-broad
+and on its own would leave the provenance unclear. The timestamp line
+settles it rather than charity does:
+
+```text
+observed_at_utc: ... (landing pages); 05:32:16Z (DOSBox SourceForge
+hub, rank 7 only)
+```
+
+"rank 7 only" confines the hub visit to C007. C006 and C011 rest on
+landing-page observations, and neither verdict cites content from a
+linked page. C015's two designations are quoted verbatim from the
+landing page body.
+
+**Why this mattered more than fixing C002 alone.** Withdrawing these one
+at a time as each was noticed had become the run's failure mode: four
+E2-REP retractions, each triggered by review rather than by audit. An
+audit converts the pattern into a sweep and ends the drip.
+
+**Result.** ELIGIBLE 2 / REJECTED 3 / UNRESOLVED 25. Selection remains
+INCONCLUSIVE for the unchanged reason.
+
+**What the ledger now says about the gate.** Of 28 non-eligible terminal
+candidates, 26 stop at E2-REP, and only 3 of those are criterion
+rejections. The rest are our own observation limits -- transport failure
+or a contract that could not reach the fact. That ratio is itself a
+finding about screening at this depth, and it is only visible because
+the two kinds were kept apart (QA-16).

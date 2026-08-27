@@ -2099,3 +2099,121 @@ C012   chd.h's format requirements, 'MComprHD' and the per-version
        the codec_interfaces[] construction, 14 entries,
        CHDERR_UNSUPPORTED_FORMAT
 ```
+
+## RETRACTION 9 — C002 and C007 E2-REP withdrawn under the record-only audit
+
+EV-C002-E2REP-01 and EV-C007-E2REP-01 are **quarantined**. Both recorded
+FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION). Neither is withdrawn because
+its observations were wrong -- the pages were read and the URLs are
+real. They are withdrawn because in each case the two designations the
+verdict rests on were obtained past the sealed navigation.
+
+No new upstream access was made for this audit. It is a re-reading of
+what the evidence file already records.
+
+**C002.** The recorded path is landing page -> download.html -> source
+tarballs under dist/ and a link to the SourceForge hub -> the hub's code
+repository at /p/plib/code/. The landing page itself yielded, in the
+entry's own words, "exactly one download-related link (download.html)".
+QA-17 settled that `Downloads` is not among step 2's Source / Code /
+Repository / Development links and that the criterion's phrase "source
+distribution" may not be used to widen the whitelist. Both designations
+therefore came from beyond the permitted surfaces, and one of them from
+two hops beyond.
+
+**C007.** The recorded path is landing page -> the hub at
+sourceforge.net/projects/dosbox -> "that hub in turn exposes BOTH
+/p/dosbox/code-0/ (a code repository) and /projects/dosbox/files/ (a
+release file area)". The two designations were read off the hub, not the
+landing page. A generic project hub is also not a repository root, so
+reaching the locations took a hop past step 3 as well.
+
+## EV-C002-E2REP-02  (supersedes the quarantined EV-C002-E2REP-01)
+Candidate: C002 (frame rank 2, devel/plib)
+Gate: E2-REP
+Surface: https://plib.sourceforge.net/ -- the frozen-metadata landing page.
+observed_at_utc: 2026-08-27T03:20:44Z; http_status 200; redirect_chain: NONE
+Observed, restricted to the permitted surface: the landing page exposes exactly one download-related link, download.html. It exposes no Source, Code, Repository or Development link.
+
+```text
+PASS not established
+  no upstream surface within the contract performs a canonical-source
+  designation.
+
+FAIL not established
+  the multi-designation finding depended on download.html and on the
+  SourceForge hub beyond it, neither of which the contract reaches.
+  Without them, no second designation is observed -- and one
+  designation not being observed is not a demonstration that upstream
+  designates none, nor that it designates several.
+
+contamination
+  forbidden surfaces were read at this gate; retained as provenance,
+  doing no verdict work.
+```
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## EV-C007-E2REP-02  (supersedes the quarantined EV-C007-E2REP-01)
+Candidate: C007 (frame rank 7, emulators/dosbox)
+Gate: E2-REP
+Surface: https://www.dosbox.com/ -- the frozen-metadata landing page.
+observed_at_utc: 2026-08-27T04:50:25Z-04:52:01Z; http_status 200; redirect_chain: NONE
+Observed, restricted to the permitted surface: the landing page exposes its own download page and a link to the project hub at sourceforge.net/projects/dosbox.
+
+```text
+PASS not established
+  the landing page names a hub, not a canonical source location, and
+  no permitted surface states which location upstream designates.
+
+FAIL not established
+  the two locations that produced the multi-designation finding were
+  exposed by the hub, one hop past step 3, and a generic project hub
+  is not a repository root. Without that hop the finding does not
+  stand, and its absence is not a demonstration of anything about
+  upstream.
+
+contamination
+  the hub was read at this gate; retained as provenance, doing no
+  verdict work.
+```
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## AUDIT NOTE — C006, C011 and C015 verdicts stand
+
+Audited on the same record-only basis. No new upstream access.
+
+The batch header shared by C006, C007 and C011 reads "and the pages it
+explicitly exposes", which is over-broad and would leave it unclear
+where each fact came from. The timestamp line resolves it, because it
+scopes the extra hop explicitly:
+
+```text
+observed_at_utc: ... (landing pages); 05:32:16Z (DOSBox SourceForge
+hub, rank 7 only)
+```
+
+"rank 7 only" confines the hub visit to C007. C006 and C011 carry
+landing-page observations alone, inside 04:50:25Z-04:52:01Z.
+
+```text
+C006  "the project page designates BOTH sourceforge.net/p/dgen/dgen/
+      and sourceforge.net/projects/dgen/files/dgen/", neither marked
+      canonical or primary. Both attributed to the project page; the
+      classifications are readable from the SourceForge URL forms as
+      they appear there; no content from either linked page is cited.
+      FAIL stands.
+
+C011  "the project page hosts its own source archives
+      (downloads/Frodo-4.5.tar.gz among others) AND links several
+      repositories including github.com/cebix/frodo4". Hosting and
+      linking are both landing-page facts. FAIL stands.
+
+C015  both designations quoted from the landing page body, with the
+      sentences recorded verbatim -- "The latest official release is
+      2.1.2" over the source tarball, and "grab sources from anonymous
+      GIT" over the clone URL. FAIL stands.
+```
+
+All three are positive-shaped findings: several designations were seen
+at a permitted surface and no primary was marked among them. None
+depends on a surface the contract does not reach.
