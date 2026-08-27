@@ -319,9 +319,22 @@ obtain a preferred result, and it is why it is admissible mid-run at
 all.
 
 **Future runs.** A run may restore FAIL at these gates by
-preregistering a discovery procedure **before any candidate is seen**: a discovery
-grammar, a source-traversal rule, language-specific probes, hit
-adjudication against EN1-EN6, and an explicit termination/closure rule.
+preregistering a discovery procedure **before any candidate is seen**:
+
+```text
+a discovery grammar
+a source-traversal rule
+language/artifact-specific probes
+gate-specific hit adjudication:
+    E2-RULE -> externally authored validity-evidence criterion
+    E3      -> stateful/temporal validity criterion
+    E4      -> Section 3.1 designation / Section 3.2 EN1-EN6
+an explicit termination / completeness / closure rule
+```
+
+Adjudication is per gate, not shared: EN1-EN6 constrain what makes an
+enumerator admissible for E4 and say nothing about E2-RULE or E3, each
+of which must be adjudicated against its own criterion.
 The hard part is defining discovery *completeness* in advance, so that
 "our probes found nothing" cannot quietly become "nothing is there".
 Designing that now, having already examined candidates, would fit the
