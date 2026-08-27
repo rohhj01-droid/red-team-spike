@@ -2950,3 +2950,82 @@ Recorded as a first for the run: every previous E2REP-NO-SINGLE-CANONICAL-LOCATI
 Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
 
 Gates after E2-REP are NOT_REACHED under the first-fail stop rule.
+
+## RETRACTION 12 — C024 E2-REP withdrawn; the multiplicity argument ran backwards
+
+EV-C024-E2REP-01 is **quarantined**. It recorded FAIL
+(E2REP-NO-SINGLE-CANONICAL-LOCATION) on the finding that upstream
+designates two repositories with no primary between them.
+
+**The error.** The entry argued that treating github.com/liballeg/allegro4
+as the candidate's location would be "our judgment about the target's
+identity". That inverts what the evidence shows. Upstream supplies the
+partition itself, in the sentence the entry quotes:
+
+```text
+"We've moved Allegro 4 sources to its own repository."
+    -> https://github.com/liballeg/allegro4
+```
+
+E2-REP asks whether upstream designates a canonical source location FOR
+THE SYSTEM UNDER EXAMINATION. UR resolved this port to Allegro 4.2.3,
+and upstream's own label associates Allegro 4 sources with that
+repository. Applying an upstream-supplied version-line label is not
+analyst selection; it is the opposite of the C002-family error, which
+was supplying a hierarchy upstream had not stated.
+
+So allegro5 was never shown to be a competing designation for THIS
+candidate. On the observations made it is designated for a different
+upstream version line.
+
+**Why the verdict does not become PASS.** E2-REP also requires the
+designated location to hold a source tree, observed at its root surface.
+The withdrawn entry concluded FAIL at step 1 and never opened
+github.com/liballeg/allegro4. Opening it now to rescue the verdict would
+be observation after a terminal verdict, which QA-21 exists to stop --
+the same restraint applied at C020, where cvs.html was left unopened.
+
+## EV-C024-E2REP-02  (supersedes the quarantined EV-C024-E2REP-01)
+Candidate: C024 (frame rank 24, games/allegro)
+Gate: E2-REP
+
+Surface: the frozen HOMEPAGE. Nothing past step 1 was opened.
+requested_url: http://liballeg.org/ ; final_url: https://liballeg.org/
+observed_at_utc: 2026-08-27T14:01:55Z-14:01:56Z; http_status 200; redirect_chain: 1 redirect, http -> https
+evidence_role: official-project-page
+
+Observed: the page exposes two repository locations and labels them by version line, in its own words.
+
+```text
+navigation
+  "Git repository"      -> https://github.com/liballeg/allegro5
+
+news item, 2025-04-20, "Allegro 4 moved to its own repository"
+  "We've moved Allegro 4 sources to its own repository."
+                        -> https://github.com/liballeg/allegro4
+```
+
+```text
+established
+  upstream explicitly associates Allegro 4 SOURCES with
+  github.com/liballeg/allegro4, and the port resolved by UR is
+  allegro-4.2.3.
+
+not established
+  source-tree presence at that repository root. Step 3 was never
+  observed, because the withdrawn entry stopped at step 1 on a FAIL.
+
+multi-location FAIL not established
+  allegro5 is designated for a different upstream version line on the
+  observations made. It was not shown to be a second canonical source
+  location for the Allegro 4 candidate, and counting it as one would
+  ignore the partition upstream states.
+
+PASS not established / FAIL not established
+```
+
+Not counted: "Other Git repositories" and "GitHub project" both point at https://github.com/liballeg, an account page rather than a repository location. The frozen SITES is a SourceForge files area reached by the packager, not an upstream designation, and was not opened; download.html and git.html are outside the navigation whitelist.
+
+Also withdrawn with the verdict: the entry's closing claim that this was the run's first E2REP-NO-SINGLE-CANONICAL-LOCATION arising between two repositories of one project. No such finding stands.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)

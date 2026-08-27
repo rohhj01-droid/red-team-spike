@@ -1459,3 +1459,55 @@ for a PASS or for a multi-designation FAIL -- record the location
 itself: a URL, an endpoint, or a link whose destination is the location.
 "Upstream says you can get source this way" establishes a route, and a
 route is not a location.
+
+## QA-26 — several repositories on one project page are not automatically competing designations
+
+C024's withdrawn E2-REP counted both repositories liballeg.org exposes
+as competing canonical source locations for one candidate, and failed it
+for having no primary. The argument ran backwards.
+
+E2-REP asks whether upstream designates a canonical source location **for
+the system under examination**, not how many repositories the project
+has. When upstream itself partitions its repositories and labels the
+parts, applying that label is not analyst selection:
+
+```text
+upstream's own words
+  "We've moved Allegro 4 sources to its own repository."  -> allegro4
+  navigation "Git repository"                             -> allegro5
+
+UR resolved the port to  allegro-4.2.3
+```
+
+The withdrawn entry treated "the candidate is Allegro 4, so allegro4 is
+its location" as the C002-family error -- adjudicating which of several
+repositories really holds the system. It is the mirror image of that
+error. C002's fault was SUPPLYING a hierarchy upstream had not stated;
+here upstream states the partition and the entry declined to use it.
+
+**Rule carried forward.** Before counting a second location toward a
+multi-designation FAIL, check whether upstream's own labels assign it to
+a different delimited system or version line. Multiplicity has to be
+multiplicity FOR THIS CANDIDATE.
+
+**Why the corrected verdict is UNRESOLVED and not PASS.** E2-REP also
+requires the designated location to hold a source tree, observed at its
+root. The withdrawn entry stopped at step 1 on a FAIL and never opened
+allegro4. Opening it now would be observation after a terminal verdict.
+That restraint has cost the run a verdict before -- C020's cvs.html --
+and it costs one here.
+
+The two are worth contrasting, because they fail at different places:
+
+```text
+C020   a second ROUTE was announced; the location itself was never
+       observed, so the multiplicity could not be established
+
+C024   the candidate-specific LOCATION is designated and observed as a
+       designation, but its step-3 source-tree property was never
+       observed
+```
+
+**Effect.** C024 becomes UNRESOLVED / PI-UNCLASSIFIED-SHAPE. Its closing
+claim -- that this was the run's first repository-versus-repository
+E2REP FAIL -- is withdrawn with it; no such finding stands.
