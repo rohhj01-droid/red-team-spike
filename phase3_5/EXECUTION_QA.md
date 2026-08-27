@@ -673,25 +673,50 @@ entry's own care in describing the scan -- written to be transparent --
 is what makes the breach legible now, which is the argument for
 recording such steps rather than smoothing them.
 
-**Why the re-determination is UNRESOLVED and not FAIL.** FAIL would
-assert the project designates no canonical source. That is known to be
-false. A verdict may not record as a system property something this run
-has positive reason to believe is untrue, whatever the admissibility of
-the evidence that showed it.
+**Why the re-determination is UNRESOLVED.** Stated so that no
+quarantined observation does verdict work:
 
-**Why it is not PASS either.** Admissible metadata gets close: one
-upstream-controlled location, not a fork or mirror, holding the source
-tree, declaring the official site as its website. Whether that reaches
-"the project identifies this as authoritative" is genuinely arguable --
-and that is exactly why it cannot be settled here. Having already read
-the designation, any argument that the metadata alone suffices is built
-after knowing the answer. Contamination of this kind is not repaired by
-reasoning more carefully; it is repaired by not claiming the verdict.
+```text
+PASS not established
+  admissible evidence does not establish the required upstream
+  designation. It gets close -- one upstream-controlled location, not
+  a fork or mirror, holding the source tree, its website field naming
+  the official site -- but affiliation is not designation.
 
-**The gap is the protocol's, not the candidate's.** For a project whose
-official site does not link its repository, and whose designation lives
-in README prose, the sealed navigation contract cannot reach the fact
-E2-REP asks about. C010 and C012 did not expose this because their
+FAIL not established
+  admissible evidence does not establish that upstream designates no
+  canonical source location either. Two surfaces came up empty; that
+  is not a demonstration that the project designates nothing.
+
+contamination
+  forbidden exposure occurred at this gate, which independently
+  prevents reconstructing a clean adjudication after the fact.
+
+therefore  E2-REP = UNRESOLVED / PI-UNCLASSIFIED-SHAPE
+```
+
+An earlier draft of this entry ruled FAIL out differently -- by saying a
+designation exists and this run has seen it. That is true, and it was
+the wrong argument to make. The designation is quarantined evidence, and
+using it to decide even a negative lets quarantined evidence do verdict
+work through the back door. The quarantine holds only if the forbidden
+observation is treated purely as **provenance** -- a fact about how this
+run's observation process went -- and never as evidence about the
+candidate. Both branches above rest only on admissible surfaces; the
+contamination line records what happened to the process, and rules
+nothing in or out on its own.
+
+What contamination does add is that the question cannot simply be
+re-argued. Whether the admissible metadata reaches "the project
+identifies this as authoritative" is genuinely arguable, and any
+argument assembled now would be assembled by an analyst already exposed
+at this gate. The repair is to decline the verdict.
+
+**The gap is the protocol's, not the candidate's.** Where a project's
+official site exposes no Source/Code/Repository/Development link, the
+sealed navigation terminates at step 1, and E2-REP must then be answered
+from repository metadata alone. The contract neither declares that
+sufficient nor declares it insufficient. C010 and C012 did not expose this because their
 HOMEPAGE was the repository itself, making landing page and source
 location one surface.
 

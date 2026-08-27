@@ -1343,27 +1343,44 @@ to the repository and designates no source location at all. Affiliation
 is not designation, and a project may control several affiliated
 repositories.
 
-Why this is not E2-REP FAIL. The criterion's defined failures are
-designating none, designating several with no primary, or designating a
-source with no stable URL. "Designates none" is affirmatively false
-here: a designation exists, and this run has seen it. Recording FAIL
-would be recording as a property of the system something already known
-to be untrue.
+Adjudication, stated so that no quarantined observation does verdict
+work:
 
-Why it is not PASS either, and this is the part that decides it. Even if
-admissible metadata could have carried a PASS for an analyst who had
-never seen the README sentence, this run is no longer in that position
-for this candidate. Having read the designation, any argument that "the
-metadata alone suffices" is constructed after knowing the answer, and is
-indistinguishable from laundering the quarantined evidence through a
-route built to reach it. The contamination is not repairable by
-reasoning more carefully; it is repairable only by not claiming the
-verdict.
+```text
+PASS not established
+  admissible evidence does not establish the required upstream
+  designation -- affiliation is not designation
+
+FAIL not established
+  admissible evidence does not establish that upstream designates NO
+  canonical source location either; the landing page exposing no
+  source link and the repository metadata carrying no designation
+  statement are two surfaces coming up empty, not a demonstration
+  that the project designates nothing
+
+contamination
+  forbidden exposure occurred at this gate, which independently
+  prevents reconstructing a clean adjudication after the fact
+```
+
+The third line is provenance, not evidence. It records that this run's
+observation process for C014's E2-REP was contaminated; it says nothing
+about what Snes9x does or does not designate, and it is not used to rule
+any verdict in or out. What rules them out is the first two lines, both
+of which rest only on admissible surfaces.
+
+The contamination matters because it is not repairable by reasoning more
+carefully. Any argument assembled now for "the admissible metadata alone
+suffices" would be assembled by an analyst who has already been exposed
+at this gate, and could not be distinguished from a route built to reach
+a known destination. The repair is to decline the verdict, not to
+re-argue it.
 
 The undetermined shape is real and belongs to the protocol, not to
-Snes9x: for a project whose official site does not link its repository
-and whose designation lives in README prose, the sealed navigation
-contract cannot reach the fact the criterion asks about.
+Snes9x: where a project's official site exposes no source link, the
+sealed navigation contract terminates at step 1, and the gate's question
+must then be answered from repository metadata alone -- which the
+contract does not say is sufficient, and does not say is insufficient.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
