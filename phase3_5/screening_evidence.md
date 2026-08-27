@@ -1905,3 +1905,97 @@ at E2-REP. Their observations -- the LBX v1.3 requirement, the PBX
 `-file` witness, and the game_num_id_tbl[] construction with its
 "-dumpnum for the full list" closure statement -- are kept on the record
 and used for nothing.
+
+## EV-C017-UR-01
+Candidate: C017 (frame rank 17, games/2048-cli)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/2048-cli/Makefile
+Observed: GH_ACCOUNT=tiehuis; GH_PROJECT=2048-cli; GH_TAGNAME=v0.9.1; COMMENT="terminal version of the 2048 sliding block puzzle game". There is no HOMEPAGE field and no SITES field.
+Inference: every field names one packaged system, 2048-cli. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C017-E1-01
+Candidate: C017
+Gate: E1
+Source: same frozen metadata; https://github.com/tiehuis/2048-cli
+observed_at_utc: 2026-08-27T10:49:56Z; http_status 200
+Observed: a third-party terminal implementation, described by its own repository as "The game 2048 for your Linux terminal", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C017-E2REP-01
+Candidate: C017
+Gate: E2-REP
+
+Surface: https://github.com/tiehuis/2048-cli, reached from the frozen GH_ACCOUNT/GH_PROJECT pair, which the contract admits as a starting point.
+Necessary because: E2-REP asks whether upstream designates exactly one canonical source location, and this is the only upstream surface the frozen metadata reaches. The metadata names no HOMEPAGE, so navigation step 1 has no target at all.
+
+observed_at_utc: 2026-08-27T10:49:56Z-10:49:57Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: upstream-controlled repository
+
+Observed, restricted to metadata the contract allows at a repository: repository name 2048-cli, owner login tiehuis, default branch master, isFork false, isTemplate false, isArchived true, with the served banner "This repository was archived by the owner on May 18, 2024. It is now read-only." No repository website field. A source tree is present at the root -- directories src, man, po, 18n and files Makefile, LICENSE, README.md, HowToTranslate.md, .gitignore, .replit. The only project-external link on the surface is https://github.com/gabrielecirulli/2048, which the repository's own description presents as the game this is a terminal version of -- lineage, in the same sense as flycast's "based on reicast", not a source designation for this system.
+
+Adjudication:
+
+```text
+PASS not established
+  the admissible evidence establishes repository identity, upstream
+  affiliation and source-tree presence. It does not establish that
+  upstream designates this location as its canonical source. GH_*
+  made the repository findable; arriving at a repository is not the
+  same as upstream identifying it as authoritative.
+
+FAIL not established
+  no E2-REP failure code applies. Not finding a designation at the
+  one reachable surface is not a demonstration that none exists.
+
+contamination
+  later-gate material was read while E2-REP was still unresolved.
+  Retained as provenance; it does no verdict work.
+```
+
+This is the boundary C014 established: **affiliation is not designation.** There the repository carried the project's name, held the source tree, and pointed at the official site through its website field, and none of that amounted to upstream designating it. The same standard applies here, where less is available.
+
+Why C010 and C012 are not reopened by this, and the reason is navigation topology rather than any difference in evidential weight between metadata fields. Both are equally frozen OpenBSD starting points; neither is upstream evidence in itself.
+
+```text
+C010   frozen starting URL IS the project landing surface
+       and IS the repository root      -> step 1 = step 3     PASS stands
+C012   same                            -> step 1 = step 3     PASS stands
+C014   a separate project site exists; it designates no
+       source location                                        UNRESOLVED
+C017   no project landing URL at all; a packaging identifier
+       reaches a repository and nothing more                   UNRESOLVED
+```
+
+For C010 and C012 the execution record already states that steps 1 and 3 collapse onto one surface, and repository identity and source-tree presence were observed there together. C017 has no admissible upstream evidence making its repository root a step-1 project surface. Reopening C010 and C012 would require newly holding that a frozen starting URL which IS the repository root cannot count as the project landing surface -- a change to the navigation semantics this run has applied throughout, introduced after the fact and not required by anything here.
+
+`isArchived: true` is recorded as an observation and is not used as a failure ground. No sealed rule says an archived repository cannot be a canonical source location; the URL is stable and the source tree is present.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## QUARANTINE — C017 material read while E2-REP was unresolved
+Gates after E2-REP are NOT_REACHED. The following were nevertheless read
+before E2-REP was settled, and are logged here so the exposure is
+auditable. None is recorded as evidence and none does verdict work:
+
+```text
+man/2048.6      "Set the size of the playing field. Default is 4.
+                 Maximum value is 16, minimum is 4."
+src/options.h   CONSTRAINT_GRID_MIN 4, CONSTRAINT_GRID_MAX 20
+src/highscore.c highscore_save's eligibility condition, which turns on
+                score_high loaded from a file an earlier session wrote
+src/gfx.h, src/merge.h, Makefile
+                interface declarations whose implementations are
+                selected at build time
+```
+
+One item needs naming explicitly, because it is exactly the kind of
+thing that must not be allowed to leak backwards. man/2048.6 ends with
+"All contributions can be found at https://github.com/Tiehuis/2048-cli."
+That reads like an upstream source designation. It was read after
+E2-REP had already been reached and while its verdict was open, it is a
+file inside the repository, and opening source files is forbidden at
+E2-REP in any case. It is used for nothing -- not to push the verdict to
+PASS, and not to argue that a designation exists elsewhere. The E2-REP
+adjudication above rests only on the root surface.

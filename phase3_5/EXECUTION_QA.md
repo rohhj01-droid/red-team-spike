@@ -1043,3 +1043,70 @@ source-tree presence when the root does not carry it -- a tree endpoint,
 a repository API listing, or a generated archive listed by name only --
 with the choice fixed in advance rather than made when a root turns out
 to be insufficient.
+
+## QA-21 — arriving at a repository is not upstream designating it; and a gate-order slip
+
+Two things, one of them mine.
+
+**The adjudication.** C017's frozen metadata names no HOMEPAGE and no
+SITES. The only upstream surface the contract reaches is the repository
+that GH_ACCOUNT/GH_PROJECT point at. Its root establishes repository
+identity, upstream affiliation and source-tree presence -- and stops
+short of upstream designating it as canonical source.
+
+That is C014's boundary applied unchanged: **affiliation is not
+designation.** E2-REP is therefore UNRESOLVED / PI-UNCLASSIFIED-SHAPE.
+FAIL is equally unavailable: not finding a designation at the one
+reachable surface does not show none exists.
+
+**Why C010 and C012 do not follow it down.** The distinction is
+navigation topology, not evidential weight between metadata fields. An
+earlier draft of this reasoning put it as HOMEPAGE being "a fact about
+upstream" while GH_* is "a packaging instruction". That is wrong: both
+are frozen OpenBSD starting points, and neither is upstream evidence in
+itself.
+
+```text
+C010   frozen starting URL IS the project landing surface
+       and IS the repository root      -> step 1 = step 3     PASS stands
+C012   same                            -> step 1 = step 3     PASS stands
+C014   a separate project site exists, designating no source    UNRESOLVED
+C017   no project landing URL; a packaging identifier reaches
+       a repository and nothing more                            UNRESOLVED
+```
+
+C010's and C012's execution records already say steps 1 and 3 collapse
+onto one surface. C017 has no admissible upstream evidence making its
+repository root a step-1 project surface. Reopening the two would
+require newly holding that a frozen starting URL which IS the repository
+root cannot count as the project landing surface -- a change to
+navigation semantics applied throughout this run, made after the fact
+and not required by anything C017 presents.
+
+**`isArchived: true` is not a failure ground.** No sealed rule says an
+archived repository cannot be a canonical source location. The URL is
+stable and the source tree is present. It is recorded as an observation
+and nothing more, because coding an incidental property as a criterion
+failure is how gates quietly acquire rules nobody sealed.
+
+**The gate-order slip, recorded as mine.** The sealed order is
+UR -> E1 -> E2-REP -> E2-RULE -> E3 -> E4, and screening stops at the
+first gate that is not determined. I recognised mid-way that C017's
+E2-REP was genuinely hard, and then kept reading -- the man page, the
+option constraints, highscore.c, the interface headers -- before
+settling it. Those observations are quarantined as post-stop exposure
+and logged by name in the evidence file.
+
+The cost is concrete rather than theoretical. Among the material read
+early is a line in man/2048.6 -- "All contributions can be found at
+https://github.com/Tiehuis/2048-cli" -- that reads like exactly the
+upstream designation E2-REP was asking for. Having seen it, I can no
+longer claim an uncontaminated adjudication of that question even if the
+contract had permitted the surface, which it does not. Reading ahead
+does not merely waste effort; it can destroy the very verdict it looked
+like it might help.
+
+**Rule carried forward.** Difficulty at a gate is a reason to stop and
+adjudicate it, not a reason to gather more elsewhere. If a gate cannot
+be settled on its permitted surfaces, the next step is UNRESOLVED, not
+the next gate's material.
