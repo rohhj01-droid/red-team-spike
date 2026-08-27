@@ -1004,10 +1004,23 @@ same shape, and the run's earlier candidates only avoided it because
 their host happened to embed the tree in the served HTML -- an accident
 of rendering, which is a poor thing for a verdict to depend on.
 
-**Expect recurrence.** Every remaining GitLab-hosted candidate in the
-frame will reach this same point. Recording the expectation now, before
-the next one arrives, keeps it from looking like a rule discovered to
-suit a case.
+**Expect recurrence, conditionally.** The prediction has to be stated on
+the shape, not on the host -- binding it to a vendor one sentence after
+calling it a capability gap would undo the point.
+
+```text
+if a later candidate reaches an allowed repository root that
+establishes IDENTITY but carries no source-tree evidence,
+the same gap applies, whatever the hosting vendor
+```
+
+Hosting alone predicts nothing: a candidate on the same host may stop at
+an earlier gate, may have a landing page that designates a source
+distribution instead, or may have a root surface that does expose a
+listing. What recurs is the shape.
+
+Recording the expectation now, before the next such candidate arrives,
+keeps it from looking like a rule discovered to suit a case.
 
 **Why UNRESOLVED and not FAIL.** No E2-REP failure code applies.
 Upstream designates exactly one location in as many words, at a stable
