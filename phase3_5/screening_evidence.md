@@ -3804,3 +3804,69 @@ phrase that decides nothing would obscure the record more than it
 repairs it. The three ACTIVE survivors' E4 entries -- C009, C013, C023
 -- have been corrected, because there the phrase would have asserted
 something the ledger now denies.
+
+## EV-C030-UR-01
+Candidate: C030 (frame rank 30, games/angrydd)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/angrydd/Makefile
+Observed: DISTNAME=angrydd-1.0.2; CATEGORIES=games; SITES=https://dickman.org/openbsd/distfiles/; COMMENT="falling blocks puzzle game". There is no HOMEPAGE, no GH_ fields and no DIST_TUPLE.
+Inference: the frozen fields name one system, angrydd. UR asks which external system the port packages, and the answer is unambiguous even though the metadata supplies no upstream locator -- whether a canonical source location exists for it is E2-REP's question, not this one. Not UR-AMBIGUOUS and not UR-NONE: a system is identified.
+Decision: PASS
+
+## EV-C030-E1-01
+Candidate: C030
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party falling-blocks puzzle game, packaged from a distfile named angrydd-1.0.2, unrelated to this project.
+Inference: external-authorship requirement satisfied. This is determinable from the frozen metadata alone.
+Decision: PASS
+
+## EV-C030-E2REP-01
+Candidate: C030
+Gate: E2-REP
+
+Per QA-27, the frozen metadata's URLs and identifiers are enumerated and accounted for. There is exactly one: SITES. There is no HOMEPAGE, so navigation step 1 has no target at all, and no repository or account identifier exists to serve as an alternative starting point.
+
+Surface: https://dickman.org/openbsd/distfiles/ -- the frozen SITES.
+Necessary because: it is the only admitted starting point, and the gate cannot be settled without it. Under QA-24 an admitted surface the gate still needs is observed rather than skipped, with the scope fixed first.
+
+Observation scope, fixed before the request:
+
+```text
+observe only
+  the surface's existence and HTTP status
+  labels or headings the page or listing itself carries
+  artifact names and link relations it directly exposes
+  an explicit "source" / "source code" designation
+  primary or mirror marking
+
+do not
+  open any artifact or document
+  infer that an artifact is source from its filename
+  navigate to the parent directory or elsewhere on the host
+  search for other locations
+```
+
+requested_url and final_url: https://dickman.org/openbsd/distfiles/
+observed_at_utc: 2026-08-27T16:20:10Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed: a 623-byte Apache directory index headed "Index of /openbsd/distfiles". Beyond the index's own sort controls and a Parent Directory link to /openbsd/, it exposes exactly two entries: angrydd-1.0.1.tar.gz and angrydd-1.0.2.tar.gz. It carries no other headings, no statements, and no marking of anything as canonical, primary or a mirror.
+
+```text
+PASS not established
+  no upstream surface was reached. The frozen metadata supplies no
+  HOMEPAGE and no repository identifier, so no landing page exists to
+  navigate from, and the one admitted surface is a directory index
+  that designates nothing.
+
+FAIL not established
+  an index page carrying no designation is not a demonstration that
+  upstream designates none. E2REP-NO-SOURCE is likewise unavailable:
+  it is a claim about a DESIGNATED canonical location, and none was
+  established for such a claim to be about.
+```
+
+Recorded as an observation and not used as a ground: the index sits under an /openbsd/ path and holds only this port's two distfiles. Nothing in the verdict depends on whose host it is; the surface simply makes no designation, which is enough.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
