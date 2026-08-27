@@ -3095,19 +3095,33 @@ parent is not an identifier in the frozen metadata, so it is not an
 admitted starting point either
 ```
 
-Contextual note, carrying no verdict work and recorded here rather than at UR because it depends on this surface: the frozen metadata's account is an individual's rather than the publisher's whose site the frozen HOMEPAGE names, and the packaged version line, 0.3.2, is not the commercial game's. Neither observation is used to adjudicate anything. They are logged because a reader will notice them, and because inferring party identity from an account name is exactly the discretion the upstream-resolution rule removes.
+An earlier draft carried a contextual note here saying the account is "an individual's rather than the publisher's" and that 0.3.2 "is not the commercial game's version line". Both are deleted rather than relocated. Moving an unsupported fact from one gate to another does not supply evidence for it: no account-type observation was recorded, and nothing observed establishes the commercial game's version line. What is recorded is only what was seen:
+
+```text
+frozen metadata     GH_ACCOUNT = shamazmazum
+                    V = 0.3.2
+
+repository root     owner login = shamazmazum
+                    isFork = true
+                    fork parent = TiManGames/AmnesiaTheDarkDescent
+```
 
 Adjudication:
 
 ```text
 PASS not established
-  no designation signal was observed on either admissible surface
-  examined -- the frozen HOMEPAGE landing page, and the frozen GH
-  repository root's metadata. The repository reached by the packaging
-  identifier yields affiliation rather than designation (QA-22), and
-  here that is weaker than at C017: the repository is marked as a
-  fork, so even the affiliation runs to an account the frozen
-  metadata does not name.
+  the frozen GH identifiers lead to shamazmazum/AmnesiaTheDarkDescent,
+  and that repository is explicitly marked a fork of
+  TiManGames/AmnesiaTheDarkDescent. The fork-parent relation is an
+  observed repository fact; the parent is neither an admitted starting
+  point nor an authorized navigation hop, and is not promoted here to
+  either an affiliation or a designation.
+
+  Arriving at the frozen repository via a packaging identifier yields
+  affiliation rather than designation (QA-22). No designation signal
+  for this candidate's canonical source was observed on either
+  admissible surface examined -- the frozen HOMEPAGE landing page, and
+  the frozen GH repository root's metadata.
 
 FAIL not established
   "designates none" is a claim about upstream, and what was observed
