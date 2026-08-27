@@ -2756,7 +2756,9 @@ Observed: repository name weland, owner login treellama -- matching the SourceFo
 
 Inference: exactly one currently designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Weland).
 
-On why the SourceForge Code and Files areas are not counted as competing designations: upstream ranks them itself. "As of 2015-12-05, this project can be found here" is a dated relocation statement by the project on its own page, and the page's own Last Update, 2015-04-12, precedes it. This is the same move as C015's, where upstream's "build against GIT, not CVS!" removed CVS from contention -- a primary marked by upstream rather than supplied by us.
+On why the SourceForge Code and Files areas are not counted as competing designations: upstream ranks them itself. "As of 2015-12-05, this project can be found here" is a dated relocation statement by the project on its own page, redirecting the project's current location to the GitHub repository, and step 3 confirmed that destination holds the source tree. This is the same move as C015's, where upstream's "build against GIT, not CVS!" removed CVS from contention -- a primary marked by upstream rather than supplied by us.
+
+The page's "Last Update: 2015-04-12" field is recorded as an incidental observation and carries no weight in this verdict. An earlier draft compared it against the relocation date to argue the SourceForge presence was frozen beforehand; that inference needs to know what that field timestamps, which this evidence never established. The migration notice does the work on its own.
 
 Recorded because it is the weakest link in this chain and should be visible: the notice says where the PROJECT can be found, not in so many words "this is our source". What makes it a source-location designation here is that the location it names is a repository holding the source tree, observed at step 3. No separate "this is our source code" wording exists on the permitted surfaces.
 
@@ -2801,13 +2803,39 @@ Positive construction exhibited, via U_enforced. Observations are at the primary
 Source: https://raw.githubusercontent.com/treellama/weland/master/Plugins.cs
 observed_at_utc: 2026-08-27T13:37:17Z-13:38:09Z; http_status 200
 
-The mechanism: the plugin enumerator in Plugins.cs. It is worth noting at the outset that this is a DIFFERENT idiom from the four static-table constructions the run has seen -- it is runtime reflection over a declared directory convention, which EN3 names in its own examples alongside registries.
+The mechanism: the plugin enumerator in Plugins.cs. Its shape differs from every construction the run has recorded so far, and the comparison is worth stating with the two registers kept apart:
+
+```text
+historically observed (includes quarantined entries, no evidential
+weight): static tables walked to a declared bound -- Games[],
+codec_interfaces[], command_names[], bmap[], MDFNSetting tables,
+game_num_id_tbl[]
+
+currently admissible E4 PASS base before C023: C009, C013
+
+C023: the first admissible PASS built on runtime reflection over a
+declared directory convention rather than on a static table
+```
+
+The quarantined constructions are named only to describe the shape; they carry no evidential weight and are not counted.
 
 EN1 external authorship: the editor and this loader existed independently of this analysis; the snapshot predates it.
 
 EN2 explicit scope: the project states the admission rule in its own comment immediately above the loop -- "// needs to have at least name and run or gtkrun". The class is Plugins, its entries are PluginInfo, and the collection is exposed through Length and GetName(int).
 
-EN3 mechanical membership: membership is decided by reflection, with no semantic reading of individual plugins. The loader collects "*.dll" from three declared Plugins directories -- beside the executable, one level above it, and under applicationData -- then walks a.GetTypes() for each assembly. This is EN3's "all implementations of a declared interface" and "all items in an externally declared closed directory convention" at once.
+EN3 mechanical membership: membership is decided by fixed reflective predicates, with no analyst selection and no semantic reading of individual plugins.
+
+```text
+collect "*.dll" from three declared Plugins directories
+  (beside the executable, one level above it, under applicationData)
+    -> walk a.GetTypes() for every assembly loaded
+      -> admit a type iff
+           Compatible() exists, is static, and returns true
+           Name() exists and is static
+           Run or GtkRun exists and is static
+```
+
+Recorded precisely rather than by analogy: an earlier draft called this EN3's "all implementations of a declared interface". It is not that -- the loader reflects over ALL types and filters them by method shape, which is not the same as locating implementers of a declared interface. The directory convention plus the fixed predicates carry EN3 on their own, without being fitted to an example.
 
 EN4 enforcement meaning: admission is executed by the project, condition by condition. A type without a static Compatible() returning true is skipped -- "if (compatibleMethod == null || !compatibleMethod.IsStatic || !((bool) compatibleMethod.Invoke(...))) { continue; }". A type without a static Name() is skipped. Run and GtkRun are nulled unless static, and the type is admitted only "if (plugin.Run != null || plugin.GtkRun != null)". Nothing here is inferred from a name.
 
@@ -2819,6 +2847,23 @@ The universe is therefore ACTUALLY mechanically constructible: enumerate the typ
 
 Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Weland designates an authoritative rules source.
 
-**Gate-order note, recorded as a deviation rather than left implicit.** Plugins.cs was read for E4 before E3 had been settled. The sealed order is E2-RULE -> E3 -> E4, and the reason it matters is that had E3 come out UNRESOLVED, this material would have been post-stop exposure and unusable. E3 was then settled on its own merits from the README, which had been read at E2-RULE time and before any E4 material. The deviation is milder than QA-21's -- no gate was left undetermined while reading on -- but it is the same habit, and it is logged here so the sequence is auditable.
+**Gate-order violation, recorded as such.** Plugins.cs was read for E4 before E3 had been adjudicated. That is the SAME structural violation as QA-21's, not a milder one: E3 was undetermined at the moment the E4 material was read, which is exactly the condition QA-21 forbids. An earlier draft of this note called it "milder ... no gate was left undetermined while reading on", which contradicts its own first sentence.
+
+What differs is recoverability, not severity:
+
+```text
+violation
+  E4 evidence read before the E3 adjudication was complete
+
+why the verdict is nonetheless retained
+  E3 PASS is independently supportable from the README witness, which
+  was lawfully read at E2-RULE time and BEFORE any E4 exposure
+
+therefore
+  Plugins.cs did no work in the E3 adjudication, and entered verdict
+  work only after E3 PASS was settled
+```
+
+Had E3 depended on anything read at or after the E4 exposure, the correct outcome would have been to quarantine, as at C014, C016 and C017.
 
 Decision: PASS
