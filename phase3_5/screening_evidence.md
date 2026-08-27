@@ -2369,3 +2369,71 @@ packaging location and what is observable now, not about the project
 having ceased to exist somewhere.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## EV-C019-UR-01
+Candidate: C019 (frame rank 19, games/abuse)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/abuse/Makefile
+Observed: HOMEPAGE=http://abuse.zoy.org/; DISTNAME=abuse-free-0.8; PKGNAME=abuse-0.8; SITES=${HOMEPAGE}raw-attachment/wiki/download/; COMMENT="SDL port of the legendary 2D platform shooter". The port additionally fetches a second distfile, ABUSE_SFX=abuse-free-sounds-20120309, from SITES.sfx=http://www.linklevel.net/distfiles/.
+Inference: the packaged system is Abuse, as maintained at abuse.zoy.org. The second distfile is a free sound-effect dataset for that same system rather than a second packaged system -- the port installs one program, and DISTNAME/PKGNAME name one thing. Recorded because a reader of the Makefile sees two SITES entries. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C019-E1-01
+Candidate: C019
+Gate: E1
+Source: same frozen metadata; http://abuse.zoy.org/
+observed_at_utc: 2026-08-27T11:59:03Z; http_status 200
+Observed: a third-party game, "developed by Crack dot Com in 1995 ... now maintained by Sam Hocevar", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C019-E2REP-01
+Candidate: C019
+Gate: E2-REP
+
+Step 1: http://abuse.zoy.org/ -- the frozen HOMEPAGE, a Trac wiki.
+observed_at_utc: 2026-08-27T11:59:03Z-11:59:05Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed: the page exposes a navigation link labelled "Development…" pointing at /wiki/dev, and in its body directs the reader to "the development page for information about development". Its own text announces a release ("May 9th, 2011: Abuse 0.8 is out!") linking to /wiki/download, and carries a Links section introduced as "most Abuse resources are now dead. Here are a few worthwile links and archived pages" -- third-party and web.archive.org pages, not source-location designations for this system.
+
+Step 2: /wiki/dev, reached by the "Development…" link. "Development" is one of the four labels the navigation contract names, so no interpretation was needed.
+observed_at_utc: 2026-08-27T11:59:21Z; http_status 200; redirect_chain: NONE
+Observed: the designation signal, under the page's own heading "Source code" -- "Development takes place in a Subversion repository. You can browse it online or check it out using svn:" followed by "svn co svn://svn.zoy.org/abuse/abuse/trunk abuse-trunk". A section label plus a concrete checkout URL, which is a designation signal in the form QA-23 admits.
+
+Step 3: the designated repository's root surface. The dev page's "browse it online" points at /browser/abuse/trunk, the Trac view of that same Subversion repository -- a view of the designated location, not a second location.
+observed_at_utc: 2026-08-27T12:00:17Z, 12:00:31Z, 12:00:32Z
+http_status: 500, 500, 500; redirect_chain: NONE on all three
+control: http://abuse.zoy.org/wiki/dev returned 200 at 12:00:33Z, same host, same moment
+Observed: three 5xx responses at recorded times, as the contract requires before recording indeterminacy. The served error page reads: Unsupported version control system "svn": No module named svn. So the wiki is healthy and its repository browser is not.
+
+The designated location itself, svn://svn.zoy.org/abuse/abuse/trunk, was not observed either: no Subversion client is available in this environment. That is a tooling limit on our side, recorded as such rather than folded into the network result.
+
+Adjudication:
+
+```text
+DESIGNATION established
+  upstream states, under its own "Source code" heading, that
+  development takes place in a Subversion repository, and gives the
+  checkout URL. Exactly one source location is designated; the
+  Download page is a release announcement target and no allowed
+  surface designates it as a source location.
+
+PASS not established
+  E2-REP also asks that the location actually hold a source tree.
+  The repository's only HTTP view returned 5xx three times, and its
+  native endpoint could not be reached with the tooling available
+  here. The observation was not made.
+
+FAIL not established
+  the contract is explicit that 5xx is transport indeterminacy and
+  NOT evidence of absence, and that such an item takes a protocol
+  issue rather than a failure code. A broken Trac plugin and a
+  missing local client are facts about the observation, not about
+  the candidate.
+```
+
+Both unmet conditions are observation limits. Neither is coded as a property of Abuse.
+
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
+
+Gates after E2-REP are NOT_REACHED. Screening stopped here rather than
+continuing to read, per QA-21.
