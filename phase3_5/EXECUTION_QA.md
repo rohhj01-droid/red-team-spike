@@ -1247,9 +1247,28 @@ audit converts the pattern into a sweep and ends the drip.
 **Result.** ELIGIBLE 2 / REJECTED 3 / UNRESOLVED 25. Selection remains
 INCONCLUSIVE for the unchanged reason.
 
-**What the ledger now says about the gate.** Of 28 non-eligible terminal
-candidates, 26 stop at E2-REP, and only 3 of those are criterion
-rejections. The rest are our own observation limits -- transport failure
-or a contract that could not reach the fact. That ratio is itself a
-finding about screening at this depth, and it is only visible because
-the two kinds were kept apart (QA-16).
+**What the ledger now says about the gate, and what it does not.**
+
+```text
+run-to-date, 28 terminal non-eligible candidates
+  stop at E2-REP    26      criterion REJECTED       3
+                            UNRESOLVED              23
+  stop at E4         2
+```
+
+The composition is worth recording: most E2-REP stops so far are
+observation or protocol limitations -- transport failure, or a contract
+that could not reach the fact -- rather than eliminations by the
+criterion. That distinction is only visible because the two kinds were
+kept apart (QA-16).
+
+This is a descriptive run-to-date observation and NOT a prevalence
+estimate for the frozen 128-item frame. The terminal set is neither a
+complete sequential prefix nor a random sample: it mixes ranks 1-17 with
+the QA-06 batch (21, 27, 39, 40, 41, 55, 70, 73, 79, 86, 105, 109, 110),
+which were processed early precisely BECAUSE their outcomes were
+transport-determined. Reading 26/28 as "about 93% stop at E2-REP" would
+launder that selection into a rate.
+
+Frame-wide proportions wait for completion, on the same footing as
+QA-16's E4 hypothesis.
