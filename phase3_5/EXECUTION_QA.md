@@ -1511,3 +1511,58 @@ C024   the candidate-specific LOCATION is designated and observed as a
 **Effect.** C024 becomes UNRESOLVED / PI-UNCLASSIFIED-SHAPE. Its closing
 claim -- that this was the run's first repository-versus-repository
 E2REP FAIL -- is withdrawn with it; no such finding stands.
+
+## QA-27 — a frozen SITES URL is an admitted starting point, not a navigation step
+
+C026's first E2-REP entry called the frozen HOMEPAGE "the only
+admissible surface" and stopped there. The frozen metadata also carried
+`SITES=${HOMEPAGE}download/`, which the contract admits as a starting
+point in its own words: "the URLs and identifiers found in the frozen
+OpenBSD metadata".
+
+The entry applied QA-24 to the landing page's links and not to the
+metadata's own URL. The two are different, and keeping them apart is the
+whole of this correction:
+
+```text
+landing page's "Other downloads" -> download.html
+  a NAVIGATION step past step 1, to a label the whitelist omits
+  -> forbidden by QA-17
+
+frozen SITES /download/
+  an ADMITTED STARTING POINT supplied by the metadata
+  -> not navigation; needs no whitelist label to be observed
+```
+
+Both facts can hold at once, and here they do: download.html stays
+closed, and /download/ had to be opened.
+
+**Admitted was also necessary here**, which is the QA-24 test rather
+than mere admission. The gate was unsettled after the landing page,
+/download/ was the remaining admitted starting point, it sits on the
+same upstream domain, and nothing had established it as packager-side.
+That last clause is precisely what let C010's SITES go unopened: its
+port Makefile's own dist: target had already shown the host to be the
+packager's. C026 had no such finding, so the exemption did not transfer.
+
+**Repairing rather than living with it.** C018 set the precedent -- a
+necessary admitted surface that was skipped gets observed under a scope
+fixed in advance, and that repair is where QA-24 came from. This is not
+the C020/C024 situation, where a TERMINAL verdict would have been
+rescued by fresh observation. There the observation would have been the
+error; here the omission was.
+
+**What the surface turned out to be.** 403 Forbidden, twice, with the
+landing page returning 200 at the same moment. That is a definitive
+server answer rather than transport indeterminacy -- the host is
+healthy and the server distinguishes the path from a missing one -- but
+it is also not evidence of absence: directory listing is refused, and
+nothing about the path's contents was observed. The verdict code is
+unchanged, and the evidence base now includes the surface that should
+have been observed the first time.
+
+**Rule carried forward.** Before recording that a surface is the only
+admissible one, enumerate the frozen metadata's URLs and identifiers and
+say what happened to each. A URL in the metadata does not become
+inadmissible because the landing page happens to reach the same place
+through a label the whitelist omits.

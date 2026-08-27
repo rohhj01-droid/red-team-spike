@@ -3185,3 +3185,105 @@ Recorded so the shape is visible: this is the plainest instance yet of a candida
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## RETRACTION 13 — C026 E2-REP superseded; a necessary admitted surface was skipped
+
+EV-C026-E2REP-01 is **superseded**. Its verdict, UNRESOLVED, stands. Its
+reasoning contained one structural error and two claims it could not
+support.
+
+**The error.** The entry called the frozen HOMEPAGE "the only admissible
+surface". It is not. The frozen metadata also carries
+`SITES=${HOMEPAGE}download/`, and the contract admits "the URLs and
+identifiers found in the frozen OpenBSD metadata" as starting points. A
+URL in the metadata is admitted whether or not the landing page links to
+it.
+
+The entry applied QA-24 to the landing page's navigation and failed to
+apply it to the frozen SITES starting point. Those are different things,
+and conflating them is what produced the mistake:
+
+```text
+landing page's "Other downloads" -> download.html
+  a NAVIGATION step past step 1, to a label the whitelist omits
+  -> forbidden by QA-17, correctly not opened
+
+frozen SITES /download/
+  an ADMITTED STARTING POINT supplied by the metadata itself
+  -> not navigation at all; observing it needs no whitelist label
+```
+
+And it was necessary under QA-11, not merely admitted: the gate was
+unsettled after the landing page, this was the remaining admitted
+starting point, it sits on the same upstream domain, and nothing had
+established it as packager-side. That last clause is what let C010's
+SITES go unopened -- its port Makefile's own dist: target had shown the
+host to be the packager's. C026 has no such finding.
+
+**Why this is repaired rather than left standing.** C018 set the
+precedent: where a necessary admitted surface was skipped, the fix is to
+observe it under a scope fixed in advance, which is how QA-24 came to
+exist. That is different from C020 and C024, where a TERMINAL verdict
+would have been rescued by fresh observation. Here the omission is
+itself the procedural error.
+
+**Two claims withdrawn.** "The plainest instance yet of a candidate
+stopping for want of a designation" could not be said with a necessary
+surface unobserved. "The source tarball the port fetches presumably sits
+one click away" was never observed at all -- what is knowable is only
+that the frozen packaging metadata composes that path and filename.
+
+## EV-C026-E2REP-02  (supersedes EV-C026-E2REP-01)
+Candidate: C026 (frame rank 26, games/amoebax)
+Gate: E2-REP
+
+Surface 1: the frozen HOMEPAGE.
+requested_url: http://www.emma-soft.com/games/amoebax/ ; final_url: https://www.emma-soft.com/games/amoebax/
+observed_at_utc: 2026-08-27T14:29:52Z-14:29:54Z; http_status 200; redirect_chain: 1 redirect, http -> https
+Observed: under "Free Download" the page exposes three artifacts, all platform binaries -- download/amoebax-0.2.0.msi, download/amoebax-0.2.0.dmg, download/amoebax-0.2.0.x86.package -- plus a link labelled "Other downloads" to download.html. The body gives an introduction, screenshots, features, system requirements and author credits, and states "Software libre and free of charge" among the features. No Source, Code, Repository or Development link, and no link whose destination is a source location.
+
+Surface 2: http://www.emma-soft.com/games/amoebax/download/ -- the frozen SITES.
+Necessary because: the gate was unsettled after surface 1, this is the remaining admitted starting point from the frozen metadata, it is on the same upstream domain, and nothing observed establishes it as packager-side. Under QA-11 that makes it necessary, and under QA-24 a necessary admitted surface is observed rather than skipped.
+
+Observation scope, fixed before the request:
+
+```text
+observe only
+  the surface's existence and HTTP status
+  labels or headings the page or listing itself carries
+  artifact names and link relations it directly exposes
+  an explicit "source" / "source code" designation
+  primary or mirror marking
+
+do not
+  navigate to download.html
+  open any document or source file
+  infer that an artifact is source from its filename
+  search for other locations
+```
+
+requested_url: http://www.emma-soft.com/games/amoebax/download/ ; final_url: https://www.emma-soft.com/games/amoebax/download/
+observed_at_utc: 2026-08-27T14:45:03Z (GET), 14:45:24Z (HEAD)
+http_status: 403, 403; redirect_chain: 1 redirect, http -> https, on both
+control: the landing page returned 200 at 14:45:24Z, same host, same moment
+Observed: a 199-byte server error page, "403 Forbidden -- You don't have permission to access this resource." It carries no headings beyond "Forbidden", no links, no artifact names, and no designation signal. The 403 is a definitive server answer rather than transport indeterminacy: the host is healthy, as the control shows, and the server distinguishes this path from a missing one. Directory listing is refused; nothing about the path's contents was observed.
+
+```text
+PASS not established
+  no designation signal was observed on either admissible surface. The
+  landing page exposes only platform binaries, and a licence statement
+  in a features list is not a designation of a location. The frozen
+  SITES path refuses listing, so it yielded no observation at all.
+
+FAIL not established
+  "designates none" is a claim about upstream. What was observed is
+  that one page carried no designation signal and one path could not
+  be read. download.html remains unopened, being outside the
+  navigation whitelist.
+```
+
+On the code: `PI-TRANSPORT-INDETERMINATE` would be wrong here. Nothing failed in transport -- the server answered, twice, definitively, with a healthy control alongside. What happened is that an admitted surface exists and declines to be read, which the sealed criteria do not describe. `PI-UNCLASSIFIED-SHAPE` is the fit, and the verdict code is unchanged from the superseded entry even though its evidence base now includes the surface that entry never opened.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
