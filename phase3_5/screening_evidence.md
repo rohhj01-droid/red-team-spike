@@ -4064,3 +4064,95 @@ Recorded because it bears on the survivor stage if this candidate is ever revisi
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## RETRACTION 17 — C033 E2-REP superseded; a Download artifact was opened, and a frozen SITES was not
+
+EV-C033-E2REP-01 is **superseded**. Its verdict, UNRESOLVED, stands. Its
+execution contained one forbidden navigation, one omitted necessary
+surface, and three overstatements.
+
+**Forbidden navigation.** The entry followed "Latest Version (v1.1)"
+from under the page's `Download` heading and retrieved the artifact,
+then listed its entries. QA-17 settled that the criterion's phrase
+"source distribution" does not license following a Download surface, and
+C014 was withdrawn for the same move. That the artifact's contents were
+not opened does not save it: what is forbidden is going to an
+unauthorized surface, not how deeply it is then read. The retrieval, its
+size, its hash and its six entry names are quarantined and do no verdict
+work.
+
+Reading it back, the entry even used that forbidden observation to argue
+the gate: "source-tree presence ... was not established from names
+alone" is an argument built on the surface that should not have been
+opened.
+
+**Omitted necessary surface.** The entry declined to open the frozen
+SITES, reasoning that it is "the container of the observed location
+rather than a second location" and that "no separate designation could
+follow from it". That is C026's error exactly -- deciding what a surface
+holds before observing it. SITES is a URL the frozen metadata supplies,
+the gate was unsettled after step 1, and nothing observed made it
+unnecessary in the way C010's port Makefile made its SITES unnecessary.
+It is observed below.
+
+## EV-C033-E2REP-02  (supersedes EV-C033-E2REP-01)
+Candidate: C033 (frame rank 33, games/asciiquarium)
+Gate: E2-REP
+
+Per QA-27, both frozen URLs are enumerated and both are observed.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url: https://www.robobunny.com/projects/asciiquarium/html/ ; final_url: https://robobunny.com/projects/asciiquarium/html/
+observed_at_utc: 2026-08-27T16:45:41Z-16:45:43Z; http_status 200; redirect_chain: 1 redirect (www -> apex)
+Observed: navigation reads Projects, Main, Changes, Read_Me, Download. Under `Download` it exposes "Latest Version (v1.1)" -> ../asciiquarium.tar.gz, "Previous Versions", and "View Directory" -> ../ . The body credits third-party derivatives: a Windows screensaver, a Mac packaged build, a KDE screensaver, an Android live wallpaper.
+
+The page uses "source code" exactly once, and upstream attaches it to another system: "Russel Goring has updated J. Sommer's Windows screensaver, and has posted the source code on Github", linking to github.com/rgoring/asciiquarium. Under QA-26 that is another delimited system's source, labelled as such by upstream, and not a designation for this candidate.
+
+No link on this surface is labelled as, or leads to, a designated source location for ASCIIQuarium. `Download` is not among the contract's four step-2 labels and was not followed.
+
+Surface 2: the frozen SITES, https://www.robobunny.com/projects/asciiquarium/.
+Necessary because: the gate was unsettled after surface 1, this is the remaining admitted starting point, and nothing observed established it as unnecessary -- the C010 exemption rested on that port's own dist: target showing its host to be the packager's, and no equivalent exists here. Opening it as a frozen starting point is not the same act as following the page's "View Directory" link, which would have been navigation past step 1.
+
+Observation scope, fixed before the request: HTTP status; headings the surface itself carries; artifact names and link relations it directly exposes; any explicit source or source-code label; any primary or mirror marking. Not: opening any listed artifact, reading README or docs, or searching elsewhere.
+
+requested_url: https://www.robobunny.com/projects/asciiquarium/ ; final_url: https://robobunny.com/projects/asciiquarium/
+observed_at_utc: 2026-08-27T17:04:13Z; http_status 200; redirect_chain: 1 redirect (www -> apex)
+Observed: an Apache directory index headed "Index of /projects/asciiquarium", listing CHANGES, MANIFEST, README, asciiquarium, asciiquarium.tar.gz, asciiquarium_1.0.tar.gz, asciiquarium_1.1.tar.gz, gpl.txt, html/, screenshot.png and small_screenshot.png, all dated 2013-03-09. Beyond the index's own sort controls and a Parent Directory link it carries no headings, no labels, no statement designating anything as source, and no primary or mirror marking.
+
+```text
+PASS not established
+  neither admissible surface designates a canonical source location.
+  Surface 1 offers a Download link labelled "Latest Version (v1.1)";
+  surface 2 is a bare directory index. The only "source code" phrase
+  either carries belongs, by upstream's own sentence, to a different
+  system.
+
+  The comparison with the candidates that produced positive
+  source-designation evidence is worth stating precisely:
+
+    C013  E2-REP PASS. Its .tar.xz stood beside win64/win32 zips on
+          the project's own page, and the contrast identified it.
+    C029  positive evidence on this prerequisite -- a link labelled
+          "Source code" -- but its E2-REP is UNRESOLVED overall, on
+          uniqueness. It is not an example of a passed gate.
+
+  Neither device is present here.
+
+FAIL not established
+  two surfaces carrying no source designation is a bounded observation
+  about those surfaces, not a demonstration that upstream designates
+  none.
+
+E2REP-NO-SOURCE not established either
+  that code means no access to the actual source representation.
+  Surface 2 exposes artifact names; whether any of them is this
+  candidate's actual source representation was not established, and
+  establishing it was outside the fixed scope. An unclassified artifact
+  proves neither source access nor its absence.
+```
+
+Recorded for the survivor stage, at the strength the observation supports: the artifact the landing page designates as "Latest Version (v1.1)" sits at a versionless URL, ../asciiquarium.tar.gz, while the same directory also carries asciiquarium_1.0.tar.gz and asciiquarium_1.1.tar.gz. The versionless URL therefore does not itself encode an immutable version identity. No claim is made that its bytes have ever been replaced -- only that nothing in the URL would record it, which is the reconstruction problem QA-28 describes.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
