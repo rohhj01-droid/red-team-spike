@@ -4194,7 +4194,9 @@ observed_at_utc: 2026-08-27T18:06:15Z; http_status 200; redirect_chain: NONE (nu
 evidence_role: official-source-location
 Observed: repository astromenace, owner login viewizard, default branch master, isFork false, isMirror false, isArchived false, isTemplate false, website metadata field https://viewizard.com, and a source tree present at the root -- src, gamedata, docs, share, licenses, CMakeLists.txt, AUTHORS.md, CHANGELOG.md, README.md, LICENSE.md.
 
-Inference: exactly one designated canonical source location on the permitted surfaces, at a stable URL, holding a source tree, with one external target identifier (AstroMenace). The designation runs both ways -- the project's own site links to the repository under the label "Source Code", and the repository's website field names that site.
+Inference: exactly one designated canonical source location on the permitted surfaces, at a stable URL, holding a source tree, with one external target identifier (AstroMenace).
+
+The upstream-authored designation is one-way and sufficient: the project site labels the repository "Source Code". The repository's website metadata field points back to the project site and corroborates affiliation, but it does no designation work -- C032 settled that a repository naming a site is affiliation, not designation, and the direction that matters here is the site naming the repository.
 
 Decision: PASS
 
@@ -4234,7 +4236,21 @@ and the file opens with the project's own note on the consequence:
 //      in case player will back to old game version by some reason
 ```
 
-Inference: which stored profiles a running build can use is fixed by the CONFIG_VERSION it was built with, not by anything in the profile data itself, and the project states the consequence -- a player returning to an older version does not find their Top Scores and Pilot Profiles there. Whether a given profile store is usable therefore depends on which version wrote it, which is validity conditioned on history. That is what E3 asks for, and it is stated by the project rather than inferred from the naming alone.
+Inference:
+
+```text
+observed            the build's CONFIG_VERSION selects the
+                    profile-store filename
+
+project statement   previous-version Top Scores and Pilot Profiles
+                    need retaining for a player returning to an older
+                    game version
+
+therefore           which profile store is relevant depends on version
+                    history
+```
+
+That is a stateful/temporal validity question that can be examined, which is E3's deliberately weak admission condition. No claim is made about whether the profile data itself records a version: that was not examined, and the witness does not need it.
 Decision: PASS
 
 ## EV-C034-E4-01
@@ -4262,13 +4278,17 @@ src/script/script.cpp
 src/config/config.cpp
   reads and writes configuration through 39 individual
   GetEntryAttribute / SetEntryAttribute calls rather than a declared
-  settings table. It enforces, but it does not ENUMERATE, so there is
-  no membership set from which a property-level universe could be
-  built. C022's plugin loader failed the same way.
+  settings table. It enforces, but it does not ENUMERATE: these
+  individual call sites do not themselves expose an externally closed
+  membership set, and an analyst reading the call sites and listing
+  them would be supplying the closure rather than observing it.
+  C022's plugin loader failed the same way.
 ```
 
-Inference: E4 PASS requires a positive construction -- an EN1-EN6 mechanism, or a Section 3.1 designated source, from which the property-level universe is ACTUALLY mechanically constructible. None was exhibited by the mechanisms examined. Under the post-seal amendment the absence of a positive construction does not establish E4 FAIL, because no preregistered discovery procedure makes that universal claim decidable. No claim is made that AstroMenace exposes no admissible enumerator anywhere.
+Inference: no positive U_enforced construction was obtained from the mechanisms examined.
 
-The normative route was not pursued: only one route is required, and nothing observed designates an authoritative rules source.
+On the normative route, stated carefully because an earlier draft of this entry got the logic backwards. It said "only one route is required" as the reason for not pursuing U_normative. That is a sufficiency rule -- one route suffices for PASS -- and it does not license skipping the second route after the first yields nothing. The accurate position is narrower: the README witness used at E2-RULE is project-owned, but it was not observed as an explicitly DESIGNATED authoritative rule source, and Section 3.1 admits only explicit designation. So U_normative is not established either, on what was observed.
+
+Under the post-seal amendment, the absence of a positive construction does not establish E4 FAIL, because no preregistered discovery procedure makes that universal claim decidable. No claim is made that an admissible enumerator or authoritative source is absent elsewhere in AstroMenace.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
