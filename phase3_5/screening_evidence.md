@@ -1262,3 +1262,116 @@ The universe is therefore ACTUALLY mechanically constructible: expand THE_COMMAN
 Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Snes9x designates an authoritative rules source.
 
 Decision: PASS
+
+## RETRACTION 6 — C014 E2-REP withdrawn; two E2-REP contract breaches
+
+EV-C014-E2REP-01 is **quarantined**, and with it EV-C014-E2RULE-01,
+EV-C014-E3-01 and EV-C014-E4-01 as post-stop exposure. Nothing is
+deleted: the pages were read, the quotations are accurate, the code
+citations are correct. They are unusable because two of the observations
+the E2-REP verdict rested on were outside the sealed navigation
+contract, and the gates after E2-REP were reached only because that
+verdict stood.
+
+**Breach 1 -- the Downloads page.** The contract's allowed navigation is
+three steps: the official landing page, a Source / Code / Repository /
+Development link that page explicitly exposes, and the repository root
+that link reaches. `Downloads` is not among them. The withdrawn entry
+opened it anyway, reasoning that E2-REP's criterion admits "a repository
+or source distribution" and that a downloads page is where a site
+without a source link would designate one. That reasoning widens the
+navigation whitelist at execution time using the criterion's wording.
+Where the criterion and the search contract differ in reach, the
+contract's narrower execution rule governs this run -- that is what
+having a contract is for, and a criterion phrase cannot be used to
+enlarge it after the landing page turned out not to expose what was
+expected.
+
+**Breach 2 -- the README designation.** The withdrawn entry's decisive
+evidence was the sentence "This is the official source code repository
+for the Snes9x project." The contract does list "whether upstream
+designates this location as its source" among allowed observations at
+the repository, but it also forbids "reading README prose" outright and
+instructs that an incidentally rendered README be quarantined rather
+than used. Restricting the read to a targeted scan for designation
+vocabulary narrowed the SCOPE of the prohibited act; it did not lift the
+prohibition. Using that sentence as verdict grounds is using forbidden
+README prose, and the care taken in how it was extracted does not change
+what was used.
+
+Both observations are kept on the record here as forbidden E2-REP
+exposure and are excluded from every verdict.
+
+## EV-C014-E2REP-02  (supersedes the quarantined EV-C014-E2REP-01)
+Candidate: C014 (frame rank 14, emulators/snes9x)
+Gate: E2-REP
+
+Re-determined on admissible evidence only.
+
+Surface 1: http://www.snes9x.com/ -- the frozen HOMEPAGE, navigation step 1.
+observed_at_utc: 2026-08-27T08:19:15Z-08:19:16Z; http_status 200
+Observed: the page exposes nine links, labelled Gary, News, Developers
+Journal, Screenshots, Snes9x Forums, Downloads, Games/Demo's, Privacy
+Policy, Webmaster. None is a Source, Code, Repository or Development
+link. Navigation step 2 is therefore unavailable, and step 3 is not
+reachable by the contract's path.
+
+Surface 2: https://github.com/snes9xgit/snes9x -- reached from the frozen
+GH_ACCOUNT/GH_PROJECT, which the contract admits as a starting point.
+observed_at_utc: 2026-08-27T08:20:23Z; http_status 200; redirect_chain: NONE
+Observed, restricted to metadata the contract allows at a repository:
+repository name snes9x, owner login snes9xgit, repository description
+"Snes9x - Portable Super Nintendo Entertainment System (TM) emulator",
+default branch master, isFork false, isMirror false, isArchived false,
+isTemplate false, a source tree present at the root (115 files including
+65c816.h, cpu.cpp, cpuexec.cpp, memmap.cpp, and directories apu, common,
+data, docs, external, filter, gtk, jma, libretro, macosx, qt, unix,
+unzip, win32), and the repository's own website metadata field set to
+http://www.snes9x.com -- the same site the frozen HOMEPAGE names. That
+field is sidebar metadata set by the repository owner, not README
+content, and is admissible.
+
+What the admissible evidence establishes: exactly one source location is
+in play; it is an upstream-controlled surface; it is not a fork, not a
+mirror and not archived; it holds the source tree; and it affiliates
+itself with the official project site.
+
+What it does not establish: that the project identifies this location as
+its authoritative source. The arrow runs one way only. The repository
+declares its website to be snes9x.com; snes9x.com exposes no link back
+to the repository and designates no source location at all. Affiliation
+is not designation, and a project may control several affiliated
+repositories.
+
+Why this is not E2-REP FAIL. The criterion's defined failures are
+designating none, designating several with no primary, or designating a
+source with no stable URL. "Designates none" is affirmatively false
+here: a designation exists, and this run has seen it. Recording FAIL
+would be recording as a property of the system something already known
+to be untrue.
+
+Why it is not PASS either, and this is the part that decides it. Even if
+admissible metadata could have carried a PASS for an analyst who had
+never seen the README sentence, this run is no longer in that position
+for this candidate. Having read the designation, any argument that "the
+metadata alone suffices" is constructed after knowing the answer, and is
+indistinguishable from laundering the quarantined evidence through a
+route built to reach it. The contamination is not repairable by
+reasoning more carefully; it is repairable only by not claiming the
+verdict.
+
+The undetermined shape is real and belongs to the protocol, not to
+Snes9x: for a project whose official site does not link its repository
+and whose designation lives in README prose, the sealed navigation
+contract cannot reach the fact the criterion asks about.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## RETRACTION 6a — C014 gates after E2-REP
+EV-C014-E2RULE-01, EV-C014-E3-01 and EV-C014-E4-01 are quarantined as
+post-stop exposure, on the same principle applied to C005 under QA-11.
+Screening stops at the first gate that is not determined; those three
+gates were only reached because a withdrawn PASS stood at E2-REP. Their
+observations -- the Compiling page's gtkmm-3.24 requirement, the
+save-state/.srm interleaving witness, and the command_names[] positive
+construction -- are kept on the record and used for nothing.

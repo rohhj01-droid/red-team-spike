@@ -596,6 +596,12 @@ C012 libchdr   codec_interfaces[] ARRAY_LENGTH    -> CHDERR_UNSUPPORTED_FORMAT
 C014 snes9x    command_names[]    LAST_COMMAND    -> S9xBadMapping, mapping refused
 ```
 
+Amended after QA-17: C014's E4 entry is quarantined as post-stop
+exposure, so the admissible base for this observation is C010 and C012.
+The C014 row is left in the table because the structure it found is what
+this entry is about, and because a quarantined observation is recorded
+and refused work rather than erased. It carries no weight below.
+
 A static table, walked to its own declared bound at runtime, with a miss
 producing a rejection the project itself executes. That is not a loose
 reading of EN1-EN6; it is close to a transcription of them -- EN3 names
@@ -603,12 +609,24 @@ reading of EN1-EN6; it is close to a transcription of them -- EN3 names
 construction closes the set", and EN4 is met because the rejection is
 executed rather than inferred from a name.
 
-The consequence worth recording before it becomes visible in aggregate:
-**E4 is likely to admit a large fraction of the C codebases in this
-frame**, because table-plus-bound-plus-reject is ordinary practice in
-them. The gates that have actually been eliminating candidates are
-earlier -- four of the five terminal REJECTED/UNRESOLVED verdicts stopped
-at E2-REP.
+Two statements, separated deliberately by how well they are supported.
+
+```text
+CONFIRMED OBSERVATION
+  every candidate that has reached E4 so far passed it, on the same
+  table / declared-bound / executed-rejection idiom
+  n = 2 admissible (C010, C012), plus C014 quarantined
+
+HYPOTHESIS, not established
+  that E4 will admit a large fraction of the C codebases in this frame
+  because that idiom is ordinary practice in them
+```
+
+Two admissible cases cannot support a proportion over 128 items, and the
+frame-wide claim is written as a hypothesis so that the eventual number
+tests it rather than confirms it. What is already firm is that the gates
+eliminating candidates are earlier ones: five of the six terminal
+verdicts stopped at E2-REP.
 
 **Nothing is changed in response to this.** Tightening E4 now, having
 seen three passes, would be exactly the post-hoc criterion narrowing
@@ -617,8 +635,73 @@ observation is recorded so that it is on the record BEFORE the eligible
 set is complete, rather than discovered afterwards as a surprise about
 what the screening measured.
 
-What it does mean for reporting: if the run ends with many eligible
-candidates, that is a finding about E4's discriminating power, not a
-finding that these projects are unusually well-structured. The
-tie-break, not the gate, will then be doing most of the selection work
--- which is precisely why it was sealed in advance.
+What it would mean for reporting, if the hypothesis holds: many eligible
+candidates would be a finding about E4's discriminating power, not a
+finding that these projects are unusually well-structured, and the
+tie-break rather than the gate would be doing most of the selection work
+-- which is precisely why it was sealed in advance. If it does not hold,
+the record already says the expectation was a hypothesis.
+
+## QA-17 — a criterion's wording cannot widen the search contract (VERDICT WITHDRAWN)
+
+C014's E2-REP rested on two observations the sealed navigation contract
+did not allow, and both failures share one shape: a rule was treated as
+adjustable because following it looked like it would lose information.
+
+```text
+opened Downloads      justified from the criterion's phrase
+                      "a repository or source distribution"
+
+used the README's     justified by narrowing the read to a targeted
+designation sentence  scan for designation vocabulary
+```
+
+**The contract governs execution; the criterion governs meaning.** When
+they differ in reach, this run follows the contract. A criterion phrase
+describes what would satisfy the gate; it does not enumerate where we
+may look. Reading it as permission to open a surface the whitelist omits
+turns every criterion into a general search warrant -- and the moment
+that widening is triggered by a landing page not exposing what was
+expected, the search scope has become a function of what was found,
+which is the thing the whitelist exists to prevent.
+
+**Narrowing a forbidden act is not permission to perform it.** The
+contract forbids reading README prose and instructs that an incidentally
+rendered README be quarantined. Scanning only for designation vocabulary
+reduced how much prose was read; it did not make reading it allowed. The
+entry's own care in describing the scan -- written to be transparent --
+is what makes the breach legible now, which is the argument for
+recording such steps rather than smoothing them.
+
+**Why the re-determination is UNRESOLVED and not FAIL.** FAIL would
+assert the project designates no canonical source. That is known to be
+false. A verdict may not record as a system property something this run
+has positive reason to believe is untrue, whatever the admissibility of
+the evidence that showed it.
+
+**Why it is not PASS either.** Admissible metadata gets close: one
+upstream-controlled location, not a fork or mirror, holding the source
+tree, declaring the official site as its website. Whether that reaches
+"the project identifies this as authoritative" is genuinely arguable --
+and that is exactly why it cannot be settled here. Having already read
+the designation, any argument that the metadata alone suffices is built
+after knowing the answer. Contamination of this kind is not repaired by
+reasoning more carefully; it is repaired by not claiming the verdict.
+
+**The gap is the protocol's, not the candidate's.** For a project whose
+official site does not link its repository, and whose designation lives
+in README prose, the sealed navigation contract cannot reach the fact
+E2-REP asks about. C010 and C012 did not expose this because their
+HOMEPAGE was the repository itself, making landing page and source
+location one surface.
+
+A future run can close it by preregistering, before any candidate is
+seen, either a bounded README designation-scan as an allowed observation
+(with the scan's vocabulary fixed in advance), or an explicit rule for
+what repository metadata alone is sufficient to establish designation.
+Adding either now, having seen which candidate it would rescue, would be
+fitting the contract to a result.
+
+**Effect on the ledger.** C014 becomes UNRESOLVED at E2-REP; its
+E2-RULE, E3 and E4 entries are quarantined as post-stop exposure. The
+eligible set returns to C010 and C012.
