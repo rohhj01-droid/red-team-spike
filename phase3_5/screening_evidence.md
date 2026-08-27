@@ -2405,33 +2405,44 @@ http_status: 500, 500, 500; redirect_chain: NONE on all three
 control: http://abuse.zoy.org/wiki/dev returned 200 at 12:00:33Z, same host, same moment
 Observed: three 5xx responses at recorded times, as the contract requires before recording indeterminacy. The served error page reads: Unsupported version control system "svn": No module named svn. So the wiki is healthy and its repository browser is not.
 
-The designated location itself, svn://svn.zoy.org/abuse/abuse/trunk, was not observed either: no Subversion client is available in this environment. That is a tooling limit on our side, recorded as such rather than folded into the network result.
-
 Adjudication:
 
 ```text
 DESIGNATION established
-  upstream states, under its own "Source code" heading, that
-  development takes place in a Subversion repository, and gives the
-  checkout URL. Exactly one source location is designated; the
-  Download page is a release announcement target and no allowed
-  surface designates it as a source location.
+  at least one upstream-designated source location:
+  svn://svn.zoy.org/abuse/abuse/trunk, stated by upstream under its
+  own "Source code" heading with a checkout command.
+
+UNIQUENESS not adjudicated
+  the frozen metadata also carries an admitted SITES location under
+  the project's download area, and the landing page links a release
+  announcement to /wiki/download. Whether those amount to a second
+  designated SOURCE location was never determined, because the gate
+  became UNRESOLVED at the necessary repository surface before any
+  further observation was warranted. The landing-page release
+  announcement is not itself a source-location designation; nothing
+  is claimed about what the unopened SITES path holds.
 
 PASS not established
-  E2-REP also asks that the location actually hold a source tree.
-  The repository's only HTTP view returned 5xx three times, and its
-  native endpoint could not be reached with the tooling available
-  here. The observation was not made.
+  E2-REP also asks that the designated location actually hold a
+  source tree. Its only HTTP view returned 5xx three times after
+  retries at recorded times. The observation was not made.
 
 FAIL not established
   the contract is explicit that 5xx is transport indeterminacy and
   NOT evidence of absence, and that such an item takes a protocol
-  issue rather than a failure code. A broken Trac plugin and a
-  missing local client are facts about the observation, not about
-  the candidate.
+  issue rather than a failure code. A broken Trac plugin is a fact
+  about the observation, not about Abuse.
 ```
 
-Both unmet conditions are observation limits. Neither is coded as a property of Abuse.
+The verdict rests on the Trac 5xx alone, which is sufficient on its own.
+
+Ancillary tooling note, carrying no verdict work: the designated
+endpoint svn://svn.zoy.org/abuse/abuse/trunk was also not observed,
+because no Subversion client is available in this environment. That is
+recorded so the record shows what was and was not attempted, not as part
+of the transport finding -- otherwise a transport PI would look half
+constituted by a local tooling gap.
 
 Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
 
