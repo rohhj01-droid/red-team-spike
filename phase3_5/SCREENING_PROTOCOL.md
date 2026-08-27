@@ -464,6 +464,39 @@ not never, and recording a false permanence to stay inside the existing
 tokens would be the wrong trade. This adds no outcome vocabulary: it
 fills a lifecycle state the schema could not previously express.
 
+### When the snapshot itself is unresolved
+
+`PENDING_INVENTORY` was defined for a survivor whose snapshot is settled
+and whose inventory has simply not run yet. QA-28 broke that premise:
+the sealed snapshot rule says which bytes to analyse, and for a
+candidate first examined after the sealed instant, this run has no
+preregistered way to reconstruct what was designated or pointed at then.
+
+Where that reconstruction fails, the survivor is not waiting for the
+inventory stage -- it cannot enter it, because the inventory has no
+frozen bytes to enumerate.
+
+```text
+primary_snapshot resolved
+  authoritative_source_inventory_ref = PENDING_INVENTORY
+  enumerator_inventory_ref           = PENDING_INVENTORY
+  completeness_class                 = PENDING_INVENTORY
+
+primary_snapshot = UNRESOLVED
+  authoritative_source_inventory_ref = NOT_REACHED
+  enumerator_inventory_ref           = NOT_REACHED
+  completeness_class                 = NOT_REACHED
+```
+
+`NOT_REACHED` is right here in its own defined sense -- never evaluated
+-- because the stage is not merely deferred; it is unreachable on this
+run's evidence. `canonical_source_location`, `external_target_identifier`
+and `tie_key` are unaffected: E2-REP settled them, and they do not
+depend on which revision the snapshot rule selects.
+
+The candidate stays ELIGIBLE. Surviving E1-E4 is a screening outcome,
+and a survivor-stage blocker does not reach back and unmake it.
+
 ### Execution order for the inventory stage
 
 Screening runs through the frozen frame until the frame is exhausted or

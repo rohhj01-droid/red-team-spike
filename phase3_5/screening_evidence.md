@@ -1470,7 +1470,9 @@ Decision: PASS
 Candidate: C009
 Gate: E4
 
-Positive construction exhibited, via U_enforced. All observations are at the primary snapshot: master had not moved since 2026-05-30T00:35:55Z, so raw reads of master on 2026-08-27 resolve to commit a62b868e9247c4aafd66f597cdfa8d2609704087, the revision the snapshot rule fixes.
+Positive construction exhibited, via U_enforced.
+
+Provenance, corrected under QA-28: these observations were made against the source state available at SCREENING OBSERVATION TIME. They establish the positive E4 screening witness and nothing more. They are NOT asserted to be the sealed primary snapshot, whose resolution is a survivor-stage matter recorded separately and currently UNRESOLVED. At observation time the default branch pointed at a62b868e9247c4aafd66f597cdfa8d2609704087; the withdrawn claim that "master had not moved since 2026-05-30" was never observed.
 
 Source: https://raw.githubusercontent.com/TASEmulators/fceux/master/src/ines.cpp
 observed_at_utc: 2026-08-27T08:53:44Z-08:54:25Z; http_status 200
@@ -1581,7 +1583,9 @@ Decision: PASS
 Candidate: C013
 Gate: E4
 
-Positive construction exhibited, via U_enforced. All observations are made in the primary snapshot itself: this is a distribution candidate, so the snapshot is the designated canonical artifact by content hash, sha256:de7eb94ab66212ae7758376524368a8ab208234b33796625ca630547dbc83832, verified against the value upstream publishes. The paths below are paths inside that verified artifact, which removes the usual gap between "the revision the rule fixes" and "the bytes actually read".
+Positive construction exhibited, via U_enforced.
+
+Provenance, corrected under QA-28: these observations were made against the source state available at SCREENING OBSERVATION TIME. They establish the positive E4 screening witness and nothing more. They are NOT asserted to be the sealed primary snapshot, whose resolution is a survivor-stage matter recorded separately and currently UNRESOLVED. The paths below are paths inside the artifact designated at observation time, mednafen-1.32.1.tar.xz, whose retrieved bytes matched upstream's own published SHA-256. That the hash matches upstream's publication is a real check on WHAT WAS RETRIEVED; it says nothing about which artifact the sealed rule selects.
 
 observed_at_utc: 2026-08-27T09:02:50Z (artifact retrieved and verified), 09:04:00Z-09:06:00Z (entries listed and files read)
 
@@ -2798,7 +2802,9 @@ Decision: PASS
 Candidate: C023
 Gate: E4
 
-Positive construction exhibited, via U_enforced. Observations are at the primary snapshot: master resolves to ca7ed57956034b25af1137378027b5ad6e7c15f0, committed 2025-09-06T00:34:34Z, before the enumeration execution timestamp.
+Positive construction exhibited, via U_enforced.
+
+Provenance, corrected under QA-28: these observations were made against the source state available at SCREENING OBSERVATION TIME. They establish the positive E4 screening witness and nothing more. They are NOT asserted to be the sealed primary snapshot, whose resolution is a survivor-stage matter recorded separately and currently UNRESOLVED. At observation time the default branch pointed at ca7ed57956034b25af1137378027b5ad6e7c15f0.
 
 Source: https://raw.githubusercontent.com/treellama/weland/master/Plugins.cs
 observed_at_utc: 2026-08-27T13:37:17Z-13:38:09Z; http_status 200
@@ -2819,7 +2825,7 @@ declared directory convention rather than on a static table
 
 The quarantined constructions are named only to describe the shape; they carry no evidential weight and are not counted.
 
-EN1 external authorship: the editor and this loader existed independently of this analysis; the snapshot predates it.
+EN1 external authorship: the editor and this loader existed independently of this analysis.
 
 EN2 explicit scope: the project states the admission rule in its own comment immediately above the loop -- "// needs to have at least name and run or gtkrun". The class is Plugins, its entries are PluginInfo, and the collection is exposed through Length and GetName(int).
 
@@ -3775,3 +3781,26 @@ Stage: survivor-stage primary snapshot resolution
 Same structure as C009. At observation time the default branch pointed at ca7ed57956034b25af1137378027b5ad6e7c15f0, commit date 2025-09-06T00:34:34Z. Where the ref pointed at 2026-08-26T19:23:05Z is not established.
 
 primary_snapshot: UNRESOLVED
+
+## AUDIT NOTE — "primary snapshot" wording in entries that never reached the survivor stage
+
+Five E4 entries still open with "observations are at the primary
+snapshot": EV-C010-E4-01, EV-C012-E4-01, EV-C014-E4-01, EV-C016-E4-01
+and EV-C022-E4-01. They are left as written, and none is a standing
+snapshot claim.
+
+```text
+C010, C012, C014, C016   quarantined as post-stop exposure; they do
+                         no verdict work at all
+
+C022                     UNRESOLVED at E4, so it never reached the
+                         survivor stage where a snapshot is resolved
+```
+
+In each, the phrase names the observation-time revision the reading was
+made against. Under QA-28 that is imprecise wording rather than a
+verdict defect, and rewriting five historical entries to correct a
+phrase that decides nothing would obscure the record more than it
+repairs it. The three ACTIVE survivors' E4 entries -- C009, C013, C023
+-- have been corrected, because there the phrase would have asserted
+something the ledger now denies.

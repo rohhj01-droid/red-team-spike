@@ -1633,10 +1633,22 @@ it does not establish
 ```
 
 A release date is not a designation interval. Nothing in either record
-closes the window between the enumeration instant and observation. Both
-snapshots are therefore UNRESOLVED, and both candidates' E2-RULE, E3 and
-E4 entries are quarantined as post-stop exposure. C013 was withdrawn
-under RETRACTION 15 for exactly this reason.
+closes the window between the enumeration instant and observation, so
+neither observation establishes the sealed-instant snapshot. Where that
+leaves each candidate differs, and the difference is the stage they
+reach:
+
+```text
+C013   E1-E4 screening verdicts remain active.
+       primary_snapshot is UNRESOLVED at the survivor stage.
+
+C029   never reaches snapshot resolution, because E2-REP is
+       UNRESOLVED on uniqueness.
+```
+
+An earlier draft of this paragraph said both candidates' later gates
+were quarantined and C013 withdrawn. That was RETRACTION 15's stage
+error, corrected below and in RETRACTION 16.
 
 **The same structure exists on the repository branch, and it does not
 survive either.** The general form of the error is one substitution:
