@@ -4292,3 +4292,75 @@ On the normative route, stated carefully because an earlier draft of this entry 
 Under the post-seal amendment, the absence of a positive construction does not establish E4 FAIL, because no preregistered discovery procedure makes that universal claim decidable. No claim is made that an admissible enumerator or authoritative source is absent elsewhere in AstroMenace.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## EV-C035-UR-01
+Candidate: C035 (frame rank 35, games/atomix)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/atomix/Makefile
+Observed: DISTNAME=atomix-3.22.0; SITES=${SITE_GNOME:=/sources/atomix/3.22/}; EXTRACT_SUFX=.tar.xz; COMMENT="build molecules out of single atoms". There is no HOMEPAGE and no repository identifier.
+Inference: the frozen fields name one system, Atomix. As at C030, UR asks which system the port packages and the answer is unambiguous even though the metadata supplies no upstream locator beyond a distribution path. Not UR-AMBIGUOUS and not UR-NONE.
+Decision: PASS
+
+## EV-C035-E1-01
+Candidate: C035
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party puzzle game, packaged from a distfile named atomix-3.22.0, unrelated to this project.
+Inference: external-authorship requirement satisfied, from the frozen metadata alone.
+Decision: PASS
+
+## EV-C035-E2REP-01
+Candidate: C035
+Gate: E2-REP
+
+Per QA-27, the frozen metadata's URLs and identifiers are enumerated: there is one, SITES. No HOMEPAGE exists, so navigation step 1 has no target, and no repository or account identifier offers an alternative starting point.
+
+Surface: the frozen SITES. `${SITE_GNOME:=/sources/atomix/3.22/}` resolves, through the ports infrastructure's own definition of that macro, to https://download.gnome.org/sources/atomix/3.22/ (the macro lists four further mirrors; the first was used).
+Necessary because: it is the only admitted starting point and the gate cannot be settled without it.
+
+Observation scope, fixed before the request: HTTP status; headings the surface itself carries; artifact names and link relations it directly exposes; any explicit source or source-code label; any primary or mirror marking. Not: opening any listed artifact, and not searching elsewhere.
+
+requested_url and final_url: https://download.gnome.org/sources/atomix/3.22/
+observed_at_utc: 2026-08-27T18:33:32Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed: a 2009-byte index headed "Index of /sources/atomix/3.22/". Beyond its own sort controls and a Parent directory link it exposes four entries:
+
+```text
+LATEST-IS-3.22.0            a structured marking naming the latest
+                            release within this directory
+atomix-3.22.0.news
+atomix-3.22.0.sha256sum
+atomix-3.22.0.tar.xz
+```
+
+```text
+PASS not established
+  the surface identifies WHICH RELEASE is latest within it, and
+  publishes a checksum for the artifact. It does not identify the
+  location as the project's canonical source. QA-23 admits a
+  structured marking as a designation signal, and LATEST-IS-3.22.0 is
+  one -- but what it marks is a version, not a location's status. No
+  statement, label or relation observed here has the project
+  identifying this as where its source lives.
+
+  Nothing else was available to carry such a statement: the frozen
+  metadata names no project page, so there is no surface on which the
+  project could have been observed designating anything.
+
+FAIL not established
+  a directory index carrying no designation is not a demonstration
+  that upstream designates none.
+
+E2REP-NO-SOURCE not established
+  that code means no access to the actual source representation. An
+  artifact and its published checksum are exposed here; whether the
+  artifact is this candidate's actual source representation was not
+  established, since opening it was outside the fixed scope. An
+  unclassified artifact proves neither access nor its absence -- the
+  C030 and C033 position.
+```
+
+Recorded as a shape the run keeps meeting rather than as a claim about this candidate: where the frozen metadata supplies only a distribution path and no project page, E2-REP asks for a designation that an archive index does not make. C030 and C033 ended the same way. The gate is not failing these candidates; it is unreachable for them, because the surface that would carry a designation is not among the frozen metadata's URLs.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
