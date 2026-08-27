@@ -3979,10 +3979,15 @@ PASS not established
   repository to name a site.
 
 FAIL not established
-  no admissible surface was examined that could have carried a
-  designation, so nothing observed bears on whether upstream
-  designates one. E2REP-NO-SOURCE is not established either: a source
-  tree WAS observed, so source access is not what is missing.
+  the repository root IS an admissible surface, and "whether upstream
+  designates this location as its source" is among the observations
+  the contract allows there. So a surface that could have carried a
+  designation was examined; it carried no designation signal. That
+  absence on this surface does not establish that upstream designates
+  no canonical source location -- the C017 boundary exactly.
+
+  E2REP-NO-SOURCE is independently unavailable: source-tree presence
+  was directly observed, so source access is not what is missing.
 ```
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
