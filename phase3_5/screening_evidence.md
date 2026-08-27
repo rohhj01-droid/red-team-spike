@@ -699,3 +699,64 @@ Inference: EN3 (mechanical membership) is satisfied by the plugin set, but EN4 i
 
 Only one route is required; neither is available. This verdict rests on surveying the surfaces where each fact would appear, not on the absence of a directory named "validators" -- that earlier reasoning was withdrawn as too weak (RETRACTION 2).
 Decision: FAIL (E4-NO-MECHANICAL-PRIMARY-UNIVERSE)
+
+## EV-C005-UR-01
+Candidate: C005 (frame rank 5, emulators/advancemame)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/advancemame/Makefile
+Observed: DISTNAME=advancemame-$V; HOMEPAGE=https://www.advancemame.it/; SITES=https://github.com/amadvance/advancemame/releases/download/v$V/; no GH_* or DIST_TUPLE fields.
+Inference: all fields name one packaged system, AdvanceMAME. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C005-E1-01
+Candidate: C005
+Gate: E1
+Source: same frozen metadata; https://raw.githubusercontent.com/amadvance/advancemame/master/README
+Observed: third-party authored emulator; the README describes AdvanceMAME/MESS as unofficial MAME/MESS versions. Unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C005-E2REP-01
+Candidate: C005
+Gate: E2-REP
+Surfaces named BEFORE investigation, as the places a SECOND designated source location would appear: the project's own /download page, and the SourceForge project hub the landing page exposes.
+Source: https://www.advancemame.it/ ; https://www.advancemame.it/download ; http://sourceforge.net/projects/advancemame/
+observed_at_utc: 2026-08-27T06:39:12Z (download), 06:39:57Z and 06:40:12Z x2 (SF hub)
+http_status: 200, 200, and 000 on three attempts for the hub; redirect_chain NONE
+evidence_role: official-project-page / official-source-location
+Observed: for the packaged system itself, /download designates
+https://github.com/amadvance/advancemame/releases/download/v5.0/advancemame-5.0.tar.gz -- the Releases area of the same repository the landing page links. The SourceForge prdownloads links on that page are for OTHER products of the same family (advancecab, advancecd, advancesnap, makebootfat), not for advancemame. The SourceForge project hub returned no HTTP answer on three recorded attempts, while sourceforge.net itself returned 200 and a cdn.openbsd.org control returned 200. Per the eliot precedent, no scheme variant of the exposed URL was constructed.
+Inference: /download is the surface on which this project designates where each of its products comes from, and it routes this system exclusively to one location. Releases are part of that repository rather than a separate location. The unreachable SourceForge hub is a family project hub which /download shows serving the family's OTHER products, so it is not a competing designation for this system -- the same distinction that makes the landing page's libdeflate and zopfli links dependencies rather than source locations. Exactly one canonical source location at a stable URL, with one external target identifier.
+Decision: PASS
+
+## EV-C005-E2RULE-01
+Candidate: C005
+Gate: E2-RULE
+Source: https://www.advancemame.it/doc-advmame (project-designated documentation, reached from the /doc index)
+observed_at_utc: 2026-08-27T06:41:24Z; http_status 200
+Observed: located witnesses, quoted -- (1) "For boolean options you don't need to specify the argument but you must use the -OPTION or -noOPTION format." (2) "To include more than one file you must divide the names with `;` in DOS and Windows, and with `:` in Linux and Mac OS X." (3) "The image must be a PNG file."
+Inference: each states a concrete validity requirement on an input: an option not in that form, a multi-file value with the wrong separator, or a non-PNG image is invalid. Externally authored and readable without inventing anything.
+Decision: PASS
+
+## EV-C005-E3-01
+Candidate: C005
+Gate: E3
+Source: same admitted surface, https://www.advancemame.it/doc-advmame
+observed_at_utc: 2026-08-27T06:41:24Z to 06:42:00Z
+Observed: located witness, quoted -- "-playback FILE Play back the previously recorded game inputs in the specified file", together with "Note that the `emulation` mode may result in wrong input recording using the `-record` or `-playback` command line option due to incorrect behavior of the emulation."
+Inference: whether a playback is correct is not decidable from any snapshot. It depends on the recorded input sequence and on the emulation behaving identically during the later run, and the documentation names a configuration under which the recorded artifact is not faithful. That is a validity question about state evolving over time, which is what E3 asks for. Positive gate: one located witness ends the survey.
+Decision: PASS
+
+## EV-C005-E4-01
+Candidate: C005
+Gate: E4
+Surfaces named BEFORE investigation -- normative: the landing page, the /doc index, doc-advmame, and the repository README. Enforced: the repository source tree and its declared units.
+Source: https://www.advancemame.it/ ; /doc ; /doc-advmame ; https://raw.githubusercontent.com/amadvance/advancemame/master/README ; https://github.com/amadvance/advancemame (tree, advance/, advance/lib/)
+observed_at_utc: 2026-08-27T06:42:39Z to 06:43:21Z; http_status 200 throughout
+
+Observed, normative route: neither the landing page nor the /doc index carries designating language. doc-advmame contains "specification" seven times and every occurrence examined refers to a configuration VALUE format -- "Multi directory specification for the ... files", "advj is used for joystick[] ... specifications" -- not to the document's own status. The README designates the official SITE, stating that the official site of AdvanceMAME/MESS is http://www.advancemame.it/, but designates no document as authoritative for rules. The documentation is numbered per configuration option (8.2.1 config, 8.4.11 display_restore, and so on), so it is mechanically segmented, but that segmentation enumerates OPTIONS while the validity requirements sit inside each option's prose, including all three E2-RULE witnesses.
+
+Observed, enforced route: the repository's top-level units are build and platform configuration plus advance/, doc/, mess/, raspberry/. Within advance/ the units are functional modules (blit, blue, card, cfg, d2, dos, emu, expat, i, j, k, lib and others). advance/lib contains conf.c, conf.h and config.hin -- a configuration implementation, not a declared mechanism. Nothing in the project declares an enumerable set as carrying its validity or eligibility rules.
+
+Inference: neither route yields a mechanically constructible property-level universe. U_normative fails twice over: no source is designated authoritative, and even the well-segmented option documentation would require hand-picking which option descriptions carry a requirement, which E4 excludes in as many words. U_enforced fails EN2, EN4 and EN5 -- conf.c is an implementation file with no declared scope, no project-stated connection to validation or eligibility, and no externally declared closure. Only one route is required and neither is available.
+Decision: FAIL (E4-NO-MECHANICAL-PRIMARY-UNIVERSE)
