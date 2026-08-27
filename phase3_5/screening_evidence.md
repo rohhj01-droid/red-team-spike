@@ -2718,3 +2718,107 @@ Inference: E4 PASS requires a positive construction -- an EN1-EN6 mechanism, or 
 The normative route was not pursued: the landing page designates the wiki as documentation, not as an authoritative source for the project's rules, and Section 3.1 admits only explicit designation. No claim is made that no such designation exists anywhere.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## EV-C023-UR-01
+Candidate: C023 (frame rank 23, games/alephone/weland)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/alephone/weland/Makefile
+Observed: HOMEPAGE=https://sourceforge.net/projects/weland/; SITES=${SITE_SOURCEFORGE:=weland/}; DISTNAME=weland-r211-src; PKGNAME=weland-211; COMMENT="marathon / alephone map editor".
+Inference: every field names one packaged system, Weland. "marathon / alephone" names what it edits, not further packaged systems. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C023-E1-01
+Candidate: C023
+Gate: E1
+Source: same frozen metadata; https://github.com/treellama/weland
+observed_at_utc: 2026-08-27T13:36:05Z; http_status 200
+Observed: a third-party map editor, "a Marathon map editor by Gregory Smith, written in C#", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C023-E2REP-01
+Candidate: C023
+Gate: E2-REP
+
+Step 1: https://sourceforge.net/projects/weland/ -- the frozen HOMEPAGE, which is a SourceForge project page.
+observed_at_utc: 2026-08-27T13:35:21Z-13:35:22Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed: the page is headed "Weland / Brought to you by: treellama", carries "Last Update: 2015-04-12", and states directly beneath the title: **"As of 2015-12-05, this project can be found here."** -- where "here" links to http://github.com/treellama/weland. The page also still exposes SourceForge's own project furniture: Code (/p/weland/code/), Browse Code, Tickets, Bugs, Feature Requests, and a Files/download area, which is what the frozen SITES fetches from.
+
+This is NOT the C007 shape. There the hub was reached one hop FROM the landing page, and the two designations were read off the hub. Here the hub IS the landing page named by the frozen HOMEPAGE, so it is step 1 and readable in full.
+
+Step 2: the relocation notice's link. Its label is "here", and the reading is the one established at C009 and C022 -- step 2 classifies a link by what it LEADS TO, and this destination is a repository root. QA-25 is satisfied in its strong form: the destination is the location itself, not a page of instructions.
+
+Step 3: https://github.com/treellama/weland
+requested_url: http://github.com/treellama/weland ; final_url: https://github.com/treellama/weland
+observed_at_utc: 2026-08-27T13:36:05Z; http_status 200; redirect_chain: 1 redirect, http -> https
+evidence_role: official-source-location
+Observed: repository name weland, owner login treellama -- matching the SourceForge page's "Brought to you by: treellama" -- default branch master, isFork false, isMirror false, isArchived false, isTemplate false, no website field, and a source tree present at the root: Weland.cs, Editor.cs, Wadfile.cs, Geometry.cs, Drawer.cs, Settings.cs, Plugins.cs, BinaryReaderBE.cs, CrcStream.cs, Makefile, common.rsp, and directories Plugins, glade, gtk-sharp.
+
+Inference: exactly one currently designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Weland).
+
+On why the SourceForge Code and Files areas are not counted as competing designations: upstream ranks them itself. "As of 2015-12-05, this project can be found here" is a dated relocation statement by the project on its own page, and the page's own Last Update, 2015-04-12, precedes it. This is the same move as C015's, where upstream's "build against GIT, not CVS!" removed CVS from contention -- a primary marked by upstream rather than supplied by us.
+
+Recorded because it is the weakest link in this chain and should be visible: the notice says where the PROJECT can be found, not in so many words "this is our source". What makes it a source-location designation here is that the location it names is a repository holding the source tree, observed at step 3. No separate "this is our source code" wording exists on the permitted surfaces.
+
+Decision: PASS
+
+## EV-C023-E2RULE-01
+Candidate: C023
+Gate: E2-RULE
+Source: https://raw.githubusercontent.com/treellama/weland/master/Wadfile.cs
+observed_at_utc: 2026-08-27T13:36:49Z; http_status 200
+
+Observed: located witness, at Wadfile.cs:222-223, where the project states the requirement and its consequence in one place:
+
+```text
+if (Version < 2 || entryHeaderSize != 16 || directoryEntryBaseSize != 10) {
+    throw new BadMapException("Only Marathon 2 and higher maps are supported");
+}
+```
+
+Inference: this determines concrete validity requirements on an input artifact without our inventing them -- a map file is loadable only if its version is at least 2, its entry header size is exactly 16, and its directory entry base size is exactly 10. The message names the rule in the project's own words, and the exception type is BadMapException. This is a data-artifact requirement, not a build-environment one; the README's separate "Mono 2.10 or higher" and "Aleph One 1.4 or higher" statements are of the weaker C014 kind and are not what this verdict rests on.
+Decision: PASS
+
+## EV-C023-E3-01
+Candidate: C023
+Gate: E3
+Source: https://raw.githubusercontent.com/treellama/weland/master/README.md, "Visual Mode" section
+observed_at_utc: 2026-08-27T13:36:33Z; http_status 200
+
+Observed: located witness -- a numbered procedure whose later steps depend on earlier ones having been performed in a separate session. "In Weland's preferences, choose a shapes file, the scenario you want to use, and a copy of Aleph One 1.4 or higher." Then "Press 'Edit Preferences' in the Visual Mode section... Aleph One will start up--configure it with the window size you want... Quit Aleph One." Only then: "When you want to texture a map, choose Visual Mode from the View menu. Make any changes to the map, and quit Aleph One. Texture changes will automatically be imported back into Weland."
+
+Inference: whether a Visual Mode texturing session behaves as documented is conditioned on configuration performed earlier and elsewhere -- in Weland's preferences and in a prior Aleph One launch -- and the texture changes transfer only on quitting the other program. That is an ordering prerequisite of the same shape as C008's partition-before-format and C009's save-state-before-session witnesses, and E3's admission condition is deliberately weak: it asks only that a stateful/temporal validity question be exposed and examinable.
+
+Stated at its actual strength: this is a documented ordering prerequisite, not a claim that anything is undeterminable from a map file. Positive gate: one located witness ends the survey.
+Decision: PASS
+
+## EV-C023-E4-01
+Candidate: C023
+Gate: E4
+
+Positive construction exhibited, via U_enforced. Observations are at the primary snapshot: master resolves to ca7ed57956034b25af1137378027b5ad6e7c15f0, committed 2025-09-06T00:34:34Z, before the enumeration execution timestamp.
+
+Source: https://raw.githubusercontent.com/treellama/weland/master/Plugins.cs
+observed_at_utc: 2026-08-27T13:37:17Z-13:38:09Z; http_status 200
+
+The mechanism: the plugin enumerator in Plugins.cs. It is worth noting at the outset that this is a DIFFERENT idiom from the four static-table constructions the run has seen -- it is runtime reflection over a declared directory convention, which EN3 names in its own examples alongside registries.
+
+EN1 external authorship: the editor and this loader existed independently of this analysis; the snapshot predates it.
+
+EN2 explicit scope: the project states the admission rule in its own comment immediately above the loop -- "// needs to have at least name and run or gtkrun". The class is Plugins, its entries are PluginInfo, and the collection is exposed through Length and GetName(int).
+
+EN3 mechanical membership: membership is decided by reflection, with no semantic reading of individual plugins. The loader collects "*.dll" from three declared Plugins directories -- beside the executable, one level above it, and under applicationData -- then walks a.GetTypes() for each assembly. This is EN3's "all implementations of a declared interface" and "all items in an externally declared closed directory convention" at once.
+
+EN4 enforcement meaning: admission is executed by the project, condition by condition. A type without a static Compatible() returning true is skipped -- "if (compatibleMethod == null || !compatibleMethod.IsStatic || !((bool) compatibleMethod.Invoke(...))) { continue; }". A type without a static Name() is skipped. Run and GtkRun are nulled unless static, and the type is admitted only "if (plugin.Run != null || plugin.GtkRun != null)". Nothing here is inferred from a name.
+
+EN5 closed within scope: the set is constructed at runtime by the loader's own traversal and admission test, and the resulting plugins list IS the membership. That is Section 3.2's first admissible case -- runtime construction closes the set. Tag: enforced.
+
+EN6 outcome independence: membership is the set of admissible plugins. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible: enumerate the types under the declared Plugins directories that satisfy all four admission conditions, and emit, per entry, the plugin's declared Name and which entry points it provides.
+
+Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Weland designates an authoritative rules source.
+
+**Gate-order note, recorded as a deviation rather than left implicit.** Plugins.cs was read for E4 before E3 had been settled. The sealed order is E2-RULE -> E3 -> E4, and the reason it matters is that had E3 come out UNRESOLVED, this material would have been post-stop exposure and unusable. E3 was then settled on its own merits from the README, which had been read at E2-RULE time and before any E4 material. The deviation is milder than QA-21's -- no gate was left undetermined while reading on -- but it is the same habit, and it is logged here so the sequence is auditable.
+
+Decision: PASS
