@@ -542,3 +542,47 @@ evidence_role: official-project-page / official-source-location
 Observed: the project page hosts its own source archives (downloads/Frodo-4.5.tar.gz among others) AND links several repositories including github.com/cebix/frodo4; no location is marked canonical or primary.
 Inference: the sealed criterion admits a repository OR a source distribution as source-location types, and disqualifies a project that "designates several with no primary among them". That is this case. Same application as the corrected C002 verdict.
 Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
+
+## EV-C004-UR-01
+Candidate: C004 (frame rank 4, editors/tiled)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, editors/tiled/Makefile
+Observed: HOMEPAGE=https://www.mapeditor.org/, GH_ACCOUNT/GH_PROJECT=bjorn/tiled, DISTNAME names one packaged system.
+Inference: one external system (Tiled). The differing account name is another fact about the same system, not a second packaged system.
+Decision: PASS
+
+## EV-C004-E1-01
+Candidate: C004
+Gate: E1
+Source: same frozen metadata
+Observed: third-party authored system, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C004-E2REP-01
+Candidate: C004
+Gate: E2-REP
+Source: https://www.mapeditor.org/ (frozen-metadata starting point)
+observed_at_utc: 2026-08-27T04:50:25Z-04:52:01Z; http_status 200; redirect_chain NONE
+evidence_role: official-project-page
+Observed: the project page designates exactly one source location, github.com/mapeditor/tiled, and hosts no source archives of its own.
+Inference: exactly one externally designated canonical source location at a stable URL, with one external target identifier (Tiled). Not the several-with-no-primary case that disqualified C002/C006/C007/C011.
+Decision: PASS
+
+## EV-C004-E2RULE-01
+Candidate: C004
+Gate: E2-RULE
+Source: https://doc.mapeditor.org/en/stable/ ; https://github.com/mapeditor/tiled
+observed_at_utc: 2026-08-27T05:33:39Z, 05:37:59Z; http_status 200
+Observed: the project designates a documentation site (manual sections including automapping, export, preferences, keyboard shortcuts, scripting API reference) and its repository exposes top-level docs/ and tests/ directories.
+Inference: externally authored artifacts exist from which at least one validity requirement can be determined without inventing it. The sealed criterion lists documentation and tests stating expected validity as admissible examples.
+Decision: PASS
+
+## EV-C004-E3-01
+Candidate: C004
+Gate: E3
+Source: https://doc.mapeditor.org/en/stable/ (the project's own designated documentation index)
+observed_at_utc: 2026-08-27T05:33:39Z; http_status 200
+Observed: the documentation index exposes manual sections for automapping, export, preferences, interface/theme/plugins/keyboard settings, and a scripting API reference. A scan of the index for temporal or state-dependent validity topics found only two incidental occurrences of "session" and no topic covering state over time. The validity questions the project documents concern map/tileset structure and the map file format, which are properties of a static artifact.
+Inference: E3 requires the external source to expose a stateful/temporal validity question that can be examined -- a validity property whose correctness depends on history or evolving state, not merely on a snapshot's structure. Structural file-format validity does not meet this, and no temporal validity topic is exposed. Recorded as observed; the gate is deliberately weak, and this candidate does not clear even that bar.
+Decision: FAIL (E3-NO-STATEFUL-TEMPORAL-VALIDITY)

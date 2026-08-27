@@ -182,3 +182,35 @@ than the original deviation. Screening resumes at rank 4 in frozen
 order, and a rank already sealed is passed over as such rather than
 re-examined. Batch boundaries from here are contiguous rank ranges
 only, never groupings by outcome type.
+
+## QA-07 — measuring the wrong surface again, at E3 (caught, verdicts withheld)
+
+While determining E3 for ranks 5, 8, 10 and 12, the check that was run
+grepped **GitHub directory-listing pages and a wiki index**, not the
+documentation those pages point at. The counts it produced (`timing` 2,
+`sync` 1, and similar) are as likely to come from file names or site
+chrome as from any documented validity requirement.
+
+This is QA-04's failure repeating one gate later: an instrument aimed at
+a surface that cannot carry the fact being asked about. It was caught
+before any verdict was issued, and **no E3 verdict for ranks 5, 8, 10 or
+12 was recorded from it**.
+
+Where a real documentation surface was read, the signal is
+qualitatively different and was used:
+
+```text
+mednafen  /documentation/   save states 21, netplay 28, movie 19,
+                            rewind 7   -> temporal validity documented
+fceux     documentation.html  movie 5  -> temporal validity documented
+tiled     doc.mapeditor.org index      -> automapping, export,
+                            preferences, scripting API; "session" 2;
+                            no temporal validity topic
+```
+
+**Consequence for cost.** E3 and E4 cannot be settled from repository
+structure or index pages. Each remaining candidate that reaches them
+requires reading the project's actual designated documentation, which
+is substantially more expensive per item than UR, E1, E2-REP or
+E2-RULE were. Ranks 5, 8, 10 and 12 remain in flight at E3 for this
+reason, not because the gate is ambiguous.
