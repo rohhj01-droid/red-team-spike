@@ -1584,3 +1584,77 @@ each.
 A URL in the metadata does not become inadmissible because the landing
 page happens to reach the same place through a label the whitelist
 omits.
+
+## QA-28 — the distribution snapshot branch needs a dating bound, and C029 had none
+
+C029 exposed a gap in how this run has been resolving `primary_snapshot`
+for distribution candidates, and it is a firewall gap rather than a
+bookkeeping one.
+
+The sealed rule fixes which bytes get analysed BEFORE anything
+downstream is read:
+
+```text
+distribution candidate
+  the externally designated canonical artifact at the ENUMERATION
+  EXECUTION TIMESTAMP, recorded by content hash
+```
+
+Screening observation happens later, on a separate time axis the
+protocol insists must not merge with it. So resolving the snapshot needs
+something that bounds the designation backwards to the enumeration
+instant. Observing today's designation does not do that.
+
+**What each distribution survivor actually had.**
+
+```text
+C013 mednafen
+  landing page presents releases as a DATED News list, newest first
+  top entry: "Mednafen 1.32.1, April 5, 2024", SHA-256 published
+  -> newest entry predates the enumeration timestamp by over two
+     years, and nothing newer exists on the page, so the designation
+     could not have changed in between. Snapshot established.
+
+C029 angband
+  landing page presents "Download version 4.2.6" with NO date, and no
+  dated release list on the permitted surface
+  -> no bound available. And the frozen port packages 4.2.5, so a
+     designation change did occur at some unbounded point.
+     Snapshot NOT established.
+```
+
+**Why this could not be patched.** Two repairs suggest themselves and
+both change the sealed rule. Taking 4.2.5 because the port packages it
+substitutes OpenBSD's packaging metadata for upstream designation, which
+E2-REP forbids outright. Assuming 4.2.6 was already current a day
+earlier assumes precisely what is unestablished. The /release page might
+carry dates, but "Releases" is not among the contract's four step-2
+labels -- and reaching for it after finding the landing page
+insufficient is the widening QA-17 settled.
+
+**Consequences for C029.** The Primary snapshot requirement sits inside
+the sealed spec's E2-REP section, so an unresolvable snapshot is an
+E2-REP-section failure: E2-REP is the stop gate, and E2-RULE, E3 and E4
+are quarantined as post-stop exposure. That last part is the point worth
+sitting with -- those three were determined by reading inside the 4.2.6
+tarball, and the methodology binds downstream work to the frozen
+snapshot. Verdicts read out of bytes that were never established as the
+selected ones cannot stand, however sound the reading was.
+
+`primary_snapshot` is also not one of the three fields
+`PENDING_INVENTORY` covers. It is meant to be mechanically resolved by
+the sealed rule, not deferred, which is why "flag it as a caveat for the
+inventory stage" was the wrong disposition.
+
+**What this case actually tested.** Phase 3.5's central firewall is that
+which bytes get analysed is fixed before their contents are seen. C029
+is the first candidate where that ordering was violated in the direction
+that matters: the artifact was chosen by looking, then interesting E3
+and E4 findings were read out of it. The findings are not why it was
+withdrawn -- they would have been withdrawn identically had they been
+dull.
+
+**Rule carried forward.** For a distribution candidate, record what
+bounds the designation back to the enumeration execution timestamp
+before recording a snapshot hash. A dated release entry on a permitted
+surface does it. "This is what is designated today" does not.

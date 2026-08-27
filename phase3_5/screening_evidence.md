@@ -3504,3 +3504,115 @@ retained as externally segmented fields, per observation
 Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Angband designates an authoritative rules source.
 
 Decision: PASS
+
+## RETRACTION 14 — C029 E2-REP withdrawn; a navigation breach, and a snapshot that was never established
+
+EV-C029-E2REP-01 is **quarantined**, and with it EV-C029-E2RULE-01,
+EV-C029-E3-01 and EV-C029-E4-01 as post-stop exposure. Nothing is
+deleted. The observations were accurately made; the constants.txt rule,
+the savefile witness and the pl[] registry are all really there.
+
+**Breach: /develop was not an authorized step 2.** The landing page's
+link label is "About". The contract admits "a Source / Code / Repository
+/ Development link that page explicitly exposes", and an href that
+happens to read /develop does not turn an About link into a Development
+link. The withdrawn entry justified opening it as the place "where a
+repository designation would sit" -- which is the search discretion the
+whitelist exists to remove, and the same move withdrawn at C014.
+Uniqueness has to close inside the sealed surfaces, not wherever a
+second location might plausibly live.
+
+**The larger failure: the primary snapshot was never established.** The
+sealed rule for a distribution candidate is not "the artifact designated
+now". It is:
+
+```text
+the externally designated canonical artifact at the ENUMERATION
+EXECUTION TIMESTAMP -- 2026-08-26T19:23:05Z -- recorded by content hash
+```
+
+and the protocol keeps that time axis separate from screening
+observation time in as many words. The withdrawn entry observed 4.2.6 on
+2026-08-27, noted in its own text that nothing established which version
+was designated at the enumeration instant, and then wrote that day's
+hash into `primary_snapshot` regardless, calling the gap a caveat for
+the inventory stage.
+
+It is not a caveat. `primary_snapshot` is not one of the three fields
+`PENDING_INVENTORY` covers; the sealed rule is supposed to resolve it
+mechanically, before anything downstream is read. Recording an
+observation-time artifact there substitutes a different rule for the
+sealed one.
+
+**And it propagates.** E2-RULE, E3 and E4 were all determined by reading
+inside the 4.2.6 tarball. The methodology binds downstream work to the
+frozen primary snapshot, so those three verdicts rest on bytes that were
+never established as the ones the rule selects. They are quarantined
+rather than repaired: choosing 4.2.5 because the port packages it would
+substitute packaging metadata for the sealed rule, and assuming 4.2.6
+was current a day earlier would assume exactly what is unestablished.
+
+**Where this stops the candidate.** The Primary snapshot requirement
+sits inside the sealed spec's E2-REP section, so an unresolvable
+snapshot is an E2-REP-section failure and E2-REP is the stop gate.
+
+## EV-C029-E2REP-02  (supersedes the quarantined EV-C029-E2REP-01)
+Candidate: C029 (frame rank 29, games/angband)
+Gate: E2-REP
+
+Step 1: the frozen HOMEPAGE.
+requested_url: http://rephial.org ; final_url: https://rephial.org/
+observed_at_utc: 2026-08-27T15:22:48Z-15:22:49Z; http_status 200; redirect_chain: 1 redirect, http -> https
+Observed: the page exposes a link labelled "Source code" whose destination is https://github.com/angband/angband/releases/download/4.2.6/Angband-4.2.6.tar.gz, beside Windows and macOS binary links for the same version. Its navigation reads About, Releases, Docs, Forum. It carries no date for the release it presents.
+
+Retrieval of that artifact, kept as an observation of the present designation only:
+observed_at_utc: 2026-08-27T15:23:56Z; http_status 200; 25932904 bytes; sha256 8c0ffa2b85d74bd0cc273752f61c0440dba93323cd790be460f90c8dced7cbf4. Listing names only: 1181 entries, src/ with borg, cocoa, sdl2, win, nds, tests, stats.
+
+```text
+established at screening time
+  upstream designates a source distribution, labelled "Source code",
+  at a stable URL, and that artifact holds a source tree.
+
+NOT established
+  which artifact was the externally designated canonical artifact at
+  the enumeration execution timestamp. The landing page dates neither
+  the release it presents nor its predecessors, and the frozen port
+  packages a different version, 4.2.5 -- so a designation change
+  occurred at some unbounded point. Nothing observed places 4.2.6's
+  designation before or after 2026-08-26T19:23:05Z.
+
+  uniqueness. The withdrawn entry closed this by opening /develop,
+  which was not an authorized surface; that observation is
+  quarantined, and no admissible replacement was obtained.
+```
+
+Frozen SITES, accounted for per QA-27 rather than silently dropped: `${SITES}` resolves to https://github.com/angband/angband/releases/download/4.2.5/. It is an admitted starting point and was NOT observed. The reason is necessity rather than convenience: the snapshot ground above is independently decisive and is not curable by anything at that path -- it is a 4.2.5 release path, and OpenBSD metadata cannot establish upstream designation in any case. Under QA-24's narrowed test, admitted alone creates no obligation where the verdict does not turn on it.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## AUDIT NOTE — C013's primary snapshot, record-only
+
+Audited on the same rule, using only what EV-C013-E2REP-01 already
+records. No new upstream access.
+
+C013's snapshot survives, and for a reason the entry observed but did
+not spell out. The mednafen landing page presents its releases as a
+dated News list, newest first, and the top entry reads "Mednafen 1.32.1,
+April 5, 2024" with the SHA-256 published beside the artifact.
+
+```text
+newest dated release entry on the page   2024-04-05
+enumeration execution timestamp          2026-08-26T19:23:05Z
+observation of the page                  2026-08-27T09:01:57Z
+```
+
+Because the newest entry is dated more than two years before the
+enumeration timestamp, and no entry newer than it exists on the page,
+the designated artifact did not change between that timestamp and
+observation. 1.32.1 was therefore the designated canonical artifact at
+the enumeration instant, and the hash recorded is the right one. The
+argument is mechanical and rests on the page's own dating.
+
+The difference from C029 is exactly that dating. rephial.org presents
+"Download version 4.2.6" with no date on the artifact it designates, so
+no equivalent bound is available there.
