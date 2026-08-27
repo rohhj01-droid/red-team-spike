@@ -1074,3 +1074,92 @@ One accuracy note, recorded so the entry is not read as claiming more than was s
 Normative route, for completeness: unavailable, and by rule rather than by absence. The only documentation source upstream designates is TheArcadeStriker's flycast wiki, which is third-party. Section 3.1 removed the third-party escape hatch outright -- such material "may be used as supporting evidence during analysis, but never as primary-universe membership". No claim is made here about whether some other designation exists; only one route is required, and U_enforced supplies it.
 
 Decision: PASS
+
+## EV-C012-UR-01
+Candidate: C012 (frame rank 12, emulators/libchdr)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/libchdr/Makefile
+Observed: GH_ACCOUNT=rtissera; GH_PROJECT=libchdr; GH_COMMIT=07a7dad23378b001f4ab174ef51bd6553f883edd; HOMEPAGE=https://github.com/rtissera/libchdr; DISTNAME=libchdr-$V; COMMENT="library for reading MAME's CHDv1-v5 formats".
+Inference: every field names one packaged system, libchdr. The reference to MAME names the format the library reads, not a second packaged system. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C012-E1-01
+Candidate: C012
+Gate: E1
+Source: same frozen metadata; https://raw.githubusercontent.com/rtissera/libchdr/master/README.md
+observed_at_utc: 2026-08-27T08:14:55Z; http_status 200
+Observed: a third-party library authored by rtissera, "based off of MAME's old C codebase", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C012-E2REP-01
+Candidate: C012
+Gate: E2-REP
+
+Surfaces: the upstream landing page named by the frozen metadata's HOMEPAGE, which is itself the repository root at https://github.com/rtissera/libchdr. As with C010 this is simultaneously navigation step 1 and step 3, so no further navigation is available or needed.
+Necessary because: E2-REP asks whether upstream designates EXACTLY ONE canonical source location at a stable URL. That is a question about upstream's designation, and every URL and identifier in the frozen metadata resolves to this one location -- the port carries no SITES at all, fetching through GH_ACCOUNT/GH_PROJECT/GH_COMMIT, so there is no packager-side distfile host to consider as there was for C010.
+
+Source: https://github.com/rtissera/libchdr
+observed_at_utc: 2026-08-27T08:14:43Z-08:14:44Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-project-page / official-source-location
+
+Observed: repository rtissera/libchdr, default branch master, isFork false, isArchived false, isTemplate false, no mirror or primary/secondary marking, no repository website field. A source tree is present at the root: directories .github, cmake, contrib/tangcore-bl616, deps, include, src, tests and files CHANGELOG.md, CMakeLists.txt, LICENSE.txt, README.md, pkg-config.pc.in, unity.c. The page exposes no outbound links to any non-GitHub host.
+
+Inference: exactly one canonical source location, at a stable URL, designated by upstream as its own repository, actually holding a source tree, with one external target identifier (libchdr). No competing designation is exposed, and none could be: the page links nowhere else.
+
+Incidental exposure logged (not used to pre-judge later gates): the repository page renders README.md automatically.
+
+Decision: PASS
+
+## EV-C012-E2RULE-01
+Candidate: C012
+Gate: E2-RULE
+Source: https://raw.githubusercontent.com/rtissera/libchdr/master/include/libchdr/chd.h, the library's own public header
+observed_at_utc: 2026-08-27T08:15:18Z; http_status 200
+
+Observed: located witness, quoted from the file's format block -- "Compressed Hunks of Data header format. All numbers are stored in Motorola (big-endian) byte ordering. The header is 76 (V1) or 80 (V2) bytes long." The block then gives each version's layout field by field, beginning in every case with "[  0] char   tag[8];        // 'MComprHD'". The constants section states the same requirement numerically: CHD_V1_HEADER_SIZE 76, CHD_V2_HEADER_SIZE 80, CHD_V3_HEADER_SIZE 120, CHD_V4_HEADER_SIZE 108, CHD_V5_HEADER_SIZE 124.
+
+Inference: this determines concrete validity requirements on an input artifact without our inventing them -- a valid CHD file begins with the eight bytes 'MComprHD', stores its numbers big-endian, and carries a header whose length is fixed by its version. The evidence is content stating what makes a file valid, not the mere existence of a header or a tests directory; that distinction is what QA-08 was about.
+Decision: PASS
+
+## EV-C012-E3-01
+Candidate: C012
+Gate: E3
+Source: same header, chd.h
+observed_at_utc: 2026-08-27T08:15:18Z; http_status 200
+
+Observed: located witness. The format declares a parent relationship in the file itself -- V1-V3 carry "[ 60] uint8_t  parentmd5[16]; // MD5 checksum of parent file", V3-V5 add "parentsha1[20]// combined raw+meta SHA1 of parent", the V4 flag block reads "0x00000001 - set if this drive has a parent", and V5 states the rule outright: "If parentsha1 != 0, we have a parent (no need for flags)". The public API takes the parent as an already-opened handle rather than a path: "CHD_EXPORT chd_error chd_open(const char *filename, int mode, chd_file *parent, chd_file **chd);". The error vocabulary names both failure modes, CHDERR_REQUIRES_PARENT and CHDERR_INVALID_PARENT.
+
+Inference: whether a given CHD can be opened is not decidable from that file alone. A child file declares a specific parent by checksum, and opening it requires that the correct parent was opened first -- an ordering prerequisite, the same shape as C008's partition-before-format witness and C010's save-state-before-session witness. That is a stateful/temporal validity question that can be examined, which is all E3 requires. Positive gate: one located witness ends the survey.
+Decision: PASS
+
+## EV-C012-E4-01
+Candidate: C012
+Gate: E4
+
+Positive construction exhibited, via U_enforced. All observations are at the primary snapshot: master had not moved since 2026-08-25T14:53:07Z, so raw reads of master on 2026-08-27 resolve to commit 970a0ce060c0aa1012b1eebba1433c9a9e8ac8b9, the revision the snapshot rule fixes.
+
+Source: https://raw.githubusercontent.com/rtissera/libchdr/master/src/libchdr_chd.c ; .../include/libchdr/chd.h
+observed_at_utc: 2026-08-27T08:16:29Z-08:17:35Z; http_status 200 throughout
+
+The mechanism: the codec registry "static const codec_interface codec_interfaces[]", defined at src/libchdr_chd.c:405-556 under the file's own section banner "CODEC INTERFACES", and consumed by the open path at lines 1773-1783, 1808-1818 and 2529-2533.
+
+EN1 external authorship: the library and this table existed independently of this analysis; the README records the code as based off MAME's C codebase.
+
+EN2 explicit scope: the project identifies the domain in its own terms. The section banner reads CODEC INTERFACES; the element type is declared at chd.c:175-186 as "/* interface to a codec */" with fields "compression /* type of compression */", "compname /* name of the algorithm */" and "lossy /* is this a lossy algorithm? */". The domain is which compression types the library accepts. As with C010, this leg is carried by the project's declarations rather than by prose, and is recorded that way rather than stated more strongly.
+
+EN3 mechanical membership: membership is array membership in codec_interfaces[], decided by ARRAY_LENGTH. Fourteen entries: CHDCOMPRESSION_NONE, ZLIB, ZLIB_PLUS, AV, and CHD_CODEC_ZLIB, LZMA, HUFFMAN, FLAC, ZSTD, CD_ZLIB, CD_LZMA, CD_FLAC, CD_ZSTD, AVHUFF.
+
+EN4 enforcement meaning: the project itself makes table membership the acceptance condition for a file's declared compression. Under its own comment "/* find the codec interface */" the opener scans the table for an entry matching newchd->header.compression[0]; if the scan reaches the end -- "if (intfnum == ARRAY_LENGTH(codec_interfaces)) EARLY_EXIT(err = CHDERR_UNSUPPORTED_FORMAT);" (chd.c:1782-1783) -- the open fails. The same rule is applied per slot for V5's four compressor entries at 1805-1818, and chd_error_string renders the outcome as "unsupported format". This meaning is executed by the project's code, not inferred by us from a name.
+
+EN5 closed within scope: the loop bound is ARRAY_LENGTH(codec_interfaces), the enumerator's own extent, walked at runtime by the code that accepts or rejects the file. That is Section 3.2's first admissible case -- runtime construction closes the set. Tag: enforced.
+
+EN6 outcome independence: membership is the set of supported compression types. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible: enumerate codec_interfaces[] and emit, per entry, the compression tag a CHD may declare, its algorithm name and its lossy flag; the same file supplies the per-version header requirements the opener enforces alongside it.
+
+Recorded so the entry claims no more than was seen: this construction is thinner than C010's. Each entry yields an acceptance property for one declared compression type, where a Games[] entry yielded a whole required-file set. E4 asks whether the universe is externally delimited and mechanically constructible, not how rich it is, so both pass -- but the difference is real and is left visible here rather than smoothed over, since it is the inventory stage that will establish actual observation granularity.
+
+Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether libchdr designates an authoritative rules source.
+
+Decision: PASS
