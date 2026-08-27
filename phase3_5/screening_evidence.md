@@ -1496,3 +1496,126 @@ Worth recording, since it is the first time the two gates have met on one fact: 
 Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether FCEUX designates an authoritative rules source.
 
 Decision: PASS
+
+## EV-C013-UR-01
+Candidate: C013 (frame rank 13, emulators/mednafen)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, emulators/mednafen/Makefile
+Observed: HOMEPAGE=https://mednafen.github.io; VERSION=1.32.1; DISTNAME=mednafen-${VERSION}; SITES=${HOMEPAGE}/releases/files/; EXTRACT_SUFX=.tar.xz; COMMENT="emulates numerous game consoles". There is no GH_ACCOUNT/GH_PROJECT.
+Inference: every field names one packaged system, Mednafen. "numerous game consoles" describes what the one system emulates, not several packaged systems. Not UR-AMBIGUOUS.
+
+Note for E2-REP: SITES is expressed as ${HOMEPAGE}/releases/files/, i.e. it resolves inside the project's own domain. This is the opposite of C010, where SITES pointed at a host the port Makefile itself showed the OpenBSD maintainer uploading to.
+
+Rank-order note: this rank was skipped when screening ran 8 -> 10 -> 12 -> 14, and is screened now under QA-18. Coverage is recovered; the frozen order is not restored retroactively.
+Decision: PASS
+
+## EV-C013-E1-01
+Candidate: C013
+Gate: E1
+Source: same frozen metadata; https://mednafen.github.io
+observed_at_utc: 2026-08-27T09:01:57Z; http_status 200
+Observed: a third-party multi-system emulator, described by its own site as "a portable, utilizing OpenGL and SDL, argument(command-line)-driven multi-system emulator", distributed under GPLv2, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C013-E2REP-01
+Candidate: C013
+Gate: E2-REP
+
+This is the run's first DISTRIBUTION candidate rather than a repository candidate, which the criterion admits explicitly ("a repository or source distribution") and for which the snapshot rule has its own branch.
+
+Step 1: https://mednafen.github.io -- the frozen HOMEPAGE. No further navigation was needed or performed: the designation is on this page.
+observed_at_utc: 2026-08-27T09:01:57Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-project-page / official-source-location
+
+Observed: the page's News section presents the current release, "Mednafen 1.32.1, April 5, 2024", and exposes for it three artifacts under the project's own domain, each with a published hash:
+
+```text
+mednafen-1.32.1.tar.xz         SHA-256: de7eb94ab66212ae7758376524368a8ab208234b33796625ca630547dbc83832
+mednafen-1.32.1-win64.zip      SHA-256: 3b680ce6b50a17bcbb2ac611e38962ee469e399b412cc435ffacd6e7f6fb1982
+mednafen-1.32.1-win32.zip      SHA-256: ca8e5cb53c2aedb347ab0358a1be496cfc4a51fc2e444648fa430365289c82e7
+```
+
+all served from https://mednafen.github.io/releases/files/. Older releases appear further down the same News list, several marked UNSTABLE, all under that same directory. The page also states "Mednafen is distributed under the terms of the GNU GPLv2".
+
+Verification of the designated artifact, which is exactly this gate's "that a source tree is actually present" observation carried over to a distribution candidate:
+observed_at_utc: 2026-08-27T09:02:50Z; http_status 200; 3571236 bytes
+The retrieved artifact's SHA-256 matches the value upstream publishes beside the link, byte for byte. Listing its entries -- names only, no file contents read -- shows a source tree: top-level Documentation, include, intl, m4, mswin, po, src, tests, with src carrying per-system emulation modules (apple2, gb, gba, lynx, md, nes, ngp, pce, pcfx, psx, ss, snes, ...), 2028 entries in total.
+
+Inference: exactly one canonical source location, at a stable URL under the project's own domain, designated by upstream on its own landing page, actually holding a source tree, with one external target identifier (Mednafen). The .tar.xz is the source distribution; the two .zip artifacts are named as Windows builds and are not source. Older versions are a version history in one location, not competing designations -- "designates several with no primary among them" does not apply, since 1.32.1 is the current release entry and the rest are its predecessors in the same directory.
+
+Surfaces NOT opened, recorded so the restraint is visible: /releases/, /links/, the forum at forum.fobby.net, and /irc/. None is a Source/Code/Repository/Development link, and "releases" is named in the contract's forbidden list outright. Under QA-17 a criterion phrase may not be used to reach any of them, and none was needed: the designation and the artifact were both on step 1.
+
+Decision: PASS
+
+## EV-C013-E2RULE-01
+Candidate: C013
+Gate: E2-RULE
+
+Prior exposure: mednafen's /documentation/ was read during the voided QA-07 batch. Use: not used as a gate shortcut and not used to choose which surfaces to name; this gate is adjudicated from the start under the current protocol, and the page below was reached from the landing page's own Documentation link.
+
+Source: https://mednafen.github.io/documentation/
+observed_at_utc: 2026-08-27T09:03:48Z; http_status 200
+
+Observed: located witness, in the Custom Palettes section -- "Custom palettes for a system should generally(with caveats; refer to the table near the end of this section) be named <system>.pal, IE "snes.pal", "pce.pal", etc., and placed in the "palettes" directory beneath the Mednafen base directory. Per-game custom palettes are also supported, and should be named as <FileBase>.pal or <FileBase>.<MD5 Hash>.pal ... Each entry in a custom palette file consists of 3 8-bit color components; Red, Green, Blue, in that order." The section's table then states the exact size required per system, among them "gb gb.pal GameBoy(mono) 4 or 8 or 12 RGB triplets", "gbc.pal GameBoy Color 15-bit BGR 32768 RGB triplets", "gg gg.pal GG 12-bit BGR 4096 RGB triplets", "nes nes-pal.pal PAL NES 64 or 512 RGB triplets".
+
+Inference: these determine concrete validity requirements on an input artifact without our inventing them -- a GameBoy Color palette file is valid only if it contains 32768 RGB triplets, a Game Gear one 4096, and the entry encoding is fixed at three 8-bit components in a stated order. Naming is constrained as well. This is the most precise E2-RULE witness in the run so far: the requirement is numeric and per-system, not a prose recommendation.
+Decision: PASS
+
+## EV-C013-E3-01
+Candidate: C013
+Gate: E3
+Source: same documentation, Multiple-CD Games section
+observed_at_utc: 2026-08-27T09:03:48Z; http_status 200
+
+Observed: located witness, quoted -- "Caution: Avoid using Mednafen's M3U-based multi-CD support to load discs belonging to different games and switching between games during emulation, especially when using Sega Saturn emulation, as that may interfere with the Saturn module's heavy use of internal databases." The same section establishes that disc switching is a normal in-session operation: "Load the M3U file with Mednafen instead of the CUE/TOC/CCD files, and use the F6 and F8 keys to switch among the various discs available."
+
+Inference: the F6/F8 disc switch is one action whose acceptability depends on what was loaded earlier in the same emulation session. Switching among discs of one game is the documented intended use; switching to a disc of a different game, after the module has built internal state from the first, is warned against for that reason. Whether the operation is safe is therefore conditioned on session history rather than on the disc being switched to. That is a stateful/temporal validity question that can be examined, which is what E3 requires.
+
+No stronger claim is made about what is or is not determinable from any artifact alone. Positive gate: one located witness ends the survey.
+Decision: PASS
+
+## EV-C013-E4-01
+Candidate: C013
+Gate: E4
+
+Positive construction exhibited, via U_enforced. All observations are made in the primary snapshot itself: this is a distribution candidate, so the snapshot is the designated canonical artifact by content hash, sha256:de7eb94ab66212ae7758376524368a8ab208234b33796625ca630547dbc83832, verified against the value upstream publishes. The paths below are paths inside that verified artifact, which removes the usual gap between "the revision the rule fixes" and "the bytes actually read".
+
+observed_at_utc: 2026-08-27T09:02:50Z (artifact retrieved and verified), 09:04:00Z-09:06:00Z (entries listed and files read)
+
+The mechanism: the settings registry. Each setting is declared as an MDFNSetting (src/settings-common.h:104-118) carrying its own validity constraints:
+
+```text
+name              description        type
+default_value     minimum            maximum
+validate_func     enum_list          ChangeNotification
+```
+
+EN1 external authorship: the emulator and this machinery existed independently of this analysis; the artifact is dated April 2024.
+
+EN2 explicit scope: the project identifies the domain in its own words, in the comment on the type itself -- "MDFNST_ENUM, // Handled like a string, but validated against the enumeration list, and MDFN_GetSettingUI() returns the number in the enumeration list." (src/settings-common.h:43). The declaration fields are named minimum, maximum, validate_func and enum_list. What the registry enumerates is which settings exist and what values each accepts.
+
+EN3 mechanical membership: membership is array membership in sentinel-terminated MDFNSetting tables. SettingsManager::Merge walks "while(setting->name != nullptr) { MergeSettingSub(*setting); setting++; }" (src/settings.cpp:603-612). 828 declared entries were counted across src and include by their literal form.
+
+EN4 enforcement meaning: the project connects the declaration to validation and executes the rejection. ValidateSetting (src/settings.cpp:130) throws MDFN_Error against the declared bounds and lists, in the project's own message text:
+
+```text
+"Setting "%s" value "%s" is too small; the minimum acceptable value is "%s"."
+"Setting "%s" value "%s" is too large; the maximum acceptable value is "%s"."
+"Setting "%s" value "%s" is not a valid boolean."
+"Setting "%s" value "%s" is not a recognized string.  Recognized strings: %s"
+```
+
+The enum branch walks the setting's own enum_list to its null terminator and throws if no member matches (src/settings.cpp:250-273). This meaning is executed by the project's code, not inferred by us from a name.
+
+EN5 closed within scope, and this is the strongest closure the run has seen. Registration is not merely bounded by a loop -- the project performs an explicit closing operation. At startup the core merges its own tables and then every registered module's, "Settings.Merge(MednafenSettings); Settings.Merge(MDFNMP_Settings); for(x < MDFNSystems.size()) if(MDFNSystems[x]->Settings) Settings.Merge(MDFNSystems[x]->Settings); Settings.Merge(RenamedSettings); Settings.Finalize();" (src/mednafen.cpp:1616-1624), each module contributing through its MDFNGI field "const MDFNSetting *Settings;" (include/mednafen/git.h:673). Finalize sets SettingsFinalized (src/settings.cpp:647), Merge asserts it has not yet happened (598, 605), and lookup asserts that it has (748). The set is closed by the project, in both directions, before any setting can be read. Section 3.2's first admissible case. Tag: enforced.
+
+EN6 outcome independence: membership is the set of settings the program accepts. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, and at a finer grain than the previous four candidates: enumerate the merged MDFNSetting tables and emit, per setting, its declared type together with its validity constraint -- minimum and maximum for numeric types, the enum_list members for enumerated ones, {0,1} for booleans, and the presence of a validate_func where one is declared. That is a property-level universe in the most literal sense the phrase allows, since each entry states its own admissible values rather than merely being a member of an accepted set.
+
+Recorded so the difference is visible rather than flattened: C009, C010, C012 and C014 all passed on a table whose entries are the accepted values. Here the entries CARRY their validity constraints, which is a different and richer thing. Nothing follows from that for the verdict -- E4 asks whether the universe is externally delimited and mechanically constructible, not how rich it is -- but the inventory stage should not have to rediscover it.
+
+Normative route: not investigated, because only one route is required and U_enforced supplies it. No claim is made about whether Mednafen designates an authoritative rules source.
+
+Decision: PASS
