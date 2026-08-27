@@ -1,1 +1,1 @@
-frame_rank	port_path	upstream_resolution	candidate_id	duplicate_of	terminal_status	stop_gate	failure_code	evidence_refs
+frame_rank	port_path	upstream_resolution	candidate_id	duplicate_of	terminal_status	stop_gate	failure_code	protocol_issue_code	evidence_refs

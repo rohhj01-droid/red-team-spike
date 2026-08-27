@@ -44,11 +44,32 @@ E4 needs both `U_normative` (E2-RULE) and `U_enforced` (E2-REP) to be
 constructible, so it runs last.
 
 **Screening stops at the first FAIL.** Gates after it are recorded
-`NOT_REACHED`, never evaluated. Only three states exist:
+`NOT_REACHED`, never evaluated. Gate states:
 
 ```text
-PASS  |  FAIL  |  NOT_REACHED
+PASS  |  FAIL  |  UNRESOLVED  |  NOT_REACHED
 ```
+
+`UNRESOLVED` exists because the network contract below produces a state
+that `PASS/FAIL/NOT_REACHED` cannot express without lying: a protocol
+issue is neither a criterion failure nor an unexamined gate. Recording
+one as `FAIL` would disguise a protocol issue as a criterion failure,
+which is precisely what that contract exists to prevent.
+
+```text
+protocol issue at gate G:
+  G                 = UNRESOLVED
+  gates after G     = NOT_REACHED
+  overall           = UNRESOLVED
+  stop_gate         = G
+  failure_code      = NONE
+  protocol_issue_code = the applicable PI- code
+```
+
+`failure_code` and `protocol_issue_code` are separate columns and never
+both populated. Candidate `overall` is correspondingly
+`ELIGIBLE | REJECTED | UNRESOLVED`, matching the frame ledger's existing
+`terminal_status=UNRESOLVED`.
 
 This is not merely economy. Continuing past a failure would expose
 target information the protocol has no use for, and would let curiosity
@@ -145,7 +166,11 @@ Distinguish what the endpoint said from what we failed to learn:
 
 ```text
 definitive HTTP answer (404, 410, or an equivalent permanent absence)
-  → genuine evidence; a failure code may be assigned
+  → genuine evidence ABOUT THAT ENDPOINT. It is not by itself a
+    candidate-level E2-REP FAIL: if other allowed upstream paths
+    remain (Section "Allowed navigation"), they are followed first,
+    and a failure code is assigned only once E2-REP as a whole is
+    actually determined.
 
 transport-level indeterminacy (timeout, DNS failure, connection
 refused, 5xx)
@@ -230,6 +255,15 @@ these is not squeezed into the nearest code; it is recorded as a
 **protocol issue** and reported separately. A catch-all would quietly
 absorb exactly the cases that indicate the sealed criteria are
 incomplete — the thing most worth knowing.
+
+`protocol_issue_code`, a separate column from `failure_code`:
+
+```text
+NONE
+PI-TRANSPORT-INDETERMINATE   retries exhausted, endpoint state unknown
+PI-UNCLASSIFIED-SHAPE        a real screening outcome that no sealed
+                             criterion describes
+```
 
 ## File schemas
 
