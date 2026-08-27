@@ -653,3 +653,49 @@ Inference: neither route yields a mechanically constructible property-level univ
 
 Only one route is required and neither is available.
 Decision: FAIL (E4-NO-MECHANICAL-PRIMARY-UNIVERSE)
+
+## RETRACTION 2 — C004 E4 (EV-C004-E4-01 withdrawn)
+
+EV-C004-E4-01 is withdrawn; C004 returns to in-flight at E4. Its UR,
+E1, E2-REP, E2-RULE and E3 verdicts stand.
+
+Both of that entry's negative claims were stronger than the surfaces
+that supported them, repeating QA-09's error one gate later.
+
+The normative claim rested on the format reference containing no
+occurrence of "specification", "authoritative" or "canonical". That
+establishes only that the page does not call ITSELF authoritative. The
+sealed rule asks whether the external project designates the source as
+authoritative for its rules, and another project-owned page could carry
+that designation. Not surveyed.
+
+The enforcement claim rested on the repository root having no
+validators directory and the documentation index declaring no
+validation convention. Registries, interfaces, annotations and runtime
+dispatch need not be named "validators" and commonly live inside
+source. Directory names at the root are a surface that can show
+presence and cannot establish absence.
+
+## EV-C004-E4-02  (supersedes the withdrawn EV-C004-E4-01)
+Candidate: C004 (frame rank 4, editors/tiled)
+Gate: E4
+observed_at_utc: 2026-08-27T05:46:12Z-06:02:52Z; http_status 200 throughout
+
+NORMATIVE ROUTE -- surfaces surveyed, five, chosen as the places a designation would appear:
+  https://doc.mapeditor.org/en/stable/reference/tmx-map-format/  (the source itself)
+  https://www.mapeditor.org/                                     (project front page)
+  https://doc.mapeditor.org/en/stable/                           (documentation landing)
+  https://doc.mapeditor.org/en/stable/reference/support-for-tmx-maps/
+  https://raw.githubusercontent.com/mapeditor/tiled/master/README.md
+Observed: none of the five designates the TMX reference as an authoritative rules source or specification. The reference contains no occurrence of "specification", "authoritative" or "canonical"; the front page, docs landing and support page carry no designating language; the README says only "Tiled's map format (TMX) is easy to understand". The single "TMX format" hit on the support page describes a third-party engine's capability.
+Inference: the project owns the format and documents it, but nowhere designates that document as authoritative for its rules. Section 3.1 requires explicit designation and states that project ownership alone is insufficient. Separately, even were it admissible, its own segmentation enumerates elements and attributes while validity requirements sit inside per-attribute prose -- E4 excludes a universe whose validity observations would still be hand-picked.
+
+ENFORCEMENT ROUTE -- surfaces surveyed:
+  https://github.com/mapeditor/tiled/tree/master/src        (all top-level source units)
+  https://github.com/mapeditor/tiled/tree/master/src/plugins (membership)
+  https://github.com/mapeditor/tiled/tree/master/src/libtiled (filenames)
+Observed: a declared, mechanically closed mechanism DOES exist -- src/plugins/ with membership csv, defold, defoldcollection, droidcraft, flare, gmx, json, json1, lua, python, replicaisland, rpd, rpmap, tbin, tengine, tscn, yy. Its members are import/export formats of other engines and tools. libtiled contains no unit named for validation, verification, checking, schema or conformance.
+Inference: EN3 (mechanical membership) is satisfied by the plugin set, but EN4 is not: the project connects this mechanism to map format import and export, not to validation, eligibility, or rule enforcement. An enumerator whose declared role is format conversion cannot enumerate an enforcement surface. No other declared mechanism was found across the source's top-level units.
+
+Only one route is required; neither is available. This verdict rests on surveying the surfaces where each fact would appear, not on the absence of a directory named "validators" -- that earlier reasoning was withdrawn as too weak (RETRACTION 2).
+Decision: FAIL (E4-NO-MECHANICAL-PRIMARY-UNIVERSE)

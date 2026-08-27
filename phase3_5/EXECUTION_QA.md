@@ -278,3 +278,35 @@ there."
 This is the third instrument-surface error in this screening run and
 the first that had actually reached a recorded verdict. It was caught
 only because the verdict was re-opened rather than accepted.
+
+## QA-10 — E4 negative claims exceeded their surfaces (WITHDRAWN, re-determined)
+
+EV-C004-E4-01 failed E4 on two claims that outran their evidence, the
+same error as QA-09 one gate later:
+
+```text
+claimed: the project does not designate an authoritative rules source
+shown:   the reference page does not call ITSELF authoritative
+
+claimed: no EN1-EN6 enforcement mechanism exists
+shown:   the repository ROOT has no directory named "validators"
+```
+
+Both were withdrawn. Re-determination surveyed the surfaces where each
+fact would actually appear -- five project-owned pages for the
+designation, and the source tree's declared units for the mechanism --
+and reached the same verdict on far better grounds.
+
+The re-survey also found something the cheap version had missed
+entirely: Tiled **does** have a declared, mechanically closed
+enumeration mechanism, `src/plugins/`. It fails EN4 rather than EN3,
+because the project connects it to map import/export rather than to
+validation. A verdict of "no mechanism" would have been simply false.
+
+**Rule carried forward.** "No directory named validators" is not
+evidence of "no enforcement enumerator", and "the page does not call
+itself authoritative" is not evidence of "the project designates no
+authoritative source". Both are cheap negatives that would recur on
+every remaining candidate if left standing. E4 negatives require
+surveying the project's own designating surfaces and its declared
+source units.
