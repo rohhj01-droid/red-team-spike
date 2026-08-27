@@ -3266,7 +3266,22 @@ requested_url: http://www.emma-soft.com/games/amoebax/download/ ; final_url: htt
 observed_at_utc: 2026-08-27T14:45:03Z (GET), 14:45:24Z (HEAD)
 http_status: 403, 403; redirect_chain: 1 redirect, http -> https, on both
 control: the landing page returned 200 at 14:45:24Z, same host, same moment
-Observed: a 199-byte server error page, "403 Forbidden -- You don't have permission to access this resource." It carries no headings beyond "Forbidden", no links, no artifact names, and no designation signal. The 403 is a definitive server answer rather than transport indeterminacy: the host is healthy, as the control shows, and the server distinguishes this path from a missing one. Directory listing is refused; nothing about the path's contents was observed.
+Observed: a 199-byte server error page, "403 Forbidden -- You don't have permission to access this resource." It carries no headings beyond "Forbidden", no links, no artifact names, and no designation signal.
+
+Inference, kept to what the responses establish:
+
+```text
+transport completed and the endpoint returned a definite HTTP response
+on both GET and HEAD, with the same-host landing page returning 200 at
+the control moment
+  -> this is not the timeout / DNS / refused / 5xx family, so
+     PI-TRANSPORT-INDETERMINATE does not fit
+
+the 403 does not reveal the contents of the admitted SITES URL, and
+establishes neither absence, nor designation, nor source-tree presence
+```
+
+No claim is made that the server distinguishes this path from a missing one: no nonexistent-path control was requested, so that comparison was never available. Nor is the resource's existence asserted -- what is established is that a request to this URL was answered Forbidden, twice.
 
 ```text
 PASS not established
@@ -3282,7 +3297,7 @@ FAIL not established
   navigation whitelist.
 ```
 
-On the code: `PI-TRANSPORT-INDETERMINATE` would be wrong here. Nothing failed in transport -- the server answered, twice, definitively, with a healthy control alongside. What happened is that an admitted surface exists and declines to be read, which the sealed criteria do not describe. `PI-UNCLASSIFIED-SHAPE` is the fit, and the verdict code is unchanged from the superseded entry even though its evidence base now includes the surface that entry never opened.
+On the code: `PI-TRANSPORT-INDETERMINATE` would be wrong here, since transport completed and the server answered twice. Equally, a 403 on its own completes no specific E2-REP failure code. An admitted starting point answering Forbidden is a screening outcome the sealed criteria do not describe, which is what `PI-UNCLASSIFIED-SHAPE` is for. The verdict code is unchanged from the superseded entry even though its evidence base now includes the surface that entry never opened.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 

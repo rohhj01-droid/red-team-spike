@@ -1552,17 +1552,35 @@ the C020/C024 situation, where a TERMINAL verdict would have been
 rescued by fresh observation. There the observation would have been the
 error; here the omission was.
 
-**What the surface turned out to be.** 403 Forbidden, twice, with the
-landing page returning 200 at the same moment. That is a definitive
-server answer rather than transport indeterminacy -- the host is
-healthy and the server distinguishes the path from a missing one -- but
-it is also not evidence of absence: directory listing is refused, and
-nothing about the path's contents was observed. The verdict code is
-unchanged, and the evidence base now includes the surface that should
-have been observed the first time.
+**What the surface turned out to be.** 403 Forbidden on both GET and
+HEAD, with the same-host landing page returning 200 at the control
+moment. Transport completed and the server answered definitely, so this
+is not the timeout / DNS / refused / 5xx family. It is equally not
+evidence of absence, of designation, or of source-tree presence: the
+response reveals nothing about the URL's contents.
 
-**Rule carried forward.** Before recording that a surface is the only
-admissible one, enumerate the frozen metadata's URLs and identifiers and
-say what happened to each. A URL in the metadata does not become
-inadmissible because the landing page happens to reach the same place
-through a label the whitelist omits.
+Two things are deliberately NOT claimed. That the server distinguishes
+this path from a missing one -- no nonexistent-path control was
+requested, so the comparison was never available. And that the resource
+exists -- what is established is that a request to this URL was answered
+Forbidden, twice. The verdict code is unchanged, and the evidence base
+now includes the surface that should have been observed the first time.
+
+**Rule carried forward.** Before declaring the admissible-starting-point
+set exhausted, enumerate every URL and identifier the frozen metadata
+supplies and record what became of each:
+
+```text
+observed, because necessary under QA-11
+lawfully skipped, because observed structure made it unnecessary
+otherwise resolved under the protocol, with the reason named
+```
+
+Stated this way on purpose, so it does not re-inflate QA-24 into "every
+admitted surface must be opened" -- the distinction QA-24 was itself
+narrowed to preserve. The obligation is to account for each, not to open
+each.
+
+A URL in the metadata does not become inadmissible because the landing
+page happens to reach the same place through a label the whitelist
+omits.
