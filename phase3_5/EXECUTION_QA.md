@@ -1110,3 +1110,72 @@ like it might help.
 adjudicate it, not a reason to gather more elsewhere. If a gate cannot
 be settled on its permitted surfaces, the next step is UNRESOLVED, not
 the next gate's material.
+
+## QA-22 — the exemption I carved for C010 and C012 was the withdrawn move in another shape
+
+QA-21 established that repository identity, upstream affiliation and
+source-tree presence do not amount to upstream designating a canonical
+source. It then exempted C010 and C012 on the ground that their frozen
+starting URL was simultaneously the project landing surface and the
+repository root, so navigation steps 1 and 3 collapsed.
+
+The exemption does not hold, and the reason is worth stating precisely
+because the argument looked structural rather than convenient.
+
+**`step 1 = step 3` answers a different question.** It settles WHICH
+SURFACE may be looked at. It says nothing about whether upstream
+designated that location. The sealed contract keeps these apart itself:
+"whether upstream designates this location as its source" is listed as
+its own allowed observation, beside repository identity and source-tree
+presence. Collapsing the navigation does not collapse the questions.
+
+**And what actually distinguished them was a field name.** C010 and
+C012 qualified because their OpenBSD HOMEPAGE happened to contain a
+repository URL. Letting that carry the designation lets an OpenBSD field
+supply evidential force for an upstream fact -- withdrawn at C014, again
+at C017, and reintroduced here under a structural-sounding label.
+
+```text
+C010/C012   OpenBSD HOMEPAGE           -> GitHub repository root
+C017        OpenBSD GH_ACCOUNT/PROJECT -> GitHub repository root
+```
+
+Different routes, same kind of upstream evidence at the end of them.
+
+**Both become UNRESOLVED / PI-UNCLASSIFIED-SHAPE**, and their E2-RULE,
+E3 and E4 entries are quarantined as post-stop exposure.
+
+**Why C009 and C013 are not touched.** Neither rests on inference from
+repository existence. Each has an upstream-authored arrow on an upstream
+surface:
+
+```text
+C009   fceux.com exposes a link whose destination IS the repository
+       ("checking the commit browser"), so the project's own page
+       points at the location -- the arrow C014 lacked
+
+C013   mednafen.github.io presents the source tarball itself, on the
+       project's own domain, with its SHA-256 published beside it
+```
+
+In both, an upstream surface performs the designation. That is what
+C010 and C012 never had.
+
+**What this costs and what it does not.** The eligible set drops to two.
+Selection remains INCONCLUSIVE and for the same reason as before: C009's
+and C013's lawfully located enumerators are all `enforced`, so neither
+has class B's positive route, both are class UNRESOLVED, and ranking
+across an undecided boundary is not available. QA-19's conclusion does
+not move.
+
+**The pattern to name.** This is the fourth E2-REP verdict withdrawn,
+and all four failed the same way: something that was not upstream
+designation was allowed to stand in for it -- a downloads page, a
+README sentence, a generated archive, and now a field name. The gate
+asks one narrow question, and nearly everything available at screening
+depth is adjacent to it rather than an answer to it.
+
+**Rule carried forward.** Before recording E2-REP PASS, name the
+upstream surface that performs the designation and quote what it says.
+If the answer is "the repository exists and is the project's", that is
+affiliation, and the verdict is UNRESOLVED.

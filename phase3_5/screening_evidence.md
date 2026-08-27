@@ -1993,9 +1993,109 @@ src/gfx.h, src/merge.h, Makefile
 One item needs naming explicitly, because it is exactly the kind of
 thing that must not be allowed to leak backwards. man/2048.6 ends with
 "All contributions can be found at https://github.com/Tiehuis/2048-cli."
-That reads like an upstream source designation. It was read after
-E2-REP had already been reached and while its verdict was open, it is a
-file inside the repository, and opening source files is forbidden at
-E2-REP in any case. It is used for nothing -- not to push the verdict to
-PASS, and not to argue that a designation exists elsewhere. The E2-REP
-adjudication above rests only on the root surface.
+That is designation-relevant text. Whether it actually constitutes an
+upstream canonical-source designation is NOT adjudicated here, and does
+not need to be: it is a file inside the repository, opening source files
+is forbidden at E2-REP, and it was read while the verdict was open. It
+is used for nothing -- not to push the verdict to PASS, and not to argue
+that a designation exists elsewhere. The E2-REP adjudication above rests
+only on the root surface.
+
+## RETRACTION 8 — C010 and C012 E2-REP withdrawn; the C017 principle applies to them too
+
+EV-C010-E2REP-01 and EV-C012-E2REP-01 are **quarantined**, and with them
+EV-C010-E2RULE-01, EV-C010-E3-01, EV-C010-E4-01, EV-C012-E2RULE-01,
+EV-C012-E3-01 and EV-C012-E4-01 as post-stop exposure. Nothing is
+deleted; every observation in them was accurately made.
+
+**What forced this.** C017 settled that repository identity, upstream
+affiliation and source-tree presence do not add up to upstream
+designating a location as its canonical source. C010 and C012 were
+exempted from that on a navigation-topology argument: their frozen
+starting URL was simultaneously the project landing surface and the
+repository root, so steps 1 and 3 collapsed.
+
+That argument does not survive contact with what E2-REP actually asks.
+`step 1 = step 3` answers "which surface may we look at", not "did
+upstream designate this location". The sealed contract lists those as
+separate matters itself, naming "whether upstream designates this
+location as its source" as its own allowed observation alongside
+repository identity and source-tree presence. Collapsing the navigation
+does not collapse the questions.
+
+And the exemption had a worse property. What made C010 and C012 special
+was that their OpenBSD HOMEPAGE field happened to hold a repository URL.
+Letting that carry the designation is letting an OpenBSD field supply
+evidential force for an upstream fact -- the exact move withdrawn at
+C014 and again at C017. The route differs:
+
+```text
+C010/C012   OpenBSD HOMEPAGE           -> GitHub repository root
+C017        OpenBSD GH_ACCOUNT/PROJECT -> GitHub repository root
+```
+
+but the upstream evidence arrived at is the same kind. A field's name
+does not turn the root it points to into an upstream designation
+statement.
+
+## EV-C010-E2REP-02  (supersedes the quarantined EV-C010-E2REP-01)
+Candidate: C010 (frame rank 10, emulators/flycast)
+Gate: E2-REP
+
+Surface: https://github.com/flyinghead/flycast, the frozen HOMEPAGE, which is also the repository root.
+observed_at_utc: 2026-08-27T07:46:55Z-07:46:56Z; http_status 200; redirect_chain: NONE
+
+Observed (unchanged from the withdrawn entry, and all still accurate): repository flyinghead/flycast, default branch master, isFork false, isArchived false, isTemplate false, no mirror or primary/secondary marking, no repository website field, a source tree present at the root, and no non-GitHub outbound link that is a source-location designation.
+
+```text
+PASS not established
+  repository identity, upstream affiliation and source-tree presence
+  are established. Upstream canonical-source designation is not. No
+  admissible upstream surface states that this location is its source.
+
+FAIL not established
+  not finding a designation at the reachable surface does not show
+  none exists.
+```
+
+The SITES analysis in the withdrawn entry stands on its own and is unaffected: messagemode2.com is packager-side by the port Makefile's own dist: target, so it was never a competing designation. Nothing in that reasoning depended on the designation question.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## EV-C012-E2REP-02  (supersedes the quarantined EV-C012-E2REP-01)
+Candidate: C012 (frame rank 12, emulators/libchdr)
+Gate: E2-REP
+
+Surface: https://github.com/rtissera/libchdr, the frozen HOMEPAGE, which is also the repository root.
+observed_at_utc: 2026-08-27T08:14:43Z-08:14:44Z; http_status 200; redirect_chain: NONE
+
+Observed (unchanged, and all still accurate): repository rtissera/libchdr, default branch master, isFork false, isArchived false, isTemplate false, no mirror or primary/secondary marking, no repository website field, a source tree present at the root, and no outbound link to any non-GitHub host at all.
+
+```text
+PASS not established
+  as for C010. The absence of ANY outbound link means no competing
+  designation is exposed -- but it equally means no upstream surface
+  states that this location is the project's source.
+
+FAIL not established
+  not finding a designation does not show none exists.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## RETRACTION 8a — C010 and C012 gates after E2-REP
+Quarantined as post-stop exposure, on the principle applied to C005
+(QA-11), C014 (QA-17) and C016 (QA-20). Kept on the record, used for
+nothing:
+
+```text
+C010   the TheArcadeStriker wiki's ROM/BIOS requirement
+       the GGPO save-state-before-session witness
+       the Games[] construction, 354 entries, "Unknown game"
+
+C012   chd.h's format requirements, 'MComprHD' and the per-version
+       header sizes
+       the parent-CHD ordering witness
+       the codec_interfaces[] construction, 14 entries,
+       CHDERR_UNSUPPORTED_FORMAT
+```
