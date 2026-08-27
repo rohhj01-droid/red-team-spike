@@ -3029,3 +3029,80 @@ Not counted: "Other Git repositories" and "GitHub project" both point at https:/
 Also withdrawn with the verdict: the entry's closing claim that this was the run's first E2REP-NO-SINGLE-CANONICAL-LOCATION arising between two repositories of one project. No such finding stands.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## EV-C025-UR-01
+Candidate: C025 (frame rank 25, games/amnesia-tdd)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/amnesia-tdd/Makefile
+Observed: HOMEPAGE=https://www.amnesiagame.com/; GH_ACCOUNT=shamazmazum; GH_PROJECT=AmnesiaTheDarkDescent; GH_TAGNAME=v${V} with V=0.3.2; DISTNAME=amnesia-tdd-${V}; COMMENT="first person survival horror game".
+
+Inference: the fields name one system by name -- Amnesia: The Dark Descent. The protocol settles this shape explicitly: "A port whose HOMEPAGE points at a project website while GH_ACCOUNT/GH_PROJECT point at a repository ... is not ambiguous: those are several facts about one system. UR-AMBIGUOUS applies only where the metadata points at genuinely different systems with no external basis for choosing."
+
+Recorded because it is the tension a reader will notice, and because it is deliberately NOT resolved here: the account named is an individual's rather than the publisher's, and the version line, 0.3.2, is not the commercial game's. Neither observation is a metadata field saying "different system", and inferring party identity from an account name would be reading discretion back into candidate identity at exactly the place the frame exists to remove it. Which location is canonical is not decided from OpenBSD's metadata at all; that belongs to E2-REP.
+Decision: PASS
+
+## EV-C025-E1-01
+Candidate: C025
+Gate: E1
+Source: same frozen metadata; https://www.amnesiagame.com/
+observed_at_utc: 2026-08-27T14:17:57Z; http_status 200
+Observed: a third-party commercial game published by Frictional Games, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C025-E2REP-01
+Candidate: C025
+Gate: E2-REP
+
+Surface 1: https://www.amnesiagame.com/ -- the frozen HOMEPAGE, navigation step 1.
+Necessary because: E2-REP asks what upstream designates, and this is the official site the frozen metadata names.
+observed_at_utc: 2026-08-27T14:17:57Z-14:17:59Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed: a commercial product page. Its links are the publisher's own site, forum, dev blog, dev wiki, support and store; retail storefronts (Steam, GOG, Humble, PlayStation, Mac App Store, Desura, regional publishers); press reviews; and demo downloads. It exposes no Source, Code, Repository or Development link, so navigation step 2 has no target on this surface.
+
+Surface 2: https://github.com/shamazmazum/AmnesiaTheDarkDescent -- reached from the frozen GH_ACCOUNT/GH_PROJECT, which the contract admits as a starting point.
+Necessary because: the gate is unsettled after surface 1, and this is the remaining admitted identifier. Under QA-24 an admitted surface that the gate still needs is observed rather than skipped, with the scope fixed first.
+
+Observation scope, fixed before the request:
+
+```text
+observe only
+  repository and account identity
+  fork / mirror / archive markings
+  source-tree presence
+  any designation signal carried in allowed repository metadata
+
+do not
+  select a different repository because its name looks related
+  follow a fork to its parent and treat that as the upstream
+  read README prose for a designation
+```
+
+observed_at_utc: 2026-08-27T14:18:32Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed: repository AmnesiaTheDarkDescent, owner login shamazmazum, default branch master, isMirror false, isArchived false, isTemplate false, no website field, and a source tree present -- HPL2, amnesia/src, .github/workflows, CONTRIBUTING.md, LICENSE, README.md.
+
+And the marking that matters here, which the contract names among allowed observations: **isFork: true**, with the page's own banner reading "AmnesiaTheDarkDescent Public forked from TiManGames/AmnesiaTheDarkDescent".
+
+The parent was not followed. Doing so would select among plausible upstreams, which the upstream-resolution rule forbids outright -- "The analyst never selects among several plausible upstreams" -- and it was excluded by the scope fixed above.
+
+Adjudication:
+
+```text
+PASS not established
+  no upstream surface performs a designation. The official site
+  designates no source location at all, and the repository reached by
+  the packaging identifier yields affiliation rather than designation
+  (QA-22). Here that is weaker than at C017: the repository is marked
+  as a fork, so even the affiliation runs to an account the frozen
+  metadata does not name.
+
+FAIL not established
+  "designates none" is not established by a marketing page having no
+  source link. E2REP-NO-SOURCE is a claim about a DESIGNATED canonical
+  location, and none was established for such a claim to be about.
+```
+
+Recorded as a first for the run: every previous candidate's fetch target carried isFork false. This is the first where the location the packaging metadata fetches from is explicitly marked a fork.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED. Screening stopped here rather than reading on, per QA-21.
