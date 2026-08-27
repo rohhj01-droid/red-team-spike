@@ -216,6 +216,83 @@ Confirming today that upstream's canonical repository is `X` does
 location and fixing the revision are separate acts, and only the second
 is already sealed.
 
+## AMENDMENT (post-seal, corrective) — E4 is asymmetric for this run
+
+**Status.** This is not part of the methodology sealed at `401924d`, and
+must never be cited as though it were. It is a *post-seal corrective
+amendment*, triggered mid-run by the discovery of an unoperationalized
+negative branch. It is dated to its cause, not backdated to the seal.
+
+**The gap.** The sealed methodology specifies in detail what makes an
+enumerator or authoritative source *admissible* — EN1-EN6, and Section
+3.1's designation requirement. It specifies no procedure for
+establishing that **no** admissible enumerator or source exists. E4
+PASS needs one positive construction; E4 FAIL is a universal claim, and
+nothing sealed makes it decidable. The gap is specific to E4: other
+gates' negatives are bounded by structure the upstream itself
+enumerates, while E4's would have to quantify over everything a project
+might contain.
+
+This matters because the sealed rules explicitly admit runtime
+construction — registry contents, interface dispatch, annotation
+collection — as closure evidence. Any "closure argument" that confines
+the search to prose documentation silently removes an evidence type the
+seal allows, narrowing admissibility to make the negative tractable.
+Two such arguments were attempted and withdrawn before this amendment.
+
+**The amendment.** For this run only, E4 is asymmetric:
+
+```text
+a positive construction is exhibited
+  a mechanism or source satisfying EN1-EN6 (or Section 3.1
+  designation), from which the property-level universe is ACTUALLY
+  mechanically constructible
+    -> E4 PASS
+
+no such positive construction is obtained
+    -> NOT E4 FAIL
+    -> E4              = UNRESOLVED
+       overall         = UNRESOLVED
+       stop_gate       = E4
+       failure_code    = NONE
+       protocol_issue_code = PI-UNCLASSIFIED-SHAPE
+```
+
+`PI-UNCLASSIFIED-SHAPE` is reused deliberately rather than a new code
+being minted. That code was sealed for exactly this situation — a real
+screening outcome the sealed criteria do not describe — and inventing
+fresh vocabulary after seeing results is the habit this amendment
+exists to avoid.
+
+E4 PASS is **not** relaxed. Locating a validator, a registry, or a
+plausible-looking mechanism is not a positive construction on its own;
+the mechanism must satisfy every one of EN1-EN6 and the universe must
+actually be constructible from it.
+
+**Effects, stated plainly:**
+
+```text
+creates no new eligible candidate
+does not relax E4 PASS in any way
+removes an E4 FAIL capability this run could not support
+increases the number of UNRESOLVED outcomes
+```
+
+The amendment reduces what this run claims and increases its recorded
+uncertainty. That is the opposite direction from an adjustment made to
+obtain a preferred result, and it is why it is admissible mid-run at
+all.
+
+**Future runs.** A run may restore E4 FAIL by preregistering a
+discovery procedure **before any candidate is seen**: a discovery
+grammar, a source-traversal rule, language-specific probes, hit
+adjudication against EN1-EN6, and an explicit termination/closure rule.
+The hard part is defining discovery *completeness* in advance, so that
+"our probes found nothing" cannot quietly become "nothing is there".
+Designing that now, having already examined candidates, would fit the
+probes to what has been seen and forfeit the preregistration that makes
+the procedure worth anything.
+
 ## Controlled vocabularies
 
 `upstream_resolution`:

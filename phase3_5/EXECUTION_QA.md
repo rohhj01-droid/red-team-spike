@@ -418,3 +418,54 @@ argument at all.
 argument. "I looked at these and found nothing" is not a negative;
 "if it existed it would have to be here, and here is what here
 contains" is.
+
+## QA-13 — E4's negative branch was never operationalized (POST-SEAL AMENDMENT)
+
+Three successive attempts to fail a candidate at E4 were withdrawn, and
+the third withdrawal showed the problem is not in the attempts.
+
+```text
+C004 first try   "no validators/ directory" -> absence            (QA-10)
+C008 first try   top-level names, "two plausible candidates"      (QA-12)
+C008 second try  docs-only closure argument                       (here)
+```
+
+Each was wider than its evidence, and the last failed in a new way: its
+closure argument confined the search to prose documentation, which
+quietly removes runtime construction -- registry contents, interface
+dispatch, annotation collection -- that the sealed rules explicitly
+admit. Narrowing what counts as evidence in order to make a negative
+tractable is criterion change wearing procedural clothes.
+
+The root cause is structural, not local. The sealed methodology defines
+admissibility exhaustively (EN1-EN6, Section 3.1) and defines no
+discovery procedure at all. E4 PASS needs one positive construction and
+is therefore decidable; E4 FAIL quantifies over everything a project
+might contain and is not.
+
+**Resolution: a post-seal corrective amendment**, recorded in
+`SCREENING_PROTOCOL.md` and dated to its cause rather than backdated to
+`401924d`. For this run E4 becomes asymmetric -- PASS on a positive
+construction, UNRESOLVED otherwise, using the already-sealed
+`PI-UNCLASSIFIED-SHAPE` rather than a code invented after seeing
+results.
+
+Alternatives considered and rejected:
+
+```text
+restrict admissibility to an external inventory
+  -> narrows the criterion post hoc; the mirror image of loosening it
+     after seeing results
+
+preregister a mechanical source-tree discovery procedure now
+  -> the right instrument, but no longer preregisterable: several
+     candidates' structures have been seen, so the probe set would be
+     fitted to them. Reserved for a future run, sealed before any
+     candidate is examined.
+```
+
+Effects on this run, stated rather than buried: no new eligible
+candidate, no relaxation of E4 PASS, one unsupported capability
+removed, more UNRESOLVED outcomes. The amendment reduces what the run
+claims. That direction is why it is admissible mid-run; the reverse
+would not have been.

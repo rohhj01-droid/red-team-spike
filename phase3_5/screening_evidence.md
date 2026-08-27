@@ -934,3 +934,50 @@ Observed: across the 24 project-enumerated guide pages, zero contain designating
 
 Inference: neither route yields a mechanically constructible property-level universe. U_normative -- the project designates no document as an authoritative rules source anywhere in its own declared documentation inventory or at its entry points. U_enforced -- no project document connects any mechanism to validation, eligibility or rule enforcement, so EN4 is unsatisfied for every candidate mechanism whatever the source tree contains; EN2 and EN5 are likewise unmet, the project describing tests/ as an open-ended TODO ("Write more unit tests...") and disclaiming that its coding rules are followed ("there are many places where these rules are simply not followed"). Only one route is required and neither is available.
 Decision: FAIL (E4-NO-MECHANICAL-PRIMARY-UNIVERSE)
+
+## RETRACTION 5 — C004 and C008 E4 verdicts withdrawn under the post-seal amendment
+
+EV-C004-E4-02 and EV-C008-E4-02 are **quarantined**. Both recorded E4
+FAIL. Neither is withdrawn because its observations were false -- the
+pages were read, the counts are real, the repository listings are
+accurate. They are unusable because each concluded a universal absence,
+and the sealed methodology preregistered no procedure by which such an
+absence can be established. Admissibility is defined in detail; complete
+discovery is not defined at all.
+
+This is the same distinction the run has applied throughout, arriving
+here at the level of a whole gate rather than a single surface: an
+observation that found nothing is not a demonstration that nothing is
+there. C005's post-stop findings were quarantined on the same principle.
+
+## EV-C004-E4-03  (supersedes the quarantined EV-C004-E4-02)
+Candidate: C004 (frame rank 4, editors/tiled)
+Gate: E4
+Observed: no positive construction was obtained. The Tiled format
+reference is segmented by element and attribute rather than by validity
+requirement, and the project designates no document as an authoritative
+rules source; src/plugins/ is a genuine mechanically closed enumerator
+but the project connects it to map import and export, so it fails EN4.
+Inference: E4 PASS requires a positive construction -- an EN1-EN6
+mechanism or a designated source from which the property-level universe
+is actually mechanically constructible. None was exhibited. Under the
+post-seal amendment the absence of a positive construction does not
+establish E4 FAIL, because no preregistered discovery procedure makes
+that universal claim decidable.
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+## EV-C008-E4-03  (supersedes the quarantined EV-C008-E4-02)
+Candidate: C008 (frame rank 8, emulators/dosbox-x)
+Gate: E4
+Observed: no positive construction was obtained. Across the project's
+24 enumerated guide pages and its entry points, no document designates
+an authoritative rules source, and no project document declares a
+mechanism as carrying validity or eligibility rules; the project
+describes tests/ as an open-ended TODO and disclaims that its coding
+rules are followed.
+Inference: as for C004 -- no positive construction was exhibited, and
+the absence of one does not establish E4 FAIL under this run's
+amendment. The earlier entry additionally rested on a docs-only closure
+argument that would have excluded runtime construction, which the
+sealed rules admit as evidence; that argument is withdrawn with it.
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
