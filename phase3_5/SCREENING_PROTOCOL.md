@@ -531,10 +531,24 @@ NOT DECIDABLE without a complete inventory
   class B, second disjunct  no enforcement enumerator exists at all
 ```
 
+Class B is semantically the complement of class A -- it is the
+"otherwise" branch, and nothing here disputes that. The finding is about
+ROUTES, not about the sets: determining B does not require proving the
+full negation of A in every case, because its first disjunct is
+existential.
+
+```text
+positive stable route to B   one located `asserted` enumerator
+                             -> B, and later discoveries cannot undo it
+
+no route available           located enumerators are all `enforced`
+                             -> A needs the absence proof
+                             -> B's positive route lacks its witness
+                             -> UNRESOLVED
+```
+
 So class B has a positive route and class A does not. A candidate whose
-located enumerators are all `enforced` cannot be placed: class A needs
-an absence proof, and the only available class B route needs a located
-`asserted` enumerator that has not been found. A single missed
+located enumerators are all `enforced` cannot be placed either way. A single missed
 `asserted` enumerator would flip such a candidate, and the sealed
 methodology says so itself, treating an enumerator discovered after
 target selection as a protocol failure precisely because it can move
@@ -542,6 +556,16 @@ both the class and `P_raw`.
 
 E4 could absorb its gap by making PASS positive-only. Ranking cannot:
 class A has no positive-only form.
+
+**"Located" means lawfully obtained.** A class B determination needs an
+`asserted` enumerator that the run's permitted evidence process already
+produced. Nothing here authorizes a fresh ad-hoc search through a
+survivor for one. That search is exactly the discovery procedure whose
+absence created this gap, and running it unpreregistered -- while
+knowing that finding an `asserted` enumerator is what would make a
+candidate classifiable -- would fit the inventory to the outcome. The
+four current survivors' lawfully located E4 witnesses are all
+`enforced`, so all four are UNRESOLVED.
 
 **The amendment.**
 

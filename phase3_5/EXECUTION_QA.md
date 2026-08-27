@@ -839,9 +839,11 @@ negative branch, and the fix was available: make PASS positive-only and
 send everything else to UNRESOLVED. Class A has no positive-only form,
 because its second conjunct is an absence claim.
 
-Class B is NOT simply class A's complement, and an earlier draft of this
-entry got that wrong. The sealed definition is a disjunction, and its
-first disjunct is existential:
+An earlier draft of this entry said "class B is NOT class A's
+complement". That is wrong: the sealed definition makes B the
+"otherwise" branch, so semantically it IS the complement. The correction
+is about ROUTES. Determining B does not require proving the full
+negation of A in every case, because B's first disjunct is existential:
 
 ```text
 DECIDABLE BY WITNESS
@@ -855,15 +857,25 @@ NOT DECIDABLE without a complete inventory
   class B, second disjunct  no enforcement enumerator exists at all
 ```
 
-So a candidate CAN be placed in class B, by finding one `asserted`
-enumerator. What cannot be done is placing a candidate whose located
-enumerators are all `enforced`: class A would need the absence proof,
-and class B's available route needs a witness that has not been found.
+So a candidate CAN be placed in class B, by one located `asserted`
+enumerator -- positive and stable. What cannot be placed is a candidate
+whose located enumerators are all `enforced`: class A would need the
+absence proof, and class B's positive route lacks its witness.
 
 ```text
 found an `asserted` enumerator  -> class B
 otherwise                       -> UNRESOLVED
 ```
+
+**"Located" means lawfully obtained.** A class B determination needs an
+`asserted` enumerator that the run's permitted evidence process already
+produced. Nothing here authorizes a fresh ad-hoc search through a
+survivor for one. That search is exactly the discovery procedure whose
+absence created this gap, and running it unpreregistered -- while
+knowing that finding an `asserted` enumerator is what would make a
+candidate classifiable -- would fit the inventory to the outcome. The
+four current survivors' lawfully located E4 witnesses are all
+`enforced`, so all four are UNRESOLVED.
 
 The sealed methodology already treats an enumerator discovered after
 selection as a protocol failure -- it knows the risk, it just never
