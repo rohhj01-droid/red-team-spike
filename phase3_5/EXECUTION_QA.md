@@ -750,27 +750,69 @@ was carried forward from what the previous turn named rather than
 recomputed from the ledger. The even-numbered sequence looked
 deliberate, and nothing checked it against the frozen list until now.
 
-**Why this is worse than QA-06 in one respect and better in another.**
-Worse: QA-06 reordered items that were all eventually screened, while
-this dropped two entirely, and had it gone unnoticed the run would have
-reported 128 items screened while having screened 126. Better: it is
-still correctable at no methodological cost. Both ranks are unscreened,
-so screening them now restores the frozen order without re-observing any
-rank that already reached a terminal verdict -- the thing QA-06 could
-not undo.
+**What is recoverable and what is not.** These must not be run
+together, and an earlier draft of this entry ran them together by
+claiming the omission was "correctable at no methodological cost" and
+that screening 9 and 13 now would "restore the frozen order". Neither
+holds.
 
-**Disposition.** Screening resumes at rank 9, then 13, then 15. The
-frozen order is sealed and takes precedence over the working assumption
-that everything below 15 was finished.
+```text
+RECOVERABLE
+  coverage of all 128 frame items
+  the two missing frame rows
+  further order deviation from here on
+
+NOT RECOVERABLE
+  the frozen-order violation that has already occurred
+  the fact that ranks 10, 12 and 14 were observed first
+  the fact that those observations are already known to the analyst
+  who will now screen ranks 9 and 13
+```
+
+Screening them now fills the two missing frame items and stops further
+deviation. It does not retroactively restore the frozen order: the
+actual screening history will read 8, 10, 12, 14, 9, 13, 15, not 8
+through 15 in sequence. The order violation stands as a recorded
+protocol deviation.
+
+The methodological cost is therefore not zero -- order preregistration
+was violated. Whether that cost invalidates any part of the Phase 3.5
+result is deliberately NOT decided here. Inventing a penalty the sealed
+rules do not contain would be a post-hoc rule addition, which is the
+same class of move this run has withdrawn verdicts over. The obligation
+now is to preserve the deviation in the record rather than to sentence
+it.
+
+Compared with QA-06: that was a reordering of items all eventually
+screened, while this dropped two outright, and unnoticed it would have
+reported 128 screened when 126 were. The difference in the other
+direction is narrower than first written -- only that coverage can still
+be completed without re-observing any rank that already reached a
+terminal verdict.
+
+**Disposition.** Screening resumes at rank 9. The frozen order is sealed
+and takes precedence over the working assumption that everything below
+15 was finished.
 
 **Prior exposure to log.** Both ranks were touched during the voided
 QA-07 batch: fceux's documentation.html and mednafen's /documentation/
 were read while determining E3 for a group of candidates, and QA-07
-records that no verdict was issued from that batch. That exposure is
-recorded here so it is visible in each candidate's evidence when those
-gates are reached, rather than surfacing as an unexplained familiarity.
+records that no verdict was issued from that batch. Each candidate's
+evidence must therefore carry:
 
-**Rule carried forward.** The next rank to screen is read from the
-ledger -- the lowest rank in the frozen set with no terminal row -- not
-from what the previous turn said it would be. A pointer carried in prose
-is not a pointer.
+```text
+Prior exposure:  that docs surface was already read under QA-07
+Use:             not used as a gate shortcut, and not used to choose
+                 which surfaces to name; adjudicated from the start
+                 under the current protocol
+```
+
+Recorded so it is visible where the gates are reached, rather than
+surfacing later as an unexplained familiarity with the material.
+
+**Rule carried forward.** After every candidate is closed, the next rank
+is RECOMPUTED as the lowest rank in the frozen set with no terminal row
+in the ledger. Not read from what the previous turn said, and not read
+from this entry either -- "9, then 13, then 15" is a prediction, not a
+pointer, and trusting it would reproduce exactly the failure being
+recorded. A pointer carried in prose is not a pointer.
