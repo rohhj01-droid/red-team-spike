@@ -625,20 +625,36 @@ HYPOTHESIS, not established
 Amended twice since, and in opposite directions.
 
 C010 and C012 were later withdrawn at E2-REP (QA-22), so their E4
-entries are quarantined too. The admissible base is now:
+entries are quarantined too. The full admissible E4 base is:
 
 ```text
-C009   positive construction obtained            -> PASS
-C013   positive construction obtained            -> PASS
-C022   no positive construction obtained under
-       the observations made                     -> UNRESOLVED
+C004   no positive construction obtained   -> UNRESOLVED
+C008   no positive construction obtained   -> UNRESOLVED
+C009   positive construction obtained      -> PASS
+C013   positive construction obtained      -> PASS
+C022   no positive construction obtained   -> UNRESOLVED
 ```
 
 So the confirmed observation above -- that every admissible candidate
-reaching E4 passed it -- is no longer true. C022 is the first admissible
-candidate to reach E4 without yielding a positive construction under
-this run's observation process, and it weakens the hypothesis that the
-table/bound/reject idiom will commonly support E4 PASS.
+reaching E4 passed it -- is no longer true. A second draft of this
+paragraph said C022 was the FIRST admissible candidate to reach E4
+without yielding a positive construction. That is also wrong: C004's
+and C008's final entries, EV-C004-E4-03 and EV-C008-E4-03, already read
+"no positive construction was obtained" and close on UNRESOLVED. The
+observation stopped holding when those two were re-determined, not when
+C022 arrived.
+
+C022's actual contribution is procedural. C004 and C008 were
+RETROSPECTIVE re-determinations: both began as negative attempts under
+the pre-amendment rule and were converted afterwards. C022 is the first
+newly screened candidate whose E4 adjudication began with the
+asymmetric post-seal rule already in force, so it is the cleaner example
+that reaching E4 does not guarantee this run will obtain a positive
+construction -- the rule was not applied to it after the fact.
+
+It weakens the hypothesis that the table/bound/reject idiom will
+commonly support E4 PASS, and C004 and C008 were already evidence in the
+same direction.
 
 **What C022 does not establish, and an earlier draft of this paragraph
 wrongly said it did.** That draft read "the idiom is common, but it is
