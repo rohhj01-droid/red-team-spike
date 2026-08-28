@@ -8036,3 +8036,143 @@ Recorded and doing no verdict work: the refs list shows a v2.2.0 entry with rele
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C064-E2REP-02  (supersedes EV-C064-E2REP-01, which is retained above)
+Candidate: C064
+Gate: E2-REP
+
+The verdict is unchanged. Two pieces of reasoning in the superseded entry are wrong, one an adjudication error and one a procedure error, and both are corrected here rather than in place, so what was argued the first time stays visible.
+
+Surface 1 stands as observed. The frozen HOMEPAGE is itself a SourceHut git summary page, so step 1 and step 3 coincide (C010/C012/C017), and the observations recorded in EV-C064-E2REP-01 -- the repository's owner, refs, clone URLs, tab strip, RID, and the source tree read at .../tree on 2026-08-28T12:23:12Z -- are unaffected, as is the exposure log for the inline README.
+
+### Correction 1 -- the "source" tab reproduces QA-30; it does not evade it
+
+Withdrawn:
+
+```text
+"It leads nowhere new, so nothing turns on it here, and QA-30's
+ question about whether platform chrome carries designation force does
+ not have to be reached."
+```
+
+That conflates two questions. The self-link settles NAVIGATION -- step 2 has no target elsewhere. It says nothing about EVIDENCE: whether a platform-drawn label reading `source`, on the admitted surface, amounts to upstream designating this location as its source. QA-30 exists for exactly that question, and QA-22 does not dispose of it either -- QA-22 settled that the step-1-equals-step-3 topology answers WHICH surface, not that a label rendered on that surface is void.
+
+So C064 is a direct instance of QA-30, the second the run has met after C044, and the gap runs the same way:
+
+```text
+if SourceHut's chrome carries designation force
+    the `source` tab designates this repository as the project's
+    source, and no competing source designation was observed
+    -> E2-REP PASS could follow
+
+if it does not
+    the repository's identity and its source tree are affiliation only
+    -> E2-REP UNRESOLVED
+```
+
+Choosing a branch now, with the candidate's outcome in view, is the post-hoc criterion change the run forbids, so neither is taken. QA-30 already records that this is a class rather than an incident; C064 is a further member of it, and no new QA is created.
+
+### Correction 2 -- opening the frozen SITES was a QA-31 violation
+
+Withdrawn:
+
+```text
+"This path's segments are `refs` and `download`; no `releases` segment
+ appears, and the contract's forbidden list names "releases", not
+ "download". Classifying this surface as a forbidden class would mean
+ inferring its kind from its path, which C026 refuses."
+```
+
+Both halves are wrong.
+
+QA-31 is written in terms of a surface CLASS -- "surface class = releases" -- and its scope paragraph speaks of "a code host's release assets", not of a spelling. Reducing it to a search for the literal segment `releases` narrows a class rule to a substring test the QA does not contain.
+
+And C026 does not license that narrowing. C026 bars inferring an ARTIFACT'S SOURCE ROLE from its filename. Identifying the CLASS of a host surface from that host's URL scheme is a different operation, and it is the operation QA-31 itself performed at C045. Invoking C026 here was a misapplication, and it is the specific error rather than a general reluctance to classify.
+
+The superseded entry also convicts itself: it called the surface a "tag-scoped artifact area" and then declined to treat it as one. Recognising the class and then setting it aside on spelling grounds is the mid-run choice the sealed methodology forbids.
+
+Disposition, per QA-31 and QA-27's third branch: the frozen SITES is metadata-supplied but unobservable under the sealed contract, accounted for with the prohibition as the named reason, and NOT opened.
+
+```text
+QUARANTINED -- unauthorized exposure
+
+  https://git.sr.ht/~thestr4ng3r/chiaki/refs/download/v2.2.0/
+  requested 2026-08-28T12:23:13Z (GET), 12:23:14Z (HEAD)
+  http_status 404, 404; 1497 bytes
+
+  The requests should not have been made. The responses are retained,
+  as this run retains every deviation, and they do no verdict work:
+  they are not endpoint evidence for this gate, they do not support
+  any claim about what that surface holds, and they cannot be used to
+  say the starting-point set was exhausted by observation.
+```
+
+Two statements resting on those requests are withdrawn with them:
+
+```text
+withdrawn  "Both starting points were determinately answered -- 200
+            and 404 -- so no surface is left unobserved"
+            One starting point was withheld by the contract, not
+            answered. This is C045's situation, not C036's.
+
+withdrawn  the paired note that the refs list shows a v2.2.0 entry
+            "while the frozen SITES path for that same version
+            returned 404". The comparison is built on the quarantined
+            request and is not made.
+```
+
+### Adjudication
+
+```text
+PASS not established
+  no designation witness whose evidential force is determined by the
+  sealed rules. The only route to this repository is the packaging
+  metadata's own HOMEPAGE field, which is affiliation (QA-22, C017),
+  and the frozen metadata names no project site. The one candidate
+  witness is the platform-drawn `source` tab, and whether that carries
+  designation force is precisely the undecided QA-30 question above.
+
+FAIL not established
+  the repository surface is admissible and carried no designation
+  signal determined by the sealed rules, which is a bounded
+  observation and not a demonstration that upstream designates none
+  (C017). The remaining admitted starting point is unobservable under
+  the contract, which narrows the basis for any negative further.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed at the repository's tree surface, so
+  source access is not what is missing.
+```
+
+Two independent routes reach the same code, and both are recorded because the postmortem should see that they coincided rather than that one carried the entry:
+
+```text
+QA-30  the evidential force of the chrome `source` label is undecided,
+       so the PASS-versus-UNRESOLVED branch cannot be taken
+
+QA-31  a potentially necessary metadata-supplied starting point is one
+       the contract forbids inspecting, and the protocol does not
+       operationalize how E2-REP completes in that case
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
+
+Error taxonomy for this correction:
+
+```text
+adjudication / inference error
+  treating the `source` self-link as closing QA-30 because it closed
+  navigation
+
+execution / procedure error
+  opening the frozen SITES, a surface QA-31 places out of reach, on a
+  substring reading of the class and a misapplication of C026
+
+methodology or design gap
+  none. QA-30 and QA-31 already describe both situations; this entry
+  applied them wrongly and now applies them.
+```
+
+Ledger unchanged: UNRESOLVED / E2-REP / PI-UNCLASSIFIED-SHAPE, later gates NOT_REACHED. The evidence refs now point at the superseding -02, per the C002/C005 convention.
