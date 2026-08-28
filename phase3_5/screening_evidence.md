@@ -4410,7 +4410,7 @@ withdrawn repeatedly. All four are observed below.
 Candidate: C035 (frame rank 35, games/atomix)
 Gate: E2-REP
 
-Per QA-27, every admitted starting point is accounted for. The frozen metadata supplies no HOMEPAGE and no repository identifier, so navigation step 1 has no target; SITES is the only field, and it resolves through the ports infrastructure's own SITE_GNOME definition to five distinct URLs. All five were observed, under one scope fixed before the first request: HTTP status; headings the surface carries; artifact names and link relations it exposes; any explicit source or source-code label; any primary or mirror marking. Not: opening any listed artifact, and not searching elsewhere.
+Per QA-27, every admitted starting point is accounted for. The frozen metadata supplies no HOMEPAGE and no repository identifier, so navigation step 1 has no target; SITES is the only field, and it resolves through the ports infrastructure's own SITE_GNOME definition to five distinct URLs. All five starting points are accounted for -- four produced determinate endpoint observations or a redirect, and one remained transport-indeterminate after the required retries -- under one scope fixed before the first request: HTTP status; headings the surface carries; artifact names and link relations it exposes; any explicit source or source-code label; any primary or mirror marking. Not: opening any listed artifact, and not searching elsewhere.
 
 ```text
 1  https://download.gnome.org/sources/atomix/3.22/
@@ -4446,29 +4446,33 @@ Surface 5 shows what surface 1 could not: LATEST-IS-3.22.0 is a symbolic link wh
 
 ```text
 PASS not established
-  none of the five surfaces carries a canonical-source designation.
-  Each identifies WHICH RELEASE is latest and exposes companion files
-  named .news and .sha256sum; none states, labels or relates the
-  location to the project as its source.
+  none of the DETERMINATELY OBSERVED source surfaces carried a
+  canonical-source designation. Each identifies WHICH RELEASE is
+  latest and exposes companion files named .news and .sha256sum; none
+  states, labels or relates the location to the project as its source.
 
   No other admitted starting point was supplied: the frozen metadata
-  names no project page or repository, so no such surface entered the
-  accounting.
+  names no project page or repository.
 
 FAIL not established
-  archive surfaces carrying no designation do not demonstrate that
-  upstream designates none.
+  no candidate-level failure is established. Archive surfaces carrying
+  no designation do not demonstrate that upstream designates none, and
+  E2REP-NO-SOURCE does not apply either: an artifact is exposed
+  alongside a file named for its checksum, and whether that artifact
+  is this candidate's actual source representation was not established
+  -- opening it was outside the fixed scope. An unclassified artifact
+  proves neither source access nor its absence, the C030 position.
 
-E2REP-NO-SOURCE not established
-  an artifact is exposed, alongside a file named for its checksum.
-  Whether that artifact is this candidate's actual source
-  representation was not established, opening it being outside the
-  fixed scope. An unclassified artifact proves neither source access
-  nor its absence -- the C030 position.
+ADJUDICATION BLOCKED BEFORE EITHER
+  surface 4 remains transport-indeterminate after the retries the
+  contract requires. What it would have displayed is unknown, so
+  E2-REP cannot be fully adjudicated under the bounded contract.
 ```
 
-Recorded at the strength the observations support: where the frozen metadata supplies only distribution starting points, and the surfaces examined carry no canonical-source designation, this run has not been able to establish E2-REP PASS. That is a statement about the evidence obtained, not a claim that E2-REP is structurally unreachable for such candidates -- an archive index that stated its role would be positive evidence. The near precedent is C030.
+The code follows from that last line, and the reasoning matters more than the code. `PI-UNCLASSIFIED-SHAPE` would say the bounded surfaces were all seen and neither PASS nor FAIL followed. That stage was never reached. Substituting surfaces 1 and 5's observations for surface 4's would be the mirror-substitution error this entry was superseded for correcting -- run in the opposite direction: OpenBSD grouping these URLs under one macro cannot tell us what surface 4 displays, and neither can the other mirrors.
 
-Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+Recorded as a record-only observation, and NOT as this candidate's terminal ground: where the frozen metadata supplies only distribution starting points and the observed surfaces carry no canonical-source designation, this run has not been able to establish E2-REP PASS. That shape is real and its near precedent is C030 -- but C035 is terminal on transport indeterminacy, not on it.
+
+Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
 
 Gates after E2-REP are NOT_REACHED.
