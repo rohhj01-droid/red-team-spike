@@ -8557,7 +8557,7 @@ Observed: the project's own site. Its top navigation is Home, News, Download and
 
 Step 2: the "Source Code" link. Its label is one of the contract's four words verbatim, step 1 exposes it directly, and the project's own `Project` heading groups it with the repository's other areas. Authorized on the contract's plain text.
 
-Uniqueness. The two sibling links under the same heading are labelled `Releases` and `Issues` -- both forbidden classes, neither followed, and neither carrying a source role. `Download` in the top navigation is outside the four labels and was not opened (QA-17). `Flathub` sits under `Links` and is a distribution channel. So exactly one link on this surface carries the source role, and the project's own grouping is what separates it from its siblings.
+Uniqueness. The two sibling links under the same heading are labelled `Releases` and `Issues` -- both forbidden classes, neither followed, and neither carrying a source role. `Download` in the top navigation is outside the four labels and was not opened (QA-17). `Flathub` is listed under `Links`; it was not opened, and no role is assigned to it here. So exactly one link on this surface carries the source role, and the project's own grouping is what separates it from its siblings.
 
 Step 3: https://gitlab.com/choria/code
 observed_at_utc: 2026-08-28T13:03:03Z (metadata), 13:03:17Z (root listing); http_status 200 on both
@@ -8672,7 +8672,9 @@ save.cpp:497-498   Database->PrepareQuery("INSERT INTO settings(version) VALUES 
                    Database->BindInt(1, DEFAULT_SAVE_VERSION);
 ```
 
-Inference: whether an existing save file is accepted as it stands is decided against a version number that an earlier run of the program wrote into it -- at creation by :497-498, or by the increment at :61 when a version-10 file was migrated. The same file is used directly at version 11, migrated in place at version 10, and at any other positive version is renamed aside and replaced by a fresh database, which is to say not accepted. That is validity conditioned on history, which is what E3 asks for.
+Inference, kept to what the quoted code establishes: whether an existing save file is accepted as it stands is decided against a version number read out of that file, and the program contains both writers of that value -- at creation by :497-498, and by the increment at :61 when a version-10 file is migrated. So the value the check consults is one this program persists and a later run reads back. The same file is used directly at version 11, migrated in place at version 10, and at any other positive version is renamed aside and replaced by a fresh database, which is to say not accepted.
+
+Not claimed: that the value in any particular existing file was in fact written by an earlier run of this program. What is established is the persistent writer and reader path and the branch it drives, which is the stateful validity question E3 asks for.
 Decision: PASS
 
 ## EV-C066-E4-01
@@ -8703,6 +8705,14 @@ stats.cpp:263-338  void _Stats::LoadItems() {
                    }
 stats.cpp:341      Items[0] = nullptr;
 
+stats.cpp:341-346  Items[0] = nullptr;
+
+                   // Load extra attributes
+                   _Scripting Scripting;
+                   Scripting.LoadScript(SCRIPTS_DATA);
+                   Scripting.LoadItemAttributes(this);
+               }
+
 scripting.cpp:510-524
                    void _Scripting::LoadItemAttributes(_Stats *Stats) {
                        lua_getglobal(LuaState, "Item_Data");
@@ -8717,23 +8727,52 @@ scripting.cpp:510-524
                            ...
 ```
 
+The call path is closed, and its ORDER matters: `LoadItemAttributes` is invoked at the end of `LoadItems` itself, at stats.cpp:346, after the query loop has populated the map and after the `Items[0]` insertion at :341. So the registry the check consults is fully constructed, sentinel included, before any script key is tested against it. An earlier version of this entry quoted the two function definitions without this call site, which left the EN4 connection asserted rather than shown -- the same defect corrected at C063.
+
+PROVENANCE NOTE. These line numbers were challenged in review as belonging to a different range, so they were re-verified rather than defended from memory. `dev` was re-resolved at 2026-08-28T13:22:50Z and is unchanged at 55974b0ac9d2046fbb4beca9f1a515145a116c6d; `src/scripting.cpp` re-fetched at that commit is byte-identical to the copy hashed in EV-C066-PIN-01, sha256 21be427697f950baed220703dd93fa566f91e2e65df4396049311e8314888bd0, and in those bytes `LoadItemAttributes` begins at line 510, the conversion is at :522, the `find` at :523 and the throw at :524. The citations stand as written.
+
 EN1 external authorship: the game and this loader existed independently of this analysis.
 
-EN2 explicit scope: the domain is the items the game defines. Each entry is built from named columns the project chose -- id, name, texture, alt_texture, script, proc, itemtype_id and the rest -- so every member carries externally segmented fields.
+EN2 explicit scope: the domain is the items the game defines. Each LOADED entry is built from named columns the project chose -- id, name, texture, alt_texture, script, proc, itemtype_id and the rest -- so every loaded member carries externally segmented fields. The one exception is the sentinel described under EN3, which carries none, and it is kept separate everywhere below rather than being counted as an ordinary member.
 
 EN3 mechanical membership:
 
 ```text
-enumerator membership      the keys inserted into Stats->Items by
-                           LoadItems, one per row of the `item` table
-                           with id 0 skipped, plus the explicit
-                           Items[0] = nullptr at stats.cpp:341
-runtime enforcement value  the _Item the key maps to
+loaded members             the keys inserted into Stats->Items by
+                           LoadItems, one per row of the `item` table,
+                           rows with id 0 skipped at stats.cpp:271-272
+                           -- each mapping to a fully built _Item
+
+sentinel entry             Items[0] = nullptr, inserted at
+                           stats.cpp:341 after the loop. Key 0 is
+                           present in the map and maps to no _Item, so
+                           it carries none of the fields the loaded
+                           members carry.
+
+what the check consults    the map's key set, which is the loaded
+                           members TOGETHER WITH the sentinel
 ```
 
-EN4 connection to validation, in project code on both sides: `LoadItemAttributes` iterates the script's `Item_Data` table and rejects any key absent from `Stats->Items` with a runtime error naming the offending ID. The deciding and the rejecting code are both the project's, unlike C038 and unlike this candidate's own Lua-binding tables, where an unregistered call would fail inside the interpreter.
+EN4 connection to validation, in project code on both sides: `LoadItemAttributes` iterates the script's `Item_Data` table and, for each entry, tests a value against `Stats->Items`, raising a runtime error that names it when absent. The deciding and the rejecting code are both the project's, unlike C038 and unlike this candidate's own Lua-binding tables, where an unregistered call would fail inside the interpreter.
 
-One property of that enforcement is recorded rather than smoothed over. `LoadItems` skips rows with id 0, and stats.cpp:341 then inserts `Items[0] = nullptr` explicitly. So key 0 IS present in the map: a script entry keyed 0 passes the `find` test at scripting.cpp:522 and is not rejected, while the value it resolves to is null. The membership test and the usable-value set are therefore not the same set, and the enforcement observation below is worded against the membership test, which is what the code actually performs.
+What is tested is stated exactly, because an earlier version overstated it as "any `Item_Data` key". The code does not test the raw Lua key. It converts first, at scripting.cpp:522 -- `uint32_t ItemID = (uint32_t)lua_tointeger(LuaState, -2);` -- and the `find` at :523 is performed on that converted `uint32_t`. So the guarantee runs over converted values, not over keys as they appear in the script.
+
+Two consequences follow, and the second is bounded by what was NOT observed:
+
+```text
+established from the quoted code
+  a converted ID of 0 is not rejected. Items[0] exists by the
+  sentinel, so find(0) succeeds and the throw at :524 is not reached,
+  while the value obtained is null.
+
+not established here
+  what a key that is not a number converts to. That is Lua library
+  behaviour, and this entry did not observe the Lua version this build
+  links or that version's conversion rule. If such a key converts to
+  0, the case above applies to it; if it converts otherwise, it does
+  not. Nothing is asserted either way -- the C038 rule against
+  supplying library semantics from our own knowledge.
+```
 
 EN5 closed within scope: the set is closed by runtime construction -- Section 3.2's first admissible case -- membership being precisely what `LoadItems` inserted. Tag: `enforced`. No immutability is claimed.
 
@@ -8742,21 +8781,27 @@ EN6 outcome independence: the registry is the set of items the game defines. It 
 The universe is therefore ACTUALLY mechanically constructible, stated as observations:
 
 ```text
-one enforcement observation per registered item id
+one enforcement observation per LOADED item id
 
   "item id N is present in the loaded item registry, carrying the
    project's own name, type, script and proc fields; a script
-   `Item_Data` key absent from that registry is rejected with
-   `Item ID <n> not found!`"
+   `Item_Data` entry whose converted id is not a key of that registry
+   is rejected with `Item ID <n> not found!`"
 
 retained as externally segmented fields, per observation
   the item id
   the project's name for it
   its item type
   its script and proc identifiers
+
+the sentinel is NOT such an observation
+  key 0 carries none of those fields, and it is the one key whose
+  presence weakens rather than performs the check. It is recorded as
+  part of the map's key set under EN3 and excluded from the
+  observation set here.
 ```
 
-Two limits are stated rather than left implicit. The registry's contents are read from the `item` table of a database the project ships, and this entry did not open that database, so no member list and no count is offered here -- constructing it is the inventory stage's work under QA-19, by the same mechanism the program uses. And the `Items[0]` placeholder above means a member list drawn from the map is not identical to the set of ids with usable values.
+Two limits are stated rather than left implicit. The registry's contents are read from the `item` table of a database the project ships, and this entry did not open that database, so no member list and no count is offered here -- constructing it is the inventory stage's work under QA-19, by the same mechanism the program uses. And the sentinel means the map's key set, the loaded-member set and the set of ids with usable values are three different things, kept apart above.
 
 Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
 
