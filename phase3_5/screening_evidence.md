@@ -6906,14 +6906,27 @@ Review  Manual  Adverts  Maps  Screenshots  Covers  Media  Videos
 DEVELOPMENT  Cheats  Credits  Comments  Magazines  Walkthrough
 ```
 
-Whether this portal is the project's own publisher is settled by the page's own structured field rather than left open:
+On the portal's status, which the previous entry left open in a way that mattered:
 
 ```text
 <div class="finfo__label">Company</div>
 <div class="finfo__value"><a href="/compania/cez%2Brd?l=en">CEZ RD</a></div>
 ```
 
-The page names the game's company as CEZ RD, and the site is Computer Emuzone [CEZ]. On that reading this is the project's own surface, and step 2 therefore had to be taken.
+Observed: the page identifies the game's company as CEZ RD. Whether that establishes that Computer Emuzone itself is this project's upstream surface is NOT determined here -- the site name containing "[CEZ]" is corroborating context, not a statement of identity, and no entity identification is attempted.
+
+It no longer needs determining, because the exact-label route was taken rather than reasoned about:
+
+```text
+if the page is upstream   the Development link is a step-2 target; it
+                          was followed, and yielded no game-source
+                          designation
+
+if it is third-party      its contents carry no upstream designation
+                          force in the first place
+```
+
+That is what the previous entry got wrong -- not that it left the question open, but that it left it open while the two branches called for different actions. Taking the route closes both.
 
 Step 2: the "Development" tab. Its label is one of the contract's four words exactly -- `<a class="fnavchip" href="...?l=en&pg=develop#pg-content" title="Development">` with the label span reading "Development" -- and it is a per-game tab in this record, not site furniture. The navigation is authorized on the contract's plain text.
 
@@ -6971,7 +6984,7 @@ E2REP-NO-SOURCE not established
   source representation is reachable elsewhere.
 ```
 
-Both starting points were determinately answered -- 200 and 404 -- and the one exact-label step-2 target was followed to completion, so this is not the transport family and the exploration is not merely unfinished.
+Both starting points were determinately answered -- 200 and 404 -- so this is not the transport family. Stated precisely, because this entry records a residual: the unambiguous exact-label Development route was completed. What remains is an interpretation question over the site-level "Greetings and Sources" link, where the sealed text does not make clear whether a compound, plural label falls inside "a Source / Code / Repository / Development link". Under the reading used here it is not a step-2 route; under the broader alternative it is, and exploration would remain incomplete.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
@@ -6992,4 +7005,6 @@ The second withdrawal follows from the first. The entry left open whether the po
 
 Both are withdrawn. EV-C058-E2REP-02 settles the portal question from the page's own Company field -- CEZ RD, on a site named Computer Emuzone [CEZ] -- takes step 2, and records what the Development tab actually contains: third-party binary packages and an archive of build-time dependencies, no source location.
 
-The verdict does not move: UNRESOLVED, PI-UNCLASSIFIED-SHAPE. But its basis is different in kind. Before, the gate was unsettled with a step-2 target unexamined; now step 2 has been taken and led nowhere, which is a completed exploration rather than an abandoned one. Ledger fields are unchanged; the evidence refs now point at the superseding -02, per the C002/C005 convention.
+The verdict does not move: UNRESOLVED, PI-UNCLASSIFIED-SHAPE. But its basis is different in kind. Before, the gate was unsettled with an unambiguous step-2 target unexamined; now that route has been taken and led nowhere.
+
+Not overstated: this is the exact-label route completed, not the whole exploration closed. The "Greetings and Sources" residual is a label-scope ambiguity in the sealed text -- whether a compound plural label counts as a Source link -- and it is recorded rather than resolved. Ledger fields are unchanged; the evidence refs now point at the superseding -02, per the C002/C005 convention.
