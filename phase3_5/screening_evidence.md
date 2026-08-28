@@ -5123,3 +5123,151 @@ That is wrong about the operation. `*found = t` replaces a slot's value; it does
 The narrower true statement is that the recognised-token relation is mutable during parsing, which is what the entry now says. EN5 is undisturbed: it requires closure not chosen by us, not immutability.
 
 Also narrowed: the entry now states explicitly that it establishes only the EXISTENCE of a mechanically constructible universe, and fixes no count. QA-19 keeps that at the inventory stage.
+
+## EV-C044-UR-01
+Candidate: C044 (frame rank 44, games/blobwars)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/blobwars/Makefile
+Observed: DISTNAME=blobwars-2.00; HOMEPAGE=https://sourceforge.net/projects/blobwars/; SITES=${SITE_SOURCEFORGE:=blobwars/}; COMMENT="2D arcade game". No GH_ACCOUNT/GH_PROJECT.
+Inference: the frozen fields name one packaged system. DISTNAME, HOMEPAGE and SITES all carry the same project name. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C044-E1-01
+Candidate: C044
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game -- COMMENT "2D arcade game", GPLv2+ with third-party audio under CC and other licences, hosted on an upstream account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C044-E2REP-01
+Candidate: C044
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for: the frozen HOMEPAGE and the frozen SITES.
+
+DEVIATION, recorded before the observations that follow. The first three requests to step 1 carried a spoofed `Mozilla/5.0` user agent and were answered 403 with a two-byte body, "no".
+
+```text
+06:28:44Z  GET  UA Mozilla/5.0   403, 2 bytes
+06:29:29Z  GET  UA Mozilla/5.0   403, 2 bytes
+06:29:29Z  GET  UA Mozilla/5.0   403, 2 bytes
+06:29:30Z  HEAD UA Mozilla/5.0   403
+06:29:30Z  GET  default client   200, 117365 bytes
+```
+
+Presenting a user agent I am not was not necessary and was not authorized by anything in the contract; it is recorded rather than quietly dropped. The observations below rest on the 200, which the plain client obtained. Note the direction, since it matters for what the 403s could otherwise have been made to mean: the host refused the disguised request and served the honest one. Had the entry stopped at the 403s it would have reported an unobservable surface that was in fact observable -- the error would have run toward a manufactured UNRESOLVED.
+
+Step 1: https://sourceforge.net/projects/blobwars/ -- the frozen HOMEPAGE, which is a SourceForge project page.
+observed_at_utc: 2026-08-28T06:29:30Z; http_status 200; redirect_chain: NONE (num_redirects 0); 117365 bytes
+evidence_role: official-project-page
+
+This is C023's topology, not C007's: the hub IS the landing page named by the frozen HOMEPAGE, so it is step 1 and readable in full, rather than something reached one hop from a landing page.
+
+Observation scope, fixed before the request: HTTP status and redirects; the title and headings the page carries; any sentence upstream authored about where the project or its source is found; which project-navigation items the page exposes and their targets; artifact names exposed; any primary, canonical or mirror marking. Not: opening the Code area's history, the Files area, tickets, news, or any artifact.
+
+Observed:
+
+```text
+title  "Blobwars: Metal Blob Solid download | SourceForge.net"
+h1     Blobwars: Metal Blob Solid
+h2     2D platform game
+
+project-authored description, in full so that no absence claim rests
+on an unread passage:
+  "Metal Blob Solid is a 2D platform game, the first in the Blobwars
+   series. You take on the role of a fearless Blob agent, Bob, who's
+   mission is to infiltrate various enemy bases and rescue as many
+   MIAs as possible, while battling many vicious aliens."
+
+project navigation exposed by the page
+  Summary  /projects/blobwars/          Files  /projects/blobwars/files/
+  Reviews  Support  Tickets  Bugs  Support Requests  Patches
+  Feature Requests   News                Code   /p/blobwars/code/
+
+"Blobwars: Metal Blob Solid Web Site" -> https://sourceforge.net/projects/blobwars/
+   the project's Web Site field points back at this same page; no
+   external project site is named anywhere
+
+Download button -> /projects/blobwars/files/latest/download, titled
+   "Download blobwars-2.00-1.installer.exe from SourceForge - 75.1 MB"
+```
+
+The description is a game description. Nothing on this surface states, labels or marks where the project's source is, and no relocation notice of C023's kind appears.
+
+Step 2: the "Code" link. Its label is literally one of the contract's four words and step 1 explicitly exposes it, so the navigation is authorized on the contract's plain text -- no reading of the destination is required, which is the basis C038 established.
+
+Step 3: https://sourceforge.net/p/blobwars/code/
+observed_at_utc: 2026-08-28T06:30:29Z; http_status 200; redirect_chain: 2 redirects, final_url https://sourceforge.net/p/blobwars/code/ci/master/tree/
+evidence_role: official-source-location
+Observed: a git repository titled "Blobwars: Metal Blob Solid / Code", clone URL https://git.code.sf.net/p/blobwars/code, branches master and sdl2, tag release-1.18-1, and a source tree at the root:
+
+```text
+dirs   data doc gfx icons locale music patches sound src tools
+files  .gitignore Makefile Makefile.windows blobwars.nsi blobwars.spec
+```
+
+Second starting point: the frozen SITES. `${SITE_SOURCEFORGE:=blobwars/}` resolves through the ports infrastructure's own macro definition to https://downloads.sourceforge.net/sourceforge/blobwars/.
+Necessary because: the gate was unsettled after step 1, and this is the remaining admitted starting point. Observed rather than predicted from its URL shape (C018), even though the same macro produced 404s at C031, C036 and C037.
+observed_at_utc: 2026-08-28T06:31:22Z (GET), 06:31:23Z (HEAD); http_status 404, 404; redirect_chain: NONE on both
+Observed: a 154-byte "404 Not Found -- The resource could not be found."
+
+Now the adjudication, and it turns on a question the sealed criterion does not answer.
+
+The two locations this project has are exposed by SourceForge's standard project navigation -- a code area and a release Files area, side by side in the same strip, with nothing ranking them. That strip is rendered by the platform on its project pages. Whether its items count as UPSTREAM DESIGNATING is not something the sealed criterion settles, and the verdict differs by branch:
+
+```text
+if the navigation strip designates
+    two designated locations, no primary marked among them
+    -> that is C006's E2REP-NO-SINGLE-CANONICAL-LOCATION
+
+if the navigation strip does not designate
+    no designation was made at all
+    -> not PASS, and no failure code is completed either
+```
+
+Choosing a branch would be us supplying the missing rule, so neither is taken. See QA-30.
+
+Two precedents were checked against this and neither carries it:
+
+```text
+C006  its step 1 was https://dgen.sourceforge.net/ -- the project's OWN
+      site, where the two links sit on a page upstream authored. That
+      is not this page.
+
+C023  same hub-as-HOMEPAGE topology, and it reached PASS. But what
+      ranked the locations there was upstream's own dated sentence,
+      "As of 2015-12-05, this project can be found here". The entry
+      called the Code and Files areas SourceForge's project furniture
+      and let the notice do the work. No such sentence exists here.
+```
+
+```text
+PASS not established
+  no admitted surface designates a single canonical source location.
+  Upstream's own words on step 1 describe the game and nothing else;
+  the Web Site field points back at the same page; the navigation
+  strip ranks nothing. Reaching the code area by an authorized step 2
+  yields affiliation, not designation (QA-22) -- the contract's step-2
+  whitelist is a navigation permission, not a finding that the link
+  is upstream's canonical-source designation.
+
+FAIL not established
+  E2REP-NO-SINGLE-CANONICAL-LOCATION requires that upstream designate
+  several with no primary among them. That needs the platform strip
+  to count as upstream's designations -- the same premise PASS would
+  need, pointed the other way. It is undecided, so the failure is not
+  established either.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed at step 3, so source access is not what
+  is missing.
+```
+
+Both admitted starting points were determinately answered -- 200 and 404 -- so no surface is left unobserved and this is not the transport family. What is missing is a rule, not an observation.
+
+Recorded and not used: the Download button names a Windows installer artifact. No inference is drawn from that about what the Files area holds -- it was not opened, and C035 settled that an unobserved surface's contents may not be read off its neighbours.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.

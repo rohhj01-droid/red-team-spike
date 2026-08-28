@@ -1795,3 +1795,43 @@ Recurrence condition, bound to the shape rather than to framesets (the QA-20 les
 What this costs, recorded rather than repaired. Under the sealed contract, a frameset landing page is observable only down to "it declares frames". Such a candidate's step 1 can never be settled, and it goes to UNRESOLVED for a reason that is about our instrument rather than about upstream. That is a real limitation and it belongs in the reportable result -- not in a mid-run amendment, which would be a post-hoc criterion change of exactly the kind the run forbids.
 
 What it does NOT license, so that this does not re-inflate the way QA-24 did: nothing here says a surface is inadmissible because it is "derived" or "secondary". Surfaces are admitted by the contract's own list -- frozen URLs and identifiers, and the two navigation steps. QA-29 removes an argument for adding to that list; it removes nothing from it.
+
+## QA-30 — whether a hosting platform's project navigation is upstream's designation is not settled by the sealed criterion
+
+Raised at C044, where the frozen HOMEPAGE is a SourceForge project page and the project has both a code area and a release Files area, exposed side by side in the navigation strip the platform renders on every such page.
+
+The criterion asks whether UPSTREAM designates a single canonical source location. A platform's tab strip is an awkward fit in both directions:
+
+```text
+reading it AS designation
+  the project chose this host, enabled the code area, and the strip
+  appears on the project's own page under its own name; the label is
+  literally one of the contract's four words
+
+reading it as NOT designation
+  the strip is rendered for every project whether or not it uses the
+  areas; its presence is the platform's doing, not a sentence anyone
+  upstream wrote; and it says nothing about which location is canonical
+```
+
+The sealed criterion contains nothing that chooses. This QA does not choose either -- inventing the rule now, with a candidate's verdict visible, is precisely the post-hoc criterion change the run forbids. It records the gap.
+
+Consequence, which is why it matters beyond one candidate. Where the two readings disagree the verdict disagrees too: a project with both a code area and a Files area lands on C006's E2REP-NO-SINGLE-CANONICAL-LOCATION under one reading and on no failure code at all under the other. Such a candidate goes to UNRESOLVED / PI-UNCLASSIFIED-SHAPE for a reason that is about the instrument rather than about upstream, and this is a CLASS, not an incident: any frame item whose HOMEPAGE is a project-hosting hub can present it.
+
+What this does NOT disturb:
+
+```text
+C023  passed on upstream's own dated relocation sentence, which ranked
+      the locations without needing the strip to designate anything.
+      Its Code and Files areas were already recorded as platform
+      furniture doing no work.
+
+C006  its step 1 was the project's own site, where the two links were
+      on a page upstream authored. QA-30 is about platform-rendered
+      navigation and leaves that verdict untouched.
+
+step 2  remains authorized by a link whose label is one of the four
+        words. QA-30 says such a link does not by itself establish
+        that upstream designates that location as canonical; it does
+        not withdraw the permission to follow it.
+```
