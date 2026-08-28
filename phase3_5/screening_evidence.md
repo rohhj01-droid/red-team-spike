@@ -5422,3 +5422,98 @@ Neither withdrawal changes the outcome, and the reason to decline the surface is
 Also lowered in the same pass: "Root listing at ref bgl/0.6.14, the frozen version's branch". The frozen V is 0.6.14.1 and the observed default branch is bgl/0.6.14; their correspondence was never established, and E2-REP needs only that a source tree is present. It now reads "Root listing at the observed default branch bgl/0.6.14".
 
 Ledger unchanged: E2-REP UNRESOLVED, failure_code NONE, PI-UNCLASSIFIED-SHAPE, later gates NOT_REACHED.
+
+## EV-C046-UR-01
+Candidate: C046 (frame rank 46, games/blockrage)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/blockrage/Makefile
+Observed: DISTNAME=blockrage-0.2.3; HOMEPAGE=https://blockrage.sourceforge.net/; SITES=${SITE_SOURCEFORGE:=blockrage/}; COMMENT="falling block puzzle game similar to Xixit".
+Inference: the frozen fields name one packaged system, Block Rage. "similar to Xixit" is a comparison, not a second packaged system -- the same reading applied to C013's "numerous game consoles" and C023's "marathon / alephone". Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C046-E1-01
+Candidate: C046
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party puzzle game under GPLv2+, on an upstream host unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C046-E2REP-01
+Candidate: C046
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were observed. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url: https://blockrage.sourceforge.net/ ; final_url: https://sourceforge.net/projects/blockrage/
+observed_at_utc: 2026-08-28T07:01:33Z-07:01:34Z; http_status 200; redirect_chain: 1 redirect; 98790 bytes
+evidence_role: official-project-page
+
+Recorded exactly: the frozen per-project host answered with a redirect, and what was served is the SourceForge project page. No inference is drawn about why, or about what that host held before. The surface observed is the one the admitted URL actually returned.
+
+That makes this C023's and C044's hub-as-step-1 topology rather than C002's and C006's, where a per-project SourceForge host served a page the project itself had authored.
+
+Observation scope, fixed before the request: HTTP status and redirects; the title and headings; any sentence upstream authored about where the project or its source is found; which project-navigation items are exposed and their targets; artifact names exposed; any primary, canonical or mirror marking. Not: opening the Files area, tickets, news, or any artifact.
+
+```text
+title  "Block Rage download | SourceForge.net"
+h1     Block Rage
+       Status: Pre-Alpha   Brought to you by: jiri_svoboda
+       Last Update: 2013-03-08
+
+project-authored description, quoted so no absence claim rests on an
+unread passage:
+  "Highly addictive falling blocks game with detailed graphics and
+   animated plasmatic backgrounds. Challenge your friend in a 2-player
+   hotsea[t]..."
+
+project navigation exposed
+  Summary  Files  Reviews  Support  Tickets  Bugs
+  Feature Requests  News
+
+  -- there is NO Code item.
+
+"Block Rage Web Site" -> http://blockrage.sourceforge.net
+   the Web Site field points back at the frozen URL that redirected
+   here; it names no further surface
+
+Download -> /projects/blockrage/files/latest/download
+```
+
+A scan of the project area for source-role wording -- "source code", "repository", "git", "svn", "cvs", "Code" -- returned nothing.
+
+So navigation step 2 has no target: no Source, Code, Repository or Development link is exposed at all. The Files area was not opened, and per RETRACTION 21 a generic artifact-area label establishes no source location either way.
+
+QA-30 does not bite here, and the reason is worth one line so its absence is not mistaken for an oversight. That question is about the evidential force of a platform-drawn "Code" item; this page draws none, so nothing turns on how such an item would be read.
+
+Surface 2: the frozen SITES. `${SITE_SOURCEFORGE:=blockrage/}` resolves through the ports infrastructure's own macro definition to https://downloads.sourceforge.net/sourceforge/blockrage/.
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point. Observed rather than predicted from its URL shape (C018), though the same macro produced 404s at C031, C036, C037 and C044.
+observed_at_utc: 2026-08-28T07:01:55Z (GET), 07:01:56Z (HEAD); http_status 404, 404; redirect_chain: NONE on both
+Observed: a 154-byte "404 Not Found -- The resource could not be found." No headings, artifact names or designation signal.
+
+```text
+PASS not established
+  neither admissible surface established a canonical-source
+  designation. Surface 1 exposes no source-role link of any kind and
+  its own words describe the game; surface 2 returned 404 and
+  displayed nothing.
+
+FAIL not established
+  a project page carrying no source link and an archive path
+  returning 404 do not demonstrate that upstream designates no
+  canonical source location -- the C017 boundary, and the same
+  reading as C036.
+
+E2REP-NO-SOURCE not established
+  the 404 is evidence about that endpoint. Nothing observed bears on
+  whether a source representation is reachable elsewhere, and no
+  surface was reached at which source-tree presence could have been
+  established either way.
+```
+
+Both starting points were determinately answered -- 200 and 404 -- so no surface is left unobserved, this is not the transport family, and the outcome is a shape the sealed criteria do not describe. C036's case in every structural respect.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
