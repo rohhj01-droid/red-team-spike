@@ -6157,3 +6157,79 @@ Verdicts unchanged; both were arguments the entry did not need.
 **The v1.7.5 adjudication.** The entry argued that the site's v1.7.5 source artifacts were not a competing designation because upstream ranks them "Older", invoking C015 and C038 and adding QA-26. Withdrawn. Once UR fixes the target as Brogue: Community Edition, the question is whether a CE canonical source location is designated; how another version line's page ranks its own older material does not bear on that, and running the adjudication anyway imports scope C048 was careful to exclude. The artifacts stay on the record as observed, doing no verdict work.
 
 The remaining E2-REP reasoning is simpler for the removal, and unchanged in outcome: the only navigable link to the packaged system is labelled "Download" and targets a releases path, excluded twice over and independently; the repository was reached by packaging identifiers, which is affiliation; its website field points repo->site, which does not designate; a source tree is present, so E2REP-NO-SOURCE does not apply. UNRESOLVED / PI-UNCLASSIFIED-SHAPE.
+
+## EV-C052-UR-01
+Candidate: C052 (frame rank 52, games/brumbrumrally)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/brumbrumrally/Makefile
+Observed: DISTNAME=brumbrumrally-0.7; HOMEPAGE=http://dataapa.net/brumbrumrally/; SITES=http://dataapa.net/brumbrumrally/files/; COMMENT="racing game with randomized tracks".
+Inference: the frozen fields name one packaged system, Brum Brum Rally, and HOMEPAGE and SITES sit on the same upstream domain, the second a subdirectory of the first. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C052-E1-01
+Candidate: C052
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under GPLv3+, on an upstream domain unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C052-E2REP-01
+Candidate: C052
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were observed. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url and final_url: http://dataapa.net/brumbrumrally/
+observed_at_utc: 2026-08-28T08:07:24Z; http_status 200; redirect_chain: NONE (num_redirects 0); 3949 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; the links exposed with their labels and targets; any sentence about where the project or its source is; any primary, canonical or mirror marking. Not: opening any linked page or artifact.
+
+Observed: the project's own site, titled "Brum Brum Rally - 2D racing game for up to 8 players". Its navigation exposes About, News, Screenshots, Download and Manual, plus a language switch to a Swedish version, a "GNU GPL" link to gnu.org, and "Back to Dataapa". The body describes the game, its modes and its platforms, and states "Brum Brum Rally is free software. You can redistribute it and/or modify it under the terms of the GNU GPL."
+
+No Source, Code, Repository or Development link is exposed, so navigation step 2 has no target. "Download" is outside the four-word whitelist and was not opened (QA-17). The licence sentence grants redistribution rights; it names no location, and a licence statement is not a canonical-source designation.
+
+Surface 2: the frozen SITES.
+requested_url and final_url: http://dataapa.net/brumbrumrally/files/
+observed_at_utc: 2026-08-28T08:07:43Z (GET), 08:07:44Z (HEAD); http_status 200, 200; redirect_chain: NONE on both; 3884 bytes
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point.
+
+Observed: a bare server autoindex, titled "Index of /brumbrumrally/files/", listing a Parent Directory link and eleven artifacts with sizes and nothing else:
+
+```text
+brumbrumrally-0.1 .. 0.7 .tar.gz        44 KB .. 148 KB
+brumbrumrally-0.5 / 0.6 / 0.7 -win32.zip   ~700 KB each
+brumnet-0.1.tar.gz                       14 KB
+```
+
+The index carries no descriptions, no source-role labels, no headings beyond its own title, and no primary, canonical or mirror marking.
+
+Nothing is read off the filenames. C026's observation scope settled that an artifact may not be inferred to be source from its name, and that restraint is what keeps this surface from silently becoming a designation. On the same ground brumnet-0.1.tar.gz is recorded as a listed artifact and nothing more: no claim is made about what it is or whether it belongs to another system.
+
+```text
+PASS not established
+  neither admissible surface designates a canonical source location.
+  Surface 1 exposes no source-role link and its only relevant sentence
+  is a licence grant. Surface 2 is an autoindex that names artifacts
+  without saying what any of them is.
+
+FAIL not established
+  a project page carrying no source link and a directory listing
+  carrying no labels do not demonstrate that upstream designates no
+  canonical source location -- the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  artifacts are exposed and reachable; what was not established is
+  what they are. That is not the same as no access to a source
+  representation, and the code is not completed either way.
+```
+
+Recorded because it bounds this verdict in the direction opposite to C049's: the "Download" page was not opened, the contract not admitting its label. If that page labels one of these artifacts as source, a designation would exist that this entry did not see. That possibility is unexamined, not excluded, and it cannot be examined -- which is why the verdict is UNRESOLVED rather than any finding about upstream.
+
+Both starting points were determinately answered, 200 on each, so no surface is left unobserved and this is not the transport family.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
