@@ -8176,3 +8176,290 @@ methodology or design gap
 ```
 
 Ledger unchanged: UNRESOLVED / E2-REP / PI-UNCLASSIFIED-SHAPE, later gates NOT_REACHED. The evidence refs now point at the superseding -02, per the C002/C005 convention.
+
+## EV-C065-UR-01
+Candidate: C065 (frame rank 65, games/chocolate-doom)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/chocolate-doom/Makefile
+Observed: V=3.1.0; DIST_TUPLE = github chocolate-doom chocolate-doom chocolate-doom-${V} .; PKGNAME=chocolate-doom-${V}; HOMEPAGE=https://www.chocolate-doom.org/; COMMENT="portable release of Doom, Heretic, Hexen, and Strife".
+Inference: one packaged system, Chocolate Doom. The four titles COMMENT lists are the games the port reproduces, not four packaged systems -- the reading applied at C013, C023, C046, C048, C050, C057 and C061 -- and the single DIST_TUPLE extracts to "." with no vendored second tuple. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C065-E1-01
+Candidate: C065
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party source port under GPLv2+, on an upstream domain and account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C065-E2REP-01
+Candidate: C065
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for: the frozen HOMEPAGE, and the DIST_TUPLE's chocolate-doom/chocolate-doom identifiers. The pair resolves to the same repository step 3 reaches, so as at C038 it is not a separate surface.
+
+Step 1: the frozen HOMEPAGE.
+requested_url: https://www.chocolate-doom.org/ ; final_url: https://www.chocolate-doom.org/wiki/index.php/Chocolate_Doom
+observed_at_utc: 2026-08-28T12:37:32Z; http_status 200; redirect_chain: 1 redirect; 19535 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; the links exposed with their labels and targets; any sentence or label assigning a source role; any primary, canonical or mirror marking.
+
+Observed: the project's own MediaWiki page, titled "Chocolate Doom". Its content links are Read more (About), Screenshots, Download, User guide, FAQ, **development**, and Crispy Doom; its sidebar adds "Download package" and "Report bug"; its External links section lists Doomworld, The Doom Wiki and the idgames archive, all third-party. The remainder is MediaWiki's own chrome -- Talk, Contributions, Edit, View history, Special pages and so on.
+
+No repository or source link appears on this surface. "Report bug" targets the repository's issues, a forbidden surface, and was not followed. "Download" and "Download package" are outside the four labels (QA-17) and were not opened.
+
+Step 2: the `development` link -> /wiki/index.php/Development. Its label is one of the contract's four words -- lower-cased in the page's prose, which changes nothing -- and step 1 exposes it directly, so the navigation is authorized on the contract's plain text (the C038 basis).
+
+requested_url and final_url: https://www.chocolate-doom.org/wiki/index.php/Development
+observed_at_utc: 2026-08-28T12:38:10Z; http_status 200; redirect_chain: NONE; 19615 bytes
+
+This page performs the designation, in upstream's own sentences:
+
+```text
+"...keep up to date with the latest bleeding edge pre-release version
+ from the [Git repository]."
+     Git repository -> https://github.com/chocolate-doom/chocolate-doom
+
+"You can browse the Chocolate Doom source code [here]."
+     here -> https://github.com/chocolate-doom/chocolate-doom
+```
+
+Both name the same location, and the second states the source relation explicitly: its subject is "the Chocolate Doom source code" and the link is where it is browsed.
+
+The step structure follows C049 exactly and is stated so, because it is not the shortest possible reading of the contract: there too the step-2 link was labelled Development, led to a page rather than to a repository, and that page then identified the repository which became step 3. Nothing new is introduced here.
+
+Uniqueness, from what this page itself separates:
+
+```text
+"Daily build" -> latest.chocolate-doom.org
+   introduced by "If you're a Windows user you can download prebuilt
+   Windows binaries" -- binaries, by upstream's own sentence
+
+branch and fork category pages, and the four "Building Chocolate Doom
+on ..." pages
+   wiki pages about development and compilation, naming no other
+   source location
+
+"Submit a bug report" -> the repository's issues
+   forbidden surface; not followed
+```
+
+Nothing else on either surface carries a source role.
+
+Step 3: https://github.com/chocolate-doom/chocolate-doom
+observed_at_utc: 2026-08-28T12:38:50Z (metadata), 12:38:51Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+evidence_role: official-source-location
+
+```text
+full_name        chocolate-doom/chocolate-doom
+owner            chocolate-doom
+default_branch   master
+fork             false          parent  null
+archived         false          is_template  false     mirror_url  null
+website field    https://www.chocolate-doom.org/
+description      "Chocolate Doom is a Doom source port that is
+                  minimalist and historically accurate."
+license          GPL-2.0, matching the frozen GPLv2+ line
+```
+
+Root listing, 37 entries, including src, opl, pcsound, textscreen, data, man, cmake, pkg, win32, CMakeLists.txt, Makefile.am, configure.ac, autogen.sh, vcpkg.json, README.md, HACKING.md, PHILOSOPHY.md, COPYING.md and the NEWS and ChangeLog files. A source tree is present.
+
+The direction is asymmetric, as RETRACTION 23 requires: the project's wiki designates the repository; the repository's website field naming the site corroborates affiliation and does not itself designate.
+
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Chocolate Doom).
+
+Decision: PASS
+
+## EV-C065-PIN-01
+Candidate: C065
+Scope: provenance for the gates below
+
+The gates after E2-REP were read at an exact upstream commit rather than at a moving ref, and the digests are recorded so the objects analysed are identifiable.
+
+```text
+upstream commit   3a39d0a53aaa52562f099a7c4fab649d8962d947
+                  (chocolate-doom/chocolate-doom master,
+                   committed 2026-08-24T16:33:06Z)
+resolved at       2026-08-28T12:39:14Z
+
+file                     bytes   sha256 of the retrieved bytes
+vcpkg.json                 126   bc348b183d865673d622f183cb315e458546925621f0cf1fd5d49d915489d999
+src/d_iwad.c             24909   e9def3200259b5e38e8e1d4f2798580e02c4cb543ff89485e5fb7736a452bca6
+src/doom/g_game.c        57052   53de0aa103e269d25ae2b5965f18732bdfb2c6769cb4369df01a0fa009d44480
+src/doom/d_main.c        50251   0a0ad7a2edd21709f3686bc6d36179b76eb56071b4dc14f3031661eaedaa6645
+```
+
+These digests identify the bytes at that commit and allow a third party to reproduce the file hashes. They do nothing for QA-28: the frozen version is 3.1.0, the pinned commit is later, and no observation fixes where the designated ref pointed at the sealed instant.
+
+## EV-C065-E2RULE-01
+Candidate: C065
+Gate: E2-RULE
+Source: vcpkg.json in the designated repository, at the pinned commit
+observed_at_utc: 2026-08-28T12:41:36Z; http_status 200; 126 bytes
+
+Observed: located witness, the file in full.
+
+```json
+{
+  "dependencies": [
+    "sdl2",
+    "sdl2-mixer",
+    "sdl2-net",
+    "libpng",
+    "libsamplerate",
+    "fluidsynth"
+  ]
+}
+```
+
+Inference: the project declares six packages its build depends on, and a build environment lacking any of them does not satisfy that declaration. E2-RULE asks for at least one externally authored validity requirement and does not restrict the domain (C043), nor does it require version bounds (C038, C043).
+
+Recorded and not used: README.md directs the reader to an INSTALL file, and no INSTALL appears in the root listing. Nothing is inferred from that -- not that the file is missing, not that the instruction is stale. HACKING.md was read and is a coding-style document whose statements are contributor guidance phrased with "should"; it is not relied on.
+Decision: PASS
+
+## EV-C065-E3-01
+Candidate: C065
+Gate: E3
+Source: src/doom/g_game.c at the pinned commit
+Provenance: EV-C065-PIN-01.
+
+Observed: located witness. All parts are in this one file, so both halves are quoted rather than one assumed (C038's rule).
+
+```text
+g_game.c:153       byte consistancy[MAXPLAYERS][BACKUPTICS];
+
+g_game.c:343-344   cmd->consistancy =
+                       consistancy[consoleplayer][maketic%BACKUPTICS];
+
+g_game.c:1000-1013 if (netgame && !netdemo && !(gametic%ticdup))
+                   {
+                       if (gametic > BACKUPTICS
+                           && consistancy[i][buf] != cmd->consistancy)
+                       {
+                           I_Error ("consistency failure (%i should be %i)",
+                                    cmd->consistancy, consistancy[i][buf]);
+                       }
+                       if (players[i].mo)
+                           consistancy[i][buf] = players[i].mo->x;
+                       else
+                           consistancy[i][buf] = rndindex;
+                   }
+```
+
+Inference: an incoming command carries a consistency byte its sender stamped from that sender's own accumulated state, and this machine compares it against what it recorded for the same tic slot -- a value written from the player's world position, or from the random-number index when no map object exists. The identical command bytes are therefore accepted or fatal according to the simulation history on both sides. The check is additionally gated on `gametic > BACKUPTICS`, so it does not run until enough ticks have elapsed to fill the ring buffer, which is a temporal condition stated by the project itself.
+
+Not claimed: anything about how often this path executes in practice, or about builds in which `netgame` is never true. What was observed is the check, the state it consults, and the writers of that state.
+Decision: PASS
+
+## EV-C065-E4-01
+Candidate: C065
+Gate: E4
+
+Positive construction exhibited, via U_enforced.
+Provenance: EV-C065-PIN-01.
+
+The mechanism: the IWAD registry.
+
+```text
+d_iwad.c:34-52   static const iwad_t iwads[] =
+                 {
+                     { "doom2.wad",    doom2,     commercial, "Doom II" },
+                     { "plutonia.wad", pack_plut, commercial, "Final Doom: Plutonia Experiment" },
+                     ...
+                     { "strife1.wad",  strife,    commercial, "Strife" },
+                 };
+
+d_iwad.c:582-607 static GameMission_t IdentifyIWADByName(const char *name,
+                                                          int mask)
+                 {
+                     name = M_BaseName(name);
+                     mission = none;
+                     for (i=0; i<arrlen(iwads); ++i)
+                     {
+                         if (((1 << iwads[i].mission) & mask) == 0)
+                             continue;
+                         if (!strcasecmp(name, iwads[i].name))
+                         {
+                             mission = iwads[i].mission;
+                             break;
+                         }
+                     }
+                     return mission;
+                 }
+```
+
+```text
+active entries                                    15
+entries commented out                              1  ("strife0.wad",
+                                                       marked
+                                                       "STRIFE-FIXME")
+distinct filenames among the active entries       15
+```
+
+EN1 external authorship: the port and this registry existed independently of this analysis.
+
+EN2 explicit scope: each entry is a four-field record the project wrote -- IWAD filename, mission enum, game mode, and a human-readable title such as "Final Doom: Plutonia Experiment". The domain is the IWAD files the port recognises by name.
+
+EN3 mechanical membership:
+
+```text
+enumerator membership      the active entries of iwads[], which
+                           IdentifyIWADByName iterates via arrlen()
+runtime enforcement value  the mission, mode and title each entry
+                           carries, filtered by the caller's mask
+```
+
+The scan bound is the array itself, so membership is enumerable by reading it. The commented-out `strife0.wad` line is counted as absent, not as a member: it is not compiled.
+
+EN4 connection to validation, and the limitation stated rather than glossed. A name matching no active entry yields `none`, and rejection follows only if a second, content-based attempt also fails:
+
+```text
+d_main.c:779-802
+  if (gamemission == none)
+  {
+      for (i=0; i<numlumps; ++i)
+      {
+          if (!strncasecmp(lumpinfo[i]->name, "MAP01", 8))
+              ... gamemission = doom2 ...
+          ... ExMy ... gamemission = doom ...
+      }
+      if (gamemission == none)
+      {
+          I_Error("Unknown or invalid IWAD file.");
+      }
+  }
+```
+
+So the registry is not the sole membership authority: it decides NAME-based identification, and a miss falls through to a lump-content heuristic before `I_Error` is reached. This is the same shape as C063's `$` branch bypassing the NAG registry, and the enforcement observation below is scoped accordingly rather than claiming that an unregistered IWAD cannot be accepted.
+
+EN5 closed within scope: the set is closed by the array's own extent, which `arrlen(iwads)` supplies to the scan. Closure is the project's declaration, not analyst selection. Tag: `enforced`.
+
+EN6 outcome independence: the registry is the set of IWAD files the port recognises by name. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations, and scoped to the name path:
+
+```text
+one enforcement observation per active entry
+
+  "IWAD filename F is identified by name as mission M in mode D, when
+   the caller's mask admits M; a name matching no active entry yields
+   `none` from IdentifyIWADByName, after which identification is
+   attempted from lump contents and `Unknown or invalid IWAD file.`
+   is raised only if that also fails"
+
+retained as externally segmented fields, per observation
+  the IWAD filename
+  the mission enum
+  the game mode
+  the project's own title for it
+```
+
+As at C043, C049, C056, C059 and C063, this establishes only that a mechanically constructible universe EXISTS; it fixes no contents, and QA-19 puts the inventory at a later stage.
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
+
+Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 3a39d0a5, the frozen version is 3.1.0, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
