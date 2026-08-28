@@ -8091,7 +8091,7 @@ And C026 does not license that narrowing. C026 bars inferring an ARTIFACT'S SOUR
 
 The superseded entry also convicts itself: it called the surface a "tag-scoped artifact area" and then declined to treat it as one. Recognising the class and then setting it aside on spelling grounds is the mid-run choice the sealed methodology forbids.
 
-Disposition, per QA-31 and QA-27's third branch: the frozen SITES is metadata-supplied but unobservable under the sealed contract, accounted for with the prohibition as the named reason, and NOT opened.
+Disposition, per QA-31 and QA-27's third branch: the frozen SITES is metadata-supplied but unobservable under the sealed contract, and is accounted for with the prohibition as the named reason. Stated as history rather than as procedure, since the requests were in fact made: the lawful disposition was NOT TO OPEN IT, and this run did open it. What follows records that.
 
 ```text
 QUARANTINED -- unauthorized exposure
