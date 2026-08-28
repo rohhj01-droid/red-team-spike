@@ -7003,7 +7003,9 @@ That is false, and the contradiction was inside one entry. The markup shows an a
 
 The second withdrawal follows from the first. The entry left open whether the portal is the project's publisher and asserted that "no designation was observed on this surface under either reading, so the verdict is the same". That does not hold: if the portal is not upstream its navigation cannot do designation work, but if it IS upstream then an exact-label Development link existed and the exploration was unfinished. The two branches differ in what the contract requires, so the question could not be left open.
 
-Both are withdrawn. EV-C058-E2REP-02 settles the portal question from the page's own Company field -- CEZ RD, on a site named Computer Emuzone [CEZ] -- takes step 2, and records what the Development tab actually contains: third-party binary packages and an archive of build-time dependencies, no source location.
+Both are withdrawn. EV-C058-E2REP-02 no longer needs to settle the portal-identity question at all: it takes the exact-label Development route, which makes the outcome independent of that unresolved identity, and records what the tab actually contains -- third-party binary packages and an archive of build-time dependencies, no source location.
+
+An earlier version of this paragraph said the superseding entry "settles the portal question from the page's own Company field -- CEZ RD, on a site named Computer Emuzone [CEZ]". That is the entity identification the standing entry withdrew, and repeating it in the retraction narrative would have left the withdrawn claim alive here after being removed there.
 
 The verdict does not move: UNRESOLVED, PI-UNCLASSIFIED-SHAPE. But its basis is different in kind. Before, the gate was unsettled with an unambiguous step-2 target unexamined; now that route has been taken and led nowhere.
 
@@ -7142,7 +7144,33 @@ init.cpp:643-645  void DynamicDataLoader::unload_data()
                       finalized = false;
 ```
 
-Inference: whether a data-load call is admissible is decided against `finalized`, which `finalize_loaded_data()` sets and `unload_data()` clears. The identical call is valid or not according to which of those ran before it, and finalization is itself rejected if it has already happened. That is validity conditioned on history, which is what E3 asks for.
+Inference, split into the two claims that must not be run together:
+
+```text
+the validity question exists, and upstream declares it
+  the project states a state-dependent invariant in its own words --
+  "Can't load additional data after finalization.  Must be unloaded
+  first." -- and `finalized` has both writers on the record:
+  finalize_loaded_data sets it, unload_data clears it. So whether a
+  data-load call satisfies the declared condition depends on which of
+  those ran before it. Finalization carries its own such condition,
+  "Can't finalize the data twice."
+
+what is NOT claimed
+  that the condition is rejected at runtime in every build.
+  `cata_assert` (src/cata_assert.h, observed 2026-08-28T09:54:14Z,
+  200, 1428 bytes) expands under NDEBUG to
+  `decltype((exp) ? void() : __builtin_unreachable())()` on GCC and
+  clang, and the file's own comment says this is to "place the code in
+  decltype to avoid actual evaluation". Without NDEBUG it is
+  `assert(expression)`, or an explicit fprintf-and-abort on Win32. So
+  the invariant is enforced at runtime in assertion-enabled builds and
+  is not evaluated in release builds.
+```
+
+This is recorded rather than glossed because the first draft wrote "the identical call is valid or not according to which of those ran before it" without qualification, which reads as a claim about every build.
+
+The gate is satisfied on the first claim alone. The sealed E3 text asks that "the external source must expose a stateful/temporal validity question that can be examined", and the screening amendment asks for "a concrete stateful/temporal validity witness". Neither asks for enforcement in every build configuration; what upstream exposes here is the validity question in its own declared terms, and both writers of the conditioning state are located.
 Decision: PASS
 
 ## EV-C059-E4-01
