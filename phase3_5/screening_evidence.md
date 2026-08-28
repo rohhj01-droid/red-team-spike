@@ -5517,3 +5517,73 @@ Both starting points were determinately answered -- 200 and 404 -- so no surface
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C047-UR-01
+Candidate: C047 (frame rank 47, games/bluemoon)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/bluemoon/Makefile
+Observed: DISTNAME=bluemoon-${V} with V=2.14; HOMEPAGE=http://www.catb.org/~esr/bluemoon/; SITES=http://www.catb.org/~esr/bluemoon/; COMMENT="console-based 52-card solitare game".
+Inference: the frozen fields name one packaged system, bluemoon. HOMEPAGE and SITES are the same URL, so the metadata supplies one surface rather than two. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C047-E1-01
+Candidate: C047
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party solitaire game under a BSD licence, on a personal upstream site unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C047-E2REP-01
+Candidate: C047
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and they coincide: HOMEPAGE and SITES are the identical URL, so there is one admitted surface, not two. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Step 1: http://www.catb.org/~esr/bluemoon/
+requested_url and final_url: identical; observed_at_utc: 2026-08-28T07:17:17Z; http_status 200; redirect_chain: NONE (num_redirects 0); 8304 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; any sentence upstream authored about where the project or its source is; artifact names and their descriptions as upstream gives them; any primary, canonical, preferred or mirror marking. Not: opening any listed artifact or document, and not navigating past step 1 unless a designation required it.
+
+The page is titled "Resource page for bluemoon 2.15" and carries sections Summary, Resources, Recent Changes and Supporters. Two source-role designations appear on it, both in upstream's own words.
+
+```text
+1  the Resources table, which upstream captions "Downloadable
+   resources", assigns each row its own description:
+
+     README.adoc            roadmap file
+     COPYING                project license
+     NEWS.adoc              project news
+     bluemoon-2.15.tar.gz   GZIPPED SOURCE TARBALL
+     README.html            roadmap file
+     bluemoon.html          Documentation
+     NEWS.html              project news
+
+   The artifact is served from this same directory, which is also the
+   frozen SITES.
+
+2  the sentence immediately below that table:
+
+     "The project repository is at https://gitlab.com/esr/bluemoon."
+
+   with the URL itself as the anchor text.
+```
+
+Both are designations under the sealed criterion, which admits a repository OR a source distribution as source-location types -- the reading applied at C006 and C011. Both sit on the permitted surface, which is what separates this from C002 and C007: those two had their multi-designation findings withdrawn because the second designation lay past the contract's reach, and here no hop is needed for either.
+
+Distinguishing this from C044's Files area, since the two could be confused. There the label was generic -- "Files" -- and the area was never opened, so RETRACTION 21 refused to treat it as a source location. Here upstream's own table assigns the row the description "gzipped source tarball", naming the artifact's source role on the surface itself. The source-role attribution is upstream's wording, not ours.
+
+No primary is marked. The whole page was read to establish this, rather than the sections that happened to carry the designations: Summary is a description of the card game, Recent Changes reads "Manor metadata changes to help packagers", and Supporters is a list of names. Nothing anywhere on the surface states or marks which of the two locations is canonical, primary, preferred or authoritative, and no mirror relation is asserted between them.
+
+What is deliberately NOT done is rank them ourselves. A reading is available in which "The project repository is at X" is the structural designation and the tarball is merely a download, and the reverse reading is equally available. Both were refused: the record already settled at C015, and again when C002's first entry was withdrawn, that treating the repository as the real source and the tarballs as mere releases -- or the reverse -- supplies a hierarchy the criterion refuses to let us supply.
+
+Navigation stopped here. The GitLab link was not followed: the contract's stop rule ends navigation "the moment a PASS or a specific failure code is determined. Not one page further", and the code was determined on step 1.
+
+Inference: not exactly one designated canonical source location. Two are designated on the permitted surface with no primary among them, which is the failure the sealed criterion names -- and the code is positive in shape, recording that several designations were found rather than that nothing was.
+
+Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
+
+Gates after E2-REP are NOT_REACHED.
+
+Recorded and doing no verdict work: the frozen DISTNAME is bluemoon-2.14 while the page presents 2.15. That is a version difference at one location, not a second location, and under QA-28 nothing here claims what this surface carried at the sealed instant.
