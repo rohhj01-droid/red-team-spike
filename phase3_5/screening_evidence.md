@@ -5512,7 +5512,7 @@ E2REP-NO-SOURCE not established
   established either way.
 ```
 
-Both starting points were determinately answered -- 200 and 404 -- so no surface is left unobserved, this is not the transport family, and the outcome is a shape the sealed criteria do not describe. C036's case in every structural respect.
+Both starting points were determinately answered -- 200 and 404 -- so no surface is left unobserved, this is not the transport family, and the outcome is a shape the sealed criteria do not describe. The same E2-REP outcome shape as C036.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
@@ -7422,7 +7422,7 @@ E2REP-NO-SOURCE not established
   representation.
 ```
 
-Both starting points were determinately answered, 200 on each, so no surface is left unobserved and this is not the transport family. C052's case in every structural respect.
+Both starting points were determinately answered, 200 on each, so no surface is left unobserved and this is not the transport family. The same E2-REP outcome shape as C052.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
