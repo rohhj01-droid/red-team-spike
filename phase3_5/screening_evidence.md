@@ -7008,3 +7008,224 @@ Both are withdrawn. EV-C058-E2REP-02 settles the portal question from the page's
 The verdict does not move: UNRESOLVED, PI-UNCLASSIFIED-SHAPE. But its basis is different in kind. Before, the gate was unsettled with an unambiguous step-2 target unexamined; now that route has been taken and led nowhere.
 
 Not overstated: this is the exact-label route completed, not the whole exploration closed. The "Greetings and Sources" residual is a label-scope ambiguity in the sealed text -- whether a compound plural label counts as a Source link -- and it is recorded rather than resolved. Ledger fields are unchanged; the evidence refs now point at the superseding -02, per the C002/C005 convention.
+
+## EV-C059-UR-01
+Candidate: C059 (frame rank 59, games/cataclysm-dda)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cataclysm-dda/Makefile
+Observed: V=0.H-RELEASE; DIST_TUPLE += github CleverRaven Cataclysm-DDA ${V} .; PKGNAME=cataclysm-dda-${V:S/-RELEASE//}; HOMEPAGE=https://cataclysmdda.org; COMMENT="rogue-like zombie survival game".
+Inference: the frozen fields name one packaged system, and the single DIST_TUPLE extracts to "." with no vendored second tuple -- unlike C042, C053 and C054. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C059-E1-01
+Candidate: C059
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game on an upstream domain and account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C059-E2REP-01
+Candidate: C059
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for: the frozen HOMEPAGE, and the DIST_TUPLE's CleverRaven/Cataclysm-DDA identifiers. The pair resolves to the same repository the step-2 link reaches, so as at C038 it is not a separate surface.
+
+Step 1: the frozen HOMEPAGE.
+requested_url: https://cataclysmdda.org ; final_url: https://cataclysmdda.org/
+observed_at_utc: 2026-08-28T09:38:32Z; http_status 200; redirect_chain: NONE (num_redirects 0); 10172 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; the links exposed with their labels and targets; any sentence or label assigning a source role; any primary, canonical, preferred or mirror marking.
+
+The designation is on this page, and upstream supplies both the source relation and the partition that settles uniqueness:
+
+```text
+<h2 id="project-managed-resources">Project Managed Resources</h2>
+<p>These sites are owned and managed by the project directly.</p>
+<ul>
+  <li><a href="https://github.com/CleverRaven/Cataclysm-DDA">GitHub repository</a></li>
+  <li>Forums</li> <li>Development-oriented Discord</li>
+  <li>Cataclysm_DDA subreddit</li> <li>IRC channel ... webchat</li>
+</ul>
+
+<h2>Community Managed Resources</h2>
+<p>These are resources provided by third parties, or managed by some
+   members of the development team. The project does not provide
+   support for these directly.</p>
+   Hitchhiker's Guide, Documentation For Developers, Game Launcher,
+   Community Discord, Steam, Android Play Store
+```
+
+Step 2: the "GitHub repository" link. Its label's head noun is one of the contract's four words, and the sentence it sits under states the relation -- these sites are owned and managed by the project directly. Label and sentence coincide, both admitted forms under QA-23.
+
+Recorded because C058 has just made the distinction matter: this is not the compound-label problem left open there. "Greetings and Sources" was a plural noun in a conjunction naming a page's own topic; "GitHub repository" is a noun phrase whose head IS "repository" and which names the destination's role.
+
+Uniqueness, and why the ranking is upstream's. The page's Downloads section designates BUILDS, not source: "Cataclysm has official builds for Windows, Linux, OSX and Android", routing to a Releases Page and to experimental builds. A scan of the page's visible text for source, repository, canonical, official, mirror and primary returned only the passages quoted above and the phrase "open source turn-based survival RPG" describing the project's nature. So no second location carries a source role, and everything else upstream itself files under Community Managed Resources as third-party or unsupported.
+
+Not followed: the "Releases" navigation item and the Releases Page. Releases are named in the contract's forbidden list outright, and the label is not among the four; QA-17 settled that neither may be widened. Nothing needed them.
+
+Step 3: https://github.com/CleverRaven/Cataclysm-DDA
+observed_at_utc: 2026-08-28T09:39:24Z (metadata and root listing); http_status 200 on both; redirect_chain: NONE on both
+evidence_role: official-source-location
+
+```text
+full_name        CleverRaven/Cataclysm-DDA
+owner            CleverRaven
+default_branch   master
+fork             false          parent  null
+archived         false          is_template  false     mirror_url  null
+website field    http://cataclysmdda.org
+description      "Cataclysm - Dark Days Ahead. A turn-based survival
+                  game set in a post-apocalyptic world."
+```
+
+Root listing, 49 entries, including src, data, tests, tools, doc, lang, gfx, android, build-data, build-scripts, pch, utilities, CMakeLists.txt, Makefile, README.md, CONTRIBUTING.md and the LICENSE files. A source tree is present.
+
+The direction is asymmetric, as RETRACTION 23 requires it to be stated: the project site designates the repository; the repository's website field naming the site corroborates affiliation and does not itself designate.
+
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Cataclysm: Dark Days Ahead).
+
+Decision: PASS
+
+## EV-C059-E2RULE-01
+Candidate: C059
+Gate: E2-RULE
+Source: doc/c++/COMPILER_SUPPORT.md in the designated repository
+observed_at_utc: 2026-08-28T09:42:33Z; http_status 200; 4922 bytes
+Provenance: read against the default branch at observation time; the frozen version is 0.H-RELEASE, and no claim is made about the sealed primary snapshot (QA-28).
+
+Observed: located witness, the document's own table.
+
+```text
+# Compilers Supported
+
+| Compiler       | Oldest Version |
+| GCC            | 9.3            |
+| clang          | 13.0           |
+| MinGW-w64      | UCRT 14.2.0    |
+| Visual Studio  | 2019           |
+| XCode          | 11.4 / macOS 10.15 |
+```
+
+Inference: this states concrete validity requirements without our inventing them -- a toolchain older than the listed version is outside what the project states it supports -- and every row carries a version bound, as at C049 and unlike C014, C023, C034, C038 and C043.
+
+The surrounding prose explains the policy behind the table and is not relied on; the table alone carries the requirement.
+Decision: PASS
+
+## EV-C059-E3-01
+Candidate: C059
+Gate: E3
+Source: src/init.cpp in the designated repository
+observed_at_utc: 2026-08-28T09:39:44Z; http_status 200; 44909 bytes
+Provenance: observation-time source state, as above.
+
+Observed: located witness. All parts of the chain are in this one file, so both halves are quoted rather than one assumed (C038's rule).
+
+```text
+init.cpp:796-806  void DynamicDataLoader::finalize_loaded_data()
+                  {
+                      cata_assert( !finalized &&
+                          "Can't finalize the data twice." );
+                      ...
+init.cpp:949          finalized = true;
+                  }
+
+init.cpp:521-523  void DynamicDataLoader::load_data_from_path( ... )
+                  {
+                      cata_assert( !finalized &&
+                          "Can't load additional data after finalization.
+                           Must be unloaded first." );
+
+init.cpp:643-645  void DynamicDataLoader::unload_data()
+                  {
+                      finalized = false;
+```
+
+Inference: whether a data-load call is admissible is decided against `finalized`, which `finalize_loaded_data()` sets and `unload_data()` clears. The identical call is valid or not according to which of those ran before it, and finalization is itself rejected if it has already happened. That is validity conditioned on history, which is what E3 asks for.
+Decision: PASS
+
+## EV-C059-E4-01
+Candidate: C059
+Gate: E4
+
+Positive construction exhibited, via U_enforced.
+Provenance: observation-time source state, as above.
+
+The mechanism: the JSON object-type registry.
+
+```text
+init.cpp:225-232
+  void DynamicDataLoader::add( const std::string &type,
+                               const std::function<...> &f )
+  {
+      const auto pair = type_function_map.emplace( type, f );
+      if( !pair.second ) {
+          debugmsg( "tried to insert a second handler for type %s "
+                    "into the DynamicDataLoader", type.c_str() );
+      }
+  }
+
+init.cpp:151-159
+  void DynamicDataLoader::load_object( const JsonObject &jo, ... )
+  {
+      const std::string type = jo.get_string( "type" );
+      const t_type_function_map::iterator it =
+          type_function_map.find( type );
+      if( it == type_function_map.end() ) {
+          jo.throw_error_at( "type", "unrecognized JSON object" );
+      }
+      it->second( jo, src, base_path, full_path );
+  }
+```
+
+```text
+add("...") calls in init.cpp                        188
+distinct type strings among them                    187
+the one repeat                                      "mod_tileset"
+```
+
+The repeat is accounted for rather than reported as a discrepancy: it is the two arms of a preprocessor conditional at init.cpp:514-517 -- `#if defined(TILES)` registers `&load_mod_tileset`, `#else` registers `load_ignored_type` -- so exactly one is compiled into any build, and the registry holds 187 distinct types in any single build.
+
+EN1 external authorship: the game and this loader existed independently of this analysis.
+
+EN2 explicit scope: the domain is the `type` field of the project's JSON data objects, named by the project in the rejection message it emits and in the field it reads.
+
+EN3 mechanical membership, with the two levels kept apart as at C043, C049 and C056:
+
+```text
+enumerator membership      the keys present in type_function_map
+runtime enforcement value  the loader function each key maps to
+```
+
+Membership is what `add()` inserted, enumerable by reading the registrations.
+
+Recorded because it is stronger than the equivalent at C049 and C056: the project detects key collisions ITSELF. `emplace` does not overwrite, and the project tests the returned `pair.second` and emits `debugmsg("tried to insert a second handler for type %s")`. At C049 the cross-check that no built-in key collided had to be performed by us, because that registry's insertion was an assignment. Here uniqueness is upstream's own enforcement, and our count only corroborates it.
+
+EN4 connection to validation: `load_object` reads the `type` field of each JSON object, looks it up, and on a miss calls `jo.throw_error_at( "type", "unrecognized JSON object" )` -- project code, naming the offending field, rejecting the object. Deciding and rejecting are both the project's.
+
+EN5 closed within scope: the set is closed by runtime construction -- Section 3.2's first admissible case -- membership being precisely what `add()` has inserted. Tag: `enforced`. No immutability is claimed and none is needed.
+
+EN6 outcome independence: the registry is the set of JSON object types the game's data files may declare. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations:
+
+```text
+one enforcement observation per registered type
+
+  "JSON type T is accepted and dispatched to its loader; an object
+   whose type field matches no registered key is rejected at that
+   field as an unrecognized JSON object"
+
+retained as externally segmented fields, per observation
+  the type string
+  the loader the project registered for it
+```
+
+As at C043, C049 and C056, this establishes only that a mechanically constructible universe EXISTS. It fixes no contents and concludes nothing about a primary-universe count; QA-19 puts that at the inventory stage.
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
+
+Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates above were read against the default branch at observation time while the frozen version is 0.H-RELEASE, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
