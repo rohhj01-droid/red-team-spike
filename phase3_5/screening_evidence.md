@@ -4804,3 +4804,89 @@ retained as externally segmented fields, per observation
 Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
 
 Decision: PASS
+
+## EV-C042-UR-01
+Candidate: C042 (frame rank 42, games/billyfrontier)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/billyfrontier/Makefile
+Observed: HOMEPAGE=https://pangeasoft.net/billy; PKGNAME=billyfrontier-${V} with V=1.1.1; COMMENT="quicktime space-age spaghetti western"; and two DIST_TUPLE entries:
+
+```text
+DIST_TUPLE += github jorio BillyFrontier v${V} .
+DIST_TUPLE += github jorio Pomme 9fae17d7715314a3a20259ac2e87aa500a977695 \
+              extern/Pomme
+```
+
+Inference: the packaged system is Billy Frontier. PKGNAME and COMMENT name it, and the first tuple extracts to "." while the second is placed at extern/Pomme -- a path inside the first tuple's tree. The Makefile's own licence line separates them the same way: "# game: CC BY-NC-SA 4.0; extern/Pomme: MIT, LGPLv2.1, BSD, Boost".
+
+So this is not the two-genuinely-different-systems case UR-AMBIGUOUS is for. It is one packaged system with a vendored dependency, in the same shape as C019's second distfile, and the frozen metadata itself supplies the subordination.
+Decision: PASS
+
+## EV-C042-E1-01
+Candidate: C042
+Gate: E1
+Source: same frozen metadata; https://pangeasoft.net/billy/ (observed 2026-08-28T05:22:41Z, 200)
+Observed: a third-party game. The frozen metadata alone carries this -- PKGNAME billyfrontier, COMMENT "quicktime space-age spaghetti western", a HOMEPAGE on a game publisher's domain, and a CC BY-NC-SA licence line. The repository title read later at 05:23:54Z, "Pangea Software's Billy Frontier for modern systems", agrees but is not needed for the decision.
+Inference: external-authorship requirement satisfied, unrelated to this project.
+Decision: PASS
+
+## EV-C042-E2REP-01
+Candidate: C042
+Gate: E2-REP
+
+Per QA-27, every admitted starting point the frozen metadata supplies is accounted for: the HOMEPAGE, the jorio/BillyFrontier identifiers, and the jorio/Pomme identifiers.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url: https://pangeasoft.net/billy ; final_url: https://pangeasoft.net/billy/
+observed_at_utc: 2026-08-28T05:22:41Z-05:22:42Z; http_status 200; redirect_chain: 1 redirect; 1076 bytes
+
+The document is a **frameset**. It contains no anchors of its own -- only frame references, and an empty <noframes> body.
+
+A reading is required here, and it is stated rather than assumed because it extends how "the landing page" has been taken so far. A frameset's declared frames are that document's own rendered composition, not onward destinations a reader navigates to; the page a visitor sees at this URL is the frames assembled. Reading them is therefore observing step 1. The alternative -- treating the frameset as opaque and concluding "the landing page exposes no source link" -- would rest a negative on a technicality of markup, which is worse.
+
+All five frames were read.
+observed_at_utc: 2026-08-28T05:23:14Z-05:23:27Z; http_status 200 on each
+
+```text
+bf_home_top.html      buy.html, downloads.html, info.html, support.html
+bf_home_bottom.html   "#", ../../../macGames.html
+bf_home_left.html     no links
+bf_home_right.html    no links
+info.html             screenshot images only
+```
+
+None is a Source, Code, Repository or Development link, so navigation step 2 has no target. `downloads.html` was not opened: not among the four labels, and QA-17 settled that "source distribution" may not widen the whitelist.
+
+Surface 2: https://github.com/jorio/BillyFrontier, from the first DIST_TUPLE's identifiers.
+Necessary because: the gate was unsettled after surface 1 and this is the remaining admitted starting point for the packaged system.
+observed_at_utc: 2026-08-28T05:23:54Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+Observed, restricted to metadata the contract allows: repository BillyFrontier, owner login jorio, default branch master, isFork false, isMirror false, isArchived false, isTemplate false, website metadata field https://pangeasoft.net/billy, and a source tree present at the root -- Source, Data, CMakeLists.txt, BUILD.md, CHANGELOG.md, README.md, LICENSE.md, .gitmodules.
+
+The jorio/Pomme identifiers are accounted for and were not opened. UR determined from the frozen metadata that Pomme is a vendored dependency at extern/Pomme and not the packaged system, so under QA-26 it is another delimited system: a designation found there would be Pomme's, not Billy Frontier's, and could not bear on this gate either way.
+
+```text
+PASS not established
+  the arrow runs one way only. The repository's website field names
+  the project site; the project site, read in full including every
+  frame, designates no source location at all. C032 settled that
+  direction: a repository naming a site is affiliation, and
+  designation requires the PROJECT to identify the repository as its
+  canonical source.
+
+  Arriving at the repository through a packaging identifier likewise
+  yields affiliation rather than designation (QA-22).
+
+FAIL not established
+  the repository root is an admissible surface and "whether upstream
+  designates this location as its source" is among the observations
+  allowed there; it carried no such signal. That is a bounded
+  observation, not a demonstration that upstream designates none --
+  the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed, so source access is not what is missing.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
