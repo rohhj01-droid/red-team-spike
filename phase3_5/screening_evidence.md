@@ -4782,16 +4782,18 @@ So the description the project builds is, by the library's own documentation, th
 
 No claim is made here about the specific rejection mechanism. The earlier "makes that parse throw" is withdrawn: the exception type was never observed, and EN4 does not turn on it -- what it asks is that the project connect the mechanism to validation, which the documented consult-the-description relation establishes.
 
-What still differs from every prior E4 PASS in this run is where the rejection EXECUTES. Flycast threw "Unknown game", libchdr took an EARLY_EXIT to CHDERR_UNSUPPORTED_FORMAT, fceux called FCEU_PrintError, weland returned false, angband called quit_fmt -- all project code. Here the deciding code is the library's. EN4's text asks that the project CONNECT the mechanism to validation and warns only against a meaning inferred by us; it does not require the project to implement the rejection. On that reading the leg is met, and the difference is recorded rather than smoothed over, because it is the first time this run has admitted an enforcement path whose deciding code is a library's.
+What differs from every prior E4 PASS in this run is where the VALIDITY DECISION IS PERFORMED. In flycast, libchdr, fceux, weland and angband the project's own code performed the acceptance-or-rejection decision -- "Unknown game", CHDERR_UNSUPPORTED_FORMAT, FCEU_PrintError, return false, quit_fmt. Here the library's parser consults the project-supplied description to determine whether an option is known.
+
+No claim is made about the library's specific rejection mechanism; that was the over-claim withdrawn above and it is not reinstated here. EN4 asks that the project CONNECT the mechanism to a validity role and warns only against a meaning inferred by us; it does not require the project to perform the decision. On that reading the leg is met, and the difference is recorded rather than smoothed over, because it is the first time this run has admitted an enforcement path whose deciding code is a library's.
 
 The universe is therefore ACTUALLY mechanically constructible, stated as observations:
 
 ```text
 one enforcement observation per registered option
 
-  "configuration name N is accepted in file F, with declared type T
-   and default D; the parser consults this description to decide
-   whether a name in F is known"
+  "configuration name N is registered as an allowed/known option for
+   file F, with declared type T and default D; the parser consults
+   this description to decide whether a name in F is known"
 
 retained as externally segmented fields, per observation
   the description the project named ("Key mappings", "High scores")
