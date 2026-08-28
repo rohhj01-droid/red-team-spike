@@ -7427,3 +7427,114 @@ Both starting points were determinately answered, 200 on each, so no surface is 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C062-UR-01
+Candidate: C062 (frame rank 62, games/cgoban)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cgoban/Makefile
+Observed: DISTNAME=cgoban-1.9.14; HOMEPAGE=https://cgoban1.sourceforge.net/; SITES=${SITE_SOURCEFORGE:=cgoban1/}; COMMENT="X11 Go Toolset".
+Inference: the frozen fields name one packaged system, CGoban 1, with HOMEPAGE and SITES both under the same SourceForge project name. "Toolset" describes what the one program provides, not several packaged systems -- the reading applied at C013 and C061. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C062-E1-01
+Candidate: C062
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party Go program on an upstream project site unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C062-E2REP-01
+Candidate: C062
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were observed. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url and final_url: https://cgoban1.sourceforge.net/
+observed_at_utc: 2026-08-28T10:20:35Z; http_status 200; redirect_chain: NONE (num_redirects 0); 2144 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; every link with its label and target; any sentence or label assigning a source role; any primary, canonical or mirror marking. Not: opening any linked page.
+
+Unlike C046's, this frozen per-project SourceForge host serves a page the project itself authored rather than redirecting to the hub. It is titled "CGoban", describes the program's functions, and closes with a Downloading section. It exposes exactly three links:
+
+```text
+"Sourceforge Download page for the latest release (1.9.13)"
+    -> http://sourceforge.net/project/showfiles.php?group_id=52805
+(unlabelled SourceForge logo image)
+    -> http://sourceforge.net
+"ksonney@sourceforge.net"
+    -> mailto:
+```
+
+The passage that has to be adjudicated, quoted in full because the whole entry turns on it:
+
+```text
+"Downloading CGoban
+
+ CGoban is distributed in source code for now. It uses the Gnu
+ autoconfig system and should be portable across all Unix/X11R4 or
+ later systems. Source RPMS are available for RPM based systems
+ [Sourceforge Download page for the latest release (1.9.13)]"
+```
+
+It does not designate a canonical source location, and the reasons are separable:
+
+```text
+the sentence states a FORM, not a location
+  "distributed in source code" says what is distributed. It names no
+  URL, directory or repository. C020 and QA-25 separate a route from a
+  location; this is a step further back -- a property of the artifact,
+  with no location attached at all.
+
+the link's label carries no source role
+  "Sourceforge Download page for the latest release" names a download
+  page. None of the contract's four words appears, and "release" is a
+  class the contract forbids outright. QA-17 settled that neither may
+  be widened, so this is not a step-2 target.
+
+joining the two would be ours
+  reading the sentence as assigning a source role to the link is a
+  join the page does not make: the sentence's subject is the
+  distribution's form and the link's label is a download page. C061
+  refused the weaker version of this join, where only a filename was
+  available; this is the same move with a form-statement substituted
+  for the filename.
+
+and the destination is not a step-3 surface either
+  showfiles.php is a file-listing page on the project hub, and C007
+  settled that a generic project hub is not a repository root.
+```
+
+"Source RPMS are available for RPM based systems" is recorded and does no work: it names a second artifact kind with no location of its own, and on the reading above neither it nor the source-code sentence supplies a designation.
+
+Surface 2: the frozen SITES. `${SITE_SOURCEFORGE:=cgoban1/}` resolves through the ports infrastructure's own macro definition to https://downloads.sourceforge.net/sourceforge/cgoban1/.
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point. Observed rather than predicted from its URL shape (C018), though the same macro produced 404s at C031, C036, C037, C044, C046 and C048.
+observed_at_utc: 2026-08-28T10:21:12Z (GET), 10:21:13Z (HEAD); http_status 404, 404; redirect_chain: NONE on both; 154 bytes
+Observed: "404 Not Found -- The resource could not be found." No artifact names or designation signal.
+
+```text
+PASS not established
+  neither admissible surface designates a canonical source location.
+  Surface 1 states the distribution's form and links a download page
+  whose label carries no source role; surface 2 returned 404.
+
+FAIL not established
+  a project page whose only link is a download page, and an archive
+  path returning 404, do not demonstrate that upstream designates no
+  canonical source location -- the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  the 404 is evidence about that endpoint, and the download page was
+  not opened. Nothing observed bears on whether a source
+  representation is reachable, in either direction.
+```
+
+Both starting points were determinately answered -- 200 and 404 -- so no surface is left unobserved and this is not the transport family.
+
+Recorded and doing no verdict work: the page is dated "06 January 2003" and names the latest release as 1.9.13, while the frozen DISTNAME is cgoban-1.9.14. Nothing is inferred from that -- not that the page is stale, not that a newer surface exists elsewhere, and under QA-28 nothing about what this surface carried at the sealed instant.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
