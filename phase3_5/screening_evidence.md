@@ -6031,11 +6031,21 @@ Observed: GH_ACCOUNT=tmewett; GH_PROJECT=BrogueCE; GH_TAGNAME=v1.15.1; PKGNAME=b
 
 This one needs stating rather than asserting, because the frozen fields name two different parties. The source-bearing fields all point at tmewett/BrogueCE, and PKGNAME is derived from that repository's tag; the HOMEPAGE points at a site belonging to Brian Walker, whom COMMENT names as the game's author.
 
-Inference: the packaged system is Brogue: Community Edition. Every field that determines WHAT IS BUILT -- the account, the project, the tag, the derived package version 1.15.1, the AGPLv3+ code licence -- names that one system. COMMENT's "by Brian Walker" is an authorship credit for the game, not a statement about which project is packaged, and C045 settled that a mismatch between the packaging name and the upstream name is not the two-systems case UR-AMBIGUOUS is for.
+Inference: the packaged system is Brogue: Community Edition, and the fields that establish it are narrower than a first draft claimed.
 
-Corroboration, not the basis: the HOMEPAGE surface itself says "For the most current version of Brogue, please look to Brogue: Community Edition." The resolution above stands on the frozen metadata alone and does not depend on that sentence.
+```text
+system-identifying    GH_ACCOUNT=tmewett, GH_PROJECT=BrogueCE, and the
+                      tag v1.15.1 in that repository -- the
+                      source-fetch identity, stated explicitly
 
-Carried forward to E2-REP: the frozen HOMEPAGE is a surface of the ANCESTOR project, not of the packaged system. That is a fact about the metadata, and it is where it will matter.
+consistent but not    PKGNAME=brogue-1.15.1 and the AGPLv3+ code
+identifying           licence line. Both agree with that packaged
+                      source; neither names the system.
+```
+
+COMMENT's "by Brian Walker" is an authorship credit for the game, not a statement about which project is packaged, and C045 settled that a mismatch between the packaging name and the upstream name is not the two-systems case UR-AMBIGUOUS is for. A HOMEPAGE and a repository identifier pointing at differently-roled locations does not by itself make the metadata ambiguous; what UR must resolve is what is packaged, and the source-fetch identity fixes it.
+
+What the frozen metadata establishes about the HOMEPAGE, and no more: it names Brian Walker's Brogue site. Whether that site stands in an ancestor relation to the packaged system is not readable from the metadata and is not claimed here; it is an inference from the page itself, made at E2-REP where the page is observed.
 Decision: PASS
 
 ## EV-C051-E1-01
@@ -6055,7 +6065,7 @@ Per QA-27 both admitted starting points are accounted for, and both were observe
 Surface 1: the frozen HOMEPAGE.
 requested_url and final_url: https://sites.google.com/site/broguegame/
 observed_at_utc: 2026-08-28T07:52:53Z; http_status 200; redirect_chain: NONE (num_redirects 0); 337108 bytes
-evidence_role: official-project-page (of the ancestor project)
+evidence_role: frozen HOMEPAGE; the observed page for Brian Walker's Brogue line
 
 Observation scope, fixed before the request: HTTP status and redirects; title and headings; any sentence about where the project or its source is; the links exposed and their labels and targets; any primary, canonical, preferred or mirror marking. Not: opening any linked artifact or destination.
 
@@ -6080,7 +6090,11 @@ Recorded because it is easy to misread: "Brogue: Community Edition" in the first
 
 No Source, Code, Repository or Development link is exposed, so navigation step 2 has no target. The "Download" link is excluded twice over, and both exclusions are independent: its label is outside the four-word whitelist (QA-17), and its target is a releases path, which the contract forbids outright. It is a navigation target found on a page, not a URL the frozen metadata supplies, so this is not QA-31's situation -- QA-31 concerns a frozen starting point that names a forbidden class, and nothing here forces that question.
 
-The v1.7.5 artifacts are the only things this surface labels as carrying source code, and they are not a competing designation for the packaged system: upstream ranks them itself, calling them "Older" and directing the most current version to Brogue CE. That is the C015 and C038 device, and it is what C047 lacked. They also belong to a different version line from the packaged 1.15.1, so QA-26 applies as well.
+The v1.7.5 artifacts are the only things this surface labels as carrying source code. They are recorded, and they do NO adjudication work here.
+
+An earlier draft argued they were not a competing designation because upstream ranks them "Older" -- the C015 and C038 device. That argument is withdrawn as unnecessary and out of scope. UR fixed the target as Brogue: Community Edition, so what matters is whether a CE canonical source location is designated; how this page ranks its own older material bears on the relation between this page and CE, not on CE's source uniqueness. Running a competing-designation adjudication over another line's artifacts would import exactly the kind of reasoning C048 kept out.
+
+What the page's own sentences do establish, as inference from the observed text rather than from the frozen metadata: it presents Brogue CE as the most current continuation and labels its own v1.7.5 material as older.
 
 Surface 2: https://github.com/tmewett/BrogueCE, from the GH_ACCOUNT/GH_PROJECT pair.
 Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point.
@@ -6131,3 +6145,15 @@ Both starting points were determinately answered, so no surface is left unobserv
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## RETRACTION 24 — C051 overstated its UR basis and adjudicated another line's artifacts
+
+Verdicts unchanged; both were arguments the entry did not need.
+
+**UR's basis.** The entry said "Every field that determines WHAT IS BUILT -- the account, the project, the tag, the derived package version 1.15.1, the AGPLv3+ code licence -- names that one system." PKGNAME and the licence line are CONSISTENT with the packaged source; neither names Brogue: Community Edition. The system-identifying evidence is narrower: GH_ACCOUNT, GH_PROJECT and the tag -- the source-fetch identity. Restated that way, and UR PASS is unaffected.
+
+**The ancestor relation.** The entry carried "the frozen HOMEPAGE is a surface of the ANCESTOR project" forward from UR as "a fact about the metadata". It is not. The metadata says only that HOMEPAGE names Brian Walker's Brogue site; the ancestor relation is an inference from the page's own sentences, and it now sits at E2-REP where the page is observed.
+
+**The v1.7.5 adjudication.** The entry argued that the site's v1.7.5 source artifacts were not a competing designation because upstream ranks them "Older", invoking C015 and C038 and adding QA-26. Withdrawn. Once UR fixes the target as Brogue: Community Edition, the question is whether a CE canonical source location is designated; how another version line's page ranks its own older material does not bear on that, and running the adjudication anyway imports scope C048 was careful to exclude. The artifacts stay on the record as observed, doing no verdict work.
+
+The remaining E2-REP reasoning is simpler for the removal, and unchanged in outcome: the only navigable link to the packaged system is labelled "Download" and targets a releases path, excluded twice over and independently; the repository was reached by packaging identifiers, which is affiliation; its website field points repo->site, which does not designate; a source tree is present, so E2REP-NO-SOURCE does not apply. UNRESOLVED / PI-UNCLASSIFIED-SHAPE.
