@@ -6576,3 +6576,170 @@ Also withdrawn with the verdict: the E2-RULE, E3 and E4 entries EV-C056-E2RULE-0
 **Not converted into a finding.** The quarantined E4 material contains an observation that would otherwise be worth a QA entry -- that `unpackCustom` extends the flag registry at runtime from network data. It is left as quarantined material and not written up, because a methodological rule drawn from post-stop exposure would be that exposure doing work by another route.
 
 Ledger: ELIGIBLE 7 -> 6, REJECTED 4 -> 5. Terminal count and remaining are unchanged at 64 and 64.
+
+## QUARANTINED C056 DOWNSTREAM ENTRIES — restored in full
+
+The three entries below were written while the withdrawn EV-C056-E2REP-01 stood, and were removed from this file when RETRACTION 25 replaced it. Removing them was itself a mistake: this run withdraws and quarantines observations, it does not delete them from the current record, and "recoverable from git" is not the standard C014's retraction set. They are restored here verbatim, retitled and marked, so the reasoning that was actually performed stays visible.
+
+None of them does verdict work. C056's failure code was complete at step 1, so all of this is post-stop exposure under the contract's stop rule, and the compressed inventory in the QUARANTINE block above remains the index to it.
+
+## QUARANTINED EV-C056-E2RULE-01
+Status: post-stop exposure; no verdict work for C056.
+
+Candidate: C056
+Gate: E2-RULE
+Source: README in the retrieved source tree
+observed_at_utc: 2026-08-28T08:41:52Z (the artifact above)
+Provenance: read against the 2.4.30 source upstream designates at observation time; no claim about the sealed primary snapshot (QA-28), and the frozen package is 2.4.22.
+
+Observed: located witness, README:120-126.
+
+```text
+"After configure completes, it will report whether all the requisite
+ packages were found that it needs in order to build the client and the
+ server.  The client is reliant upon the following external
+ dependencies that should be installed before running configure:
+
+   OpenGL 1.0+
+   libSDL 1.2+"
+```
+
+Inference: these determine concrete validity requirements without our inventing them -- a build environment lacking either does not satisfy the stated condition for building the client -- and both carry version bounds, as at C049.
+
+Not used: the top-level INSTALL file, which is the generic autoconf text authored by the Free Software Foundation rather than by this project, and which states nothing specific to it.
+Decision: PASS
+
+## QUARANTINED EV-C056-E3-01
+Status: post-stop exposure; no verdict work for C056.
+
+Candidate: C056
+Gate: E3
+Source: src/bzfs/bzfs.cxx and src/bzfs/GameKeeper.cxx in the retrieved source tree
+Provenance: as above.
+
+Observed: located witness. Both halves are quoted rather than one assumed, per the rule C038 established.
+
+```text
+bzfs.cxx:5326-5328     // silently drop old packet
+                       if (state.order <= playerData->lastState.order)
+                           break;
+
+GameKeeper.cxx:501-507 void GameKeeper::Player::setPlayerState(
+                           PlayerState state, float timestamp)
+                       {
+                           lagInfo.updateLag(timestamp,
+                               state.order - lastState.order > 1);
+                           player.updateIdleTime();
+                           lastState      = state;
+                           stateTimeStamp = timestamp;
+                           ...
+                       }
+```
+
+Inference: an incoming player-state update is accepted only if its order exceeds that of the previously accepted update, and `lastState` is exactly what the previously accepted update assigned. The identical packet is therefore accepted or dropped according to what was accepted before it. That is validity conditioned on history, which is what E3 asks for.
+
+A second instance is recorded and not leaned on: immediately below, the height check is gated by `if (now - lastWorldParmChange > 10.0f)`, making a position's acceptability depend on how long ago a world parameter changed. One located witness settles a positive existential gate, so the search stopped.
+Decision: PASS
+
+## QUARANTINED EV-C056-E4-01
+Status: post-stop exposure; no verdict work for C056.
+
+Candidate: C056
+Gate: E4
+
+Positive construction exhibited, via U_enforced.
+Provenance: the retrieved 2.4.30 source, as above.
+
+The mechanism: the flag-type registry.
+
+```text
+include/Flag.h:117-141   FlagType::FlagType(name, abbv, endurance, shot
+                             type, quality, team, help, custom = false)
+                         ...
+                             flagSets[flagQuality].insert(this);
+                             getFlagMap()[flagAbbv] = this;      // :140
+
+src/common/Flag.cxx:85    namespace Flags { void init() {
+                              Null = new FlagType("", "", ...);
+                              RedTeam = new FlagType("Red Team","R*",...);
+                              ...
+
+src/common/Flag.cxx:379   FlagType* Flag::getDescFromAbbreviation(
+                              const char* abbreviation)
+                          {   ... uppercase ...
+                              i = FlagType::getFlagMap().find(abbvString);
+                              if (i == FlagType::getFlagMap().end())
+                                  return Flags::Null;
+                              else return i->second;   }
+```
+
+```text
+FlagType constructions in Flag.cxx        47
+distinct abbreviation keys among them     47
+key collisions among the built-ins         0
+```
+
+The cross-check matters here specifically: the constructor's insertion is `getFlagMap()[flagAbbv] = this`, an assignment, so a duplicate abbreviation would silently overwrite. The 47-to-47 count is what shows none of the built-in registrations does.
+
+EN1 external authorship: the game and this registry existed independently of this analysis.
+
+EN2 explicit scope: the project names the domain in its own class comment, "This class represents a flagtype, like \"GM\" or \"CL\"", and every entry carries externally segmented fields -- flag name, abbreviation, endurance, shot type, quality, team and help text.
+
+EN3 mechanical membership, with the two levels kept apart as at C043 and C049:
+
+```text
+enumerator membership      the keys present in FlagType::getFlagMap()
+runtime enforcement value  the FlagType* each key maps to
+```
+
+Membership is what the constructor inserted, enumerable by reading the registrations.
+
+EN4 connection to validation, in project code on both sides. The lookup returns `Flags::Null` for an unregistered abbreviation, and the project tests for exactly that and rejects:
+
+```text
+src/bzfs/CmdLineOptions.cxx:1623-1628
+  FlagType* fDesc = Flag::getDescFromAbbreviation(vsitr->c_str());
+  if (fDesc == Flags::Null)
+  {
+      std::cerr << "ERROR: invalid flag [" << (*vsitr) << "]" << std::endl;
+      usage(argv[0]);
+  }
+
+src/bzfs/CustomZone.cxx:119-124
+  FlagType* f = Flag::getDescFromAbbreviation(flag.c_str());
+  if (f == Flags::Null)
+  {
+      logDebugMessage(1,"WARNING: bad flag type: %s\n", flag.c_str());
+      input.putback('\n');
+      return false;
+  }
+```
+
+EN5 closed within scope: the set is closed by runtime construction -- Section 3.2's first admissible case -- since membership is precisely what FlagType's constructor has inserted into the map. Tag: `enforced`.
+
+Recorded rather than smoothed over, because it bears directly on what "closed" means here: the registry is NOT a fixed compile-time list. `FlagType::unpackCustom` (Flag.cxx:291) constructs further FlagType objects with `custom = true` from network data, and those enter the same map through the same constructor. So the extent at any moment is what has been constructed by then. That is still closure by runtime construction rather than by our choice, which is what EN5 requires; no immutability is claimed, and none is needed.
+
+EN6 outcome independence: the registry is the set of flag types the game recognises. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations:
+
+```text
+one enforcement observation per registered abbreviation
+
+  "abbreviation A is registered to a flag type; a flag abbreviation
+   matching no registered key resolves to Flags::Null, which the
+   project tests for and rejects as an invalid or bad flag type"
+
+retained as externally segmented fields, per observation
+  the flag's name and abbreviation
+  its endurance, shot type, quality and team
+  the project's own help text for it
+```
+
+As at C043 and C049, this establishes only that a mechanically constructible universe EXISTS. It fixes no contents and concludes nothing about a primary-universe count; QA-19 puts that at the inventory stage.
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
+
+Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The designation observed is for 2.4.30 while the frozen package is 2.4.22, and nothing observed fixes what was designated at the sealed instant. The three inventory fields are consequently NOT_REACHED.
