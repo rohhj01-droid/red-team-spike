@@ -8774,7 +8774,7 @@ not established here
   supplying library semantics from our own knowledge.
 ```
 
-EN5 closed within scope: the set is closed by runtime construction -- Section 3.2's first admissible case -- and the three sets it closes over are named separately, because "what `LoadItems` inserted" covers the sentinel too and would otherwise contradict the membership defined above:
+EN5 closed within scope: the set is closed by runtime construction -- Section 3.2's first admissible case -- and the two sets it closes over are named separately, alongside the condition that consults them, because "what `LoadItems` inserted" covers the sentinel too and would otherwise contradict the membership defined above:
 
 ```text
 U_enforced membership   the loaded members: one per nonzero row of the
