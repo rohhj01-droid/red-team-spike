@@ -5030,7 +5030,14 @@ EN1 external authorship: the game and this table existed independently of this a
 
 EN2 explicit scope: the project segments the enum with its own section comments -- "common labels", "labels for main menu", "credits", "replays", "game texts", "network texts", "options" -- and each slot carries a name of its own (LBL_OK, RP_FILE_CORRUPT, NET_SERVER_FULL, OP_JUMP_KEY).
 
-EN3 mechanical membership: membership is what setDefault assigned, one entry per enum slot, enumerable by reading either list. The two lists were cross-checked above rather than assumed to agree.
+EN3 mechanical membership, with the two things it is easy to conflate kept apart:
+
+```text
+enumerator membership      the fixed enum slots through COUNT
+runtime enforcement state  each slot's current token value
+```
+
+Membership is the first of these -- what setDefault assigned, one entry per enum slot, enumerable by reading either list, and cross-checked above rather than assumed to agree. The second is what the mutation paragraph below concerns. Separating them removes any appearance of conflict: the values move, the slots do not.
 
 EN4 connection to validation: loadFromXML uses the table as the acceptance test for a language file's entries, in project code, and rejects in project code.
 
@@ -5067,10 +5074,10 @@ The universe is therefore ACTUALLY mechanically constructible, stated as observa
 ```text
 one enforcement observation per slot
 
-  "English string S occupies slot N; a language-file entry whose
-   english attribute equals S is accepted and replaces it, and an
-   entry whose english attribute matches no slot is named invalid
-   and discarded"
+  "slot N is initialized with English string S; at a parsing step an
+   entry is accepted iff its english attribute matches some slot's
+   CURRENT value; a match replaces that slot's value; an entry
+   matching no current slot is named invalid and discarded"
 
 retained as externally segmented fields, per observation
   the section the project placed the slot in
@@ -5105,7 +5112,7 @@ the defence that the alternative "would rest a negative on a
 
 The five requests stay on the record as quarantined and do no verdict work in either direction. What the frames contain is now unobserved by contract, not absent.
 
-The verdict is unchanged -- UNRESOLVED, PI-UNCLASSIFIED-SHAPE -- but its grounds are narrower and its FAIL branch is stronger: with step 1 unobservable past "a frameset exists", there is even less basis for asserting that upstream designates no source location. Surfaces 2 and 3 and the QA-26/QA-27 accounting of jorio/Pomme are untouched.
+The verdict is unchanged -- UNRESOLVED, PI-UNCLASSIFIED-SHAPE -- but its grounds are narrower and its FAIL branch is stronger: with step 1 unobservable past "a frameset exists", there is even less basis for asserting that upstream designates no source location. Surface 2 and the QA-26/QA-27 accounting of jorio/Pomme are untouched.
 
 ## RETRACTION 20 — C043's E4 overstated the mutation as a shrinking acceptance set
 
