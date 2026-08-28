@@ -4842,20 +4842,19 @@ observed_at_utc: 2026-08-28T05:22:41Z-05:22:42Z; http_status 200; redirect_chain
 
 The document is a **frameset**. It contains no anchors of its own -- only frame references, and an empty <noframes> body.
 
-A reading is required here, and it is stated rather than assumed because it extends how "the landing page" has been taken so far. A frameset's declared frames are that document's own rendered composition, not onward destinations a reader navigates to; the page a visitor sees at this URL is the frames assembled. Reading them is therefore observing step 1. The alternative -- treating the frameset as opaque and concluding "the landing page exposes no source link" -- would rest a negative on a technicality of markup, which is worse.
+That is the whole of what this surface admissibly yields: a document declaring frame references, exposing no anchor of its own.
 
-All five frames were read.
+QUARANTINED EXTRA REQUESTS: the five frame documents were nevertheless requested.
 observed_at_utc: 2026-08-28T05:23:14Z-05:23:27Z; http_status 200 on each
+bf_home_top.html, bf_home_bottom.html, bf_home_left.html, bf_home_right.html, info.html
 
-```text
-bf_home_top.html      buy.html, downloads.html, info.html, support.html
-bf_home_bottom.html   "#", ../../../macGames.html
-bf_home_left.html     no links
-bf_home_right.html    no links
-info.html             screenshot images only
-```
+Those requests were not authorized, and the reasoning that produced them is the error worth naming. An earlier draft argued that a frameset's declared frames are the landing page's own rendered composition, so reading them observes step 1 rather than navigating past it. That is a true statement about browsers and an invented rule about this contract. The contract enumerates surfaces by navigation RELATION -- landing page, a Source/Code/Repository/Development link it exposes, the repository root reached -- and says nothing about subresources. Supplying "same surface" from a rendering model is the analyst widening the whitelist, the same shape as C014's Downloads page and C037's host root.
 
-None is a Source, Code, Repository or Development link, so navigation step 2 has no target. `downloads.html` was not opened: not among the four labels, and QA-17 settled that "source distribution" may not widen the whitelist.
+The draft also defended itself by saying the alternative "would rest a negative on a technicality of markup". That defence is backwards twice over: an unobservable surface yields no negative to rest on, and preferring a conclusion is not a reason to acquire the evidence that produces it.
+
+The five documents therefore do no verdict work in either direction. In particular the earlier entry used them to establish a negative -- "none is a Source/Code/Repository/Development link, so navigation step 2 has no target" -- and that sentence is withdrawn. What the frames contain is now unobserved by contract, not absent.
+
+The cost is recorded rather than patched: under the sealed contract a frameset landing page is observable only down to "it declares frames", so this candidate's step 1 cannot be settled at all. That is a limitation of the contract, and mid-run is not when it gets amended.
 
 Surface 2: https://github.com/jorio/BillyFrontier, from the first DIST_TUPLE's identifiers.
 Necessary because: the gate was unsettled after surface 1 and this is the remaining admitted starting point for the packaged system.
@@ -4866,22 +4865,21 @@ The jorio/Pomme identifiers are accounted for and were not opened. UR determined
 
 ```text
 PASS not established
-  the arrow runs one way only. The repository's website field names
-  the project site; the project site, read in full including every
-  frame, designates no source location at all. C032 settled that
-  direction: a repository naming a site is affiliation, and
-  designation requires the PROJECT to identify the repository as its
-  canonical source.
-
+  no admitted surface yielded a designation witness. Surface 1's
+  admissible content is a frameset declaring frames and carrying no
+  anchors, which says nothing either way. Surface 2 carries a website
+  field naming the project site -- a repo->site arrow, which C032
+  settled is affiliation, not designation; designation would require
+  the PROJECT to identify the repository as its canonical source.
   Arriving at the repository through a packaging identifier likewise
   yields affiliation rather than designation (QA-22).
 
 FAIL not established
-  the repository root is an admissible surface and "whether upstream
-  designates this location as its source" is among the observations
-  allowed there; it carried no such signal. That is a bounded
-  observation, not a demonstration that upstream designates none --
-  the C017 boundary.
+  twice over. The repository root carried no designation signal, but
+  that is a bounded observation and not a demonstration that upstream
+  designates none (C017). And the project site's rendered content was
+  never lawfully observed at all, so nothing supports any claim about
+  what it does or does not designate.
 
 E2REP-NO-SOURCE not established
   a source tree WAS observed, so source access is not what is missing.
@@ -5047,7 +5045,18 @@ TextManager.cpp:114-121
 
 An `english` attribute that is not in the table is named invalid and its translation is discarded. Unlike C038, the deciding and rejecting code is the project's own.
 
-One property of this enforcement is recorded rather than smoothed over, because it makes the acceptance set stateful: line 118 overwrites the matched slot with the translation, so a string already consumed is no longer matchable. The set the test consults is therefore the English defaults MINUS those matched earlier in the same file, and the file's own comment says the loop "assumes that the strings in the xml file are in the correct order". The declared universe -- the 110 setDefault assignments -- is closed and enumerable; what is stateful is the matching, not the declaration.
+One property of this enforcement is recorded rather than smoothed over: the values consulted for matching are mutable. Line 118 is `*found = t`, so a successful match REPLACES that slot's value with the translation.
+
+```text
+before   slot i holds source token A
+after    slot i holds translated token B
+```
+
+It is a replacement, not a removal, and the earlier draft's "the acceptance set is the defaults minus those already consumed" overstated it. B may equal A; B may coincide with another slot's value; the extent stays at COUNT throughout. No cardinality claim of the form 110 -> 109 -> ... is supported, and none is made. What is true is narrower: the recognised-token relation can change during parsing, so it is not a fixed immutable 110-name acceptance set. The file's own comment says as much about the order it expects -- the loop "assumes that the strings in the xml file are in the correct order".
+
+This does not disturb EN5, whose sealed text asks that "membership must be closed by something other than our choice" and admits "runtime construction closes the set" as `enforced`. Immutability is not among its requirements. The extent is fixed at COUNT and the parser walks it; at each step the deciding value is the slot's current one, so membership is determined mechanically and never by us.
+
+Bounded to screening: this entry claims only that a mechanically constructible universe EXISTS. It does not fix its contents, and in particular does not conclude that the primary universe is exactly 110 units. QA-19 puts that at the inventory stage, to be established independently there.
 
 EN5 closed within scope: mStrings is resized to COUNT and filled by setDefault at construction; no path adds a slot. Closed at construction. Tag: enforced.
 
@@ -5074,3 +5083,36 @@ Normative route: not pursued. Nothing observed designates an authoritative rule 
 Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28 -- as with every other survivor, no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
+
+## RETRACTION 19 — C042 read five frame documents the contract does not admit
+
+C042's E2-REP entry requested the five frame documents declared by the frozen HOMEPAGE's frameset, on the reasoning that a frameset's frames are the landing page's own rendered composition and so are still step 1.
+
+That reasoning is withdrawn. The sealed contract enumerates surfaces by navigation relation and says nothing about subresources; "the frames are the same surface" is the analyst's rendering model, not the contract's rule. It is the shape of C014's Downloads page and C037's host root: a criterion or a mental model used to widen where we may look. See QA-29.
+
+Withdrawn specifically:
+
+```text
+the frameset-composition justification, in full
+the frame-by-frame link table
+"None is a Source, Code, Repository or Development link, so
+ navigation step 2 has no target"
+"the project site, read in full including every frame, designates
+ no source location at all"
+the defence that the alternative "would rest a negative on a
+ technicality of markup"
+```
+
+The five requests stay on the record as quarantined and do no verdict work in either direction. What the frames contain is now unobserved by contract, not absent.
+
+The verdict is unchanged -- UNRESOLVED, PI-UNCLASSIFIED-SHAPE -- but its grounds are narrower and its FAIL branch is stronger: with step 1 unobservable past "a frameset exists", there is even less basis for asserting that upstream designates no source location. Surfaces 2 and 3 and the QA-26/QA-27 accounting of jorio/Pomme are untouched.
+
+## RETRACTION 20 — C043's E4 overstated the mutation as a shrinking acceptance set
+
+C043's E4 entry wrote that line 118 makes "the acceptance set the English defaults MINUS those matched earlier in the same file".
+
+That is wrong about the operation. `*found = t` replaces a slot's value; it does not remove a slot. The replacement value may equal what it replaced, or may coincide with another slot's value, and the extent stays at COUNT. Any decreasing-cardinality reading is withdrawn.
+
+The narrower true statement is that the recognised-token relation is mutable during parsing, which is what the entry now says. EN5 is undisturbed: it requires closure not chosen by us, not immutability.
+
+Also narrowed: the entry now states explicitly that it establishes only the EXISTENCE of a mechanically constructible universe, and fixes no count. QA-19 keeps that at the inventory stage.

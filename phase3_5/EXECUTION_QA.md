@@ -1770,3 +1770,28 @@ dull.
 bounds the designation back to the enumeration execution timestamp
 before recording a snapshot hash. A dated release entry on a permitted
 surface does it. "This is what is designated today" does not.
+
+## QA-29 — a subresource of an admitted surface is not part of that surface
+
+Raised at C042, from the same root as QA-17, QA-20 and the C037 deviation.
+
+The frozen HOMEPAGE was a frameset: a document whose only content is references to five other documents. Fetching those five was justified on the ground that they are what the landing page RENDERS -- not onward destinations, just the page assembled.
+
+The reasoning is wrong for a reason worth stating precisely, because "it was still a widening" alone does not distinguish it from a legitimate reading of the contract.
+
+```text
+the contract enumerates surfaces by NAVIGATION RELATION
+  1 the landing page
+  2 a Source/Code/Repository/Development link IT EXPOSES
+  3 the repository root reached that way
+
+it says nothing about composition, inclusion, or rendering
+```
+
+So there is no clause a frames argument can be a reading OF. The premise -- "these are the same surface" -- has to come from somewhere, and it came from us: a model of how browsers assemble documents. That is the analyst supplying scope, which is the one thing the contract exists to prevent. Whether the model is correct about browsers is beside the point; C014's Downloads page and C037's host root were also each defensible in their own terms.
+
+Recurrence condition, bound to the shape rather than to framesets (the QA-20 lesson). It recurs whenever the argument for reading further has the form "this other document is really part of the admitted one" -- frames, server-side includes, iframes, a page whose content is fetched by script, a landing page that is a redirect stub. In every such case the joining relation is supplied by us, and the answer is the same: only the contract may extend a surface.
+
+What this costs, recorded rather than repaired. Under the sealed contract, a frameset landing page is observable only down to "it declares frames". Such a candidate's step 1 can never be settled, and it goes to UNRESOLVED for a reason that is about our instrument rather than about upstream. That is a real limitation and it belongs in the reportable result -- not in a mid-run amendment, which would be a post-hoc criterion change of exactly the kind the run forbids.
+
+What it does NOT license, so that this does not re-inflate the way QA-24 did: nothing here says a surface is inadmissible because it is "derived" or "secondary". Surfaces are admitted by the contract's own list -- frozen URLs and identifiers, and the two navigation steps. QA-29 removes an argument for adding to that list; it removes nothing from it.
