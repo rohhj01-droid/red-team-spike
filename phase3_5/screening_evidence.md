@@ -5674,3 +5674,248 @@ Both starting points were determinately answered -- a 301 whose destination retu
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C049-UR-01
+Candidate: C049 (frame rank 49, games/boswars)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/boswars/Makefile
+Observed: DISTNAME=boswars-${V}-src with V=2.7; PKGNAME=boswars-${V}; HOMEPAGE=https://www.boswars.org/; SITES=https://www.boswars.org/dist/releases/; COMMENT="real-time strategy game".
+Inference: the frozen fields name one packaged system, Bos Wars, and HOMEPAGE and SITES sit on the same upstream domain. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C049-E1-01
+Candidate: C049
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under GPLv2, on an upstream domain unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C049-E2REP-01
+Candidate: C049
+Gate: E2-REP
+
+Step 1: the frozen HOMEPAGE.
+requested_url and final_url: https://www.boswars.org/
+observed_at_utc: 2026-08-28T07:31:29Z; http_status 200; redirect_chain: NONE (num_redirects 0); 3307 bytes
+evidence_role: official-project-page
+Observed: the project's own site, titled "Bos Wars", with sections About and Project. Its navigation exposes Home, News, Download, Screenshots and **Development**. The Project section reads: "The project pages are on Codeberg and Savannah." -- Codeberg linking to https://codeberg.org/boswars/boswars and Savannah to https://savannah.nongnu.org/projects/stratagus-bos/. Issue Tracker, Matrix, IRC and Reddit links follow.
+
+No failure code is determined here, and the reason is worth stating because a two-location reading is available on its face. "The project pages are on Codeberg and Savannah" designates two PROJECT PAGES, not two source locations, and C007 settled that a generic project hub is not a repository root. This is not C047's situation, where upstream's own words gave one artifact the role "gzipped source tarball" and the other location the role "project repository" on the same page.
+
+Step 2: the "Development" link. Its label is one of the contract's four words verbatim and step 1 exposes it directly, so the navigation is authorized on the contract's plain text -- the C038 basis, with no reading of the destination required.
+
+requested_url and final_url: https://www.boswars.org/development.shtml
+observed_at_utc: 2026-08-28T07:32:08Z; http_status 200; redirect_chain: NONE; 4453 bytes
+
+This page performs the designation, in upstream's own words, and performs the ranking too:
+
+```text
+"The project git repositories and management is on Codeberg."
+
+"You can get the latest version with git :
+   git clone https://codeberg.org/boswars/boswars.git"
+
+"Some sources for the assets used in the game can be found in the
+ materials.bos repository."
+
+"The sources of the web pages can be found in the website.bos
+ repository."
+
+"Old development done before december 17th 2004 can be found in the
+ CVS repository."
+```
+
+Every competing location is delimited or ranked by upstream itself, which is what C023, C015 and C038 required and what C047 lacked:
+
+```text
+materials.bos   asset sources, by upstream's own description
+website.bos     web page sources, by upstream's own description
+                -- both a different content set from the packaged
+                   game, so QA-26 applies: project-level multiplicity
+                   is not candidate-level multiplicity
+CVS repository  "Old development done before december 17th 2004"
+                -- upstream's own temporal ranking, the C015 device
+Savannah        appears here only as the CVS repository and the Patch
+                Tracker; nothing designates it as the source location
+```
+
+Step 3: https://codeberg.org/boswars/boswars -- the location the clone command names.
+observed_at_utc: 2026-08-28T07:32:40Z (metadata), 07:32:42Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+evidence_role: official-source-location
+Observed: full name boswars/boswars, owner boswars, default branch master, fork false, archived false, mirror false, template false, empty false, parent null, **website field https://boswars.org**, description "A futuristic real-time strategy game featuring a dynamic rate-based economy.", and clone_url https://codeberg.org/boswars/boswars.git -- byte for byte the URL the Development page publishes. A source tree is present at the root:
+
+```text
+dirs   engine campaigns doc graphics intro languages maps patches
+       scripts sounds tools units
+files  make.py fabricate.py INSTALL.md README.md CHANGELOG
+       COPYRIGHT.txt LICENSE.txt .gdbinit .gitignore
+```
+
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Bos Wars). The designation runs both ways, as at C022: the project's own site names the repository, and the repository's website field names the site.
+
+On QA-25, since a clone command is involved: the command is not what does the designating. The sentence "The project git repositories and management is on Codeberg" states the location, and the command supplies its exact URL. This is not C020's "you can also use anonymous cvs", where a route was miscounted as a location.
+
+The frozen SITES, https://www.boswars.org/dist/releases/, is accounted for and was not observed. The stop rule ends navigation "the moment a PASS or a specific failure code is determined. Not one page further", and the determination was reached at step 3. Under QA-27 the obligation is to account for each starting point rather than to open each, and this is the branch where the protocol resolves it. QA-31's question -- whether a URL naming a forbidden class may be observed at all -- therefore does not have to be reached here.
+
+Recorded because it bounds this PASS: the "Download" link on step 1 was not opened, QA-17 having settled that the label is outside the whitelist. If that page designates a source distribution, this would be C047's shape. That possibility is unexamined, not excluded -- and it cannot be examined, which is exactly why C002's and C007's multi-designation findings were withdrawn when they rested on surfaces the contract does not reach. The verdict here rests on what the permitted surfaces do say, and they designate one location.
+
+Decision: PASS
+
+## EV-C049-E2RULE-01
+Candidate: C049
+Gate: E2-RULE
+Source: INSTALL.md in the designated repository
+observed_at_utc: 2026-08-28T07:33:22Z; http_status 200; 3759 bytes
+Provenance: read against the source state available at screening observation time; no claim about the sealed primary snapshot (QA-28).
+
+Observed: located witness, the file's own Software Requirements section:
+
+```text
+* SDL 2      (required)
+* libpng     (required)
+* zlib       (required)
+* Lua 5.1    (required)
+* libvorbis  (recommended)
+* libtheora  (recommended)
+* libogg     (recommended)
+* tolua++    if you plan to change the Lua API
+```
+
+Inference: these determine concrete validity requirements without our inventing them -- a build environment lacking any item marked (required) does not satisfy the stated conditions, and the requirement is version-bounded in two places, "SDL 2" and "Lua 5.1", which C014, C023, C034, C038 and C043 all lacked. The conditional item is bounded by its own stated condition rather than hedged.
+Decision: PASS
+
+## EV-C049-E3-01
+Candidate: C049
+Gate: E3
+Source: engine/unit/build.cpp and engine/map/map_fog.cpp in the designated repository
+observed_at_utc: 2026-08-28T07:34:04Z (build.cpp), 07:37:27Z (map_fog.cpp); http_status 200 on both
+Provenance: observation-time source state, as above.
+
+Observed: located witness. Both halves of the chain are quoted rather than one being assumed, which is the requirement C038 established.
+
+```text
+build.cpp:341-375   CUnit *CanBuildUnitType(const CUnit *unit,
+                        const CUnitType *type, int x, int y, int real)
+                    ...
+                      if (player && !real) {
+                          testmask = MapFogFilterFlags(player, x + w,
+                                                       y + h,
+                                                       type->MovementMask);
+                      } else {
+                          testmask = type->MovementMask;
+                      }
+
+map_fog.cpp:114-136 int MapFogFilterFlags(CPlayer *player, int x,
+                                          int y, int mask)
+                    {
+                      nunits = UnitCache.Select(x, y, table, UnitMax);
+                      fogmask = -1;
+                      while (unitcount < nunits) {
+                          if (!table[unitcount]->IsVisibleAsGoal(player)) {
+                              fogmask &= ~table[unitcount]->Type->FieldFlags;
+                          }
+                          ++unitcount;
+                      }
+                      return mask & fogmask;
+                    }
+```
+
+Inference: whether a placement is valid is tested against a mask from which the field flags of every unit not currently visible to that player have been removed. Visibility is accumulated game state, so the identical placement at the identical coordinates receives different verdicts depending on what that player has seen by that point in the match. That is validity conditioned on history, which is what E3 asks for.
+Decision: PASS
+
+## EV-C049-E4-01
+Candidate: C049
+Gate: E4
+
+Positive construction exhibited, via U_enforced.
+observed_at_utc: 2026-08-28T07:34:04Z (script_unittype.cpp), 07:37:29Z (unittype.h); http_status 200
+Provenance: observation-time source state.
+
+The mechanism: the unit-type variable registry.
+
+```text
+engine/include/unittype.h:397-414
+  // Index for variable already defined.
+  enum { HP_INDEX, BUILD_INDEX, ... AUTOREPAIRRANGE_INDEX,
+         NVARALREADYDEFINED, };
+
+engine/unit/script_unittype.cpp:62-66
+  const char *VariableNames[NVARALREADYDEFINED] = {
+      "HitPoints", "Build", "Charge", "Transport",
+      "Training", "GiveResource", "Kill", "Armor", "SightRange",
+      "AttackRange", "PiercingDamage", "BasicDamage", "RadarRange",
+      "RadarJammerRange", "AutoRepairRange"};
+
+engine/unit/script_unittype.cpp:938-946
+  int GetVariableIndex(const char *varname)
+  {
+      for (int i = 0; i < NVARALREADYDEFINED; ++i) {
+          if (!strcmp(varname, VariableNames[i])) { return i; }
+      }
+      return -1;
+  }
+```
+
+```text
+enum members before NVARALREADYDEFINED   15
+string entries in VariableNames          15
+cross-check                              match
+```
+
+EN1 external authorship: the engine and this registry existed independently of this analysis.
+
+EN2 explicit scope: the project names the domain in its own comment on the enum, "Index for variable already defined", and each member carries its own name. The scope is the variable tags a unit-type definition may set.
+
+EN3 mechanical membership, with the two levels kept apart as at C043:
+
+```text
+enumerator membership      the entries of VariableNames, indices
+                           0..NVARALREADYDEFINED
+runtime enforcement state  none -- the entries are string literals
+                           and no observed path mutates them
+```
+
+Membership is enumerable by reading either list, and the two were cross-checked above rather than assumed to agree.
+
+EN4 connection to validation, in project code on both sides:
+
+```text
+script_unittype.cpp:632-648
+  i = GetVariableIndex(value);
+  if (i != -1) { ... continue; }
+  printf("
+%s
+", type->Name.c_str());
+  LuaError(l, "Unsupported tag: %s" _C_ value);
+```
+
+A unit-type tag that reaches this branch and matches no registered name is rejected as an unsupported tag, by the project's own call. Unlike C038, the deciding and the rejecting code are both the project's.
+
+EN5 closed within scope: the closure basis is the array's declared extent. `VariableNames` is declared with size `NVARALREADYDEFINED`, so the compiler ties the table to the enum, and `GetVariableIndex` iterates exactly that range at runtime. The set the decision consults is therefore closed by the declaration rather than by our choice, and a loop actually runs over exactly that set -- the operational case, so the tag is `enforced` rather than `asserted`.
+
+EN6 outcome independence: the registry is the set of unit-type attributes a scenario may set. It is not a bug list, fix list or known-failure registry.
+
+Bounded honestly: the claimed universe is the VARIABLE REGISTRY, not the full set of tags CclDefineUnitType accepts. The parser reaches GetVariableIndex only after a long if-else chain over other tags (Name, Image, Shadow, Type, RightMouseAction, sounds and others), and that chain is not a registry and is not claimed as one. What the registry mechanically decides is narrower and exact: whether a tag is accepted AS A VARIABLE.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations:
+
+```text
+one enforcement observation per registered name
+
+  "variable name N is accepted as a unit-type variable tag; a tag
+   reaching the variable branch and matching no registered name is
+   rejected as an unsupported tag"
+
+retained as externally segmented fields, per observation
+  the registered name
+  its index constant in the project's own enum
+```
+
+As at C043, this establishes only that a mechanically constructible universe EXISTS. It fixes no contents and concludes nothing about a primary-universe count; QA-19 puts that at the inventory stage.
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
+
+Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28 -- no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
