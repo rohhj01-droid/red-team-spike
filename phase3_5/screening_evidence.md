@@ -7934,3 +7934,105 @@ methodology or design gap
 
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates above were read against the default branch at observation time while the frozen tag is v1.5.6-lw, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
+
+## EV-C064-UR-01
+Candidate: C064 (frame rank 64, games/chiaki)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/chiaki/Makefile
+Observed: V=v2.2.0; DISTNAME=chiaki-${V}-src; PKGNAME derived from it; HOMEPAGE=https://git.sr.ht/~thestr4ng3r/chiaki; SITES=https://git.sr.ht/~thestr4ng3r/chiaki/refs/download/${V}/; COMMENT="open source PS4 and PS5 remote play client".
+Inference: the frozen fields name one packaged system, Chiaki, and both URLs are paths on the same upstream repository host. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C064-E1-01
+Candidate: C064
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party client under AGPLv3 with an OpenSSL exception, on an upstream account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C064-E2REP-01
+Candidate: C064
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were observed: the frozen HOMEPAGE, and the frozen SITES.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url and final_url: https://git.sr.ht/~thestr4ng3r/chiaki
+observed_at_utc: 2026-08-28T12:21:57Z; http_status 200; redirect_chain: NONE (num_redirects 0); 17919 bytes
+
+The HOMEPAGE is itself a repository -- a SourceHut git summary page -- so step 1 and step 3 are the same surface. This is the C010/C012/C017 topology, and QA-22 settled that it answers WHICH surface while supplying no designation of its own.
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; the repository's name, owner and refs; the links the page exposes with their labels and targets; whether a source tree is present; any statement designating this location as the project's source; any primary or mirror marking.
+
+Observed, restricted to the repository's own metadata furniture:
+
+```text
+title       "~thestr4ng3r/chiaki - Free and Open Source PlayStation
+             Remote Play Client - sourcehut git"
+owner       ~thestr4ng3r (Florian Maerkl on the commit rows)
+refs        master, and a v2.2.0 entry with "release notes"
+clone       read-only  https://git.sr.ht/~thestr4ng3r/chiaki
+            read/write git@git.sr.ht:~thestr4ng3r/chiaki
+tabs        project | source | summary | tree | log | refs
+RID         06dy9xvd1xxaq26n184ck2hdp8
+```
+
+Source-tree presence, from the repository's own tree surface.
+requested_url and final_url: https://git.sr.ht/~thestr4ng3r/chiaki/tree
+observed_at_utc: 2026-08-28T12:23:12Z; http_status 200; redirect_chain: NONE; 15617 bytes
+Observed at the root: lib, gui, cli, test, doc, scripts, cmake, assets, android, switch, setsu, third-party, LICENSES, CMakeLists.txt, COPYING, README.md, .gitmodules, .gitattributes, .gitignore, .appveyor.yml, .builds. A source tree is present.
+
+Two items on step 1 need their own record.
+
+```text
+the "source" tab
+  its label is one of the contract's four words, but it is SourceHut's
+  own chrome -- rendered on every repository page -- and its target is
+  https://git.sr.ht/~thestr4ng3r/chiaki, the surface already being
+  read. It leads nowhere new, so nothing turns on it here, and QA-30's
+  question about whether platform chrome carries designation force
+  does not have to be reached.
+
+the "project" tab -> https://sr.ht/~thestr4ng3r/chiaki
+  a different surface: the host's project hub. Its label is not among
+  the four words, and C007 settled that a generic project hub is not a
+  repository root. Not followed.
+```
+
+EXPOSURE LOG, per the contract's unavoidable-exposure clause. This page renders the repository's README inline, under headings "# Chiaki", "# Project Status and Contributing", "# Installing", "# Downloading a Release", "# Building from Source", "# Usage", "# Acknowledgements" and "# About", together with the links that prose carries. Reading README prose is forbidden at E2-REP, and code-hosting summary pages render one automatically. It is logged here and used for nothing: not for this gate, and -- since the candidate is terminal at this gate -- not to pre-judge or shortcut E2-RULE, E3 or E4 either.
+
+Surface 2: the frozen SITES.
+requested_url and final_url: https://git.sr.ht/~thestr4ng3r/chiaki/refs/download/v2.2.0/
+observed_at_utc: 2026-08-28T12:23:13Z (GET), 12:23:14Z (HEAD); http_status 404, 404; redirect_chain: NONE on both; 1497 bytes
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point.
+
+Why this was observed rather than withheld under QA-31, stated because the two cases look alike. QA-31 arises when a frozen starting point falls inside a class the contract forbids, and it was raised at C045 on a path whose segment was literally `releases`. This path's segments are `refs` and `download`; no `releases` segment appears, and the contract's forbidden list names "releases", not "download". Classifying this surface as a forbidden class would mean inferring its kind from its path, which C026 refuses. So the trigger is not established and the starting point was treated as any other. The reading is stated rather than assumed, since the opposite reading -- that a tag-scoped artifact area is a releases surface whatever the path spells -- is available and was not taken.
+
+Observed: a 1497-byte SourceHut 404 page. No artifact names or designation signal.
+
+```text
+PASS not established
+  nothing observed designates this location as the project's canonical
+  source. The only route to it is the packaging metadata's own
+  HOMEPAGE field, and arrival by an admitted route is affiliation, not
+  designation (QA-22, C017). No project site is named anywhere in the
+  frozen metadata, and the "source" tab leads back to the same page.
+
+FAIL not established
+  the repository surface is admissible and carried no designation
+  signal, which is a bounded observation and not a demonstration that
+  upstream designates none -- the C017 boundary. The frozen SITES
+  returned 404, which is evidence about that endpoint.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed, so source access is not what is missing.
+```
+
+Both starting points were determinately answered -- 200 and 404 -- so no surface is left unobserved and this is not the transport family. As C050's correction requires: the frozen metadata supplies no separate upstream-authored project surface, and the one admissible project-side surface -- the repository -- was examined and carried no designation signal. It is not that no surface could bear one.
+
+Recorded and doing no verdict work: the refs list shows a v2.2.0 entry with release notes while the frozen SITES path for that same version returned 404. Nothing is inferred from the pair -- not that the artifacts moved, not that they were removed, and under QA-28 nothing about what either surface held at the sealed instant.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
