@@ -7706,12 +7706,24 @@ Provenance and pinning. The first version of this entry read the default branch,
 upstream commit   e734a075346ca2ad7e3f3e35b42140169637c5ca
                   (Isarhamster/chessx master, committed 2026-03-13T18:10:14Z)
 re-fetched        2026-08-28T11:59:47Z, http_status 200 on each file
-files             src/database/nag.cpp   26860 bytes
-                  src/database/nag.h      7737 bytes
-                  src/database/pgndatabase.cpp 30593 bytes
-                  src/database/gamex.cpp      43656 bytes
-sha256 check      nag.cpp and nag.h byte-identical to the
-                  2026-08-28T10:37:34Z master fetch
+files and sha256 of the retrieved bytes
+
+  src/database/nag.cpp          26860 bytes
+    2201ce37ac0802dd0c62650b1ae6a44d9f956b2047a00b322fd75fec55dbb620
+  src/database/nag.h             7737 bytes
+    a26fb4f24c787dde3a5955439a8b4ffbcb3ba1bfdab19a5f0fab62e03dea6ba8
+  src/database/pgndatabase.cpp  30593 bytes
+    32cf76ca94e922aeba8af98ab091a04b82ad1bd580f6280d82587893f54bb31c
+  src/database/gamex.cpp        43656 bytes
+    f95be028d91bff39e6a5a7514e3a71d20dbbb667b9c064c03b34cfca12cd649f
+
+identity with the earlier read
+  the 2026-08-28T10:37:34Z master fetch of nag.cpp and nag.h produced
+  the same two digests above, so the first version of this entry read
+  these bytes. The digests are recorded so a third party can reproduce
+  the check rather than take the identity claim on trust; it is used
+  only to identify the object analysed, and does nothing for QA-28 or
+  for any verdict.
 ```
 
 QA-28 is unaffected: pinning identifies the object analysed and makes no claim about the sealed instant, and the frozen tag remains v1.5.6-lw.
@@ -7752,7 +7764,7 @@ strings occurring more than once                  48
 entries shadowed by an identical earlier entry    55
 ```
 
-The 22 `QString::fromUtf8(...)` entries are recorded because neither the first version's count nor a plain string-literal scan reaches them; they are array elements carrying glyphs such as the box, infinity and advantage symbols.
+The 22 `QString::fromUtf8(...)` entries are broken out because their status as ARRAY ELEMENTS is easy to lose, not because a naive scan misses their text: a plain string-literal regex does reach the literal inside each call, and counting that way yields the correct 156 and 155 totals while misclassifying all 156 as direct string-literal entries. The top-level decomposition 133 + 22 is what the array actually contains. These elements carry glyphs such as the box, infinity and advantage symbols.
 
 **B. The alias map, at nag.cpp:292-300.** `static QMap<QString, Nag> s_ExtraNags;` is declared empty. `NagSet::InitNagStringListLong()` at nag.cpp:294 inserts five keys -- `"+/-"`, `"-/+"`, `"=+"`, `"+="`, `"->"` -- from nag.cpp:296.
 
