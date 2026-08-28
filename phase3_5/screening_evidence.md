@@ -6022,3 +6022,112 @@ Stated precisely, because C032 had to correct this exact wording once already: t
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C051-UR-01
+Candidate: C051 (frame rank 51, games/brogue)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/brogue/Makefile
+Observed: GH_ACCOUNT=tmewett; GH_PROJECT=BrogueCE; GH_TAGNAME=v1.15.1; PKGNAME=brogue-${GH_TAGNAME:S/v//}; HOMEPAGE=https://sites.google.com/site/broguegame/; COMMENT="roguelike game by Brian Walker with X11 support"; licence line "Code: AGPLv3+".
+
+This one needs stating rather than asserting, because the frozen fields name two different parties. The source-bearing fields all point at tmewett/BrogueCE, and PKGNAME is derived from that repository's tag; the HOMEPAGE points at a site belonging to Brian Walker, whom COMMENT names as the game's author.
+
+Inference: the packaged system is Brogue: Community Edition. Every field that determines WHAT IS BUILT -- the account, the project, the tag, the derived package version 1.15.1, the AGPLv3+ code licence -- names that one system. COMMENT's "by Brian Walker" is an authorship credit for the game, not a statement about which project is packaged, and C045 settled that a mismatch between the packaging name and the upstream name is not the two-systems case UR-AMBIGUOUS is for.
+
+Corroboration, not the basis: the HOMEPAGE surface itself says "For the most current version of Brogue, please look to Brogue: Community Edition." The resolution above stands on the frozen metadata alone and does not depend on that sentence.
+
+Carried forward to E2-REP: the frozen HOMEPAGE is a surface of the ANCESTOR project, not of the packaged system. That is a fact about the metadata, and it is where it will matter.
+Decision: PASS
+
+## EV-C051-E1-01
+Candidate: C051
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party roguelike under AGPLv3+ with CC BY-SA 4.0 assets, on upstream accounts unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C051-E2REP-01
+Candidate: C051
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were observed: the frozen HOMEPAGE, and the GH_ACCOUNT/GH_PROJECT pair. Neither is itself a forbidden class, so QA-31 does not arise -- see below for why the releases URL that appears here is a different question.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url and final_url: https://sites.google.com/site/broguegame/
+observed_at_utc: 2026-08-28T07:52:53Z; http_status 200; redirect_chain: NONE (num_redirects 0); 337108 bytes
+evidence_role: official-project-page (of the ancestor project)
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; any sentence about where the project or its source is; the links exposed and their labels and targets; any primary, canonical, preferred or mirror marking. Not: opening any linked artifact or destination.
+
+Observed, in upstream's own words:
+
+```text
+"For the most current version of Brogue, please look to Brogue:
+ Community Edition. Brogue CE includes many enhancements and bugfixes
+ that improve the game beyond the older version linked below."
+
+"Latest Community Edition for all platforms: [Download]"
+     Download -> https://github.com/tmewett/BrogueCE/releases
+
+"Older v1.7.5 (with source code): [macOS] [Windows] [Linux amd64]"
+     each -> a drive.google.com/file/d/... URL
+
+About: "The latest version can be downloaded at
+        https://github.com/tmewett/BrogueCE/releases."
+```
+
+Recorded because it is easy to misread: "Brogue: Community Edition" in the first sentence is PLAIN TEXT, not a link. The markup was checked. The only link to the packaged system anywhere on this surface is the one labelled "Download".
+
+No Source, Code, Repository or Development link is exposed, so navigation step 2 has no target. The "Download" link is excluded twice over, and both exclusions are independent: its label is outside the four-word whitelist (QA-17), and its target is a releases path, which the contract forbids outright. It is a navigation target found on a page, not a URL the frozen metadata supplies, so this is not QA-31's situation -- QA-31 concerns a frozen starting point that names a forbidden class, and nothing here forces that question.
+
+The v1.7.5 artifacts are the only things this surface labels as carrying source code, and they are not a competing designation for the packaged system: upstream ranks them itself, calling them "Older" and directing the most current version to Brogue CE. That is the C015 and C038 device, and it is what C047 lacked. They also belong to a different version line from the packaged 1.15.1, so QA-26 applies as well.
+
+Surface 2: https://github.com/tmewett/BrogueCE, from the GH_ACCOUNT/GH_PROJECT pair.
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point.
+observed_at_utc: 2026-08-28T07:54:00Z (metadata), 07:54:01Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+
+```text
+full_name        tmewett/BrogueCE
+owner            tmewett
+default_branch   master
+fork             FALSE          parent  null
+archived         false          is_template  false     mirror_url  null
+website field    https://sites.google.com/site/broguegame/
+description      "Brogue: Community Edition - a community-lead fork of
+                  the much-loved minimalist roguelike game"
+license          AGPL-3.0, matching the frozen "Code: AGPLv3+"
+```
+
+Root listing: src, make, tools, test, bin, linux, macos, windows, os2, changes, .github, Makefile, config.mk, brogue, BUILD.md, README.md, CHANGELOG.md, CONTRIBUTING.md, LICENSE.txt, .gitignore. A source tree is present.
+
+Two observations are recorded without being used. The description calls the project "a community-lead fork" while the fork flag is false and the parent is null; that discrepancy is noted as observed metadata and nothing is inferred from it, and no fork-parent navigation arises in any case (C025). And the website field names the ancestor site -- a repo->site arrow, which C032, C042 and RETRACTION 23 have all now settled is affiliation and not designation.
+
+```text
+PASS not established
+  no designation witness. Surface 1 exposes no source-role link the
+  contract admits; its one link to the packaged system is labelled
+  "Download" and targets a forbidden class. Surface 2 was reached by
+  the packaging metadata's own identifiers, which is affiliation, not
+  designation (QA-22, C017), and its website field points the wrong
+  way to designate anything.
+
+  Nor does surface 1's sentence supply one. "The latest version can be
+  downloaded at .../releases" states where a build may be obtained; it
+  does not identify a canonical SOURCE location, and the surface it
+  names is one the contract will not let us open to find out.
+
+FAIL not established
+  both admissible surfaces carried what they carried and no more.
+  That is a bounded observation, not a demonstration that upstream
+  designates no canonical source location -- the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed at surface 2, so source access is not
+  what is missing.
+```
+
+Both starting points were determinately answered, so no surface is left unobserved and this is not the transport family. What the sealed criteria do not describe is this arrangement: the frozen HOMEPAGE belongs to an ancestor project that points forward to the packaged system only through a forbidden surface, while the packaged system's own repository is reachable only by packaging identifiers.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
