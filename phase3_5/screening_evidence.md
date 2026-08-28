@@ -8513,3 +8513,253 @@ Normative route: not pursued. Nothing observed designates an authoritative rule 
 Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 3a39d0a5, the frozen version is 3.1.0, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
+
+## EV-C066-UR-01
+Candidate: C066 (frame rank 66, games/choria)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/choria/Makefile
+Observed: V=1.1.1; COMMIT=f11082f6; DISTNAME=choria-${V}-${COMMIT}-src; PKGNAME=choria-${V}; HOMEPAGE=https://choria.gitlab.io/; SITES=https://gitlab.com/jazztickets/uploads/-/raw/main/; COMMENT="2D MMORPG focused on grinding".
+Inference: the frozen fields name one packaged system, Choria. The SITES host is a different namespace from the HOMEPAGE -- `jazztickets/uploads` -- but that is a statement about where the distfile is fetched from, which the protocol's carve-out treats as one more fact about one system rather than as a second system claim. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C066-E1-01
+Candidate: C066
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under GPLv3+, on upstream hosts unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C066-E2REP-01
+Candidate: C066
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for: the frozen HOMEPAGE and the frozen SITES.
+
+Step 1: the frozen HOMEPAGE.
+requested_url and final_url: https://choria.gitlab.io/
+observed_at_utc: 2026-08-28T13:02:46Z; http_status 200; redirect_chain: NONE (num_redirects 0); 5094 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; the links exposed with their labels and targets; any sentence or label assigning a source role; any primary, canonical or mirror marking.
+
+Observed: the project's own site. Its top navigation is Home, News, Download and Game Guide; its footer groups links under three headings the project wrote itself:
+
+```text
+<h3>Project</h3>
+  <a href='https://gitlab.com/choria/code'>Source Code</a>
+  <a href='https://gitlab.com/choria/code/-/releases'>Releases</a>
+  <a href='https://gitlab.com/choria/code/-/issues'>Issues</a>
+
+<h3>Links</h3>
+  Fosstodon, Lemmy, Flathub, Youtube
+```
+
+Step 2: the "Source Code" link. Its label is one of the contract's four words verbatim, step 1 exposes it directly, and the project's own `Project` heading groups it with the repository's other areas. Authorized on the contract's plain text.
+
+Uniqueness. The two sibling links under the same heading are labelled `Releases` and `Issues` -- both forbidden classes, neither followed, and neither carrying a source role. `Download` in the top navigation is outside the four labels and was not opened (QA-17). `Flathub` sits under `Links` and is a distribution channel. So exactly one link on this surface carries the source role, and the project's own grouping is what separates it from its siblings.
+
+Step 3: https://gitlab.com/choria/code
+observed_at_utc: 2026-08-28T13:03:03Z (metadata), 13:03:17Z (root listing); http_status 200 on both
+evidence_role: official-source-location
+
+```text
+path_with_namespace   choria/code
+name                  choria
+default_branch        dev
+visibility            public
+web_url               https://gitlab.com/choria/code
+forked_from_project   null
+```
+
+Root listing at `dev`: src, assets, ext, deployment, working, cmake, CMakeLists.txt, build.sh, README, LICENSE, CHANGELOG, .gitmodules, .gitignore. A source tree is present.
+
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Choria).
+
+The frozen SITES is accounted for and was not opened. The stop rule ends navigation "the moment a PASS or a specific failure code is determined. Not one page further", and the determination was reached at step 3; QA-27's obligation is to account for each starting point rather than to open each, and this is that branch. Recorded because it is unusual and does no work here: that URL points into `jazztickets/uploads`, a namespace different from the designated repository's. Nothing is inferred from that -- not that it is packager-side, not that it is upstream's, and nothing about its contents.
+
+Decision: PASS
+
+## EV-C066-PIN-01
+Candidate: C066
+Scope: provenance for the gates below
+
+```text
+upstream commit   55974b0ac9d2046fbb4beca9f1a515145a116c6d
+                  (choria/code branch dev,
+                   committed 2026-08-04T07:31:07-06:00)
+resolved at       2026-08-28T13:03:33Z
+
+file                    bytes   sha256 of the retrieved bytes
+README                   5028   080c767b49e71d5234c907c802f7683e6909d88b4f3ac4bc89a95f5d3bef71a1
+src/save.cpp            17674   d5073e0839bfd288cac98462235c3152c7c54ffb9830e649f6e5509c60b0c4c1
+src/constants.h         14145   13c5327caff537da2d34d430133e28532a1d39da0c87513aa9343fcee3214eac
+src/scripting.cpp       59499   21be427697f950baed220703dd93fa566f91e2e65df4396049311e8314888bd0
+src/stats.cpp           34683   b7a7e7de6ce2f426c22a68ffd423f6c2c6819aadb65fc15d73fb9e56c7cd6b56
+```
+
+These digests identify the bytes at that commit and let a third party reproduce the file hashes. They do nothing for QA-28: the frozen metadata pins V=1.1.1 at COMMIT=f11082f6, the commit read here is a later state of the `dev` branch, and no observation fixes where the designated ref pointed at the sealed instant.
+
+## EV-C066-E2RULE-01
+Candidate: C066
+Gate: E2-RULE
+Source: README in the designated repository, at the pinned commit
+observed_at_utc: 2026-08-28T13:03:45Z; http_status 200; 5028 bytes
+
+Observed: located witness, the file's own dependency section.
+
+```text
+"-- Dependencies required --
+ Ninja
+ CMake 3.10+
+ OpenGL 3.3+
+ SDL3
+ libwebp
+ OpenAL
+ libvorbis
+ libogg
+ FreeType2
+ SQLite 3.25+
+ zlib
+ pthreads"
+```
+
+Inference: the project states twelve required dependencies, three of them version-bounded -- CMake 3.10+, OpenGL 3.3+, SQLite 3.25+ -- and a build environment lacking any of them does not satisfy the stated requirement. Externally authored, in upstream's own heading.
+Decision: PASS
+
+## EV-C066-E3-01
+Candidate: C066
+Gate: E3
+Source: src/save.cpp and src/constants.h at the pinned commit
+Provenance: EV-C066-PIN-01.
+
+Observed: located witness. Every part of the chain is quoted, including the writers of the conditioning value (C038's rule).
+
+```text
+constants.h:26     const int DEFAULT_SAVE_VERSION = 11;
+
+save.cpp:456-462   int _Save::GetSaveVersion() {
+                       Database->PrepareQuery("SELECT version FROM settings");
+                       ...
+                       int Version = Database->GetInt<int>("version");
+                       return Version;
+                   }
+
+save.cpp:44-51     int SaveVersion = 0;
+                   try { SaveVersion = GetSaveVersion(); }
+                   catch(std::exception &Error) { }
+
+save.cpp:53-74     if(SaveVersion != DEFAULT_SAVE_VERSION) {
+                       std::string BackupPath = SavePath + "." + ...;
+                       bool Upgraded = false;
+                       if(SaveVersion == 10) {
+                           std::filesystem::copy(SavePath, BackupPath, ...);
+                           Database->RunQuery("ALTER TABLE account ADD COLUMN last_slot INTEGER");
+                           Database->RunQuery("UPDATE settings SET version = version + 1");
+                           Upgraded = true;
+                       }
+                       if(!Upgraded) {
+                           if(SaveVersion > 0) {
+                               delete Database;
+                               std::rename(SavePath.c_str(), BackupPath.c_str());
+                               ...
+                           }
+                           CreateDefaultDatabase();
+                       }
+                   }
+
+save.cpp:497-498   Database->PrepareQuery("INSERT INTO settings(version) VALUES (@version)");
+                   Database->BindInt(1, DEFAULT_SAVE_VERSION);
+```
+
+Inference: whether an existing save file is accepted as it stands is decided against a version number that an earlier run of the program wrote into it -- at creation by :497-498, or by the increment at :61 when a version-10 file was migrated. The same file is used directly at version 11, migrated in place at version 10, and at any other positive version is renamed aside and replaced by a fresh database, which is to say not accepted. That is validity conditioned on history, which is what E3 asks for.
+Decision: PASS
+
+## EV-C066-E4-01
+Candidate: C066
+Gate: E4
+
+Positive construction exhibited, via U_enforced.
+Provenance: EV-C066-PIN-01.
+
+The mechanism: the item registry and the check that gates script-supplied item attributes against it.
+
+```text
+stats.cpp:263-338  void _Stats::LoadItems() {
+                       Database->PrepareQuery("SELECT * FROM item");
+                       while(Database->FetchRow()) {
+                           uint32_t ItemID = Database->GetInt<uint32_t>("id");
+                           if(ItemID == 0) continue;
+                           _Item *Item = new _Item;
+                           Item->ID = ItemID;
+                           Item->Name = Database->GetString("name");
+                           Item->Script = Database->GetString("script");
+                           Item->Proc = Database->GetString("proc");
+                           Item->Type = (ItemType)Database->GetInt<int>("itemtype_id");
+                           ...
+                           Items[Item->ID] = Item;
+                           ItemMap[Item->Name] = Item;
+                       }
+                   }
+stats.cpp:341      Items[0] = nullptr;
+
+scripting.cpp:510-524
+                   void _Scripting::LoadItemAttributes(_Stats *Stats) {
+                       lua_getglobal(LuaState, "Item_Data");
+                       if(!lua_istable(LuaState, -1))
+                           throw std::runtime_error(... " Item_Data is not a table!");
+                       lua_pushnil(LuaState);
+                       while(lua_next(LuaState, -2) != 0) {
+                           uint32_t ItemID = (uint32_t)lua_tointeger(LuaState, -2);
+                           if(Stats->Items.find(ItemID) == Stats->Items.end())
+                               throw std::runtime_error(... " Item ID "
+                                   + std::to_string(ItemID) + " not found!");
+                           ...
+```
+
+EN1 external authorship: the game and this loader existed independently of this analysis.
+
+EN2 explicit scope: the domain is the items the game defines. Each entry is built from named columns the project chose -- id, name, texture, alt_texture, script, proc, itemtype_id and the rest -- so every member carries externally segmented fields.
+
+EN3 mechanical membership:
+
+```text
+enumerator membership      the keys inserted into Stats->Items by
+                           LoadItems, one per row of the `item` table
+                           with id 0 skipped, plus the explicit
+                           Items[0] = nullptr at stats.cpp:341
+runtime enforcement value  the _Item the key maps to
+```
+
+EN4 connection to validation, in project code on both sides: `LoadItemAttributes` iterates the script's `Item_Data` table and rejects any key absent from `Stats->Items` with a runtime error naming the offending ID. The deciding and the rejecting code are both the project's, unlike C038 and unlike this candidate's own Lua-binding tables, where an unregistered call would fail inside the interpreter.
+
+One property of that enforcement is recorded rather than smoothed over. `LoadItems` skips rows with id 0, and stats.cpp:341 then inserts `Items[0] = nullptr` explicitly. So key 0 IS present in the map: a script entry keyed 0 passes the `find` test at scripting.cpp:522 and is not rejected, while the value it resolves to is null. The membership test and the usable-value set are therefore not the same set, and the enforcement observation below is worded against the membership test, which is what the code actually performs.
+
+EN5 closed within scope: the set is closed by runtime construction -- Section 3.2's first admissible case -- membership being precisely what `LoadItems` inserted. Tag: `enforced`. No immutability is claimed.
+
+EN6 outcome independence: the registry is the set of items the game defines. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations:
+
+```text
+one enforcement observation per registered item id
+
+  "item id N is present in the loaded item registry, carrying the
+   project's own name, type, script and proc fields; a script
+   `Item_Data` key absent from that registry is rejected with
+   `Item ID <n> not found!`"
+
+retained as externally segmented fields, per observation
+  the item id
+  the project's name for it
+  its item type
+  its script and proc identifiers
+```
+
+Two limits are stated rather than left implicit. The registry's contents are read from the `item` table of a database the project ships, and this entry did not open that database, so no member list and no count is offered here -- constructing it is the inventory stage's work under QA-19, by the same mechanism the program uses. And the `Items[0]` placeholder above means a member list drawn from the map is not identical to the set of ids with usable values.
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
+
+Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
