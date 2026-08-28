@@ -6743,3 +6743,69 @@ Normative route: not pursued. Nothing observed designates an authoritative rule 
 Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The designation observed is for 2.4.30 while the frozen package is 2.4.22, and nothing observed fixes what was designated at the sealed instant. The three inventory fields are consequently NOT_REACHED.
+
+## EV-C057-UR-01
+Candidate: C057 (frame rank 57, games/candycrisis)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/candycrisis/Makefile
+Observed: GH_ACCOUNT=jorio; GH_PROJECT=CandyCrisis; GH_TAGNAME=v3.0.1; PKGNAME=${DISTNAME:L}; COMMENT="open source clone of Puyo Puyo series". There is no HOMEPAGE and no SITES.
+Inference: the frozen fields name one packaged system, Candy Crisis. "clone of Puyo Puyo series" describes what it imitates, not a second packaged system -- the reading applied at C013, C023, C046, C048 and C050. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C057-E1-01
+Candidate: C057
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under GPLv2 only, on an upstream account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C057-E2REP-01
+Candidate: C057
+Gate: E2-REP
+
+Per QA-27 the admitted starting points are enumerated, and there is exactly one: the GH_ACCOUNT/GH_PROJECT pair. No HOMEPAGE and no SITES exist, so no second surface is supplied and nothing is left unaccounted for. QA-31 does not arise.
+
+This is C050's shape, and the third candidate this run has met where the frozen metadata supplies a repository identifier and nothing else. The pair resolves to https://github.com/jorio/CandyCrisis, which is itself a repository, so step 1 and step 3 are the same surface -- the C010/C012/C017 topology, which QA-22 settled answers WHICH surface and supplies no designation of its own.
+
+Observation scope, fixed before the request: existence; repository and owner name; default branch; fork, mirror, archive and template flags; the website metadata field; the repository description; whether a source tree is present at the root; any statement designating this location as the project's source; any primary or mirror marking. Not: README prose, releases, issues, docs, or any source file.
+
+observed_at_utc: 2026-08-28T09:15:24Z (metadata), 09:15:25Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+
+```text
+full_name        jorio/CandyCrisis
+owner            jorio
+default_branch   master
+fork             false          parent  null
+archived         false          is_template  false     mirror_url  null
+website field    EMPTY
+description      "Candy Crisis source port for modern operating systems"
+license          GPL-2.0, matching the frozen "GPLv2 only" line
+```
+
+Root listing: src, CandyCrisisResources, packaging, .github, CMakeLists.txt, BUILD.md, README.md, CHANGELOG.md, LICENSE.txt, .editorconfig, .gitignore. A source tree is present.
+
+```text
+PASS not established
+  nothing observed designates this location as the project's canonical
+  source. The only route to it is the packaging metadata's own
+  GH_ACCOUNT/GH_PROJECT pair, and arrival by an admitted route is
+  affiliation, not designation (QA-22, C017). The website field is
+  empty, so there is not even the repo->site arrow C042 and C053 had
+  to weigh -- and RETRACTION 23 settled that such an arrow does not
+  designate in this direction anyway.
+
+FAIL not established
+  the repository root is an admissible surface and carried no
+  designation signal, which is a bounded observation and not a
+  demonstration that upstream designates none -- the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed, so source access is not what is missing.
+```
+
+The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family. Stated as C050's correction requires: the frozen metadata supplies no separate upstream-authored project surface, and the one admissible surface -- the repository root -- was examined and carried no designation signal. It is not that no surface could bear one.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
