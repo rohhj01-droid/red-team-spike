@@ -5587,3 +5587,86 @@ Decision: FAIL (E2REP-NO-SINGLE-CANONICAL-LOCATION)
 Gates after E2-REP are NOT_REACHED.
 
 Recorded and doing no verdict work: the frozen DISTNAME is bluemoon-2.14 while the page presents 2.15. That is a version difference at one location, not a second location, and under QA-28 nothing here claims what this surface carried at the sealed instant.
+
+## EV-C048-UR-01
+Candidate: C048 (frame rank 48, games/bomberclone)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/bomberclone/Makefile
+Observed: DISTNAME=bomberclone-0.11.9; HOMEPAGE=http://www.bomberclone.de/; SITES=${SITE_SOURCEFORGE:=bomberclone/}; COMMENT="bomberman clone with multiplayer mode".
+Inference: the frozen fields name one packaged system, BomberClone. "bomberman clone" describes what it imitates, not a second packaged system -- the reading applied at C013, C023 and C046. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C048-E1-01
+Candidate: C048
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under GPLv2, on an upstream domain unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C048-E2REP-01
+Candidate: C048
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were requested. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Surface 1: the frozen HOMEPAGE.
+observed_at_utc: 2026-08-28T07:25:36Z (following redirects), 07:26:06Z (without following)
+
+```text
+http://www.bomberclone.de/
+  -> HTTP/1.1 301 Moved Permanently
+     Location: https://www.linux-abos.com/spiele/bomberclone/
+
+https://www.linux-abos.com/spiele/bomberclone/
+  -> 200, 104312 bytes
+     title "BomberClone fuer Linux - Klassischer Bomberman-Spass gratis"
+```
+
+What was served at the end of that redirect is a third-party publication's article page, and that is an observation rather than a guess: the document is branded "Linux-Abos.com" throughout, its navigation is that site's own sections (Startseite, Linux / Debian, Sicherheit, Spiele, Hardware, Vermischtes), and the page sits among that site's unrelated articles on Steam machines, crypto mining, MongoDB and Bluetooth headsets. It is not a surface of the packaged system's project.
+
+No inference is drawn about WHY the frozen domain answers this way, or about what it served before. C046 established that restraint for a redirect and it applies unchanged here.
+
+The distinction from C046 is worth stating, so the two entries are not read as inconsistent. There the frozen HOMEPAGE also redirected, but to the same project's own SourceForge project page -- still a surface belonging to that project, and readable as step 1. Here the redirect leaves the project entirely.
+
+That governs what the response may be used for. The contract's step 1 is "the upstream official landing/project page", and Section 3.1 excludes third-party authorship from the primary universe, so this document cannot supply an upstream designation. The split observed here is deliberate:
+
+```text
+read, and legitimately  -- what the response IS, since the gate cannot
+                           proceed without knowing whether an upstream
+                           surface was reached
+NOT read for designation -- its content, its links, and in particular
+                           the pkgsrc index it points at
+```
+
+Step 1 therefore reached no upstream surface, and step 2 has no target.
+
+Surface 2: the frozen SITES. `${SITE_SOURCEFORGE:=bomberclone/}` resolves through the ports infrastructure's own macro definition to https://downloads.sourceforge.net/sourceforge/bomberclone/.
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point. Observed rather than predicted from its URL shape (C018), though the same macro produced 404s at C031, C036, C037, C044 and C046.
+observed_at_utc: 2026-08-28T07:26:06Z (GET), 07:26:07Z (HEAD); http_status 404, 404; redirect_chain: NONE on both
+Observed: a 154-byte "404 Not Found -- The resource could not be found." No headings, artifact names or designation signal.
+
+```text
+PASS not established
+  no upstream surface was reached on which a designation could be
+  made. The frozen HOMEPAGE answered 301 to a third-party
+  publication, whose content is inadmissible for this purpose, and
+  the frozen SITES returned 404 and displayed nothing.
+
+FAIL not established
+  a domain that redirects off the project and an archive path that
+  returns 404 are facts about those two endpoints. Neither
+  demonstrates that upstream designates no canonical source location
+  -- the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  nothing observed bears on whether a source representation is
+  reachable elsewhere, and no surface was reached at which
+  source-tree presence could have been established either way.
+```
+
+Both starting points were determinately answered -- a 301 whose destination returned 200, and a 404 on both GET and HEAD -- so no surface is left unobserved and this is not the transport family. What the sealed criteria do not describe is a frame item whose only project-side starting point no longer resolves to a project surface at all.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
