@@ -1893,3 +1893,54 @@ This is the same family as QA-13, QA-19 and QA-28: each preregistered WHAT was w
 **Scope.** A class, not an incident: OpenBSD ports commonly point SITES at a code host's release assets. Every such frame item whose gate is still open after step 1 reaches this same point, and loses its second starting point to the prohibition.
 
 **What this does NOT do.** It does not withdraw QA-27, which still requires a frozen SITES to be observed where no forbidden class is named -- C026, C031, C035, C036, C037 and C044 are unaffected. It does not make an unobserved surface into an empty one: C045's UNRESOLVED records that the contract closed the surface, never that upstream designates nothing.
+
+## QA-32 — the E3 witness is not connected to U_primary membership
+
+Recorded during screening, changing nothing in this run. No rule is added, no verdict moves, and no survivor's gate result is revisited. It is written down now, before the remaining frame items are screened, so that it cannot later look like a rationalization invented after the run ended.
+
+**The gap.** E3 asks for a located stateful or temporal validity witness. The primary universe is built elsewhere:
+
+```text
+spec:349   U_primary = U_normative union U_enforced
+spec:368   "U_enforced may be generated only by external enforcement
+            enumerators that satisfy all EN1-EN6"
+spec:356   U_normative contains observations from rule sources the
+            project has explicitly designated as authoritative
+```
+
+Nothing routes an E3 witness into either set. A candidate can therefore pass E3 on one mechanism and pass E4 on an entirely different one, and the frozen `U_primary` need contain no stateful or temporal observation at all.
+
+**It is not hypothetical here.** All six survivors have this shape; the two sides were read off the ledger's own entries rather than recalled:
+
+```text
+C009  E3 movie//savestate documentation      E4 src/ines.cpp bmap[]
+C013  E3 multiple-CD documentation           E4 MDFNSetting registry
+C023  E3 README "Visual Mode"                E4 Plugins.cs reflection
+C038  E3 HighScores::Qualifies               E4 options_description
+C043  E3 GameLogic mSquish collision test    E4 TextManager string table
+C049  E3 fog-filtered placement validity     E4 unit-type variable registry
+```
+
+Six of six. Even C038, whose two witnesses live in the same file, satisfies the gates through different mechanisms.
+
+**Why it matters.** Phase 3's architecture is about `WorldState`, `MonitorState` and provenance. E3 exists to establish that the candidate system HAS stateful validity, and it does. But the confirmatory lane runs against the frozen `U_primary`, so a target could be selected on the strength of an E3 witness whose subject matter never enters the universe the architecture is then validated against. That is a construct-validity gap, not an execution error.
+
+**Where it sits relative to the other recorded holes.**
+
+```text
+QA-13, QA-19, QA-28   operational holes -- what was wanted was
+                      preregistered, how to obtain it was not
+QA-30                 an evidential question the sealed criterion
+                      leaves undecided, where either answer would be
+                      ours to invent
+QA-31                 a completion rule missing for a starting point
+                      the contract itself closes
+
+QA-32                 different again: every rule needed is present and
+                      was followed. The gates do what they say. What is
+                      missing is a connection BETWEEN two of them, so
+                      the run can satisfy each and still not deliver
+                      what the gates were jointly meant to secure
+```
+
+**Explicitly not acted on.** Connecting E3 to `U_primary` now would be a post-hoc criterion change with six candidates' witnesses already in view, and it could only ever add or remove observations from a universe this run has in any case not reached -- every survivor's `primary_snapshot` is UNRESOLVED and the inventory stage is NOT_REACHED. It belongs in a future preregistration, before any candidate is seen.
