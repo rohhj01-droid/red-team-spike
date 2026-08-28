@@ -7164,8 +7164,10 @@ what is NOT claimed
   clang, and the file's own comment says this is to "place the code in
   decltype to avoid actual evaluation". Without NDEBUG it is
   `assert(expression)`, or an explicit fprintf-and-abort on Win32. So
-  the invariant is enforced at runtime in assertion-enabled builds and
-  is not evaluated in release builds.
+  the invariant is enforced at runtime in assertion-enabled builds and,
+  under the observed NDEBUG expansion, the expression is not evaluated.
+  Whether this project's release configuration defines NDEBUG was not
+  observed and is not claimed.
 ```
 
 This is recorded rather than glossed because the first draft wrote "the identical call is valid or not according to which of those ran before it" without qualification, which reads as a claim about every build.
