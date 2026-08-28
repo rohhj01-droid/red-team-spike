@@ -6233,3 +6233,105 @@ Both starting points were determinately answered, 200 on each, so no surface is 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C053-UR-01
+Candidate: C053 (frame rank 53, games/bugdom)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/bugdom/Makefile
+Observed: V=1.3.4; PKGNAME=bugdom-${V}; HOMEPAGE=https://pangeasoft.net/bug; and two DIST_TUPLE entries:
+
+```text
+DIST_TUPLE += github jorio Bugdom ${V} .
+DIST_TUPLE += github jorio Pomme ef94150e2dcec522e3099f4d03a4e8f2639f7232 \
+              extern/Pomme
+```
+
+with the licence line "# game: CC BY-NC-SA 4.0; extern/Pomme: MIT, LGPLv2.1, BSD, Boost".
+
+Inference: one packaged system, Bugdom, with a vendored dependency. The frozen metadata subordinates the second tuple itself -- it extracts to extern/Pomme, a path inside the first tuple's tree, and the licence line separates them the same way. This is C042's metadata shape exactly, and the same reading applies. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C053-E1-01
+Candidate: C053
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under CC BY-NC-SA 4.0, on a game publisher's domain and an upstream account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C053-E2REP-01
+Candidate: C053
+Gate: E2-REP
+
+Per QA-27 every admitted starting point is accounted for: the HOMEPAGE, the jorio/Bugdom identifiers, and the jorio/Pomme identifiers.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url: https://pangeasoft.net/bug ; final_url: https://pangeasoft.net/bug/
+observed_at_utc: 2026-08-28T08:30:58Z; http_status 200; redirect_chain: 1 redirect; 9919 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; title; the document's OWN anchors with their labels and targets; any sentence about where the project or its source is; any primary, canonical or mirror marking. Not: fetching any linked page, and -- per QA-29 -- not fetching any subresource the document declares.
+
+This surface differs from C042's in the one respect that matters. C042's landing page was a frameset carrying no anchors of its own, which under QA-29 left its content unobservable and its step-1 result unsettleable. This document is an ordinary page with thirteen anchors of its own, so the same question is answerable here on admissible evidence.
+
+```text
+title  "Pangea Software"
+visible text  the copyright line only:
+  "(c)2012 Pangea Software, Inc. All product names are trademarks of
+   Pangea Software, Inc. unless otherwise noted"
+
+labelled anchors        Buy Now! -> register.html
+                        Info     -> info.html
+                        Reviews  -> reviews.html
+                        Support  -> support.html
+
+unlabelled image links  ../index.html  ../macGames.html
+                        ../iphone/index.html  ../pano/index.html
+                        ../store.html  ../support.html
+                        ../downloads.html  ../about.html
+                        http://www.pangeasoft.net/forum
+```
+
+None is a Source, Code, Repository or Development link, so navigation step 2 has no target. `../downloads.html` was not opened: not among the four labels, and QA-17 settled that "source distribution" may not widen the whitelist. The unlabelled links were classified by their targets, which are site-level pages of the publisher rather than source locations.
+
+Surface 2: https://github.com/jorio/Bugdom, from the first DIST_TUPLE's identifiers.
+Necessary because: the gate was unsettled after surface 1 and this is the remaining admitted starting point for the packaged system.
+observed_at_utc: 2026-08-28T08:31:26Z (metadata), 08:31:27Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+
+```text
+full_name        jorio/Bugdom
+owner            jorio
+default_branch   master
+fork             false          parent  null
+archived         false          is_template  false     mirror_url  null
+website field    https://pangeasoft.net/bug
+description      "Pangea Software's Bugdom for modern systems"
+```
+
+Root listing: src, Data, docs, extern, packaging, .github, CMakeLists.txt, build.py, BUILD.md, README.md, CHANGELOG.md, SECRETS.md, LICENSE.md, .editorconfig, .gitignore, .gitmodules. A source tree is present.
+
+The jorio/Pomme identifiers are accounted for and were not opened, and neither were `extern/` or `.gitmodules`. UR determined from the frozen metadata that Pomme is a vendored dependency at extern/Pomme and not the packaged system, so under QA-26 it is another delimited system: a designation found there would be Pomme's.
+
+```text
+PASS not established
+  the arrow runs one way only. The repository's website field names
+  the project page; the project page, read in full on its own content,
+  designates no source location. C032 settled that direction, and
+  RETRACTION 23 has since confirmed that a repo->site website field
+  does not designate. Arriving at the repository through packaging
+  identifiers is likewise affiliation, not designation (QA-22).
+
+FAIL not established
+  both admissible surfaces carried what they carried and no more.
+  That is a bounded observation, not a demonstration that upstream
+  designates none -- the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed, so source access is not what is missing.
+```
+
+Both starting points for the packaged system were determinately answered, so no surface is left unobserved and this is not the transport family.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
