@@ -1849,50 +1849,47 @@ step 2  remains authorized by a link whose label is one of the four
         not withdraw the permission to follow it (QA-22).
 ```
 
-## QA-31 — a frozen SITES that names a forbidden surface class is not resolved by the sealed contract
+## QA-31 — a metadata-supplied starting point may fall inside a separately forbidden E2-REP surface class
 
 Raised at C045, whose frozen SITES is
 `https://github.com/yukiisbored/Launcher/releases/download/0.6.14.1-bgl/`.
 
-Two sealed clauses point opposite ways about one URL:
+An earlier draft called this a conflict between two sealed clauses. It is not, and the correction matters because "the contract contradicts itself" would license choosing a reading, while what is actually true licenses nothing.
 
 ```text
 Allowed starting points
-  "Only the URLs and identifiers found in the frozen OpenBSD metadata
+  "ONLY the URLs and identifiers found in the frozen OpenBSD metadata
    that UR already resolved to one system."
 
 Forbidden at E2-REP
   "reading README prose / opening any source file / browsing docs /
-   issues / PRs / changelog / RELEASES / searching for bugs or
-   exploits / checking validity semantics / any extra look justified
-   by 'this might help E3/E4 later'"
+   issues / PRs / changelog / RELEASES / ..."
 ```
 
-QA-27 is the near miss and does not cover it. That correction separated a NAVIGATION step from a STARTING POINT, and concluded that a starting point "needs no whitelist label to be observed" -- the whitelist there being the four Source/Code/Repository/Development labels that govern step 2. The forbidden list is a different instrument: it names surface CLASSES, and on its face a releases path is one however it is reached.
+The first clause bounds where a run may BEGIN. Its force is "not in the metadata, not a starting point" -- a necessary condition for admission. It does not say that presence in the metadata overrides a prohibition written elsewhere, and reading it as a sufficient condition is the move QA-17 already refused: a permission stated in one place does not widen the forbidden set.
 
-Both readings are available and neither is groundless:
+So the clauses compose, and the composition is:
 
 ```text
-starting points are exempt
-  the forbidden list's other members -- README prose, docs, issues,
-  searching -- are all things reached by wandering, and its stated
-  purpose is to stop "screen a candidate" becoming "read about the
-  project until satisfied". A frozen URL is not wandering. On the
-  strict reading, a port whose only frozen URL is a releases path has
-  no observable surface at all, which makes the metadata
-  self-defeating.
-
-the forbidden list binds everything
-  it is written "Forbidden at E2-REP", not "forbidden while
-  navigating", and it names classes rather than routes. A releases
-  page shows release notes, asset lists and version history --
-  exactly the material the seal was meant to keep out of screening.
+in the frozen metadata          -> enters the starting-point set
+surface class = releases        -> not observable at E2-REP
+                                -> metadata-supplied but unobservable
+                                   under the sealed contract
 ```
 
-**Not resolved here.** Choosing now, with a candidate's outcome partly visible, is the post-hoc criterion change the run forbids. What C045 does instead is record the conflict and decline the surface, with the asymmetry stated: a designation found on a releases page could only move a candidate toward PASS, and no observation there could complete a failure code, since FAIL requires positive evidence. Opening is therefore the rescuing branch, and C020 and C024 established that the rescuing branch is not the one to choose after the fact. Declining is still a choice; it is the one that puts less of us into the record.
+QA-27 supplies the disposition. Its carried-forward rule requires every metadata URL to be accounted for in one of three ways -- "observed, because necessary under QA-11 / lawfully skipped, because observed structure made it unnecessary / otherwise resolved under the protocol, with the reason named" -- and states that "the obligation is to account for each, not to open each". A forbidden surface is the third branch, with the prohibition as the named reason.
 
-**Why it did not surface earlier.** C013 and C022 both had a frozen SITES under a releases path, and both reached a verdict at step 1, where the stop rule ends navigation -- "Not one page further." The question was never load-bearing. C013's entry did record "/releases/" as closed because releases are "named in the contract's forbidden list outright", which is the strict reading applied where nothing turned on it. C029 requested such a URL, but that candidate is withdrawn and its material quarantined, so it settles nothing.
+**Where the gap actually is.** Not in whether the surface may be opened; that is settled against opening. The gap is that the sealed protocol does not operationalize how E2-REP COMPLETES when a starting point that might have been necessary is one the contract forbids inspecting. The gate's PASS needs a designation witness, its failure codes need positive evidence, and neither can come from a surface the protocol itself closes. Nothing says what verdict that produces.
 
-**Scope.** This is a class, not an incident: OpenBSD ports commonly point SITES at a code host's release assets. Every such frame item whose gate is still open after step 1 meets the same fork in the contract, and under the strict reading a whole family of candidates loses its second starting point.
+```text
+-> UNRESOLVED / PI-UNCLASSIFIED-SHAPE, on the code's sealed definition:
+   "a real screening outcome that no sealed criterion describes"
+```
 
-**What this does NOT do.** It does not withdraw QA-27, which still requires a frozen SITES to be observed where no forbidden class is named -- C026, C031, C035, C036, C037 and C044 are unaffected. It does not make an unobserved surface into an empty one: C045's UNRESOLVED records that we did not look, never that upstream designates nothing.
+This is the same family as QA-13, QA-19 and QA-28: each preregistered WHAT was wanted and never HOW to obtain it in a case first met afterwards. It is not the QA-30 family, where the sealed criterion is silent on an evidential question and either answer would be ours to invent.
+
+**What is NOT claimed.** Nothing about the unobserved surface's contents. An earlier draft argued that a releases page could only move a candidate toward PASS and could never complete a failure code, and used that to choose. That argument is withdrawn at RETRACTION 22 -- it constrains a page nobody read, which is the C033 and C035 error. A releases surface might carry one designation, several, an explicit primary or mirror relation, or nothing.
+
+**Scope.** A class, not an incident: OpenBSD ports commonly point SITES at a code host's release assets. Every such frame item whose gate is still open after step 1 reaches this same point, and loses its second starting point to the prohibition.
+
+**What this does NOT do.** It does not withdraw QA-27, which still requires a frozen SITES to be observed where no forbidden class is named -- C026, C031, C035, C036, C037 and C044 are unaffected. It does not make an unobserved surface into an empty one: C045's UNRESOLVED records that the contract closed the surface, never that upstream designates nothing.

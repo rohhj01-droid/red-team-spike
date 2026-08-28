@@ -5343,17 +5343,19 @@ description      "A custom launcher which allows running Minecraft on
                   unsupported UNIX-like operating systems"
 ```
 
-Root listing at ref bgl/0.6.14, the frozen version's branch: launcher, libraries, buildconfig, cmake, doc, .github, CMakeLists.txt, BUILD.md, COPYING.md, README.md, changelog.md, .gitattributes, .gitignore, .gitmodules, notsecrets. A source tree is present.
+Root listing at the observed default branch bgl/0.6.14: launcher, libraries, buildconfig, cmake, doc, .github, CMakeLists.txt, BUILD.md, COPYING.md, README.md, changelog.md, .gitattributes, .gitignore, .gitmodules, notsecrets. A source tree is present.
 
 The fork parent was not visited. C025 settled that the fork-parent relation is not a step the navigation whitelist contains, and the reason is the whitelist rather than any judgement about which repository matters. Under QA-26 MultiMC/Launcher is in any case a different delimited system: a designation found there would be its own.
 
-The second admitted starting point was NOT observed, and the reason is a conflict inside the sealed contract rather than anything about this candidate.
+The second admitted starting point was accounted for and not observed. The reason is the contract's own text, and it is simpler than an earlier draft made it.
 
 ```text
 allowed starting points
-  "Only the URLs and identifiers found in the frozen OpenBSD metadata
+  "ONLY the URLs and identifiers found in the frozen OpenBSD metadata
    that UR already resolved to one system."
-   -> the frozen SITES qualifies. QA-27 turned exactly on this.
+   -> a bound on where a run may BEGIN. It is a necessary condition
+      for admission, not a licence to read something the contract
+      forbids elsewhere.
 
 forbidden at E2-REP
   "issues / PRs / changelog / releases"
@@ -5361,50 +5363,62 @@ forbidden at E2-REP
       .../Launcher/releases/download/0.6.14.1-bgl/
 ```
 
-QA-27 does not settle it. That correction was about the NAVIGATION label whitelist -- a starting point needs no Source/Code/Repository/Development label to be observed -- and it says nothing about the separate list of surface classes the contract forbids outright.
+Composed the only way the two clauses actually compose: the URL enters the starting-point set, and the releases prohibition still applies to it, so it is metadata-supplied but unobservable under the sealed contract. QA-17 fixed this direction already -- a permission stated elsewhere does not widen the forbidden set -- and QA-27's carried-forward rule provides the disposition, its third branch: "otherwise resolved under the protocol, with the reason named", the obligation being "to account for each, not to open each".
 
-Nor does the record settle it. C013 and C022 each had a frozen SITES under a releases path, and in both the gate reached its verdict at step 1, so the stop rule ended navigation before the question became load-bearing; C013's entry even recorded "/releases/" as closed on the ground that releases are "named in the contract's forbidden list outright". C029 did request such a URL, but that candidate is withdrawn and its material quarantined. C045 is the first candidate where the answer would change what gets observed.
+Nothing is inferred about the surface's contents. It was not observed, and what a releases page might have shown -- one designation, several, a primary or mirror relation, or nothing -- is not something this entry constrains.
 
-It was not opened, and that is a choice rather than a neutral default, so the reason is on the record:
+Recorded because it is where the sealed methodology runs out, not where it contradicts itself: the protocol does not say how E2-REP is to be COMPLETED when a starting point that might be necessary is itself forbidden to inspect. See QA-31.
 
-```text
-opening it requires adopting the reading "starting points are exempt
-  from the forbidden-surface list", chosen after seeing this candidate
-
-not opening it requires adopting the converse
-
-the two are not symmetric in consequence: a designation found there
-  could only move this candidate toward PASS, and no observation there
-  could complete a failure code, since FAIL needs positive evidence.
-  Opening is therefore the branch that could rescue a verdict, which
-  is the shape C020 and C024 established may not be chosen after the
-  fact. Not opening leaves strictly less analyst-supplied content on
-  the record.
-```
-
-See QA-31. This does not license reading the candidate's outcome as a finding about upstream: the surface is unobserved, not empty.
+Why the question did not arise earlier: C013 and C022 each had a frozen SITES under a releases path, and both reached a verdict at step 1, where the stop rule ends navigation. C013's entry recorded "/releases/" as closed because releases are "named in the contract's forbidden list outright" -- the same reading, applied where nothing turned on it. C029 did request such a URL, but that candidate is withdrawn and its material quarantined.
 
 ```text
 PASS not established
-  nothing observed designates this location as the project's canonical
-  source. The only route to it is the packaging metadata's own
-  HOMEPAGE field, and arriving somewhere by an admitted route is
-  affiliation, not designation (QA-22, C017). The website field is
-  empty, so there is not even the repo->site arrow C042 had to weigh.
+  the observed repository supplies no upstream canonical-source
+  designation. The only route to it is the packaging metadata's own
+  HOMEPAGE field, and arrival by an admitted route is affiliation
+  (QA-22, C017). The website field is empty, so there is not even the
+  repo->site arrow C042 had to weigh.
+
+  The frozen SITES is metadata-supplied but falls under the contract's
+  explicit releases prohibition and was therefore not observed.
+  Nothing is inferred about its contents.
 
 FAIL not established
-  the repository root is an admissible surface and carried no
-  designation signal, which is a bounded observation and not a
-  demonstration that upstream designates none -- the C017 boundary.
-  The remaining admitted starting point is unobserved, which narrows
-  the basis for any negative further.
+  the repository root carried no positive candidate-level failure
+  evidence, and that silence is a bounded observation rather than a
+  demonstration that upstream designates none (C017). The forbidden
+  SITES can support no negative claim either, having not been
+  observed.
 
 E2REP-NO-SOURCE not established
   a source tree WAS observed, so source access is not what is missing.
 ```
 
-On the code: `PI-UNCLASSIFIED-SHAPE` is used on its sealed definition, "a real screening outcome that no sealed criterion describes". What is undescribed here is the contract's own treatment of a starting point that names a forbidden surface class. This is not the transport family -- both requests that were made returned 200, and the one that was not made was withheld by us, not by a network.
+On the code: `PI-UNCLASSIFIED-SHAPE` is used on its sealed definition, "a real screening outcome that no sealed criterion describes". What is undescribed is how E2-REP completes when a potentially necessary metadata-supplied starting point is an explicitly forbidden surface class. This is not the transport family -- both requests that were made returned 200, and the remaining surface was withheld by the contract, not by a network.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## RETRACTION 22 — C045 diagnosed a contract conflict, and constrained a surface it had not observed
+
+C045's first E2-REP entry described the frozen SITES as sitting inside "a conflict inside the sealed contract", set out two competing readings, and then chose between them with this argument:
+
+```text
+"a designation found there could only move this candidate toward PASS,
+ and no observation there could complete a failure code, since FAIL
+ needs positive evidence. Opening is therefore the branch that could
+ rescue a verdict"
+```
+
+Both parts are withdrawn.
+
+**The conflict diagnosis.** The starting-point clause reads "ONLY the URLs and identifiers found in the frozen OpenBSD metadata". That bounds where a run may begin -- a necessary condition for a surface to be admissible. It nowhere says that being in the metadata overrides a prohibition stated elsewhere. Read that way the two clauses compose without contradiction: the URL is in the starting-point set, and the releases prohibition still applies to it. QA-17 had already fixed this direction, and QA-27's third disposition branch -- "otherwise resolved under the protocol, with the reason named" -- is where such a surface goes.
+
+**The asymmetry argument.** It states what a page we did not open could and could not have contained. That is the C033 and C035 error in its purest form: pre-constraining an unobserved surface's contents. A releases page might expose one designation, several, an explicit primary or mirror relation, or nothing at all, and nothing in this record narrows that. The C020/C024 comparison built on it goes too -- those were about rescuing a TERMINAL verdict with fresh observation, which is not this situation.
+
+Neither withdrawal changes the outcome, and the reason to decline the surface is now stronger rather than weaker: releases are forbidden outright, so no choice between readings had to be made, and no outcome had to be looked at first.
+
+Also lowered in the same pass: "Root listing at ref bgl/0.6.14, the frozen version's branch". The frozen V is 0.6.14.1 and the observed default branch is bgl/0.6.14; their correspondence was never established, and E2-REP needs only that a source tree is present. It now reads "Root listing at the observed default branch bgl/0.6.14".
+
+Ledger unchanged: E2-REP UNRESOLVED, failure_code NONE, PI-UNCLASSIFIED-SHAPE, later gates NOT_REACHED.
