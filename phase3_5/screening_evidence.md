@@ -4481,3 +4481,80 @@ Recorded as a record-only observation, and NOT as this candidate's terminal grou
 Decision: UNRESOLVED (PI-TRANSPORT-INDETERMINATE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C036-UR-01
+Candidate: C036 (frame rank 36, games/barrage)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/barrage/Makefile
+Observed: HOMEPAGE=https://lgames.sourceforge.net/?project=Barrage; SITES=${SITE_SOURCEFORGE:=lgames/}; DISTNAME=barrage-1.0.7; COMMENT="kill and destroy as many targets as possible in 3 minutes".
+Inference: the frozen fields name one packaged system, Barrage. HOMEPAGE and SITES both sit under the LGames umbrella, which publishes several games, but the port's DISTNAME and its HOMEPAGE query both name Barrage specifically. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C036-E1-01
+Candidate: C036
+Gate: E1
+Source: same frozen metadata; https://lgames.sourceforge.io/?project=Barrage
+observed_at_utc: 2026-08-28T03:17:30Z; http_status 200
+Observed: a third-party game published under the LGames umbrella alongside LBreakoutHD, LGeneral, LMarbles and others, unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C036-E2REP-01
+Candidate: C036
+Gate: E2-REP
+
+Per QA-27, both admitted starting points the frozen metadata supplies are accounted for, and both were observed.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url: https://lgames.sourceforge.net/?project=Barrage ; final_url: https://lgames.sourceforge.io/?project=Barrage
+observed_at_utc: 2026-08-28T03:17:30Z-03:17:37Z; http_status 200; redirect_chain: 1 redirect (sourceforge.net -> sourceforge.io)
+evidence_role: official-project-page
+Observed: the LGames site. Its navigation is News, Downloads, About, FAQ, Contact, Donate and "SF Project"; a Games menu lists Barrage alongside its siblings; the body is a news list linking to SourceForge news items.
+
+None of those is a Source, Code, Repository or Development link, so navigation step 2 has no target here.
+
+Two links need naming, because each could be mistaken for one:
+
+```text
+"SF Project" -> http://sf.net/projects/lgames
+  a SourceForge project hub. C007 settled that a generic project hub
+  is not a repository root, and its label is not among the four
+  either. Not followed.
+
+"Downloads" -> ./downloads.php
+  not among the four labels. QA-17 settled that the criterion's
+  phrase "source distribution" may not widen the whitelist. Not
+  followed.
+```
+
+The Games menu's own "Barrage" entry points at ./Barrage, a per-game page that is not in the frozen metadata and is not a Source/Code/Repository/Development link. Not followed.
+
+Surface 2: the frozen SITES. `${SITE_SOURCEFORGE:=lgames/}` resolves, through the ports infrastructure's own definition of that macro, to https://downloads.sourceforge.net/sourceforge/lgames/.
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point. It was observed rather than predicted from its URL shape, which C018 established.
+observed_at_utc: 2026-08-28T03:18:02Z (GET), 03:18:03Z (HEAD)
+http_status: 404, 404; redirect_chain: NONE on both
+control: the landing page returned 200 at 03:18:03Z
+Observed: a 154-byte "404 Not Found -- The resource could not be found." No headings, artifact names or designation signal. Transport completed and the endpoint answered definitely on both attempts, so this is not the timeout / DNS / refused / 5xx family.
+
+```text
+PASS not established
+  neither admissible surface established a canonical-source
+  designation. Surface 1 exposes no Source/Code/Repository/Development
+  link; surface 2 returned 404 and displayed nothing.
+
+FAIL not established
+  a project page carrying no source link and an archive path
+  returning 404 do not demonstrate that upstream designates no
+  canonical source location.
+
+E2REP-NO-SOURCE not established
+  no-access-to-actual-source-representation was not established. The
+  404 is evidence about that endpoint; nothing observed bears on
+  whether the source representation is reachable elsewhere.
+```
+
+Both starting points were determinately answered -- 200 and 404 -- so unlike C035 no surface is left unobserved, and the outcome is a shape the criteria do not describe rather than a transport failure.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
