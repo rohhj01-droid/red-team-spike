@@ -8896,7 +8896,9 @@ Recorded rather than glossed, as at C056: upstream publishes no checksum beside 
 
 Version note, stated as a limitation: upstream's designation at observation time is for 1.21, while the frozen DISTNAME is chroma-1.13. This entry designates what upstream designates now and makes no claim about the sealed instant (QA-28).
 
-The frozen SITES, `${HOMEPAGE}/download/`, is accounted for and was not opened. The stop rule ends navigation once the gate is determined, and QA-27's obligation is to account for each starting point rather than to open each. Recorded because it bears on the reading above and does no work: the designated artifact lives inside that directory, so opening the directory could only have listed files whose roles C026 forbids inferring from their names.
+The frozen SITES, `${HOMEPAGE}/download/`, is accounted for and was not opened. The stop rule ends navigation once the gate is determined, and QA-27's obligation is to account for each starting point rather than to open each.
+
+Nothing further is claimed about it. An earlier version added that opening it "could only have listed files whose roles C026 forbids inferring from their names", which asserts the surface's response shape without having observed it -- the URL was never requested, so whether it returns a listing at all is unknown -- and misuses the precedent: C026 bars inferring an artifact's source role from an OBSERVED filename; it says nothing that would let us predict what an unopened URL returns. Withdrawn. What is on the record is that the designated artifact's URL sits under that path, and that the starting point was accounted for and not opened.
 
 Inference: exactly one designated canonical source location for the packaged system, at a stable URL, holding a source tree, with one external target identifier (Chroma).
 
@@ -8973,7 +8975,9 @@ engine.c:106-122   void level_moved(struct level* plevel, int move)
 
 `level_moved` is called from `level_move` at :172, :187, :199 and :380.
 
-Inference: a MOVE_REDO is accepted only if the recorded move list holds a next entry, and that list is exactly what `level_addmove` and the `move_current` advance in `level_moved` have built from earlier play. The identical input therefore performs a move or returns 0 according to the move history. A second, non-historical state condition sits above it at :142-143 -- a move is refused outright while movers from the previous move are still in flight -- and is recorded as a further instance without being leaned on.
+Inference, kept to what the quoted lines close: a MOVE_REDO reaching this gate is refused there when the recorded move list holds no next entry, and otherwise takes that entry's direction and continues into the move processing below. The list it consults is exactly what `level_addmove` and the `move_current` advance in `level_moved` have built from earlier play, so the identical MOVE_REDO input is refused at this gate or proceeds past it according to the move history.
+
+Not claimed: that proceeding past this gate ends in a performed move. The quoted extract does not follow the processing to its end, and the same function carries other refusal conditions -- the guard at :142-143, which refuses any move while movers from the previous one are still in flight. That guard is recorded as a further, non-historical state condition and is not leaned on. History is shown to be necessary at this gate, not sufficient for the whole call.
 Decision: PASS
 
 ## EV-C067-E4-01
