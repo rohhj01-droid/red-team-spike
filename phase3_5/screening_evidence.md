@@ -5302,3 +5302,109 @@ The verdict does not move. Under the corrected branches, PASS is the branch that
 Also lowered in the same pass: "Nothing on this surface states, labels or marks where the project's source is" -- the surface does carry a "Code" label, and the issue is that label's force, not its absence. And "no admitted surface designates a single canonical source location" now reads "no designation witness whose evidential force is determined by the sealed rules", which is what the record supports.
 
 The user-agent deviation is reclassified as well: an unpreregistered request manipulation and a non-adjudicative deviation, rather than a contract breach. The E2-REP contract governs which surfaces may be visited and seals no HTTP header policy, so it is an unrecorded degree of freedom, not the C037 shape.
+
+## EV-C045-UR-01
+Candidate: C045 (frame rank 45, games/blockgame)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/blockgame/Makefile
+Observed: DISTNAME=blockgame-${V} with V=0.6.14.1; HOMEPAGE=https://github.com/yukiisbored/Launcher; SITES=https://github.com/yukiisbored/Launcher/releases/download/${V}-bgl/; WRKDIST=${WRKDIR}/Launcher; COMMENT="free and open-source launcher for Minecraft".
+Inference: one packaged system. The package name and the upstream repository name differ -- blockgame against Launcher -- but every frozen field routes to the same repository, and WRKDIST and the "-bgl" tag suffix tie the distfile to it. A name mismatch between the OpenBSD package and upstream is not the two-systems case UR-AMBIGUOUS is for. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C045-E1-01
+Candidate: C045
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party Minecraft launcher under Apache 2.0, on an upstream account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C045-E2REP-01
+Candidate: C045
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are enumerated: the frozen HOMEPAGE, and the frozen SITES. They are different surfaces here, not the C038 case where a repository identifier pair merely restated the step-2 destination.
+
+Step 1: the frozen HOMEPAGE, https://github.com/yukiisbored/Launcher, which is itself a repository. This is the C010/C012/C017 topology in which step 1 and step 3 are the same surface; QA-22 settled that the topology answers WHICH surface, and supplies no designation of its own.
+
+Observation scope, fixed before the request: existence; repository and owner name; default branch; fork, mirror, archive and template flags; the website metadata field; the repository description; whether a source tree is present at the root; any statement designating this location as the project's source; any primary or mirror marking. Not: README prose, the releases area, issues, docs, or any source file.
+
+observed_at_utc: 2026-08-28T06:44:35Z (metadata), 06:45:08Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+
+```text
+full_name        yukiisbored/Launcher
+owner            yukiisbored
+default_branch   bgl/0.6.14
+fork             TRUE, parent MultiMC/Launcher
+archived         TRUE
+is_template      false          mirror_url  null
+website field    EMPTY
+description      "A custom launcher which allows running Minecraft on
+                  unsupported UNIX-like operating systems"
+```
+
+Root listing at ref bgl/0.6.14, the frozen version's branch: launcher, libraries, buildconfig, cmake, doc, .github, CMakeLists.txt, BUILD.md, COPYING.md, README.md, changelog.md, .gitattributes, .gitignore, .gitmodules, notsecrets. A source tree is present.
+
+The fork parent was not visited. C025 settled that the fork-parent relation is not a step the navigation whitelist contains, and the reason is the whitelist rather than any judgement about which repository matters. Under QA-26 MultiMC/Launcher is in any case a different delimited system: a designation found there would be its own.
+
+The second admitted starting point was NOT observed, and the reason is a conflict inside the sealed contract rather than anything about this candidate.
+
+```text
+allowed starting points
+  "Only the URLs and identifiers found in the frozen OpenBSD metadata
+   that UR already resolved to one system."
+   -> the frozen SITES qualifies. QA-27 turned exactly on this.
+
+forbidden at E2-REP
+  "issues / PRs / changelog / releases"
+   -> the frozen SITES here IS a releases path,
+      .../Launcher/releases/download/0.6.14.1-bgl/
+```
+
+QA-27 does not settle it. That correction was about the NAVIGATION label whitelist -- a starting point needs no Source/Code/Repository/Development label to be observed -- and it says nothing about the separate list of surface classes the contract forbids outright.
+
+Nor does the record settle it. C013 and C022 each had a frozen SITES under a releases path, and in both the gate reached its verdict at step 1, so the stop rule ended navigation before the question became load-bearing; C013's entry even recorded "/releases/" as closed on the ground that releases are "named in the contract's forbidden list outright". C029 did request such a URL, but that candidate is withdrawn and its material quarantined. C045 is the first candidate where the answer would change what gets observed.
+
+It was not opened, and that is a choice rather than a neutral default, so the reason is on the record:
+
+```text
+opening it requires adopting the reading "starting points are exempt
+  from the forbidden-surface list", chosen after seeing this candidate
+
+not opening it requires adopting the converse
+
+the two are not symmetric in consequence: a designation found there
+  could only move this candidate toward PASS, and no observation there
+  could complete a failure code, since FAIL needs positive evidence.
+  Opening is therefore the branch that could rescue a verdict, which
+  is the shape C020 and C024 established may not be chosen after the
+  fact. Not opening leaves strictly less analyst-supplied content on
+  the record.
+```
+
+See QA-31. This does not license reading the candidate's outcome as a finding about upstream: the surface is unobserved, not empty.
+
+```text
+PASS not established
+  nothing observed designates this location as the project's canonical
+  source. The only route to it is the packaging metadata's own
+  HOMEPAGE field, and arriving somewhere by an admitted route is
+  affiliation, not designation (QA-22, C017). The website field is
+  empty, so there is not even the repo->site arrow C042 had to weigh.
+
+FAIL not established
+  the repository root is an admissible surface and carried no
+  designation signal, which is a bounded observation and not a
+  demonstration that upstream designates none -- the C017 boundary.
+  The remaining admitted starting point is unobserved, which narrows
+  the basis for any negative further.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed, so source access is not what is missing.
+```
+
+On the code: `PI-UNCLASSIFIED-SHAPE` is used on its sealed definition, "a real screening outcome that no sealed criterion describes". What is undescribed here is the contract's own treatment of a starting point that names a forbidden surface class. This is not the transport family -- both requests that were made returned 200, and the one that was not made was withheld by us, not by a network.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.

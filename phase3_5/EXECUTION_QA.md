@@ -1798,7 +1798,7 @@ What it does NOT license, so that this does not re-inflate the way QA-24 did: no
 
 ## QA-30 — whether a hosting platform's project navigation carries upstream designation force is not settled by the sealed criterion
 
-Raised at C044, where the frozen HOMEPAGE is a SourceForge project page and the only source-role location the project exposes is reached through the "Code" item in the navigation strip the platform renders on every such page.
+Raised at C044, where the frozen HOMEPAGE is a SourceForge project page and the only source-role location the page exposes is reached through the "Code" item in the navigation strip the platform renders on every such page.
 
 The criterion asks whether UPSTREAM designates a single canonical source location. Platform chrome is an awkward fit in both directions:
 
@@ -1848,3 +1848,51 @@ step 2  remains authorized by a link whose label is one of the four
         that upstream designates that location as canonical; it does
         not withdraw the permission to follow it (QA-22).
 ```
+
+## QA-31 — a frozen SITES that names a forbidden surface class is not resolved by the sealed contract
+
+Raised at C045, whose frozen SITES is
+`https://github.com/yukiisbored/Launcher/releases/download/0.6.14.1-bgl/`.
+
+Two sealed clauses point opposite ways about one URL:
+
+```text
+Allowed starting points
+  "Only the URLs and identifiers found in the frozen OpenBSD metadata
+   that UR already resolved to one system."
+
+Forbidden at E2-REP
+  "reading README prose / opening any source file / browsing docs /
+   issues / PRs / changelog / RELEASES / searching for bugs or
+   exploits / checking validity semantics / any extra look justified
+   by 'this might help E3/E4 later'"
+```
+
+QA-27 is the near miss and does not cover it. That correction separated a NAVIGATION step from a STARTING POINT, and concluded that a starting point "needs no whitelist label to be observed" -- the whitelist there being the four Source/Code/Repository/Development labels that govern step 2. The forbidden list is a different instrument: it names surface CLASSES, and on its face a releases path is one however it is reached.
+
+Both readings are available and neither is groundless:
+
+```text
+starting points are exempt
+  the forbidden list's other members -- README prose, docs, issues,
+  searching -- are all things reached by wandering, and its stated
+  purpose is to stop "screen a candidate" becoming "read about the
+  project until satisfied". A frozen URL is not wandering. On the
+  strict reading, a port whose only frozen URL is a releases path has
+  no observable surface at all, which makes the metadata
+  self-defeating.
+
+the forbidden list binds everything
+  it is written "Forbidden at E2-REP", not "forbidden while
+  navigating", and it names classes rather than routes. A releases
+  page shows release notes, asset lists and version history --
+  exactly the material the seal was meant to keep out of screening.
+```
+
+**Not resolved here.** Choosing now, with a candidate's outcome partly visible, is the post-hoc criterion change the run forbids. What C045 does instead is record the conflict and decline the surface, with the asymmetry stated: a designation found on a releases page could only move a candidate toward PASS, and no observation there could complete a failure code, since FAIL requires positive evidence. Opening is therefore the rescuing branch, and C020 and C024 established that the rescuing branch is not the one to choose after the fact. Declining is still a choice; it is the one that puts less of us into the record.
+
+**Why it did not surface earlier.** C013 and C022 both had a frozen SITES under a releases path, and both reached a verdict at step 1, where the stop rule ends navigation -- "Not one page further." The question was never load-bearing. C013's entry did record "/releases/" as closed because releases are "named in the contract's forbidden list outright", which is the strict reading applied where nothing turned on it. C029 requested such a URL, but that candidate is withdrawn and its material quarantined, so it settles nothing.
+
+**Scope.** This is a class, not an incident: OpenBSD ports commonly point SITES at a code host's release assets. Every such frame item whose gate is still open after step 1 meets the same fork in the contract, and under the strict reading a whole family of candidates loses its second starting point.
+
+**What this does NOT do.** It does not withdraw QA-27, which still requires a frozen SITES to be observed where no forbidden class is named -- C026, C031, C035, C036, C037 and C044 are unaffected. It does not make an unobserved surface into an empty one: C045's UNRESOLVED records that we did not look, never that upstream designates nothing.
