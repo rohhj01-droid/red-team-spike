@@ -1913,7 +1913,7 @@ Nothing routes an E3 witness into either set. A candidate can therefore pass E3 
 **It is not hypothetical here.** All six survivors have this shape; the two sides were read off the ledger's own entries rather than recalled:
 
 ```text
-C009  E3 movie//savestate documentation      E4 src/ines.cpp bmap[]
+C009  E3 movie/savestate documentation      E4 src/ines.cpp bmap[]
 C013  E3 multiple-CD documentation           E4 MDFNSetting registry
 C023  E3 README "Visual Mode"                E4 Plugins.cs reflection
 C038  E3 HighScores::Qualifies               E4 options_description
