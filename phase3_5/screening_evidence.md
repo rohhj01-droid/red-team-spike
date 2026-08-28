@@ -7350,3 +7350,80 @@ Both starting points were determinately answered, so no surface is left unobserv
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C061-UR-01
+Candidate: C061 (frame rank 61, games/cgames)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cgames/Makefile
+Observed: DISTNAME=cgames-2.2b; HOMEPAGE=https://www.muppetlabs.com/~breadbox/software/cgames.html; SITES=https://www.muppetlabs.com/~breadbox/pub/software/; COMMENT="free console games suite".
+
+This one has a genuine multiplicity question and it is answered rather than passed over. The step-1 surface says the distribution contains three games -- "Included please find three games: cblocks -- sliding-block puzzles; cmines -- minesweeper; csokoban -- sokoban".
+
+Inference: one packaged system. The frozen metadata names one distfile and one port, and upstream's own words delimit the three programs as contents of "this distribution" rather than as separate systems -- "The programs in this distribution are re-implementations of games for the Linux console", "All the programs in this distribution are available under the GNU General Public License." The delimitation is upstream's, which is what QA-26 requires; it is the same reading applied to C013's "numerous game consoles" and C023's "marathon / alephone". Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C061-E1-01
+Candidate: C061
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party games suite under GPLv2+, on a personal upstream site unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C061-E2REP-01
+Candidate: C061
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were observed. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url and final_url: https://www.muppetlabs.com/~breadbox/software/cgames.html
+observed_at_utc: 2026-08-28T10:10:50Z; http_status 200; redirect_chain: NONE (num_redirects 0); 3010 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; every link with its label and target; any sentence or label assigning a source role; any primary, canonical or mirror marking. Not: opening any linked page or artifact.
+
+Observed. The page is titled "Games for the Linux Console" and carries the project description, the three-game list, a rationale section, a licence sentence, and a dated Version History from version 2.2b back through 2.2a and 2.2. It exposes exactly four links:
+
+```text
+"Download cgames-2.2b.tar.gz"  -> /~breadbox/pub/software/cgames-2.2b.tar.gz
+"me"                           -> mailto:breadbox@muppetlabs.com
+"Software"                     -> /~breadbox/software/
+"Brian Raiter"                 -> /~breadbox/
+```
+
+A scan of the page's visible text for source, repository, canonical, official, mirror, primary, git and cvs returned ZERO hits. That is worth recording precisely, because it distinguishes this candidate from the two that reached PASS on distribution designations: C013's page labelled its artifact and published a checksum beside it, and C056's buttons read "Download for Source". Here upstream names the artifact and its size and nothing else.
+
+So no qualifying Source, Code, Repository or Development navigation signal is exposed, and step 2 has no target. The one artifact link's label is "Download" plus the filename; QA-17 settled that a download label may not widen the whitelist, and C026 settled that an artifact may not be inferred to be source from its name -- which is the whole of what is available here.
+
+Surface 2: the frozen SITES.
+requested_url and final_url: https://www.muppetlabs.com/~breadbox/pub/software/
+observed_at_utc: 2026-08-28T10:11:12Z (GET), 10:11:13Z (HEAD); http_status 200, 200; redirect_chain: NONE on both; 15123 bytes
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point.
+Observed: a bare server autoindex, "Index of /~breadbox/pub/software", listing this author's software tarballs across several unrelated projects -- ELFkickers-1.0 through 3.1a and others -- with names, dates and sizes under the headings Name, Last modified, Size, Description, and no descriptions filled in. No source-role labels, and no primary, canonical or mirror marking.
+
+Nothing is read off the filenames, per C026, and no inference is drawn about which entries belong to this system.
+
+```text
+PASS not established
+  neither admissible surface designates a canonical source location.
+  Surface 1 exposes no source-role link and contains no source-role
+  wording at all; surface 2 is an autoindex that names files without
+  saying what any of them is.
+
+FAIL not established
+  a project page carrying no source link and a directory listing
+  carrying no labels do not demonstrate that upstream designates no
+  canonical source location -- the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  artifacts are exposed and reachable; what was not established is
+  what they are. That is not the same as no access to a source
+  representation.
+```
+
+Both starting points were determinately answered, 200 on each, so no surface is left unobserved and this is not the transport family. C052's case in every structural respect.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
