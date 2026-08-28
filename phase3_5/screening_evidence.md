@@ -8210,7 +8210,7 @@ Observed: the project's own MediaWiki page, titled "Chocolate Doom". Its content
 
 No repository or source link appears on this surface. "Report bug" targets the repository's issues, a forbidden surface, and was not followed. "Download" and "Download package" are outside the four labels (QA-17) and were not opened.
 
-Step 2: the `development` link -> /wiki/index.php/Development. Its label is one of the contract's four words -- lower-cased in the page's prose, which changes nothing -- and step 1 exposes it directly, so the navigation is authorized on the contract's plain text (the C038 basis).
+Step 2: the `development` link -> /wiki/index.php/Development. Its label is one of the contract's four words and step 1 exposes it directly, so the navigation is authorized on the contract's plain text. The label is lower-cased in the page's prose; treating that as the same token is the reading already taken at C064, where a lower-cased `source` tab was likewise treated as carrying the word. C038 is not the precedent for case folding -- it settled that a host-name anchor does no work on its own -- and is not cited for it here.
 
 requested_url and final_url: https://www.chocolate-doom.org/wiki/index.php/Development
 observed_at_utc: 2026-08-28T12:38:10Z; http_status 200; redirect_chain: NONE; 19615 bytes
@@ -8237,16 +8237,18 @@ Uniqueness, from what this page itself separates:
    introduced by "If you're a Windows user you can download prebuilt
    Windows binaries" -- binaries, by upstream's own sentence
 
-branch and fork category pages, and the four "Building Chocolate Doom
-on ..." pages
-   wiki pages about development and compilation, naming no other
-   source location
+the branch and fork category links, and the four "Building Chocolate
+Doom on ..." links
+   the Development page introduces these as a list of branches, a list
+   of forks, and per-platform compiling instructions. It does not
+   designate any of them as a canonical source location. None was
+   opened, and nothing is claimed about what those pages contain.
 
 "Submit a bug report" -> the repository's issues
    forbidden surface; not followed
 ```
 
-Nothing else on either surface carries a source role.
+So what is established is about the two surfaces actually read: neither designates a source location other than the repository. No claim is made about pages this entry did not open.
 
 Step 3: https://github.com/chocolate-doom/chocolate-doom
 observed_at_utc: 2026-08-28T12:38:50Z (metadata), 12:38:51Z (root listing); http_status 200 on both; redirect_chain: NONE on both
@@ -8333,6 +8335,11 @@ g_game.c:153       byte consistancy[MAXPLAYERS][BACKUPTICS];
 g_game.c:343-344   cmd->consistancy =
                        consistancy[consoleplayer][maketic%BACKUPTICS];
 
+g_game.c:962       buf = (gametic/ticdup)%BACKUPTICS;
+
+g_game.c:968-970   cmd = &players[i].cmd;
+                   memcpy(cmd, &netcmds[i], sizeof(ticcmd_t));
+
 g_game.c:1000-1013 if (netgame && !netdemo && !(gametic%ticdup))
                    {
                        if (gametic > BACKUPTICS
@@ -8348,7 +8355,9 @@ g_game.c:1000-1013 if (netgame && !netdemo && !(gametic%ticdup))
                    }
 ```
 
-Inference: an incoming command carries a consistency byte its sender stamped from that sender's own accumulated state, and this machine compares it against what it recorded for the same tic slot -- a value written from the player's world position, or from the random-number index when no map object exists. The identical command bytes are therefore accepted or fatal according to the simulation history on both sides. The check is additionally gated on `gametic > BACKUPTICS`, so it does not run until enough ticks have elapsed to fill the ring buffer, which is a temporal condition stated by the project itself.
+Inference: the command compared is the one copied from `netcmds[i]` at :968-970, so it is an incoming command rather than a locally built one, and the slot it is compared against is `buf`, computed at :962 from the current `gametic`. The byte it carries was stamped by its sender from that sender's own `consistancy` ring at :343-344; this machine's entry for the same slot is written at :1010-1012 from the player's world position, or from the random-number index when no map object exists. So the identical command bytes are accepted or fatal according to the simulation history on both sides.
+
+The check is additionally gated on `gametic > BACKUPTICS`, which is stated here as the project's own condition and nothing more. An earlier version glossed it as meaning the check waits "until enough ticks have elapsed to fill the ring buffer". That does not follow: the index is `(gametic/ticdup)%BACKUPTICS`, so with `ticdup` greater than one the guard does not establish that the ring has been filled. The gloss is withdrawn; what stands is that the comparison is conditioned on elapsed game time.
 
 Not claimed: anything about how often this path executes in practice, or about builds in which `netgame` is never true. What was observed is the check, the state it consults, and the writers of that state.
 Decision: PASS
@@ -8407,13 +8416,45 @@ EN3 mechanical membership:
 ```text
 enumerator membership      the active entries of iwads[], which
                            IdentifyIWADByName iterates via arrlen()
-runtime enforcement value  the mission, mode and title each entry
-                           carries, filtered by the caller's mask
+
+values this validator acts on
+                           the entry's filename, matched with
+                           strcasecmp against the basename, and its
+                           mission, tested against the caller's mask
+                           and returned on a match
+
+retained metadata, not     the game mode and the project's own title.
+enforcement values         Both are project-authored fields of the
+                           entry, and neither participates in
+                           IdentifyIWADByName's decision.
 ```
+
+That split is stated because an earlier version listed mode and title among the enforcement values, which overstates what this validator consults.
 
 The scan bound is the array itself, so membership is enumerable by reading it. The commented-out `strife0.wad` line is counted as absent, not as a member: it is not compiled.
 
-EN4 connection to validation, and the limitation stated rather than glossed. A name matching no active entry yields `none`, and rejection follows only if a second, content-based attempt also fails:
+EN4 connection to validation, with the call path observed rather than inferred from the two endpoints:
+
+```text
+d_iwad.c:903-917   iwadparm = M_CheckParmWithArgs("-iwad", 1);
+                   if (iwadparm)
+                   {
+                       iwadfile = myargv[iwadparm + 1];
+                       result = D_FindWADByName(iwadfile);
+                       if (result == NULL)
+                           I_Error("IWAD file '%s' not found!", iwadfile);
+                       *mission = IdentifyIWADByName(result, mask);
+                   }
+                   else
+                   {   ... SearchDirectoryForIWAD(iwad_dirs[i], mask,
+                                                  mission) ... }
+
+d_main.c:1490      iwadfile = D_FindIWAD(IWAD_MASK_DOOM, &gamemission);
+d_main.c:1503      D_AddFile(iwadfile);
+d_main.c:1509      D_IdentifyVersion();
+```
+
+The limitation is stated rather than glossed, and it is scoped to the branch that produces it. `IdentifyIWADByName` is called only in the `-iwad` branch; the other branch reaches a mission through `SearchDirectoryForIWAD`, which matches against the same registry while scanning directories. So the case that arrives at `D_IdentifyVersion` with `gamemission == none` is the one where `-iwad` named a file that exists on disk but whose basename matched no active entry. There, rejection follows only if a second, content-based attempt also fails:
 
 ```text
 d_main.c:779-802
@@ -8432,7 +8473,7 @@ d_main.c:779-802
   }
 ```
 
-So the registry is not the sole membership authority: it decides NAME-based identification, and a miss falls through to a lump-content heuristic before `I_Error` is reached. This is the same shape as C063's `$` branch bypassing the NAG registry, and the enforcement observation below is scoped accordingly rather than claiming that an unregistered IWAD cannot be accepted.
+So on that branch the registry is not the sole membership authority: it decides NAME-based identification, and a miss falls through to a lump-content heuristic before `I_Error` is reached. This is the same shape as C063's `$` branch bypassing the NAG registry, and the enforcement observation below is scoped accordingly rather than claiming that an unregistered IWAD cannot be accepted.
 
 EN5 closed within scope: the set is closed by the array's own extent, which `arrlen(iwads)` supplies to the scan. Closure is the project's declaration, not analyst selection. Tag: `enforced`.
 
@@ -8443,11 +8484,11 @@ The universe is therefore ACTUALLY mechanically constructible, stated as observa
 ```text
 one enforcement observation per active entry
 
-  "IWAD filename F is identified by name as mission M in mode D, when
-   the caller's mask admits M; a name matching no active entry yields
-   `none` from IdentifyIWADByName, after which identification is
-   attempted from lump contents and `Unknown or invalid IWAD file.`
-   is raised only if that also fails"
+  "IWAD filename F is identified by name as mission M when the
+   caller's mask admits M; on the -iwad branch a name matching no
+   active entry yields `none` from IdentifyIWADByName, after which
+   identification is attempted from lump contents and `Unknown or
+   invalid IWAD file.` is raised only if that also fails"
 
 retained as externally segmented fields, per observation
   the IWAD filename
