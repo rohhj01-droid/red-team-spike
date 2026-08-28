@@ -4446,10 +4446,15 @@ Surface 5 shows what surface 1 could not: LATEST-IS-3.22.0 is a symbolic link wh
 
 ```text
 PASS not established
-  none of the DETERMINATELY OBSERVED source surfaces carried a
-  canonical-source designation. Each identifies WHICH RELEASE is
-  latest and exposes companion files named .news and .sha256sum; none
-  states, labels or relates the location to the project as its source.
+  no determinately observed surface established a canonical-source
+  designation.
+
+  Surfaces 1 and 5 are the two that actually displayed listings. Both
+  identify WHICH RELEASE is latest and expose companion files named
+  .news and .sha256sum; neither states, labels or relates its location
+  to the project as canonical source. Surface 2 returned 403 and
+  displayed nothing; surface 3 redirected to surface 1 and is not a
+  distinct surface.
 
   No other admitted starting point was supplied: the frozen metadata
   names no project page or repository.
