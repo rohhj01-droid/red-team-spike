@@ -7694,59 +7694,173 @@ Inference, kept to what these establish: `validate()`'s verdict on a position de
 Not claimed: that `validate()` is called on every move, or that it is the engine's move-legality path. What was observed is the function, the state it consults, and the writers that narrow that state.
 Decision: PASS
 
-## EV-C063-E4-01
+## EV-C063-E4-01  (corrected in place; docs-only, no verdict change)
 Candidate: C063
 Gate: E4
 
 Positive construction exhibited, via U_enforced.
-observed_at_utc: 2026-08-28T10:37:34Z (nag.cpp), and nag.h at the same fetch round; http_status 200
-Provenance: observation-time source state.
 
-The mechanism: the annotation-glyph registry.
+Provenance and pinning. The first version of this entry read the default branch, a moving ref. It has been re-verified against an exact commit, and the pinned bytes are identical to what was read then:
 
 ```text
-nag.h:17-187       typedef enum { NullNag, GoodMove, ... ,
-                     NagDiagram = 201,   // SCID compatibility
-                     NagCount } Nag;
-
-nag.cpp:129        static const QString g_nagStringList[NagCount] = { ... }
-
-nag.cpp:292-300    static QMap<QString, Nag> s_ExtraNags;
-                   void NagSet::InitNagStringListLong() {
-                     s_ExtraNags["+/-"] = Nag::WhiteHasAModerateAdvantage;
-                     s_ExtraNags["-/+"] = ...;  "=+";  "+=";  "->";
-
-nag.cpp:655-669    Nag NagSet::fromString(const QString &nag)
-                   {
-                     if (s_ExtraNags.contains(nag)) return s_ExtraNags.value(nag);
-                     for(int i = 1; i < NagCount; ++i)
-                       if(g_nagStringList[i] == nag) return Nag(i);
-                     return NullNag;
-                   }
-
-nag.cpp:20-24      void NagSet::addNag(Nag nag)
-                   {
-                     if(contains(nag) || nag == NullNag || nag >= NagCount)
-                     { return; }
+upstream commit   e734a075346ca2ad7e3f3e35b42140169637c5ca
+                  (Isarhamster/chessx master, committed 2026-03-13T18:10:14Z)
+re-fetched        2026-08-28T11:59:47Z, http_status 200 on each file
+files             src/database/nag.cpp   26860 bytes
+                  src/database/nag.h      7737 bytes
+                  src/database/pgndatabase.cpp 30593 bytes
+                  src/database/gamex.cpp      43656 bytes
+sha256 check      nag.cpp and nag.h byte-identical to the
+                  2026-08-28T10:37:34Z master fetch
 ```
 
-EN1 external authorship: the program and this registry existed independently of this analysis.
+QA-28 is unaffected: pinning identifies the object analysed and makes no claim about the sealed instant, and the frozen tag remains v1.5.6-lw.
 
-EN2 explicit scope: the domain is the annotation glyphs a game's moves may carry. The project names it in the enum's members and in the header's own instruction, "Don't forget to add string for each 'nag' in source file."
-
-EN3 mechanical membership. What the decision consults is enumerable, and it is stated as what it is rather than as a tidy count:
+**Corrected in place, with what is withdrawn named.** Three statements in the first version are wrong and are replaced below rather than silently rewritten:
 
 ```text
-enumerator membership      the non-empty entries of g_nagStringList,
-                           plus the keys of s_ExtraNags
-runtime enforcement value  the Nag each of those maps to
+withdrawn  "the initializer holds 176 string literals, 175 of them
+            non-empty"                        -- recording error
+
+withdrawn  the two-step rejection path "fromString -> addNag", which
+            asserted a connection between two functions without
+            observing any call from one to the other
+                                              -- inference error
+
+withdrawn  "an annotation outside the registry cannot enter a game's
+            NagSet", a claim over all paths when one parsing branch
+            does not use fromString at all    -- inference error
 ```
 
-No clean member count is offered, and the reason is recorded rather than smoothed over. The enum is not a plain sequence: it carries range-marker aliases (MoveNagStart = GoodMove, BishopNagEnd = BishopsOfSameColor, and others) and an explicit index jump, NagDiagram = 201, so NagCount is 202 while the identifiers between are fewer and some name the same value. The string array is correspondingly sparse -- its initializer holds 176 string literals, 175 of them non-empty, with bare 0 placeholders at indices carrying no string, which a non-empty query can never match. Counting identifiers here would misstate membership, so it is not done; what is enumerable, and what `fromString` actually scans, is the array's non-empty entries plus the five aliases.
+---
 
-EN4 connection to validation, in project code on both sides, and weaker than C059's -- said plainly. An unrecognised annotation string resolves to `NullNag` at nag.cpp:668, and `addNag` refuses `NullNag` and any value at or beyond `NagCount` at nag.cpp:22-24. So an annotation outside the registry cannot enter a game's NagSet. The rejection is a silent early return, not an error like C059's `throw_error_at("type", "unrecognized JSON object")` or C049's `LuaError`. EN4 asks that the project CONNECT the mechanism to validation, which the two-step path does; it does not require the rejection to be loud.
+### Observed
 
-EN5 closed within scope: the set is closed by the array's declared extent, `NagCount`, which `fromString` iterates exactly, together with the runtime-registered aliases in `s_ExtraNags`. That is closure by declaration and runtime construction rather than by our choice. Tag: `enforced`. No immutability is claimed.
+**A. The registry, at nag.cpp:129.** `static const QString g_nagStringList[NagCount]`, its extent fixed by the enum sentinel at nag.h:186-187 (`NagDiagram = 201,` then `NagCount`), so the declared extent is 202. Parsed element by element at the pinned commit:
+
+```text
+declared slots                                   202
+bare 0 placeholders                               46
+non-placeholder entries                          156
+  of which empty string (index 0)                  1
+  of which non-empty                             155
+    plain string literals, non-empty             133
+    QString::fromUtf8("...") entries              22
+
+distinct non-empty strings                       100
+strings occurring more than once                  48
+entries shadowed by an identical earlier entry    55
+```
+
+The 22 `QString::fromUtf8(...)` entries are recorded because neither the first version's count nor a plain string-literal scan reaches them; they are array elements carrying glyphs such as the box, infinity and advantage symbols.
+
+**B. The alias map, at nag.cpp:292-300.** `static QMap<QString, Nag> s_ExtraNags;` is declared empty. `NagSet::InitNagStringListLong()` at nag.cpp:294 inserts five keys -- `"+/-"`, `"-/+"`, `"=+"`, `"+="`, `"->"` -- from nag.cpp:296.
+
+**C. When B is populated, at nag.cpp:641-644.** The only call to `InitNagStringListLong()` observed in the four files examined is inside `NagSet::nagToMenuString()`, and it is lazy:
+
+```text
+if(NagSet::g_nagStringListLong.count() == 0)
+{
+    InitNagStringListLong();
+}
+```
+
+No other caller was found in nag.cpp, nag.h, pgndatabase.cpp or gamex.cpp. The rest of the tree was not searched, so no claim is made that none exists elsewhere.
+
+**D. The lookup, at nag.cpp:655-669.**
+
+```cpp
+Nag NagSet::fromString(const QString &nag)
+{
+    if (s_ExtraNags.contains(nag)) return s_ExtraNags.value(nag);
+    for(int i = 1; i < NagCount; ++i)
+        if(g_nagStringList[i] == nag) return Nag(i);
+    return NullNag;
+}
+```
+
+**E. The actual call path, observed rather than assumed.**
+
+```text
+pgndatabase.cpp:907-911   case 0:
+                            Nag nag = NagSet::fromString(token.at(0));
+                            game->dbAddNag(nag);
+
+gamex.cpp:1282-1292       void GameX::dbAddNag(Nag nag, MoveId moveId)
+                          {
+                              if (nag != NullNag)
+                              {
+                                  MoveId node = m_moves.makeNodeIndex(moveId);
+                                  if (node != NO_MOVE)
+                                  {
+                                      m_nags[node].addNag(nag);
+                                  }
+                              }
+                          }
+
+nag.cpp:20-24             void NagSet::addNag(Nag nag)
+                          {
+                              if(contains(nag) || nag == NullNag
+                                 || nag >= NagCount)
+                              { return; }
+```
+
+So the parser path is `PgnDatabase::parseToken -> NagSet::fromString -> GameX::dbAddNag -> NagSet::addNag`, and a `NullNag` produced by a `fromString` miss is stopped at `GameX::dbAddNag`; it does not reach `NagSet::addNag`.
+
+The same guard shape appears at the two tokenizer call sites, pgndatabase.cpp:722-723 and :777-778, each testing `if (nag != NullNag)` immediately after `fromString`.
+
+**F. A parsing branch that bypasses D, at pgndatabase.cpp:938-941.**
+
+```cpp
+case '$':
+    if (token.length()>1)
+    {
+        game->dbAddNag((Nag)token.mid(1).toInt());
+    }
+    break;
+```
+
+This casts an arbitrary parsed integer to `Nag` without consulting the registry.
+
+---
+
+### Inference
+
+EN1 external authorship: the program and these structures existed independently of this analysis.
+
+EN2 explicit scope: the domain is the annotation glyphs a move may carry. The project names it in the enum's members and in the header's own instruction at nag.h:16, "Don't forget to add string for each 'nag' in source file."
+
+EN3 mechanical membership, stated as the operational lookup rather than as a set:
+
+```text
+1. consult the currently populated s_ExtraNags;
+2. on a miss, scan g_nagStringList from index 1 through NagCount - 1;
+3. return the FIRST exact match;
+4. return NullNag on a complete miss.
+```
+
+Two consequences of that are load-bearing and are stated rather than glossed. First, first-match semantics mean the 155 non-empty entries do not enumerate 155 recognised strings: they carry 100 distinct strings, and 55 entries are shadowed by an identical earlier entry and are unreachable through this lookup. Second, the alias keys are not unconditional membership -- the source declares five possible keys, while actual runtime membership is whatever `s_ExtraNags` holds in the constructed runtime state, which is empty until the lazy initialiser at C has run.
+
+```text
+source-declared possible alias keys   five
+actual runtime alias membership       s_ExtraNags.keys() in the
+                                      constructed runtime state
+```
+
+No clean universe member count is offered, and none is needed here. QA-19 puts the inventory at a later stage, and the enumeration difficulty recorded above is exactly what that stage would have to resolve.
+
+EN4 connection to validation, scoped to the path actually observed:
+
+```text
+On this project-authored textual-glyph parsing path, an unrecognised
+string resolves to NullNag at nag.cpp:668 and is stopped by
+GameX::dbAddNag at gamex.cpp:1284 before admission to the move's
+NagSet.
+```
+
+`NagSet::addNag`'s own guard is not idle downstream defense, and this is the one place where the correction runs in upstream's favour rather than against it. The `$` branch at F reaches `dbAddNag` with an arbitrary integer, so a value at or beyond `NagCount` passes `dbAddNag`'s `nag != NullNag` test and is refused by `addNag`'s observed condition `nag == NullNag || nag >= NagCount`. The two guards therefore cover different inputs rather than duplicating one another.
+
+EN5 closed within scope: closure rests on the array's declared extent, which `fromString` iterates exactly, together with the runtime-constructed alias map. Both are the project's own data structures and its own scan bound, not analyst selection. Tag: `enforced`. No immutability is claimed, and the lazy initialisation at C is part of how the runtime state is constructed rather than a defect in the closure basis.
 
 EN6 outcome independence: the registry is the set of annotation glyphs the program recognises. It is not a bug list, fix list or known-failure registry.
 
@@ -7755,20 +7869,48 @@ The universe is therefore ACTUALLY mechanically constructible, stated as observa
 ```text
 one enforcement observation per recognised annotation string
 
-  "annotation string S resolves to glyph N; a string matching no
-   registry entry resolves to NullNag, which addNag refuses to admit
-   to a game's annotation set"
+  "annotation string S resolves to glyph N under the lookup at D; on
+   the textual-glyph parsing path a string matching nothing resolves
+   to NullNag and is stopped by GameX::dbAddNag before admission"
 
 retained as externally segmented fields, per observation
   the annotation string
   the Nag identifier it resolves to
-  whether it came from g_nagStringList or from s_ExtraNags
+  whether it was matched in s_ExtraNags or in g_nagStringList
+  the index at which it matched
 ```
 
-As at C043, C049, C056 and C059, this establishes only that a mechanically constructible universe EXISTS. It fixes no contents and concludes nothing about a primary-universe count; QA-19 puts that at the inventory stage, and the enumeration difficulty recorded under EN3 is exactly the kind of thing that stage would have to resolve.
+As at C043, C049, C056 and C059, this establishes only that a mechanically constructible universe EXISTS; it fixes no contents.
 
 Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
 
-Decision: PASS
+---
+
+### Decision
+
+```text
+E4                  PASS
+overall             ELIGIBLE   (unchanged)
+correction type     docs-only
+verdict correction  NO
+ledger change       NONE
+```
+
+Error taxonomy for this correction, kept separate because the postmortem needs the distinction:
+
+```text
+adjudication / inference errors
+  asserting a fromString -> addNag connection without observing a call
+  claiming that no annotation outside the registry can enter a NagSet,
+    when one parsing branch never consults the registry
+
+execution / recording error
+  the 176 / 175 element counts
+
+methodology or design gap
+  none. Nothing here is a hole in the sealed protocol; the gate's
+  requirements were adequate and the first version misread the source.
+```
+
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates above were read against the default branch at observation time while the frozen tag is v1.5.6-lw, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
