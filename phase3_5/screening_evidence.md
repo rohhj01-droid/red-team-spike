@@ -5623,13 +5623,17 @@ https://www.linux-abos.com/spiele/bomberclone/
      title "BomberClone fuer Linux - Klassischer Bomberman-Spass gratis"
 ```
 
-What was served at the end of that redirect is a third-party publication's article page, and that is an observation rather than a guess: the document is branded "Linux-Abos.com" throughout, its navigation is that site's own sections (Startseite, Linux / Debian, Sicherheit, Spiele, Hardware, Vermischtes), and the page sits among that site's unrelated articles on Steam machines, crypto mining, MongoDB and Bluetooth headsets. It is not a surface of the packaged system's project.
+Observed, of the final response: it is branded "Linux-Abos.com" throughout; its navigation is that site's own publication sections (Startseite, Linux / Debian, Sicherheit, Spiele, Hardware, Vermischtes); and the BomberClone page sits among that site's unrelated articles on Steam machines, crypto mining, MongoDB and Bluetooth headsets.
+
+Inference: the final response is a third-party publication surface, not BomberClone's upstream official landing/project page.
 
 No inference is drawn about WHY the frozen domain answers this way, or about what it served before. C046 established that restraint for a redirect and it applies unchanged here.
 
 The distinction from C046 is worth stating, so the two entries are not read as inconsistent. There the frozen HOMEPAGE also redirected, but to the same project's own SourceForge project page -- still a surface belonging to that project, and readable as step 1. Here the redirect leaves the project entirely.
 
-That governs what the response may be used for. The contract's step 1 is "the upstream official landing/project page", and Section 3.1 excludes third-party authorship from the primary universe, so this document cannot supply an upstream designation. The split observed here is deliberate:
+That governs what the response may be used for, and the E2-REP contract settles it without help from anywhere else: step 1 admits "the upstream official landing/project page", and the gate's criterion requires the designation to come from upstream itself. On the inference above this document is neither, so it cannot do upstream-designation work at this gate. No later section is invoked -- primary-universe admissibility is a question for a stage this candidate never reaches.
+
+The split observed here is deliberate:
 
 ```text
 read, and legitimately  -- what the response IS, since the gate cannot
@@ -5665,7 +5669,7 @@ E2REP-NO-SOURCE not established
   source-tree presence could have been established either way.
 ```
 
-Both starting points were determinately answered -- a 301 whose destination returned 200, and a 404 on both GET and HEAD -- so no surface is left unobserved and this is not the transport family. What the sealed criteria do not describe is a frame item whose only project-side starting point no longer resolves to a project surface at all.
+Both starting points were determinately answered -- a 301 whose destination returned 200, and a 404 on both GET and HEAD -- so no surface is left unobserved and this is not the transport family. What the sealed criteria do not describe is the resulting combination: the frozen landing-page starting point determinately resolves to a non-upstream surface, while the other admitted starting point determinately yields no usable designation evidence.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
