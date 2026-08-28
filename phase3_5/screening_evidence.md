@@ -4890,3 +4890,187 @@ E2REP-NO-SOURCE not established
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C043-UR-01
+Candidate: C043 (frame rank 43, games/blobby)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/blobby/Makefile
+Observed: HOMEPAGE=https://blobbyvolley.de/; GH_ACCOUNT=danielknobe; GH_PROJECT=blobbyvolley2; GH_TAGNAME=v$V with V=1.1.1; PKGNAME=blobby-$V; COMMENT="volleyball game with online play".
+Inference: the frozen fields name one system. PKGNAME shortens the name GH_PROJECT gives in full, and a HOMEPAGE beside a repository identifier pair is the shape the protocol names non-ambiguous. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C043-E1-01
+Candidate: C043
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game -- COMMENT "volleyball game with online play", a GPLv2+ licence line, a HOMEPAGE on its own domain and an upstream account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C043-E2REP-01
+Candidate: C043
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for: the HOMEPAGE, and the GH_ACCOUNT/GH_PROJECT pair. The pair resolves to the same repository the step-2 link reaches, so as at C038 it is not a separate surface.
+
+Step 1: the frozen HOMEPAGE.
+requested_url and final_url: https://blobbyvolley.de/
+observed_at_utc: 2026-08-28T05:28:31Z-05:28:32Z; http_status 200; redirect_chain: NONE (num_redirects 0); 17223 bytes
+evidence_role: official-project-page
+Observed: the project's own site, titled "Blobby Volley 2 - Die offizielle Website", carrying a navigation menu and a dated news list.
+
+The designation is on this page, in a news item, and it takes two of QA-23's admitted forms at once -- a sentence and a link relation:
+
+```text
+h3   04.09.2019 - Quellcode auf GitHub umgezogen!
+p    Der aktuelle Quellcode ist ab sofort unter
+     <a href='https://github.com/danielknobe/blobbyvolley2'>GitHub</a>
+     zu finden. Das Sourceforge Repository wird nicht mehr gepflegt.
+```
+
+("Source code moved to GitHub! The current source code is from now on to be found at GitHub. The SourceForge repository is no longer maintained.")
+
+Step 2: that link, and the authority for taking it is the sentence it sits inside, whose subject is "der aktuelle Quellcode" -- the current source code. What is NOT relied on: the navigation menu's separate "Github" item, which points at the same URL but is labelled with a host name rather than any of the contract's four words. C038 settled that an anchor reading "github" does no work on its own, and this entry does not let it.
+
+Uniqueness, and why the ranking is upstream's rather than ours. The same page's navigation also carries "Sourceforge" -> http://sourceforge.net/projects/blobby/, a second location for the same system. The news paragraph ranks the two itself, in its second sentence: the SourceForge repository is no longer maintained. That is the C023 and C038 device -- a primary marked by upstream. The SourceForge hub was not followed; C007 settled separately that a generic project hub is not a repository root.
+
+Other links on step 1, accounted for and not followed:
+
+```text
+Bugtracker -> .../blobbyvolley2/issues    forbidden surface
+Changelog  -> .../blob/master/ChangeLog   changelog, forbidden surface
+Download   -> download.php                not one of the four labels (QA-17)
+Discord, Play Store, App Store, Microsoft Store, Blobby Liga,
+the browser and WebAssembly builds        distribution and community
+                                          channels, not source locations
+```
+
+Step 3: https://github.com/danielknobe/blobbyvolley2
+observed_at_utc: 2026-08-28T05:29:37Z (metadata), 05:29:45Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+evidence_role: official-source-location
+Observed, restricted to metadata and the root listing: full name danielknobe/blobbyvolley2, owner login danielknobe -- matching the frozen GH_ACCOUNT -- default branch master, fork false, archived false, is_template false, mirror_url null, private false, licence GPL-2.0 matching the frozen licence line, and description "Official continuation of the famous Blobby Volley 1.x arcade game." The homepage metadata field is null, so nothing here has to be weighed as a repo->site arrow (contrast C042). A source tree is present at the root: src, test, data, deps, doc, linux, macos, win, CMakeLists.txt, NintendoSwitchToolchain.cmake, vcpkg.json, INSTALL, README.md, ChangeLog, NEWS, AUTHORS, COPYING, doxyfile, .gitattributes, .github, .gitignore.
+
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Blobby Volley 2).
+
+Scope note: the designation is recorded as observed at the timestamps above. No claim is made about what this page carried at the sealed instant (QA-28).
+
+Decision: PASS
+
+## EV-C043-E2RULE-01
+Candidate: C043
+Gate: E2-RULE
+Source: INSTALL in the designated repository
+observed_at_utc: 2026-08-28T05:29:55Z; http_status 200; 236 bytes
+Provenance: read against the source state available at screening observation time; no claim about the sealed primary snapshot (QA-28).
+
+Observed: located witness, the file's opening line and the build sequence it governs:
+
+```text
+You must have CMake installed.
+Then execute:
+
+cmake .
+make
+```
+
+Inference: this states a concrete validity requirement without our inventing one -- a build environment without CMake does not satisfy it, and the stated procedure does not apply. Externally authored, in upstream's own words.
+
+Recorded as at C014, C023, C034 and C038: this is a BUILD-ENVIRONMENT requirement carrying no version bound. E2-RULE asks for at least one validity requirement and does not restrict the domain. One located witness settles a positive existential gate, so the search stopped here.
+Decision: PASS
+
+## EV-C043-E3-01
+Candidate: C043
+Gate: E3
+Source: src/GameLogic.cpp in the designated repository
+observed_at_utc: 2026-08-28T05:30:25Z; http_status 200; 16808 bytes
+Provenance: observation-time source state, as above.
+
+Observed: located witness, the collision-validity test and the clock that drives it.
+
+```text
+GameLogic.cpp:50        const int SQUISH_TOLERANCE = 11;
+
+GameLogic.cpp:230-233   bool IGameLogic::isCollisionValid(PlayerSide side) const
+                        {
+                            // check whether the ball is squished
+                            return mSquish[side2index(side)] <= 0;
+                        }
+
+GameLogic.cpp:248-254   void IGameLogic::onBallHitsPlayer(PlayerSide side)
+                        {
+                            if(!isCollisionValid(side))
+                                return;
+                            mSquish[side2index(side)] = SQUISH_TOLERANCE;
+
+GameLogic.cpp:167-176   void IGameLogic::step( const DuelMatchState& state )
+                        { mClock->step();
+                          if(mClock->isRunning())
+                          { --mSquish[0]; --mSquish[1];
+                            --mSquishWall; --mSquishGround;
+```
+
+Inference: whether a ball-player contact counts as a hit is decided against mSquish, which that player's previous hit set to 11 and which the clock decrements once per running step. The identical contact is valid or not according to how many steps have passed since that side's last one. That is validity conditioned on history, which is what E3 asks for -- the same shape as C038's Qualifies() reading a persisted table, here with the conditioning state held in the match clock rather than on disk.
+Decision: PASS
+
+## EV-C043-E4-01
+Candidate: C043
+Gate: E4
+
+Positive construction exhibited, via U_enforced.
+observed_at_utc: 2026-08-28T05:31:46Z (TextManager.h), 05:31:29Z-05:31:46Z (TextManager.cpp); http_status 200
+Provenance: observation-time source state.
+
+The mechanism: the translatable-string table. `enum STRING` at TextManager.h:41-169 declares 110 named slots and closes with COUNT; TextManager::setDefault(), TextManager.cpp:152-288, assigns an English default to each; the constructor sizes the table to the enum and fills it, TextManager.cpp:36-37.
+
+```text
+enum members excluding COUNT                        110
+distinct mStrings[...] assignments in setDefault     110
+enum members with no assignment                        0
+```
+
+EN1 external authorship: the game and this table existed independently of this analysis.
+
+EN2 explicit scope: the project segments the enum with its own section comments -- "common labels", "labels for main menu", "credits", "replays", "game texts", "network texts", "options" -- and each slot carries a name of its own (LBL_OK, RP_FILE_CORRUPT, NET_SERVER_FULL, OP_JUMP_KEY).
+
+EN3 mechanical membership: membership is what setDefault assigned, one entry per enum slot, enumerable by reading either list. The two lists were cross-checked above rather than assumed to agree.
+
+EN4 connection to validation: loadFromXML uses the table as the acceptance test for a language file's entries, in project code, and rejects in project code.
+
+```text
+TextManager.cpp:114-121
+  auto found = std::find(mStrings.begin(), mStrings.end(), e);
+  if(found != mStrings.end()) { found_count++; *found = t; }
+  else
+      std::cerr << "error in language file: entry "
+                << e << " -> " << t << " invalid\n";
+```
+
+An `english` attribute that is not in the table is named invalid and its translation is discarded. Unlike C038, the deciding and rejecting code is the project's own.
+
+One property of this enforcement is recorded rather than smoothed over, because it makes the acceptance set stateful: line 118 overwrites the matched slot with the translation, so a string already consumed is no longer matchable. The set the test consults is therefore the English defaults MINUS those matched earlier in the same file, and the file's own comment says the loop "assumes that the strings in the xml file are in the correct order". The declared universe -- the 110 setDefault assignments -- is closed and enumerable; what is stateful is the matching, not the declaration.
+
+EN5 closed within scope: mStrings is resized to COUNT and filled by setDefault at construction; no path adds a slot. Closed at construction. Tag: enforced.
+
+EN6 outcome independence: the table is the set of user-interface strings the game displays. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations:
+
+```text
+one enforcement observation per slot
+
+  "English string S occupies slot N; a language-file entry whose
+   english attribute equals S is accepted and replaces it, and an
+   entry whose english attribute matches no slot is named invalid
+   and discarded"
+
+retained as externally segmented fields, per observation
+  the section the project placed the slot in
+  the slot's own enum name
+  its English default
+```
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
+
+Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28 -- as with every other survivor, no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
