@@ -5156,7 +5156,7 @@ DEVIATION, recorded before the observations that follow. The first three request
 06:29:30Z  GET  default client   200, 117365 bytes
 ```
 
-Presenting a user agent I am not was not necessary and was not authorized by anything in the contract; it is recorded rather than quietly dropped. The observations below rest on the 200, which the plain client obtained. Note the direction, since it matters for what the 403s could otherwise have been made to mean: the host refused the disguised request and served the honest one. Had the entry stopped at the 403s it would have reported an unobservable surface that was in fact observable -- the error would have run toward a manufactured UNRESOLVED.
+Presenting a user agent I am not was an unpreregistered manipulation of the request, and it is recorded rather than quietly dropped. Classified as a non-adjudicative deviation: the E2-REP contract governs which SURFACES may be visited and seals no HTTP header policy, so this is not a contract breach in the way C037's host root was -- it is an unrecorded degree of freedom in how an admitted surface was requested. The observations below rest on the 200, which the plain client obtained. Note the direction, since it matters for what the 403s could otherwise have been made to mean: the host refused the disguised request and served the honest one. Had the entry stopped at the 403s it would have reported an unobservable surface that was in fact observable -- the error would have run toward a manufactured UNRESOLVED.
 
 Step 1: https://sourceforge.net/projects/blobwars/ -- the frozen HOMEPAGE, which is a SourceForge project page.
 observed_at_utc: 2026-08-28T06:29:30Z; http_status 200; redirect_chain: NONE (num_redirects 0); 117365 bytes
@@ -5193,7 +5193,7 @@ Download button -> /projects/blobwars/files/latest/download, titled
    "Download blobwars-2.00-1.installer.exe from SourceForge - 75.1 MB"
 ```
 
-The description is a game description. Nothing on this surface states, labels or marks where the project's source is, and no relocation notice of C023's kind appears.
+The description is a game description. No project-authored prose and no project-specific marking designates a canonical source location, and no relocation notice of C023's kind appears. The page does expose a platform-rendered "Code" item; whether platform chrome itself carries upstream designation force is the unresolved question recorded at QA-30, not something this observation settles in either direction.
 
 Step 2: the "Code" link. Its label is literally one of the contract's four words and step 1 explicitly exposes it, so the navigation is authorized on the contract's plain text -- no reading of the destination is required, which is the basis C038 established.
 
@@ -5214,50 +5214,56 @@ Observed: a 154-byte "404 Not Found -- The resource could not be found."
 
 Now the adjudication, and it turns on a question the sealed criterion does not answer.
 
-The two locations this project has are exposed by SourceForge's standard project navigation -- a code area and a release Files area, side by side in the same strip, with nothing ranking them. That strip is rendered by the platform on its project pages. Whether its items count as UPSTREAM DESIGNATING is not something the sealed criterion settles, and the verdict differs by branch:
+Exactly one location with a source role was observed: the code area, reached by an authorized step 2 and confirmed at step 3 to hold a source tree. What is undecided is the evidential force of the label that exposed it, because that label is drawn by the platform rather than written by upstream. The verdict differs by branch:
 
 ```text
-if the navigation strip designates
-    two designated locations, no primary marked among them
-    -> that is C006's E2REP-NO-SINGLE-CANONICAL-LOCATION
+if SourceForge's platform chrome counts as upstream designation
+    "Code" designates the observed repository as this project's source
+    no competing SOURCE designation has been established
+    -> E2-REP PASS could follow
 
-if the navigation strip does not designate
-    no designation was made at all
-    -> not PASS, and no failure code is completed either
+if it does not count as upstream designation
+    the repository's identity and its source tree are affiliation only
+    -> no designation established
+    -> E2-REP UNRESOLVED
 ```
 
 Choosing a branch would be us supplying the missing rule, so neither is taken. See QA-30.
+
+What is deliberately NOT in that table is the Files area. Step 1 exposed it as a navigation label -- `Files -> /projects/blobwars/files/` -- and nothing more; it was not opened, and a generic artifact-area label establishes no source location. Treating it as a second source designation would be reading contents off an unopened surface, which is the same restraint this entry already applies to the Download button's installer filename. So the gap here is PASS versus UNRESOLVED, and no multi-designation question arises at all.
 
 Two precedents were checked against this and neither carries it:
 
 ```text
 C006  its step 1 was https://dgen.sourceforge.net/ -- the project's OWN
-      site, where the two links sit on a page upstream authored. That
-      is not this page.
+      site, where the locations sit on a page upstream authored. That
+      is not this page, and its two-with-no-primary finding has no
+      counterpart here, where only one source-role location exists.
 
 C023  same hub-as-HOMEPAGE topology, and it reached PASS. But what
-      ranked the locations there was upstream's own dated sentence,
-      "As of 2015-12-05, this project can be found here". The entry
-      called the Code and Files areas SourceForge's project furniture
-      and let the notice do the work. No such sentence exists here.
+      ranked its locations was upstream's own dated sentence, "As of
+      2015-12-05, this project can be found here". The entry called
+      the Code and Files areas SourceForge's project furniture and let
+      the notice do the work. No such sentence exists here.
 ```
 
 ```text
 PASS not established
-  no admitted surface designates a single canonical source location.
-  Upstream's own words on step 1 describe the game and nothing else;
-  the Web Site field points back at the same page; the navigation
-  strip ranks nothing. Reaching the code area by an authorized step 2
-  yields affiliation, not designation (QA-22) -- the contract's step-2
-  whitelist is a navigation permission, not a finding that the link
-  is upstream's canonical-source designation.
+  no designation witness whose evidential force is determined by the
+  sealed rules establishes a single canonical source location.
+  Upstream's own words on step 1 describe the game and nothing else,
+  and the Web Site field points back at the same page. The one
+  candidate witness is the platform-rendered "Code" item, and QA-30
+  is exactly the question of whether that carries designation force.
+  Reaching the code area by an authorized step 2 does not settle it
+  either: the step-2 whitelist is a navigation permission, and QA-22
+  established that arriving somewhere by an admitted route yields
+  affiliation rather than designation.
 
 FAIL not established
-  E2REP-NO-SINGLE-CANONICAL-LOCATION requires that upstream designate
-  several with no primary among them. That needs the platform strip
-  to count as upstream's designations -- the same premise PASS would
-  need, pointed the other way. It is undecided, so the failure is not
-  established either.
+  no failure code is completed. E2REP-NO-SINGLE-CANONICAL-LOCATION
+  requires several designated locations with no primary among them,
+  and only one source-role location was ever observed.
 
 E2REP-NO-SOURCE not established
   a source tree WAS observed at step 3, so source access is not what
@@ -5271,3 +5277,28 @@ Recorded and not used: the Download button names a Windows installer artifact. N
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## RETRACTION 21 — C044 counted the Files area as a second source location
+
+C044's E2-REP entry set up its branch table around "the two locations this project has -- a code area and a release Files area", and made one branch C006's E2REP-NO-SINGLE-CANONICAL-LOCATION.
+
+That is withdrawn. The Files area was never opened. What step 1 exposed was a navigation label, `Files -> /projects/blobwars/files/`, and a generic artifact-area label establishes no source location -- whether that area holds source tarballs, binaries, or both is not something any admissible evidence in this entry says. The same entry had already declined to infer the area's contents from the Download button's installer filename, and then failed to apply that restraint one paragraph later.
+
+Consequences of the repair:
+
+```text
+withdrawn   "the two locations this project has"
+            the FAIL branch resting on two designated locations
+            the framing of QA-30's gap as FAIL versus UNRESOLVED
+
+corrected   exactly one source-role location was observed, the code
+            area; the open question is the evidential force of the
+            platform-drawn label that exposed it
+            -> the gap is PASS versus UNRESOLVED
+```
+
+The verdict does not move. Under the corrected branches, PASS is the branch that would require adopting the undecided rule, and adopting it now with the candidate's outcome in view is the post-hoc criterion change the run forbids. E2-REP stays UNRESOLVED, failure_code NONE, protocol_issue_code PI-UNCLASSIFIED-SHAPE, and the ledger rows are unchanged.
+
+Also lowered in the same pass: "Nothing on this surface states, labels or marks where the project's source is" -- the surface does carry a "Code" label, and the issue is that label's force, not its absence. And "no admitted surface designates a single canonical source location" now reads "no designation witness whose evidential force is determined by the sealed rules", which is what the record supports.
+
+The user-agent deviation is reclassified as well: an unpreregistered request manipulation and a non-adjudicative deviation, rather than a contract breach. The E2-REP contract governs which surfaces may be visited and seals no HTTP header policy, so it is an unrecorded degree of freedom, not the C037 shape.

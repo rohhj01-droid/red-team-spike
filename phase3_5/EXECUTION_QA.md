@@ -1796,11 +1796,11 @@ What this costs, recorded rather than repaired. Under the sealed contract, a fra
 
 What it does NOT license, so that this does not re-inflate the way QA-24 did: nothing here says a surface is inadmissible because it is "derived" or "secondary". Surfaces are admitted by the contract's own list -- frozen URLs and identifiers, and the two navigation steps. QA-29 removes an argument for adding to that list; it removes nothing from it.
 
-## QA-30 — whether a hosting platform's project navigation is upstream's designation is not settled by the sealed criterion
+## QA-30 — whether a hosting platform's project navigation carries upstream designation force is not settled by the sealed criterion
 
-Raised at C044, where the frozen HOMEPAGE is a SourceForge project page and the project has both a code area and a release Files area, exposed side by side in the navigation strip the platform renders on every such page.
+Raised at C044, where the frozen HOMEPAGE is a SourceForge project page and the only source-role location the project exposes is reached through the "Code" item in the navigation strip the platform renders on every such page.
 
-The criterion asks whether UPSTREAM designates a single canonical source location. A platform's tab strip is an awkward fit in both directions:
+The criterion asks whether UPSTREAM designates a single canonical source location. Platform chrome is an awkward fit in both directions:
 
 ```text
 reading it AS designation
@@ -1816,22 +1816,35 @@ reading it as NOT designation
 
 The sealed criterion contains nothing that chooses. This QA does not choose either -- inventing the rule now, with a candidate's verdict visible, is precisely the post-hoc criterion change the run forbids. It records the gap.
 
-Consequence, which is why it matters beyond one candidate. Where the two readings disagree the verdict disagrees too: a project with both a code area and a Files area lands on C006's E2REP-NO-SINGLE-CANONICAL-LOCATION under one reading and on no failure code at all under the other. Such a candidate goes to UNRESOLVED / PI-UNCLASSIFIED-SHAPE for a reason that is about the instrument rather than about upstream, and this is a CLASS, not an incident: any frame item whose HOMEPAGE is a project-hosting hub can present it.
+The gap is between PASS and UNRESOLVED, not between FAIL and UNRESOLVED. An earlier draft had it the other way, on the ground that the strip's Files item was a competing source designation; that was withdrawn at RETRACTION 21, because a generic artifact-area label that was never opened establishes no source location. What the two readings actually separate:
+
+```text
+chrome designates      "Code" designates the repository as the
+                       project's source, and nothing competing with
+                       it has been established -> PASS could follow
+
+chrome does not        identity and source-tree presence at that
+                       repository are affiliation only -> UNRESOLVED
+```
+
+Consequence, which is why it matters beyond one candidate. The reading decides whether a whole class of candidates can pass at all: any frame item whose HOMEPAGE is a project-hosting hub, whose source-role location is exposed only by platform chrome, and which carries no project-authored designation sentence. Under one reading such candidates pass E2-REP routinely; under the other none of them ever can. They currently go to UNRESOLVED / PI-UNCLASSIFIED-SHAPE for a reason about the instrument rather than about upstream, and this is a CLASS, not an incident.
+
+Note also the direction of the risk, since it is not symmetric with the rest of the run's failure modes. Here the undecided rule is what BLOCKS a positive verdict; the run's usual danger is a rule invented to permit one. Neither is a reason to decide it now.
 
 What this does NOT disturb:
 
 ```text
-C023  passed on upstream's own dated relocation sentence, which ranked
-      the locations without needing the strip to designate anything.
+C023  passed on upstream's own dated relocation sentence, which
+      designated a location without needing chrome to carry force.
       Its Code and Files areas were already recorded as platform
       furniture doing no work.
 
-C006  its step 1 was the project's own site, where the two links were
+C006  its step 1 was the project's own site, where the locations were
       on a page upstream authored. QA-30 is about platform-rendered
       navigation and leaves that verdict untouched.
 
 step 2  remains authorized by a link whose label is one of the four
         words. QA-30 says such a link does not by itself establish
         that upstream designates that location as canonical; it does
-        not withdraw the permission to follow it.
+        not withdraw the permission to follow it (QA-22).
 ```
