@@ -7257,3 +7257,94 @@ Normative route: not pursued. Nothing observed designates an authoritative rule 
 Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates above were read against the default branch at observation time while the frozen version is 0.H-RELEASE, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
+
+## EV-C060-UR-01
+Candidate: C060 (frame rank 60, games/cdogs-sdl)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cdogs-sdl/Makefile
+Observed: HOMEPAGE=https://cxong.github.io/cdogs-sdl/; GH_ACCOUNT=cxong; GH_PROJECT=cdogs-sdl; GH_TAGNAME=2.1.0; COMMENT="open source, classic overhead run-and-gun game".
+Inference: the frozen fields name one packaged system, C-Dogs SDL. A HOMEPAGE beside a repository identifier pair is the shape the protocol names non-ambiguous. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C060-E1-01
+Candidate: C060
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under GPLv2+, on an upstream account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C060-E2REP-01
+Candidate: C060
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for: the frozen HOMEPAGE, and the GH_ACCOUNT/GH_PROJECT pair. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url and final_url: https://cxong.github.io/cdogs-sdl/
+observed_at_utc: 2026-08-28T10:01:46Z; http_status 200; redirect_chain: NONE (num_redirects 0); 19977 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; the links exposed with their labels and targets; any sentence or label assigning a source role; any primary, canonical or mirror marking. Not: opening any linked page.
+
+Observed: the project's own site, titled "C-Dogs SDL", laid out as a dated post index -- release announcements for 2.4.0, 2.3.2, 2.3.1, 2.3.0 and a retrospective, with pagination to page21. Its site navigation, under the tagline, exposes:
+
+```text
+tagline   "Open source, classic overhead run-and-gun game"
+
+nav       Downloads -> /cdogs-sdl/downloads.html
+          Campaigns -> http://cdogs.morezombies.net
+          Archive   -> /cdogs-sdl/archive.html
+          Mastodon  -> mastodon.gamedev.place/tags/CDogsSDL
+          GitHub    -> https://github.com/cxong/cdogs-sdl
+```
+
+A scan of the page's visible text for source, repository, canonical, official, mirror and primary returned exactly one hit: the tagline's "Open source", which describes the project's nature and matches the frozen COMMENT. It designates no location.
+
+The "GitHub" navigation item is the point that has to be decided, and it is decided the way C038 decided it: an anchor whose label is a host name does no designating work on its own. At C038 the work was done by the surrounding text -- a subheading reading "Source" and a sentence saying where the project is hosted -- and neither exists here. The nav item sits between "Archive" and nothing, with no accompanying sentence anywhere on the page.
+
+So no qualifying Source, Code, Repository or Development navigation signal is exposed, and step 2 has no target. `Downloads` was not opened: not among the four labels, and QA-17 settled that a download label may not widen the whitelist. The release-announcement posts were not opened either; they are dated news items, not a step-2 target.
+
+Surface 2: https://github.com/cxong/cdogs-sdl, from the GH_ACCOUNT/GH_PROJECT pair. It is the same location the nav item points at, so the two are one surface rather than two.
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point.
+observed_at_utc: 2026-08-28T10:02:23Z (metadata), 10:02:24Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+
+```text
+full_name        cxong/cdogs-sdl
+owner            cxong
+default_branch   master
+fork             false          parent  null
+archived         false          is_template  false     mirror_url  null
+website field    https://cxong.github.io/cdogs-sdl/
+description      "Classic overhead run-and-gun game"
+license          GPL-2.0, matching the frozen GPLv2+ line
+```
+
+Root listing: src, data, missions, graphics, music, sounds, dogfights, doc, wiki, build, .github, CMakeLists.txt, make.sh, make_emscripten.sh, make_gcw0.sh, appveyor.yml, appveyor.yml.cmake, README.md, COPYING, .clang-format, .gitattributes, .gitignore. A source tree is present.
+
+```text
+PASS not established
+  the arrow runs one way only. The repository's website field names
+  the project site; the project site designates no source location,
+  its one "source" word being a description of the project's nature.
+  C032 settled that direction and RETRACTION 23 confirmed that a
+  repo->site website field does not designate. Arriving at the
+  repository through packaging identifiers is likewise affiliation,
+  not designation (QA-22).
+
+  Nor is the site's bare "GitHub" nav item a designation, per C038.
+
+FAIL not established
+  both admissible surfaces carried what they carried and no more.
+  That is a bounded observation, not a demonstration that upstream
+  designates none -- the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed, so source access is not what is missing.
+```
+
+Both starting points were determinately answered, so no surface is left unobserved and this is not the transport family.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
