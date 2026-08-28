@@ -4564,7 +4564,7 @@ Candidate: C037 (frame rank 37, games/bass)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/bass/Makefile
 Observed: DISTNAME=bass-cd-1.2; PKGNAME=${DISTNAME:S/cd-//}; EXTRACT_SUFX=.zip; SITES=${SITE_SOURCEFORGE:=scummvm/}; COMMENT="Beneath A Steel Sky". There is no HOMEPAGE and no repository identifier.
-Inference: the frozen fields name one packaged system, Beneath A Steel Sky -- DISTNAME and COMMENT both do. SITES points into another project's SourceForge distribution area, which is a statement about where the file is fetched from, not a second system claim; the protocol's carve-out treats a distfile host as one more fact about one system rather than as ambiguity. Not UR-AMBIGUOUS.
+Inference: the frozen fields name one packaged system, Beneath A Steel Sky. COMMENT names it explicitly; DISTNAME=bass-cd-1.2 is an abbreviated form consistent with that identification rather than a second naming of it. SITES points into another project's SourceForge distribution area, which is a statement about where the file is fetched from, not a second system claim; the protocol's carve-out treats a distfile host as one more fact about one system rather than as ambiguity. Not UR-AMBIGUOUS.
 Decision: PASS
 
 ## EV-C037-E1-01
@@ -4591,7 +4591,13 @@ observed_at_utc: 2026-08-28T03:29:53Z (GET), 03:29:54Z (HEAD)
 http_status: 404, 404; redirect_chain: NONE on both
 Observed: a 154-byte "404 Not Found -- The resource could not be found." No headings, artifact names or designation signal.
 
-On the control, recorded because it did not do the job earlier controls did: a request to the host root, https://downloads.sourceforge.net/, also returned 404, so it establishes nothing about the host's general health. What rules out the transport-indeterminacy family here is the responses themselves -- DNS resolved, the connection completed, and the endpoint returned a definite HTTP status twice. That is the contract's own distinction, and it does not depend on a healthy control existing.
+QUARANTINED EXTRA REQUEST: https://downloads.sourceforge.net/ was also requested, as a host-health control, and returned 404.
+
+That request was not authorized. The E2-REP contract admits only "the URLs and identifiers found in the frozen OpenBSD metadata" as starting points, and the host root is not one. Earlier controls in this run were admissible for a reason this one lacks: C031's and C036's were the frozen HOMEPAGE itself. Nothing in the contract or in QA-11 creates a general permission to request control URLs.
+
+An earlier draft described this as a control that "did not do the job earlier controls did". The accurate statement is that there was no authority to make the request. It is recorded here as a deviation, and it does no verdict work.
+
+Transport determinacy rests on the admitted endpoint alone: DNS resolved, the connection completed, and it returned a definite HTTP status on both GET and HEAD. That is the contract's own distinction between a definitive answer and the timeout / DNS / refused / 5xx family, and it never required a control.
 
 ```text
 PASS not established
