@@ -6886,3 +6886,110 @@ Both starting points were determinately answered -- 200 and 404 -- so no surface
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C058-E2REP-02  (supersedes the withdrawn EV-C058-E2REP-01)
+Candidate: C058
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were observed. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url and final_url: http://computeremuzone.com/ficha.php?id=754&l=en
+observed_at_utc: 2026-08-28T09:22:06Z; http_status 200; redirect_chain: NONE (num_redirects 0); 115605 bytes
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; the links exposed with their labels and targets; any sentence or label assigning a source role; any primary, canonical or mirror marking.
+
+Observed. The page is titled "Capitán Sevilla - El remake / Captain 'S' - The remake (CEZ RD 2009) :: Computer Emuzone" and is a catalogue record on a games portal, carrying site-wide navigation, per-game statistics and rankings, the game's developing-team credits, three download links labelled by platform, and a strip of per-game tabs:
+
+```text
+Review  Manual  Adverts  Maps  Screenshots  Covers  Media  Videos
+DEVELOPMENT  Cheats  Credits  Comments  Magazines  Walkthrough
+```
+
+Whether this portal is the project's own publisher is settled by the page's own structured field rather than left open:
+
+```text
+<div class="finfo__label">Company</div>
+<div class="finfo__value"><a href="/compania/cez%2Brd?l=en">CEZ RD</a></div>
+```
+
+The page names the game's company as CEZ RD, and the site is Computer Emuzone [CEZ]. On that reading this is the project's own surface, and step 2 therefore had to be taken.
+
+Step 2: the "Development" tab. Its label is one of the contract's four words exactly -- `<a class="fnavchip" href="...?l=en&pg=develop#pg-content" title="Development">` with the label span reading "Development" -- and it is a per-game tab in this record, not site furniture. The navigation is authorized on the contract's plain text.
+
+requested_url and final_url: http://computeremuzone.com/ficha/754/capitan-sevilla---el-remake?l=en&pg=develop
+observed_at_utc: 2026-08-28T09:32:19Z; http_status 200; redirect_chain: NONE; 99693 bytes
+
+Observed, in full for this section:
+
+```text
+"development
+ Packages made by Patsie (Download using \"Save as...\" option)"
+   Ubuntu 8.04 AMD64  -> .../webs/benway/CEZGS/deb/capitan.804_1.0-1_amd64.deb
+   Ubuntu 8.04 i386   -> .../capitan.804_1.0-1_i386.deb
+   Ubuntu 8.10 AMD64  -> .../capitan.810_1.0-1_amd64.deb
+   Ubuntu 8.10 i386   -> .../capitan.810_1.0-1_i386.deb
+   Ubuntu 9.04 AMD64  -> .../capitan.904_1.0-1_amd64.deb
+   Ubuntu 9.04 i386   -> .../capitan.904_1.0-1_i386.deb
+
+"File with necesary libraries to compile the game (Allegro,
+ AllegroOgg, AllegroFont, FBlend. See license inside each file):"
+   Libraries to compile the game
+     -> .../webs/benway/CEZGS/capitan-dependencies.tar.bz2
+```
+
+The section designates no source location for this game. What it exposes is six binary packages, attributed by the page itself to a third party ("made by Patsie"), and one archive of the game's build-time dependencies -- Allegro and friends -- which the page's own sentence describes as libraries needed to compile the game, not as the game's source.
+
+Step 3 was therefore not reached: step 2 was taken and led to no source location.
+
+One residual, recorded so the limit of the step-2 search is visible. The site-level link "Greetings and Sources" -> /greetings?l=en was not followed. The reading taken is that this compound label names that page's own topic -- greetings and acknowledgements -- and does not identify a source location for this game, being exposed with the portal's own furniture rather than in the game's record. The alternative reading, that a label containing "Sources" satisfies step 2 on plain text, is available and was not taken; under it this entry's step-2 search would still be incomplete. No claim is made about what that page contains.
+
+Also observed and explicitly not used: a 2015 visitor comment reading "Move the source to GitHub and further develop this." It is not upstream's words and designates nothing. It is recorded because treating it as a lead is exactly what the navigation contract refuses.
+
+Surface 2: the frozen SITES.
+requested_url and final_url: http://computeremuzone.com/pc/juegos/
+observed_at_utc: 2026-08-28T09:23:00Z (GET), 09:23:01Z (HEAD); http_status 404, 404; redirect_chain: NONE on both; 8343 bytes
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point.
+Observed: the site's own styled 404 page, "Computer Emuzone :: ERROR 404 -- PAGE NOT FOUND". No artifact names, headings for this game, or designation signal.
+
+```text
+PASS not established
+  no admissible surface designates a canonical source location for
+  this game. Step 1's links are platform-labelled downloads; the
+  Development tab, followed under the contract, exposes third-party
+  binary packages and a dependency archive; surface 2 returned 404.
+
+FAIL not established
+  what was observed is that these surfaces carried no source-location
+  designation. That is a bounded observation, not a demonstration that
+  upstream designates none -- the C017 boundary -- and the "Greetings
+  and Sources" residual narrows the basis further.
+
+E2REP-NO-SOURCE not established
+  no surface was reached at which source-tree presence could have been
+  established either way, and nothing observed bears on whether a
+  source representation is reachable elsewhere.
+```
+
+Both starting points were determinately answered -- 200 and 404 -- and the one exact-label step-2 target was followed to completion, so this is not the transport family and the exploration is not merely unfinished.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
+
+## RETRACTION 26 — C058 recorded a Development link as absent while its own observation listed it
+
+EV-C058-E2REP-01 recorded the page's per-game tabs, "Review, Manual, Adverts, Maps, Screenshots, Covers, Media, Videos, Development, Cheats, Credits, Comments, Magazines", and then wrote:
+
+```text
+"No link labelled Source, Code, Repository or Development for this
+ game is exposed."
+```
+
+That is false, and the contradiction was inside one entry. The markup shows an anchor with `title="Development"` and a label span reading "Development", pointing at `?pg=develop` -- one of the contract's four words exactly, on a per-game tab. Step 2 had a target and the entry stopped without taking it.
+
+The second withdrawal follows from the first. The entry left open whether the portal is the project's publisher and asserted that "no designation was observed on this surface under either reading, so the verdict is the same". That does not hold: if the portal is not upstream its navigation cannot do designation work, but if it IS upstream then an exact-label Development link existed and the exploration was unfinished. The two branches differ in what the contract requires, so the question could not be left open.
+
+Both are withdrawn. EV-C058-E2REP-02 settles the portal question from the page's own Company field -- CEZ RD, on a site named Computer Emuzone [CEZ] -- takes step 2, and records what the Development tab actually contains: third-party binary packages and an archive of build-time dependencies, no source location.
+
+The verdict does not move: UNRESOLVED, PI-UNCLASSIFIED-SHAPE. But its basis is different in kind. Before, the gate was unsettled with a step-2 target unexamined; now step 2 has been taken and led nowhere, which is a completed exploration rather than an abandoned one. Ledger fields are unchanged; the evidence refs now point at the superseding -02, per the C002/C005 convention.
