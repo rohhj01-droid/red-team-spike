@@ -4558,3 +4558,59 @@ Both starting points were determinately answered -- 200 and 404 -- so unlike C03
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C037-UR-01
+Candidate: C037 (frame rank 37, games/bass)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/bass/Makefile
+Observed: DISTNAME=bass-cd-1.2; PKGNAME=${DISTNAME:S/cd-//}; EXTRACT_SUFX=.zip; SITES=${SITE_SOURCEFORGE:=scummvm/}; COMMENT="Beneath A Steel Sky". There is no HOMEPAGE and no repository identifier.
+Inference: the frozen fields name one packaged system, Beneath A Steel Sky -- DISTNAME and COMMENT both do. SITES points into another project's SourceForge distribution area, which is a statement about where the file is fetched from, not a second system claim; the protocol's carve-out treats a distfile host as one more fact about one system rather than as ambiguity. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C037-E1-01
+Candidate: C037
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party adventure game, packaged from a distfile named bass-cd-1.2, unrelated to this project.
+Inference: external-authorship requirement satisfied, from the frozen metadata alone.
+Decision: PASS
+
+## EV-C037-E2REP-01
+Candidate: C037
+Gate: E2-REP
+
+Per QA-27, the frozen metadata's URLs and identifiers are enumerated: there is one, SITES. No HOMEPAGE exists, so navigation step 1 has no target, and no repository or account identifier offers an alternative starting point.
+
+Surface: the frozen SITES. `${SITE_SOURCEFORGE:=scummvm/}` resolves, through the ports infrastructure's own definition of that macro, to https://downloads.sourceforge.net/sourceforge/scummvm/.
+Necessary because: it is the only admitted starting point and the gate cannot be settled without it. It was observed rather than predicted from its URL shape, per C018 -- the same macro produced a 404 at C031 and C036, and assuming this one would too is exactly the reasoning that was withdrawn there.
+
+Observation scope, fixed before the request: HTTP status; headings the surface carries; artifact names and link relations it exposes; any explicit source or source-code label; any primary or mirror marking. Not: opening any listed artifact, and not searching elsewhere.
+
+requested_url and final_url: https://downloads.sourceforge.net/sourceforge/scummvm/
+observed_at_utc: 2026-08-28T03:29:53Z (GET), 03:29:54Z (HEAD)
+http_status: 404, 404; redirect_chain: NONE on both
+Observed: a 154-byte "404 Not Found -- The resource could not be found." No headings, artifact names or designation signal.
+
+On the control, recorded because it did not do the job earlier controls did: a request to the host root, https://downloads.sourceforge.net/, also returned 404, so it establishes nothing about the host's general health. What rules out the transport-indeterminacy family here is the responses themselves -- DNS resolved, the connection completed, and the endpoint returned a definite HTTP status twice. That is the contract's own distinction, and it does not depend on a healthy control existing.
+
+```text
+PASS not established
+  the one admissible surface displayed nothing. No canonical-source
+  designation was observed, and no other starting point was supplied
+  to carry one.
+
+FAIL not established
+  a 404 at this path is evidence about this endpoint. It does not
+  demonstrate that upstream designates no canonical source location.
+
+E2REP-NO-SOURCE not established
+  no-access-to-actual-source-representation was not established
+  either; nothing observed bears on whether the source representation
+  is reachable elsewhere.
+```
+
+Every admitted starting point was determinately answered, so the bounded adjudication completed without a PASS witness and without a candidate-level failure -- the unclassified shape, as at C036, rather than C035's unobserved surface.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
