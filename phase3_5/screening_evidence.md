@@ -5951,3 +5951,72 @@ C049's verdicts are unchanged; each of these was an argument the entry did not n
 **E3's history claim.** The entry said the verdict depends on "what that player has seen by that point in the match", calling visibility "accumulated game state". What the two quoted functions establish is narrower: `MapFogFilterFlags` strips the field flags of units failing `IsVisibleAsGoal(player)` from the test mask. The backing state behind `IsVisibleAsGoal`, and whatever writes it, were never observed. Withdrawn. E3 asks for a stateful OR temporal validity question, and the stateful half stands on what was quoted.
 
 **E4's mutation claim.** The entry recorded runtime enforcement state as "none -- the entries are string literals and no observed path mutates them". That is an absence inferred from not having looked, and `const char *VariableNames[]` constrains the pointed-to characters rather than the array slots in any case. Withdrawn; the two levels are now stated as C043 states them, with no immutability claim, resting instead on the positive 15-to-15 cross-check at observation time. EN5's "the compiler ties the table to the enum" is lowered in the same pass: the sentinel fixes the extent, and the name-by-name correspondence is an observation, not a compiler guarantee.
+
+## EV-C050-UR-01
+Candidate: C050 (frame rank 50, games/braincurses)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/braincurses/Makefile
+Observed: GH_ACCOUNT=bderrly; GH_PROJECT=braincurses; GH_TAGNAME=v1.1.0; COMMENT="clone of the Mastermind game". There is no HOMEPAGE and no SITES.
+Inference: the frozen fields name one packaged system, braincurses. "clone of the Mastermind game" describes what it imitates, not a second packaged system -- the reading applied at C013, C023, C046 and C048. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C050-E1-01
+Candidate: C050
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under GPLv2, on an upstream account unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C050-E2REP-01
+Candidate: C050
+Gate: E2-REP
+
+Per QA-27 the admitted starting points are enumerated, and there is exactly one: the GH_ACCOUNT/GH_PROJECT pair. No HOMEPAGE and no SITES exist, so no second surface is supplied, nothing is left unaccounted for, and QA-31 does not arise.
+
+The pair resolves to https://github.com/bderrly/braincurses, which is itself a repository. This is the C010/C012/C017 topology in its barest form -- step 1 and step 3 are the same surface, and there is no project page anywhere in the frozen metadata. QA-22 settled that the topology answers WHICH surface and supplies no designation of its own.
+
+Observation scope, fixed before the request: existence; repository and owner name; default branch; fork, mirror, archive and template flags; the website metadata field; the repository description; whether a source tree is present at the root; any statement designating this location as the project's source; any primary or mirror marking. Not: README prose, releases, issues, docs, or any source file.
+
+observed_at_utc: 2026-08-28T07:46:48Z (metadata), 07:46:49Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+
+```text
+full_name        bderrly/braincurses
+owner            bderrly
+default_branch   master
+fork             false          parent       null
+archived         false          is_template  false
+mirror_url       null
+website field    EMPTY
+description      "A version of the classic game Mastermind"
+license          GPL-2.0, matching the frozen licence line
+```
+
+Root listing: braincurses.cpp, braincurses.h, code.cpp, code.h, main.cpp, Makefile, README.md, LICENSE, .gitignore, .gitmodules, and the directories external and tests. A source tree is present, and the three translation units the frozen do-build names -- main.cpp, code.cpp, braincurses.cpp -- are all here.
+
+The `external` directory and `.gitmodules` were not followed. They are not identifiers the frozen metadata supplies, so QA-27 imposes no accounting obligation for them, and nothing beyond the root listing was read.
+
+```text
+PASS not established
+  nothing observed designates this location as the project's canonical
+  source. The only route to it is the packaging metadata's own
+  GH_ACCOUNT/GH_PROJECT pair, and arrival by an admitted route is
+  affiliation, not designation (QA-22, C017). The website field is
+  empty, so there is not even the repo->site arrow C042 had to weigh
+  -- and RETRACTION 23 has just confirmed that such an arrow would not
+  have designated anything in this direction either.
+
+FAIL not established
+  the repository root is an admissible surface and carried no
+  designation signal, which is a bounded observation and not a
+  demonstration that upstream designates none -- the C017 boundary.
+
+E2REP-NO-SOURCE not established
+  a source tree WAS observed, so source access is not what is missing.
+```
+
+The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family. What the sealed criteria do not describe is a frame item that supplies a repository identifier and nothing else: there is no surface on which upstream could perform a designation, and its absence is a property of the metadata rather than a finding about upstream.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
