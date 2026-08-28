@@ -8826,3 +8826,259 @@ Normative route: not pursued. Nothing observed designates an authoritative rule 
 Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
+
+## EV-C067-UR-01
+Candidate: C067 (frame rank 67, games/chroma)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/chroma/Makefile
+Observed: DISTNAME=chroma-1.13; EXTRACT_SUFX=.tar.bz2; HOMEPAGE=http://level7.org.uk/chroma/; SITES=${HOMEPAGE}/download/; COMMENT="abstract puzzle game".
+Inference: the frozen fields name one packaged system, Chroma, and SITES is expressed relative to HOMEPAGE, so both admitted URLs are on the same upstream host. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C067-E1-01
+Candidate: C067
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party puzzle game under GPLv2, on an upstream site unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C067-E2REP-01
+Candidate: C067
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for: the frozen HOMEPAGE, and the frozen SITES.
+
+Step 1: the frozen HOMEPAGE.
+requested_url and final_url: http://level7.org.uk/chroma/
+observed_at_utc: 2026-08-28T13:48:13Z; http_status 200; redirect_chain: NONE (num_redirects 0); 4053 bytes
+evidence_role: official-project-page
+
+Observation scope, fixed before the request: HTTP status and redirects; headings; every link with its label and target; any sentence or label assigning a source role; any primary, canonical or mirror marking; and -- for a distribution-type designation -- retrieval of the designated artifact with a listing of its entry NAMES, which C013 established is this gate's source-tree observation carried over to a distribution candidate.
+
+Observed: the project's own page, headed "c h r o m a", with sections Screenshots, Play Online, Download, Play Retro, Other Games and Email. The Download section reads:
+
+```text
+"Alternatively, you can download Chroma to install on your computer:"
+
+  "Chroma 1.21 source code for Linux and other operating systems"
+        -> download/chroma-1.21.tar.bz2   (2.7Mb)
+
+  "Chroma 1.20 for Windows (installer)"
+        -> download/chroma-setup-1.21.exe (4.0Mb)
+```
+
+That is a source-role designation in upstream's own words -- the same form as C013's and as the withdrawn C056's "Download for Source" -- and upstream separates the installer from it in the same list, so the ranking is not ours.
+
+One other link on this surface carries a source-role phrase and is NOT a competing designation, for a reason upstream states rather than one we supply:
+
+```text
+"Play Retro"
+  "Play Chroma in 8-bit style on this port to the BBC Micro. Features
+   all twenty one levels and finite undo. You can [play in a
+   browser-based emulator], [download a disk image] or [view the
+   source code]."
+        view the source code -> chroma.asm
+```
+
+The sentence delimits its own subject: that source is the BBC Micro PORT's, introduced as "this port to the BBC Micro". Under QA-26 that is a different delimited artifact from the packaged system, whose frozen WANTLIB names SDL, SDL_image and curses. Nothing here ranks two designations of one system; upstream has named two different things.
+
+Unlike C056, exactly ONE URL carries the source role for the packaged system, so the multi-designation problem that withdrew that candidate does not arise.
+
+Source-tree presence at the designated location:
+requested_url: http://level7.org.uk/chroma/download/chroma-1.21.tar.bz2
+observed_at_utc: 2026-08-28T13:49:00Z-13:49:03Z; http_status 200; 2812208 bytes
+sha256 of the retrieved bytes: bdf4d6e1ac65588a93569ec3ec01869fee461f9dafe4cdbebb1fc38c42d9693d
+
+Listing its entries -- names only -- shows a source tree: 1469 entries under a single root `chroma-1.21/`, with 19 `.c` files and 11 `.h` files at the top level (main.c, engine.c, editor.c, level.c, colours.c, names.c, graphics.c, xmlparser.c, the sdl* and curses* display modules, util.c, xor.c, enigma.c), alongside configure, configure.ac, Makefile.in, Makefile.mingw, INSTALL, README, COPYING, CHANGELOG and the directories browser, colours, graphics, help, levels, locale, po and resources.
+
+Recorded rather than glossed, as at C056: upstream publishes no checksum beside the link. The page was scanned for a 64-hex string and none appears. So the retrieved bytes cannot be matched against a value upstream published; the digest above identifies the object analysed and is not verification of the designation.
+
+Version note, stated as a limitation: upstream's designation at observation time is for 1.21, while the frozen DISTNAME is chroma-1.13. This entry designates what upstream designates now and makes no claim about the sealed instant (QA-28).
+
+The frozen SITES, `${HOMEPAGE}/download/`, is accounted for and was not opened. The stop rule ends navigation once the gate is determined, and QA-27's obligation is to account for each starting point rather than to open each. Recorded because it bears on the reading above and does no work: the designated artifact lives inside that directory, so opening the directory could only have listed files whose roles C026 forbids inferring from their names.
+
+Inference: exactly one designated canonical source location for the packaged system, at a stable URL, holding a source tree, with one external target identifier (Chroma).
+
+Decision: PASS
+
+## EV-C067-E2RULE-01
+Candidate: C067
+Gate: E2-RULE
+Source: INSTALL, entry `chroma-1.21/INSTALL` of the designated artifact
+Provenance: the artifact retrieved above, sha256 bdf4d6e1...9693d. All source citations below are entries of that same artifact, so the one digest covers them.
+
+Observed: located witness, the file's own Dependencies section at INSTALL:13.
+
+```text
+"Dependencies
+ ============
+ The SDL version of Chroma requires the following libraries:
+     * SDL
+     * SDL_image
+     * FreeType 2
+ It also uses the font "DejaVu Sans" ...
+ The curses version of Chroma requires a curses library such as:
+     * ncurses
+ Both versions require:
+     * gettext"
+```
+
+Inference: these state concrete validity requirements without our inventing them, and the project scopes each to a build variant in its own words -- SDL version, curses version, both. A build environment lacking gettext, or lacking SDL and SDL_image when the SDL version is built, does not satisfy them.
+Decision: PASS
+
+## EV-C067-E3-01
+Candidate: C067
+Gate: E3
+Source: `chroma-1.21/engine.c`
+Provenance: as above.
+
+Observed: located witness. Both the decision and the writer of the state it consults are quoted (C038's rule).
+
+```text
+engine.c:124-155   int level_move(struct level* plevel, int move)
+                   {
+                       ...
+                       if(plevel == NULL || plevel->mover_first != NULL)
+                           return 0;                                // :142-143
+
+                       if(move == MOVE_REDO)                        // :145
+                       {
+                           if(plevel->move_current == NULL)
+                               pmove = plevel->move_first;
+                           else
+                               pmove = plevel->move_current->next;
+
+                           if(pmove == NULL)
+                               return 0;
+
+                           move = pmove->direction;
+                       }
+
+engine.c:106-122   void level_moved(struct level* plevel, int move)
+                   {
+                       if(move != MOVE_REDO)
+                           level_addmove(plevel, move);             // :109
+                       else
+                       {
+                           if(plevel->move_current != NULL)
+                               plevel->move_current = plevel->move_current->next;
+                           else
+                               plevel->move_current = plevel->move_first;
+                       }
+                       plevel->moves ++;
+                       ...
+                   }
+```
+
+`level_moved` is called from `level_move` at :172, :187, :199 and :380.
+
+Inference: a MOVE_REDO is accepted only if the recorded move list holds a next entry, and that list is exactly what `level_addmove` and the `move_current` advance in `level_moved` have built from earlier play. The identical input therefore performs a move or returns 0 according to the move history. A second, non-historical state condition sits above it at :142-143 -- a move is refused outright while movers from the previous move are still in flight -- and is recorded as a further instance without being leaned on.
+Decision: PASS
+
+## EV-C067-E4-01
+Candidate: C067
+Gate: E4
+
+Positive construction exhibited, via U_enforced.
+Provenance: as above.
+
+The mechanism: the per-mode allowed-piece registry and the level verifier that tests a level against it.
+
+```text
+editor.c:51,...    int editor_pieces_chroma[] = { PIECE_SPACE, ... ,
+                                                  PIECE_GONE };
+                   #ifdef XOR_COMPATIBILITY
+                   int editor_pieces_xor[]    = { ... PIECE_GONE };
+                   #endif
+                   #ifdef ENIGMA_COMPATIBILITY
+                   int editor_pieces_enigma[] = { ... PIECE_GONE };
+                   #endif
+
+editor.c:135-144   int *editor_piece_maps[] =
+                   {
+                       editor_pieces_chroma,
+                   #ifdef XOR_COMPATIBILITY
+                       editor_pieces_xor,
+                   #endif
+                   #ifdef ENIGMA_COMPATIBILITY
+                       editor_pieces_enigma,
+                   #endif
+                       NULL
+                   };
+
+editor.c:358,375-383
+                   int piece_ok[PIECE_MAX];
+                   ...
+                   for(i = 0; i < PIECE_MAX; i ++)
+                       piece_ok[i] = 0;
+                   i = 0;
+                   while(editor_piece_maps[plevel->mode][i] != PIECE_GONE)
+                   {
+                       piece_ok[editor_piece_maps[plevel->mode][i]] = 1;
+                       i ++;
+                   }
+
+editor.c:411-418   if(!piece_ok[p])
+                   {
+                       sprintf(buffer, gettext("Invalid piece %s at (%d,%d)"),
+                               gettext(piece_name[p]), x, y);
+                       ...
+                       errors ++;
+                   }
+```
+
+```text
+list                    entries including the PIECE_GONE sentinel
+editor_pieces_chroma    33
+editor_pieces_xor       20   (compiled only under XOR_COMPATIBILITY)
+editor_pieces_enigma    18   (compiled only under ENIGMA_COMPATIBILITY)
+```
+
+EN1 external authorship: the game and these tables existed independently of this analysis.
+
+EN2 explicit scope: the domain is the pieces a level may contain, and the project segments it by mode -- one list per game mode, selected by `plevel->mode`. Each member is a named piece constant, and `piece_name[]` in names.c gives the project's own string for each.
+
+EN3 mechanical membership, with the two levels kept apart:
+
+```text
+enumerator membership      the entries of editor_piece_maps[mode], up
+                           to but excluding the PIECE_GONE sentinel
+runtime enforcement value  piece_ok[], the boolean vector built from
+                           that list at editor.c:375-383
+```
+
+Membership is enumerable by reading the list for the mode, and the scan bound is the project's own sentinel rather than a length we supply.
+
+Recorded rather than glossed: which lists exist is a compile-time question. `editor_pieces_xor` and `editor_pieces_enigma` are inside `#ifdef` guards and `editor_piece_maps` includes them conditionally, so in a build without those flags the registry family has one member. This is the same shape as C065's `#if defined(TILES)` arms, and it means a member list is per-build rather than absolute.
+
+EN4 connection to validation, in project code on both sides: the verifier walks the level, and for each piece `p` tests `piece_ok[p]`, emitting "Invalid piece %s at (%d,%d)" with the project's own name for the piece and its coordinates, and incrementing an error count. Deciding and reporting are both the project's.
+
+Recorded as a limit on what that enforcement is: it is a verifier that reports errors into a menu and counts them, not a loader that refuses the level. This entry does not claim that a level containing an out-of-mode piece cannot be opened or played -- only that the project tests membership against this registry and names the failures.
+
+EN5 closed within scope: each list is closed by its own `PIECE_GONE` sentinel, which the fill loop at :380 uses as its bound, and `piece_ok[]` is constructed from it at runtime. Section 3.2's first admissible case. Tag: `enforced`.
+
+EN6 outcome independence: the registry is the set of pieces a mode admits. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations:
+
+```text
+one enforcement observation per entry of a mode's list
+
+  "piece constant P is admitted in mode M; a piece present in a level
+   of mode M whose constant is not in that mode's list is reported as
+   `Invalid piece <name> at (x,y)` and counted as an error"
+
+retained as externally segmented fields, per observation
+  the piece constant
+  the mode whose list admits it
+  the project's own name for the piece, from piece_name[]
+```
+
+As at C043, C049, C056, C059, C063, C065 and C066, this establishes only that a mechanically constructible universe EXISTS; it fixes no contents, and the per-build conditionality above is exactly the kind of thing the inventory stage would have to settle under QA-19.
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
+
+Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The designation observed is for 1.21 while the frozen DISTNAME is chroma-1.13, upstream publishes no checksum, and no observation fixes what was designated at the sealed instant. The three inventory fields are consequently NOT_REACHED.
