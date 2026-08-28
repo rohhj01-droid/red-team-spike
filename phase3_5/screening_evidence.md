@@ -4620,3 +4620,136 @@ Every admitted starting point was determinately answered, so the bounded adjudic
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C038-UR-01
+Candidate: C038 (frame rank 38, games/bastet)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/bastet/Makefile
+Observed: HOMEPAGE=http://fph.altervista.org/prog/bastet.html; GH_ACCOUNT=fph; GH_PROJECT=bastet; GH_TAGNAME=0.43.2; COMMENT="bastard tetris".
+Inference: the frozen fields name one system, Bastet. HOMEPAGE pointing at a project page while GH_ACCOUNT/GH_PROJECT point at a repository is the shape the protocol names non-ambiguous. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C038-E1-01
+Candidate: C038
+Gate: E1
+Source: same frozen metadata; http://fph.altervista.org/prog/bastet.html
+observed_at_utc: 2026-08-28T03:56:41Z; http_status 200
+Observed: a third-party game, its page titled "Bastet -- Federico Poloni", unrelated to this project.
+Inference: external-authorship requirement satisfied.
+Decision: PASS
+
+## EV-C038-E2REP-01
+Candidate: C038
+Gate: E2-REP
+
+Per QA-27 both frozen items are accounted for: HOMEPAGE is step 1, and the GH_ACCOUNT/GH_PROJECT pair resolves to the same repository the step-2 link reaches, so it is not a separate surface.
+
+Step 1: the frozen HOMEPAGE.
+requested_url and final_url: http://fph.altervista.org/prog/bastet.html
+observed_at_utc: 2026-08-28T03:56:41Z-03:56:42Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-project-page
+Observed: under a "Download" heading, a subheading reading **"Source"**, and beneath it the sentence "Bastet is now hosted on github; check that page for the development version." -- with "github" linking to https://github.com/fph/bastet/. A release history follows: 0.43.1 (2014) links to that repository's own archive endpoint, while 0.43, 0.41 and 0.37 link to files/bastet-*.tgz on the author's host. Windows binaries, two patches and third-party links appear separately.
+
+Step 2: the "github" link. Its label is a host name rather than one of the contract's four words, and the reading is C009's and C022's -- step 2 classifies by what a link LEADS TO, and this destination is a repository root. Here the surrounding text does the rest: the link sits under a heading reading "Source", in a sentence saying where Bastet is hosted.
+
+On uniqueness. The older files/*.tgz artifacts are on a different host from the repository, which is the C015 shape on its face. What distinguishes it is that upstream ranks them itself: "Bastet is **now** hosted on github" is a present-tense hosting statement, and the tarballs appear beneath it as a dated release history, the most recent of which (0.43.1) already points into the repository rather than to files/. That is the same device as C023's "As of 2015-12-05, this project can be found here" -- a primary marked by upstream, not supplied by us.
+
+Step 3: https://github.com/fph/bastet/
+observed_at_utc: 2026-08-28T03:57:23Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+evidence_role: official-source-location
+Observed: repository bastet, owner login fph -- matching the project page's host, fph.altervista.org -- default branch master, isFork false, isMirror false, isArchived false, isTemplate false. No website metadata field; the repository description reads "Evil falling block game. http://fph.altervista.org/prog/bastet.html". A source tree is present at the root: BastetBlockChooser, Block, BlockChooser, BlockPosition, Config, Ui, Well and main as .cpp/.hpp pairs, plus Makefile, INSTALL, LICENSE, AUTHORS, NEWS, README, bastet.6 and the desktop/appdata files.
+
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Bastet).
+
+Decision: PASS
+
+## EV-C038-E2RULE-01
+Candidate: C038
+Gate: E2-RULE
+Source: INSTALL in the designated repository
+observed_at_utc: 2026-08-28T03:57:41Z; http_status 200
+Provenance: read against the source state available at screening observation time; no claim about the sealed primary snapshot (QA-28).
+
+Observed: located witness, the file's own first section:
+
+```text
+==Prerequisites==
+Boost (libboost-dev + libboost-program-options-dev), ncurses
+(libncurses-dev).
+```
+
+and, of the system-wide high-score file, "you may want to create an empty '/var/games/bastet.scores2' file, and make sure that is writable to the bastet executable."
+
+Inference: these determine concrete validity requirements without our inventing them -- a build environment without Boost's program-options component or without ncurses does not satisfy the stated prerequisites, and a global high-score file that is not writable by the executable does not satisfy the stated condition for that feature.
+
+Recorded as at C014, C023 and C034: the Prerequisites are a BUILD-ENVIRONMENT requirement, and they carry no version bounds. E2-RULE asks for at least one validity requirement and does not restrict the domain.
+Decision: PASS
+
+## EV-C038-E3-01
+Candidate: C038
+Gate: E3
+Source: Config.cpp in the designated repository
+observed_at_utc: 2026-08-28T03:57:57Z; http_status 200
+Provenance: observation-time source state, as above.
+
+Observed: located witness at Config.cpp:43-55.
+
+```text
+bool HighScores::Qualifies(int score){
+    stable_sort(begin(),end());
+    return begin()->Score < score;
+}
+
+int HighScores::InsertHighScore(int score, const std::string &scorer){
+    if(!Qualifies(score)) return -1;
+    ...
+}
+```
+
+Inference: whether a score may enter the table is decided against the table's current lowest entry, which is loaded from a high-score file written by earlier sessions. The same score qualifies or does not according to what was stored before it. That is validity conditioned on history, which is what E3 asks for, and it is the same shape as C014's snes9x witness where the eligibility test read score_high loaded at session start.
+Decision: PASS
+
+## EV-C038-E4-01
+Candidate: C038
+Gate: E4
+
+Positive construction exhibited, via U_enforced, with one leg flagged rather than buried.
+observed_at_utc: 2026-08-28T03:57:57Z; http_status 200
+Provenance: observation-time source state.
+
+The mechanism: the two `boost::program_options::options_description` objects built in Config::Config(), Config.cpp:103-124, and used as the parse schemas at lines 130 and 142.
+
+EN1 external authorship: the game and this configuration machinery existed independently of this analysis.
+
+EN2 explicit scope: the project names each domain when it constructs the description -- `options_description keyMappingOpts("Key mappings")` and `options_description highScoresOpts("High scores")` -- and gives every entry its own description string, "Down key", "Clockwise turn key", "Name of high scorer", "High score (points)".
+
+EN3 mechanical membership: membership is what was registered into each description. The seven key-mapping entries are added by name with a typed value and a default; the high-score entries are GENERATED, by nested loops over the difficulties and the ten score slots, so that set is computed rather than hand-listed.
+
+EN5 closed within scope: the sets are constructed at runtime by add_options() calls during construction and are then handed to the parser. That is Section 3.2's first admissible case, runtime construction closing the set. Tag: enforced.
+
+EN6 outcome independence: membership is the set of configuration names the two files may set. It is not a bug list, fix list or known-failure registry.
+
+**EN4, and the reason it is flagged.** The project connects the mechanism to validation by passing each description as the schema a file is parsed against -- `po::store(po::parse_config_file(ifs, keyMappingOpts), _options)` -- and a name outside the description makes that parse throw. Nothing about the validity role is inferred by us: the project wrote the description and wrote it into the parse call.
+
+What differs from every prior E4 PASS in this run is where the rejection EXECUTES. Flycast threw "Unknown game", libchdr took an EARLY_EXIT to CHDERR_UNSUPPORTED_FORMAT, fceux called FCEU_PrintError, weland returned false, angband called quit_fmt -- all project code. Here the rejection is boost's, uncaught by the project, so it propagates and the constructor fails.
+
+EN4's text asks that the project CONNECT the mechanism to validation and warns only against a meaning "inferred by us". It does not require the project to implement the rejection itself, and on that reading the leg is met. The difference is recorded here rather than smoothed over, because it is the first time this run has admitted an enforcement path whose executing code is a library's, and a reviewer should be able to see that without reading the source.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations:
+
+```text
+one enforcement observation per registered option
+
+  "configuration name N is accepted in file F, with declared type T
+   and default D; a name outside the description makes the parse of F
+   throw"
+
+retained as externally segmented fields, per observation
+  the description the project named ("Key mappings", "High scores")
+  the entry's own description string
+  its declared type and default
+```
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
