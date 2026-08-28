@@ -6292,7 +6292,9 @@ unlabelled image links  ../index.html  ../macGames.html
                         http://www.pangeasoft.net/forum
 ```
 
-None is a Source, Code, Repository or Development link, so navigation step 2 has no target. `../downloads.html` was not opened: not among the four labels, and QA-17 settled that "source distribution" may not widen the whitelist. The unlabelled links were classified by their targets, which are site-level pages of the publisher rather than source locations.
+No qualifying Source, Code, Repository or Development navigation signal is exposed on the document's own anchors or text, so navigation step 2 has no target. `../downloads.html` was not opened: not among the four labels, and QA-17 settled that "source distribution" may not widen the whitelist.
+
+The unlabelled image links are recorded by href only, and no source-role inference is drawn from those hrefs. An earlier draft classified them as "site-level pages of the publisher rather than source locations", which decides a link's role from the shape of its URL -- the move C020 and QA-25 refused. Nothing here needs it: what settles step 2 is that no anchor carries a qualifying label or project-authored text identifying it as source, and an unlabelled link carries no such signal by definition.
 
 Surface 2: https://github.com/jorio/Bugdom, from the first DIST_TUPLE's identifiers.
 Necessary because: the gate was unsettled after surface 1 and this is the remaining admitted starting point for the packaged system.
