@@ -8774,7 +8774,24 @@ not established here
   supplying library semantics from our own knowledge.
 ```
 
-EN5 closed within scope: the set is closed by runtime construction -- Section 3.2's first admissible case -- membership being precisely what `LoadItems` inserted. Tag: `enforced`. No immutability is claimed.
+EN5 closed within scope: the set is closed by runtime construction -- Section 3.2's first admissible case -- and the three sets it closes over are named separately, because "what `LoadItems` inserted" covers the sentinel too and would otherwise contradict the membership defined above:
+
+```text
+U_enforced membership   the loaded members: one per nonzero row of the
+                        `item` table, each a fully built _Item
+
+validation key set      the loaded members TOGETHER WITH the sentinel
+                        key 0. This is the set `find` at
+                        scripting.cpp:523 consults.
+
+rejection fires         when the converted id is absent from the
+                        VALIDATION KEY SET -- not from the U_enforced
+                        membership. Key 0 is in the former and not the
+                        latter, which is exactly why it is not
+                        rejected.
+```
+
+Both sets are closed by the same runtime construction, inside `LoadItems`: the query loop for the members, stats.cpp:341 for the sentinel. Closure is the project's own doing, not analyst selection. Tag: `enforced`. No immutability is claimed.
 
 EN6 outcome independence: the registry is the set of items the game defines. It is not a bug list, fix list or known-failure registry.
 
@@ -8783,10 +8800,10 @@ The universe is therefore ACTUALLY mechanically constructible, stated as observa
 ```text
 one enforcement observation per LOADED item id
 
-  "item id N is present in the loaded item registry, carrying the
-   project's own name, type, script and proc fields; a script
-   `Item_Data` entry whose converted id is not a key of that registry
-   is rejected with `Item ID <n> not found!`"
+  "item id N is a loaded member, carrying the project's own name,
+   type, script and proc fields; a script `Item_Data` entry whose
+   converted id is absent from the VALIDATION KEY SET is rejected with
+   `Item ID <n> not found!`"
 
 retained as externally segmented fields, per observation
   the item id
@@ -8796,9 +8813,10 @@ retained as externally segmented fields, per observation
 
 the sentinel is NOT such an observation
   key 0 carries none of those fields, and it is the one key whose
-  presence weakens rather than performs the check. It is recorded as
-  part of the map's key set under EN3 and excluded from the
-  observation set here.
+  presence weakens rather than performs the check. It belongs to the
+  validation key set and not to the U_enforced membership, which is
+  why the rejection clause above is worded against the validation key
+  set rather than against the membership.
 ```
 
 Two limits are stated rather than left implicit. The registry's contents are read from the `item` table of a database the project ships, and this entry did not open that database, so no member list and no count is offered here -- constructing it is the inventory stage's work under QA-19, by the same mechanism the program uses. And the sentinel means the map's key set, the loaded-member set and the set of ids with usable values are three different things, kept apart above.
