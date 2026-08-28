@@ -7559,3 +7559,216 @@ Recorded and doing no verdict work: the page is dated "06 January 2003" and name
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C063-UR-01
+Candidate: C063 (frame rank 63, games/chessx)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/chessx/Makefile
+Observed: V=1.5.6; GH_ACCOUNT=Isarhamster; GH_PROJECT=chessx; GH_TAGNAME=v${V}-lw; DISTNAME=chessx-${V}; HOMEPAGE=https://chessx.sourceforge.net/; COMMENT="free chess database and analyzer".
+Inference: the frozen fields name one packaged system, ChessX. A HOMEPAGE on one host beside a repository identifier pair on another is the shape the protocol names non-ambiguous, and C045 settled that a tag suffix the packager carries -- here "-lw" -- is not a second system. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C063-E1-01
+Candidate: C063
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party chess database under GPLv2+, on upstream hosts unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C063-E2REP-01
+Candidate: C063
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for: the frozen HOMEPAGE, and the GH_ACCOUNT/GH_PROJECT pair. The pair resolves to the same repository the step-2 link reaches, so as at C038 it is not a separate surface.
+
+Step 1: the frozen HOMEPAGE.
+requested_url: https://chessx.sourceforge.net/ ; final_url: https://chessx.sourceforge.io/
+observed_at_utc: 2026-08-28T10:34:44Z; http_status 200; redirect_chain: 1 redirect (sourceforge.net -> sourceforge.io, the same host change C036 recorded); 6713 bytes
+evidence_role: official-project-page
+
+Observed: the project's own site, titled "ChessX - Free Chess Database". Two of its links carry the contract's four words exactly, and both point at the same location:
+
+```text
+nav    "Source Code" -> https://github.com/Isarhamster/chessx/
+body   "Source"      -> https://github.com/Isarhamster/chessx/
+```
+
+Uniqueness is settled by upstream's own partition, in its own words, not by any ranking of ours. The site separates binaries from source and says so:
+
+```text
+"Download the setup for your platform: Windows, Mac OS, Linux."
+   "Binaries"  -> https://sourceforge.net/projects/chessx/
+   "Download"  -> https://sourceforge.net/projects/chessx/
+
+"If you don't trust online binaries of if you want to extend ChessX
+ with your own ideas: Download the source here and compile for
+ yourself."
+   "Source"    -> https://github.com/Isarhamster/chessx/
+```
+
+So the SourceForge project is where upstream sends people for binaries and the GitHub repository is where it sends them for source. That is the distinction C047 lacked -- there upstream gave two locations a source role and ranked neither -- and it is upstream's, stated beside each link.
+
+A scan of the page's visible text for source, binary, repository, canonical, official, mirror and primary returned only these passages and "Free and Open Source" describing the project's nature.
+
+Step 2: the "Source Code" link. Its label is one of the contract's four words verbatim and step 1 exposes it directly, so the navigation is authorized on the plain text -- the C038 basis, with no reading of the destination required. The body's "Source" link is the same target.
+
+Step 3: https://github.com/Isarhamster/chessx
+observed_at_utc: 2026-08-28T10:35:05Z (metadata), 10:35:20Z (root listing); http_status 200 on both; redirect_chain: NONE on both
+evidence_role: official-source-location
+
+```text
+full_name        Isarhamster/chessx
+owner            Isarhamster
+default_branch   master
+fork             false          parent  null
+archived         false          is_template  false     mirror_url  null
+website field    EMPTY
+description      "Sources of the official ChessX version."
+license          GPL-2.0, matching the frozen GPLv2+ line
+```
+
+Root listing: src, tests, tools, data, lib, dep, i18n, unix, mac_osx, .github, CMakeLists.txt, chessx.pro, INSTALL.md, README.md, README.developers.md, ChangeLog.md, COPYING.md, TODO.md, Doxyfile, resources.qrc, translations.qrc and the lcov and packaging scripts. A source tree is present.
+
+The repository description reads "Sources of the official ChessX version". It is recorded as observed metadata and is NOT what carries the designation: a repository's self-description is repository-side, and the run has been consistent that the designating arrow must run from the project (C032, RETRACTION 23). Here it does -- the site's own "Source Code" and "Source" links do the work -- and the description only corroborates.
+
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (ChessX).
+
+Decision: PASS
+
+## EV-C063-E2RULE-01
+Candidate: C063
+Gate: E2-RULE
+Source: INSTALL.md in the designated repository
+observed_at_utc: 2026-08-28T10:35:33Z; http_status 200; 3284 bytes
+Provenance: read against the default branch at observation time; the frozen tag is v1.5.6-lw, and no claim is made about the sealed primary snapshot (QA-28).
+
+Observed: located witness, the file's own section 3.
+
+```text
+"# 3. Requirements
+
+ To compile ChessX, you need zlib, qmake and **Qt5 version 5.14.1** or
+ above."
+```
+
+Inference: this states a concrete validity requirement without our inventing one -- a build environment lacking zlib or qmake, or carrying a Qt5 older than 5.14.1, does not satisfy it -- and it is version-bounded, as at C049 and C059.
+
+Recorded and not relied on: the same section adds "known issue: FICS does not work properly with Qt4". It is a defect note rather than a stated requirement, and the requirement sentence carries the gate on its own.
+Decision: PASS
+
+## EV-C063-E3-01
+Candidate: C063
+Gate: E3
+Source: src/database/bitboard.cpp and src/database/bitboard.h in the designated repository
+observed_at_utc: 2026-08-28T10:36:04Z (bitboard.h), 10:36:28Z (bitboard.cpp); http_status 200 on both
+Provenance: observation-time source state, as above.
+
+Observed: located witness. Both halves are quoted rather than one assumed (C038's rule).
+
+```text
+the decision            bitboard.cpp:603  BoardStatus BitBoard::validate() const
+                        ...
+                        bitboard.cpp:701-703
+                          if(canCastleLong(White) && pieceAt(a1) != WhiteRook)
+                          {
+                              return BadCastlingRights;
+                          }
+                        and the sibling checks through :752 for
+                        canCastleShort(White), canCastleLong(Black),
+                        canCastleShort(Black), and for the kings
+
+the state it reads      bitboard.h:490-503
+                          inline bool BitBoard::canCastle(color) const
+                          { return m_castle & (5 << color); }
+                          canCastleShort / canCastleLong likewise
+
+how that state is       bitboard.cpp:557-559   on a rook move
+narrowed by play          if (!chess960()) { m_castle &= Castle[s]; }
+                        bitboard.h:436-448     destroyCastleInDirection
+                          clears the bit for the rook that moved
+```
+
+Inference, kept to what these establish: `validate()`'s verdict on a position depends on `m_castle`, and `m_castle` is narrowed as rooks move. For the identical piece arrangement the answer differs according to which castling bits are still set, and which bits are still set is a function of the prior moves that cleared them. That is a stateful validity question, which is what E3 asks for.
+
+Not claimed: that `validate()` is called on every move, or that it is the engine's move-legality path. What was observed is the function, the state it consults, and the writers that narrow that state.
+Decision: PASS
+
+## EV-C063-E4-01
+Candidate: C063
+Gate: E4
+
+Positive construction exhibited, via U_enforced.
+observed_at_utc: 2026-08-28T10:37:34Z (nag.cpp), and nag.h at the same fetch round; http_status 200
+Provenance: observation-time source state.
+
+The mechanism: the annotation-glyph registry.
+
+```text
+nag.h:17-187       typedef enum { NullNag, GoodMove, ... ,
+                     NagDiagram = 201,   // SCID compatibility
+                     NagCount } Nag;
+
+nag.cpp:129        static const QString g_nagStringList[NagCount] = { ... }
+
+nag.cpp:292-300    static QMap<QString, Nag> s_ExtraNags;
+                   void NagSet::InitNagStringListLong() {
+                     s_ExtraNags["+/-"] = Nag::WhiteHasAModerateAdvantage;
+                     s_ExtraNags["-/+"] = ...;  "=+";  "+=";  "->";
+
+nag.cpp:655-669    Nag NagSet::fromString(const QString &nag)
+                   {
+                     if (s_ExtraNags.contains(nag)) return s_ExtraNags.value(nag);
+                     for(int i = 1; i < NagCount; ++i)
+                       if(g_nagStringList[i] == nag) return Nag(i);
+                     return NullNag;
+                   }
+
+nag.cpp:20-24      void NagSet::addNag(Nag nag)
+                   {
+                     if(contains(nag) || nag == NullNag || nag >= NagCount)
+                     { return; }
+```
+
+EN1 external authorship: the program and this registry existed independently of this analysis.
+
+EN2 explicit scope: the domain is the annotation glyphs a game's moves may carry. The project names it in the enum's members and in the header's own instruction, "Don't forget to add string for each 'nag' in source file."
+
+EN3 mechanical membership. What the decision consults is enumerable, and it is stated as what it is rather than as a tidy count:
+
+```text
+enumerator membership      the non-empty entries of g_nagStringList,
+                           plus the keys of s_ExtraNags
+runtime enforcement value  the Nag each of those maps to
+```
+
+No clean member count is offered, and the reason is recorded rather than smoothed over. The enum is not a plain sequence: it carries range-marker aliases (MoveNagStart = GoodMove, BishopNagEnd = BishopsOfSameColor, and others) and an explicit index jump, NagDiagram = 201, so NagCount is 202 while the identifiers between are fewer and some name the same value. The string array is correspondingly sparse -- its initializer holds 176 string literals, 175 of them non-empty, with bare 0 placeholders at indices carrying no string, which a non-empty query can never match. Counting identifiers here would misstate membership, so it is not done; what is enumerable, and what `fromString` actually scans, is the array's non-empty entries plus the five aliases.
+
+EN4 connection to validation, in project code on both sides, and weaker than C059's -- said plainly. An unrecognised annotation string resolves to `NullNag` at nag.cpp:668, and `addNag` refuses `NullNag` and any value at or beyond `NagCount` at nag.cpp:22-24. So an annotation outside the registry cannot enter a game's NagSet. The rejection is a silent early return, not an error like C059's `throw_error_at("type", "unrecognized JSON object")` or C049's `LuaError`. EN4 asks that the project CONNECT the mechanism to validation, which the two-step path does; it does not require the rejection to be loud.
+
+EN5 closed within scope: the set is closed by the array's declared extent, `NagCount`, which `fromString` iterates exactly, together with the runtime-registered aliases in `s_ExtraNags`. That is closure by declaration and runtime construction rather than by our choice. Tag: `enforced`. No immutability is claimed.
+
+EN6 outcome independence: the registry is the set of annotation glyphs the program recognises. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations:
+
+```text
+one enforcement observation per recognised annotation string
+
+  "annotation string S resolves to glyph N; a string matching no
+   registry entry resolves to NullNag, which addNag refuses to admit
+   to a game's annotation set"
+
+retained as externally segmented fields, per observation
+  the annotation string
+  the Nag identifier it resolves to
+  whether it came from g_nagStringList or from s_ExtraNags
+```
+
+As at C043, C049, C056 and C059, this establishes only that a mechanically constructible universe EXISTS. It fixes no contents and concludes nothing about a primary-universe count; QA-19 puts that at the inventory stage, and the enumeration difficulty recorded under EN3 is exactly the kind of thing that stage would have to resolve.
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
+
+Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates above were read against the default branch at observation time while the frozen tag is v1.5.6-lw, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
