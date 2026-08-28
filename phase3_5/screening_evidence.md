@@ -6809,3 +6809,80 @@ The single admitted starting point was determinately answered, so no surface is 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C058-UR-01
+Candidate: C058 (frame rank 58, games/capitan-sevilla)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/capitan-sevilla/Makefile
+Observed: VERSION=1.0.3; DISTNAME=capitan-sevilla-${VERSION}; DISTFILES=Capitan.tar.bz2 with the port's own comment "# XXX upstream distfile has no version number"; HOMEPAGE=http://computeremuzone.com/ficha.php?id=754&l=en; SITES=http://computeremuzone.com/pc/juegos/; COMMENT="platform game set in Seville and in space".
+Inference: the frozen fields name one packaged system, and both URLs sit on the same host. The version carried by DISTNAME is the packager's, the distfile having none -- a packaging fact, not a second system. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C058-E1-01
+Candidate: C058
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under GPLv3, distributed from a host unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C058-E2REP-01
+Candidate: C058
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were observed. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url and final_url: http://computeremuzone.com/ficha.php?id=754&l=en
+observed_at_utc: 2026-08-28T09:22:06Z; http_status 200; redirect_chain: NONE (num_redirects 0); 115605 bytes
+
+Observation scope, fixed before the request: HTTP status and redirects; title and headings; the links exposed with their labels and targets; any sentence or label assigning a source role; any primary, canonical or mirror marking. Not: opening any linked page or artifact.
+
+Observed. The page is titled "Capitán Sevilla - El remake / Captain 'S' - The remake (CEZ RD 2009) :: Computer Emuzone" and is a catalogue record on a games portal: it carries site-wide navigation (All games, Tops, Articles, Forum, Emus, Links, F.A.Q., Awards, Crew, and per-platform ZONE sections), per-game statistics and rankings, and tabs for Review, Manual, Adverts, Maps, Screenshots, Covers, Media, Videos, Development, Cheats, Credits, Comments and Magazines.
+
+It also carries the game's own credits -- "developing team: Programación: Luis I. García Ventura; Gráficos: Daniel Celemín García; Música: Daniel Celemín García, David Caña..." -- and three download links, two labelled "PC" and one unlabelled, targeting `/download.php?ind=1435`, `1434` and `1439`.
+
+A question this entry does not resolve, because it does not have to: whether this portal is the project's own publisher, and so whether this is an upstream surface at all. The title's "CEZ RD 2009" and the on-page credits are consistent with the portal having produced the remake, and nothing observed settles it. It does not need settling here -- no designation was observed on this surface under either reading, so the verdict is the same whether the page is upstream's or a third party's, and C048's exclusion is not needed.
+
+No link labelled Source, Code, Repository or Development for this game is exposed. The download links carry platform labels, and QA-17 settled that a download label may not widen the whitelist.
+
+One link needs its own record, because it is the only one whose label touches a whitelist word:
+
+```text
+"Greetings and Sources" -> /greetings?l=en
+```
+
+It was not followed. The reading taken is that this compound label names the page's own topic -- greetings and acknowledgements -- and does not identify a source location for this game; it is a site-level page, exposed alongside the portal's own furniture rather than in the game's record. That reading is stated rather than assumed because the alternative is available: a link whose label contains "Sources" could be read as satisfying step 2 on the contract's plain text. Recorded so the limit of this entry's step-2 search is visible: under that alternative reading, the search here is incomplete. No claim is made about what the page contains.
+
+Also observed and not used: a user comment on the page, dated 2015, reads "Move the source to GitHub and further develop this." It is a visitor's comment, not upstream's own words, and it designates nothing. It is recorded because it appeared in the observation and because the temptation to treat it as a lead is exactly what the navigation contract exists to refuse.
+
+Surface 2: the frozen SITES.
+requested_url and final_url: http://computeremuzone.com/pc/juegos/
+observed_at_utc: 2026-08-28T09:23:00Z (GET), 09:23:01Z (HEAD); http_status 404, 404; redirect_chain: NONE on both; 8343 bytes
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point.
+Observed: the site's own styled 404 page, "Computer Emuzone :: ERROR 404 -- PAGE NOT FOUND". No artifact names, headings for this game, or designation signal.
+
+```text
+PASS not established
+  neither admissible surface designates a canonical source location.
+  Surface 1 exposes no source-role link for this game; surface 2
+  returned 404 and displayed nothing about it.
+
+FAIL not established
+  a catalogue page carrying no source link and a directory path
+  returning 404 do not demonstrate that upstream designates no
+  canonical source location -- the C017 boundary. The step-2 limit
+  recorded above narrows the basis for any negative further.
+
+E2REP-NO-SOURCE not established
+  the 404 is evidence about that endpoint, and nothing observed bears
+  on whether a source representation is reachable elsewhere. No
+  surface was reached at which source-tree presence could have been
+  established either way.
+```
+
+Both starting points were determinately answered -- 200 and 404 -- so no surface is left unobserved and this is not the transport family.
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
