@@ -5752,7 +5752,25 @@ files  make.py fabricate.py INSTALL.md README.md CHANGELOG
        COPYRIGHT.txt LICENSE.txt .gdbinit .gitignore
 ```
 
-Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Bos Wars). The designation runs both ways, as at C022: the project's own site names the repository, and the repository's website field names the site.
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (Bos Wars).
+
+The direction is asymmetric, and stating it that way matters because an earlier draft claimed C022's two-way designation here:
+
+```text
+Bos Wars project site
+  "The project git repositories and management is on Codeberg."
+  + the exact clone URL
+        |
+        v                          DESIGNATION
+  codeberg.org/boswars/boswars
+
+repository metadata
+  website = https://boswars.org
+        |
+        ^                          AFFILIATION only
+```
+
+The project site designates the repository. The repository's website field independently corroborates that the two belong together, but does not itself designate -- C032 and C042 refused exactly that arrow, and this entry does not quietly readmit it. Nothing is lost: the designation is complete from the Development page's upstream-authored sentence and clone URL alone.
 
 On QA-25, since a clone command is involved: the command is not what does the designating. The sentence "The project git repositories and management is on Codeberg" states the location, and the command supplies its exact URL. This is not C020's "you can also use anonymous cvs", where a route was miscounted as a location.
 
@@ -5821,7 +5839,9 @@ map_fog.cpp:114-136 int MapFogFilterFlags(CPlayer *player, int x,
                     }
 ```
 
-Inference: whether a placement is valid is tested against a mask from which the field flags of every unit not currently visible to that player have been removed. Visibility is accumulated game state, so the identical placement at the identical coordinates receives different verdicts depending on what that player has seen by that point in the match. That is validity conditioned on history, which is what E3 asks for.
+Inference, kept to what the two quoted functions establish: whether a placement is valid is tested against a mask from which the field flags of every unit failing `IsVisibleAsGoal(player)` have been removed. So for the same unit type at the same coordinates, a different current visibility and unit state produces a different effective test mask and therefore a different placement verdict. That is a stateful validity question, which is what E3 asks for.
+
+No claim is made about remembered or accumulated past visibility. An earlier draft said the verdict depends on "what that player has seen by that point in the match", which would need `IsVisibleAsGoal`'s backing state and its writer, and neither was observed. E3 asks for stateful OR temporal; the stateful half is established here on its own.
 Decision: PASS
 
 ## EV-C049-E4-01
@@ -5870,13 +5890,13 @@ EN2 explicit scope: the project names the domain in its own comment on the enum,
 EN3 mechanical membership, with the two levels kept apart as at C043:
 
 ```text
-enumerator membership      the entries of VariableNames, indices
-                           0..NVARALREADYDEFINED
-runtime enforcement state  none -- the entries are string literals
-                           and no observed path mutates them
+enumerator membership      the fixed index slots
+                           0..NVARALREADYDEFINED-1
+runtime enforcement value  the current string stored in
+                           VariableNames[i]
 ```
 
-Membership is enumerable by reading either list, and the two were cross-checked above rather than assumed to agree.
+Membership is enumerable by reading either list, and the two were cross-checked above rather than assumed to agree. No immutability claim is made or needed: an earlier draft wrote that "no observed path mutates them", which is an absence argument from not having looked, and `const char *` constrains the pointed-to characters rather than settling the question anyway. What the gate needs is the positive cross-check at observation time -- 15 initializer entries against 15 enum members.
 
 EN4 connection to validation, in project code on both sides:
 
@@ -5892,7 +5912,9 @@ script_unittype.cpp:632-648
 
 A unit-type tag that reaches this branch and matches no registered name is rejected as an unsupported tag, by the project's own call. Unlike C038, the deciding and the rejecting code are both the project's.
 
-EN5 closed within scope: the closure basis is the array's declared extent. `VariableNames` is declared with size `NVARALREADYDEFINED`, so the compiler ties the table to the enum, and `GetVariableIndex` iterates exactly that range at runtime. The set the decision consults is therefore closed by the declaration rather than by our choice, and a loop actually runs over exactly that set -- the operational case, so the tag is `enforced` rather than `asserted`.
+EN5 closed within scope: the closure basis is the array's declared extent. The enum's sentinel `NVARALREADYDEFINED` mechanically fixes that extent, the observed initializer fills all 15 slots, and `GetVariableIndex` iterates exactly that declared range at runtime. The set the decision consults is therefore closed by the declaration rather than by our choice, and a loop actually runs over exactly that set -- the operational case, so the tag is `enforced` rather than `asserted`.
+
+Not claimed: that the compiler guarantees a name-by-name correspondence between the enum members and the initializer. It fixes the extent; the 15-to-15 correspondence is the cross-check recorded above, at observation time.
 
 EN6 outcome independence: the registry is the set of unit-type attributes a scenario may set. It is not a bug list, fix list or known-failure registry.
 
@@ -5919,3 +5941,13 @@ Normative route: not pursued. Nothing observed designates an authoritative rule 
 Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28 -- no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
+
+## RETRACTION 23 — three overclaims in C049, none load-bearing
+
+C049's verdicts are unchanged; each of these was an argument the entry did not need.
+
+**Reverse designation.** The E2-REP entry wrote "The designation runs both ways, as at C022: the project's own site names the repository, and the repository's website field names the site." The reverse arrow is a repo->site website field, and C032 and C042 both refused that arrow designation force -- it is affiliation. Readmitting it here, in a candidate where it happened to point the convenient way, is the same error those entries were written to prevent. Withdrawn and replaced with the asymmetric statement: the project site designates, the website field corroborates affiliation only. The PASS stands on the Development page's sentence and clone URL, which never needed help.
+
+**E3's history claim.** The entry said the verdict depends on "what that player has seen by that point in the match", calling visibility "accumulated game state". What the two quoted functions establish is narrower: `MapFogFilterFlags` strips the field flags of units failing `IsVisibleAsGoal(player)` from the test mask. The backing state behind `IsVisibleAsGoal`, and whatever writes it, were never observed. Withdrawn. E3 asks for a stateful OR temporal validity question, and the stateful half stands on what was quoted.
+
+**E4's mutation claim.** The entry recorded runtime enforcement state as "none -- the entries are string literals and no observed path mutates them". That is an absence inferred from not having looked, and `const char *VariableNames[]` constrains the pointed-to characters rather than the array slots in any case. Withdrawn; the two levels are now stated as C043 states them, with no immutability claim, resting instead on the positive 15-to-15 cross-check at observation time. EN5's "the compiler ties the table to the enum" is lowered in the same pass: the sentinel fixes the extent, and the name-by-name correspondence is an observation, not a compiler guarantee.
