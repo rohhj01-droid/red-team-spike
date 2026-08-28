@@ -8436,25 +8436,33 @@ The scan bound is the array itself, so membership is enumerable by reading it. T
 EN4 connection to validation, with the call path observed rather than inferred from the two endpoints:
 
 ```text
-d_iwad.c:903-917   iwadparm = M_CheckParmWithArgs("-iwad", 1);
-                   if (iwadparm)
+d_iwad.c:902-931   iwadparm = M_CheckParmWithArgs("-iwad", 1);
+                   if (iwadparm)                              // :904
                    {
                        iwadfile = myargv[iwadparm + 1];
                        result = D_FindWADByName(iwadfile);
                        if (result == NULL)
                            I_Error("IWAD file '%s' not found!", iwadfile);
-                       *mission = IdentifyIWADByName(result, mask);
-                   }
-                   else
-                   {   ... SearchDirectoryForIWAD(iwad_dirs[i], mask,
-                                                  mission) ... }
+                       *mission = IdentifyIWADByName(result, mask);  // :917
+                   }                                          // :918
+                   else                                       // :919
+                   {
+                       ...
+                       for (i=0; result == NULL && i<num_iwad_dirs; ++i)
+                       {                                      // :927
+                           result = SearchDirectoryForIWAD(iwad_dirs[i],
+                                                           mask, mission);
+                       }                                      // :930
+                   }                                          // :931
 
 d_main.c:1490      iwadfile = D_FindIWAD(IWAD_MASK_DOOM, &gamemission);
 d_main.c:1503      D_AddFile(iwadfile);
 d_main.c:1509      D_IdentifyVersion();
 ```
 
-The limitation is stated rather than glossed, and it is scoped to the branch that produces it. `IdentifyIWADByName` is called only in the `-iwad` branch; the other branch reaches a mission through `SearchDirectoryForIWAD`, which matches against the same registry while scanning directories. So the case that arrives at `D_IdentifyVersion` with `gamemission == none` is the one where `-iwad` named a file that exists on disk but whose basename matched no active entry. There, rejection follows only if a second, content-based attempt also fails:
+The limitation is stated rather than glossed, and it is scoped to the branch that produces it. `IdentifyIWADByName` is called only in the `-iwad` branch; the other branch reaches a mission through `SearchDirectoryForIWAD`, which matches against the same registry while scanning directories. So the case that arrives at `D_IdentifyVersion` with `gamemission == none` is the one where `-iwad` named a file that exists on disk but for which no mask-eligible active entry matched the basename.
+
+The mask qualifier is not decoration. `IdentifyIWADByName` applies it BEFORE comparing names -- `if (((1 << iwads[i].mission) & mask) == 0) continue;` at d_iwad.c:596-597, ahead of the `strcasecmp` at :601 -- so `none` can result either because no entry's name matched, or because the entry whose name would have matched carries a mission the caller's mask excludes. An earlier version wrote "matched no active entry", which covers only the first. There, rejection follows only if a second, content-based attempt also fails:
 
 ```text
 d_main.c:779-802
@@ -8485,10 +8493,11 @@ The universe is therefore ACTUALLY mechanically constructible, stated as observa
 one enforcement observation per active entry
 
   "IWAD filename F is identified by name as mission M when the
-   caller's mask admits M; on the -iwad branch a name matching no
-   active entry yields `none` from IdentifyIWADByName, after which
-   identification is attempted from lump contents and `Unknown or
-   invalid IWAD file.` is raised only if that also fails"
+   caller's mask admits M; on the -iwad branch a basename for which no
+   mask-eligible active entry matches yields `none` from
+   IdentifyIWADByName, after which identification is attempted from
+   lump contents and `Unknown or invalid IWAD file.` is raised only if
+   that also fails"
 
 retained as externally segmented fields, per observation
   the IWAD filename
