@@ -7488,26 +7488,46 @@ the sentence states a FORM, not a location
   location; this is a step further back -- a property of the artifact,
   with no location attached at all.
 
-the link's label carries no source role
+the link's label identifies a download route, not a source location
   "Sourceforge Download page for the latest release" names a download
-  page. None of the contract's four words appears, and "release" is a
-  class the contract forbids outright. QA-17 settled that neither may
-  be widened, so this is not a step-2 target.
+  page for a release. None of the four terms appears as a standalone
+  source-role label -- "Sourceforge" is the hosting service's proper
+  name, not a label identifying the destination as Source -- and
+  "release" is a class the contract forbids outright. QA-17 settled
+  that neither may be widened, so this is not a step-2 target.
 
-joining the two would be ours
-  reading the sentence as assigning a source role to the link is a
-  join the page does not make: the sentence's subject is the
-  distribution's form and the link's label is a download page. C061
-  refused the weaker version of this join, where only a filename was
-  available; this is the same move with a form-statement substituted
-  for the filename.
+the stronger reading is conceded, and does not change the outcome
+  an earlier draft said that reading the sentence as assigning a
+  source role to the link would be a join "the page does not make".
+  That is more than can be shown: the source-code sentence, the
+  Source RPMS sentence and the link sit in one passage, so reading
+  the link as a route by which source-related artifacts are
+  downloadable is available as an upstream-authored relation.
 
-and the destination is not a step-3 surface either
-  showfiles.php is a file-listing page on the project hub, and C007
-  settled that a generic project hub is not a repository root.
+  Granting it still does not reach PASS, and this is exactly the work
+  QA-25 does:
+
+      upstream may be identifying a ROUTE by which source-related
+      artifacts can be downloaded
+        is not
+      upstream has designated the canonical source LOCATION E2-REP
+      requires
+
+  C020 was withdrawn for counting a designated route as a designated
+  location. The same distinction applies here in upstream's favour and
+  still leaves the gate unsatisfied.
+
+and the destination was not observed
+  the link was not opened, releases being forbidden outright, so
+  nothing is claimed about what showfiles.php contains or what form it
+  takes. No repository or source-distribution location was observed
+  there, which is why it cannot serve as the designated location.
+  C007's finding that a generic project hub is not a repository root
+  is consistent with this and is not needed to reclassify a page this
+  entry never opened.
 ```
 
-"Source RPMS are available for RPM based systems" is recorded and does no work: it names a second artifact kind with no location of its own, and on the reading above neither it nor the source-code sentence supplies a designation.
+"Source RPMS are available for RPM based systems" is part of the same passage and is read with it under the concession above. It names a second artifact kind and supplies no location of its own, so it does not change what the passage designates.
 
 Surface 2: the frozen SITES. `${SITE_SOURCEFORGE:=cgoban1/}` resolves through the ports infrastructure's own macro definition to https://downloads.sourceforge.net/sourceforge/cgoban1/.
 Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point. Observed rather than predicted from its URL shape (C018), though the same macro produced 404s at C031, C036, C037, C044, C046 and C048.
@@ -7518,7 +7538,8 @@ Observed: "404 Not Found -- The resource could not be found." No artifact names 
 PASS not established
   neither admissible surface designates a canonical source location.
   Surface 1 states the distribution's form and links a download page
-  whose label carries no source role; surface 2 returned 404.
+  for a release; even read as a source-related route, that is not a
+  designated location (QA-25). Surface 2 returned 404.
 
 FAIL not established
   a project page whose only link is a download page, and an archive
