@@ -6015,7 +6015,9 @@ E2REP-NO-SOURCE not established
   a source tree WAS observed, so source access is not what is missing.
 ```
 
-The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family. What the sealed criteria do not describe is a frame item that supplies a repository identifier and nothing else: there is no surface on which upstream could perform a designation, and its absence is a property of the metadata rather than a finding about upstream.
+The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family. What the sealed criteria do not describe is a frame item whose frozen metadata supplies only a repository identifier.
+
+Stated precisely, because C032 had to correct this exact wording once already: the frozen metadata supplies no separate upstream-authored project surface, and the one admissible surface -- the repository root -- WAS examined and carried no designation signal. It is not that no surface could bear a designation. The repository root can: "whether upstream designates this location as its source" is among the observations the contract allows there. That bounded absence does not establish that upstream designates no canonical source location.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
