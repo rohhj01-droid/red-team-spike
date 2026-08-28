@@ -7717,13 +7717,21 @@ files and sha256 of the retrieved bytes
   src/database/gamex.cpp        43656 bytes
     f95be028d91bff39e6a5a7514e3a71d20dbbb667b9c064c03b34cfca12cd649f
 
-identity with the earlier read
-  the 2026-08-28T10:37:34Z master fetch of nag.cpp and nag.h produced
-  the same two digests above, so the first version of this entry read
-  these bytes. The digests are recorded so a third party can reproduce
-  the check rather than take the identity claim on trust; it is used
-  only to identify the object analysed, and does nothing for QA-28 or
-  for any verdict.
+what the digests do and do not support
+
+  The four digests identify the bytes at the pinned upstream commit
+  and allow a third party to reproduce the pinned-file hashes.
+
+  This session reports that bytes retained from the earlier
+  2026-08-28T10:37:34Z master fetch produced the same nag.cpp and
+  nag.h digests. Because no digest or immutable copy was recorded
+  contemporaneously with that earlier fetch, and the retained bytes
+  live in this session's working area rather than as a durable
+  artifact in this repository, the HISTORICAL identity comparison is
+  not independently reproducible by a third party and rests on this
+  session's report.
+
+  Neither statement resolves QA-28 or contributes to any verdict.
 ```
 
 QA-28 is unaffected: pinning identifies the object analysed and makes no claim about the sealed instant, and the frozen tag remains v1.5.6-lw.
