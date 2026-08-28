@@ -6430,3 +6430,240 @@ Both starting points for the packaged system were determinately answered, so no 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C056-UR-01
+Candidate: C056 (frame rank 56, games/bzflag)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/bzflag/Makefile
+Observed: V=2.4.22; DISTNAME=bzflag-${V}; HOMEPAGE=https://www.bzflag.org/; SITES=https://download.bzflag.org/bzflag/source/${V}/; EXTRACT_SUFX=.tar.bz2; COMMENT="graphical multiplayer 3D tank war game".
+Inference: the frozen fields name one packaged system, BZFlag, with HOMEPAGE and SITES on related upstream hosts. Not UR-AMBIGUOUS.
+Decision: PASS
+
+## EV-C056-E1-01
+Candidate: C056
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party game under LGPLv2.1-only or MPL 2.0, on upstream hosts unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C056-E2REP-01
+Candidate: C056
+Gate: E2-REP
+
+Per QA-27 both admitted starting points are accounted for, and both were observed. Neither names a class the contract forbids, so QA-31 does not arise.
+
+Observation scope, fixed before the requests: HTTP status and redirects; title and headings; the anchors exposed with their labels and targets; any sentence or label assigning a source role; any primary, canonical, preferred or mirror marking; and -- for a designation of distribution type -- retrieval of the designated artifact and a listing of its entry NAMES, which C013 established is this gate's "a source tree is actually present" observation carried over to a distribution candidate. Not: opening any non-designated linked page, and not reading any file's contents at this gate.
+
+Surface 1: the frozen HOMEPAGE.
+requested_url and final_url: https://www.bzflag.org/
+observed_at_utc: 2026-08-28T08:39:09Z; http_status 200; redirect_chain: NONE (num_redirects 0); 30928 bytes
+evidence_role: official-project-page
+
+Observed. The navigation exposes Media, Getting Started, Downloads, Forums, Documentation, Help and About -- none of the contract's four words. The download area of the page carries buttons whose labels upstream writes itself:
+
+```text
+Download 2.4.30 for Source
+  Download for Source (.tar.bz2)
+     -> https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.tar.bz2
+  Download for Source (.tar.gz)   -> .../bzflag-2.4.30.tar.gz
+  Download for Source (.zip)      -> .../bzflag-2.4.30.zip
+
+alongside, labelled otherwise
+  Download for macOS (10.13+ Universal)   -> .../macos/2.4.30/...zip
+  Download for Windows (Windows 8+)       -> .../windows/2.4.30/...exe
+  Download for Linux using Flatpak        -> flathub.org
+  Download for Linux from Snapcraft       -> snapcraft.io
+```
+
+That is a source-role designation in upstream's own words, the same form C047 relied on -- there "gzipped source tarball", here "Download for Source" -- and it is the only one on this surface.
+
+The footer link labelled "GitHub" -> https://github.com/BZFlag-Dev/bzflag was examined and does no designating work. It sits between the copyright lines and "Credits", "Privacy Policy", "Terms of Use", with no accompanying sentence and no source-role wording anywhere near it. C038 settled that an anchor reading "github" does nothing on its own; there the work was done by a "Source" heading and a hosting sentence, and neither exists here.
+
+Recorded so the restraint is symmetric with C044's: this establishes nothing about that repository in either direction. It is not designated as the source location, and it is not shown not to be. It was not opened.
+
+A scan of the page's visible text for the words source, repository, canonical, official, mirror and primary returned only the download-button labels quoted above. No ranking sentence exists, and none was needed, because only one location carries a source role.
+
+The three formats are one artifact in three encodings, not three locations -- C016's content-versus-location reading.
+
+Surface 2: the frozen SITES.
+requested_url and final_url: https://download.bzflag.org/bzflag/source/2.4.22/
+observed_at_utc: 2026-08-28T08:40:05Z (GET), 08:40:06Z (HEAD); http_status 200, 200; redirect_chain: NONE on both; 550 bytes
+Necessary because: it is the second admitted starting point and had to be accounted for before the set could be called exhausted.
+Observed: a bare autoindex, "Index of /bzflag/source/2.4.22/", listing bzflag-2.4.22.tar.bz2 (14169079 bytes), .tar.gz and .zip, all dated 28-Feb-2021.
+
+Nothing is read off the path or the filenames; C026 settled that. This surface is recorded as showing what is at that URL, and the designation comes from surface 1's labels, not from the word "source" appearing in a path.
+
+Incidental, doing no designation work: the frozen distinfo's SIZE for bzflag-2.4.22.tar.bz2 is 14169079, matching the size this index reports. That corroborates which artifact the port fetches. It is packager-side data and is not used as upstream evidence -- the C010 distinction.
+
+Source-tree presence at the designated location:
+requested_url: https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.tar.bz2
+observed_at_utc: 2026-08-28T08:41:47Z-08:41:52Z; http_status 200; 14131760 bytes
+sha256 of the retrieved bytes: bb78b750e7bce7aa7c11bd35906bb08a49acc7c50bf29629af380eecd153894d
+
+Listing its entries -- names only, no file contents read at this gate -- shows a source tree: 1461 entries under a single root `bzflag-2.4.30/`, with src (329 .cxx files), include, plugins, data, man, tools, misc, package, m4, MSVC, Xcode, and configure.ac, Makefile.am, autogen.sh, INSTALL, README and the COPYING files.
+
+Recorded rather than glossed: upstream publishes no checksum beside these links -- the page was scanned for sha, checksum, md5, signature and for any 64-hex string, and carries none. So unlike C013, the retrieved bytes cannot be matched against a value upstream published. What is established is that the URL upstream designates returned these bytes at the timestamp above, and that those bytes hold a source tree. The hash is recorded so the object analysed is identifiable, not as verification of upstream's designation.
+
+Inference: exactly one designated canonical source location, at a stable URL, holding a source tree, with one external target identifier (BZFlag).
+
+Version note, stated because it is a real limitation. Upstream's designation on step 1 is for 2.4.30, its current release; the frozen package is 2.4.22. This entry designates what upstream designates AT OBSERVATION TIME and makes no claim about the sealed instant (QA-28). No attempt is made to argue that the 2.4.22 directory is "the same location" from the shape of the path.
+
+Recorded because it bounds this PASS: the "Downloads" navigation page was not opened, its label being outside the whitelist (QA-17). If it designates a further source location, this entry did not see it -- unexamined, not excluded, and unexaminable, which is the same bound C049 and C052 carry.
+
+Decision: PASS
+
+## EV-C056-E2RULE-01
+Candidate: C056
+Gate: E2-RULE
+Source: README in the retrieved source tree
+observed_at_utc: 2026-08-28T08:41:52Z (the artifact above)
+Provenance: read against the 2.4.30 source upstream designates at observation time; no claim about the sealed primary snapshot (QA-28), and the frozen package is 2.4.22.
+
+Observed: located witness, README:120-126.
+
+```text
+"After configure completes, it will report whether all the requisite
+ packages were found that it needs in order to build the client and the
+ server.  The client is reliant upon the following external
+ dependencies that should be installed before running configure:
+
+   OpenGL 1.0+
+   libSDL 1.2+"
+```
+
+Inference: these determine concrete validity requirements without our inventing them -- a build environment lacking either does not satisfy the stated condition for building the client -- and both carry version bounds, as at C049.
+
+Not used: the top-level INSTALL file, which is the generic autoconf text authored by the Free Software Foundation rather than by this project, and which states nothing specific to it.
+Decision: PASS
+
+## EV-C056-E3-01
+Candidate: C056
+Gate: E3
+Source: src/bzfs/bzfs.cxx and src/bzfs/GameKeeper.cxx in the retrieved source tree
+Provenance: as above.
+
+Observed: located witness. Both halves are quoted rather than one assumed, per the rule C038 established.
+
+```text
+bzfs.cxx:5326-5328     // silently drop old packet
+                       if (state.order <= playerData->lastState.order)
+                           break;
+
+GameKeeper.cxx:501-507 void GameKeeper::Player::setPlayerState(
+                           PlayerState state, float timestamp)
+                       {
+                           lagInfo.updateLag(timestamp,
+                               state.order - lastState.order > 1);
+                           player.updateIdleTime();
+                           lastState      = state;
+                           stateTimeStamp = timestamp;
+                           ...
+                       }
+```
+
+Inference: an incoming player-state update is accepted only if its order exceeds that of the previously accepted update, and `lastState` is exactly what the previously accepted update assigned. The identical packet is therefore accepted or dropped according to what was accepted before it. That is validity conditioned on history, which is what E3 asks for.
+
+A second instance is recorded and not leaned on: immediately below, the height check is gated by `if (now - lastWorldParmChange > 10.0f)`, making a position's acceptability depend on how long ago a world parameter changed. One located witness settles a positive existential gate, so the search stopped.
+Decision: PASS
+
+## EV-C056-E4-01
+Candidate: C056
+Gate: E4
+
+Positive construction exhibited, via U_enforced.
+Provenance: the retrieved 2.4.30 source, as above.
+
+The mechanism: the flag-type registry.
+
+```text
+include/Flag.h:117-141   FlagType::FlagType(name, abbv, endurance, shot
+                             type, quality, team, help, custom = false)
+                         ...
+                             flagSets[flagQuality].insert(this);
+                             getFlagMap()[flagAbbv] = this;      // :140
+
+src/common/Flag.cxx:85    namespace Flags { void init() {
+                              Null = new FlagType("", "", ...);
+                              RedTeam = new FlagType("Red Team","R*",...);
+                              ...
+
+src/common/Flag.cxx:379   FlagType* Flag::getDescFromAbbreviation(
+                              const char* abbreviation)
+                          {   ... uppercase ...
+                              i = FlagType::getFlagMap().find(abbvString);
+                              if (i == FlagType::getFlagMap().end())
+                                  return Flags::Null;
+                              else return i->second;   }
+```
+
+```text
+FlagType constructions in Flag.cxx        47
+distinct abbreviation keys among them     47
+key collisions among the built-ins         0
+```
+
+The cross-check matters here specifically: the constructor's insertion is `getFlagMap()[flagAbbv] = this`, an assignment, so a duplicate abbreviation would silently overwrite. The 47-to-47 count is what shows none of the built-in registrations does.
+
+EN1 external authorship: the game and this registry existed independently of this analysis.
+
+EN2 explicit scope: the project names the domain in its own class comment, "This class represents a flagtype, like \"GM\" or \"CL\"", and every entry carries externally segmented fields -- flag name, abbreviation, endurance, shot type, quality, team and help text.
+
+EN3 mechanical membership, with the two levels kept apart as at C043 and C049:
+
+```text
+enumerator membership      the keys present in FlagType::getFlagMap()
+runtime enforcement value  the FlagType* each key maps to
+```
+
+Membership is what the constructor inserted, enumerable by reading the registrations.
+
+EN4 connection to validation, in project code on both sides. The lookup returns `Flags::Null` for an unregistered abbreviation, and the project tests for exactly that and rejects:
+
+```text
+src/bzfs/CmdLineOptions.cxx:1623-1628
+  FlagType* fDesc = Flag::getDescFromAbbreviation(vsitr->c_str());
+  if (fDesc == Flags::Null)
+  {
+      std::cerr << "ERROR: invalid flag [" << (*vsitr) << "]" << std::endl;
+      usage(argv[0]);
+  }
+
+src/bzfs/CustomZone.cxx:119-124
+  FlagType* f = Flag::getDescFromAbbreviation(flag.c_str());
+  if (f == Flags::Null)
+  {
+      logDebugMessage(1,"WARNING: bad flag type: %s\n", flag.c_str());
+      input.putback('\n');
+      return false;
+  }
+```
+
+EN5 closed within scope: the set is closed by runtime construction -- Section 3.2's first admissible case -- since membership is precisely what FlagType's constructor has inserted into the map. Tag: `enforced`.
+
+Recorded rather than smoothed over, because it bears directly on what "closed" means here: the registry is NOT a fixed compile-time list. `FlagType::unpackCustom` (Flag.cxx:291) constructs further FlagType objects with `custom = true` from network data, and those enter the same map through the same constructor. So the extent at any moment is what has been constructed by then. That is still closure by runtime construction rather than by our choice, which is what EN5 requires; no immutability is claimed, and none is needed.
+
+EN6 outcome independence: the registry is the set of flag types the game recognises. It is not a bug list, fix list or known-failure registry.
+
+The universe is therefore ACTUALLY mechanically constructible, stated as observations:
+
+```text
+one enforcement observation per registered abbreviation
+
+  "abbreviation A is registered to a flag type; a flag abbreviation
+   matching no registered key resolves to Flags::Null, which the
+   project tests for and rejects as an invalid or bad flag type"
+
+retained as externally segmented fields, per observation
+  the flag's name and abbreviation
+  its endurance, shot type, quality and team
+  the project's own help text for it
+```
+
+As at C043 and C049, this establishes only that a mechanically constructible universe EXISTS. It fixes no contents and concludes nothing about a primary-universe count; QA-19 puts that at the inventory stage.
+
+Normative route: not pursued. Nothing observed designates an authoritative rule source, so U_normative is not established either on what was observed; no claim is made that one is absent elsewhere.
+
+Decision: PASS
+
+Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The designation observed is for 2.4.30 while the frozen package is 2.4.22, and nothing observed fixes what was designated at the sealed instant. The three inventory fields are consequently NOT_REACHED.
