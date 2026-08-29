@@ -9023,9 +9023,19 @@ table this entry describes as an element-wise transcription. And the
 row above it read `(unrelated)` where the label belongs: that is a
 classification standing in the place of an observation, which is the one
 thing a transcription may not contain. The label is restored above; the
-judgement is made here instead, and it is only this -- neither of those
-two destinations is on the step-2 whitelist, and neither is claimed to
-bear on this candidate.
+judgement is made here instead, and it is only this: neither link's
+label is Source, Code, Repository or Development, so neither is an
+admitted step-2 target, and neither is claimed to bear on this
+candidate.
+
+The earlier wording said "neither of those two destinations is on the
+step-2 whitelist", which applies the whitelist to destinations. That is
+the exact conflation RETRACTION 27 was written about and QA-35 records
+as unsettled, so it cannot stand even where it reaches the right answer.
+It does reach it here under all three of QA-35's readings, and the
+reason is worth stating once rather than assumed: the labels are not the
+four words, the page presents neither link as a source location, and
+neither destination is a repository.
 
 No label is Source, Code, Repository or Development, and the words themselves are absent from the document -- a standalone-word count returns `source` 0, `code` 0, `repository` 0, `development` 0, `git` 0. `sourceforge` appears 0 times, and the frozen version string `0.9.13`
 occurs 0 times.
