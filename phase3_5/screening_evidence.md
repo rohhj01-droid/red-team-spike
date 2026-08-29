@@ -8932,15 +8932,17 @@ Decision: PASS
 ## EV-C067-E3-01
 Candidate: C067
 Gate: E3
-Source: `chroma-1.21/engine.c`
+Source: `chroma-1.21/engine.c` and `chroma-1.21/level.c`
 Provenance: as above.
 
-Observed: located witness. Both the decision and the writer of the state it consults are quoted (C038's rule).
+Observed: located witness. The decision, the call path that reaches it, and the definition that writes the state it consults are quoted below.
 
 ```text
 engine.c:124-155   int level_move(struct level* plevel, int move)
                    {
                        ...
+                       realmove = move;                             // :140
+
                        if(plevel == NULL || plevel->mover_first != NULL)
                            return 0;                                // :142-143
 
@@ -8973,9 +8975,62 @@ engine.c:106-122   void level_moved(struct level* plevel, int move)
                    }
 ```
 
-`level_moved` is called from `level_move` at :172, :187, :199 and :380.
+```text
+level.c:1373-1442  void level_addmove(struct level* plevel, int move)
+                   {
+                       /* If we are making a move after undoing some moves */
+                       if(plevel->move_current != plevel->move_last)
+                       {
+                       /* Find the first undone move */
+                       if(plevel->move_current != NULL)
+                           pmove = plevel->move_current->next;      // :1386
+                       else
+                           pmove = plevel->move_first;              // :1388
 
-Inference, kept to what the quoted lines close: a MOVE_REDO reaching this gate is refused there when the recorded move list holds no next entry, and otherwise takes that entry's direction and continues into the move processing below. The list it consults is exactly what `level_addmove` and the `move_current` advance in `level_moved` have built from earlier play, so the identical MOVE_REDO input is refused at this gate or proceeds past it according to the move history.
+                       /* Delete all moves that follow it */
+                       while(pmove != NULL) { ... free(pmove); ... }  // :1391-1406
+
+                       /* Fix up this move so that it appears to be the last */
+                       if(plevel->move_current != NULL)
+                           plevel->move_current->next = NULL;       // :1410
+                       else
+                           plevel->move_first = NULL;               // :1412
+
+                       plevel->move_last = plevel->move_current;    // :1414
+                       }
+
+                       /* Create the new move */
+                       pmove = (struct move*)malloc(sizeof(struct move));  // :1418
+                       ...
+                       pmove->direction = move;                     // :1422
+                       pmove->previous = plevel->move_last;         // :1423
+                       pmove->next = NULL;                          // :1424
+                       ...
+                       if(plevel->move_first == NULL)
+                       plevel->move_first = pmove;                  // :1428-1429
+
+                       if(plevel->move_last != NULL)
+                       {
+                       plevel->move_last->next = pmove;             // :1433
+                       pmove->count = plevel->move_last->count + 1;
+                       }
+                       else
+                       pmove->count = 1;
+
+                       plevel->move_last = pmove;                   // :1439
+                       plevel->move_current = pmove;                // :1440
+                   }
+```
+
+CORRECTION, recorded rather than smoothed over. An earlier version of this entry stated that "both the decision and the writer of the state it consults are quoted", and that the list "is exactly what `level_addmove` ... [has] built", while the only thing shown of `level_addmove` was its CALL at engine.c:109. A function's name and its call site do not establish what it writes; that connection was asserted, which is the C063 defect. The definition is now quoted, and each field the redo gate reads at :147-150 is written in it: `move_first` at :1428-1429 and :1412, `move_current` at :1440 and :1414, and a node's `next` at :1424, :1410 and :1433.
+
+The redo call path is likewise stated exactly, because the extract as it stood invited the opposite reading. `level_move` saves `realmove = move` at :140, BEFORE the substitution `move = pmove->direction` at :155, and all four calls to `level_moved` -- :172, :187, :199 and :380, which grep over the source tree shows to be the only calls to it anywhere -- pass `realmove`, not `move`. So a redo reaches `level_moved` still carrying MOVE_REDO and takes the branch at :112-115, advancing `move_current` along the existing list rather than appending through `level_addmove`. Review read the earlier extract as showing the substituted value reaching `level_moved`; that reading followed from the extract, which had elided :140.
+
+Not claimed: that these are the only writers of the fields the gate reads. `level_undo` moves `move_current` back at engine.c:1306, and level.c writes the same fields at initialisation (:376-378), when copying a level (:748-761), and when loading a saved game (:1094, :1114-1222). No exhaustive writer set is offered, and E3 does not need one.
+
+Inference, kept to what the quoted lines close: a MOVE_REDO reaching this gate is refused there when the recorded move list holds no next entry, and otherwise takes that entry's direction and continues into the move processing below. Whether such an entry exists is decided by `move_current` and the `next` chain, which the quoted `level_addmove` allocates, links and truncates, and which the redo branch at :112-115 and `level_undo` at :1306 walk along. Every one of those writers runs from play or from a restored game, none from build or configuration. So the identical MOVE_REDO input is refused at this gate or proceeds past it according to the move history.
+
+VERIFICATION NOTE. The two files quoted were extracted from the pinned artifact and hashed independently: `chroma-1.21/engine.c`, 50657 bytes, sha256 49ce3c6cb0ad1934ce439fac0f64c7b18a5735bb45e826fd956e129ccc0e1ebd; `chroma-1.21/level.c`, 42699 bytes, sha256 a36ce3c5c7c94d84e5c9048ff6042f0df26c60043bdb0cc8e3be3c29980855f7. The artifact itself re-hashes to bdf4d6e1ac65588a93569ec3ec01869fee461f9dafe4cdbebb1fc38c42d9693d, the digest recorded at E2-REP. The line numbers above are lines of those exact files.
 
 Not claimed: that proceeding past this gate ends in a performed move. The quoted extract does not follow the processing to its end, and the same function carries other refusal conditions -- the guard at :142-143, which refuses any move while movers from the previous one are still in flight. That guard is recorded as a further, non-historical state condition and is not leaned on. History is shown to be necessary at this gate, not sufficient for the whole call.
 Decision: PASS
