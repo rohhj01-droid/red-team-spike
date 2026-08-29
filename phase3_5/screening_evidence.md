@@ -8827,6 +8827,58 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C069-UR-01
+Candidate: C069 (frame rank 69, games/chromium-bsu)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/chromium-bsu/Makefile and distinfo
+Observed: DISTNAME=chromium-bsu-0.9.16.1; HOMEPAGE=https://chromium-bsu.sourceforge.net/; SITES=${SITE_SOURCEFORGE:=chromium-bsu/}; COMMENT="fast paced arcade-style space shooter"; distinfo names chromium-bsu-0.9.16.1.tar.gz. `SITE_SOURCEFORGE` is defined in the same frozen tree at infrastructure/db/network.conf:68-69 as `https://downloads.sourceforge.net/sourceforge/`, so SITES resolves to `https://downloads.sourceforge.net/sourceforge/chromium-bsu/`.
+Inference: the frozen fields name one packaged system, Chromium B.S.U., under one project short name on one code host. No second system appears, so not UR-AMBIGUOUS; no earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C069-E1-01
+Candidate: C069
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party arcade game under the Clarified Artistic License, on an upstream site unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C069-E2REP-01
+Candidate: C069
+Gate: E2-REP
+Source: the two admitted starting points supplied by the frozen metadata.
+
+Provenance. `https://chromium-bsu.sourceforge.net/` was requested and answered 200 after a redirect to `https://chromium-bsu.sourceforge.io/`; the body is 3671 bytes, sha256 8eb232d4a8161eb6d765acbd3a92e6d96ab2fa1489320702a4500b14131af56b. The host change is recorded as a fact of the fetch and nothing is inferred from it.
+
+Observed at step 1, parsed rather than read off. Every `<a>` element of the landing page, 11 in total, with its label normalized (the labels are letter-spaced with `&nbsp;` in the source):
+
+```text
+info.html                                     "info"
+download.html                                 "download"
+faq.html                                      "faq"
+about.html                                    "about"
+screen0.html / screen1.html / screen2.html    "screen-0" / "-1" / "-2"
+http://www.opengl.org                         (image, no text)
+http://www.openal.org                         (image, no text)
+http://sourceforge.net/projects/chromium-bsu/ "sourceforge project"
+http://www.reptilelabour.com/                 "thereptilelabourproject"
+```
+
+No label is Source, Code, Repository or Development. The word `source` occurs twice in the document and a standalone-word search returns nothing for it: both occurrences are inside `sourceforge`, once in a href and once in that link's label. `code`, `repository`, `development`, `git`, `svn` and `cvs` occur zero times. So step 2 has no admitted target, and the substring is not treated as the label -- the C064 correction, and C038's rule that a host-name anchor does no work on its own.
+
+`download.html` was not followed. Its label is not on the step-2 whitelist, and QA-17 settled that a criterion's wording cannot widen the search contract; QA-27 records the same page-link/metadata-URL distinction that governs here.
+
+Step 2 disposition for the second starting point. The frozen SITES resolves to `https://downloads.sourceforge.net/sourceforge/chromium-bsu/`, the code host's release-file area for this project reached through its mirror redirector. That is the class QA-31 names, and QA-31's scope paragraph was written for exactly this pattern: "OpenBSD ports commonly point SITES at a code host's release assets. Every such frame item whose gate is still open after step 1 reaches this same point, and loses its second starting point to the prohibition." It is accounted for under QA-27's third branch -- otherwise resolved, with the reason named -- and was NOT requested.
+
+The classification is by what the surface is, not by a substring of its URL. Neither `download` in the host name nor the port's `SITES` variable name is doing the work; the surface is a code host's released-file area, which is the forbidden `releases` class. This is the distinction C064 got wrong in the other direction, and it is stated here so the reasoning can be checked rather than inferred.
+
+Inference: after step 1 the gate is unsettled -- the landing page exposes no whitelisted source link, so no designation witness was reached, and no failure code can fire either, because two surfaces that might carry a designation (`download.html`, and the SITES release area) are closed to this gate by the contract rather than absent from upstream. A PASS needs a witness and every failure code needs positive evidence; neither is obtainable here without navigating where the contract forbids.
+
+Not claimed, and this is the whole point of the code: that upstream designates no canonical source location. Two surfaces were never observed. What is on the record is that the sealed contract closed them, never that there is nothing behind them. Same shape as C045, where QA-31 was raised.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C067-DUP-01
 Candidate: C067 (duplicate contributed by frame rank 68, games/chroma-enigma)
 Gate: UR
