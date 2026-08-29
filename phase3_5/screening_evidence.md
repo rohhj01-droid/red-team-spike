@@ -8827,6 +8827,119 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C071-UR-01
+Candidate: C071 (frame rank 71, games/classicube)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/classicube/Makefile and distinfo
+Observed: `DIST_TUPLE += github ClassiCube ClassiCube ${V}` with V=1.3.8; PKGNAME=classicube-${V}; COMMENT="classic Minecraft client written in C"; distinfo names ClassiCube-ClassiCube-1.3.8.tar.gz. There is no HOMEPAGE field and no SITES field.
+Inference: the frozen fields name one packaged system through one account/project pair on one code host. No second system appears, so not UR-AMBIGUOUS; no earlier candidate resolved to it, so not a duplicate. This is C017's and C018's metadata shape -- a packaging fetch identifier and nothing else.
+Decision: PASS
+
+## EV-C071-E1-01
+Candidate: C071
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party reimplementation packaged from the account ClassiCube, under a BSD licence per the port's own comment, unrelated to this project.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C071-E2REP-01
+Candidate: C071
+Gate: E2-REP
+
+The frozen metadata names no HOMEPAGE and no SITES, so navigation step 1 has no target. Its DIST_TUPLE yields the two admitted starting identifiers C018 identified in the same shape: the repository path and the account.
+
+Both observation scopes were fixed BEFORE their requests, in scratch files timestamped ahead of the fetches, following the discipline RETRACTION 10 imposed at C018.
+
+Surface 1: https://github.com/ClassiCube/ClassiCube
+Necessary because: it is the location the frozen identifiers resolve to, and E2-REP asks what upstream designates.
+observed_at_utc: 2026-08-29T07:24:55Z-07:24:57Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+control: https://api.github.com/repos/TASEmulators/fceux -> 200 at the same moment, same host
+evidence_role: upstream-controlled repository
+
+Observed, restricted to what the contract allows at a repository:
+
+```text
+full_name        ClassiCube/ClassiCube        default_branch  master
+owner            ClassiCube                   visibility      public
+fork             false                        archived        false
+disabled         false                        mirror_url      null
+homepage         "" (empty)                   license         NOASSERTION
+description      "Custom Minecraft Classic / ClassiCube client written in C
+                  from scratch (formerly ClassicalSharp in C#)"
+
+root, 11 entries: dirs .github doc misc src third_party
+                  files .gitattributes .gitignore Makefile credits.txt
+                        license.txt readme.md
+```
+
+A source tree is present. The repository declares no website of its own, carries no mirror marking and no archived or moved marking. The description's "formerly ClassicalSharp in C#" is recorded as lineage in the sense C017 used for its 2048 link, not as a source designation, and `readme.md` was not opened.
+
+Surface 2: https://github.com/ClassiCube
+Necessary because: surface 1 was observed in full and did not settle the gate, and the account token is the one remaining identifier the frozen DIST_TUPLE admits. QA-11 as applied at RETRACTION 10, where declining exactly this surface was the error.
+observed_at_utc: 2026-08-29T07:25:39Z; http_status 200; redirect_chain: NONE
+control: https://api.github.com/users/TASEmulators -> 200 at the same moment
+
+Observed, within the scope fixed beforehand:
+
+```text
+login  ClassiCube        type  Organization        public_repos  14
+blog   https://www.classicube.net
+bio    "An exceedingly simple sandbox building-block game."
+company / location / email  null
+```
+
+The account's repositories were not enumerated, and no repository was selected or inferred by similarity.
+
+`https://www.classicube.net` was NOT opened, and the reason is stated exactly:
+
+```text
+not an admitted starting point
+  the contract admits only URLs and identifiers found in the FROZEN
+  OpenBSD metadata. This URL is not in it; it was learned from
+  upstream at observation time.
+
+not reachable by navigation
+  the ladder runs landing page -> source/code/repository link ->
+  repository root. It has no rung running the other way, from a
+  repository or an account back to a project site.
+```
+
+Nothing is claimed about what that site contains.
+
+Adjudication:
+
+```text
+PASS not established
+  the admissible evidence establishes repository identity, upstream
+  affiliation and source-tree presence. It does not establish that
+  upstream designates this location as its canonical source. The
+  DIST_TUPLE made the repository findable; arriving at a repository
+  is not upstream identifying it as authoritative. C014's boundary,
+  applied at C017 and QA-21: affiliation is not designation.
+
+  The organisation's `blog` field does not close the gap either. A
+  website field states where the owner's site is; it does not state
+  that this repository is that project's canonical source. Reading
+  it as a designation is the C022 error withdrawn at RETRACTION 23.
+
+FAIL not established
+  no E2-REP failure code applies. Every one of them is a statement
+  ABOUT a designated canonical location -- that there is none, that
+  there are several, that it has no stable URL, that its source
+  representation is inaccessible -- and no designation was
+  established here to make such a statement about. QA-21 settled
+  this for exactly this shape: not finding a designation at the
+  reachable surfaces is not a demonstration that none exists.
+```
+
+One thing is deliberately NOT offered as a ground, because C069's correction applies here too. `www.classicube.net` lies outside the search the contract defines, so it contributes no uncertainty to that search, and the bounded search over the two admitted identifiers is complete. The verdict does not rest on that site being unseen. It rests on C017's settled boundary: what the completed search reached is affiliation, and no sealed code turns the absence of a designation into a failure.
+
+Difference from C017, recorded rather than glossed: there the repository was archived and had no website field anywhere; here it is active and the OWNING ORGANISATION declares one. Neither difference changes the adjudication, and `archived` is not a failure ground in either direction per QA-21.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C069-UR-01
 Candidate: C069 (frame rank 69, games/chromium-bsu)
 Gate: UR
