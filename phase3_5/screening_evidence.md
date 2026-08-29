@@ -8827,6 +8827,96 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C072-UR-01
+Candidate: C072 (frame rank 72, games/clidle)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/clidle/Makefile, modules.inc and distinfo
+Observed: HOMEPAGE=https://github.com/ajeetdsouza/clidle; MODGO_MODNAME=github.com/ajeetdsouza/clidle; MODGO_VERSION=v0.1.0; DISTNAME=clidle-${MODGO_VERSION}; COMMENT="wordle game for the terminal"; MODULES=lang/go. The Makefile includes modules.inc, which declares 121 entries under `MODGO_MODULES`, and distinfo holds 204 SHA256 lines of which exactly one, `clidle-v0.1.0.zip`, is not a `go_modules/` entry.
+
+Inference: HOMEPAGE and MODGO_MODNAME name the same location and the same system, and the port's one non-dependency distfile carries that system's name and version. The 121 module entries are not a competing designation: the metadata's own structure files them under a dependency variable and under `go_modules/` paths in distinfo, so no basis for choosing between systems is needed and this is not UR-AMBIGUOUS. No earlier candidate resolved to this system, so not a duplicate.
+
+Recorded as a scope determination rather than left implicit: those 121 module identifiers and their distinfo hashes are NOT admitted starting points for this candidate. The contract admits only the metadata URLs and identifiers "that UR already resolved to one system", and these resolve to other systems.
+Decision: PASS
+
+## EV-C072-E1-01
+Candidate: C072
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party terminal game packaged from the account ajeetdsouza, unrelated to this project. The Makefile separately carries a `# MIT` marker line above `PERMIT_PACKAGE = yes`; it is recorded as seen and does no work here.
+Inference: external-authorship requirement satisfied from the frozen metadata alone -- the packaged system is a third party's.
+Decision: PASS
+
+## EV-C072-E2REP-01
+Candidate: C072
+Gate: E2-REP
+
+Shape, fixed before observation rather than discovered convenient afterwards: the frozen HOMEPAGE IS the repository root. That is the C010/C012 shape, and QA-22 governs it. Step 1 and step 3 landing on one surface settles WHICH surface may be looked at; it does not settle whether upstream designated that location, and letting an OpenBSD field name supply that force is the move QA-22 withdrew. C045 carries the same HOMEPAGE-is-repository shape and terminated for its own separate reason; nothing about its route is relied on here.
+
+Two admitted starting identifiers: the repository, named identically by HOMEPAGE and MODGO_MODNAME, and the account token in both. Both observation scopes were fixed BEFORE their requests, in scratch files timestamped ahead of the fetches. As at C071, that ordering rests on the session record: the scope files are not committed here, so the repository shows the scopes and the fetch timestamps but does not prove the sequence between them.
+
+Surface 1: https://github.com/ajeetdsouza/clidle
+Necessary because: it is the location every frozen identifier for this system resolves to, and E2-REP asks what upstream designates.
+observed_at_utc: 2026-08-29T07:37:48Z-07:37:50Z; http_status 200; redirect_chain: NONE (num_redirects 0)
+control: https://api.github.com/repos/TASEmulators/fceux -> 200 at the same moment, same host
+evidence_role: upstream-controlled repository
+
+```text
+full_name    ajeetdsouza/clidle       default_branch  main
+owner        ajeetdsouza              visibility      public
+fork         false                    archived        false
+disabled     false                    mirror_url      null
+homepage     "" (empty)               license         MIT
+description  "Play Wordle over SSH."
+
+root, 17 entries
+  dirs   .github store
+  files  .deepsource.toml .gitignore .goreleaser.yaml Dockerfile
+         LICENSE README.md dictionary.go go.mod go.sum main.go
+         model.go preview.png query.sql schema.sql sqlc.yaml
+```
+
+A source tree is present. The repository declares no website of its own and carries no mirror, primary, archived or moved marking. `README.md` was not opened and no source file was read.
+
+Surface 2: https://github.com/ajeetdsouza
+Necessary because: surface 1 was observed in full and did not settle the gate, and the account token is the one remaining admitted identifier. QA-11 as applied at RETRACTION 10 / C018 and at C071.
+observed_at_utc: 2026-08-29T07:38:17Z; http_status 200; redirect_chain: NONE
+control: https://api.github.com/users/TASEmulators -> 200 at the same moment
+
+```text
+login  ajeetdsouza     type  User      public_repos  36
+blog   "" (empty)      bio   null      company  "@bufbuild"
+location / email  null
+```
+
+The account declares no website and carries no marking designating where clidle's source lives. Its repositories were not enumerated and none was selected or inferred by similarity.
+
+Adjudication, against QA-22's carried-forward rule -- name the upstream surface that performs the designation and record its exact signal:
+
+```text
+PASS not established
+  there is no such surface and no such signal. What the two
+  admitted surfaces establish is repository identity, upstream
+  affiliation and source-tree presence. QA-22 states the disposition
+  for exactly this answer: "If the answer is 'the repository exists
+  and is the project's', that is affiliation, and the verdict is
+  UNRESOLVED."
+
+  Nothing here even reaches the weaker signals earlier candidates
+  had to have withdrawn: no repository website field, no account
+  website field, no primary or mirror marking anywhere.
+
+FAIL not established
+  every E2-REP failure code is a statement ABOUT a designated
+  canonical location, and no designation was established here to
+  make such a statement about. QA-21: not finding a designation at
+  the reachable surfaces is not a demonstration that none exists.
+```
+
+The bounded search is complete over both admitted identifiers, and no surface outside it is offered as a ground for uncertainty -- the C069 correction. The verdict rests on QA-22's rule, not on anything unobserved.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C071-UR-01
 Candidate: C071 (frame rank 71, games/classicube)
 Gate: UR
