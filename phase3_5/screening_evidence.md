@@ -8928,6 +8928,146 @@ The frozen SITES, `http://www.asty.org/cmatrix/dist/`, is accounted for and was 
 Inference: exactly one designated canonical source location, `https://github.com/abishekvashok/cmatrix`, at a stable URL, holding a source tree, with one external target identifier, CMatrix.
 Decision: PASS
 
+## RETRACTION 27 — C075 E2-REP PASS withdrawn; a bare-URL anchor does not authorize step 2
+
+EV-C075-E2REP-01 is **superseded**. Its step-1 observations stand and are
+not re-argued. Three defects, one of them decisive.
+
+**The navigation whitelist was applied to something that is not a
+label.** The sealed contract allows, as step 2, "a Source / Code /
+Repository / Development link that page explicitly exposes". The link
+this entry followed carries the bare URL as its anchor text, which the
+entry itself recorded. It argued that upstream's surrounding sentence,
+naming the destination "the newest repository for CMatrix", made the
+page expose it AS a repository.
+
+That conflates two different things the contract keeps apart. Allowed
+navigation is a PERMISSION and fixes execution reach; a designation
+signal is a FINDING about what upstream asserts. QA-17 settled that a
+criterion's wording cannot widen the search contract, and this is the
+same widening in a new shape -- the shape RETRACTION 6 and RETRACTION 7
+already corrected twice. Every navigation this run has authorized rested
+on a label containing one of the four words, C064 included, where the
+only latitude taken was case.
+
+**C009 is not the rescuing precedent it was cited as.** QA-22 describes
+C009's arrow as what makes upstream's page point at a location -- a
+designation finding. Whether a sentence can also unlock navigation is a
+separate question, and this entry answered it in its own favour without
+a precedent that had answered it before.
+
+**Consequences on the record.** The step-3 request to
+https://github.com/abishekvashok/cmatrix and every observation drawn
+from it are QUARANTINED: they were obtained past an unauthorized step,
+they remain on the record, and they do no verdict work. The gates after
+E2-REP were screened while E2-REP was in fact unsettled; EV-C075-E2RULE-01,
+EV-C075-E3-01 and EV-C075-E4-01 are quarantined as post-stop exposure
+under the same rule applied at QA-21.
+
+**A fourth, smaller inaccuracy, corrected rather than dropped.** The
+withdrawn entry's adjudication described the download block's "The
+current version of CMatrix is 1.2a" as the only present-tense statement
+on the other side. The same page also carries "Breaking-er news - I have
+released a new version!" above the new-home section, linking to a blog
+post and calling that release "a one-off". That paragraph was in the
+entry's own anchor list and was left out of the count. The ranking
+argument is moot now that the gate stops earlier, but the miscount is
+recorded rather than deleted.
+
+## EV-C075-E2REP-02  (supersedes EV-C075-E2REP-01)
+Candidate: C075 (frame rank 75, games/cmatrix)
+Gate: E2-REP
+
+Step 1 stands as observed in the superseded entry: http://www.asty.org/cmatrix/,
+2026-08-29T08:34:54Z, 200 after one redirect to https, 14811 bytes,
+sha256 fed96ea8ce8d88098b38816d68fb7e248efeb1825d276eba4fb41591b0696816,
+21 anchors parsed element-wise.
+
+Step 2 has no authorized target. No anchor on the page carries a label
+that is Source, Code, Repository or Development, in any case. The
+repository link's anchor text is the bare URL
+`https://github.com/abishekvashok/cmatrix`, and C038's rule is that a
+host-name anchor does no work on its own; RETRACTION 27 records why the
+surrounding sentence does not supply the missing permission.
+
+What step 1 did establish, kept as a finding and not used as a
+permission:
+
+```text
+upstream's page performs a designation in its own sentence
+  "You can find the newest repository for CMatrix at
+   https://github.com/abishekvashok/cmatrix"
+  under the heading "Breaking news - New home and maintainer!",
+  with the page's own subtitle reading "The (former) home of
+  CMatrix by Chris Allegretta"
+
+and it also presents its own source artifact
+  "Download! The current version of CMatrix is 1.2a."
+  -> https://www.asty.org/cmatrix2/dist/cmatrix-1.2a.tar.gz
+```
+
+Adjudication. PASS is unavailable: E2-REP requires the designated
+location to be shown to hold a source representation, observed at its
+root surface, and the contract provides no authorized route to that
+surface for this candidate. No failure code is available either. Both
+codes that could apply need positive evidence this run does not have --
+`E2REP-NO-SINGLE-CANONICAL-LOCATION` needs several designations with no
+primary among them, and upstream's page states a ranking rather than
+leaving one absent, while `E2REP-NO-SOURCE` needs the designated
+location's source representation shown to be inaccessible, which was
+never observed lawfully.
+
+Not claimed: that upstream designates no canonical source location. It
+designates one in a sentence this run read at step 1. What is missing is
+an authorized way to reach and verify it, which is a limit of the sealed
+contract and not a fact about upstream.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
+## QUARANTINE NOTE — the two errors inside the quarantined C075 E4 entry
+
+The quarantined `EV-C075-E4-01` does no verdict work, and it is left in
+place rather than deleted. Two errors inside it are recorded here so
+they are not carried forward into another candidate.
+
+**A factual error.** The entry states that an unrecognised option
+"returns '?' from getopt, matches no case, and is silently ignored". The
+switch has a case for it:
+
+```text
+cmatrix.c:403-406   case 'h':
+                    case '?':
+                        usage();
+                        exit(0);
+```
+
+Re-checked mechanically against the pinned file, sha256
+f8d62a5f83a38c20e2425bba46fd0ee8ad1eaa058c51999ad09196ccec3dd3d0: the
+optstring `abBcfhlLnrosmxkVM:u:C:t:` holds 20 option characters, all 20
+distinct, four of them argument-taking (C, M, t, u); every one of the 20
+has a case in the switch, and the only case not in the optstring is
+`'?'`. The entry judged "no default branch" from lines 414-433, the tail
+of the switch, and stated a property of the whole construct from part of
+it -- the defect corrected at C065, where a quoted range truncated what
+it was used to characterise.
+
+**An adjudication error.** The entry rejected the `-C` colour chain
+under EN3 on the ground that EN3's examples -- a registry, an
+interface's implementations, collected annotations, a declared closed
+directory -- are "each a set that exists as a thing, not control flow a
+reader must interpret as one". EN3's sealed text is "Membership can be
+decided without semantic reading of individual items", followed by
+"Examples:". Requiring the set to exist as a separate object adds a
+condition the seal does not state, which is the same class of move as
+supplying a hierarchy upstream never stated.
+
+**What is NOT claimed here.** That E4 would have passed. E4 is
+NOT_REACHED for this candidate: the gate was never lawfully reached, and
+saying what its verdict would have been is the counterfactual RETRACTION
+10 withdrew at C018. These are recorded as errors in reasoning, not as a
+suppressed verdict.
+
 ## EV-C075-PIN-01
 Candidate: C075
 Provenance pin for the gates below.
@@ -8944,7 +9084,7 @@ README        7831/65 bytes see below
 
 These digests identify the objects analysed. They do nothing for QA-28.
 
-## EV-C075-E2RULE-01
+## QUARANTINED EV-C075-E2RULE-01
 Candidate: C075
 Gate: E2-RULE
 Source: `configure.ac` at the pinned commit
@@ -8974,7 +9114,7 @@ Inference: the project states a concrete build-environment requirement without o
 Stated exactly rather than strengthened: this is `AC_MSG_WARN`, not `AC_MSG_ERROR`, so configure does not abort when none is found. What the project asserts is the requirement and the consequence it predicts, "if you get errors compiling cmatrix". The gate asks for externally authored validity evidence, not for that evidence to be enforced; C067's witness was INSTALL prose with no enforcement at all.
 Decision: PASS
 
-## EV-C075-E3-01
+## QUARANTINED EV-C075-E3-01
 Candidate: C075
 Gate: E3
 Source: `cmatrix.c` at the pinned commit
@@ -9022,7 +9162,7 @@ Stated exactly, because `lock` has a second writer: the `-L` option sets it at :
 Not claimed: that a locked session cannot be ended at all. Upstream's own usage line says lock mode "can be closed from another terminal", and this entry did not follow that path. The claim is about this input at this branch.
 Decision: PASS
 
-## EV-C075-E4-01
+## QUARANTINED EV-C075-E4-01
 Candidate: C075
 Gate: E4
 Provenance: as above.
