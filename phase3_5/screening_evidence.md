@@ -8980,6 +8980,59 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C077-UR-01
+Candidate: C077 (frame rank 77, games/corewars)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/corewars/Makefile and distinfo
+Observed: DISTNAME=corewars-0.9.13; HOMEPAGE=https://corewars.org/; SITES=${SITE_SOURCEFORGE:=corewars/}; COMMENT="computer simulation game"; distinfo names corewars-0.9.13.tar.gz, SIZE 203874. `SITE_SOURCEFORGE` resolves in the same frozen tree at infrastructure/db/network.conf:68-69 to `https://downloads.sourceforge.net/sourceforge/`, so SITES is `https://downloads.sourceforge.net/sourceforge/corewars/`.
+Inference: the frozen fields name one packaged system, corewars, with a project website and a code-host project of the same short name. That is the protocol's "several facts about one system" shape, so not UR-AMBIGUOUS. No earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C077-E1-01
+Candidate: C077
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party simulation game on an upstream site unrelated to this project. The Makefile separately carries a `# GPLv2` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C077-E2REP-01
+Candidate: C077
+Gate: E2-REP
+
+Step 1: https://corewars.org/ -- the frozen HOMEPAGE. Requested 2026-08-29T16:11:43Z, 200, no redirect, 3360 bytes, sha256 1a2a04a77c0e20bdfa979b0dc193907c82cb329b22823c564505e4b9418ceb9a. 11 anchors, parsed element-wise:
+
+```text
+index.html                                    "Home"
+information.html                              "Tutorials"
+mars.html                                     "Software to play"
+competitions.html                             "Competitions"
+links.html                                    "Links"
+information.html                              "information"
+http://www.koth.org/pmars                     "The pMARS homepage"
+competitions.html                             "hills"
+links.html                                    "links"
+http://www.useyourhandwriting.com             (unrelated)
+google.com/search?q=sapan+bhatia              "SB"
+```
+
+No label is Source, Code, Repository or Development, and the words themselves are absent from the document -- a standalone-word count returns `source` 0, `code` 0, `repository` 0, `development` 0, `git` 0. `sourceforge` appears 0 times and no version number appears at all. So step 2 has no target, on any of QA-35's three readings, and nothing in this entry depends on which of them is right.
+
+`mars.html` was not followed. Its label, "Software to play", is not on the step-2 whitelist, and QA-17 settled that a criterion's wording cannot widen the search contract. As corrected at C069, a non-whitelisted link is OUTSIDE the search rather than unobserved within it: it contributes neither evidence nor uncertainty, and step 1 is a complete bounded observation.
+
+Recorded as observed, and deliberately not converted into a claim about identity: the page describes Core War as a programming game, names Redcode as its assembly language, and under "To play Core Wars on your computer" points at "The pMARS homepage" on another host. Every one of its seven standalone occurrences of `corewars` is the site's own name, the game's name in prose -- "Corewars Hills", "Corewars enthusiasts", "Corewars sites", "Corewars related info" -- or the newsgroup `rec.games.corewars`. None names a software artifact.
+
+What is NOT claimed from that. That corewars.org is not upstream's page for the packaged system. UR resolved this port from the frozen metadata, where HOMEPAGE and a code-host project of the same name are facts about one system, and an impression formed from the landing page's subject matter is not a basis for reopening that. What the observation supports is narrower and is all this gate uses: this surface designates no source location.
+
+The frozen SITES, `https://downloads.sourceforge.net/sourceforge/corewars/`, is accounted for and was NOT requested. It is a code host's release-file area, the class QA-31 closes to this gate, whose scope paragraph was written for exactly this pattern -- "OpenBSD ports commonly point SITES at a code host's release assets. Every such frame item whose gate is still open after step 1 reaches this same point, and loses its second starting point to the prohibition." Accounted for under QA-27's third branch, with the prohibition as the named reason. The classification is by what the surface is, not by a substring of its URL.
+
+Inference: after step 1 the gate is unsettled. Its step-1 branch is a complete bounded negative observation of the kind SCREENING_PROTOCOL.md:242-251 permits absence-shaped codes to rest on; its SITES branch is closed to observation. A failure determination needs the whole search the contract defines, so no E2-REP code can be determined for the candidate as a whole, independently of what the step-1 branch alone might have supported. A PASS needs a designation witness and step 1 produced none.
+
+Not claimed: that upstream designates no canonical source location. One admitted starting point was never observed, and what is on the record is that the sealed contract closed it. Same shape as C069, and as C045 where QA-31 was raised.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C076-UR-01
 Candidate: C076 (frame rank 76, games/colobot/data)
 Gate: UR
