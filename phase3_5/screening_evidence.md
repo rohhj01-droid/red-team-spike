@@ -9003,19 +9003,26 @@ Decision: PASS
 Candidate: C076
 Gate: E2-REP
 
-Starting points, all four accounted for per QA-27:
+Frozen metadata fields relevant to starting-point accounting under QA-27, with the GitHub fields shown as the one tuple they form:
 
 ```text
-HOMEPAGE     https://colobot.info/                    opened, step 1
-GH_ACCOUNT   colobot        -> github.com/colobot     opened
-GH_PROJECT   colobot-data   -> github.com/colobot/colobot-data
-                                                      opened
-GH_TAGNAME   colobot-gold-0.2.2-alpha                 NOT requested
+HOMEPAGE                    https://colobot.info/
+                            opened, step 1
+
+GitHub tuple
+  GH_ACCOUNT   colobot      -> github.com/colobot
+                               opened
+  GH_PROJECT   colobot-data -> github.com/colobot/colobot-data
+                               opened
+  GH_TAGNAME   colobot-gold-0.2.2-alpha
+                               no tag or archive surface requested
 ```
+
+An earlier version of this line read "Starting points, all four accounted for per QA-27", which cannot stand beside the paragraph below saying the seal does not fix whether `GH_TAGNAME` is a separate surface. Counting it as one of four settles exactly the question that paragraph leaves open. Withdrawn.
 
 The repository and the account are METADATA-SUPPLIED starting points, not step-2 navigation targets, so QA-35's undetermined step-2 rule does not arise for them and nothing here depends on it.
 
-`GH_TAGNAME` is accounted for differently from how an earlier version of this entry accounted for it, and that version is withdrawn. It said the tag "is an identifier whose surface is the repository's tag and release area, which QA-31 closes to this gate". Two things are wrong with that. QA-31's class is a code host's RELEASE ASSETS area, and a `GH_TAGNAME` names a tag from which an archive of the tagged tree is generated on request -- classifying it as the releases class asserts an equivalence this run never established. And no previous entry has treated `GH_TAGNAME` as a surface at all: it appears in the Observed line of C008, C014, C009, C017, C025, C032, C034, C038, C043, C050, C051 and C057 as a metadata field beside the account/project pair, never as a fourth starting point to be opened or declined.
+`GH_TAGNAME` is accounted for differently from how an earlier version of this entry accounted for it, and that version is withdrawn. It said the tag "is an identifier whose surface is the repository's tag and release area, which QA-31 closes to this gate". Two things are wrong with that. QA-31's class is a code host's RELEASE ASSETS area, and a `GH_TAGNAME` names a tag from which an archive of the tagged tree is generated on request -- classifying it as the releases class asserts an equivalence this run never established. And no previous entry has treated `GH_TAGNAME` as a surface at all: it appears as a metadata field beside the account/project pair, never as a separate starting point to be opened or declined, in every entry that records it before this one -- fourteen candidates, counted by scanning the evidence file rather than listed from memory: C008, C009, C014, C017, C025, C032, C034, C038, C043, C050, C051, C057, C060 and C063. An earlier version of this sentence named twelve, omitting C060 and C063; the conclusion is unchanged and the count was wrong.
 
 What stands is narrower:
 
@@ -9027,7 +9034,9 @@ whether GH_TAGNAME is a separate admitted surface, or a ref
 no tag or archive surface was requested, then or now -- this
   candidate has a terminal record, and opening one to supply fresh
   evidence is what QA-21 exists to stop
-``` Both repository scopes were fixed before their requests, with the same reproducibility limit recorded at C071: the scope file is not committed, so the repository shows the scope and the fetch timestamps but not the sequence between them.
+```
+
+Both repository scopes were fixed before their requests, with the same reproducibility limit recorded at C071: the scope file is not committed, so the repository shows the scope and the fetch timestamps but not the sequence between them.
 
 Step 1: https://colobot.info/, requested 2026-08-29T09:18:43Z, 200, no redirect, 36786 bytes, sha256 fc62ef97047f731b20f2b8c54517eb3f24055060c8984bbdb37f225770f1ec3b. 38 anchors parsed element-wise.
 
