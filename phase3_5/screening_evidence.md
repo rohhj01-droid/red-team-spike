@@ -8980,6 +8980,113 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C080-UR-01
+Candidate: C080 (frame rank 80, games/cowsay)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cowsay/Makefile, distinfo, and infrastructure/mk/cpan.port.mk
+Observed: V=0.2.1; DISTNAME=Acme-Cow-$V; PKGNAME=cowsay-$V; MODULES=cpan; HOMEPAGE=https://metacpan.org/dist/Acme-Cow; COMMENT="speaking ascii cow"; distinfo names Acme-Cow-0.2.1.tar.gz, SIZE 19104. The port sets no SITES; the frozen `cpan` module supplies one.
+
+The SITES expansion is derived from the frozen tree rather than assumed:
+
+```text
+cpan.port.mk:4    SITES ?= ${SITE_PERL_CPAN:N*backpan.perl.org*:=
+                             ${DISTNAME:C/-.*$//}/}
+                  taken because the port defines no CPAN_AUTHOR
+
+network.conf:85-87
+                  SITE_PERL_CPAN = https://www.cpan.org/modules/by-module/
+                                   https://backpan.perl.org/modules/by-module/
+
+  :N*backpan.perl.org*  drops the second
+  ${DISTNAME:C/-.*$//} is "Acme"
+
+  -> https://www.cpan.org/modules/by-module/Acme/
+```
+
+Inference: the frozen fields name one packaged system, the CPAN distribution Acme-Cow, with a distribution page and a mirror directory that both carry that name. Not UR-AMBIGUOUS, and no earlier candidate resolved to it, so not a duplicate.
+
+Recorded because it will matter if this candidate is ever revisited: the external name is Acme-Cow. `cowsay` is the OpenBSD package name, chosen by the packager, and the protocol's own rule that an OpenBSD field is not upstream evidence applies to a name as much as to a location.
+Decision: PASS
+
+## EV-C080-E1-01
+Candidate: C080
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party Perl distribution, packaged from CPAN, unrelated to this project. The Makefile separately carries a `# perl` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C080-E2REP-01
+Candidate: C080
+Gate: E2-REP
+
+Both admitted starting points were requested. Neither yielded a designation, and the two failed to yield one in different ways, which the entry keeps apart.
+
+Surface 1: https://metacpan.org/dist/Acme-Cow -- the frozen HOMEPAGE.
+observed_at_utc: 2026-08-29T17:57:00Z (GET), 17:57:57Z (HEAD)
+http_status: 200, 200; redirect_chain: NONE (num_redirects 0)
+Observed: the response is 3038 bytes, sha256 32ed63159c77e21ee19ca1b9aa3213ccf0218eb59539560b132a8e68ef0e18ea, and it is not the distribution page. It is a bot-detection interstitial: `<title>Client Challenge</title>`, a Content-Security-Policy naming a `/_fs-ch-.../` asset path, and a `<noscript>` block reading "JavaScript is disabled in your browser." It contains zero `<a>` elements.
+
+```text
+control, same host, same moment
+  https://metacpan.org/ -> 200, 3038 bytes, <title>Client Challenge</title>
+
+so the challenge is HOST-WIDE, not specific to this path. It says
+nothing about whether a distribution page for Acme-Cow exists, what
+it contains, or what it designates.
+```
+
+**The challenge was not bypassed, and no attempt was made to bypass it.**
+That is an absolute constraint on this work and not a screening
+judgement; it is recorded here so the gap in the evidence has a stated
+cause rather than looking like an omission.
+
+What follows for the gate is narrow. Transport completed and the server
+answered definitely, so this is not the timeout / DNS / refused / 5xx
+family and `PI-TRANSPORT-INDETERMINATE` -- "retries exhausted, endpoint
+state unknown" -- does not describe it. It is C026's situation in a new
+form: a definite response that reveals nothing about the resource. What
+must NOT be done with it is the conversion this run refuses everywhere:
+an observation that was prevented is not a finding that upstream
+designates nothing.
+
+Surface 2: https://www.cpan.org/modules/by-module/Acme/ -- the frozen SITES.
+Necessary because: the gate was unsettled after surface 1, and this is the remaining admitted starting point. It was not lawfully skippable the way C010's SITES was -- there the port's own `dist:` target showed the host to be the packager's, and nothing here establishes an equivalent. That is C026's lesson applied rather than re-learned, exactly as at C028.
+observed_at_utc: 2026-08-29T17:57:59Z; http_status 200; redirect_chain: NONE; 703907 bytes, sha256 8b43d8f37c1028157dc10e65faa50a21a50e995a2d5300da4d05b03febfeb650
+Observed: an Apache directory index, `Index of /modules/by-module/Acme`, with 3428 anchors -- author subdirectories and distribution files. Eight of them mention `Cow`:
+
+```text
+Acme-Cow-0.2.1.readme        Acme-Cow-0.2.1.tar.gz
+Acme-Cow-0.2.readme          Acme-Cow-0.2.tar.gz
+Acme-Cow-Interpreter-0.01.readme / .tar.gz
+Acme-Cow-Interpreter-0.02.readme / .tar.gz
+```
+
+The index carries no headings, labels or statements beyond the index furniture -- Name, Last modified, Size, Description, Parent Directory. There is no designation of a canonical source location and no primary or mirror marking. That the frozen distfile `Acme-Cow-0.2.1.tar.gz` is present corroborates the packaging fetch path and nothing more; QA-22 settled that a fetch path is not upstream designation. No `.readme` or archive was opened, and no role is assigned to any listed name -- the restraint RETRACTION 21 imposed at C044.
+
+Adjudication:
+
+```text
+PASS not established
+  no designation signal was observed on either admitted surface. One
+  of them was never actually served, and the other makes no statement
+  at all. This is C028's shape: an archive index that designates
+  nothing, reached after a first surface that carried no designation
+  evidence.
+
+FAIL not established
+  no E2-REP failure code applies. Every one is a statement ABOUT a
+  designated canonical location, and none was established here. And
+  the first surface's contents are unknown rather than empty, so
+  coding a failure would convert a prevented observation into a
+  finding about upstream.
+```
+
+Scope of this obstruction, bounded rather than left to sound like a class: the frozen 128 was scanned for other ports carrying `MODULES=cpan` or a metacpan HOMEPAGE, and `games/cowsay` is the only one. So no other frame item reaches this surface, and nothing here is a rule about a family of candidates.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C078-UR-01
 Candidate: C078 (frame rank 78, games/corsixth)
 Gate: UR
