@@ -2279,3 +2279,74 @@ version of C076's entry -- classifying `GH_TAGNAME` as QA-31's releases
 class, citing C032 as controlling, and attributing C071's description to
 C074 -- are separate: the first two adjudication/inference errors, the
 third an evidence/citation error, all detected by review.
+
+
+## QA-37 — the SourceForge distfile directory has been both opened and declined (RECORDED, no verdict moved)
+
+Found while screening frame rank 81, whose frozen SITES has the same
+shape as ten earlier candidates'. The same surface class has been
+treated two ways in this run, and the divergence was introduced without
+being noticed.
+
+**The surface.** `SITES = ${SITE_SOURCEFORGE:=<project>/}`, which the
+frozen infrastructure resolves to
+`https://downloads.sourceforge.net/sourceforge/<project>/`.
+
+**How it was disposed of, by candidate.**
+
+```text
+OPENED, and observed
+  C031 C036 C037 C044 C046 C048 C062      seven candidates
+
+DECLINED as QA-31's forbidden class
+  C069 C074 C077                          three candidates
+```
+
+C062 states the first reading in terms -- "Neither names a class the
+contract forbids, so QA-31 does not arise" -- and C069 states the second,
+citing QA-31's scope paragraph about "a code host's release assets".
+Both readings are on the record and they are incompatible.
+
+**Which is right is not settled here.** QA-31 was raised at C045, whose
+SITES was a GitHub `/releases/download/` path. Whether SourceForge's
+by-project mirror directory is the same class as a code host's release
+assets, or is instead a distfile mirror of the kind QA-27 required be
+opened at C026, is a question the seal does not answer. Choosing now
+would be the post-hoc move RETRACTION 28 established the run may not
+make.
+
+**No verdict depends on the difference, checked rather than assumed.**
+All ten candidates are UNRESOLVED at E2-REP except C074, which is
+ELIGIBLE -- and C074's entry declines the surface on two independently
+sufficient grounds, the stop rule having already determined its gate
+before QA-31 was invoked. So its verdict does not rest on the class
+question. Among the seven that opened it, the surface returned 404s or
+an index carrying no designation, so none of their verdicts rests on it
+either.
+
+**The defect is mine and it is the familiar one.** The stricter reading
+was introduced at C069 without checking how the same surface had been
+handled seven times before. That is the same failure as RETRACTION 27's
+withdrawn universal: applying a reading without auditing the precedent
+it contradicts.
+
+**What is done at rank 81, and why.** The surface is not requested. Not
+because the strict reading is adopted -- it is not -- but because the
+two branches differ in what they cost when wrong. Opening a surface the
+contract forbids is an irreversible breach that has twice required
+quarantine and retraction in this run, at C042 and C064. Declining a
+surface the contract permits leaves the gate UNRESOLVED, which rank 81's
+gate is on either branch, since the seven candidates that did open this
+surface found nothing on it that settled theirs. Under a genuinely open
+question the recoverable side is the one that does not consume the
+evidence.
+
+**What this needs, and where it belongs.** A Run 2 preregistration must
+name the forbidden surface classes by what they are rather than by
+example, so that a distfile mirror and a code host's release-asset area
+are distinguishable in advance. Run 1 cannot supply it.
+
+**Classification, pending the Run 1 coding protocol.** Methodology/design
+gap, QA-30's family, plus an adjudication/inference error at C069 for
+introducing a reading without auditing precedent. Detected by the author
+while screening rank 81.

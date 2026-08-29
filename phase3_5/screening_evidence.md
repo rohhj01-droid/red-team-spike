@@ -8980,6 +8980,76 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C081-UR-01
+Candidate: C081 (frame rank 81, games/cpat)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cpat/Makefile and distinfo
+Observed: DISTNAME=cpat-1.4.2; HOMEPAGE=https://cpat.sourceforge.net/; SITES=${SITE_SOURCEFORGE:=cpat/}; COMMENT="curses-based solitaire collection suite"; distinfo names cpat-1.4.2.tar.gz, SIZE 158644. `SITE_SOURCEFORGE` resolves in the same frozen tree at infrastructure/db/network.conf:68-69 to `https://downloads.sourceforge.net/sourceforge/`, so SITES is `https://downloads.sourceforge.net/sourceforge/cpat/`.
+Inference: the frozen fields name one packaged system, CPat, with a per-project site and a code-host project of the same short name. That is the protocol's "several facts about one system" shape, so not UR-AMBIGUOUS. No earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C081-E1-01
+Candidate: C081
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party curses game suite on an upstream site unrelated to this project. The Makefile separately carries a `# GPLv2 only` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C081-E2REP-01
+Candidate: C081
+Gate: E2-REP
+
+Step 1: https://cpat.sourceforge.net/ -- the frozen HOMEPAGE. Requested 2026-08-29T18:28:01Z, 200, no redirect, 4470 bytes, sha256 b7d493f544b771c08c3d56a9d47ad10bc39bd4e031a3823fa4b9e9a9a0bd6f19. Like C062's per-project host, this serves a page the project itself authored. Seven anchors, parsed element-wise:
+
+```text
+https://sourceforge.net/project/showfiles.php?group_id=160188
+                                              "source code"
+mainmenu.png / spider.png / freecell.png / statistics.png /
+highscores.png                                (screenshots, no text)
+http://sourceforge.net                        (logo image, no text)
+```
+
+The sentence the `source code` link sits inside: "The latest version is CPat-1.3.0 and was released on Oct 4, 2016. Download the latest source code and build using `./configure && make && make install`."
+
+Step 2 is a composition this run has not met before, and it is stated rather than resolved by preference. The link's LABEL is `source code`, two of the contract's four words verbatim -- the strongest step-2 credential available, and one that would authorize navigation under any of QA-35's three readings. Its DESTINATION is `sourceforge.net/project/showfiles.php`, which C062 disposed of as a releases surface in terms: "the link was not opened, releases being forbidden outright".
+
+```text
+whitelisted label            -> the link is a candidate step-2 target
+destination in a forbidden   -> the surface is closed to this gate
+  class
+
+composition, on QA-31's own reasoning: a permission stated in one
+place does not widen the forbidden set (QA-17). The label makes the
+link eligible; the class closes the surface. The link is NOT followed,
+and nothing is claimed about what showfiles.php contains.
+```
+
+The sentence is read no further than C062 read its equivalent. "Download the latest source code" states what is downloadable by that route; it names no directory, repository or location, and QA-25 separates a designated ROUTE from a designated LOCATION. C020 was withdrawn for counting the first as the second.
+
+The frozen SITES, `https://downloads.sourceforge.net/sourceforge/cpat/`, was NOT requested, and the reason is not the one given at C069 and C077. QA-37, recorded while screening this candidate, finds that this exact surface class was OPENED at C031, C036, C037, C044, C046, C048 and C062 and DECLINED as QA-31's class at C069, C074 and C077 -- two incompatible readings, both on the record, neither settled by the seal. This entry does not choose between them. It declines the surface because the two branches differ in what they cost when wrong: opening a forbidden surface is an irreversible breach that required quarantine and retraction at C042 and C064, while declining a permitted one leaves this gate UNRESOLVED, which it is on either branch.
+
+Recorded as observed and deliberately not made into an identity claim: the page announces "CPat-1.3.0 ... released on Oct 4, 2016", while the frozen DISTNAME is cpat-1.4.2. Nothing is inferred from the divergence -- not that the page is stale, not that a newer release exists elsewhere, and not that this is or is not the packaged system's page. UR resolved that from the frozen metadata.
+
+Adjudication:
+
+```text
+PASS not established
+  no designation of a canonical source location was observed. The one
+  source-role sentence on step 1 names a download route and no
+  location, which QA-25 distinguishes.
+
+FAIL not established
+  no E2-REP failure code applies. Each is a statement ABOUT a
+  designated location and none was established. Two surfaces that
+  might have carried one were closed to this gate -- one by a
+  forbidden class, one by a class question this run has not settled --
+  so their contents are unknown rather than empty.
+```
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C080-UR-01
 Candidate: C080 (frame rank 80, games/cowsay)
 Gate: UR
