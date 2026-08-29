@@ -9110,16 +9110,21 @@ surface   the 128 paths in screening_set_128.txt, resolved against
 per item  read <port>/Makefile, plus the PARENT directory's
           Makefile.inc when one exists -- the inheritance this run
           met at rank 76 and which a first pass here missed
-test      MODULES ?= or = mentioning cpan, or the literal "metacpan"
-result    128/128 items had a readable Makefile; exactly one matched,
-          games/cowsay
+test      a MODULES assignment -- `=`, `?=` or `+=` -- mentioning
+          cpan, or the literal "metacpan". The `+=` form was added
+          after review pointed out the first pass covered only `=`
+          and `?=`; re-running with all three changed nothing
+result    128/128 items had a readable Makefile; this textual scan
+          found exactly one direct match, games/cowsay
 
 limits    a textual test, not a `make` evaluation: it would miss a
           module pulled in through a variable this pass does not
           expand, or an include other than the parent Makefile.inc
 ```
 
-So on that surface no other frame item reaches metacpan, and nothing here is a rule about a family of candidates. The claim is not load-bearing for the verdict; it is recorded so the obstruction is not read as wider than it was shown to be.
+Inference, kept to what the scan supports: no other direct match was found by this textual scan. Because the scan does not perform full `make` evaluation, it does not establish that no other frame item could resolve to CPAN or MetaCPAN through an unexpanded variable or another include path.
+
+An earlier version of this paragraph concluded "no other frame item reaches metacpan", which states a system property one sentence after listing the reasons the scan cannot establish one. That is the incomplete-search-to-universal-claim move this run has had to correct before, and it is withdrawn. Nothing here is a rule about a family of candidates, and none of it is load-bearing for the verdict; it is recorded so the obstruction is not read as wider than it was shown to be.
 
 Decision: UNRESOLVED
 Protocol issue: PI-UNCLASSIFIED-SHAPE
