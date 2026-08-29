@@ -8872,9 +8872,33 @@ Step 2 disposition for the second starting point. The frozen SITES resolves to `
 
 The classification is by what the surface is, not by a substring of its URL. Neither `download` in the host name nor the port's `SITES` variable name is doing the work; the surface is a code host's released-file area, which is the forbidden `releases` class. This is the distinction C064 got wrong in the other direction, and it is stated here so the reasoning can be checked rather than inferred.
 
-Inference: after step 1 the gate is unsettled -- the landing page exposes no whitelisted source link, so no designation witness was reached, and no failure code can fire either, because two surfaces that might carry a designation (`download.html`, and the SITES release area) are closed to this gate by the contract rather than absent from upstream. A PASS needs a witness and every failure code needs positive evidence; neither is obtainable here without navigating where the contract forbids.
+Inference, with the two dispositions kept apart, because conflating them would empty the whitelist of its function:
 
-Not claimed, and this is the whole point of the code: that upstream designates no canonical source location. Two surfaces were never observed. What is on the record is that the sealed contract closed them, never that there is nothing behind them. Same shape as C045, where QA-31 was raised.
+```text
+download.html and the other non-whitelisted links
+  OUTSIDE the search the contract defines. Not navigation, and so
+  not an unobserved surface either: their disposition is complete
+  at "no whitelisted label". They contribute neither evidence nor
+  uncertainty beyond that.
+
+step 1 as a whole
+  fully observed, element by element, and it exposed no admitted
+  step-2 target. That is a bounded negative observation -- the kind
+  SCREENING_PROTOCOL.md:242-251 says E2-REP's absence-shaped codes
+  may rest on, because here "what was there to look at" is fixed by
+  upstream's own link structure plus the sealed whitelist rather
+  than by where we chose to stop.
+
+frozen SITES
+  ADMITTED as a starting point and UNOBSERVABLE under QA-31's
+  releases prohibition. This alone is what the gate cannot get past.
+```
+
+An earlier version of this entry put `download.html` beside the SITES area as "two surfaces that might carry a designation ... closed to this gate". That is wrong, and the reason is worth recording rather than merely deleting: if every non-whitelisted link counted as an unobserved surface that might carry a designation, no E2-REP absence-shaped code could ever fire on any candidate, and the bounded search the contract exists to create would do no work at all. Withdrawn.
+
+So the gate is unsettled on one ground, not two. A PASS needs a designation witness and step 1 produced none. A failure determination needs the whole search the contract defines: its step-1 branch is complete, its SITES branch is closed to observation, and so no E2-REP code can be determined for the candidate as a whole -- independently of what the step-1 branch alone might have supported.
+
+Not claimed, and this is the whole point of the code: that upstream designates no canonical source location. One admitted starting point was never observed. What is on the record is that the sealed contract closed it, never that there is nothing behind it. Same shape as C045, where QA-31 was raised.
 
 Decision: UNRESOLVED
 Protocol issue: PI-UNCLASSIFIED-SHAPE
