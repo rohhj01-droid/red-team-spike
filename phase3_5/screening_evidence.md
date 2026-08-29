@@ -8980,6 +8980,106 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C076-UR-01
+Candidate: C076 (frame rank 76, games/colobot/data)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/colobot/Makefile.inc, games/colobot/data/Makefile and data/distinfo
+Observed: the subdirectory port inherits from the parent `Makefile.inc` V=0.2.2, HOMEPAGE=https://colobot.info/, GH_ACCOUNT=colobot, GH_TAGNAME=colobot-gold-$V-alpha, and adds GH_PROJECT=colobot-data, DISTNAME=colobot-data-$V, COMMENT="data files for colobot", PKG_ARCH=*. distinfo names colobot-data-0.2.2.tar.gz, SIZE 57913175.
+
+Inference: the frozen fields name one packaged system, the Colobot data-files component, through one account/project pair, with HOMEPAGE naming the umbrella project's website. The protocol settles that shape: a HOMEPAGE at a project website beside GH_ACCOUNT/GH_PROJECT at a repository is "several facts about one system", not ambiguity. Not UR-AMBIGUOUS.
+
+Recorded because the port path has siblings and a reader will ask: `games/colobot` also holds `colobot` and `music` subdirectories in the frozen tree, and NEITHER is in the frozen 128 -- rank 76 is the only colobot entry. So no duplicate question arises, and no comparison with them is made here.
+Decision: PASS
+
+## EV-C076-E1-01
+Candidate: C076
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party project's data files, packaged from the account colobot, unrelated to this project. The parent Makefile.inc separately carries a `# GPLv3+` marker line above `PERMIT_PACKAGE ?= Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C076-E2REP-01
+Candidate: C076
+Gate: E2-REP
+
+Starting points, all four accounted for per QA-27:
+
+```text
+HOMEPAGE     https://colobot.info/                    opened, step 1
+GH_ACCOUNT   colobot        -> github.com/colobot     opened
+GH_PROJECT   colobot-data   -> github.com/colobot/colobot-data
+                                                      opened
+GH_TAGNAME   colobot-gold-0.2.2-alpha                 NOT requested
+```
+
+The repository and the account are METADATA-SUPPLIED starting points, not step-2 navigation targets, so QA-35's undetermined step-2 rule does not arise for them and nothing here depends on it. `GH_TAGNAME` is an identifier whose surface is the repository's tag and release area, which QA-31 closes to this gate; it is accounted for under QA-27's third branch, with the prohibition as the named reason, and nothing is claimed about what it holds. Both repository scopes were fixed before their requests, with the same reproducibility limit recorded at C071: the scope file is not committed, so the repository shows the scope and the fetch timestamps but not the sequence between them.
+
+Step 1: https://colobot.info/, requested 2026-08-29T09:18:43Z, 200, no redirect, 36786 bytes, sha256 fc62ef97047f731b20f2b8c54517eb3f24055060c8984bbdb37f225770f1ec3b. 38 anchors parsed element-wise.
+
+Searched for a designation and the result stated as a count, not an impression:
+
+```text
+"colobot-data"   0 occurrences anywhere in the document
+"data files"     0
+"development"    0
+"code"           0
+"source"        12, every one inside a CSS `sourceURL` comment
+"repositor"      1, the widget button
+                   <a href="http://github.com/colobot"> GitHub
+                   repositories </a>
+```
+
+So the project's own site names no source location for this component. Its one repository-ward link goes to the ACCOUNT, which the frozen GH_ACCOUNT already supplies as a starting point, so nothing turns on whether that link's label would authorize a step 2. `download-colobot-gold/` was not followed: its label is not one of the contract's four words (QA-17).
+
+The repository, observed within the fixed scope. observed_at_utc 2026-08-29T09:19:32Z; http_status 200; redirect_chain NONE; control https://api.github.com/repos/TASEmulators/fceux -> 200 at the same moment.
+
+```text
+full_name    colobot/colobot-data     default_branch  dev
+fork         false                    archived        false
+disabled     false                    mirror_url      null
+homepage     http://colobot.info/     license         GPL-3.0
+description  "Data files source for open-source Colobot: Gold Edition
+              project developed by Epsitec and TerranovaTeam"
+
+root, 21 entries
+  dirs   .github ai fonts help i18n-tools icons levels models
+         models-new mods music sounds textures textures-src tools
+  files  .gitignore CMakeLists.txt Jenkinsfile LICENSE.txt
+         README.i18n.md README.md
+```
+
+A tree is present. The account: Organization `colobot`, display name TerranovaTeam, `blog` http://colobot.info/, 10 public repositories. Its repositories were not enumerated and none was selected by similarity.
+
+Adjudication, against QA-22's carried-forward rule -- name the upstream surface performing the designation and record its exact signal.
+
+```text
+PASS not established
+  what the two surfaces establish is repository identity, upstream
+  affiliation and tree presence. The project site designates no
+  source location for this component at all. The repository's
+  `homepage` field adds a one-way repository->site arrow, which is
+  the shape C014 found insufficient and RETRACTION 23 withdrew when
+  it was read as a two-way designation. This is C032's situation
+  almost exactly, with a project site added that says nothing.
+
+FAIL not established
+  the repository root IS an admissible surface and "whether upstream
+  designates this location as its source" is among the observations
+  the contract allows there, so a surface that could have carried a
+  designation was examined. Its carrying none does not establish
+  that upstream designates none -- the C017 boundary.
+  `E2REP-NO-SOURCE` is separately unavailable: a tree was directly
+  observed, so source access is not what is missing.
+```
+
+The contrary reading, stated because it is the closest call in this entry. The repository's own description contains the words "Data files source for ... project", it is owner-controlled metadata, and it sits on a surface C032 itself concedes can bear a designation. A reader could hold that upstream designates this location as its data source in that sentence.
+
+This entry does not take that reading, for a reason that is about method rather than about the sentence: this run has read repository descriptions as DESCRIPTIVE throughout -- C017's external link in a description was recorded as lineage, C074's "formerly ClassicalSharp in C#" likewise -- and no entry has yet let a description perform a designation. Adopting that reading here would introduce a new designation form at rank 76 with the survivor set in view, which is the post-hoc move RETRACTION 28 has just finished cleaning up after. If a description can designate, that belongs in a Run 2 preregistration, applied to every candidate alike.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C075-UR-01
 Candidate: C075 (frame rank 75, games/cmatrix)
 Gate: UR
