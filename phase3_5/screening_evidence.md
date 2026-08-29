@@ -9003,7 +9003,7 @@ network.conf:85-87
   -> https://www.cpan.org/modules/by-module/Acme/
 ```
 
-Inference: the frozen fields name one packaged system, the CPAN distribution Acme-Cow, with a distribution page and a mirror directory that both carry that name. Not UR-AMBIGUOUS, and no earlier candidate resolved to it, so not a duplicate.
+Inference: the frozen fields resolve one CPAN distribution, `Acme-Cow`. HOMEPAGE carries that full identifier; SITES is the CPAN by-module directory derived from its `Acme` prefix, and the frozen distfile name `Acme-Cow-0.2.1.tar.gz` is what carries the full identifier there. An earlier version said the two URLs "both carry that name", which is not what the expansion produces. Not UR-AMBIGUOUS, and no earlier candidate resolved to it, so not a duplicate.
 
 Recorded because it will matter if this candidate is ever revisited: the external name is Acme-Cow. `cowsay` is the OpenBSD package name, chosen by the packager, and the protocol's own rule that an OpenBSD field is not upstream evidence applies to a name as much as to a location.
 Decision: PASS
@@ -9025,15 +9025,21 @@ Both admitted starting points were requested. Neither yielded a designation, and
 Surface 1: https://metacpan.org/dist/Acme-Cow -- the frozen HOMEPAGE.
 observed_at_utc: 2026-08-29T17:57:00Z (GET), 17:57:57Z (HEAD)
 http_status: 200, 200; redirect_chain: NONE (num_redirects 0)
-Observed: the response is 3038 bytes, sha256 32ed63159c77e21ee19ca1b9aa3213ccf0218eb59539560b132a8e68ef0e18ea, and it is not the distribution page. It is a bot-detection interstitial: `<title>Client Challenge</title>`, a Content-Security-Policy naming a `/_fs-ch-.../` asset path, and a `<noscript>` block reading "JavaScript is disabled in your browser." It contains zero `<a>` elements.
+Observed: a response WAS served -- 3038 bytes, sha256 32ed63159c77e21ee19ca1b9aa3213ccf0218eb59539560b132a8e68ef0e18ea -- but it is not the intended MetaCPAN distribution resource. It is a bot-detection interstitial: `<title>Client Challenge</title>`, a Content-Security-Policy naming a `/_fs-ch-.../` asset path, and a `<noscript>` block reading "JavaScript is disabled in your browser." It contains zero `<a>` elements.
 
 ```text
 control, same host, same moment
   https://metacpan.org/ -> 200, 3038 bytes, <title>Client Challenge</title>
 
-so the challenge is HOST-WIDE, not specific to this path. It says
-nothing about whether a distribution page for Acme-Cow exists, what
-it contains, or what it designates.
+two paths on this host returned a challenge-shaped response: the
+candidate URL and the host root. That is enough to say the block is
+not specific to the candidate path, and NOT enough to say it covers
+the host. Two observations do not establish coverage of a host's
+paths, and an earlier version of this entry wrote "the challenge is
+HOST-WIDE", which is that inference. Withdrawn.
+
+Either way it says nothing about whether a distribution page for
+Acme-Cow exists, what it contains, or what it designates.
 ```
 
 **The challenge was not bypassed, and no attempt was made to bypass it.**
@@ -9069,20 +9075,51 @@ Adjudication:
 ```text
 PASS not established
   no designation signal was observed on either admitted surface. One
-  of them was never actually served, and the other makes no statement
-  at all. This is C028's shape: an archive index that designates
+  for one of them the intended distribution resource was not served
+  to this session, and the other makes no statement at all. This is C028's shape: an archive index that designates
   nothing, reached after a first surface that carried no designation
   evidence.
 
 FAIL not established
   no E2-REP failure code applies. Every one is a statement ABOUT a
   designated canonical location, and none was established here. And
-  the first surface's contents are unknown rather than empty, so
-  coding a failure would convert a prevented observation into a
-  finding about upstream.
+  the intended distribution resource's contents are unknown rather
+  than empty, so coding a failure would convert a prevented
+  observation into a finding about upstream.
 ```
 
-Scope of this obstruction, bounded rather than left to sound like a class: the frozen 128 was scanned for other ports carrying `MODULES=cpan` or a metacpan HOMEPAGE, and `games/cowsay` is the only one. So no other frame item reaches this surface, and nothing here is a rule about a family of candidates.
+Reproducibility limits on the surface-1 observations, stated rather than left for a reader to discover. The repository carries digests and a transcription, not the response bytes. So a third party cannot independently reproduce, from this repository, the correspondence between the digest and the transcribed content, the historical sameness of the candidate-URL and root responses, or the zero-anchor count. Those rest on the session record, as at C071's scope-ordering claim.
+
+QUARANTINED EXPOSURE. Review of this entry retrieved
+https://metacpan.org/dist/Acme-Cow through a cached path and received
+the distribution page in its normal form rather than a challenge. That
+retrieval happened after this candidate's terminal record, by a
+different route and at a different time. It is logged here because it
+was seen, and it does NO work: it is not used for C080's verdict, it is
+not treated as evidence that the historical response was different, and
+it founds no QA entry. What it does show is that the obstruction is a
+property of a session's access path and moment, not a durable fact
+about the resource -- which is exactly why the entry above declines to
+say anything about that resource's contents.
+
+Scope of this obstruction, with the procedure attached because the claim is otherwise unverifiable:
+
+```text
+surface   the 128 paths in screening_set_128.txt, resolved against
+          the frozen ports tree
+per item  read <port>/Makefile, plus the PARENT directory's
+          Makefile.inc when one exists -- the inheritance this run
+          met at rank 76 and which a first pass here missed
+test      MODULES ?= or = mentioning cpan, or the literal "metacpan"
+result    128/128 items had a readable Makefile; exactly one matched,
+          games/cowsay
+
+limits    a textual test, not a `make` evaluation: it would miss a
+          module pulled in through a variable this pass does not
+          expand, or an include other than the parent Makefile.inc
+```
+
+So on that surface no other frame item reaches metacpan, and nothing here is a rule about a family of candidates. The claim is not load-bearing for the verdict; it is recorded so the obstruction is not read as wider than it was shown to be.
 
 Decision: UNRESOLVED
 Protocol issue: PI-UNCLASSIFIED-SHAPE
