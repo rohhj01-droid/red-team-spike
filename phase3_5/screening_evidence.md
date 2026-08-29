@@ -8839,8 +8839,11 @@ Decision: PASS
 Candidate: C071
 Gate: E1
 Source: same frozen metadata
-Observed: a third-party reimplementation packaged from the account ClassiCube, under a BSD licence per the port's own comment, unrelated to this project.
-Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Observed: a third-party reimplementation packaged from the account ClassiCube, unrelated to this project. The Makefile separately carries a bare `# BSD` line immediately above `PERMIT_PACKAGE = Yes`; that line is recorded as seen and is not used here.
+
+Correction. An earlier version of this entry wrote "under a BSD licence per the port's own comment", which attributes the licence to the frozen `COMMENT` field. `COMMENT` reads "classic Minecraft client written in C" and says nothing about a licence; the `# BSD` marker is a different line. Misattributing a fact to a field that was quoted verbatim two entries earlier is a recording error, and it is corrected rather than quietly dropped. E1 does not rest on the licence in any case.
+
+Inference: external-authorship requirement satisfied from the frozen metadata alone -- the packaged system is a third party's, which is the whole of what this gate asks.
 Decision: PASS
 
 ## EV-C071-E2REP-01
@@ -8850,6 +8853,8 @@ Gate: E2-REP
 The frozen metadata names no HOMEPAGE and no SITES, so navigation step 1 has no target. Its DIST_TUPLE yields the two admitted starting identifiers C018 identified in the same shape: the repository path and the account.
 
 Both observation scopes were fixed BEFORE their requests, in scratch files timestamped ahead of the fetches, following the discipline RETRACTION 10 imposed at C018.
+
+Reproducibility limit on that ordering claim, stated as at C063 rather than left as an assertion. Those scope files live in a session scratch directory and are not committed to this repository, so a third party reading the repository cannot verify that they preceded the fetches. What the repository carries is the scopes as transcribed below and the fetch timestamps; the SEQUENCE between them rests on the session record alone. The claim is kept because it is true and because the discipline is the point of RETRACTION 10, and it is marked as not independently reproducible rather than presented as verified.
 
 Surface 1: https://github.com/ClassiCube/ClassiCube
 Necessary because: it is the location the frozen identifiers resolve to, and E2-REP asks what upstream designates.
