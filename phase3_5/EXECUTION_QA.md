@@ -2028,67 +2028,69 @@ QA-13, QA-19 and QA-28 -- something the preregistration did not settle
 and that execution had to settle in its place. Filing it as procedure
 error alone would record the schema as having been complete.
 
-## QA-34 — a survivor whose designated artifact matches the frozen distinfo (RECORDED, adjudicates nothing)
+## QA-34 — a claim of novelty about the frozen-distinfo match, withdrawn (RECORDED, adjudicates nothing)
 
-Found while screening frame rank 74. Recorded now, before the remaining
-frame items are screened, so it cannot later look like a rationalization
-invented once the survivor set was final.
+Written while screening frame rank 74, then corrected in review before
+rank 75 was opened. The corrected version is what stands.
 
-**What is different about C074.** QA-28 established that for a candidate
-first examined after the sealed instant, this run has no preregistered
-way to reconstruct what upstream designated or pointed at then, and that
-where that reconstruction fails the survivor "cannot enter [the
-inventory stage], because the inventory has no frozen bytes to
-enumerate". Every survivor so far carries `primary_snapshot = UNRESOLVED`
-on that ground.
-
-C074 is the first survivor where the artifact upstream designates at
+**What was claimed, and is false.** The entry as first written said that
+C074 "is the first survivor where the artifact upstream designates at
 observation time is bit-for-bit the artifact the FROZEN metadata
-recorded:
+recorded", and contrasted it with C067 and C013 as candidates where
+"upstream now designates a later version than the frozen DISTNAME names,
+so no such comparison was available". C013 is not such a candidate:
 
 ```text
-frozen distinfo   SHA256 notbbY1HoZ0kkkhghAgYjhE11BLjKDQxc7OcqOCmuPU=
-                  SIZE   756931
-retrieved now     same digest, same byte count
+frozen emulators/mednafen   VERSION 1.32.1, DISTNAME mednafen-${VERSION}
+frozen distinfo             SHA256 3n65SrZiEq53WDdlJDaKirIII0szeWYlymMFR9vIODI=
+                            = de7eb94ab66212ae7758376524368a8ab208234b33796625ca630547dbc83832
+                            SIZE 3571236
+
+EV-C013-E2REP-01 records    the designated artifact retrieved at 3571236
+                            bytes, SHA-256 de7eb94a...3832
 ```
 
-Contrast C067 and C013, where upstream now designates a later version
-than the frozen DISTNAME names, so no such comparison was available.
+Same version, same digest, same byte count. The comparison was available
+at rank 13, and both halves of it were already written into this run's
+own record; it simply was never performed. The version divergence is
+C067's alone -- frozen 1.13, designated 1.21.
 
-**The question this raises, and does not answer.** QA-28's blocker has
-two parts, and this evidence bears on only one of them:
+**How the error was made, because that is the useful part.** The claim
+was a comparative statement about two other candidates, and it was made
+from recollection of them rather than by reading their frozen distinfo
+or their entries. Two candidates earlier, at C072, a "first prospective
+application" claim was checked the same way and turned out false, and
+the claim was dropped. The check was available here and was not run.
+
+**Classification, pending the Run 1 coding protocol.** Adjudication /
+inference error, detected by review. NOT a methodology/design gap: the
+first version filed it beside QA-13, QA-19, QA-28 and QA-33's second
+finding as a case "first met afterwards", and that framing was itself
+part of the error -- the case was first met at rank 13.
+
+**What survives, and it is not new.** QA-28's blocker has two parts, and
+a frozen-distinfo match bears on one:
 
 ```text
 which bytes to analyse
-  for C074 the frozen metadata pins them and the pinned object has
-  been retrieved and verified against that pin. "No frozen bytes to
-  enumerate" is not this candidate's situation.
+  pinned by the frozen metadata for both C013 and C074, and the
+  pinned object retrieved and verified in both
 
 what upstream DESIGNATED at the sealed instant
-  unchanged by any of the above. The designation lives in the
-  project page's labels, not in the archive's bytes, and this run
-  observed those labels now. An unchanged artifact does not show an
-  unchanged designation.
+  untouched. The designation lives in the project page's labels,
+  not in the archive's bytes, and this run observed those labels
+  now. An unchanged artifact does not show an unchanged
+  designation.
 ```
 
-**Explicitly not acted on.** `primary_snapshot` stays UNRESOLVED for
-C074, as for every other survivor, and the three inventory fields stay
-NOT_REACHED. Three reasons, each sufficient. The protocol fixes that
-field at the survivor-stage checkpoint and not at a gate, so it is not
-this screening entry's to settle. Deciding it now would be a post-hoc
-criterion change with survivors already in view, which is the move this
-run has refused throughout. And the second half of QA-28's blocker is
-untouched by the new evidence, so it is not even clear the answer would
-change.
-
-**What this is for.** The checkpoint, when it runs, will have to decide
-whether QA-28's blocker is one condition or two, and whether a frozen
-distinfo digest satisfies the first. That decision needs preregistering
-before it is applied, and it needs applying to every candidate alike
-rather than to whichever ones turn out to qualify. This entry records
-the evidence and the question; it makes no rule.
-
-**Classification, pending the Run 1 coding protocol.** Methodology/design
-gap, same family as QA-13, QA-19, QA-28 and QA-33's second finding:
-the preregistration fixed what was wanted and not how to obtain it in a
-case first met afterwards. Detected by the author while screening.
+**Explicitly not acted on, and not deferred to this run's checkpoint
+either.** `primary_snapshot` stays UNRESOLVED for C074 and for every
+other survivor, and the three inventory fields stay NOT_REACHED. An
+earlier version of this entry said the survivor-stage checkpoint "will
+have to decide whether QA-28's blocker is one condition or two, and that
+decision needs preregistering". The first half is wrong: Run 1 cannot
+author a new rule at any stage, checkpoint included, with survivors in
+view. Separating QA-28's two conditions is a design change, and design
+changes belong to a Run 2 preregistration made before any candidate is
+seen. This entry records evidence and a distinction; it makes no rule
+and hands none to a checkpoint.

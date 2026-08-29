@@ -8898,7 +8898,7 @@ Inference: exactly one artifact is given the source role, by upstream's own word
 
 The designated artifact was retrieved at 2026-08-29T07:53:06Z, 200, 756931 bytes, sha256 9e8b5b6d8d47a19d249248608408188e1135d412e328343173b39ca8e0a6b8f5. Its entry listing -- names only -- shows a source tree: 299 entries under a single root `keen/`, holding `src/`, `bin/`, LICENSE and README, with 88 `.c`, 23 `.h`, 5 `.cpp` and 94 `.fdh` files. `WRKDIST=${WRKDIR}/keen` in the frozen port matches that root.
 
-Recorded because it is unusual in this run, and bounded because it is easy to overstate: that digest, re-encoded as base64, is `notbbY1HoZ0kkkhghAgYjhE11BLjKDQxc7OcqOCmuPU=`, and the byte count is 756931 -- both identical to the frozen distinfo. So the object upstream designates now is bit-for-bit the object the frozen metadata recorded. What that establishes is the identity of the OBJECT. It does not reconstruct what upstream DESIGNATED at the sealed instant, which is QA-28's blocker and a question about the page's labels rather than the archive's bytes. See QA-34, which records the difference and adjudicates nothing.
+Recorded, and bounded because it is easy to overstate: that digest, re-encoded as base64, is `notbbY1HoZ0kkkhghAgYjhE11BLjKDQxc7OcqOCmuPU=`, and the byte count is 756931 -- both identical to the frozen distinfo. So the object upstream designates now is bit-for-bit the object the frozen metadata recorded. What that establishes is the identity of the OBJECT. It does not reconstruct what upstream DESIGNATED at the sealed instant, which is QA-28's blocker and a question about the page's labels rather than the archive's bytes. C013 is in the same position and has been since rank 13; see QA-34, which corrects an earlier claim of novelty here and adjudicates nothing.
 
 The frozen SITES, `https://downloads.sourceforge.net/sourceforge/clonekeen/`, is accounted for and was NOT requested. Two independent reasons, either sufficient: the stop rule ends navigation once the gate is determined, and QA-31 closes a code host's release-file area to this gate in any case. Nothing is claimed about its contents; in particular it is not claimed to be empty or to hold no competing artifact. It is a packager-side fetch path, and QA-22's lesson runs the same way here as there -- an OpenBSD field is not upstream evidence, in either direction.
 
@@ -8920,7 +8920,9 @@ Observed: located witness, in the project's own words.
  under Linux/X11, with SDL."
 ```
 
-Inference: these state concrete validity requirements without our inventing them, and the project scopes them itself -- a runtime needs the original game's data files present, and the supported builds are the SDL ones. An installation lacking those data files does not satisfy the first.
+Inference, kept to the first quotation: the project states a concrete validity requirement without our inventing it -- a runtime needs the original game's data files present -- and an installation lacking them does not satisfy it. That alone carries this gate.
+
+The second quotation is recorded as context and does no work. An earlier version of this entry read it as "the supported builds are the SDL ones", which is an exhaustive support-set claim the sentence does not make: it says which configurations currently run with SDL, and the readme continues immediately that DOS drivers are also included though they "may need a little tweaking". Withdrawn.
 Decision: PASS
 
 ## EV-C074-E3-01
@@ -9087,12 +9089,28 @@ EN4 enforcement meaning, connected by the project itself: `run_sanity` tests eac
 EN5 closed within scope: the registries are compiled-in literals terminated by an explicit NULL, and the iteration bound at :135 is that terminator. Membership is therefore closed by the registry's own contents, not by our choice -- EN5's first case, runtime construction closing the set, so the tag is `enforced`.
 
 ```text
-one enforcement observation per registry entry
+one enforcement observation per registry entry, with the effect
+each registry actually produces stated separately
 
-  "file F (with '?' resolved to the episode digit) must exist, at
-   data/F when the entry's provenance marker is set and at F
-   otherwise; its absence is reported with the entry's own
-   description and refuses startup for sanity[] and for episode 1"
+  sanity[]   -- 5 entries, evaluated once, run_sanity(sanity, 0)
+    "file F must exist, at data/F when the entry's provenance
+     marker is set and at F otherwise; its absence is reported
+     with the entry's own description and REFUSES STARTUP at
+     sanity.c:89-93 -> main.c:34"
+
+  sanity_ep[] -- 25 entries, evaluated three times, once per
+                 episode 1..3, with '?' in the pattern replaced
+                 by the episode digit at :132/:138
+    "file F(ep) must exist under the same data/ rule; its absence
+     sets episode_available[ep] = 0 at :99"
+
+     and the consequence of that flag is not uniform:
+       ep 1 missing  -> platform_msgbox(kNoSharewareEpisode) and
+                        startup refusal, :107-111
+       ep 2 or 3     -> execution continues; only that episode is
+         missing        unavailable, which menumanager.c:522,
+                        menu_custommap.c:140 and
+                        editor/editor.c:1149 then consult
 
 retained as externally segmented fields, per observation
   the filename pattern
@@ -9107,7 +9125,7 @@ Decision: PASS
 Candidate: C074
 All five gates PASS. Twelfth survivor, and the third distribution-type PASS after C013 and C067: the designation is upstream's own sentence "CloneKeen 8.4: source code and data files for all platforms" pointing at `files/clonekeen-src-84.tar.gz`.
 
-`primary_snapshot` is recorded UNRESOLVED, as for every other survivor. The protocol fixes that field at the survivor-stage checkpoint rather than at a gate, and this entry does not pre-empt it. QA-34 records why this candidate's evidence differs from the others' and leaves the question where the protocol puts it.
+`primary_snapshot` is recorded UNRESOLVED, as for every other survivor. The protocol fixes that field at the survivor-stage checkpoint rather than at a gate, and this entry does not pre-empt it. QA-34 carries the correction to an earlier claim that this candidate's evidence was novel.
 Decision: ELIGIBLE
 
 ## EV-C072-UR-01
