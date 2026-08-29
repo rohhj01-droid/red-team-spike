@@ -8827,6 +8827,244 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C075-UR-01
+Candidate: C075 (frame rank 75, games/cmatrix)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cmatrix/Makefile and distinfo
+Observed: DISTNAME=cmatrix-1.2a; HOMEPAGE=http://www.asty.org/cmatrix/; SITES=${HOMEPAGE}/dist/; COMMENT="scrolling 'Matrix'-like screen"; distinfo names cmatrix-1.2a.tar.gz, SIZE 74376.
+Inference: the frozen fields name one packaged system, CMatrix, on one project site, with SITES expressed relative to HOMEPAGE so both admitted URLs are on the same upstream host. Not UR-AMBIGUOUS; no earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C075-E1-01
+Candidate: C075
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party terminal program on an upstream site unrelated to this project. The Makefile separately carries a `# GPL` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C075-E2REP-01
+Candidate: C075
+Gate: E2-REP
+
+Step 1: http://www.asty.org/cmatrix/ -- the frozen HOMEPAGE. Requested 2026-08-29T08:34:54Z, 200 after one redirect to https, 14811 bytes, sha256 fed96ea8ce8d88098b38816d68fb7e248efeb1825d276eba4fb41591b0696816. 21 anchors, parsed element-wise; no anchor LABEL is Source, Code, Repository or Development.
+
+What the page says about itself, quoted because the whole verdict turns on it:
+
+```text
+page subtitle, under the H1
+  "The (former) home of CMatrix by Chris Allegretta"
+
+heading
+  "Breaking news - New home and maintainer!"
+
+body of that section
+  "Cmatrix has found a new maintainer and repo!  Many thanks to
+   Abhishek V Ashok for his interest in maintaining and improving
+   CMatrix. You can find the newest repository for CMatrix at
+   https://github.com/abishekvashok/cmatrix  and look for a new
+   official website as well!"
+
+immediately after it
+  "(original content follows)"
+
+and inside that original content, further down
+  "Download! The current version of CMatrix is 1.2a.  Please click
+   the link below to download it, or check here for versions that I
+   may not have had time to update this link to:"
+   -> https://www.asty.org/cmatrix2/dist/cmatrix-1.2a.tar.gz
+```
+
+Adjudication of the two candidate locations, stated fully because a reader could reasonably land the other way.
+
+Both are source locations for the system UR resolved: a repository upstream calls "the newest repository for CMatrix", and a source tarball of the exact version the frozen metadata packages. The question E2-REP asks is whether upstream designates exactly ONE, and the answer turns on whether upstream itself ranks them or whether ranking them would be our act.
+
+Upstream supplies the ranking, in four statements it authored, all on the same axis -- where the project now lives:
+
+```text
+"The (former) home of CMatrix"      its own site, marked as past
+"New home and maintainer!"          a successor exists
+"the newest repository for CMatrix" the successor named, with its URL
+"look for a new official website
+ as well!"                          the website too is superseded
+"(original content follows)"        everything below, the Download
+                                    block included, is bracketed as
+                                    the preserved original page
+```
+
+Against that stands one present-tense sentence, "The current version of CMatrix is 1.2a" -- which sits INSIDE the block upstream bracketed. It is not a fifth signal on the other side; it is part of what the fifth signal brackets.
+
+RETRACTION 12 is the governing precedent and it cuts this way. There the entry refused an upstream-supplied partition ("We've moved Allegro 4 sources to its own repository") as though applying it were analyst selection, and that refusal was the error: applying an upstream-supplied label is not our judgement, it is the opposite of the C002-family error of supplying a hierarchy upstream never stated. Here upstream states the hierarchy.
+
+The contrary reading, stated at its strongest rather than dismissed: "(original content follows)" is a note about TEXT provenance, the download link is live, and the sentence calling 1.2a current has never been struck. On that reading there are two live designations with no ranking between them and the code is `E2REP-NO-SINGLE-CANONICAL-LOCATION`. This entry does not take that reading, because "look for a new official website as well" speaks to the site's status and not merely its text, and because the subtitle marks the site itself, not a paragraph, as former. This is the first of two contestable joints in this entry.
+
+Step 2, the second contestable joint. The link to the repository carries the bare URL as its anchor text, which C038 says does no work ON ITS OWN. It is not on its own here: upstream's sentence names it as the newest repository for CMatrix. C009 is the precedent -- there the anchor read "checking the commit browser", also not a whitelist token, and a project page's own sentence pointing at a repository was accepted as the designation C014 lacked. So the page explicitly exposes a Repository link, and step 2 is satisfied on that basis rather than on the anchor text.
+
+Step 3: https://github.com/abishekvashok/cmatrix, observed under a scope fixed before the request.
+observed_at_utc: 2026-08-29T08:37:04Z; http_status 200; redirect_chain: NONE
+control: https://api.github.com/repos/TASEmulators/fceux -> 200 at the same moment
+As at C071 and C072, the ordering of that scope file against the fetch rests on the session record; the scope files are not committed here.
+
+```text
+full_name    abishekvashok/cmatrix    default_branch  master
+fork         false                    archived        false
+disabled     false                    mirror_url      null
+homepage     "" (empty)               license         GPL-3.0
+visibility   public
+
+root, 25 entries
+  dirs   .github data
+  files  .gitignore .rultor.yml .travis.yml AUTHORS CMakeLists.txt
+         CODE_OF_CONDUCT.md CONTRIBUTING.md COPYING ChangeLog INSTALL
+         ISSUE_TEMPLATE.md Makefile.am README README.md cmatrix.1
+         cmatrix.c cmatrix.spec.in configure.ac matrix.fnt
+         matrix.psf.gz mtx.pcf takeScreenshots
+```
+
+A source tree is present. Observing it after step 2 and before determining the verdict is the correct order: it establishes that the designated location is a live source location rather than a dead pointer. No file was opened at this gate.
+
+The frozen SITES, `http://www.asty.org/cmatrix/dist/`, is accounted for and was NOT requested: the gate was determined at step 3, and the stop rule ends navigation there. Nothing is claimed about its contents. Recorded because it is visible and does no work: the page's own download links point at `/cmatrix2/dist/`, a different path from the frozen SITES.
+
+Inference: exactly one designated canonical source location, `https://github.com/abishekvashok/cmatrix`, at a stable URL, holding a source tree, with one external target identifier, CMatrix.
+Decision: PASS
+
+## EV-C075-PIN-01
+Candidate: C075
+Provenance pin for the gates below.
+
+`master` was resolved at 2026-08-29T08:39:20Z to commit 5c082c64a1296859a11bee60c8c086655953a416, committed 2023-12-09T05:52:26Z. Every file cited below was fetched at that exact commit:
+
+```text
+configure.ac   5822 bytes   ee421b2a32466ef9c1d9a4ab414062db679d1705f583746cb5509a056f05c1a8
+cmatrix.c     26543 bytes   f8d62a5f83a38c20e2425bba46fd0ee8ad1eaa058c51999ad09196ccec3dd3d0
+README        7831/65 bytes see below
+```
+
+`README` is 65 bytes, sha256 0d097e9098146b21dfd2a06daf931d8b4def407a3ed2f07a8f65a421f55f99b1, and reads in full "Dummy file. Please see: https://github.com/abishekvashok/cmatrix". `INSTALL` is 7831 bytes, sha256 b426b30c0bd033d2d5314ff44ca9f91d1e18be720aad759e769dd9caa74df916, and opens "These are generic installation instructions" -- autotools boilerplate, not project-specific requirements, so neither is used as a witness below.
+
+These digests identify the objects analysed. They do nothing for QA-28.
+
+## EV-C075-E2RULE-01
+Candidate: C075
+Gate: E2-RULE
+Source: `configure.ac` at the pinned commit
+Provenance: as above.
+
+Observed: located witness, the project's own configure-time library requirement and the set it accepts.
+
+```text
+configure.ac:35    AC_CHECK_HEADERS(curses.h ncurses.h)
+configure.ac:37-58 CURSES_LIB_NAME=""
+                   AC_CHECK_LIB(ncurses,  tgetent, ...)
+                   AC_CHECK_LIB(curses,   tgetent, ...)
+                   AC_CHECK_LIB(pdcurses, initscr, ...)
+                   AC_CHECK_LIB(termcap,  tgetent, ...)
+                   AC_CHECK_LIB(tinfo,    tgetent, ...)
+configure.ac:60-65 if eval "test x$CURSES_LIB_NAME = x"
+                   then
+                       AC_MSG_WARN([
+                   *** No termcap lib available, consider getting the
+                   *** official ncurses distribution from
+                   *** ftp://ftp.gnu.org/pub/gnu/ncurses if you get
+                   *** errors compiling cmatrix.])
+```
+
+Inference: the project states a concrete build-environment requirement without our inventing it -- a curses or termcap library -- and names the implementations it accepts, in the order it tries them.
+
+Stated exactly rather than strengthened: this is `AC_MSG_WARN`, not `AC_MSG_ERROR`, so configure does not abort when none is found. What the project asserts is the requirement and the consequence it predicts, "if you get errors compiling cmatrix". The gate asks for externally authored validity evidence, not for that evidence to be enforced; C067's witness was INSTALL prose with no enforcement at all.
+Decision: PASS
+
+## EV-C075-E3-01
+Candidate: C075
+Gate: E3
+Source: `cmatrix.c` at the pinned commit
+Provenance: as above.
+
+Observed: located witness. The decision, the writer of the state it consults, and the loop that reaches both are in one function and are quoted together.
+
+```text
+cmatrix.c:87       int lock = 0;
+
+cmatrix.c:157      printf(" -L: Lock mode (can be closed from another
+                          terminal)
+");          /* upstream's own
+                                                     description */
+
+cmatrix.c:543      while (1) {
+
+cmatrix.c:546-550      if (signal_status == SIGINT ||
+                           signal_status == SIGQUIT) {
+                           if (lock != 1)
+                               finish();
+                           /* exits */
+                       }
+
+cmatrix.c:567          if ((keypress = wgetch(stdscr)) != ERR) {
+
+cmatrix.c:583-590          switch (keypress) {
+                           ...
+                           case 'q':
+                               if (lock != 1)
+                                   finish();
+                               break;
+
+cmatrix.c:600-602          case 'L':
+                               lock = 1;
+                               break;
+
+cmatrix.c:108-121  void finish(void) { ... exit(0); }
+```
+
+Inference, kept to what the quoted lines close: the identical input `q` is honoured or refused at :588 according to whether the keystroke `L` was received earlier in the same session, which is the only thing that changes `lock` from its initial 0 at runtime. The writer at :601 and the reader at :588 are five lines apart in one switch, reached from one loop, and `finish` at :108-121 ends in `exit(0)`, so the two branches differ in outcome and not merely in bookkeeping. The same conditioning governs SIGINT and SIGQUIT at :546-550 and SIGTSTP at :556-559.
+
+Stated exactly, because `lock` has a second writer: the `-L` option sets it at :391, before the loop. That route is configuration, not history, and the E3 claim does not use it -- the claim is about a session begun WITHOUT `-L`, in which a later `q` is refused because an `L` keystroke intervened.
+
+Not claimed: that a locked session cannot be ended at all. Upstream's own usage line says lock mode "can be closed from another terminal", and this entry did not follow that path. The claim is about this input at this branch.
+Decision: PASS
+
+## EV-C075-E4-01
+Candidate: C075
+Gate: E4
+Provenance: as above.
+
+No enumerator satisfying EN1-EN6 was located, and the search surface is stated so the negative is bounded rather than open-ended. The designated repository's tree at the pinned commit holds exactly one program source file: `cmatrix.c`, 26543 bytes. The remaining tree entries are build files (`configure.ac`, `Makefile.am`, `CMakeLists.txt`, `cmatrix.spec.in`), documentation, font data under `data/`, and CI configuration. A search of `cmatrix.c` for aggregate initialisers -- any `= {` -- returns nothing: the file contains no table, registry or array of entries at all.
+
+Three mechanisms were examined and each is recorded with the criterion it fails:
+
+```text
+the getopt option string, cmatrix.c:342
+  "abBcfhlLnrosmxkVM:u:C:t:" -- membership is mechanically
+  decidable, and the scope is the accepted command-line options.
+  It fails EN4. `opterr = 0` at :341 suppresses the library's own
+  error, and the switch at :343-431 has NO default branch, so an
+  unrecognised option returns '?' from getopt, matches no case, and
+  is silently ignored. The project connects this mechanism to no
+  rejection.
+
+the -C colour set, cmatrix.c:358-379
+  this one DOES have project-side enforcement: the else branch
+  calls c_die(" Invalid color selection\n Valid colors are green,
+  red, blue, white, yellow, cyan, magenta and black.\n"), which
+  terminates and names the domain. EN1, EN2 and EN4 are met.
+  It fails EN3 as this entry reads it: membership is an if/else-if
+  chain of eight strcasecmp calls, and EN3's enumerated examples
+  are a registry, the implementations of a declared interface,
+  collected annotations, or an externally declared closed directory
+  -- each a set that exists as a thing, not control flow a reader
+  must interpret as one.
+
+the environment checks at cmatrix.c:479-495
+  console-font helpers and their c_die branches. These validate an
+  environment, not membership in an enumerated domain, so there is
+  no enumerator here to test against EN1-EN6.
+```
+
+The contrary reading on the colour set, stated because it is not weak: the eight literals sit in one contiguous, syntactically uniform chain and could be extracted mechanically, and the c_die message enumerates the same eight independently. A reader could hold that this satisfies EN3. This entry takes the stricter reading, and records that the strictness is the conservative direction here -- under the post-seal amendment E4 cannot fail, so reading EN3 strictly costs a survivor rather than producing a rejection. This is the third contestable joint in this candidate.
+
+Under the post-seal amendment E4 is existential: a witness yields PASS, and anything else yields UNRESOLVED with `PI-UNCLASSIFIED-SHAPE`. Not finding an admissible enumerator is not a demonstration that none exists, and no claim is made that this project has no enumerable enforcement domain -- only that none satisfying EN1-EN6 was located in the surface named above.
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C074-UR-01
 Candidate: C074 (frame rank 74, games/clonekeen)
 Gate: UR
