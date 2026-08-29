@@ -1969,11 +1969,21 @@ contributed to that candidate and the field did not say so, which is the
 one thing the field exists to say. The frame ledger was never wrong; the
 candidate ledger was, and only on this field.
 
-**Repair.** `C105` now reads `105;106` and `C067` reads `67;68`, using
-`;` as the separator already used by `evidence_refs`. No gate state, no
-`overall`, no `stop_gate`, no count and no verdict changes anywhere:
-the candidate ledger still holds 74 rows, and the terminal distribution
-is unchanged.
+**Repair.** `C105` now reads `105;106` and `C067` reads `67;68`. No gate
+state, no `overall`, no `stop_gate`, no count and no verdict changes
+anywhere: the candidate ledger still holds 74 rows, and the terminal
+distribution is unchanged.
+
+**The separator is a post-seal repair convention, not a sealed one.** The
+schema fixes the field's CONTENTS -- all contributing ranks -- and says
+nothing about how several of them are encoded. `105;106`, `105,106` and
+`{105,106}` would all satisfy it as written. `;` was selected here
+because the semantic requirement demanded representing more than one
+rank, and because this file already uses `;` in `evidence_refs`, so the
+ledger stays readable under one convention. That is a reason to prefer
+it, not a prescription. An earlier version of this entry described it as
+"the separator already used by `evidence_refs`" in a way that implied
+the sealed schema had settled the question. It had not.
 
 **Why this is repaired rather than merely noted.** It is a recording
 defect against a field the sealed schema defines explicitly, not a
@@ -1991,8 +2001,29 @@ invented mid-flight rather than a conformance repair. If the postmortem
 wants duplicate evidence reachable from the candidate level, that is a
 change for the next preregistration.
 
-**Classification, pending the Run 1 coding protocol.** Execution/procedure
-error: the schema was fixed in advance and one write did not follow it.
-Detected by the author while applying the same rule to a second instance,
-which is a detection path worth recording separately from
-reviewer-detected events.
+**Classification, pending the Run 1 coding protocol. This entry carries
+TWO findings, not one; recording only the first would leave the schema
+looking complete.**
+
+```text
+1  execution/procedure error
+   the schema was fixed in advance and one write did not follow it --
+   C105 omitted contributing rank 106
+   detected by the author, while applying the same rule to a second
+   instance
+
+2  methodology/design gap, record-schema serialization
+   the sealed schema requires "all contributing ranks" and never
+   preregisters an encoding for more than one of them. The first
+   duplicate did not expose this, because that field was written
+   wrong; the second forced the choice, and the choice was made
+   post-seal
+   detected by review of this entry
+```
+
+The second finding is a gap in the RECORD schema, not in the eligibility
+methodology: no criterion is affected and no verdict can move on it. But
+under the agreed taxonomy it belongs to the same top-level class as
+QA-13, QA-19 and QA-28 -- something the preregistration did not settle
+and that execution had to settle in its place. Filing it as procedure
+error alone would record the schema as having been complete.

@@ -8847,7 +8847,27 @@ COMMENT           abstract puzzle game        Enigma levels to the game chroma
 
 games/chroma-enigma additionally carries `RUN_DEPENDS = games/chroma`, `NO_BUILD = Yes`, and a `do-install` target whose destination is `${PREFIX}/share/chroma/levels/enigma`.
 
-Inference: exactly one field in either port names an external system -- `HOMEPAGE` -- and the two ports carry the same one. Every other field of the rank-68 port that mentions a system at all names chroma: the comment, the run dependency, and the install path. So the frozen metadata resolves this frame item to the system C067 already resolved to.
+Inference, with the three kinds of evidence kept apart because they do not carry the same weight:
+
+```text
+HOMEPAGE                    the sole upstream-LOCATION field in either
+                            port, and byte-identical between them
+
+COMMENT (rank 68)           frozen metadata characterizing the packaged
+                            artifact directly: Enigma levels FOR THE GAME
+                            CHROMA
+
+RUN_DEPENDS, install path   corroboration of the PACKAGING relationship
+                            only. RUN_DEPENDS is a dependency between two
+                            OpenBSD ports, and the destination under
+                            ${PREFIX}/share/chroma/ is a path the packager
+                            chose. Neither is an external identity
+                            designation and neither is treated as one.
+```
+
+An earlier version of this entry said that "exactly one field in either port names an external system" and then that "every other field ... that mentions a system at all names chroma". Those do not stand together as written. It also listed the install path beside the other two, which promotes a chosen path name to identity evidence -- inferring a role from a name, the pattern this run has had to correct before. Both are withdrawn in favour of the split above.
+
+So: the one upstream-location field in the frozen metadata resolves this frame item to the system C067 already resolved to, the rank-68 port's own comment describes the packaged artifact as an add-on for that system, and no second external system appears in the metadata to choose between.
 
 The differing `SITES` is treated as a distribution fact rather than an identity split, on the protocol's own clause at SCREENING_PROTOCOL.md:94-98 -- a `HOMEPAGE` at a project website alongside a distfile location elsewhere is "several facts about one system", and `UR-AMBIGUOUS` is reserved for metadata pointing at genuinely different systems. There is no second named system here to choose between.
 
