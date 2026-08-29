@@ -8973,6 +8973,21 @@ engine.c:106-122   void level_moved(struct level* plevel, int move)
                        plevel->moves ++;
                        ...
                    }
+
+engine.c:172                   level_moved(plevel, realmove);
+engine.c:187                   level_moved(plevel, realmove);
+engine.c:199                   level_moved(plevel, realmove);
+engine.c:380               level_moved(plevel, realmove);
+
+engine.c:1299-1306 /* Can't undo at very start of level */
+                   if(plevel->move_current == NULL)
+                       return 0;
+
+                   /* If there is no previous step to undo, remove this
+                      move entirely */
+                   if(plevel->move_current->mover_last == NULL)
+                   {
+                       plevel->move_current = plevel->move_current->previous;
 ```
 
 ```text
@@ -9024,11 +9039,21 @@ level.c:1373-1442  void level_addmove(struct level* plevel, int move)
 
 CORRECTION, recorded rather than smoothed over. An earlier version of this entry stated that "both the decision and the writer of the state it consults are quoted", and that the list "is exactly what `level_addmove` ... [has] built", while the only thing shown of `level_addmove` was its CALL at engine.c:109. A function's name and its call site do not establish what it writes; that connection was asserted, which is the C063 defect. The definition is now quoted, and each field the redo gate reads at :147-150 is written in it: `move_first` at :1428-1429 and :1412, `move_current` at :1440 and :1414, and a node's `next` at :1424, :1410 and :1433.
 
-The redo call path is likewise stated exactly, because the extract as it stood invited the opposite reading. `level_move` saves `realmove = move` at :140, BEFORE the substitution `move = pmove->direction` at :155, and all four calls to `level_moved` -- :172, :187, :199 and :380, which grep over the source tree shows to be the only calls to it anywhere -- pass `realmove`, not `move`. So a redo reaches `level_moved` still carrying MOVE_REDO and takes the branch at :112-115, advancing `move_current` along the existing list rather than appending through `level_addmove`. Review read the earlier extract as showing the substituted value reaching `level_moved`; that reading followed from the extract, which had elided :140.
+The redo call path is likewise SHOWN rather than described, because the extract as it stood invited the opposite reading, and because an earlier version of this paragraph asserted the calls' argument in prose alone. That was the same defect one level up: the whole point of this correction is which value reaches `level_moved`, so it cannot rest on a function name and a grep summary. `level_move` saves `realmove = move` at :140, BEFORE the substitution `move = pmove->direction` at :155, and each of the four calls quoted above passes `realmove`, not `move`. So a redo reaches `level_moved` still carrying MOVE_REDO and takes the branch at :112-115, advancing `move_current` along the existing list rather than appending through `level_addmove`. Review read the earlier extract as showing the substituted value reaching `level_moved`; that reading followed from the extract, which had elided :140 and quoted no call site at all.
+
+The search behind "four calls" is given with its surface, since it is an exhaustiveness claim and QA-12 requires a justified closed one. The surface is closed and in hand: the pinned artifact unpacked, 1451 files, searched entire for `level_moved(`. A second correction falls out of running it that way. An earlier version of this paragraph called those four "the only calls to it anywhere", and that is false:
+
+```text
+browser/chroma-script.js:1729   function level_moved(move)
+browser/chroma-script.js:1769,1784,1794,1968
+                                level_moved(realmove);
+```
+
+The tarball also ships a JavaScript reimplementation of the same game, with the same function names and the same `realmove` discipline. Those are not calls of the C function -- they are a separate program's own definition and calls -- but "anywhere" covered them and was wrong. `level.h:257` likewise declares `level_addmove` without calling it. The claim is scoped accordingly: within the C translation units, `level_moved` is defined once at engine.c:106 and called at exactly those four sites.
 
 Not claimed: that these are the only writers of the fields the gate reads. `level_undo` moves `move_current` back at engine.c:1306, and level.c writes the same fields at initialisation (:376-378), when copying a level (:748-761), and when loading a saved game (:1094, :1114-1222). No exhaustive writer set is offered, and E3 does not need one.
 
-Inference, kept to what the quoted lines close: a MOVE_REDO reaching this gate is refused there when the recorded move list holds no next entry, and otherwise takes that entry's direction and continues into the move processing below. Whether such an entry exists is decided by `move_current` and the `next` chain, which the quoted `level_addmove` allocates, links and truncates, and which the redo branch at :112-115 and `level_undo` at :1306 walk along. Every one of those writers runs from play or from a restored game, none from build or configuration. So the identical MOVE_REDO input is refused at this gate or proceeds past it according to the move history.
+Inference, kept to what the quoted lines close: a MOVE_REDO reaching this gate is refused there when the recorded move list holds no next entry, and otherwise takes that entry's direction and continues into the move processing below. Whether such an entry exists is decided by `move_current` and the `next` chain, which the quoted `level_addmove` allocates, links and truncates, and which the redo branch at :112-115 and `level_undo` at :1306 walk along, both quoted above. The writer paths EXHIBITED here are runtime play and undo paths; the paragraph above declines an exhaustive writer set, so nothing is claimed about writers not exhibited, and in particular no absence claim is made about build- or configuration-time writers. So the identical MOVE_REDO input is refused at this gate or proceeds past it according to the move history.
 
 VERIFICATION NOTE. The two files quoted were extracted from the pinned artifact and hashed independently: `chroma-1.21/engine.c`, 50657 bytes, sha256 49ce3c6cb0ad1934ce439fac0f64c7b18a5735bb45e826fd956e129ccc0e1ebd; `chroma-1.21/level.c`, 42699 bytes, sha256 a36ce3c5c7c94d84e5c9048ff6042f0df26c60043bdb0cc8e3be3c29980855f7. The artifact itself re-hashes to bdf4d6e1ac65588a93569ec3ec01869fee461f9dafe4cdbebb1fc38c42d9693d, the digest recorded at E2-REP. The line numbers above are lines of those exact files.
 
