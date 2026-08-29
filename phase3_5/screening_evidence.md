@@ -8827,6 +8827,289 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C074-UR-01
+Candidate: C074 (frame rank 74, games/clonekeen)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/clonekeen/Makefile and distinfo
+Observed: DISTNAME=clonekeen-src-84; PKGNAME=clonekeen-8.4; HOMEPAGE=https://clonekeen.sourceforge.net/; SITES=${SITE_SOURCEFORGE:=clonekeen/}; COMMENT="commander keen clone"; WRKDIST=${WRKDIR}/keen; distinfo names clonekeen-src-84.tar.gz, SHA256 (base64) notbbY1HoZ0kkkhghAgYjhE11BLjKDQxc7OcqOCmuPU=, SIZE 756931. `SITE_SOURCEFORGE` resolves in the same frozen tree, at infrastructure/db/network.conf:68-69, to `https://downloads.sourceforge.net/sourceforge/`, so SITES is `https://downloads.sourceforge.net/sourceforge/clonekeen/`.
+Inference: the frozen fields name one packaged system, CloneKeen, on one project site. No second system appears, so not UR-AMBIGUOUS; no earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C074-E1-01
+Candidate: C074
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party clone of a DOS game, on an upstream site unrelated to this project. The Makefile separately carries a `# GPLv3` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C074-E2REP-01
+Candidate: C074
+Gate: E2-REP
+
+Step 1: https://clonekeen.sourceforge.net/ -- the frozen HOMEPAGE, requested at 2026-08-29T07:50:24Z, 200, no redirect, 8059 bytes, sha256 27305f1e31c88d393d9a95660f4a947689f11c1a01276e6d59d8766a810d1b9c.
+
+Its anchors, parsed element-wise rather than read off, 9 in total:
+
+```text
+index.html@nav=main          "Main"
+?nav=download                "Download"
+index.html@nav=sshots        "Screenshots"
+?nav=install                 "How to Install"
+index.html@nav=modding       "Modding"
+?nav=contact                 "Contact"
+index.html@nav=download      "8.4"
+index.html@nav=download      "source code"      <- step-2 target
+katyland.info/keen/?nav=maps "level editor"
+```
+
+Step 2: the link labelled `source code`. Its label is on the sealed whitelist verbatim, and step 1 exposes it directly, so the navigation is authorized on the contract's plain text. It sits inside upstream's own sentence "CloneKeen is free software, and the source code is available under the GPL."
+
+The `Download` and `8.4` anchors point at the same destination and were NOT the route taken. That distinction is kept because the whitelist is a rule about LABELS: QA-17 settled that a non-whitelisted label cannot be followed, and it does not follow that a whitelisted label becomes unusable when some other link happens to share its destination. Nothing here relies on the `Download` label.
+
+Requested exactly what the whitelisted link points at, `https://clonekeen.sourceforge.net/index.html@nav=download`, at 2026-08-29T07:51:16Z: 200, no redirect, 8418 bytes, sha256 c553e841a583623cdf3050db778a79b05e45f2ced6fd6f0aeb52d63243d6b77a. Same-host control at the same moment: the landing page, 200.
+
+Observed at step 2. Every artifact the page offers, each with the role UPSTREAM ITSELF gives it in its own sentence:
+
+```text
+files/clonekeen-src-84.tar.gz   "CloneKeen 8.4: source code and data
+                                 files for all platforms."
+haikuware.com/... (external)    "CloneKeen Haiku: prebuilt binaries for
+                                 the Haiku operating system."
+files/win32.cpp                 "for compiling on Windows, please
+                                 replace platform/win32.cpp with this
+                                 file; the one included in the package
+                                 is broken."
+files/makegen.tar.gz            "Makegen - for serious development ...
+                                 This is what I used to generate the
+                                 Makefile and all the .fdh headers (not
+                                 required if you only want to install
+                                 the game)."
+files/1keen131.zip              "You can download the shareware episode
+                                 from Apogee, or use this mirror link."
+                                 -- the ORIGINAL game's episode, a data
+                                 prerequisite, not this system's source
+files/gpl-3.0.txt               the licence text
+```
+
+The section is headed `Downloads` and opens "CloneKeen is distributed primarily in source form."
+
+Inference: exactly one artifact is given the source role, by upstream's own words, on upstream's own domain, at a fixed path. The others are not competing designations because upstream itself assigns them different roles -- binaries for one OS, a replacement for a file inside the designated package, a build-file generator it says is not required to install the game, a third party's game data, and a licence text. This is C067's shape, and it is deliberately NOT C056's: there three URLs each carried the SAME source role and collapsing them was refused at RETRACTION 25. Here the roles differ and upstream states the difference.
+
+The designated artifact was retrieved at 2026-08-29T07:53:06Z, 200, 756931 bytes, sha256 9e8b5b6d8d47a19d249248608408188e1135d412e328343173b39ca8e0a6b8f5. Its entry listing -- names only -- shows a source tree: 299 entries under a single root `keen/`, holding `src/`, `bin/`, LICENSE and README, with 88 `.c`, 23 `.h`, 5 `.cpp` and 94 `.fdh` files. `WRKDIST=${WRKDIR}/keen` in the frozen port matches that root.
+
+Recorded because it is unusual in this run, and bounded because it is easy to overstate: that digest, re-encoded as base64, is `notbbY1HoZ0kkkhghAgYjhE11BLjKDQxc7OcqOCmuPU=`, and the byte count is 756931 -- both identical to the frozen distinfo. So the object upstream designates now is bit-for-bit the object the frozen metadata recorded. What that establishes is the identity of the OBJECT. It does not reconstruct what upstream DESIGNATED at the sealed instant, which is QA-28's blocker and a question about the page's labels rather than the archive's bytes. See QA-34, which records the difference and adjudicates nothing.
+
+The frozen SITES, `https://downloads.sourceforge.net/sourceforge/clonekeen/`, is accounted for and was NOT requested. Two independent reasons, either sufficient: the stop rule ends navigation once the gate is determined, and QA-31 closes a code host's release-file area to this gate in any case. Nothing is claimed about its contents; in particular it is not claimed to be empty or to hold no competing artifact. It is a packager-side fetch path, and QA-22's lesson runs the same way here as there -- an OpenBSD field is not upstream evidence, in either direction.
+
+Inference: exactly one designated canonical source location for the packaged system, `https://clonekeen.sourceforge.net/files/clonekeen-src-84.tar.gz`, at a stable URL, holding a source tree, with one external target identifier, CloneKeen.
+Decision: PASS
+
+## EV-C074-E2RULE-01
+Candidate: C074
+Gate: E2-RULE
+Source: `keen/src/readme.txt`, an entry of the designated artifact
+Provenance: the artifact retrieved above, sha256 9e8b5b6d...b8f5. All source citations below are entries of that same artifact, so the one digest covers them.
+
+Observed: located witness, in the project's own words.
+
+```text
+"CloneKeen requires the original game data files to work."
+
+"CloneKeen currently runs under win32, with SDL, and
+ under Linux/X11, with SDL."
+```
+
+Inference: these state concrete validity requirements without our inventing them, and the project scopes them itself -- a runtime needs the original game's data files present, and the supported builds are the SDL ones. An installation lacking those data files does not satisfy the first.
+Decision: PASS
+
+## EV-C074-E3-01
+Candidate: C074
+Gate: E3
+Source: `keen/src/savegame.c` and `keen/src/keen.h`
+Provenance: as above.
+
+Observed: located witness. The decision, the call path that reaches it, and the code that writes the state it consults are all quoted.
+
+```text
+keen.h:24          #define SAVEGAMEVERSION     7
+
+savegame.c:9-33    char game_save(int slot)
+                   {
+                       ...
+                       sprintf(fname, "savegame%d.dat", slot);      // :19
+                       fp = fileopen(fname, "wb");
+                       if (!fp) return 1;
+
+                       fprintf(fp, "CKSAVE%c", SAVEGAMEVERSION);    // :25
+                       fputc(IsBigEndian(), fp);                    // :26
+                       ...
+
+savegame.c:81-109  char IsValidSaveGame(char *fname)
+                   {
+                       char *verify = "CKSAVE";
+                       fp = fileopen(fname, "rb");
+                       if (!fp) return 0;                           // :87
+
+                       for(i=0;i<strlen(verify);i++)
+                           if (fgetc(fp) != verify[i])
+                               { fclose(fp); return 0; }            // :89-96
+
+                       if (fgetc(fp) != SAVEGAMEVERSION)
+                           { fclose(fp); return 0; }                // :97-101
+
+                       if (fgetc(fp) != IsBigEndian())
+                           { fclose(fp); return 0; }                // :102-106
+                       fclose(fp); return 1;
+                   }
+
+savegame.c:127-141 char game_load(int slot)
+                   {
+                       sprintf(fname, "savegame%d.dat", slot);      // :135
+                       if (!IsValidSaveGame(fname))
+                       {
+                           lprintf("%s is not a valid save-game.
+", fname);
+                           return 1;                                // :140
+                       }
+```
+
+Inference, kept to what the quoted lines close: the same input -- a slot number -- is refused or admitted at :137 according to whether a file `savegame<slot>.dat` exists and carries the magic and version bytes the check reads. The program contains the writer of exactly those bytes, at :25, so the value the check consults is one this program persists and a later run reads back. That is validity conditioned on history, which is what E3 asks for.
+
+Not claimed: that the bytes in any particular existing slot file were written by an earlier run of this program. What is established is the persistent writer and reader path and the branch it drives.
+
+Not claimed either: that passing this check ends in a loaded game. The quoted extract stops at :141 and the function continues past it. The endianness comparison at :102-106 is recorded as a further, NON-historical condition on the same check and is not leaned on -- it tests a property of the running machine, not accumulated state. History is shown to be sufficient to fail this check and necessary to pass it, not sufficient for the whole call.
+Decision: PASS
+
+## EV-C074-E4-01
+Candidate: C074
+Gate: E4
+
+Positive construction exhibited, via `U_enforced`.
+Provenance: as above; `keen/src/sanity.c` is 5029 bytes, sha256 6ca6f1693115b3bc6b98cbeae6d21c9134097bee8b497fb82a5edff71a2f587a, and `keen/src/main.c` is 7989 bytes, sha256 c12f0a6c2c6a73a7f087995a825dac8157c7cd903d51e4b520fd2aad00951d1e.
+
+The mechanism: two project-authored required-file registries and the startup validator that tests the filesystem against them.
+
+```text
+sanity.c:1-2       // simple sanity check before starting up to make
+                   // sure all files are there
+                   // also determines which episodes are available
+
+sanity.c:13-14     #define COMESWITHCLONE  (char *)(0)
+                   #define COMESWITHKEEN   (char *)(1)
+
+sanity.c:16-21     char *sanity[99] = {
+                     "strings.dat", "This file contains text used in
+                        the game.", COMESWITHCLONE,
+                     "ep1demo1.dat", demo_file, COMESWITHCLONE,
+                     ... , NULL };
+
+sanity.c:23-48     char *sanity_ep[99] = {
+                     "ep?attr.dat", attrfile, COMESWITHCLONE,
+                     "SOUNDS.CK?", "Sounds for the game.", COMESWITHKEEN,
+                     ... "LEVEL90.CK?", level, COMESWITHKEEN, NULL };
+
+sanity.c:124-174   char run_sanity(char *(*list)[], uchar episode)
+                   {
+                       episode = '0' + episode;                   // :132
+                       i = 0;
+                       while ((*list)[i])                         // :135
+                       {
+                           strcpy(fname, (*list)[i]);
+                           for(j=0;j<fname[j];j++)
+                               { if (fname[j]=='?') fname[j]=episode; }
+
+                           wheretogetit = (char)(*list)[i+2];     // :140
+                           if (wheretogetit)
+                               sprintf(fullfname, "data/%s", fname);
+                           else
+                               strcpy(fullfname, fname);
+
+                           if (!file_exists(fullfname))           // :146
+                           {
+                               strcpy(whatitis, (*list)[i+1]);
+                               ... platform_msgbox(bigerror);
+                               missing = 1; break;
+                           }
+                           i += 3;                                // :170
+                       }
+                       return missing;
+                   }
+
+sanity.c:81-119    char sanity_check(void)
+                   {
+                       bad = run_sanity((void *)sanity, 0);       // :88
+                       if (bad) { ... return 1; }                 // :89-93
+                       for(ep=1;ep<=3;ep++)
+                       {
+                           episode_available[ep] =
+                               (1 - run_sanity((void *)sanity_ep, ep));
+                           if (!episode_available[ep] && ep==1)
+                               { platform_msgbox(kNoSharewareEpisode);
+                                 return 1; }                      // :107-111
+                       }
+                       return 0;
+                   }
+
+main.c:33-34       // ensure all files needed for startup are present
+                   if (sanity_check()) return 1;
+```
+
+The call path is closed at main.c:34, and its consequence is a refusal to start. The result also flows onward: `episode_available[]` is declared at globals.c:11 and consulted at menumanager.c:522 in `mmhandler_newgame`, at menu_custommap.c:140 and at editor/editor.c:1149 -- a search over the artifact's `.c` and `.h` files, which is the closed surface here.
+
+EN1 external authorship: the registries and the validator are the project's, predating this analysis.
+
+EN2 explicit scope: stated by the file's own opening comment -- the files that must be present at startup, and which episodes are available. Each entry carries externally segmented fields the project chose: a filename pattern, a human description, and a provenance marker.
+
+EN3 mechanical membership, and the counts are from parsing the initialisers rather than reading them off:
+
+```text
+sanity[]      15 initialiser slots before NULL -> 5 entries
+sanity_ep[]   75 initialiser slots before NULL -> 25 entries
+both declared [99]; the slots after the NULL are unused
+
+membership              the entries the loop reaches, stepping i += 3
+                        from 0 until (*list)[i] is NULL -- decidable
+                        without reading any item's meaning
+
+values the validator    the filename pattern, after '?' is replaced by
+acts on                 the episode digit at :132/:138; and the
+                        provenance marker, which selects whether the
+                        path is prefixed with data/ at :141-144 and
+                        gates the message-box branch at :150
+
+retained metadata       the human description, used at :148 to name
+                        what is missing
+```
+
+EN4 enforcement meaning, connected by the project itself: `run_sanity` tests each member with `file_exists` and returns 1 when one is absent; `sanity_check` turns that into a startup refusal for the base list and for episode 1, and into `episode_available[]` for episodes 2 and 3. The deciding and the refusing code are both the project's.
+
+EN5 closed within scope: the registries are compiled-in literals terminated by an explicit NULL, and the iteration bound at :135 is that terminator. Membership is therefore closed by the registry's own contents, not by our choice -- EN5's first case, runtime construction closing the set, so the tag is `enforced`.
+
+```text
+one enforcement observation per registry entry
+
+  "file F (with '?' resolved to the episode digit) must exist, at
+   data/F when the entry's provenance marker is set and at F
+   otherwise; its absence is reported with the entry's own
+   description and refuses startup for sanity[] and for episode 1"
+
+retained as externally segmented fields, per observation
+  the filename pattern
+  the project's description of what the file is
+  the provenance marker
+```
+
+Two limits, stated rather than left implicit. No exhaustive enumerator inventory is offered for this candidate: EN6 requires the union of all admissible enumerators, and building it is the inventory stage's work under QA-19. And one property of the mechanism is recorded rather than smoothed over: at :155 the condition is `if (wheretogetit == COMESWITHKEEN || 1)`, which is constant-true, so the `else` at :158 selecting `kFromCloneKeen` is not taken. A search of the artifact's `.c` and `.h` files finds `kFromCloneKeen` at exactly two places, its definition at :71 and that unreachable assignment. So the provenance marker does NOT choose the message text, while it does choose the path prefix and gate the message box. The enforcement observation above is worded against what the code performs.
+Decision: PASS
+
+## EV-C074-OVERALL-01
+Candidate: C074
+All five gates PASS. Twelfth survivor, and the third distribution-type PASS after C013 and C067: the designation is upstream's own sentence "CloneKeen 8.4: source code and data files for all platforms" pointing at `files/clonekeen-src-84.tar.gz`.
+
+`primary_snapshot` is recorded UNRESOLVED, as for every other survivor. The protocol fixes that field at the survivor-stage checkpoint rather than at a gate, and this entry does not pre-empt it. QA-34 records why this candidate's evidence differs from the others' and leaves the question where the protocol puts it.
+Decision: ELIGIBLE
+
 ## EV-C072-UR-01
 Candidate: C072 (frame rank 72, games/clidle)
 Gate: UR
