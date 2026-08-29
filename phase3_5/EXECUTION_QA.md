@@ -2215,3 +2215,67 @@ preregistration fixed what was wanted and not how to decide a case met
 repeatedly afterwards. Detected by review. The false universal claim
 inside RETRACTION 27 is a separate, adjudication/inference error, also
 detected by review.
+
+
+## QA-36 — whether a repository's self-description carries designation force is unsealed (RECORDED, no verdict moved)
+
+Raised by review of C076, and of the QA-30 / QA-35 family: a sealed
+criterion is silent on a question whose answer changes a verdict.
+
+**The question.** E2-REP asks whether upstream designates exactly one
+canonical source location. QA-22's carried-forward rule requires naming
+the surface that performs the designation and its exact signal, and
+admits "a sentence, a label, a link relation, or a structured marking"
+as the forms a designation may take. A repository's `description` field
+is owner-controlled metadata on a surface the contract lists among the
+allowed observations -- "whether upstream designates this location as
+its source" is observable AT the repository. Nothing in the seal says
+whether a self-description can be that signal.
+
+**What the run has done, which is not the same as what the seal says.**
+C063 states the practice: "a repository's self-description is
+repository-side, and the run has been consistent that the designating
+arrow must run from the project (C032, RETRACTION 23)". That is a
+run-internal adjudication. It was never preregistered, and RETRACTION 28
+settled what follows when a verdict turns on an unsealed reading.
+
+**Bounded sweep, so the exposure is measured rather than assumed.** Every
+E2-REP entry in the evidence file that transcribes a repository
+`description` was examined -- 18 entries. Only two carry wording about
+the repository's OWN source role:
+
+```text
+C063  "Sources of the official ChessX version."     ELIGIBLE
+C076  "Data files source for open-source Colobot..." UNRESOLVED
+```
+
+C063's PASS does not rest on it. Its entry says so in terms: the
+description "is NOT what carries the designation ... the site's own
+`Source Code` and `Source` links do the work -- and the description only
+corroborates." So no verdict moves, here or there.
+
+Two near misses were checked and are not instances. C047's "gzipped
+source tarball" is upstream's own label for an artifact ROW on a project
+page, not a repository description, and C047 is REJECTED at E2-REP.
+C057's "Candy Crisis source port for modern operating systems" uses
+"source port" as a genre term, and C057 is already UNRESOLVED at E2-REP.
+
+**The limit of that sweep, stated because it is real.** It covers only
+candidates whose entries transcribed a description. Where a description
+was never recorded -- C032 is one -- the question cannot be assessed
+from the record, and re-observing the surface is barred: those
+candidates carry terminal records, and opening a surface afterwards to
+supply fresh evidence is what QA-21 exists to stop. So this sweep bounds
+the exposure among transcribed entries and cannot bound it beyond them.
+
+**What this needs, and where it belongs.** A Run 2 preregistration must
+say whether owner-controlled repository metadata can perform a
+designation, and if so which fields, before any candidate is seen.
+Run 1 cannot supply it.
+
+**Classification, pending the Run 1 coding protocol.** Methodology/design
+gap, QA-30's family. Detected by review. The three errors in the first
+version of C076's entry -- classifying `GH_TAGNAME` as QA-31's releases
+class, citing C032 as controlling, and attributing C071's description to
+C074 -- are separate: the first two adjudication/inference errors, the
+third an evidence/citation error, all detected by review.

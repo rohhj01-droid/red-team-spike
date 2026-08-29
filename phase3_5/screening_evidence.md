@@ -9013,7 +9013,21 @@ GH_PROJECT   colobot-data   -> github.com/colobot/colobot-data
 GH_TAGNAME   colobot-gold-0.2.2-alpha                 NOT requested
 ```
 
-The repository and the account are METADATA-SUPPLIED starting points, not step-2 navigation targets, so QA-35's undetermined step-2 rule does not arise for them and nothing here depends on it. `GH_TAGNAME` is an identifier whose surface is the repository's tag and release area, which QA-31 closes to this gate; it is accounted for under QA-27's third branch, with the prohibition as the named reason, and nothing is claimed about what it holds. Both repository scopes were fixed before their requests, with the same reproducibility limit recorded at C071: the scope file is not committed, so the repository shows the scope and the fetch timestamps but not the sequence between them.
+The repository and the account are METADATA-SUPPLIED starting points, not step-2 navigation targets, so QA-35's undetermined step-2 rule does not arise for them and nothing here depends on it.
+
+`GH_TAGNAME` is accounted for differently from how an earlier version of this entry accounted for it, and that version is withdrawn. It said the tag "is an identifier whose surface is the repository's tag and release area, which QA-31 closes to this gate". Two things are wrong with that. QA-31's class is a code host's RELEASE ASSETS area, and a `GH_TAGNAME` names a tag from which an archive of the tagged tree is generated on request -- classifying it as the releases class asserts an equivalence this run never established. And no previous entry has treated `GH_TAGNAME` as a surface at all: it appears in the Observed line of C008, C014, C009, C017, C025, C032, C034, C038, C043, C050, C051 and C057 as a metadata field beside the account/project pair, never as a fourth starting point to be opened or declined.
+
+What stands is narrower:
+
+```text
+the frozen metadata supplies a HOMEPAGE and a GitHub tuple
+whether GH_TAGNAME is a separate admitted surface, or a ref
+  component of the tuple that resolves to the same repository, is
+  not fixed by the seal and is not decided here
+no tag or archive surface was requested, then or now -- this
+  candidate has a terminal record, and opening one to supply fresh
+  evidence is what QA-21 exists to stop
+``` Both repository scopes were fixed before their requests, with the same reproducibility limit recorded at C071: the scope file is not committed, so the repository shows the scope and the fetch timestamps but not the sequence between them.
 
 Step 1: https://colobot.info/, requested 2026-08-29T09:18:43Z, 200, no redirect, 36786 bytes, sha256 fc62ef97047f731b20f2b8c54517eb3f24055060c8984bbdb37f225770f1ec3b. 38 anchors parsed element-wise.
 
@@ -9073,9 +9087,28 @@ FAIL not established
   observed, so source access is not what is missing.
 ```
 
-The contrary reading, stated because it is the closest call in this entry. The repository's own description contains the words "Data files source for ... project", it is owner-controlled metadata, and it sits on a surface C032 itself concedes can bear a designation. A reader could hold that upstream designates this location as its data source in that sentence.
+The closest call in this entry, and it is what actually decides the gate. The repository's own description reads "Data files source for open-source Colobot: Gold Edition project developed by Epsitec and TerranovaTeam". That is owner-controlled metadata on a surface C032 concedes can bear a designation, and it uses the word source about this repository's own role. Whether it carries designation force is not fixed by the seal:
 
-This entry does not take that reading, for a reason that is about method rather than about the sentence: this run has read repository descriptions as DESCRIPTIVE throughout -- C017's external link in a description was recorded as lineage, C074's "formerly ClassicalSharp in C#" likewise -- and no entry has yet let a description perform a designation. Adopting that reading here would introduce a new designation form at rank 76 with the survivor set in view, which is the post-hoc move RETRACTION 28 has just finished cleaning up after. If a description can designate, that belongs in a Run 2 preregistration, applied to every candidate alike.
+```text
+description has designation force
+  -> upstream designates this location as its data source, and a
+     PASS becomes available
+
+description is descriptive only
+  -> what remains is affiliation, and the gate is UNRESOLVED
+
+the sealed criteria choose neither
+  -> UNRESOLVED / PI-UNCLASSIFIED-SHAPE, which is what that code is
+     defined to record
+```
+
+So this entry does not choose. Two things it earlier said are withdrawn.
+
+C032 is not the controlling precedent it was cited as. C032's entry records repository name, owner, branch, flags, tree and website field, and transcribes no description at all; it never faced a source-role sentence. It settles that a repository->site website field is a one-way arrow, which is a different point and still applies here.
+
+And the reason given for declining the reading was a practice argument, not a rule: "this run has read repository descriptions as DESCRIPTIVE throughout". That is true as practice and it is articulated at C063 -- "a repository's self-description is repository-side, and the run has been consistent that the designating arrow must run from the project" -- but a run-internal adjudication is not a sealed criterion, and RETRACTION 28 has just established what follows when the seal is silent and the outcome turns on the silence. Applying that consistently here means recording indeterminacy, not applying the practice.
+
+The supporting citations were also wrong. "Formerly ClassicalSharp in C#" is C071's description, not C074's; C074 is CloneKeen, a distribution candidate with no repository description at all. And C017's and C071's lineage phrases point at OTHER systems, which is a different thing from a sentence about this repository's own role, so neither is a precedent for excluding this one. See QA-36.
 
 Decision: UNRESOLVED
 Protocol issue: PI-UNCLASSIFIED-SHAPE
