@@ -9110,9 +9110,19 @@ Observed: located witness. The decision, the call path that reaches it, and the 
 app.lua:31         local SAVEGAME_VERSION = 264 -- SDL 3
 app.lua:70           self.savegame_version = SAVEGAME_VERSION
 
-app.lua:2031         self.world.savegame_version = new    -- the writer,
-                                                          persisted with
-                                                          the world
+app.lua:2031         self.world.savegame_version = new    -- the writer
+
+persistance.lua:236-245
+                   function SaveGame()
+                     local state = {
+                       ui = TheApp.ui,
+                       world = TheApp.world,
+                       map = TheApp.map,
+                       random = math.randomdump(),
+                     }
+                     state.map:prepareForSave()
+                     local result, err, obj =
+                       persist.dump(state, MakePermanentObjectsTable(false))
 
 app.lua:1878-1900  --! Function to check the loaded game is compatible
                    --! with the program
@@ -9143,7 +9153,7 @@ persistance.lua:286,295
 
 The call path is closed and was located by searching the whole pinned tree for `checkCompatibility`, which returns exactly these two sites -- the definition and this one call. An earlier pass over eight likely files found only the definition; the claim was not made until the exhaustive search had been run, which is the C063 discipline.
 
-Inference, kept to what the quoted lines close: the value compared at :1893 is `state.world.savegame_version`, read out of the save file being loaded, and this program contains the writer of that field at app.lua:2031. So the identical input -- one save file -- is accepted or refused according to a version number an earlier run of this program persisted into it, and refusal returns from `LoadGame` before the state is installed at persistance.lua:296-299.
+Inference, kept to what the quoted lines close: the value compared at :1893 is `state.world.savegame_version`, read out of the save file being loaded, and this program contains the writer of that field at app.lua:2031. The link between the two is quoted rather than assumed: `SaveGame` puts `TheApp.world` into `state` at persistance.lua:239 and serialises `state` at :245, so the field the writer sets on the world is the field the loader reads back out of `state.world`. An earlier version of this extract called app.lua:2031 "persisted with the world" without showing the serialisation, which asserted the connection instead of exhibiting it. So the identical input -- one save file -- is accepted or refused according to a version number an earlier run of this program persisted into it, and refusal returns from `LoadGame` before the state is installed at persistance.lua:296-299.
 
 Stated exactly, because the branch has two other conditions and neither is history. `or self.config.debug` at :1893 makes acceptance reachable by configuration, so the historical comparison is not the only route to `true`. And the graphics-set branch at :1887-1890 refuses on which asset set is in use, which is a property of the installation rather than of accumulated state. Both are recorded and neither is leaned on.
 
@@ -9189,9 +9199,31 @@ app.lua:189             self.gfx = Graphics(self, gfx_set, charset)
 graphics.lua:68,100   function Graphics:Graphics(app, gfx_set, charset)
                         ...
                         self:_loadPalettes(gfx_set)
+
+app.lua:196             self.gfx:loadRaw("Load01V", 640, 480):draw(...)
+graphics.lua:372-385  function Graphics:loadRaw(name, width, height, dir,
+                                                _paldir, pal, ...)
+                        dir = dir or "QData"
+                        pal = pal or (name .. ".pal")
+                        ...
+                        local palette = self:getPalette(pal)
 ```
 
-The call path is closed: the constructor invoked at app.lua:189 runs the loader at graphics.lua:100, so the registry is populated before any lookup.
+TWO paths are closed here, and an earlier version of this entry closed only the first while claiming "the call path is closed" without qualification.
+
+```text
+registry-construction path
+  app.lua:189 -> Graphics:Graphics -> graphics.lua:100
+  _loadPalettes, so the registry is populated before any lookup
+
+lookup / enforcement path
+  app.lua:196 -> Graphics:loadRaw -> graphics.lua:385 getPalette,
+  which is where a name absent from the registry meets the error at
+  :343. loadRaw derives the palette name at :380 when the caller
+  passes none, so "Load01V" becomes "Load01V.pal"
+```
+
+Without the second, the mechanism's enforcement was asserted rather than shown -- the defect corrected at C063 and again at C067.
 
 EN1 external authorship: the loader, the registry and the lookup are the project's, predating this analysis.
 
@@ -9231,7 +9263,9 @@ retained as externally segmented fields, per observation
   the transparent_255 flag
 ```
 
-Two limits stated rather than left implicit. No exhaustive enumerator inventory is offered: EN6 requires the union of all admissible enumerators and building it is the inventory stage's work under QA-19. And two mechanisms examined and NOT used are recorded so the choice is visible: `App:loadLuaFolder` at app.lua:1672-1706 enumerates a directory convention, which is EN3's fourth example, but its failure paths are `pcall` plus `print` at :1681, :1685 and :1689 -- a nonconforming file is logged and skipped, never rejected, so it fails EN4; and `Object.processTypeDefinition` at entities/object.lua:926 fills in defaults rather than validating, so it is not the missing enforcement.
+EN6 outcome independence: membership is the set of palettes the graphics layer loads at startup for the graphics set in use. It is not a bug list, fix list or known-failure registry.
+
+Two limits stated rather than left implicit. No exhaustive enumerator inventory is offered: the union obligation is Section 3.4's -- "If multiple enumerators satisfy EN1-EN6, include the union of all of them" -- and building it is the inventory stage's work under QA-19. An earlier version of this paragraph attributed that obligation to EN6, which is instead outcome independence; the entry also left EN6 unadjudicated, and the line above supplies it. And two mechanisms examined and NOT used are recorded so the choice is visible: `App:loadLuaFolder` at app.lua:1672-1706 enumerates a directory convention, which is EN3's fourth example, but its failure paths are `pcall` plus `print` at :1681, :1685 and :1689 -- a nonconforming file is logged and skipped, never rejected, so it fails EN4; and `Object.processTypeDefinition` at entities/object.lua:926 fills in defaults rather than validating, so it is not the missing enforcement.
 Decision: PASS
 
 ## EV-C078-OVERALL-01
@@ -10178,7 +10212,9 @@ retained as externally segmented fields, per observation
   the provenance marker
 ```
 
-Two limits, stated rather than left implicit. No exhaustive enumerator inventory is offered for this candidate: EN6 requires the union of all admissible enumerators, and building it is the inventory stage's work under QA-19. And one property of the mechanism is recorded rather than smoothed over: at :155 the condition is `if (wheretogetit == COMESWITHKEEN || 1)`, which is constant-true, so the `else` at :158 selecting `kFromCloneKeen` is not taken. A search of the artifact's `.c` and `.h` files finds `kFromCloneKeen` at exactly two places, its definition at :71 and that unreachable assignment. So the provenance marker does NOT choose the message text, while it does choose the path prefix and gate the message box. The enforcement observation above is worded against what the code performs.
+EN6 outcome independence: membership is the set of files the game requires to be present at startup, per registry. It is not a bug list, fix list or known-failure registry.
+
+Two limits, stated rather than left implicit. No exhaustive enumerator inventory is offered for this candidate: the union obligation is Section 3.4's, not EN6's, and building it is the inventory stage's work under QA-19. This entry, like C078's, attributed the union to EN6 and left EN6 itself unadjudicated; the line above supplies it. Both were found by review of C078 and corrected together. Every other E4 entry in this file adjudicates EN6 in its own terms. And one property of the mechanism is recorded rather than smoothed over: at :155 the condition is `if (wheretogetit == COMESWITHKEEN || 1)`, which is constant-true, so the `else` at :158 selecting `kFromCloneKeen` is not taken. A search of the artifact's `.c` and `.h` files finds `kFromCloneKeen` at exactly two places, its definition at :71 and that unreachable assignment. So the provenance marker does NOT choose the message text, while it does choose the path prefix and gate the message box. The enforcement observation above is worded against what the code performs.
 Decision: PASS
 
 ## EV-C074-OVERALL-01
