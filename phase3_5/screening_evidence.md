@@ -8831,11 +8831,25 @@ Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were re
 Candidate: C072 (frame rank 72, games/clidle)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/clidle/Makefile, modules.inc and distinfo
-Observed: HOMEPAGE=https://github.com/ajeetdsouza/clidle; MODGO_MODNAME=github.com/ajeetdsouza/clidle; MODGO_VERSION=v0.1.0; DISTNAME=clidle-${MODGO_VERSION}; COMMENT="wordle game for the terminal"; MODULES=lang/go. The Makefile includes modules.inc, which declares 121 entries under `MODGO_MODULES`, and distinfo holds 204 SHA256 lines of which exactly one, `clidle-v0.1.0.zip`, is not a `go_modules/` entry.
+Observed: HOMEPAGE=https://github.com/ajeetdsouza/clidle; MODGO_MODNAME=github.com/ajeetdsouza/clidle; MODGO_VERSION=v0.1.0; DISTNAME=clidle-${MODGO_VERSION}; COMMENT="wordle game for the terminal"; MODULES=lang/go. The Makefile includes modules.inc, which declares two dependency variables, and distinfo holds 204 SHA256 lines of which exactly one, `clidle-v0.1.0.zip`, is not a `go_modules/` entry:
 
-Inference: HOMEPAGE and MODGO_MODNAME name the same location and the same system, and the port's one non-dependency distfile carries that system's name and version. The 121 module entries are not a competing designation: the metadata's own structure files them under a dependency variable and under `go_modules/` paths in distinfo, so no basis for choosing between systems is needed and this is not UR-AMBIGUOUS. No earlier candidate resolved to this system, so not a duplicate.
+```text
+MODGO_MODULES     83 entries, 83 distinct module paths
+MODGO_MODFILES    37 entries, 15 distinct module paths -- additional
+                  versions of paths that all 15 already appear among
+                  the 83
+                  ----
+                  120 entries in total, over 83 distinct module paths
 
-Recorded as a scope determination rather than left implicit: those 121 module identifiers and their distinfo hashes are NOT admitted starting points for this candidate. The contract admits only the metadata URLs and identifiers "that UR already resolved to one system", and these resolve to other systems.
+distinfo          204 SHA256 rows = 203 under go_modules/ + the one
+                  clidle-v0.1.0.zip
+```
+
+Inference: HOMEPAGE and MODGO_MODNAME name the same location and the same system, and the port's one non-dependency distfile carries that system's name and version. The dependency entries are not a competing designation: the metadata's own structure files them under two dependency variables and under `go_modules/` paths in distinfo, so no basis for choosing between systems is needed and this is not UR-AMBIGUOUS. No earlier candidate resolved to this system, so not a duplicate.
+
+Count correction, recorded rather than silently replaced. An earlier version of this entry said "121 entries under `MODGO_MODULES`". Two errors compounded there. The figure came from a whole-file line count over modules.inc rather than from parsing its assignments, so it attributed both variables' lines, plus their two headers, to one variable -- the same crude-count defect corrected at C063. And it was then transcribed wrong: that line count is 122, not 121. The figures above come from joining the line continuations and splitting each assignment into (path, version) pairs.
+
+Recorded as a scope determination rather than left implicit: those dependency module identifiers -- 83 distinct paths across the two variables -- and their distinfo hashes are NOT admitted starting points for this candidate. The contract admits only the metadata URLs and identifiers "that UR already resolved to one system", and these resolve to other systems.
 Decision: PASS
 
 ## EV-C072-E1-01
