@@ -9012,11 +9012,29 @@ information.html                              "information"
 http://www.koth.org/pmars                     "The pMARS homepage"
 competitions.html                             "hills"
 links.html                                    "links"
-http://www.useyourhandwriting.com             (unrelated)
-google.com/search?q=sapan+bhatia              "SB"
+http://www.useyourhandwriting.com             "Handwriting on the
+                                               iPhone and iPad"
+http://www.google.com/search?q=sapan+bhatia   "SB"
 ```
 
-No label is Source, Code, Repository or Development, and the words themselves are absent from the document -- a standalone-word count returns `source` 0, `code` 0, `repository` 0, `development` 0, `git` 0. `sourceforge` appears 0 times and no version number appears at all. So step 2 has no target, on any of QA-35's three readings, and nothing in this entry depends on which of them is right.
+Two entries in this table are corrected. The last row's href was written
+`google.com/search?q=sapan+bhatia`, dropping the scheme and `www`, in a
+table this entry describes as an element-wise transcription. And the
+row above it read `(unrelated)` where the label belongs: that is a
+classification standing in the place of an observation, which is the one
+thing a transcription may not contain. The label is restored above; the
+judgement is made here instead, and it is only this -- neither of those
+two destinations is on the step-2 whitelist, and neither is claimed to
+bear on this candidate.
+
+No label is Source, Code, Repository or Development, and the words themselves are absent from the document -- a standalone-word count returns `source` 0, `code` 0, `repository` 0, `development` 0, `git` 0. `sourceforge` appears 0 times, and the frozen version string `0.9.13`
+occurs 0 times.
+
+An earlier version of this sentence said "no version number appears at
+all", which is unscoped and, on the obvious scope, false: a `\d+\.\d+`
+scan of the document matches once, at `XHTML 1.1` inside the DOCTYPE
+declaration. Withdrawn in favour of the narrow claim above, which is the
+only one this gate uses. So step 2 has no target, on any of QA-35's three readings, and nothing in this entry depends on which of them is right.
 
 `mars.html` was not followed. Its label, "Software to play", is not on the step-2 whitelist, and QA-17 settled that a criterion's wording cannot widen the search contract. As corrected at C069, a non-whitelisted link is OUTSIDE the search rather than unobserved within it: it contributes neither evidence nor uncertainty, and step 1 is a complete bounded observation.
 
