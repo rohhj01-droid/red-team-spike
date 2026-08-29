@@ -1393,6 +1393,159 @@ observations -- the Compiling page's gtkmm-3.24 requirement, the
 save-state/.srm interleaving witness, and the command_names[] positive
 construction -- are kept on the record and used for nothing.
 
+## RETRACTION 28 — five E2-REP PASSes rest on an authorization the seal does not determine
+
+EV-C009-E2REP-01, EV-C022-E2REP-01, EV-C023-E2REP-01, EV-C038-E2REP-01
+and EV-C043-E2REP-01 are **superseded**. Every observation in them
+stands and is preserved; what is withdrawn is the PASS each one
+recorded, and the gates screened after it.
+
+**The reasoning, and it does not select among QA-35's three theories.**
+QA-35 established that the sealed step-2 rule -- "a Source / Code /
+Repository / Development link that page explicitly exposes" -- does not
+say whether it means a link whose LABEL carries one of the words or a
+link the page exposes AS one, and that this run has used both, plus a
+third destination-based reading which C038 explicitly repudiates. For
+each candidate below, the gate's outcome DIFFERS by reading:
+
+```text
+under the label reading      step 2 was unauthorized, no lawful step 3,
+                             so no PASS
+under theory 2 or 3          step 2 was authorized and the PASS stands
+```
+
+Recording PASS asserts an outcome that holds under only one of two
+readings the seal never chose between. Recording UNRESOLVED asserts
+something else entirely -- that the sealed criteria did not determine
+this gate -- and that is true whichever reading is right. The sealed
+vocabulary has a code for exactly this: `PI-UNCLASSIFIED-SHAPE`, "a real
+screening outcome that no sealed criterion describes". So the correction
+requires no choice of theory, only the observation that the seal makes
+none.
+
+**What this is NOT.** It is not a post-hoc criterion change. No
+criterion is added, removed or reinterpreted here; the seal's silence is
+left exactly as silent as it was. What changes is the RECORD, which
+claimed determinations the criteria do not support. Correcting an
+overclaiming record against unchanged criteria is what RETRACTION 8, 9,
+12, 17 and 25 each did, and leaving a known-indeterminate PASS standing
+because the survivor set is already in view would be the overclaim, not
+the fix.
+
+**An earlier position of mine, withdrawn.** QA-35 said "re-adjudicating
+C009, C023, C038 and C043 requires exactly that choice" of theory, and
+called C075's withdrawal over-withdrawal against them. Both are wrong,
+and the argument above is why. C075 was the consistent record; these
+five were under-withdrawn. The over-withdrawal concern remains real in
+general and is not being retired -- it is simply not what this was.
+
+**The five, with the authority each actually took.**
+
+```text
+C009  theory 3  the anchor read "commit browser" and the entry held that "the contract's step 2 classifies links by what they lead to"
+C022  theory 3  the anchor was the host name "GitHub" and the entry took "the reading ... established at C009"
+C023  theory 3  the anchor read "here" and the entry held that "step 2 classifies a link by what it LEADS TO"
+C038  theory 2  the anchor read "github", which the entry says "does no work on its own"; the authority taken was the page's subheading "Source" and the sentence "Bastet is now hosted on github"
+C043  theory 2  the anchor read "GitHub" and the authority taken was "the sentence it sits inside", naming "der aktuelle Quellcode"
+```
+
+C016 and C029 also rest on non-label authority and need no change: both
+are already UNRESOLVED at E2-REP. C059's label contains `repository`
+outright, so it is a label case and is untouched. C075 is already
+UNRESOLVED on this same ground.
+
+**Consequences.** For each of the five, E2-REP becomes UNRESOLVED with
+`PI-UNCLASSIFIED-SHAPE`, `stop_gate` becomes E2-REP, and the gates after
+it become NOT_REACHED. Their E2-RULE, E3, E4 and SNAPSHOT entries are
+quarantined as post-stop exposure, preserved in place and doing no
+verdict work. Nothing is deleted.
+
+**Not claimed for any of the five:** that upstream designates no
+canonical source location, or that the repository each reached is not
+the project's. Those observations were made and remain on the record.
+What is unavailable is a determination that the route to them was
+authorized under a rule the seal never fixed.
+
+## EV-C009-E2REP-02  (supersedes EV-C009-E2REP-01)
+Candidate: C009
+Gate: E2-REP
+
+Step 1 and every observation of the superseded entry stand unchanged and
+are not repeated here. What is withdrawn is its verdict.
+
+Its step 2 rested on theory 3 authority (QA-35), and the sealed rule does not
+determine whether that authorizes navigation. Under the label reading
+the step was unauthorized and no PASS is available; under theory 3 it was
+authorized and the superseded PASS would stand. The seal chooses
+neither, so the gate is not determined by sealed criteria.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
+## EV-C022-E2REP-02  (supersedes EV-C022-E2REP-01)
+Candidate: C022
+Gate: E2-REP
+
+Step 1 and every observation of the superseded entry stand unchanged and
+are not repeated here. What is withdrawn is its verdict.
+
+Its step 2 rested on theory 3 authority (QA-35), and the sealed rule does not
+determine whether that authorizes navigation. Under the label reading
+the step was unauthorized and no PASS is available; under theory 3 it was
+authorized and the superseded PASS would stand. The seal chooses
+neither, so the gate is not determined by sealed criteria.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
+## EV-C023-E2REP-02  (supersedes EV-C023-E2REP-01)
+Candidate: C023
+Gate: E2-REP
+
+Step 1 and every observation of the superseded entry stand unchanged and
+are not repeated here. What is withdrawn is its verdict.
+
+Its step 2 rested on theory 3 authority (QA-35), and the sealed rule does not
+determine whether that authorizes navigation. Under the label reading
+the step was unauthorized and no PASS is available; under theory 3 it was
+authorized and the superseded PASS would stand. The seal chooses
+neither, so the gate is not determined by sealed criteria.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
+## EV-C038-E2REP-02  (supersedes EV-C038-E2REP-01)
+Candidate: C038
+Gate: E2-REP
+
+Step 1 and every observation of the superseded entry stand unchanged and
+are not repeated here. What is withdrawn is its verdict.
+
+Its step 2 rested on theory 2 authority (QA-35), and the sealed rule does not
+determine whether that authorizes navigation. Under the label reading
+the step was unauthorized and no PASS is available; under theory 2 it was
+authorized and the superseded PASS would stand. The seal chooses
+neither, so the gate is not determined by sealed criteria.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
+## EV-C043-E2REP-02  (supersedes EV-C043-E2REP-01)
+Candidate: C043
+Gate: E2-REP
+
+Step 1 and every observation of the superseded entry stand unchanged and
+are not repeated here. What is withdrawn is its verdict.
+
+Its step 2 rested on theory 2 authority (QA-35), and the sealed rule does not
+determine whether that authorizes navigation. Under the label reading
+the step was unauthorized and no PASS is available; under theory 2 it was
+authorized and the superseded PASS would stand. The seal chooses
+neither, so the gate is not determined by sealed criteria.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C009-UR-01
 Candidate: C009 (frame rank 9, emulators/fceux)
 Gate: UR
@@ -1435,7 +1588,7 @@ Surfaces NOT opened, recorded so the restraint is visible: download.html and lin
 
 Decision: PASS
 
-## EV-C009-E2RULE-01
+## QUARANTINED EV-C009-E2RULE-01
 Candidate: C009
 Gate: E2-RULE
 
@@ -1449,7 +1602,7 @@ Observed: located witness, under a heading the project itself titles "Valid Game
 Inference: these determine concrete validity requirements on input artifacts without our inventing them. A file in a format outside that list is not a valid game file for FCEUX, and an FDS image wrapped in an iNES container is explicitly excluded even though both formats are individually supported. The section is headed with the word valid, so this is content stating validity, not the existence of a documentation page -- the distinction QA-08 turned on. Unlike C014's witness, this is a data-artifact requirement rather than a build-environment one.
 Decision: PASS
 
-## EV-C009-E3-01
+## QUARANTINED EV-C009-E3-01
 Candidate: C009
 Gate: E3
 Source: https://fceux.com/web/movies.html (reached from the same Documentation index)
@@ -1466,7 +1619,7 @@ No stronger claim is made. An earlier draft of this entry said that whether a mo
 Positive gate: one located witness ends the survey.
 Decision: PASS
 
-## EV-C009-E4-01
+## QUARANTINED EV-C009-E4-01
 Candidate: C009
 Gate: E4
 
@@ -2649,7 +2802,7 @@ Not counted as designations, with reasons: aleph-one-marathon.github.io is descr
 
 Decision: PASS
 
-## EV-C022-E2RULE-01
+## QUARANTINED EV-C022-E2RULE-01
 Candidate: C022
 Gate: E2-RULE
 Source: the landing page's "Wiki" link -> https://github.com/Aleph-One-Marathon/alephone/wiki -> .../wiki/Plugins
@@ -2674,7 +2827,7 @@ requires_opengl="true"  "shapes patches that require OpenGL will not be
 Inference: these determine concrete validity requirements on an input artifact without our inventing them. A plugin declaring a minimum_version newer than the running engine is disabled; a plugin whose <scenario> fields do not exactly match is not loaded. The consequences are stated, not inferred.
 Decision: PASS
 
-## EV-C022-E3-01
+## QUARANTINED EV-C022-E3-01
 Candidate: C022
 Gate: E3
 Source: same designated wiki, the Plugins and Plugin-Guide pages
@@ -2687,7 +2840,7 @@ Inference: whether a given scenario runs with the MML, script or theme its own f
 No stronger claim is made about what any single artifact determines. Positive gate: one located witness ends the survey.
 Decision: PASS
 
-## EV-C022-E4-01
+## QUARANTINED EV-C022-E4-01
 Candidate: C022
 Gate: E4
 
@@ -2768,7 +2921,7 @@ Recorded because it is the weakest link in this chain and should be visible: the
 
 Decision: PASS
 
-## EV-C023-E2RULE-01
+## QUARANTINED EV-C023-E2RULE-01
 Candidate: C023
 Gate: E2-RULE
 Source: https://raw.githubusercontent.com/treellama/weland/master/Wadfile.cs
@@ -2785,7 +2938,7 @@ if (Version < 2 || entryHeaderSize != 16 || directoryEntryBaseSize != 10) {
 Inference: this determines concrete validity requirements on an input artifact without our inventing them -- a map file is loadable only if its version is at least 2, its entry header size is exactly 16, and its directory entry base size is exactly 10. The message names the rule in the project's own words, and the exception type is BadMapException. This is a data-artifact requirement, not a build-environment one; the README's separate "Mono 2.10 or higher" and "Aleph One 1.4 or higher" statements are of the weaker C014 kind and are not what this verdict rests on.
 Decision: PASS
 
-## EV-C023-E3-01
+## QUARANTINED EV-C023-E3-01
 Candidate: C023
 Gate: E3
 Source: https://raw.githubusercontent.com/treellama/weland/master/README.md, "Visual Mode" section
@@ -2798,7 +2951,7 @@ Inference: whether a Visual Mode texturing session behaves as documented is cond
 Stated at its actual strength: this is a documented ordering prerequisite, not a claim that anything is undeterminable from a map file. Positive gate: one located witness ends the survey.
 Decision: PASS
 
-## EV-C023-E4-01
+## QUARANTINED EV-C023-E4-01
 Candidate: C023
 Gate: E4
 
@@ -3749,7 +3902,7 @@ what it does not establish
 
 primary_snapshot: UNRESOLVED
 
-## EV-C009-SNAPSHOT-01
+## QUARANTINED EV-C009-SNAPSHOT-01
 Candidate: C009
 Stage: survivor-stage primary snapshot resolution
 
@@ -3774,7 +3927,7 @@ The withdrawn wording read "master had not moved since 2026-05-30, so raw reads 
 
 primary_snapshot: UNRESOLVED
 
-## EV-C023-SNAPSHOT-01
+## QUARANTINED EV-C023-SNAPSHOT-01
 Candidate: C023
 Stage: survivor-stage primary snapshot resolution
 
@@ -4667,7 +4820,7 @@ Inference: exactly one designated canonical source location, at a stable URL, ho
 
 Decision: PASS
 
-## EV-C038-E2RULE-01
+## QUARANTINED EV-C038-E2RULE-01
 Candidate: C038
 Gate: E2-RULE
 Source: INSTALL in the designated repository
@@ -4689,7 +4842,7 @@ Inference: these determine concrete validity requirements without our inventing 
 Recorded as at C014, C023 and C034: the Prerequisites are a BUILD-ENVIRONMENT requirement, and they carry no version bounds. E2-RULE asks for at least one validity requirement and does not restrict the domain.
 Decision: PASS
 
-## EV-C038-E3-01
+## QUARANTINED EV-C038-E3-01
 Candidate: C038
 Gate: E3
 Source: Config.cpp in the designated repository
@@ -4737,7 +4890,7 @@ therefore the same score can receive different verdicts in two runs
 That is validity conditioned on history, which is what E3 asks for, and it is the same shape as C014's snes9x witness where the eligibility test read score_high loaded at session start.
 Decision: PASS
 
-## EV-C038-E4-01
+## QUARANTINED EV-C038-E4-01
 Candidate: C038
 Gate: E4
 
@@ -4954,7 +5107,7 @@ Scope note: the designation is recorded as observed at the timestamps above. No 
 
 Decision: PASS
 
-## EV-C043-E2RULE-01
+## QUARANTINED EV-C043-E2RULE-01
 Candidate: C043
 Gate: E2-RULE
 Source: INSTALL in the designated repository
@@ -4976,7 +5129,7 @@ Inference: this states a concrete validity requirement without our inventing one
 Recorded as at C014, C023, C034 and C038: this is a BUILD-ENVIRONMENT requirement carrying no version bound. E2-RULE asks for at least one validity requirement and does not restrict the domain. One located witness settles a positive existential gate, so the search stopped here.
 Decision: PASS
 
-## EV-C043-E3-01
+## QUARANTINED EV-C043-E3-01
 Candidate: C043
 Gate: E3
 Source: src/GameLogic.cpp in the designated repository
@@ -5010,7 +5163,7 @@ GameLogic.cpp:167-176   void IGameLogic::step( const DuelMatchState& state )
 Inference: whether a ball-player contact counts as a hit is decided against mSquish, which that player's previous hit set to 11 and which the clock decrements once per running step. The identical contact is valid or not according to how many steps have passed since that side's last one. That is validity conditioned on history, which is what E3 asks for -- the same shape as C038's Qualifies() reading a persisted table, here with the conditioning state held in the match clock rather than on disk.
 Decision: PASS
 
-## EV-C043-E4-01
+## QUARANTINED EV-C043-E4-01
 Candidate: C043
 Gate: E4
 

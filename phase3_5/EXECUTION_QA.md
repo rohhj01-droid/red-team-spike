@@ -2163,23 +2163,46 @@ C075  rank 75   UNRESOLVED    theory 2, withdrawn at RETRACTION 27
 Four of the twelve survivors reached their repositories on a basis that
 is not theory 1.
 
-**Why no verdict is moved here, including the ones it would be easy to
-move.** Choosing among the three theories now would be a post-hoc
-criterion change with the survivor set in view -- the move this run has
-refused at every previous opportunity, and the reason QA-13, QA-19 and
-QA-28 were recorded rather than acted on. Re-adjudicating C009, C023,
-C038 and C043 requires exactly that choice. So does restoring C075. The
-audit is recorded; nothing is re-decided.
+**WITHDRAWN: the two paragraphs that stood here.** They argued that no
+verdict could be moved, because "re-adjudicating C009, C023, C038 and
+C043 requires exactly that choice" of theory, and that C075's
+UNRESOLVED was therefore over-withdrawal against candidates left
+standing. Both are wrong, and the error was mine.
 
-**The asymmetry this leaves, stated because nobody else will.** C075 is
-recorded UNRESOLVED on a route that C043 took to an ELIGIBLE verdict.
-The difference between them is when the inconsistency was noticed, not
-anything in the evidence. That is over-withdrawal: a correction that
-moved one candidate to the weaker outcome while structurally identical
-earlier candidates stand. This run has no mechanism that catches
-over-withdrawal, every correction so far has moved toward weaker claims,
-and this entry is the first place that has cost a candidate. It is
-recorded here so the postmortem can weigh it rather than discover it.
+Moving those verdicts requires no choice of theory. It requires only the
+observation that the sealed rule does not determine the outcome, and
+that observation is available without preferring any reading:
+
+```text
+the gate's outcome differs by reading
+  -> "PASS" asserts what holds under one reading only
+  -> "UNRESOLVED / PI-UNCLASSIFIED-SHAPE" asserts that the sealed
+     criteria did not determine the gate, which is true under every
+     reading, and is what that code is defined to record
+```
+
+Nor is it a post-hoc criterion change. The seal's silence is left as
+silent as it was; what is corrected is a RECORD that claimed
+determinations the criteria never supported. That distinction is the one
+this run has acted on at RETRACTION 8, 9, 12, 17 and 25, and conflating
+it with criterion-changing was the substance of the error. Leaving a
+known-indeterminate PASS standing because the survivor set is in view
+would have been the overclaim.
+
+C075 was therefore not over-withdrawn; it was the consistent record, and
+the five candidates in RETRACTION 28 were under-withdrawn. The
+over-withdrawal concern raised earlier in this run stands on its own and
+is not retired by this correction -- it simply was not what this was.
+
+This is a PASS-vs-UNRESOLVED methodology gap of QA-30's family: the
+sealed criterion is silent on a question whose answer changes the
+verdict, and either answer would be ours to supply.
+
+**Verdicts moved, at RETRACTION 28.** C009, C022, C023, C038 and C043:
+E2-REP to UNRESOLVED / `PI-UNCLASSIFIED-SHAPE`, `stop_gate` to E2-REP,
+later gates NOT_REACHED, their post-E2-REP entries quarantined and
+preserved. Four of them were ELIGIBLE. The survivor set drops from
+twelve to eight.
 
 **What this needs, and where it belongs.** A Run 2 preregistration must
 fix the step-2 rule before any candidate is seen, in one of the three
