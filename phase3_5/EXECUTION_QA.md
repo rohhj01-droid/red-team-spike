@@ -1944,3 +1944,55 @@ QA-32                 different again: every rule needed is present and
 ```
 
 **Explicitly not acted on.** Connecting E3 to `U_primary` now would be a post-hoc criterion change with six candidates' witnesses already in view, and it could only ever add or remove observations from a universe this run has in any case not reached -- every survivor's `primary_snapshot` is UNRESOLVED and the inventory stage is NOT_REACHED. It belongs in a future preregistration, before any candidate is seen.
+
+## QA-33 — a candidate row omitted a contributing frame rank (SCHEMA VIOLATION, repaired)
+
+Found while screening frame rank 68, which is the run's second duplicate.
+
+**What the schema requires.** `SCREENING_PROTOCOL.md:414` defines the
+candidate-level field as:
+
+```text
+frame_items                       all contributing ranks
+```
+
+**What the record held.** The run's first duplicate, frame rank 106
+`games/eboard-extras`, was resolved to C105 at EV-C105-DUP-01 and logged
+correctly in the frame ledger:
+
+```text
+106  games/eboard-extras  DUPLICATE  C105  C105  DUPLICATE  UR  ...
+```
+
+but C105's candidate row still read `frame_items = 105`. Rank 106
+contributed to that candidate and the field did not say so, which is the
+one thing the field exists to say. The frame ledger was never wrong; the
+candidate ledger was, and only on this field.
+
+**Repair.** `C105` now reads `105;106` and `C067` reads `67;68`, using
+`;` as the separator already used by `evidence_refs`. No gate state, no
+`overall`, no `stop_gate`, no count and no verdict changes anywhere:
+the candidate ledger still holds 74 rows, and the terminal distribution
+is unchanged.
+
+**Why this is repaired rather than merely noted.** It is a recording
+defect against a field the sealed schema defines explicitly, not a
+judgement about a candidate. Leaving a known schema violation on the
+record while writing a second, conforming row would put two
+contradictory conventions in one ledger and make the field unusable for
+the postmortem's duplicate accounting.
+
+**What was deliberately NOT changed, so the choice is stated rather than
+silent.** `evidence_refs` on both C105 and C067 continues to omit the
+`-DUP-` entry, which remains reachable from the frame row. The schema
+prescribes contents for `frame_items` and does not prescribe them for
+`evidence_refs`, so extending that field would be a convention this run
+invented mid-flight rather than a conformance repair. If the postmortem
+wants duplicate evidence reachable from the candidate level, that is a
+change for the next preregistration.
+
+**Classification, pending the Run 1 coding protocol.** Execution/procedure
+error: the schema was fixed in advance and one write did not follow it.
+Detected by the author while applying the same rule to a second instance,
+which is a detection path worth recording separately from
+reviewer-detected events.

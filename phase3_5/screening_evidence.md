@@ -8827,6 +8827,38 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C067-DUP-01
+Candidate: C067 (duplicate contributed by frame rank 68, games/chroma-enigma)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/chroma/Makefile and games/chroma-enigma/Makefile
+
+Observed, from the frozen metadata only:
+
+```text
+                  games/chroma                games/chroma-enigma
+HOMEPAGE          http://level7.org.uk/chroma/    (identical, byte for
+                                                   byte including the
+                                                   assignment whitespace)
+MAINTAINER        LEVAI Daniel <leva@ecentrum.hu>     (identical)
+DISTNAME          chroma-1.13                 chroma-enigma-0.20101210
+SITES             ${HOMEPAGE}/download/       http://leva.ecentrum.hu/openbsd/
+COMMENT           abstract puzzle game        Enigma levels to the game chroma
+```
+
+games/chroma-enigma additionally carries `RUN_DEPENDS = games/chroma`, `NO_BUILD = Yes`, and a `do-install` target whose destination is `${PREFIX}/share/chroma/levels/enigma`.
+
+Inference: exactly one field in either port names an external system -- `HOMEPAGE` -- and the two ports carry the same one. Every other field of the rank-68 port that mentions a system at all names chroma: the comment, the run dependency, and the install path. So the frozen metadata resolves this frame item to the system C067 already resolved to.
+
+The differing `SITES` is treated as a distribution fact rather than an identity split, on the protocol's own clause at SCREENING_PROTOCOL.md:94-98 -- a `HOMEPAGE` at a project website alongside a distfile location elsewhere is "several facts about one system", and `UR-AMBIGUOUS` is reserved for metadata pointing at genuinely different systems. There is no second named system here to choose between.
+
+Divergence from the precedent, recorded because it is not an exact match. At EV-C105-DUP-01 the two ports agreed on BOTH `HOMEPAGE` and `SITES`, so the resolution there did not have to rule on a differing distribution host. This one does, and it rules on the clause above rather than by extending that precedent.
+
+One observation recorded because it was seen and does no work: the `SITES` host `leva.ecentrum.hu` and the `MAINTAINER` address `leva@ecentrum.hu` share a domain. Whether that means the port maintainer hosts the distfile is not determined here, and the verdict does not rest on it -- the clause above applies to a distfile location wherever it is hosted.
+
+Not claimed. Nothing about what the distfile contains: it was not retrieved, and its 4016-byte size and recorded SHA256 in the frozen distinfo identify an artifact without describing one. Nothing about who authored the Enigma level data, or whether upstream chroma distributes or designates this artifact -- that is an E1 and E2-REP question, and those gates are NOT_REACHED for a duplicate. `http://leva.ecentrum.hu/openbsd/` was not opened.
+
+Decision: DUPLICATE of C067
+
 ## EV-C067-UR-01
 Candidate: C067 (frame rank 67, games/chroma)
 Gate: UR
