@@ -8980,6 +8980,267 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C078-UR-01
+Candidate: C078 (frame rank 78, games/corsixth)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/corsixth/Makefile and distinfo
+Observed: V=0.69.2; PKGNAME=corsixth-${V}; GH_ACCOUNT=CorsixTH; GH_PROJECT=CorsixTH; GH_TAGNAME=v${V}; HOMEPAGE=https://corsixth.com/; COMMENT="open source clone of Theme Hospital"; distinfo names CorsixTH-0.69.2.tar.gz, SIZE 4323503. There is no SITES field.
+Inference: the frozen fields name one packaged system, CorsixTH, with a project website and an account/project pair on one code host. That is the protocol's "several facts about one system" shape, so not UR-AMBIGUOUS. No earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C078-E1-01
+Candidate: C078
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party reimplementation of a 1997 commercial game, packaged from the account CorsixTH, unrelated to this project. The Makefile separately carries a `# MIT` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C078-E2REP-01
+Candidate: C078
+Gate: E2-REP
+
+Step 1: https://corsixth.com/ -- the frozen HOMEPAGE. Requested 2026-08-29T16:37:57Z, 200, no redirect, 5018 bytes, sha256 7d3b0019b99ac8723553b71c0b7c503b3120f56c59f6d446fc8bc42b99d85463. 26 anchors parsed element-wise.
+
+Step 2: the anchor labelled `Source code` -> https://github.com/CorsixTH/CorsixTH, sitting in the page's own navigation beside `Wiki`, `Report a bug` and `Media`. Its label carries two of the contract's four words verbatim.
+
+This entry does not depend on which of QA-35's three readings governs, and that is worth stating while QA-35 is open. Under the label reading the label IS the whitelist words. Under the page-supplied reading the page presents the link as source code, in the label itself. Under the destination reading the destination is a repository. And independently of all three, that destination is the location the frozen GH_ACCOUNT/GH_PROJECT pair names, which makes it an admitted STARTING POINT in its own right, so it is reachable without a step-2 permission at all.
+
+Other links on step 1, accounted for and not followed:
+
+```text
+download.html                        "Download"       not a whitelist
+                                                      label (QA-17)
+media.html                           "Media"          same
+.../CorsixTH/wiki                    "Wiki"           forbidden class
+.../CorsixTH/issues/new/choose       "Report a bug"   forbidden class
+.../CorsixTH/releases/tag/v0.70.1    "CorsixTH 0.70.1"
+.../CorsixTH/releases/tag/v0.70.0    "CorsixTH 0.70.0"
+.../releases/tag/v0.70.0-rc2, -rc1, -beta2, and
+.../CorsixTH/releases                "All release notes"
+                                                      forbidden class
+discord / matrix / reddit / facebook / twitter        social
+corsixth.lewri.me/... (5 article links, "All articles")
+                                                      a blog on another
+                                                      host
+```
+
+Every one of the GitHub links above resolves under `github.com/CorsixTH/CorsixTH`, the same repository the `Source code` link designates, so none is a competing location; they were not followed and nothing is claimed about their contents.
+
+Two further links are recorded with the roles UPSTREAM gives them in its own sentence, not roles assigned here. Under a `Download` heading the page reads "To play CorsixTH, you will need either the demo, or the full game of Theme Hospital, available for example at GOG.com", with `demo` -> http://th.corsix.org/Demo.zip and `GOG.com` -> https://www.gog.com/game/theme_hospital. Those are the ORIGINAL game's assets, by upstream's own words, not this system's source.
+
+Step 3: https://github.com/CorsixTH/CorsixTH, observed under a scope fixed before the request. observed_at_utc 2026-08-29T16:38:28Z; http_status 200; redirect_chain NONE; control https://api.github.com/repos/TASEmulators/fceux -> 200 at the same moment. As at C071, the ordering of that scope file against the fetch rests on the session record; the scope file is not committed here.
+
+```text
+full_name    CorsixTH/CorsixTH        default_branch  master
+fork         false                    archived        false
+disabled     false                    mirror_url      null
+homepage     null                     license         NOASSERTION
+visibility   public
+
+root, 31 entries
+  dirs   .github AnimView CMake CorsixTH DoxyGen LDocGen LevelEdit
+         SpriteEncoder WindowsInstaller ground_tiles libs scripts tools
+  files  .clang-format .clang-tidy .gersemirc .gitattributes .gitignore
+         .luacheckrc CMakeLists.txt CMakePresets.json CONTRIBUTING.md
+         Dockerfile.build LICENSE.txt README.md README.txt appveyor.yml
+         changelog.txt docker-compose.yml vcpkg-configuration.json
+         vcpkg.json
+```
+
+A source tree is present, and the repository carries no mirror, primary, archived or moved marking. No file was opened at this gate.
+
+Inference: exactly one designated canonical source location, `https://github.com/CorsixTH/CorsixTH`, at a stable URL, holding a source tree, with one external target identifier, CorsixTH. The designating surface is the project's own site and the exact signal is its navigation label `Source code` pointing at that repository -- QA-22's carried-forward rule satisfied in the label form, not by inference from arrival.
+Decision: PASS
+
+## EV-C078-PIN-01
+Candidate: C078
+Provenance pin for the gates below.
+
+`master` was resolved at 2026-08-29T16:39:05Z to commit 99cb578b47d2d9e0739b51eb16cd0e3142fda072, committed 2026-08-29T11:16:18Z. The tree was retrieved once as an archive of that commit rather than file by file: 4433370 bytes, sha256 35232ded28116b207f02da67eaccac47fc6301bac512aadccb62c997d7fed086, 703 entries. Files cited below, hashed individually from it:
+
+```text
+README.txt                     3161 bytes
+  a5a23bd5118b363d5763fc172621994cc7a9474f7a4b7750b2b565d86991c32a
+CorsixTH/Lua/app.lua          79642 bytes
+  37f4bf356f7e5ad3971f471c3209900e26eddc55707af9d8687bd4184f4ed035
+CorsixTH/Lua/graphics.lua     39962 bytes
+  2e4189bae26a65d5ecc97f53b91ff5a7d398da12a54e8248a04ed8186ce3ab80
+CorsixTH/Lua/persistance.lua  10141 bytes
+  4f8aebca74842596a5b02fe941ff8b4769c7242a0263f22233f15e1088be815d
+```
+
+These digests identify the objects analysed. They do nothing for QA-28.
+
+## EV-C078-E2RULE-01
+Candidate: C078
+Gate: E2-RULE
+Source: `README.txt` at the pinned commit
+Provenance: as above.
+
+Observed: located witness, in the project's own words.
+
+```text
+"CorsixTH aims to reimplement the game engine of Theme Hospital, and
+ be able to load the original game data files. This means that you
+ will need a purchased copy of Theme Hospital, or a copy of the demo,
+ in order to use CorsixTH."
+
+"1) Ensure that you are using a supported platform (Windows, macOS,
+    Linux or BSD)
+ 2) Ensure that you have either the demo of Theme Hospital or the
+    original game CD/files.
+ 3) Copy the resources folder (which contains the folders "ANIMS" and
+    "LEVELS" among others, this is in some cases called "HOSP") from
+    either the demo or full game to a directory of your choice."
+```
+
+Inference: these state concrete validity requirements without our inventing them, and the project scopes each itself -- an installation lacking the original game's data files does not satisfy the first, and the third names the specific directory contents it expects.
+Decision: PASS
+
+## EV-C078-E3-01
+Candidate: C078
+Gate: E3
+Source: `CorsixTH/Lua/app.lua` and `CorsixTH/Lua/persistance.lua` at the pinned commit
+Provenance: as above.
+
+Observed: located witness. The decision, the call path that reaches it, and the code that writes the state it consults are all quoted.
+
+```text
+app.lua:31         local SAVEGAME_VERSION = 264 -- SDL 3
+app.lua:70           self.savegame_version = SAVEGAME_VERSION
+
+app.lua:2031         self.world.savegame_version = new    -- the writer,
+                                                          persisted with
+                                                          the world
+
+app.lua:1878-1900  --! Function to check the loaded game is compatible
+                   --! with the program
+                   --!return true if compatible, otherwise false
+                   function App:checkCompatibility(save_version, gfx_set)
+                     local app_version = self.savegame_version
+                     ...
+                     elseif app_version >= save_version
+                            or self.config.debug then
+                       return true
+                     else -- savegame newer than application
+                       err = _S.errors.compatibility_error.new_in_old
+                     end
+                     UILoadGame:loadError(err)
+                     return false
+                   end
+
+persistance.lua:286,295
+                   function LoadGame(data)
+                     local state = assert(persist.load(data, objtable))
+                     ...
+                     -- Check the game we're loading is compatible with
+                     -- program
+                     if not TheApp:checkCompatibility(
+                            state.world.savegame_version,
+                            state.world.gfx_set) then return end
+```
+
+The call path is closed and was located by searching the whole pinned tree for `checkCompatibility`, which returns exactly these two sites -- the definition and this one call. An earlier pass over eight likely files found only the definition; the claim was not made until the exhaustive search had been run, which is the C063 discipline.
+
+Inference, kept to what the quoted lines close: the value compared at :1893 is `state.world.savegame_version`, read out of the save file being loaded, and this program contains the writer of that field at app.lua:2031. So the identical input -- one save file -- is accepted or refused according to a version number an earlier run of this program persisted into it, and refusal returns from `LoadGame` before the state is installed at persistance.lua:296-299.
+
+Stated exactly, because the branch has two other conditions and neither is history. `or self.config.debug` at :1893 makes acceptance reachable by configuration, so the historical comparison is not the only route to `true`. And the graphics-set branch at :1887-1890 refuses on which asset set is in use, which is a property of the installation rather than of accumulated state. Both are recorded and neither is leaned on.
+
+Not claimed: that returning `true` ends in a loaded game. `LoadGame` continues past :295 and this entry did not follow it.
+Decision: PASS
+
+## EV-C078-E4-01
+Candidate: C078
+Gate: E4
+
+Positive construction exhibited, via `U_enforced`.
+Provenance: as above.
+
+The mechanism: the palette registry the graphics layer builds at startup, and the lookup that rejects a non-member.
+
+```text
+graphics.lua:126-170  function Graphics:_loadPalettes(gfx_set)
+                        -- Load base palettes
+                        self:_loadPalette("Bitmap", "bootstrap_font.pal",
+                                          true, false)
+                        ... 7 calls ...
+                        if gfx_set == "base" then return end
+                        -- Load demo palettes
+                        self:_loadPalette("Data", "MPalette.dat", true, false)
+                        ... 13 calls ...
+                        if gfx_set == "demo" then return end
+                        -- Load full palettes
+                        self:_loadPalette("QData", "Bank01V.pal", true, false)
+                        ... 10 calls ...
+                      end
+
+graphics.lua:331        self.cache.palette[name] = palette   -- the insert
+
+graphics.lua:340-346  function Graphics:getPalette(name)
+                        name = name or "MPalette.dat"
+                        if not self.cache.palette[name] then
+                          error("Palette " .. name .. " not found")
+                        end
+                        return self.cache.palette[name], ...
+                      end
+
+app.lua:189             self.gfx = Graphics(self, gfx_set, charset)
+graphics.lua:68,100   function Graphics:Graphics(app, gfx_set, charset)
+                        ...
+                        self:_loadPalettes(gfx_set)
+```
+
+The call path is closed: the constructor invoked at app.lua:189 runs the loader at graphics.lua:100, so the registry is populated before any lookup.
+
+EN1 external authorship: the loader, the registry and the lookup are the project's, predating this analysis.
+
+EN2 explicit scope: the palettes the game loads, declared by the project one call at a time. Each entry carries externally segmented fields the project chose -- the data directory, the filename, and two flags, `pal8bit` and `transparent_255`.
+
+EN3 mechanical membership, counted by parsing the call list rather than reading it off:
+
+```text
+30 _loadPalette calls, 30 distinct names, no duplicates
+by directory: Bitmap 7, Data 1, QData 22
+
+and membership is CONDITIONED, which is part of it rather than a
+footnote -- the loader returns early on gfx_set:
+  gfx_set "base"   ->  7 members
+  gfx_set "demo"   -> 20 members
+  otherwise        -> 30 members
+```
+
+Membership is the key set of `self.cache.palette`, decided by which of those calls ran, without semantic reading of any item.
+
+EN4 connection to validation, in project code on both sides: `getPalette` tests the name against the registry and raises the project's own `error("Palette " .. name .. " not found")`, naming the offending value. This is the distinction C038 drew: the rejection is the project's, not a failure inside the interpreter. Contrast this candidate's own `TheApp.humanoid_actions[action.name](action, self)` at entities/humanoid.lua:597, where an unregistered name would fail as a nil call in Lua -- that mechanism is NOT offered here.
+
+EN5 closed within scope: the set is closed by what `_loadPalettes` inserts at runtime -- EN5's first case, runtime construction closing the set, so the tag is `enforced`.
+
+```text
+one enforcement observation per registered palette name
+
+  "palette name N is present in the loaded palette registry for the
+   graphics set in use, carrying the project's own data directory and
+   its pal8bit and transparent_255 flags; a getPalette call with a
+   name absent from that registry raises `Palette <n> not found`"
+
+retained as externally segmented fields, per observation
+  the palette filename
+  the data directory the project reads it from
+  the pal8bit flag
+  the transparent_255 flag
+```
+
+Two limits stated rather than left implicit. No exhaustive enumerator inventory is offered: EN6 requires the union of all admissible enumerators and building it is the inventory stage's work under QA-19. And two mechanisms examined and NOT used are recorded so the choice is visible: `App:loadLuaFolder` at app.lua:1672-1706 enumerates a directory convention, which is EN3's fourth example, but its failure paths are `pcall` plus `print` at :1681, :1685 and :1689 -- a nonconforming file is logged and skipped, never rejected, so it fails EN4; and `Object.processTypeDefinition` at entities/object.lua:926 fills in defaults rather than validating, so it is not the missing enforcement.
+Decision: PASS
+
+## EV-C078-OVERALL-01
+Candidate: C078
+All five gates PASS. Ninth survivor after RETRACTION 28 reduced the set to eight, and the first repository-type PASS recorded since that retraction -- its step 2 rests on a label carrying the contract's own words, and additionally on a destination the frozen metadata names directly, so it does not depend on QA-35's open question.
+
+`primary_snapshot` is recorded UNRESOLVED, as for every other survivor: the protocol fixes that field at the survivor-stage checkpoint rather than at a gate, and this entry does not pre-empt it.
+Decision: ELIGIBLE
+
 ## EV-C077-UR-01
 Candidate: C077 (frame rank 77, games/corewars)
 Gate: UR
