@@ -8943,18 +8943,27 @@ page expose it AS a repository.
 
 That conflates two different things the contract keeps apart. Allowed
 navigation is a PERMISSION and fixes execution reach; a designation
-signal is a FINDING about what upstream asserts. QA-17 settled that a
-criterion's wording cannot widen the search contract, and this is the
-same widening in a new shape -- the shape RETRACTION 6 and RETRACTION 7
-already corrected twice. Every navigation this run has authorized rested
-on a label containing one of the four words, C064 included, where the
-only latitude taken was case.
+signal is a FINDING about what upstream asserts.
 
-**C009 is not the rescuing precedent it was cited as.** QA-22 describes
-C009's arrow as what makes upstream's page point at a location -- a
-designation finding. Whether a sentence can also unlock navigation is a
-separate question, and this entry answered it in its own favour without
-a precedent that had answered it before.
+**A sentence in the first version of this retraction is withdrawn, and
+it was false.** It read: "Every navigation this run has authorized
+rested on a label containing one of the four words, C064 included, where
+the only latitude taken was case." That is an unverified universal
+claim, and an audit of every E2-REP entry containing a step 2 refutes
+it. See QA-35, which records the audit in full. The run holds at least
+three incompatible authorization theories, and this entry's own basis
+was not the novel one it took itself to be.
+
+**The precedent this entry cited was the wrong one.** It rested step 2
+on C009's reading -- that step 2 classifies a link by what it leads to.
+C038 explicitly repudiated that generalisation: "read broadly, any link
+whose href happens to resolve to a repository would become a step-2
+target, and the whitelist would widen again." The structural analogue of
+C075's route is not C009 but C043, where "the authority for taking it is
+the sentence it sits inside". C075's sentence names the destination a
+repository, exactly as C043's names it the current source code. Citing
+the repudiated theory instead of the applicable precedent is the defect
+here, and it is a different defect from the one first written down.
 
 **Consequences on the record.** The step-3 request to
 https://github.com/abishekvashok/cmatrix and every observation drawn
@@ -8983,12 +8992,22 @@ Step 1 stands as observed in the superseded entry: http://www.asty.org/cmatrix/,
 sha256 fed96ea8ce8d88098b38816d68fb7e248efeb1825d276eba4fb41591b0696816,
 21 anchors parsed element-wise.
 
-Step 2 has no authorized target. No anchor on the page carries a label
-that is Source, Code, Repository or Development, in any case. The
-repository link's anchor text is the bare URL
+Step 2's permission basis is undetermined, which is not the same as
+saying it is absent. No anchor on the page carries a label that is
+Source, Code, Repository or Development in any case; the repository
+link's anchor text is the bare URL
 `https://github.com/abishekvashok/cmatrix`, and C038's rule is that a
-host-name anchor does no work on its own; RETRACTION 27 records why the
-surrounding sentence does not supply the missing permission.
+host-name anchor does no work on its own. What would supply the
+permission is the sentence the link sits inside, and whether a sentence
+can do that is exactly what this run has never settled: QA-35 records
+three incompatible theories in live use, and Run 1 cannot choose among
+them now, with survivors in view, without making the post-hoc criterion
+change this run has refused throughout.
+
+Stated plainly rather than dressed up: under C043's theory this
+navigation was authorized and this gate would have been adjudicated on
+its merits; under the exact-label reading it was not. The gate is
+recorded as unadjudicable rather than as adjudicated either way.
 
 What step 1 did establish, kept as a finding and not used as a
 permission:
@@ -9008,14 +9027,35 @@ and it also presents its own source artifact
 
 Adjudication. PASS is unavailable: E2-REP requires the designated
 location to be shown to hold a source representation, observed at its
-root surface, and the contract provides no authorized route to that
-surface for this candidate. No failure code is available either. Both
+root surface, and this run cannot establish that the route to that
+surface was authorized without first settling QA-35's question. No failure code is available either. Both
 codes that could apply need positive evidence this run does not have --
 `E2REP-NO-SINGLE-CANONICAL-LOCATION` needs several designations with no
 primary among them, and upstream's page states a ranking rather than
 leaving one absent, while `E2REP-NO-SOURCE` needs the designated
 location's source representation shown to be inaccessible, which was
 never observed lawfully.
+
+The frozen SITES, `http://www.asty.org/cmatrix/dist/`, is disposed of as
+history rather than reopened:
+
+```text
+it was not requested during screening, because the withdrawn PASS
+  treated it as unnecessary once the gate looked determined
+
+it is not requested now. A terminal record exists for this candidate,
+  and opening a surface after that record to supply fresh verdict
+  evidence is the move QA-21 exists to stop and C020 and C024 both
+  refused
+
+so it stands as an admitted starting point that was never observed,
+  and it contributes to this gate being unadjudicable rather than
+  resolving anything
+```
+
+Recorded and doing no work: the page's own download links point at
+`/cmatrix2/dist/`, a different path from the frozen SITES. Nothing is
+claimed about what either path holds.
 
 Not claimed: that upstream designates no canonical source location. It
 designates one in a sentence this run read at step 1. What is missing is
@@ -9068,7 +9108,12 @@ saying what its verdict would have been is the counterfactual RETRACTION
 10 withdrew at C018. These are recorded as errors in reasoning, not as a
 suppressed verdict.
 
-## EV-C075-PIN-01
+## QUARANTINED EV-C075-PIN-01
+Quarantined with the gates it exists to support: the files it pins were
+fetched after the unauthorized step 2, and the entries citing it --
+E2-RULE, E3 and E4 -- are post-stop exposure. It is preserved because a
+quarantined observation must remain identifiable, and it does no verdict
+work.
 Candidate: C075
 Provenance pin for the gates below.
 

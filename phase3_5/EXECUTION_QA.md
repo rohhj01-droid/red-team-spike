@@ -2094,3 +2094,101 @@ view. Separating QA-28's two conditions is a design change, and design
 changes belong to a Run 2 preregistration made before any candidate is
 seen. This entry records evidence and a distinction; it makes no rule
 and hands none to a checkpoint.
+
+
+## QA-35 — E2-REP step-2 authorization rests on three incompatible theories (RECORDED, no verdict moved)
+
+Raised by review of C075 and confirmed by auditing every E2-REP entry in
+the evidence file that contains a step 2 -- 37 entries across 33
+candidates. RETRACTION 27's claim that "every navigation this run has
+authorized rested on a label containing one of the four words" is
+withdrawn as false.
+
+**The sealed text, which is what the disagreement is about.**
+
+```text
+2. a Source / Code / Repository / Development link that page
+   explicitly exposes
+```
+
+It does not say whether "a Source ... link" means a link whose LABEL is
+one of those words, or a link the page explicitly exposes AS one --
+through a heading over it, or a sentence around it. Both readings fit
+the sentence. QA-23 leans toward the second for DESIGNATION, admitting
+"a label, a link relation, or a structured marking"; nothing settles it
+for NAVIGATION.
+
+**What the run actually did.**
+
+```text
+theory 1  the anchor LABEL carries one of the four words
+  C019 C034 C044 C049 C058 C063 C065 C066 C074
+  C016 also cites the literal words "Source code:" above its link
+  C059 is a near case: label "GitHub repository", head noun only
+
+theory 2  the PAGE supplies the source role -- a heading over the
+          link, or the sentence it sits inside
+  C038  subheading "Source" + "Bastet is now hosted on github"
+  C043  "der aktuelle Quellcode ist ab sofort auf GitHub zu finden"
+  C075  "the newest repository for CMatrix at <url>"
+
+theory 3  the link's DESTINATION is a repository
+  C009  "the contract's step 2 classifies links by what they lead to"
+  C022  "the reading is the one established at C009"
+  C023  "step 2 classifies a link by what it LEADS TO"
+  C029  /develop reached as "the destination of the About link"
+```
+
+**They are not merely different; one repudiates another.** C038 rejected
+theory 3 in terms: "read broadly, any link whose href happens to resolve
+to a repository would become a step-2 target, and the whitelist would
+widen again." C009, C022, C023 and C029 rest on the theory C038 calls
+dangerous, and all four remain on the record.
+
+**Live status of the affected candidates, because this touches verdicts
+and not only reasoning.**
+
+```text
+C009  rank 9    ELIGIBLE      theory 3
+C023  rank 23   ELIGIBLE      theory 3
+C038  rank 38   ELIGIBLE      theory 2
+C043  rank 43   ELIGIBLE      theory 2
+C059  rank 59   ELIGIBLE      near-label
+C016  rank 16   UNRESOLVED    heading
+C022  rank 22   UNRESOLVED    theory 3
+C029  rank 29   UNRESOLVED    theory 3
+C075  rank 75   UNRESOLVED    theory 2, withdrawn at RETRACTION 27
+```
+
+Four of the twelve survivors reached their repositories on a basis that
+is not theory 1.
+
+**Why no verdict is moved here, including the ones it would be easy to
+move.** Choosing among the three theories now would be a post-hoc
+criterion change with the survivor set in view -- the move this run has
+refused at every previous opportunity, and the reason QA-13, QA-19 and
+QA-28 were recorded rather than acted on. Re-adjudicating C009, C023,
+C038 and C043 requires exactly that choice. So does restoring C075. The
+audit is recorded; nothing is re-decided.
+
+**The asymmetry this leaves, stated because nobody else will.** C075 is
+recorded UNRESOLVED on a route that C043 took to an ELIGIBLE verdict.
+The difference between them is when the inconsistency was noticed, not
+anything in the evidence. That is over-withdrawal: a correction that
+moved one candidate to the weaker outcome while structurally identical
+earlier candidates stand. This run has no mechanism that catches
+over-withdrawal, every correction so far has moved toward weaker claims,
+and this entry is the first place that has cost a candidate. It is
+recorded here so the postmortem can weigh it rather than discover it.
+
+**What this needs, and where it belongs.** A Run 2 preregistration must
+fix the step-2 rule before any candidate is seen, in one of the three
+forms above or a fourth, and must say whether a designation signal can
+also serve as a navigation permission. Run 1 cannot supply it.
+
+**Classification, pending the Run 1 coding protocol.** Methodology/design
+gap, same family as QA-13, QA-19, QA-28 and QA-33's second finding: the
+preregistration fixed what was wanted and not how to decide a case met
+repeatedly afterwards. Detected by review. The false universal claim
+inside RETRACTION 27 is a separate, adjudication/inference error, also
+detected by review.
