@@ -9010,7 +9010,114 @@ Observed: a third-party OpenGL game on an upstream site unrelated to this projec
 Inference: external-authorship requirement satisfied from the frozen metadata alone.
 Decision: PASS
 
-## EV-C082-E2REP-01
+## RETRACTION 29 — C082's E2-REP FAIL withdrawn; the search was not closed
+
+EV-C082-E2REP-01 is **superseded**. This is a terminal verdict change:
+C082 moves from REJECTED to UNRESOLVED. Every observation in the
+superseded entry stands and is preserved -- the two archives under
+upstream's `Sources` subheading, the absence of any ranking on that
+page, and the role each other artifact is given by its own subheading.
+What is withdrawn is the closure the FAIL required.
+
+**The defect.** The entry disposed of one step-1 anchor like this:
+
+```text
+livejournal.com/users/gnu_lorien/            "Development Journal"
+   the label's head noun is "Journal". C059 read a label by its head
+   noun, and on that reading this is not a Development link
+```
+
+That label carries `Development`, one of the contract's four words.
+Excluding it needed a rule, and the rule invoked is not settled: QA-35
+records C059 not as precedent but as "a near case: label 'GitHub
+repository', head noun only". Reading labels by head noun may well be
+right, and it is not what the seal says, and this run has never decided
+it. Treating "Journal" as the docs or changelog class instead would be
+a second unsettled surface-class judgement, not an escape from the
+first.
+
+**Why that defeats the code rather than merely the wording.**
+`E2REP-NO-SINGLE-CANONICAL-LOCATION` is positive in shape: it records
+that upstream designates several locations with no primary among them.
+"No primary among them" is a claim about upstream, and it closes only if
+the search the contract defines was complete. It was not:
+
+```text
+label-token reading   "Development Journal" carries Development, so
+                      it is an admitted step-2 target and a surface
+                      that might rank the two archives was never
+                      reached -- no closure, so no FAIL
+
+head-noun reading     it is not a target, step 1 completes the search,
+                      and the FAIL stands
+
+the seal decides neither
+```
+
+Nothing is claimed about what that journal contains. The point is only
+that under a live reading it was reachable and was not reached, so the
+absence of a ranking on step 1 does not establish the absence of one
+upstream.
+
+**The error is the familiar one, and it is mine.** A reading was applied
+as though settled without checking whether the run had settled it --
+the same failure as C069's stricter SITES reading in QA-37, and as
+RETRACTION 27's withdrawn universal. That C059 itself is recorded in
+QA-35 as a near case was written by me eight candidates ago.
+
+**Also withdrawn:** the stop-rule ground for not requesting the eight
+`SITE_SAVANNAH` mirror URLs. The gate was not determined, so the stop
+rule did not apply to them.
+
+**Nothing is reopened now.** Neither the journal nor the eight mirrors
+is requested. C082 carries a terminal record, and opening a surface
+afterwards to supply fresh verdict evidence is what QA-21 exists to
+stop, as at C020, C024 and C081. They stay unobserved, and their
+contents unconstrained.
+
+**Also withdrawn:** the claims that C082 was "the sixth REJECTED" and
+"the first failure code determined since C056", made in the commit
+message of 4e0b84b.
+
+Ledger: REJECTED 6 -> 5, UNRESOLVED 70 -> 71. Frame rows, candidate
+rows and remaining are unchanged at 87, 85 and 41.
+
+## EV-C082-E2REP-02  (supersedes EV-C082-E2REP-01)
+Candidate: C082 (frame rank 82, games/crack-attack)
+Gate: E2-REP
+
+Step 1's observations stand exactly as recorded in the superseded entry
+and are not repeated: 21 anchors; no anchor label is Source, Code or
+Repository; upstream's Releases section assigns roles by subheading;
+`<h4>Sources</h4>` governs two distinct URLs, `crack-attack-1.1.14.tar.gz`
+and `crack-attack-1.1.14.tar.bz2`, and nothing on that page ranks them.
+
+What changes is what those observations close.
+
+```text
+PASS not established
+  two URLs carry the source role and neither is designated primary on
+  the surface observed, so no single canonical location is exhibited.
+
+FAIL not established
+  E2REP-NO-SINGLE-CANONICAL-LOCATION asserts that upstream designates
+  several with no primary AMONG THEM. That is a claim about upstream,
+  not about one page, and it needs the contract's search to have been
+  completed. Under the label-token reading of step 2, the anchor
+  labelled "Development Journal" was an admitted target and was not
+  reached, so the search was not completed and the claim is not
+  available.
+```
+
+Not claimed: that the unreached surface holds a ranking, or that it does
+not. Not claimed either that upstream designates exactly one location
+somewhere unseen. What is on the record is two source-role URLs on one
+observed surface, and a search the run cannot show to be closed.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
+## SUPERSEDED EV-C082-E2REP-01
 Candidate: C082
 Gate: E2-REP
 
