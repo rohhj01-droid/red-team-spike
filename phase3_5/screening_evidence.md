@@ -9017,7 +9017,7 @@ Most are the vendor's site-wide navigation -- platform lists and a catalogue of 
 /defendguin/download/      "download"
 ```
 
-No anchor label is Source, Code, Repository or Development. That closes theory 1 and not the others, so step 2 is written per reading rather than dismissed in one sentence -- an earlier version said "step 2 has no target under any of QA-35's three readings", which label absence alone does not establish.
+On anchor TEXT, no anchor carries Source, Code, Repository or Development. That does not close any of QA-35's three readings, so step 2 is written per reading rather than dismissed in one sentence. Two earlier versions of this sentence are withdrawn: the first said "step 2 has no target under any of QA-35's three readings", which label absence alone does not establish; the second said it "closes theory 1 and not the others", which contradicted the theory-1 block immediately below.
 
 The four contract words were counted rather than eyeballed, and their exact positions matter to what follows:
 
@@ -9044,15 +9044,25 @@ theory 1, the label reading -- and it is NOT closed either
   includes an image link's accessible name is not something the seal
   settles, and this entry does not settle it.
 
-  It does not need to. That anchor was not followed and it is not a
-  designation candidate on any reading: its destination is
-  opensource.org, and nothing observed presents it as a location of
-  Defendguin's source. It is an OSI/GPL badge. So theory 1 leaves an
-  undetermined label question open and no step-2 target either way.
+  The consequence is stated without re-merging two things the
+  contract keeps apart:
 
-  An earlier version of this block wrote "no anchor carries one of
-  the four words" while the paragraph above it recorded that very
-  alt text. Withdrawn.
+    if alt is NOT the label   theory 1 yields no step-2 target
+    if alt IS the label       that anchor IS a step-2 target, and it
+                              was not followed, so this branch's
+                              bounded search is incomplete
+
+  Its destination is opensource.org and it carries an OSI/GPL badge,
+  so it is not a designation candidate on what has been observed --
+  but that is a statement about what a designation would be, not a
+  reason the permission never existed. An earlier version of this
+  block concluded "no step-2 target either way" from the badge, which
+  is the navigation-versus-designation merge RETRACTION 30 was
+  written about. Withdrawn.
+
+  An earlier version also wrote "no anchor carries one of the four
+  words" while the paragraph above it recorded that very alt text.
+  Withdrawn as well.
 
 theory 2, the page supplying the role
   the two headings above DO carry contract words, and each stands
@@ -9081,8 +9091,10 @@ theory 1   `download` is not one of the four words. QA-17 settled
 theory 2   the link sits under no contract-word heading, so even the
            broader reading supplies it no role.
 
-theory 3   its destination was not observed and no claim is made
-           about what it is.
+theory 3   UNDETERMINED rather than disposed of. The destination
+           reading turns on what the destination is, and it was not
+           observed, so whether this link is admitted under that
+           reading is not settled. No claim is made about what it is.
 ```
 
 Neither `source` occurrence names a location, so no designation was observed on this surface. What remains open on this surface is not a designation but a permission: whether the two contract-word headings confer step-2 access to the links beneath them, and whether an image link's alt counts as its label.
@@ -9117,14 +9129,22 @@ PASS not established
   names no source location, and a bare directory listing designates
   nothing -- C028's finding, on the same kind of surface, and C083's.
 
-  And the search behind that is not closed on every reading. Under
-  theory 2 the links beneath the two contract-word headings -- 29
-  platform pages and two other products -- were not observed, and
-  whether those headings admit them is QA-35's open question; under
-  the label question above, whether an image link's alt counts is
-  likewise unsettled. So this is not a completed bounded search of
-  the kind SCREENING_PROTOCOL.md:242-251 lets an absence-shaped code
-  rest on.
+  And the search behind that is incomplete on all three readings,
+  each in its own way:
+
+    theory 1  if an image link's alt is its label, the anchor whose
+              alt reads "[OSI Certified Open Source Software - GPL]"
+              is a step-2 target that was not followed
+    theory 2  the 31 links beneath the two contract-word headings --
+              29 platform pages and two other products -- were not
+              observed, and whether those headings admit them is
+              QA-35's open question
+    theory 3  the destinations of unopened links, /defendguin/
+              download/ among them, were not observed, so whether
+              any is a repository is not settled
+
+  So this is not a completed bounded search of the kind
+  SCREENING_PROTOCOL.md:242-251 lets an absence-shaped code rest on.
 
 FAIL not established
   E2REP-NO-SINGLE-CANONICAL-LOCATION does not apply: it records that
