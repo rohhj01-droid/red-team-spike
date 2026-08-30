@@ -8995,7 +8995,9 @@ dangerdeep-data-0.4.0_pre3327.zip          SIZE 198099252
 
 `SITE_SOURCEFORGE` resolves in the same frozen tree at infrastructure/db/network.conf:68-69, so SITES is `https://downloads.sourceforge.net/sourceforge/dangerdeep/`.
 
-Inference: the frozen fields name one packaged system, Danger from the Deep, with a per-project site and a code-host project of the same short name -- "several facts about one system", so not UR-AMBIGUOUS. The two DISTFILES are two artifacts of that one system, split by the port itself into code and data, which the separate licence comment lines also mark; they are not two systems. No earlier candidate resolved to it, so not a duplicate.
+Inference: the frozen fields name one packaged system, Danger from the Deep, with a per-project site and a code-host project of the same short name -- "several facts about one system", so not UR-AMBIGUOUS. The two DISTFILES are two artifacts the one port packages together, and no second external system identifier appears; they are not two systems.
+
+Not claimed, and an earlier version of this line claimed it: that one artifact is code and the other data. The Makefile places both under `DISTFILES` without assigning either a role, and reading one from the string `dangerdeep-data-` would be inferring an artifact's role from its filename, which C026 bars. The three licence comment lines sit above `PERMIT_PACKAGE` and are not attached to either file. No earlier candidate resolved to it, so not a duplicate.
 Decision: PASS
 
 ## EV-C089-E1-01
@@ -9021,9 +9023,33 @@ Project-authored content on that surface: the title "Danger from the Deep", the 
 
 Project navigation exposed: Summary, Files, Reviews, Support, Mailing Lists, Tickets (Features not implemented yet, Bugs, Support Requests, Patches, Feature Requests), Discussion, **Code**, **Git**. C046's equivalent surface had no Code item; this one does, which is the difference between that candidate and this.
 
-Step 2: the anchor labelled `Code` -> /p/dangerdeep/code/. Its label is one of the contract's four words verbatim, so the navigation is authorized under QA-35's theory 1, the narrowest of the three readings, and no broader one is relied on. The `Git` link was NOT taken: "Git" is not one of the four words, and RETRACTION 29 is the reason a near-word is not stretched into one.
+Step 2: the anchor labelled `Code` -> /p/dangerdeep/code/. Its label is one of the contract's four words verbatim, so the navigation is authorized under QA-35's theory 1, the narrowest of the three readings, and no broader one is relied on. The `Git` link was NOT taken. Its href, transcribed from the preserved step-1 response rather than re-requested, is `/p/dangerdeep/git/`, and its label is `Git`.
 
-Kept apart, because RETRACTION 30 turned on exactly this distinction: that `Code` item authorizes NAVIGATION and is not itself upstream designating a canonical source location. It is the hub's standard project navigation, not a sentence or label the project authored -- C007's finding that a generic project hub is not a repository root, and QA-22's that arriving somewhere is not being designated there.
+```text
+theory 1     "Git" is not one of the contract's four words, so the
+             label reading does not admit it
+theories 2/3 whether the page's structure or the destination admits
+             it is QA-35's unsettled question, and is not decided
+             here
+```
+
+So it is recorded as an unobserved branch rather than as a link ruled out. An earlier version cited RETRACTION 29 as authority for not stretching a near-word; that is backwards. RETRACTION 29 WITHDREW an exclusion -- it found that `Development Journal` carries an exact contract token and that excluding it by head-noun reasoning was an unsettled rule applied as settled. It is a precedent against confident exclusion, not for it.
+
+Navigation and designation are kept apart here, because RETRACTION 30 turned on that distinction -- but only the navigation half is settled. Whether that `Code` item ALSO carries designation force is QA-30's question, raised at C044 on this same SourceForge navigation strip, and QA-30 declines to answer it:
+
+```text
+reading it AS designation
+  the project chose this host, enabled the code area, the strip
+  appears on the project's own page under its own name, and the
+  label is literally one of the contract's four words
+
+reading it as NOT designation
+  the strip is rendered for every project whether or not it uses
+  the areas; its presence is the platform's doing, not a sentence
+  anyone upstream wrote
+```
+
+An earlier version of this entry asserted the second reading -- that the item "is not itself upstream designating a canonical source location", citing C007 and QA-22. Neither closes QA-30's question, and QA-30 records that "the sealed criterion contains nothing that chooses". This entry chooses neither. Both branches end UNRESOLVED here for a reason given below, so nothing turns on it, and that is not a licence to have picked one.
 
 What step 2 returned:
 observed_at_utc: 2026-08-30T08:26:37Z (GET), 08:26:51Z (HEAD)
@@ -9034,7 +9060,7 @@ The 403 body is not a plain refusal. It is titled "Just a moment...", contains `
 
 **It was not bypassed, and no attempt was made to bypass it.** That is an absolute constraint on this work rather than a screening judgement, and it is recorded so the gap has a stated cause. As at C080, what follows is narrow: transport completed and the server answered definitely, so this is not the timeout / DNS / refused / 5xx family. Two paths on this host were observed at the same moment, one answering 403-with-challenge and one 200; nothing wider than that is claimed about the host.
 
-So the code surface was not observed, and nothing is claimed about what it holds -- whether a repository is there, what it contains, or whether it is designated.
+Stated precisely, because the distinction is the point: a response WAS served and observed -- the 403 challenge above. What was not served is the intended Code resource. Nothing is claimed about what that resource holds: whether a repository is there, what it contains, or whether it is designated.
 
 The frozen SITES, `https://downloads.sourceforge.net/sourceforge/dangerdeep/`, was not requested. As at C081 and C087, no rule is offered for that: the fact recorded is that no request was made while QA-37's question about that construction was unresolved.
 
@@ -9048,10 +9074,16 @@ PASS not established
 
 FAIL not established
   every E2-REP code is a statement ABOUT a designated canonical
-  location, and none was established. The code surface's contents are
-  unknown rather than absent, and the SITES branch was closed by an
-  unresolved question rather than by observation. Coding a failure
-  would convert two prevented observations into a finding about
+  location, and none was established. Three branches are in three
+  different states and are not summed:
+
+    Code    a challenge response was served; the intended resource's
+            contents are unknown rather than absent
+    SITES   not requested, QA-37's construction question unresolved
+    Git     not taken; unadmitted under theory 1 and undecided
+            under QA-35's other readings
+
+  Coding a failure would convert those into a finding about
   upstream.
 ```
 
