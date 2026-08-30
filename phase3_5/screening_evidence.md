@@ -8994,8 +8994,8 @@ Decision: PASS
 Candidate: C091
 Gate: E1
 Source: same frozen metadata
-Observed: a third-party arcade clone on an upstream site unrelated to this project. The Makefile separately carries a `# GPLv2` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
-Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Observed: COMMENT="clone of arcade game 'Defender' with a Linux theme"; HOMEPAGE at newbreedsoftware.com; a `# GPLv2` marker line above `PERMIT_PACKAGE = Yes`, recorded as seen and not used.
+Inference: those fields name a program authored outside this project, on a site unrelated to it, so the external-authorship requirement is satisfied from the frozen metadata alone. An earlier version put "third-party" and "unrelated to this project" in the Observed line; both are conclusions drawn from the fields, not fields, and they belong here.
 Decision: PASS
 
 ## EV-C091-E2REP-01
@@ -9017,25 +9017,52 @@ Most are the vendor's site-wide navigation -- platform lists and a catalogue of 
 /defendguin/download/      "download"
 ```
 
-No anchor label is Source, Code, Repository or Development, so step 2 has no target under any of QA-35's three readings and this entry does not depend on which is right. `/defendguin/download/` was not followed: `download` is not one of the four words, QA-17 settled that a criterion's wording cannot widen the contract, and as corrected at C069 a non-whitelisted link is OUTSIDE the search rather than unobserved within it -- it contributes neither evidence nor uncertainty.
+No anchor label is Source, Code, Repository or Development. That closes theory 1 and not the others, so step 2 is written per reading rather than dismissed in one sentence -- an earlier version said "step 2 has no target under any of QA-35's three readings", which label absence alone does not establish.
 
-The four contract words were counted rather than eyeballed, and where they occur they are site furniture:
+The four contract words were counted rather than eyeballed, and their exact positions matter to what follows:
 
 ```text
-source       2, both in the vendor's page frame -- the banner
-             "Open Source Software for:" and a line near
-             "Licenced under the GPL"
-development  1, the navigation heading "Our Software For Development:"
-code / repository / git                                            0
+source       2 occurrences
+             (a) the heading "Open Source Software for:", standing
+                 above 29 platform links in the vendor's page frame
+             (b) inside an image's alt attribute,
+                 alt="[OSI Certified Open Source Software - GPL]",
+                 on an image linking to opensource.org. The visible
+                 words beside it are "Licenced under the GPL", which
+                 do not contain the token.
+development  1 occurrence, the heading "For Development:", standing
+             above links to two other products, cgi-util and SIFE
+code / repository / git                                          0
 ```
 
-Neither occurrence names a location, so the page designates none.
+```text
+theory 1, the label reading
+  no anchor carries one of the four words. No step-2 target.
+
+theory 2, the page supplying the role
+  the two headings above DO carry contract words, and each stands
+  above a group of links. Whether a heading of that kind confers
+  step-2 permission on the links beneath it is QA-35's open
+  question. This entry does not answer it, and does not answer it
+  by calling the headings site furniture either. What it records is
+  where they stand: over 29 platform pages, and over two other
+  products of the same vendor -- neither group being this system.
+
+theory 3, the destination reading
+  no destination among the observed hrefs was identified as a
+  repository. Nothing is claimed about what any unopened
+  destination actually is.
+```
+
+`/defendguin/download/` was not followed under any of them: `download` is not one of the four words, QA-17 settled that a criterion's wording cannot widen the contract, and as corrected at C069 a non-whitelisted link is OUTSIDE the search rather than unobserved within it -- it contributes neither evidence nor uncertainty.
+
+Neither `source` occurrence names a location, so no designation was observed on this surface.
 
 Step 2 disposition, second starting point: the frozen SITES, `ftp://ftp.tuxpaint.org/unix/x/defendguin/src/`.
-Necessary because: the gate was unsettled after step 1, and this is the remaining admitted starting point. It names no class the contract forbids -- it is a distfile directory on a project host, not a code host's release-asset area, so QA-31 does not arise, and it is not the `downloads.sourceforge.net` construction QA-37 records as disputed. That is C026's lesson applied as at C028 and C083.
+Necessary because: the gate was unsettled after step 1, and this is the remaining admitted starting point. It names no class the contract forbids -- it is a directory on a different host from the HOMEPAGE, not a code host's release-asset area, so QA-31 does not arise, and it is not the `downloads.sourceforge.net` construction QA-37 records as disputed. An earlier version called it "a distfile directory on a project host"; nothing observed establishes that `ftp.tuxpaint.org` is this system's project host, and asserting it would contradict the UR paragraph above, which declines to infer any relationship between the two hosts. That is C026's lesson applied as at C028 and C083.
 observed_at_utc: 2026-08-30T14:27:52Z; FTP reply 226; 562 bytes, sha256 242df8344fa9f3750f3f18fc636e17341cbc85cb12cea692e16584a8487ad312
 
-Observed: a bare FTP directory listing, seven entries -- one directory and six files -- in standard `ls -l` columns. Checked rather than assumed: no line carries any text beyond those columns, so the surface makes no statement at all.
+Observed: a bare FTP directory listing, seven entries -- one directory and six files -- in standard `ls -l` columns. Checked rather than assumed: no line carries any text beyond those columns, so the surface carries no role or designation statement beyond its listing metadata. An earlier version said it "makes no statement at all", which contradicts the next paragraph's account of what it does expose.
 
 ```text
 d ... 4096      Jun 28  2023  beta
@@ -9077,7 +9104,9 @@ FAIL not established
 
 Not claimed: that upstream designates no canonical source location anywhere. Both surfaces the contract admits were observed and neither carries one; that is a finding about these two surfaces, and C017's boundary holds.
 
-Provenance limit, as at C080, C083, C084, C085, C087, C089 and C090: the repository carries the response digests and these transcriptions, not the response bytes. So the 80-anchor count, the word tallies, and the FTP listing's column structure cannot be reproduced from this repository and rest on the session record.
+QUARANTINED EXPOSURE. Review of this entry, searching to verify the step-1 transcription, was shown content of the `/defendguin/download/` page -- the surface this gate declined to follow -- after this candidate's terminal record. It is logged because it was seen. It does NO work: it is not used for C091's verdict, it does not bear on whether that link was followable, and it founds no QA entry. The same disposition as the cached retrieval logged at C080.
+
+Provenance limit, as at C080, C083, C084, C085, C087, C089 and C090: the repository carries the response digests and these transcriptions, not the response bytes. So the 80-anchor count, the word tallies, and the FTP listing's column structure cannot be reproduced from this repository and rest on the session record. Review re-requested the FTP URL and it timed out, so that transcription in particular has not been independently reproduced.
 
 Decision: UNRESOLVED
 Protocol issue: PI-UNCLASSIFIED-SHAPE
