@@ -2666,3 +2666,164 @@ Detected by the author while screening rank 92; items 2, 3, 4 and 5 were
 detected by external review of the corrections themselves. Item 5 was
 introduced by the commit that fixed items 2 and 3, which is the reason
 this list is kept as a list rather than folded into a single finding.
+
+
+## QA-40 -- the same infrastructure defect one field over: six candidate records said "no SITES" where `bsd.port.mk` resolves one (RECORDED, wording corrected, no verdict moved)
+
+Found while screening frame rank 92, whose port sets SITES explicitly
+and whose second SITES falls in QA-31's class. Enumerating its starting
+points is what made the omission visible in the earlier records.
+
+**What the frozen tree does, and the two mechanisms are NOT the same.**
+Flattening them is the error this entry came close to making.
+
+```text
+bsd.port.mk:1280-1301   GH_ACCOUNT + GH_PROJECT, with GH_TAGNAME:
+                          SITES_GITHUB += https://github.com/<a>/<p>/
+                                          archive/refs/tags/<tag>/
+                        with GH_COMMIT instead:
+                          SITES_GITHUB += https://github.com/<a>/<p>/
+                                          archive/
+                        then, at :1294
+                          SITES ?= ${SITES_GITHUB}
+                        so the BARE SITES variable is set.
+
+dist-tuple.port.mk      sets SITES.<template> and DISTFILES.<template>
++ dist-tuple.pattern    and never the bare SITES. For a DIST_TUPLE port
+                        GH_ACCOUNT is empty, so bsd.port.mk:1300 leaves
+                        SITES empty. Its fetch location is built from
+                        SITES.github plus TEMPLATE_DISTFILES.github.
+```
+
+**Why this is not a second copy of QA-39.** QA-39's own justification
+reads: "Reading a defaulted HOMEPAGE differently from a defaulted SITES
+would be inconsistent, and nothing in the seal distinguishes them." That
+argument was written while FOUR of the six entries QA-39 was correcting
+-- C017, C032, C050 and C057 -- denied their defaulted SITES in the very
+same sentence. QA-39 corrected the HOMEPAGE half of "There is no
+HOMEPAGE and no SITES" and left the SITES half standing, so the
+inconsistency it argued from survived inside the correction that argued
+from it. The other two of QA-39's six, C018 and C071, are DIST_TUPLE
+ports whose bare SITES really is empty, which is why the split below is
+by mechanism and not by wording -- and why "six" here would have been
+wrong.
+
+**The affected records, split by mechanism rather than by wording.**
+
+```text
+BARE SITES IS RESOLVED, and the record says there is none
+  C012  emulators/libchdr     .../rtissera/libchdr/archive/
+  C017  games/2048-cli        .../tiehuis/2048-cli/archive/refs/tags/v0.9.1/
+  C032  games/arx-libertatis  .../arx/ArxLibertatis/archive/refs/tags/1.2.1/
+  C050  games/braincurses     .../bderrly/braincurses/archive/refs/tags/v1.1.0/
+  C057  games/candycrisis     .../jorio/CandyCrisis/archive/refs/tags/v3.0.1/
+  C078  games/corsixth        .../CorsixTH/CorsixTH/archive/refs/tags/v0.69.2/
+
+BARE SITES IS EMPTY, and the statement is accurate about it
+  C018  games/2048-qt         DIST_TUPLE
+  C071  games/classicube      DIST_TUPLE
+  C084  games/crispy-doom     DIST_TUPLE
+        Their fetch location comes from SITES.github with
+        DISTFILES.github. Whether a template-scoped site group counts as
+        "a URL in the frozen metadata" for QA-27's accounting is NOT
+        settled here, and nothing below turns on it.
+
+ACCURATE AS WRITTEN, and left alone
+  C080  games/cowsay          "The port sets no SITES; the frozen `cpan`
+                              module supplies one."
+```
+
+**No verdict moves, checked per candidate rather than asserted.**
+
+```text
+C012  the sentence is in EV-C012-E2REP-01, which RETRACTION 8
+      quarantined. It already does no verdict work. The live record is
+      EV-C012-E2REP-02, which does not make the claim.
+C017  UNRESOLVED @ E2-REP on QA-22's ground, affiliation is not
+C032  designation. That ground never depended on the starting-point
+C050  enumeration being complete. Their completeness claims were
+C057  already withdrawn under QA-39 for the ACCOUNT surface; this adds
+      a second unaccounted starting point to the same withdrawal.
+C078  ELIGIBLE, and the reason it holds is structural: its E2-REP
+      recorded a designation witness on the project's own page, and a
+      witness-based PASS is existential. An additional unopened
+      starting point cannot defeat a witness. What the omission does
+      affect is the QA-27 accounting, which was incomplete.
+```
+
+**Nothing is opened.** All six carry terminal records and QA-21 bars
+observation after one. The six URLs are named above and not requested,
+and nothing is claimed about what any of them holds. Whether a code
+host's `/archive/` path is the forbidden class QA-31 names or the
+distfile mirror QA-27 required be opened at C026 is exactly the question
+QA-37 records as unsettled, and this entry does not settle it.
+
+**Bounded scan, with its procedure.**
+
+```text
+surface   every occurrence of the string "no SITES" in
+          screening_evidence.md, attributed to the evidence block and
+          candidate it falls in, each cross-checked against that
+          candidate's frozen port Makefile for GH_ACCOUNT / GH_PROJECT /
+          GH_TAGNAME / GH_COMMIT / DIST_TUPLE / an explicit SITES line,
+          and against bsd.port.mk and dist-tuple.port.mk for which
+          variable each mechanism sets
+pinned to `14ab081`, the state before this entry's corrections
+result    16 occurrences, one per line, in 16 EVIDENCE BLOCKS,
+          which are 15 CANDIDATE x GATE pairs, belonging to 10
+          CANDIDATE records.
+
+            C012 1   C017 1   C018 3   C032 2   C050 2
+            C057 2   C071 2   C078 1   C080 1   C084 1   = 16
+
+          C018 supplies both the 3 and the 16-to-15 gap: UR-01,
+          E2REP-01 and E2REP-02, the last two being one pair. Of the
+          10 candidates, six have a resolved bare SITES, three are
+          DIST_TUPLE ports whose bare SITES is empty, and one is
+          accurate as written.
+
+          An earlier version of this line said "17 occurrences in 16
+          evidence blocks". 17 was transcribed from a listing that
+          printed one segment per match and was never recounted --
+          the same transcription failure QA-39 records at its own
+          block count, made again in the entry written to record it.
+limits    textual over the evidence file and the port Makefiles, not a
+          `make` evaluation. A SITES arriving through some other module
+          this pass does not read would be missed -- C080's `cpan` is
+          one such module, caught only because its entry named it.
+```
+
+**Classification, pending the Run 1 coding protocol.**
+
+```text
+1  evidence/recording error, 6 candidate records
+   the same asymmetry QA-39 recorded, in the field beside the one
+   it corrected -- but only for the four that QA-39 touched. C012
+   and C078 carry explicit HOMEPAGEs, were never in QA-39's six,
+   and made the same reading error on their own.
+
+2  adjudication/inference error, 5 candidate records
+   each drew a completeness conclusion from the short enumeration:
+     C012  "every URL and identifier in the frozen metadata
+            resolves to this one location"
+     C017  "this is the only upstream surface the frozen metadata
+            reaches"
+     C032  "the only admitted starting point is the
+            GH_ACCOUNT/GH_PROJECT pair"
+     C050  "no second surface is supplied, nothing is left
+            unaccounted for"
+     C057  "no second surface is supplied and nothing is left
+            unaccounted for" -- C050's claim without its QA-31
+            clause, not the same sentence
+   C078 is not in this list: its UR states the field and draws no
+   conclusion from it.
+
+3  review/procedure error, 1 QA entry
+   QA-39 read its six entries closely enough to quote them and did
+   not notice that the clause beside the one it was correcting had
+   the same defect, while resting its own argument on that clause
+   being read the other way. Correcting a sentence is not the same
+   as reading it.
+```
+
+Detected by the author while enumerating rank 92's starting points.

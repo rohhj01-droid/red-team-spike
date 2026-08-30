@@ -1099,6 +1099,8 @@ Gate: E2-REP
 Surfaces: the upstream landing page named by the frozen metadata's HOMEPAGE, which is itself the repository root at https://github.com/rtissera/libchdr. As with C010 this is simultaneously navigation step 1 and step 3, so no further navigation is available or needed.
 Necessary because: E2-REP asks whether upstream designates EXACTLY ONE canonical source location at a stable URL. That is a question about upstream's designation, and every URL and identifier in the frozen metadata resolves to this one location -- the port carries no SITES at all, fetching through GH_ACCOUNT/GH_PROJECT/GH_COMMIT, so there is no packager-side distfile host to consider as there was for C010.
 
+SUPERSEDED per QA-40: the "no SITES" half of the sentence above reads SITES off the port Makefile only. `bsd.port.mk:1287-1289` builds `SITES_GITHUB` from GH_ACCOUNT/GH_PROJECT with GH_COMMIT, and `bsd.port.mk:1294` then sets `SITES ?= ${SITES_GITHUB}`, so the resolved metadata carries `https://github.com/rtissera/libchdr/archive/`. This is QA-39's defect one field over. C012 carries an explicit HOMEPAGE, so it was not among QA-39's six and nothing here was half-corrected: the omission is this entry's own, and it is the same reading error in a record QA-39 never looked at. It is a second admitted starting point, so the claim above that every URL in the frozen metadata resolves to this one location is withdrawn. Nothing else follows from it here: RETRACTION 8 quarantined this entry, so it already does no verdict work, and the live record is EV-C012-E2REP-02, which makes no such claim. The URL is named and not requested.
+
 Source: https://github.com/rtissera/libchdr
 observed_at_utc: 2026-08-27T08:14:43Z-08:14:44Z; http_status 200; redirect_chain: NONE (num_redirects 0)
 evidence_role: official-project-page / official-source-location
@@ -2068,6 +2070,8 @@ Candidate: C017 (frame rank 17, games/2048-cli)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/2048-cli/Makefile
 Observed: GH_ACCOUNT=tiehuis; GH_PROJECT=2048-cli; GH_TAGNAME=v0.9.1; COMMENT="terminal version of the 2048 sliding block puzzle game". There is no HOMEPAGE field and no SITES field.
+
+SUPERSEDED per QA-40: the "no SITES" half of the sentence above reads SITES off the port Makefile only. `bsd.port.mk:1284-1286` builds `SITES_GITHUB` from GH_ACCOUNT/GH_PROJECT with GH_TAGNAME, and `bsd.port.mk:1294` then sets `SITES ?= ${SITES_GITHUB}`, so the resolved metadata carries `https://github.com/tiehuis/2048-cli/archive/refs/tags/v0.9.1/`. This is QA-39's defect one field over, in the same sentence QA-39 corrected, and QA-39 left it standing.
 
 Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `bsd.port.mk:1280,1295` defaults HOMEPAGE from GH_ACCOUNT/GH_PROJECT, so `https://github.com/tiehuis/2048-cli` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged.
 Inference: every field names one packaged system, 2048-cli. Not UR-AMBIGUOUS.
@@ -4145,6 +4149,8 @@ Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/arx-libertatis/Makefile
 Observed: GH_ACCOUNT=arx; GH_PROJECT=ArxLibertatis; GH_TAGNAME=1.2.1; PKGNAME=arx-libertatis-${GH_TAGNAME}; COMMENT="cross-platform port of Arx Fatalis, a first-person RPG". There is no HOMEPAGE and no SITES.
 
+SUPERSEDED per QA-40: the "no SITES" half of the sentence above reads SITES off the port Makefile only. `bsd.port.mk:1284-1286` builds `SITES_GITHUB` from GH_ACCOUNT/GH_PROJECT with GH_TAGNAME, and `bsd.port.mk:1294` then sets `SITES ?= ${SITES_GITHUB}`, so the resolved metadata carries `https://github.com/arx/ArxLibertatis/archive/refs/tags/1.2.1/`. This is QA-39's defect one field over, in the same sentence QA-39 corrected, and QA-39 left it standing.
+
 Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `bsd.port.mk:1280,1295` defaults HOMEPAGE from GH_ACCOUNT/GH_PROJECT, so `https://github.com/arx/ArxLibertatis` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged.
 Inference: the frozen fields name one system, Arx Libertatis. "Arx Fatalis" names the game this ports, not a second packaged system, in the same way flycast's "based on reicast" did. Not UR-AMBIGUOUS.
 Decision: PASS
@@ -4163,6 +4169,8 @@ Candidate: C032
 Gate: E2-REP
 
 Per QA-27, the frozen metadata's URLs and identifiers are enumerated: there is no HOMEPAGE and no SITES, so the only admitted starting point is the GH_ACCOUNT/GH_PROJECT pair. Navigation step 1 has no target. This is C017's shape.
+
+SUPERSEDED per QA-40: the "no SITES" half of the sentence above reads SITES off the port Makefile only. `bsd.port.mk:1284-1286` builds `SITES_GITHUB` from GH_ACCOUNT/GH_PROJECT with GH_TAGNAME, and `bsd.port.mk:1294` then sets `SITES ?= ${SITES_GITHUB}`, so the resolved metadata carries `https://github.com/arx/ArxLibertatis/archive/refs/tags/1.2.1/`. This is QA-39's defect one field over, in the same sentence QA-39 corrected, and QA-39 left it standing. It is a second admitted starting point, so this entry's enumeration is short by one and any statement here that nothing is left unaccounted for is withdrawn, as the ACCOUNT surface already was. It is NOT requested now -- terminal record, QA-21 -- and nothing is claimed about what it holds. Whether a code host's `/archive/` path is QA-31's forbidden class or the distfile mirror QA-27 required be opened is the question QA-37 records as unsettled. The verdict is unchanged and never rested on completeness.
 
 SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/arx/ArxLibertatis`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
 
@@ -6169,6 +6177,8 @@ Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/braincurses/Makefile
 Observed: GH_ACCOUNT=bderrly; GH_PROJECT=braincurses; GH_TAGNAME=v1.1.0; COMMENT="clone of the Mastermind game". There is no HOMEPAGE and no SITES.
 
+SUPERSEDED per QA-40: the "no SITES" half of the sentence above reads SITES off the port Makefile only. `bsd.port.mk:1284-1286` builds `SITES_GITHUB` from GH_ACCOUNT/GH_PROJECT with GH_TAGNAME, and `bsd.port.mk:1294` then sets `SITES ?= ${SITES_GITHUB}`, so the resolved metadata carries `https://github.com/bderrly/braincurses/archive/refs/tags/v1.1.0/`. This is QA-39's defect one field over, in the same sentence QA-39 corrected, and QA-39 left it standing.
+
 Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `bsd.port.mk:1280,1295` defaults HOMEPAGE from GH_ACCOUNT/GH_PROJECT, so `https://github.com/bderrly/braincurses` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged.
 Inference: the frozen fields name one packaged system, braincurses. "clone of the Mastermind game" describes what it imitates, not a second packaged system -- the reading applied at C013, C023, C046 and C048. Not UR-AMBIGUOUS.
 Decision: PASS
@@ -6186,6 +6196,8 @@ Candidate: C050
 Gate: E2-REP
 
 Per QA-27 the admitted starting points are enumerated, and there is exactly one: the GH_ACCOUNT/GH_PROJECT pair. No HOMEPAGE and no SITES exist, so no second surface is supplied, nothing is left unaccounted for, and QA-31 does not arise.
+
+SUPERSEDED per QA-40: the "no SITES" half of the sentence above reads SITES off the port Makefile only. `bsd.port.mk:1284-1286` builds `SITES_GITHUB` from GH_ACCOUNT/GH_PROJECT with GH_TAGNAME, and `bsd.port.mk:1294` then sets `SITES ?= ${SITES_GITHUB}`, so the resolved metadata carries `https://github.com/bderrly/braincurses/archive/refs/tags/v1.1.0/`. This is QA-39's defect one field over, in the same sentence QA-39 corrected, and QA-39 left it standing. It is a second admitted starting point, so this entry's enumeration is short by one and any statement here that nothing is left unaccounted for is withdrawn, as the ACCOUNT surface already was. It is NOT requested now -- terminal record, QA-21 -- and nothing is claimed about what it holds. Whether a code host's `/archive/` path is QA-31's forbidden class or the distfile mirror QA-27 required be opened is the question QA-37 records as unsettled. The verdict is unchanged and never rested on completeness.
 
 SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/bderrly/braincurses`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
 
@@ -7013,6 +7025,8 @@ Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/candycrisis/Makefile
 Observed: GH_ACCOUNT=jorio; GH_PROJECT=CandyCrisis; GH_TAGNAME=v3.0.1; PKGNAME=${DISTNAME:L}; COMMENT="open source clone of Puyo Puyo series". There is no HOMEPAGE and no SITES.
 
+SUPERSEDED per QA-40: the "no SITES" half of the sentence above reads SITES off the port Makefile only. `bsd.port.mk:1284-1286` builds `SITES_GITHUB` from GH_ACCOUNT/GH_PROJECT with GH_TAGNAME, and `bsd.port.mk:1294` then sets `SITES ?= ${SITES_GITHUB}`, so the resolved metadata carries `https://github.com/jorio/CandyCrisis/archive/refs/tags/v3.0.1/`. This is QA-39's defect one field over, in the same sentence QA-39 corrected, and QA-39 left it standing.
+
 Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `bsd.port.mk:1280,1295` defaults HOMEPAGE from GH_ACCOUNT/GH_PROJECT, so `https://github.com/jorio/CandyCrisis` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged.
 Inference: the frozen fields name one packaged system, Candy Crisis. "clone of Puyo Puyo series" describes what it imitates, not a second packaged system -- the reading applied at C013, C023, C046, C048 and C050. Not UR-AMBIGUOUS.
 Decision: PASS
@@ -7029,7 +7043,9 @@ Decision: PASS
 Candidate: C057
 Gate: E2-REP
 
-Per QA-27 the admitted starting points are enumerated, and there is exactly one: the GH_ACCOUNT/GH_PROJECT pair. No HOMEPAGE and no SITES exist, so no second surface is supplied and nothing is left unaccounted for. QA-31 does not arise.
+Per QA-27 the admitted starting points are enumerated, and there is exactly one: the GH_ACCOUNT/GH_PROJECT pair. No HOMEPAGE and no SITES exist, so no second surface is supplied and nothing is left unaccounted for.
+
+SUPERSEDED per QA-40: the "no SITES" half of the sentence above reads SITES off the port Makefile only. `bsd.port.mk:1284-1286` builds `SITES_GITHUB` from GH_ACCOUNT/GH_PROJECT with GH_TAGNAME, and `bsd.port.mk:1294` then sets `SITES ?= ${SITES_GITHUB}`, so the resolved metadata carries `https://github.com/jorio/CandyCrisis/archive/refs/tags/v3.0.1/`. This is QA-39's defect one field over, in the same sentence QA-39 corrected, and QA-39 left it standing. It is a second admitted starting point, so this entry's enumeration is short by one and any statement here that nothing is left unaccounted for is withdrawn, as the ACCOUNT surface already was. It is NOT requested now -- terminal record, QA-21 -- and nothing is claimed about what it holds. Whether a code host's `/archive/` path is QA-31's forbidden class or the distfile mirror QA-27 required be opened is the question QA-37 records as unsettled. The verdict is unchanged and never rested on completeness. QA-31 does not arise.
 
 SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/jorio/CandyCrisis`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
 
@@ -11127,6 +11143,8 @@ Candidate: C078 (frame rank 78, games/corsixth)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/corsixth/Makefile and distinfo
 Observed: V=0.69.2; PKGNAME=corsixth-${V}; GH_ACCOUNT=CorsixTH; GH_PROJECT=CorsixTH; GH_TAGNAME=v${V}; HOMEPAGE=https://corsixth.com/; COMMENT="open source clone of Theme Hospital"; distinfo names CorsixTH-0.69.2.tar.gz, SIZE 4323503. There is no SITES field.
+
+SUPERSEDED per QA-40: the "no SITES" half of the sentence above reads SITES off the port Makefile only. `bsd.port.mk:1284-1286` builds `SITES_GITHUB` from GH_ACCOUNT/GH_PROJECT with GH_TAGNAME, and `bsd.port.mk:1294` then sets `SITES ?= ${SITES_GITHUB}`, so the resolved metadata carries `https://github.com/CorsixTH/CorsixTH/archive/refs/tags/v0.69.2/`. This is QA-39's defect one field over. C078 carries an explicit HOMEPAGE, so it was not among QA-39's six and nothing here was half-corrected: the omission is this entry's own, and it is the same reading error in a record QA-39 never looked at. C078's verdict does not move, and the reason is structural rather than lucky: its E2-REP recorded a designation witness on the project's own page, and a witness-based PASS is existential, so an additional unopened starting point cannot defeat it. What the omission does affect is the QA-27 accounting, which was incomplete. The URL is named and not requested. It also introduces no competing-designation risk, by this entry's own recorded standard rather than a new one: the entry already reasoned that every GitHub link on the page "resolves under `github.com/CorsixTH/CorsixTH`, the same repository the `Source code` link designates, so none is a competing location", and the resolved SITES is a path under that same repository. That is a statement about URL structure, not about what the URL holds.
 Inference: the frozen fields name one packaged system, CorsixTH, with a project website and an account/project pair on one code host. That is the protocol's "several facts about one system" shape, so not UR-AMBIGUOUS. No earlier candidate resolved to it, so not a duplicate.
 Decision: PASS
 
