@@ -9042,6 +9042,8 @@ The object upstream designates now is bit-for-bit the object the frozen metadata
 
 Its entry listing -- names only -- shows a source tree: 49 entries under a single root `dd2-0.2.2/`, holding `src/` with 6 `.c` and 6 `.h` files, `configure`, `Makefile.am/.in`, `acinclude.m4`, and AUTHORS, COPYING, ChangeLog, INSTALL, NEWS, README, TODO.
 
+Provenance limit on the step-1 observations, as at C080, C083, C084, C085, C087 and C089: the repository carries the response digest and the transcription above, not the 12690-byte response body. So a third party reading this repository cannot reproduce from it the correspondence between that digest and the transcribed content, the 52-anchor and three-empty-label counts, or the exact sentence-to-link relations as the page served them. Those rest on the session record. The artifact's own digest is a separate matter and IS reproducible: it matches the frozen distinfo, which is committed.
+
 Inference: exactly one designated canonical source location, at a stable URL on upstream's own host, holding a source tree, with one external target identifier -- "Dodgin' Diamond 2", which is the page's own title and h1.
 Decision: PASS
 
@@ -9123,17 +9125,47 @@ cfg.c:27-68    loadCFG(char *path, cfg *c)
                    fclose(f); return 1;
                }
 
-main.c:284-295 sprintf(buffer,"%.500s/.dd2rc",getenv("HOME"));
+main.c:284-295 #ifndef WIN32
+               sprintf(buffer,"%.500s/.dd2rc",getenv("HOME"));   // :285
                if(!loadCFG(buffer,&conf)) {
-                   sprintf(buffer,"%s/dd2.cfg",DD2_DATA);
+                   sprintf(buffer,"%s/dd2.cfg",DD2_DATA);        // :288
                    if(!loadCFG(buffer,&conf))
                        fprintf(stderr,"unable to read configuration,"
-                                      " using defaults\n");
+                                      " using defaults\n");       // :290
                }
-main.c:463     saveCFG(buffer,&conf);
+               #else
+               sprintf(buffer,"%s/dd2.cfg",DD2_DATA);            // :293
+               if(!loadCFG(buffer,&conf)) ...                    // :294-295
+               #endif
+
+main.c:455-463 #ifdef WIN32
+                   sprintf(buffer,"%s/dd2.cfg",DD2_DATA);        // :458
+               #else
+                   sprintf(buffer,"%.500s/.dd2rc",getenv("HOME"));// :461
+               #endif
+               saveCFG(buffer,&conf);                            // :463
 ```
 
-Inference, kept to what the quoted lines close: the identical input -- a configuration path -- is accepted or refused according to whether a file written by an earlier run is there and still carries the exact frame this program writes: the literal `BEGIN`, the four keys in that order, and the literal `END`. The writer of that frame is `saveCFG` at :79-84, called at main.c:463, so the value the check consults is one this program persists and a later run reads back. Refusal at :46, :50 or :60 leaves the defaults set at :32-36 in place and, at main.c:290, is reported.
+The reader and the writer are shown to use the SAME path per platform,
+which an earlier version left implicit: on Unix `~/.dd2rc` is read at
+:285 and written at :461; on Windows `DD2_DATA/dd2.cfg` is read at :293
+and written at :458.
+
+Inference, kept to what the quoted lines close: the identical input -- a configuration path -- is accepted or refused according to whether a file written by an earlier run is there and still carries the exact frame this program writes: the literal `BEGIN`, the four keys in that order, and the literal `END`. The writer of that frame is `saveCFG` at :79-84, called at main.c:463, so the value the check consults is one this program persists and a later run reads back. Refusal at :46, :50 or :60 makes `loadCFG` return 0.
+
+Two things an earlier version of this sentence got wrong, corrected
+rather than dropped. It said refusal "leaves the defaults set at :32-36
+in place": that holds only for the frame checks at :46 and for a failure
+before any field is read, because the `fscanf` at :50 writes its
+conversions into `c->sound` and the rest as it goes and can fail
+part-way, and a failure at :60 comes after all four have been written.
+So the struct on a refusal may hold defaults, or a partial read, or a
+complete read that failed its closing frame. And it said the refusal "is
+reported at main.c:290": on the non-Windows path that line is reached
+only when the local load at :286 AND the global load at :289 both fail.
+
+None of that touches what the gate needs, which is that the same input
+is admitted or refused according to state a previous run persisted.
 
 Not claimed: that the contents of any particular existing file were written by an earlier run of this program. What is established is the persistent writer and reader path and the branch it drives. The missing-file branch at :39-40 is a further, non-historical condition and is recorded rather than leaned on.
 Decision: PASS
@@ -9179,20 +9211,41 @@ engine.c:64        engine_init()   -- the function containing the above
 
 EN1 external authorship: the loader, the record layout and the data file are the project's, shipped inside the designated artifact.
 
-EN2 explicit scope: the project's own comment at :200 names the domain -- "load the actions" -- and each member carries externally segmented fields the project chose: the `actionStruct`'s `a`, `type`, `x`, `y`, and a trailing comment field.
+EN2 explicit scope: the project's own comment at :200 names the domain -- "load the actions" -- and each member carries externally segmented fields the project chose. The struct at engine.c:56-60 has exactly four:
+
+```text
+struct actionStruct { long int a; int type; int x,y; } *act
+```
+
+The record grammar also parses a trailing `%32[^\n]` into `comm`, which
+is a local `char comm[32]` at engine.c:68 and is NOT a member of the
+struct -- it is read and discarded. An earlier version of this line
+listed it among the retained fields; withdrawn.
 
 EN3 mechanical membership, counted from the data rather than trusting its own header:
 
 ```text
 src/data/game.act declares  ITEMS=220
 non-empty rows after line 1 220
-rows matching the record grammar
-  ^-?\d+ - -?\d+ \( -?\d+ , -?\d+ \)      220
+rows matching the record grammar, whitespace-tolerant as scanf is:
+  ^\s*-?\d+\s*-\s*-?\d+\s*\(\s*-?\d+\s*,\s*-?\d+\s*\)      220
 ```
+
+The expression is given in the form actually run. An earlier version of
+this entry printed it with literal spaces around the dash, the
+parenthesis and the comma -- `^-?\d+ - -?\d+ \( -?\d+ , -?\d+ \)` --
+and that expression matches 0 of the 220 rows, because the data has no
+spaces inside `(6,1)` and at least one row reads `45- 7 (230,-32) .`
+with no space before the dash. The count is unchanged; the recorded
+procedure was not the one executed, and stating a procedure that does
+not reproduce the number is the same defect as quoting a line range that
+truncates its construct.
 
 Membership is the records the loop at :222 reaches, bounded by the count parsed at :208. Deciding it requires no semantic reading of any record.
 
-EN4 connection to validation, in project code on both sides: the loader tests each record against that grammar and, on any failure, raises the project's own `ENGINE_ERROR: bad act file, error at line %i` naming the offending line and exits. The deciding and the rejecting code are the project's -- not a library's, and not a silent skip.
+EN4 connection to validation, in project code on both sides, and scoped to what the loop actually reaches: the loader tests the FIRST `ITEMS` records against that grammar and, on a failure among those, raises the project's own `ENGINE_ERROR: bad act file, error at line %i` naming the offending line and exits. The deciding and the rejecting code are the project's -- not a library's, and not a silent skip.
+
+The scope matters and is stated rather than glossed: the loop at :222 runs `i` from 0 to `j-1`, and there is no EOF check after it. Records beyond the declared `ITEMS` count would not be read and so would not be validated. Nothing is claimed about them.
 
 EN5 closed within scope: the set is closed by the file's own `ITEMS` count and the loop bounded by it -- EN5's first case, runtime construction closing the set, so the tag is `enforced`.
 
@@ -9201,14 +9254,15 @@ EN6 outcome independence: membership is the set of scripted engine actions the g
 ```text
 one enforcement observation per action record
 
-  "action record i of game.act is present in the loaded action list,
-   carrying the project's own time, type, x and y fields; a record
-   that does not match the declared grammar is rejected with
+  "action record i of game.act, for i below the declared ITEMS count,
+   is present in the loaded action list carrying the project's own
+   time, type, x and y fields; a record among those first ITEMS that
+   does not match the declared grammar is rejected with
    `ENGINE_ERROR: bad act file, error at line <n>` and the program
    exits"
 
 retained as externally segmented fields, per observation
-  the action's time value
+  the action's time value (actionStruct.a)
   its type
   its x and y
 ```
