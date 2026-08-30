@@ -9055,12 +9055,14 @@ FAIL not established
   RETRACTION 21 refused.
 
   E2REP-NO-SOURCE is separately unavailable, but not for the reason
-  first given. The index exposes FILENAMES only. Their names do not
-  establish a source role or any contents -- that is the same bar
-  C026 and RETRACTION 21 set two paragraphs above -- and the observed
-  surfaces equally do not establish that access to an actual source
-  representation is absent. The code needs that positive evidence and
-  this run does not have it.
+  first given. For each listed artifact the index exposes a filename
+  plus generic index metadata -- a last-modified time, a size, and an
+  empty Description cell. None of those fields establishes a source
+  role or any contents; that is the same bar C026 and RETRACTION 21
+  set two paragraphs above. And the observed surfaces equally do not
+  establish that access to an actual source representation is absent.
+  The code needs that positive evidence and this run does not have
+  it.
 ```
 
 Correction, recorded rather than smoothed over. An earlier version of
@@ -9071,6 +9073,14 @@ inference this same entry had just refused to make about the same
 names, one paragraph earlier. It contradicted itself in the space of a
 few lines, and the commit message of 03276ec repeated the claim; both
 are superseded by the paragraph above.
+
+The first attempt at this correction introduced a second contradiction
+of the same kind, and it is recorded rather than quietly overwritten.
+It read "The index exposes FILENAMES only", one paragraph after this
+entry had listed the index's four columns -- Name, Last modified, Size,
+Description. Both cannot be true as written. The paragraph above
+replaces it, and the phrasing is superseded in the commit message of
+9dc9181 as well.
 
 Not claimed: that upstream designates no canonical source location anywhere. Both surfaces the contract admits were observed and neither carries one; that is a finding about these two surfaces, and C017's boundary holds -- not finding a designation is not a demonstration that none exists.
 
