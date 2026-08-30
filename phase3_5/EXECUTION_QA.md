@@ -2359,7 +2359,7 @@ introducing a reading without auditing precedent. Detected by the author
 while screening rank 81.
 
 
-## QA-38 — a candidate whose only admitted URL is inside a forbidden class (RECORDED, no rule made)
+## QA-38 — are identifiers inside a metadata URL themselves admitted starting points? (RECORDED, no rule made)
 
 Found while screening frame rank 88.
 
