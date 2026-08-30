@@ -9167,7 +9167,7 @@ only when the local load at :286 AND the global load at :289 both fail.
 None of that touches what the gate needs, which is that the same input
 is admitted or refused according to state a previous run persisted.
 
-Not claimed: that the contents of any particular existing file were written by an earlier run of this program. What is established is the persistent writer and reader path and the branch it drives. The missing-file branch at :39-40 is a further, non-historical condition and is recorded rather than leaned on.
+Not claimed: that the contents of any particular existing file were written by an earlier run of this program. What is established is the persistent writer and reader path and the branch it drives. An additional missing-file branch at :39-40 is recorded and not relied on. It is not characterised as non-historical: whether the file exists can itself depend on whether an earlier run wrote it, so calling that condition independent of history would be a claim this entry has not established.
 Decision: PASS
 
 ## EV-C090-E4-01
@@ -9225,13 +9225,39 @@ listed it among the retained fields; withdrawn.
 EN3 mechanical membership, counted from the data rather than trusting its own header:
 
 ```text
-src/data/game.act declares  ITEMS=220
-non-empty rows after line 1 220
-rows matching the record grammar, whitespace-tolerant as scanf is:
-  ^\s*-?\d+\s*-\s*-?\d+\s*\(\s*-?\d+\s*,\s*-?\d+\s*\)      220
+src/data/game.act declares         ITEMS=220
+non-empty rows after line 1        220
+
+rows matching the numeric-prefix shape -- the four numeric
+conversions only, whitespace-tolerant as scanf is:
+  ^\s*-?\d+\s*-\s*-?\d+\s*\(\s*-?\d+\s*,\s*-?\d+\s*\)
+                                   220
+
+rows matching the five-field shape -- the same, plus a non-empty
+trailing field standing for the loader's %32[^
+]:
+  ...\)\s*[^
+]{1,32}$        220
+
+rows whose trailing field is empty   0
+longest trailing field               13 characters
 ```
 
-The expression is given in the form actually run. An earlier version of
+The five-field measurement is the one that corresponds to the loader,
+which requires FIVE conversions and returns 4 -- a rejection -- for a row
+like `10 - 0 (6,1)` with nothing after the parenthesis. An earlier
+version of this entry recorded only the numeric-prefix expression and
+called its result "rows matching the record grammar"; that expression
+does not test the fifth conversion, so the label overstated it. Both are
+now given, with the count they each produce.
+
+What is NOT claimed: that either expression is equivalent to the full
+grammar `%li` and the rest accept. These are shapes measured against the
+decimal five-field records this particular file contains, and the
+trailing-length figure is why the 32-character bound is not reached
+here.
+
+The expressions are given in the form actually run. An earlier version of
 this entry printed it with literal spaces around the dash, the
 parenthesis and the comma -- `^-?\d+ - -?\d+ \( -?\d+ , -?\d+ \)` --
 and that expression matches 0 of the 220 rows, because the data has no
