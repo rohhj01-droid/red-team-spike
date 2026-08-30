@@ -2388,9 +2388,16 @@ SITES = https://github.com/Cubitect/cubiomes-viewer/releases/download/${V}/
 
 That is QA-31's class exactly -- it is the same construction as C045's,
 the case QA-31 was raised on. So the one URL the metadata supplies
-explicitly is one the contract closes, and unlike every earlier
-candidate that met this prohibition, no other UNCONTROVERSIALLY admitted
-surface is supplied alongside it.
+explicitly is one the contract closes, and no other UNCONTROVERSIALLY
+admitted surface is supplied alongside it.
+
+Scoped rather than universal: among the seven OTHER direct textual
+matches the bounded scan below found, each also carries a HOMEPAGE or
+one of the tested structured identifier fields. That is a statement
+about those seven, not about every earlier candidate that met QA-31's
+prohibition -- the scan tests a literal `github.com` + `releases` SITES
+and six named identifier fields, and cannot support the wider claim an
+earlier version of this sentence made.
 
 That last clause is worded carefully. Saying "the sole admitted URL", as
 an earlier version did, answers in the vocabulary of reading B below
