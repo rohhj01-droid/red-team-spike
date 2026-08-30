@@ -2791,6 +2791,19 @@ limits    textual over the evidence file and the port Makefiles, not a
           `make` evaluation. A SITES arriving through some other module
           this pass does not read would be missed -- C080's `cpan` is
           one such module, caught only because its entry named it.
+
+          A sharper limit, found after this entry was first written:
+          the scan keys on records that ASSERT there is no SITES. A
+          record that simply omits a resolved SITES matches nothing
+          and is invisible to it. C063 games/chessx is such a record
+          -- GH_ACCOUNT/GH_PROJECT with GH_TAGNAME and no SITES line,
+          so `SITES` resolves, and its E2-REP says "Per QA-27 both
+          admitted starting points are accounted for: the frozen
+          HOMEPAGE, and the GH_ACCOUNT/GH_PROJECT pair". The frozen
+          metadata supplies four: those two, the ACCOUNT token that
+          RETRACTION 10 admits separately, and the resolved SITES.
+          C063 is ELIGIBLE. The omission is recorded here; what it
+          does to that verdict is the open question named at C078.
 ```
 
 **Classification, pending the Run 1 coding protocol.**
@@ -2818,7 +2831,8 @@ limits    textual over the evidence file and the port Makefiles, not a
    C078 is not in this list: its UR states the field and draws no
    conclusion from it.
 
-3  review/procedure error, 1 QA entry
+3  execution/procedure error, precedent/review audit subtype,
+   1 QA entry
    QA-39 read its six entries closely enough to quote them and did
    not notice that the clause beside the one it was correcting had
    the same defect, while resting its own argument on that clause
