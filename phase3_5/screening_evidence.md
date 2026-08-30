@@ -8980,6 +8980,112 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C082-UR-01
+Candidate: C082 (frame rank 82, games/crack-attack)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/crack-attack/Makefile and distinfo
+Observed: DISTNAME=crack-attack-1.1.14; HOMEPAGE=http://www.nongnu.org/crack-attack/; SITES=${SITE_SAVANNAH:=crack-attack/}; COMMENT="OpenGL game based on SNES classic Tetris Attack"; distinfo names crack-attack-1.1.14.tar.gz, SIZE 975066.
+
+`SITE_SAVANNAH` is defined in the same frozen tree at infrastructure/db/network.conf:113-121 as eight hosts, so SITES expands to eight URLs rather than one:
+
+```text
+https://download.savannah.nongnu.org/releases/crack-attack/
+https://download-mirror.savannah.nongnu.org/releases/crack-attack/
+https://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/
+https://mirror.ossplanet.net/nongnu/crack-attack/
+https://mirror.csclub.uwaterloo.ca/nongnu/crack-attack/
+https://nongnu.askapache.com/crack-attack/
+http://savannah.c3sl.ufpr.br/crack-attack/
+ftp://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/
+```
+
+Inference: the frozen fields name one packaged system, Crack Attack!, with a project website and a set of mirrors of one distribution network. Eight mirror URLs are not eight systems -- the protocol's "several facts about one system" covers a distfile mirror list explicitly -- so not UR-AMBIGUOUS. No earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C082-E1-01
+Candidate: C082
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party OpenGL game on an upstream site unrelated to this project. The Makefile separately carries a `# GPLv2+` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C082-E2REP-01
+Candidate: C082
+Gate: E2-REP
+
+Step 1: http://www.nongnu.org/crack-attack/ -- the frozen HOMEPAGE. Requested 2026-08-30T05:24:53Z, 200, no redirect, 7701 bytes, sha256 2f09490bd4aeb9571b27b24e99540ea6d95f725206e608ca0f6cf5e89451a237. 21 anchors parsed element-wise. No anchor label is Source, Code, Repository or Development.
+
+The gate is determined on this surface, by upstream's own structure. Its Releases section, quoted from the served HTML rather than paraphrased:
+
+```html
+<h3>Linux</h3>
+  <h4>Autopackage</h4>
+    <a href=".../crack-attack-1.1.14.x86.package">crack-attack-1.1.14.x86.package</a>
+  <h4>Sources</h4>
+    <a href=".../crack-attack-1.1.14.tar.gz">crack-attack-1.1.14.tar.gz</a>
+    <a href=".../crack-attack-1.1.14.tar.bz2">crack-attack-1.1.14.tar.bz2</a>
+<h3>Windows</h3>
+  <a href=".../Crack-Attack-1.1.14-Setup.exe">Crack Attack! 1.1.14 Windows</a>
+```
+
+all four under `http://savannah.nongnu.org/download/crack-attack/`.
+
+Observed: upstream assigns roles by subheading, and exactly one subheading assigns the source role -- `Sources` -- and it governs TWO distinct URLs. Nothing on the page ranks them: no "recommended", no primary marking, no ordering statement. The `.x86.package` and the `.exe` are given different roles by their own subheadings, `Autopackage` under `Linux` and `Windows`, so they do not compete.
+
+Adjudication. This is RETRACTION 25's shape and the reasoning there governs it.
+
+```text
+upstream assigned the source role to two URLs and ranked neither
+
+collapsing them into one artifact in two encodings is our
+construction, not upstream's. C016 does not license it: its
+content-versus-location reading worked because the artifacts belonged
+to a repository that WAS designated, so they were contents of one
+designated location. Here there is no designated repository -- the
+archives are the designation itself.
+
+promoting the common parent
+http://savannah.nongnu.org/download/crack-attack/ is worse. Upstream
+never designates that directory, and extracting a shared prefix from
+two hrefs is the location-from-URL-shape move QA-25 refuses.
+
+choosing between them would need a reason from outside upstream --
+the format the port fetches, the order on the page, convenience --
+and C002's withdrawn entry established that supplying that hierarchy
+is not ours to do.
+```
+
+C067 and C074 are not counter-examples: each had ONE artifact carrying the source role, with every other artifact given a different role in upstream's own words. C013 likewise designated one source artifact with its SHA-256 beside it. The difference here is not the number of formats but the number of URLs upstream put under a single source-role heading.
+
+So the criterion's disqualifying condition is met positively: upstream designates several canonical source locations with no primary among them. `E2REP-NO-SINGLE-CANONICAL-LOCATION` is a positive-shaped code, and the evidence for it is on this one admitted surface.
+
+Recorded because the stop rule then applies: navigation ends the moment a specific failure code is determined, so nothing further was requested. The frozen SITES -- all eight mirror URLs -- was NOT requested, and QA-37's open question about that surface class does not arise here, because the gate was determined before it could.
+
+Other links on step 1, accounted for and not followed:
+
+```text
+savannah.nongnu.org/projects/crack-attack/   "Project Page" (x2)
+   not a whitelist label; C007 settled that a generic project hub is
+   not a repository root
+livejournal.com/users/gnu_lorien/            "Development Journal"
+   the label's head noun is "Journal". C059 read a label by its head
+   noun, and on that reading this is not a Development link
+crackattack.sourceforge.net                  "Mac Crack Attack"
+   upstream's own sentence calls it "Another fork dedicated to
+   building on Mac OS X"
+savannah.nongnu.org/task/?group=crack-attack "Tasks page"
+autopackage.org, enet.cubik.org, crackattack.tk, gnu.org/copyleft
+   third-party
+index.html / game_play.html / screenshots.html and five in-page
+anchors                                       site furniture
+```
+
+One prose mention is recorded and does no work: under Needed Improvements the page says sound patches have been "ported ... to the current CVS". It names no CVS location, and a mention without a location designates nothing -- C062's distinction between a form and a location.
+
+Decision: FAIL
+Failure code: E2REP-NO-SINGLE-CANONICAL-LOCATION
+
 ## EV-C081-UR-01
 Candidate: C081 (frame rank 81, games/cpat)
 Gate: UR
