@@ -2650,7 +2650,19 @@ cause or the same remedy.
    sentence no longer present. Restored in place. Same family as
    the `d8d6158` incident: a fixer script whose replacement did
    not do what its description said.
+
+5  adjudication error inside a correction, 2 notes
+   the notes written for item 2 in C050 and C057 granted the
+   ACCOUNT token as a separate admitted identifier and then
+   wrote that every identifier resolves to a repository-shaped
+   surface, which that token does not. Corrected in place, the
+   wrong sentence kept. Distinct from 4, which was a scripted
+   deletion: this one is a claim that contradicts its own
+   preceding sentence, the failure mode this section has now
+   recorded at C032, C050, C057 and here.
 ```
 
-Detected by the author while screening rank 92; items 2, 3 and 4 were
-detected by external review of the corrections themselves.
+Detected by the author while screening rank 92; items 2, 3, 4 and 5 were
+detected by external review of the corrections themselves. Item 5 was
+introduced by the commit that fixed items 2 and 3, which is the reason
+this list is kept as a list rather than folded into a single finding.

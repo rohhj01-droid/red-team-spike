@@ -6254,6 +6254,19 @@ SUPERSEDED per QA-39 and RETRACTION 10 -- the two paragraphs below, both written
     repository-shaped surface on one code host, and none names a
     separate upstream-authored project site.
 
+    CORRECTED, and the sentence above is kept rather than removed.
+    It grants the ACCOUNT token as a separate admitted identifier
+    and then has EVERY identifier resolving to a repository-shaped
+    surface, which that token does not: it resolves to an account
+    surface. Read instead:
+
+      GH pair, defaulted HOMEPAGE  -> the same repository surface
+      ACCOUNT token                -> a separate account surface,
+                                      which this entry did not
+                                      observe
+
+    None of them names a separate upstream-authored project site.
+
 "the one admissible surface -- the repository root -- WAS examined"
     there are two admissible surfaces here and one of them was
     examined. The repository root was examined and carried no
@@ -7036,6 +7049,19 @@ SUPERSEDED, on two counts in the sentence above. Its topology half is untouched 
     resolves to a repository-shaped surface on one code host and
     none names a separate project site.
 
+    CORRECTED, and the sentence above is kept rather than removed.
+    It grants the ACCOUNT token as a separate admitted identifier
+    and then has EVERY identifier resolving to a repository-shaped
+    surface, which that token does not: it resolves to an account
+    surface. Read instead:
+
+      GH pair, defaulted HOMEPAGE  -> the same repository surface
+      ACCOUNT token                -> a separate account surface,
+                                      which this entry did not
+                                      observe
+
+    None of them names a separate upstream-authored project site.
+
 "the third candidate this run has met"
     withdrawn as a miscount, and one that predates QA-39 rather
     than being created by it. The frame items whose frozen metadata
@@ -7043,10 +7069,10 @@ SUPERSEDED, on two counts in the sentence above. Its topology half is untouched 
     neither an explicit HOMEPAGE line nor a SITES line -- are the
     six QA-39 enumerates: C017, C018, C032, C050, C057, C071,
     checked against the frozen Makefiles rather than off this
-    file. In rank order C057 is the FIFTH, and
-    the fifth met at the time it was screened as well, C071 being
-    the only one later. "Third" counted C017 and C050, the two the
-    sentence names, and passed over C018 and C032.
+    file. In rank order C057 is the FIFTH, and the fifth met at
+    the time it was screened as well, C071 being the only one
+    later. "Third" counted C017 and C050, the two the sentence
+    names, and passed over C018 and C032.
 ```
 
 Observation scope, fixed before the request: existence; repository and owner name; default branch; fork, mirror, archive and template flags; the website metadata field; the repository description; whether a source tree is present at the root; any statement designating this location as the project's source; any primary or mirror marking. Not: README prose, releases, issues, docs, or any source file.
