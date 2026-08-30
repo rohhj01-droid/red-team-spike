@@ -8980,6 +8980,105 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C085-UR-01
+Candidate: C085 (frame rank 85, games/cromagrally)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cromagrally/Makefile and distinfo
+Observed: V=3.0.1; DISTNAME=CroMagRally-${V}; PKGNAME=cromagrally-${V}; HOMEPAGE=https://pangeasoft.net/cromag; COMMENT="family-friendly bronze age kart game"; and TWO tuples:
+
+```text
+DIST_TUPLE += github jorio CroMagRally ${V} .
+DIST_TUPLE += github jorio Pomme ef94150e2dcec522e3099f4d03a4e8f2639f7232
+                                            extern/Pomme
+```
+
+distinfo lists both artifacts: jorio-CroMagRally-3.0.1.tar.gz, SIZE 143630062, and jorio-Pomme-ef94150e...tar.gz, SIZE 152738.
+
+Inference: the frozen fields name one packaged system, Cro-Mag Rally. The second tuple is not a second packaged system and does not make this UR-AMBIGUOUS: the metadata's own structure files it with a destination subdirectory, `extern/Pomme`, so the port itself declares it as vendored INTO the first rather than packaged alongside it. That is the C072 disposition applied to a tuple instead of a module list -- and, as there, those identifiers are NOT admitted starting points for this candidate, because the contract admits only identifiers UR resolved to the packaged system.
+
+Recorded because it bears on E2-REP below and is easy to mistake for ambiguity: HOMEPAGE names a site belonging to the original game's publisher, while the tuple names a repository under a different account. The protocol settles that shape -- a HOMEPAGE at a website beside a code-host repository is "several facts about one system" -- so UR resolves. Whether that site designates that repository is a separate question, answered below rather than assumed here.
+Decision: PASS
+
+## EV-C085-E1-01
+Candidate: C085
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party port packaged from the account jorio, unrelated to this project. The Makefile separately carries the licence marker line `# game: CC BY-NC-SA 4.0; extern/Pomme: MIT, LGPLv2.1, BSD, Boost`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C085-E2REP-01
+Candidate: C085
+Gate: E2-REP
+
+Both admitted surfaces for the packaged system were observed. Neither designates a source location.
+
+Step 1: https://pangeasoft.net/cromag -- the frozen HOMEPAGE. Requested 2026-08-30T06:40:15Z, 200 after one redirect to the trailing-slash form, 12318 bytes, sha256 c96e3271650ad1229477fab8db0ee99382a49ac35c997157ca2dddd7e541ecc9. Fourteen anchors, parsed element-wise; ten carry no anchor text at all, being image navigation:
+
+```text
+../index.html  ../macGames.html  ../iphone/index.html  ../pano/index.html
+../store.html  ../support.html   ../downloads.html
+http://www.pangeasoft.net/forum  ../about.html          (no anchor text)
+info.html      demo.html         support.html   screenshots.html
+                                                        (no anchor text)
+../iphone/cromag/index.html      "Click here for the iPhone version"
+```
+
+No label is Source, Code, Repository or Development, and the words are absent from the document: standalone-word counts return `source` 0, `code` 0, `repository` 0, `development` 0, `git` 0, `github` 0, `download` 0. So step 2 has no target under any of QA-35's three readings, and this entry does not depend on which is right.
+
+The page says nothing about this port. Counted rather than characterised: `jorio` occurs 0 times, `open source` 0, `linux` 0. The string `port` matches 13 times and the standalone word 0 -- every match is inside `Support` (9), `support` (2), `import` (1) or `sports` (1).
+
+Second surface: https://github.com/jorio/CroMagRally, the location the first frozen tuple names. It is an admitted STARTING POINT, so no step-2 permission is needed to reach it and QA-35's question does not arise. Observed under a scope fixed before the request; as at C071, that ordering rests on the session record.
+observed_at_utc: 2026-08-30T06:40:41Z; http_status 200; redirect_chain NONE; control https://api.github.com/repos/TASEmulators/fceux -> 200 at the same moment.
+
+```text
+full_name    jorio/CroMagRally        default_branch  master
+fork         false                    archived        false
+disabled     false                    mirror_url      null
+homepage     https://pangeasoft.net/cromag
+license      NOASSERTION              visibility      public
+description  "The wildest racing game since man invented the wheel!"
+
+root, 17 entries
+  dirs   .github Data Source docs extern packaging rawdata
+  files  .editorconfig .gitignore .gitmodules BUILD.md CHANGELOG.md
+         CMakeLists.txt LICENSE.md README.md SECRETS.md build.py
+```
+
+A source tree is present. No file was opened at this gate, and the 143 MB artifact was not retrieved -- the gate does not need it.
+
+Adjudication:
+
+```text
+PASS not established
+  neither surface designates. The publisher's page names no source
+  location and does not mention this port at all; arriving at the
+  repository through a packaging tuple yields affiliation, not
+  designation (QA-22). This is C032's situation with a project site
+  added that says nothing, which is also C076's shape.
+
+  The repository's `homepage` field points at the publisher's page.
+  That is the one-way repository->site arrow RETRACTION 23 withdrew
+  as a designation, and it does no work here. Nothing points the
+  other way.
+
+FAIL not established
+  the repository root IS an admissible surface and "whether upstream
+  designates this location as its source" is among the observations
+  the contract allows there, so a surface that could have carried a
+  designation was examined and carried none. That is not a
+  demonstration that none exists -- the C017 boundary.
+  E2REP-NO-SOURCE is separately unavailable: a source tree was
+  directly observed.
+```
+
+QA-36's question does not arise: this repository's description is a tagline, with no wording about its own source role, so nothing here turns on whether a description could designate.
+
+Provenance limit, as at C080, C083 and C084: the repository carries the response digests and these transcriptions, not the response bytes, so the anchor counts and the word tallies above cannot be reproduced from this repository and rest on the session record.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C084-UR-01
 Candidate: C084 (frame rank 84, games/crispy-doom)
 Gate: UR
