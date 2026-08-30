@@ -9055,6 +9055,8 @@ root, 38 entries
 
 A source tree is present. No file was opened at this gate.
 
+Provenance limit on the step-1 observations, as at C080 and C083: the repository carries the response digest and the transcription above, not the response bytes. So the seven-anchor count, and the absence of content behind the four `#` navigation anchors, cannot be reproduced from this repository; they rest on the session record.
+
 `fork: true` is recorded and is not used as a failure ground. No sealed rule says a fork cannot be a canonical source location, and QA-21 settled the analogous point for `isArchived`: coding an incidental repository property as a criterion failure is how gates acquire rules nobody sealed. The fork's parent was NOT followed -- a repository fact is not a route the contract authorizes, which is C032's disposition of C025's fork parent -- and it is not a competing designation for this system, because upstream's page designates this repository and says nothing about the parent.
 
 The repository's `homepage` field points back at the project site. That is the one-way repository->site arrow RETRACTION 23 withdrew as a designation, and it does no work here; the designating direction is site->repository, from the `Sourcecode` label.
@@ -9133,6 +9135,18 @@ p_saveg.c:1458-1476  boolean P_ReadSaveGameHeader(void)
                          if (strcmp(read_vcheck, vcheck) != 0)
                              return false;   // bad version
 
+g_game.c:2604,2621,2657,2672-2673
+                     save_stream = M_fopen(temp_savegame_file, "wb");
+                     ...
+                     P_WriteSaveGameHeader(savedescription);
+                     ...
+                     fclose(save_stream);
+                     ...
+                     M_remove(savegame_file);
+                     M_rename(temp_savegame_file, savegame_file);
+
+g_game.c:2492            save_stream = M_fopen(savename, "rb");
+
 g_game.c:2526-2533       if (!P_ReadSaveGameHeader())
                          {
                              extern void M_LoadGameVerMismatch ();
@@ -9141,6 +9155,8 @@ g_game.c:2526-2533       if (!P_ReadSaveGameHeader())
                              return;
                          }
 ```
+
+The writer's own call path is quoted, not only its definition. An earlier version of this entry cited `P_WriteSaveGameHeader` alone and then said the program "persists" the value -- asserting the persistence rather than exhibiting it. The lines above close it: the save path opens a temporary file for writing at :2604, calls the writer at :2621, closes at :2657, and at :2672-2673 removes any existing save and renames the temporary file onto it. The load path opens that same file for reading at :2492 before the check at :2526.
 
 The call path was located by searching the whole pinned tree for `P_ReadSaveGameHeader`, which returns the declaration, the definition and one call in the Doom module -- plus an independent definition and call in the Strife module, which this entry does not use and makes no claim about.
 
@@ -9228,7 +9244,25 @@ retained metadata, not enforcement values
   own fields and neither participates in this decision.
 ```
 
-EN4 connection to validation, with the limitation stated and scoped rather than glossed. `IdentifyIWADByName` is called only in the `-iwad` branch at d_iwad.c:955; the other branch reaches a mission through `SearchDirectoryForIWAD`. On the `-iwad` branch a name matching no active entry yields `none`, and rejection follows only if a second, content-based attempt also fails:
+EN4 connection to validation. `IdentifyIWADByName` is called only in the `-iwad` branch at d_iwad.c:955; the other branch reaches a mission through `SearchDirectoryForIWAD`. What reaches that call differs by module, and the mask at :631 is what makes the difference:
+
+```text
+d_iwad.h:24-32     #define IWAD_MASK_DOOM    ((1 << doom) | (1 << doom2)
+                                            | (1 << pack_tnt) | (1 << pack_plut)
+                                            | (1 << pack_chex) | (1 << pack_hacx))
+                   #define IWAD_MASK_HERETIC (1 << heretic)
+                   #define IWAD_MASK_HEXEN   (1 << hexen)
+                   #define IWAD_MASK_STRIFE  (1 << strife)
+
+doom/d_main.c:1663    D_FindIWAD(IWAD_MASK_DOOM,    &gamemission)
+heretic/d_main.c:1130 D_FindIWAD(IWAD_MASK_HERETIC, &gamemission)
+hexen/h2_main.c:546   D_FindIWAD(IWAD_MASK_HEXEN,   &gamemission)
+strife/d_main.c:1862  D_FindIWAD(IWAD_MASK_STRIFE,  &gamemission)
+```
+
+Counting the active rows against those masks: IWAD_MASK_DOOM admits 13 of the 17 -- doom 5, doom2 4, and one each of pack_tnt, pack_plut, pack_chex, pack_hacx -- and the remaining 4 are reached only under the other three masks: heretic 2, hexen 1, strife 1.
+
+That matters for the limitation below, which an earlier version of this entry stated as though it governed all seventeen. It does not. On the DOOM-mask branch a name matching no admitted entry yields `none`, and rejection follows only if a second, content-based attempt also fails:
 
 ```text
 d_main.c:913-944   void D_IdentifyVersion(void)
@@ -9247,7 +9281,9 @@ d_main.c:913-944   void D_IdentifyVersion(void)
                        }
 ```
 
-So on that branch the registry is not the sole membership authority: it decides NAME-based identification, and a miss falls through to a lump-content heuristic before `I_Error` is reached. The enforcement observation below is scoped accordingly and does not claim that an unregistered IWAD cannot be accepted.
+So on the Doom-mask branch the registry is not the sole membership authority: it decides NAME-based identification, and a miss falls through to a lump-content heuristic before `I_Error` is reached.
+
+That fall-through is Doom-module code, quoted from `src/doom/d_main.c`. What the Heretic, Hexen and Strife modules do after a `none` was NOT followed, and nothing is claimed about it. The enforcement observation below is scoped accordingly: the name-to-mission part is common to all seventeen entries, and the fall-through clause is limited to the Doom-mask path.
 
 EN5 closed within scope: the registry is a compiled-in `static const` array and the iteration bound is `arrlen` of it, so membership is closed by the array's own contents -- EN5's first case, runtime construction closing the set, tagged `enforced`.
 
@@ -9256,11 +9292,18 @@ EN6 outcome independence: membership is the set of IWAD files the port recognise
 ```text
 one enforcement observation per active registry entry
 
+  common to all 17 active entries
   "IWAD filename F is identified by name as mission M when the
-   caller's mask admits M; on the -iwad branch a name matching no
-   active entry yields `none` from IdentifyIWADByName, after which
-   identification is attempted from lump contents and `Unknown or
-   invalid IWAD file.` is raised only if that also fails"
+   caller's mask admits M; a name matching no admitted entry yields
+   `none` from IdentifyIWADByName"
+
+  additionally, for the 13 entries IWAD_MASK_DOOM admits
+  "on that module's -iwad branch a `none` is followed by
+   identification from lump contents, and `Unknown or invalid IWAD
+   file.` is raised only if that also fails"
+
+  for the remaining 4, reached under the Heretic, Hexen and Strife
+  masks, what follows a `none` was not observed and is not claimed"
 
 retained as externally segmented fields, per observation
   the IWAD filename
