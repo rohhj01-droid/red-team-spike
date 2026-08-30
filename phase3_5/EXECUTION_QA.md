@@ -2284,9 +2284,9 @@ third an evidence/citation error, all detected by review.
 ## QA-37 — the SourceForge distfile directory has been both opened and declined (RECORDED, no verdict moved)
 
 Found while screening frame rank 81, whose frozen SITES has the same
-shape as ten earlier candidates'. The same surface class has been
-treated two ways in this run, and the divergence was introduced without
-being noticed.
+URL construction as ten earlier candidates'. Whether that construction
+names a forbidden class is the disputed question; the run has answered
+it two ways, and the divergence was introduced without being noticed.
 
 **The surface.** `SITES = ${SITE_SOURCEFORGE:=<project>/}`, which the
 frozen infrastructure resolves to
@@ -2320,9 +2320,9 @@ All ten candidates are UNRESOLVED at E2-REP except C074, which is
 ELIGIBLE -- and C074's entry declines the surface on two independently
 sufficient grounds, the stop rule having already determined its gate
 before QA-31 was invoked. So its verdict does not rest on the class
-question. Among the seven that opened it, the surface returned 404s or
-an index carrying no designation, so none of their verdicts rests on it
-either.
+question. All seven that opened it received 404 -- checked entry by
+entry rather than summarised from memory -- so none of their verdicts
+rests on what it holds either.
 
 **The defect is mine and it is the familiar one.** The stricter reading
 was introduced at C069 without checking how the same surface had been
@@ -2330,16 +2330,23 @@ handled seven times before. That is the same failure as RETRACTION 27's
 withdrawn universal: applying a reading without auditing the precedent
 it contradicts.
 
-**What is done at rank 81, and why.** The surface is not requested. Not
-because the strict reading is adopted -- it is not -- but because the
-two branches differ in what they cost when wrong. Opening a surface the
-contract forbids is an irreversible breach that has twice required
-quarantine and retraction in this run, at C042 and C064. Declining a
-surface the contract permits leaves the gate UNRESOLVED, which rank 81's
-gate is on either branch, since the seven candidates that did open this
-surface found nothing on it that settled theirs. Under a genuinely open
-question the recoverable side is the one that does not consume the
-evidence.
+**What is done at rank 81.** The surface is not requested, and this
+entry offers no rule justifying that. No request was made while the
+authorization question was unresolved; that is a record of what
+happened, not a disposition principle.
+
+An earlier version argued from cost asymmetry -- that opening a
+forbidden surface is irreversible while declining a permitted one is
+not, so the recoverable branch is preferred. Two things are wrong with
+it. It is a decision rule Run 1 never preregistered, and adding one now
+is the post-seal move this run refuses. And it leaned on a prediction:
+that rank 81's gate would be UNRESOLVED on either branch "since the
+seven candidates that did open this surface found nothing". What seven
+other projects' directories returned does not constrain what rank 81's
+unobserved directory holds. That is the counterfactual about an
+unopened surface which RETRACTION 22 withdrew and QA-31 forbids, and it
+is withdrawn here too. Nothing is claimed about what an observation
+would have found.
 
 **What this needs, and where it belongs.** A Run 2 preregistration must
 name the forbidden surface classes by what they are rather than by

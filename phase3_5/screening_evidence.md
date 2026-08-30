@@ -9012,22 +9012,29 @@ http://sourceforge.net                        (logo image, no text)
 
 The sentence the `source code` link sits inside: "The latest version is CPat-1.3.0 and was released on Oct 4, 2016. Download the latest source code and build using `./configure && make && make install`."
 
-Step 2 is a composition this run has not met before, and it is stated rather than resolved by preference. The link's LABEL is `source code`, two of the contract's four words verbatim -- the strongest step-2 credential available, and one that would authorize navigation under any of QA-35's three readings. Its DESTINATION is `sourceforge.net/project/showfiles.php`, which C062 disposed of as a releases surface in terms: "the link was not opened, releases being forbidden outright".
+Step 2 is a composition this run has not met before, and it is left undecided rather than resolved. The link's LABEL is `source code`, two of the contract's four words verbatim -- the strongest step-2 credential available, and one that would authorize navigation under any of QA-35's three readings. Its DESTINATION is `sourceforge.net/project/showfiles.php`, whose class this run has never established by observation.
 
 ```text
-whitelisted label            -> the link is a candidate step-2 target
-destination in a forbidden   -> the surface is closed to this gate
-  class
+reading A
+  the destination is a releases surface, so QA-31 closes it and the
+  whitelisted label cannot open it -- a permission stated in one
+  place does not widen the forbidden set (QA-17)
 
-composition, on QA-31's own reasoning: a permission stated in one
-place does not widen the forbidden set (QA-17). The label makes the
-link eligible; the class closes the surface. The link is NOT followed,
-and nothing is claimed about what showfiles.php contains.
+reading B
+  the label authorizes step 2 outright, and a destination's class is
+  not settled before the destination is observed, so the surface
+  should be reached
+
+the seal decides neither, and this entry chooses neither
 ```
+
+C062 is NOT the precedent for reading A, and an earlier version of this entry cited it as one. C062's link was labelled "Sourceforge Download page for the latest release (1.9.13)" -- the release wording was in the LABEL, which is what C062 classified. Its own entry then says it "was not opened ... so nothing is claimed about what showfiles.php contains or what form it takes". It therefore established nothing about the destination's class, and cannot be borrowed to classify one reached by a different label. The link is not followed here, and nothing is claimed about what showfiles.php contains.
 
 The sentence is read no further than C062 read its equivalent. "Download the latest source code" states what is downloadable by that route; it names no directory, repository or location, and QA-25 separates a designated ROUTE from a designated LOCATION. C020 was withdrawn for counting the first as the second.
 
-The frozen SITES, `https://downloads.sourceforge.net/sourceforge/cpat/`, was NOT requested, and the reason is not the one given at C069 and C077. QA-37, recorded while screening this candidate, finds that this exact surface class was OPENED at C031, C036, C037, C044, C046, C048 and C062 and DECLINED as QA-31's class at C069, C074 and C077 -- two incompatible readings, both on the record, neither settled by the seal. This entry does not choose between them. It declines the surface because the two branches differ in what they cost when wrong: opening a forbidden surface is an irreversible breach that required quarantine and retraction at C042 and C064, while declining a permitted one leaves this gate UNRESOLVED, which it is on either branch.
+The frozen SITES, `https://downloads.sourceforge.net/sourceforge/cpat/`, was NOT requested, and the reason is not the one given at C069 and C077. QA-37, recorded while screening this candidate, finds that this exact surface class was OPENED at C031, C036, C037, C044, C046, C048 and C062 and DECLINED as QA-31's class at C069, C074 and C077 -- two incompatible readings, both on the record, neither settled by the seal. This entry does not choose between them, and it does not offer a rule for what to do when they are undecided. What is recorded is only what happened: no request was made to either SourceForge file surface while their authorization remained unresolved. Their contents are unconstrained by anything here, and no claim is made about what an observation would have found or what verdict it would have supported.
+
+An earlier version of this paragraph gave a reason -- that the branches differ in what they cost when wrong, so the recoverable side is preferred. That is a decision rule, and Run 1 has none for this case; supplying one now would be the post-seal rule addition this run refuses. Withdrawn.
 
 Recorded as observed and deliberately not made into an identity claim: the page announces "CPat-1.3.0 ... released on Oct 4, 2016", while the frozen DISTNAME is cpat-1.4.2. Nothing is inferred from the divergence -- not that the page is stale, not that a newer release exists elsewhere, and not that this is or is not the packaged system's page. UR resolved that from the frozen metadata.
 
@@ -9042,9 +9049,9 @@ PASS not established
 FAIL not established
   no E2-REP failure code applies. Each is a statement ABOUT a
   designated location and none was established. Two surfaces that
-  might have carried one were closed to this gate -- one by a
-  forbidden class, one by a class question this run has not settled --
-  so their contents are unknown rather than empty.
+  might have carried one were not observed, their authorization being
+  unresolved in both cases, so their contents are unknown rather than
+  empty.
 ```
 
 Decision: UNRESOLVED
