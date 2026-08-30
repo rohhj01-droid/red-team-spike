@@ -9071,17 +9071,34 @@ Provenance pin for the gates below.
 `master` was resolved at 2026-08-30T06:09:46Z to commit 7775ef82d1e9dfd50eb9d2824acefaeff7247458, committed 2026-08-03T14:08:24Z. The tree was retrieved once as an archive of that commit: 2648481 bytes, sha256 4edfcde1c4f6f9292d673116f81ba40df6cf04033f17346131b4f2fe72fbce55, 832 entries. Files cited below, hashed individually from it:
 
 ```text
-README.md             13111 bytes
+README.md              13111 bytes
   583bbc60755242bcb97ade06666f90e1544240d41f4d9739514eb7cc6511d6d0
-src/d_iwad.c          26304 bytes
+src/d_iwad.c           26304 bytes
   1cc2f0575aa23314de779ade8841c92fc619780caa5e9a982229407ddbb60b5e
-src/doom/d_main.c     65708 bytes
+src/d_iwad.h            1745 bytes
+  6b66d804248617e3955737ace60e07894abc4eae612ac76a298e42da013de615
+src/doom/d_main.c      65708 bytes
   6dd3658604fc1c093562bbb9c2d2e5a92401d81944e3a186745af85396ac17f6
-src/doom/g_game.c     94495 bytes
+src/doom/g_game.c      94495 bytes
   09afab2ea0147fcfa6bb58ff99f87e6a47b7e4e8a8a30a36b8f68f7fd4674cb9
-src/doom/p_saveg.c    39855 bytes
+src/doom/m_menu.c      88348 bytes
+  79e528eea3b40aa92e2461953aea257b6afa087fbc7936bd5ec96cc291e6a9a7
+src/doom/p_saveg.c     39855 bytes
   391525093535a2e893fa1873cb2a3e833f8ce8e82c6ee9b9c97d78f3b1dc1ae4
+src/heretic/d_main.c   37580 bytes
+  f189aef7e934a7a9569a8527374d6f51446adf703571a8746f1d70090bc40e84
+src/hexen/h2_main.c    38148 bytes
+  29118382638044d7d5ebb7641a38280eee23e1ae7b99221ab86a3387ea20c610
+src/strife/d_main.c    63255 bytes
+  5080ef9009672089b478850c929ac79320d73f909e8967d9c23e87368508da2e
 ```
+
+This list is complete for the citations below as they now stand. It was
+not when the mask-scoping and call-path corrections were made: those
+added citations to `src/d_iwad.h`, the three non-Doom module mains and
+`src/doom/m_menu.c` without extending the pin, which left the sentence
+above -- "Files cited below, hashed individually" -- false as written.
+Corrected by adding the five, not by narrowing the sentence.
 
 These digests identify the objects analysed. They do nothing for QA-28.
 
@@ -9145,6 +9162,22 @@ g_game.c:2604,2621,2657,2672-2673
                      M_remove(savegame_file);
                      M_rename(temp_savegame_file, savegame_file);
 
+g_game.c:2677            M_StringCopy(savename, savegame_file,
+                                      sizeof(savename));
+
+src/doom/m_menu.c:945-953
+                     void M_LoadSelect(int choice)
+                     {
+                         M_StringCopy(name, P_SaveGameFile(choice),
+                                      sizeof(name));
+                         ...
+                         G_LoadGame (name);
+                     }
+
+g_game.c:2471-2473   void G_LoadGame (char* name)
+                     {
+                         M_StringCopy(savename, name, sizeof(savename));
+
 g_game.c:2492            save_stream = M_fopen(savename, "rb");
 
 g_game.c:2526-2533       if (!P_ReadSaveGameHeader())
@@ -9156,7 +9189,7 @@ g_game.c:2526-2533       if (!P_ReadSaveGameHeader())
                          }
 ```
 
-The writer's own call path is quoted, not only its definition. An earlier version of this entry cited `P_WriteSaveGameHeader` alone and then said the program "persists" the value -- asserting the persistence rather than exhibiting it. The lines above close it: the save path opens a temporary file for writing at :2604, calls the writer at :2621, closes at :2657, and at :2672-2673 removes any existing save and renames the temporary file onto it. The load path opens that same file for reading at :2492 before the check at :2526.
+The writer's own call path is quoted, not only its definition. An earlier version of this entry cited `P_WriteSaveGameHeader` alone and then said the program "persists" the value -- asserting the persistence rather than exhibiting it. The lines above close it: the save path opens a temporary file for writing at :2604, calls the writer at :2621, closes at :2657, and at :2672-2673 removes any existing save and renames the temporary file onto it. The load path opens `savename` for reading at :2492 before the check at :2526, and the two names are joined rather than assumed equal: the save path itself copies `savegame_file` into `savename` at :2677, and the menu route reaches the same file independently -- `M_LoadSelect` builds a path from `P_SaveGameFile(choice)` at m_menu.c:949 and hands it to `G_LoadGame`, which copies it into `savename` at g_game.c:2473. An earlier version wrote "the load path opens that same file" while quoting only the two `fopen` calls, which left the identity of the two variables asserted.
 
 The call path was located by searching the whole pinned tree for `P_ReadSaveGameHeader`, which returns the declaration, the definition and one call in the Doom module -- plus an independent definition and call in the Strife module, which this entry does not use and makes no claim about.
 
@@ -9254,10 +9287,10 @@ d_iwad.h:24-32     #define IWAD_MASK_DOOM    ((1 << doom) | (1 << doom2)
                    #define IWAD_MASK_HEXEN   (1 << hexen)
                    #define IWAD_MASK_STRIFE  (1 << strife)
 
-doom/d_main.c:1663    D_FindIWAD(IWAD_MASK_DOOM,    &gamemission)
-heretic/d_main.c:1130 D_FindIWAD(IWAD_MASK_HERETIC, &gamemission)
-hexen/h2_main.c:546   D_FindIWAD(IWAD_MASK_HEXEN,   &gamemission)
-strife/d_main.c:1862  D_FindIWAD(IWAD_MASK_STRIFE,  &gamemission)
+src/doom/d_main.c:1663     D_FindIWAD(IWAD_MASK_DOOM,    &gamemission)
+src/heretic/d_main.c:1130  D_FindIWAD(IWAD_MASK_HERETIC, &gamemission)
+src/hexen/h2_main.c:546    D_FindIWAD(IWAD_MASK_HEXEN,   &gamemission)
+src/strife/d_main.c:1862   D_FindIWAD(IWAD_MASK_STRIFE,  &gamemission)
 ```
 
 Counting the active rows against those masks: IWAD_MASK_DOOM admits 13 of the 17 -- doom 5, doom2 4, and one each of pack_tnt, pack_plut, pack_chex, pack_hacx -- and the remaining 4 are reached only under the other three masks: heretic 2, hexen 1, strife 1.
