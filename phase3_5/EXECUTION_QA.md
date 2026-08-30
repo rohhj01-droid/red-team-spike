@@ -2897,12 +2897,125 @@ C090  http://www.usebox.net/jjm/dd2/releases/     the artifact INSIDE it
                                                   opened
 ```
 
-Eleven of eleven. **None has C010's exemption**, checked entry by entry
-rather than assumed: C010's SITES went unopened lawfully because the
-port Makefile's own `dist:` target had already shown the host to be the
-packager's. No ELIGIBLE candidate carries such a finding, and C013's
-entry says the opposite of it in terms -- its SITES "resolves inside the
-project's own domain. This is the opposite of C010".
+**None has C010's exemption**, checked entry by entry rather than
+assumed: C010's SITES went unopened lawfully because the port Makefile's
+own `dist:` target had already shown the host to be the packager's. No
+ELIGIBLE candidate carries such a finding, and C013's entry says the
+opposite of it in terms -- its SITES "resolves inside the project's own
+domain. This is the opposite of C010".
+
+**An earlier version of this entry stopped there and concluded "eleven
+of eleven, same defect". That is withdrawn.** Unopened is not the test.
+QA-11 fixes the test and fixes it in both directions:
+
+```text
+A surface does not become necessary because the analyst names it.
+Necessity must be justified ex ante from
+  the sealed criterion's actual question
+  + the upstream link/designation structure already lawfully observed
+```
+
+and its evidence-format rule says the line exists so that it "stops an
+unnecessary surface being conscripted into necessity to force an
+UNRESOLVED". Going from "admitted and unopened" straight to "PASS
+unsupported" is exactly that conscription. The audit is redone below with
+the middle step supplied.
+
+**Two standing rules do most of the work, so most of it is not
+case-by-case judgement.**
+
+```text
+QA-27, restated inside QA-31: "it still requires a frozen SITES to be
+  observed where no forbidden class is named".
+  -> a frozen or infrastructure-resolved SITES naming no forbidden
+     class MUST be observed. Necessity is the standing rule, not an
+     ex ante argument to be built per candidate.
+
+QA-31: a metadata-supplied starting point that DOES name a forbidden
+  class is admitted but unobservable, and the gate has no way to
+  complete over it.
+  -> UNRESOLVED / PI-UNCLASSIFIED-SHAPE, on QA-31's own disposition.
+```
+
+**Group 1 -- a SITES naming no forbidden class was not observed.**
+QA-27's standing requirement is unmet, so the bounded search is not
+closed and exactly-one is unsupported.
+
+```text
+C063  https://github.com/Isarhamster/chessx/archive/refs/tags/
+      v1.5.6-lw/            resolved by bsd.port.mk:1294 (QA-40)
+C066  https://gitlab.com/jazztickets/uploads/-/raw/main/
+      a different gitlab namespace from the designated
+      gitlab.com/choria/code
+C067  http://level7.org.uk/chroma/download/
+      the `${HOMEPAGE}download/` construction verbatim -- C026's, the
+      case QA-27 was written on, where it had to be opened
+C090  http://www.usebox.net/jjm/dd2/releases/
+      the entry argues at length that this is NOT a code host's
+      release area but "a subdirectory of upstream's own project
+      page". Taking its own argument: no forbidden class is named,
+      so QA-27 requires it, and it was not opened.
+```
+
+**Group 2 -- a SITES that DOES name a forbidden class.** QA-31 applies
+and its disposition is not PASS.
+
+```text
+C013  https://mednafen.github.io/releases/files/
+      the entry itself says "releases" is "named in the contract's
+      forbidden list". Then the surface is admitted and unobservable,
+      and QA-31 sends that to UNRESOLVED rather than letting the gate
+      complete over it.
+C074  https://downloads.sourceforge.net/sourceforge/clonekeen/
+      QA-37 records this construction's class as unsettled, and it
+      does not need settling here: forbidden -> QA-31 -> UNRESOLVED;
+      not forbidden -> QA-27 requires it and it was NOT requested.
+      Both branches defeat the PASS, so no reading is chosen.
+```
+
+**Group 3 -- the ACCOUNT token only, and here the audit does NOT
+close.** C059, C065 and C084 omitted the ACCOUNT surface RETRACTION 10
+admits, and each says "both admitted starting points are accounted for"
+where the metadata supplies three. That enumeration is short and is
+corrected. But necessity is a separate question and the record does not
+support it:
+
+```text
+what RETRACTION 10 actually turned on
+  at C018 there was NO project page. The account surface was the
+  remaining admitted surface and the verdict could not be settled
+  without it -- QA-11's test, met on the facts of that candidate.
+
+what these three have instead
+  a project page that designates, reached at step 1, with the
+  designated repository reached at step 3 and owned by that account.
+  Nothing in the observed structure raises the account surface as a
+  place where a DIFFERENT canonical source location for this system
+  is designated.
+```
+
+So for these three the QA-11 line cannot honestly be written, and
+writing one anyway would be the conscription QA-11 names. Their
+enumeration error is recorded; their verdicts are not moved on this
+ground. That is not a finding that the account surfaces are empty --
+nothing is claimed about them -- only that necessity was never
+established, in either direction, and cannot be established now without
+the observation QA-21 bars.
+
+**Disposition, corrected.**
+
+```text
+C049 C078   moved at RETRACTION 31. Confirmed by external review from
+            the record before the move.
+C013 C063 C066 C067 C074 C090
+            necessity established above, by QA-27's standing
+            requirement or by QA-31's disposition. Not yet moved:
+            the batch decision was reserved, and this analysis is
+            what it was reserved for.
+C059 C065 C084
+            enumeration error only. Necessity not established and not
+            excluded. No verdict move proposed.
+```
 
 **The stop rule does not save them, and the circularity is why.** Seven
 entries reason that navigation ended because a PASS was determined.
@@ -2938,24 +3051,44 @@ re-reading of the existing record, the basis RETRACTION 8, RETRACTION 9
 and RETRACTION 25 used.
 
 **What this does to the run's reportable outcome.** Target selection was
-already INCONCLUSIVE. If the nine move, the ELIGIBLE set is empty and no
-candidate survives screening -- which is a finding about the screening
-methodology, not about the ports. The sealed protocol admits a gate
-whose PASS requires a closed bounded search, and admits a stop rule that
-ends navigation once a PASS is determined, without saying which binds
-first. Run 1 cannot repair that; a Run 2 preregistration must order them.
+already INCONCLUSIVE. If the six in groups 1 and 2 move, three ELIGIBLE
+candidates remain -- C059, C065 and C084 -- and the run still has a
+survivor set, which an earlier version of this entry wrongly predicted
+would be empty.
+
+**The "the seal never ordered them" claim is withdrawn.** It said the
+protocol admits a gate needing a closed bounded search and a stop rule
+ending navigation once a PASS is determined "without saying which binds
+first", and called that a QA-30-family design gap. It is not a gap. The
+stop rule's own words order it: navigation ends "the moment a PASS or a
+specific failure code is determined", which places it strictly after
+determination.
+
+```text
+bounded search closes  ->  exactly-one determined  ->  PASS determined
+                                                   ->  stop rule fires
+```
+
+Nothing in the seal is silent here, and Run 2 needs no new ordering rule
+for it. What Run 2 could usefully preregister is different and narrower:
+which surface classes are forbidden, named by what they are rather than
+by example, so that QA-31 and QA-37's dispute does not recur. The
+ordering was already available in Run 1 and was applied backwards. That
+is an adjudication error, not a design gap.
 
 **Classification, pending the Run 1 coding protocol.**
 
 ```text
-1  adjudication/inference error, 11 candidate records
-   an exactly-one conclusion drawn across a search that the record
-   itself says was not closed.
+1  adjudication/inference error, 8 candidate records
+   an exactly-one conclusion drawn across a search that QA-27
+   required be closed and that the record says was not. C049, C078
+   and groups 1 and 2 above.
 
-2  methodology/design gap, QA-30's family
-   the seal does not order the stop rule against the bounded-search
-   requirement that licenses E2-REP's negative component. Every one
-   of the eleven sits on that gap.
+2  evidence/recording error, 4 candidate records
+   C059, C063, C065 and C084 state that "both admitted starting
+   points are accounted for" where the metadata supplies three or
+   four. For C063 this compounds item 1; for the other three it is
+   the whole of the defect.
 
 3  adjudication/inference error, 1 QA entry, mine
    QA-40 defended C078 by calling E2-REP existential, which
@@ -2970,6 +3103,14 @@ first. Run 1 cannot repair that; a Run 2 preregistration must order them.
    BECAUSE it needs no choice among readings, and breadth widens an
    audit rather than preserving an overclaim. Second occurrence of
    this exact error; RETRACTION 28 was the first.
+
+5  adjudication/inference error, this entry's first version, mine
+   it read "admitted and unopened" as sufficient for "PASS
+   unsupported" in all eleven, skipping the necessity step QA-11
+   requires and warns about in the same breath. Overcorrection
+   after item 4's undercorrection, in the same section, one commit
+   apart. It also invented a design gap where the stop rule's own
+   wording already fixes the order.
 ```
 
 Detected by external review; the eleven-candidate audit is the author's.

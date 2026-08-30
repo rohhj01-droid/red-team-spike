@@ -13215,13 +13215,34 @@ a provenance record. Survivor-stage fields for both become NOT_REACHED.
 competing designation, not that they hold none. That is the whole of why
 the verdict is UNRESOLVED rather than a failure code.
 
-**Nine more candidates are audited and not yet moved.** QA-41 records the
-audit. C013, C059, C063, C065, C066, C067, C074, C084 and C090 each have
-an admitted starting point that was neither observed nor eliminated
-within the contract, and none of them has C010's packager-side exemption
--- checked entry by entry rather than assumed. They are left in place in
-this commit only because the batch was reserved for a decision after the
-audit, and the audit is what QA-41 now supplies.
+**Nine more candidates are audited and not yet moved, and they do not
+all come out the same way.** QA-41 carries the audit. An earlier version
+of this paragraph said all nine "each have an admitted starting point
+that was neither observed nor eliminated within the contract", which
+reported unopened-ness as if it were the test. It is not: QA-11 requires
+necessity to be justified from the criterion's question plus the
+observed upstream structure, and warns in the same passage against
+conscripting an unnecessary surface to force an UNRESOLVED. Corrected:
+
+```text
+C013 C063 C066 C067 C074 C090   necessity established, and mostly not
+                                by case-by-case judgement -- QA-27's
+                                standing requirement that a SITES
+                                naming no forbidden class be observed,
+                                or QA-31's disposition where one does
+C059 C065 C084                  the ACCOUNT surface only. Their
+                                enumerations are short and that is
+                                corrected, but necessity for that
+                                surface is neither established nor
+                                excluded by the record, and RETRACTION
+                                10's necessity turned on C018 having
+                                no project page at all. No verdict move
+                                is proposed for these three.
+```
+
+None of the nine has C010's packager-side exemption -- checked entry by
+entry rather than assumed. They are left in place in this commit because
+the batch decision was reserved until the audit existed.
 
 ## EV-C049-E2REP-02  (supersedes the quarantined EV-C049-E2REP-01)
 Candidate: C049 (frame rank 49, games/boswars)
