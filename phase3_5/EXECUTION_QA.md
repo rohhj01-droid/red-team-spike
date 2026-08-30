@@ -2473,7 +2473,7 @@ gap, QA-30's family, adjacent to QA-31 and QA-35. Detected by the author
 while screening.
 
 
-## QA-39 — six entries said "no HOMEPAGE" where the frozen infrastructure defaults one (RECORDED, wording corrected, no verdict moved)
+## QA-39 — six candidate records said "no HOMEPAGE" where the frozen infrastructure defaults one (RECORDED, wording corrected, no verdict moved)
 
 Found while screening frame rank 92, whose port also sets no HOMEPAGE.
 
@@ -2506,7 +2506,7 @@ throughout -- `SITE_SOURCEFORGE` at C069, C077, C081, C087 and others,
 a defaulted SITES would be inconsistent, and nothing in the seal
 distinguishes them.
 
-**The six affected entries and what each said.**
+**The six affected candidate records and what each said.**
 
 ```text
 C017  "There is no HOMEPAGE field and no SITES field"     GH_*
@@ -2523,7 +2523,10 @@ wording is corrected in place in all six, with the original recorded.
 **No verdict moves, and the reason is structural rather than lucky.** In
 every one of the six the defaulted HOMEPAGE is exactly the repository URL
 the GH pair or the tuple already resolves to. So the correction does not
-add a surface; it renames the topology.
+add a surface; it renames the topology. "Step 1 has no target" becomes
+"step 1 and step 3 are the same surface" -- the C010/C012/C017 shape,
+which QA-22 settled yields affiliation rather than designation, and all
+six are already UNRESOLVED at E2-REP on exactly that ground.
 
 **But the six are not affected identically, and an earlier version of
 this entry said they were.** RETRACTION 10 settled that the ACCOUNT token
@@ -2534,10 +2537,7 @@ those four the closure claim is withdrawn in place: their bounded search
 was not closed. Nothing is reopened -- all four carry terminal records
 and QA-21 bars observation after one. Their verdicts are unchanged and
 never rested on closure; they rest on affiliation not being
-designation. "Step 1 has no target" becomes
-"step 1 and step 3 are the same surface" -- the C010/C012/C017 shape,
-which QA-22 settled yields affiliation rather than designation, and all
-six are already UNRESOLVED at E2-REP on exactly that ground.
+designation.
 
 ```text
 C017 C018 C032 C050 C057 C071   all UNRESOLVED, all stop_gate E2-REP
@@ -2551,22 +2551,65 @@ surface   every occurrence of the string "no HOMEPAGE" in
           falls in, cross-checked against the frozen port Makefile for
           GH_ACCOUNT / GH_PROJECT / DIST_TUPLE and for an explicit
           HOMEPAGE line
-result    20 line occurrences, falling in 10 distinct CANDIDATE
-          records -- the two units are stated separately because an
-          earlier version said "10 entries", which does not say
-          whether an entry is an evidence block or a candidate.
+pinned to the file as it stood at `851d5b4`, before any correction
+          in this entry was applied. The corrections rewrite some of
+          the matched sentences, so an unpinned count is not
+          reproducible.
+result    20 occurrences, one per line, falling in 17 EVIDENCE
+          BLOCKS belonging to 10 distinct CANDIDATE records. All
+          three units are given because an earlier version said "10
+          entries", and "entry" is ambiguous between exactly these:
+          the block count and the candidate count are different
+          numbers, and only the candidate count is the one the rest
+          of this section reasons about.
           Of the 10 candidates, 6 carry GH_* or a github DIST_TUPLE
           and set no HOMEPAGE, so the default applies: C017, C018,
           C032, C050, C057, C071. The other 4 -- C030 angrydd, C035
           atomix, C037 bass, C088 cubiomes-viewer -- carry neither, so
           no default fires and their wording stands.
+drift     the same scan on `fd7f9d3` returns 19, not 20. That commit
+          removed C017's original sentence instead of superseding it
+          in place; the sentence is restored and the removal is
+          recorded below. A reader checking the number must therefore
+          pin the commit, which is why this block now does.
 limits    textual over the evidence file and the port Makefiles, not
           a `make` evaluation; a HOMEPAGE arriving through some other
           module this pass does not read would be missed.
 ```
 
-**Classification, pending the Run 1 coding protocol.** Evidence/recording
-error repeated across six entries, with an adjudication component: the
-run resolved defaulted SITES from the infrastructure while reading
-HOMEPAGE only off the Makefile, and did not notice the asymmetry until a
-port made it visible. Detected by the author while screening rank 92.
+**Classification, pending the Run 1 coding protocol.** Four distinct
+kinds are recorded here rather than one, because an earlier version of
+this entry logged only the first two and they do not have the same
+cause or the same remedy.
+
+```text
+1  evidence/recording error, 6 candidate records
+   the run resolved defaulted SITES from the infrastructure while
+   reading HOMEPAGE only off the Makefile. The sentences describe
+   the port Makefile and claim to describe the resolved metadata.
+
+2  adjudication/inference error, 4 candidate records
+   C017, C032, C050, C057 concluded that no admitted surface was
+   left unobserved. That is an inference from a starting-point
+   enumeration that RETRACTION 10 had already corrected, and it is
+   what a bounded absence-shaped code would have had to rest on.
+
+3  execution/procedure error, 4 candidate records
+   the same four never opened the ACCOUNT surface, which
+   RETRACTION 10 admits as a separate identifier. Unlike 1 and 2
+   this is a missing observation, not a mis-statement about one,
+   and it is not repairable now: QA-21 bars observation after a
+   terminal record, so it stands as a permanent limit on those
+   four records rather than as a defect to be fixed.
+
+4  execution/recording error, 1 commit
+   `fd7f9d3`, correcting the above, REPLACED C017's original
+   sentence with the note superseding it, deleting the wording it
+   was meant to preserve and leaving the note referring to a
+   sentence no longer present. Restored in place. Same family as
+   the `d8d6158` incident: a fixer script whose replacement did
+   not do what its description said.
+```
+
+Detected by the author while screening rank 92; items 2, 3 and 4 were
+detected by external review of the corrections themselves.

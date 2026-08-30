@@ -2088,8 +2088,11 @@ Gate: E2-REP
 
 Surface: https://github.com/tiehuis/2048-cli, reached from the frozen GH_ACCOUNT/GH_PROJECT pair, which the contract admits as a starting point.
 
+Necessary because: E2-REP asks whether upstream designates exactly one canonical source location, and this is the only upstream surface the frozen metadata reaches. The metadata names no HOMEPAGE, so navigation step 1 has no target at all.
 
-SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/tiehuis/2048-cli`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
+SUPERSEDED per QA-39: the "Necessary because" sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/tiehuis/2048-cli`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
+
+RESTORED: `fd7f9d3` REMOVED that "Necessary because" sentence outright instead of superseding it in place, which dropped the original wording from the record and left the note above referring to a sentence no longer present. Corrections on this run are recorded, not deleted. It is restored verbatim; the removal is recorded in QA-39 as an execution error of that commit.
 
 CLOSURE CLAIM WITHDRAWN per QA-39 and RETRACTION 10. This entry treated `GH_ACCOUNT/GH_PROJECT` as one starting point and concluded that no surface was left unobserved. RETRACTION 10 settled at C018 that the ACCOUNT token is a separate admitted identifier, and C018 and C071 accordingly observed the account surface as well; this entry did not. So its bounded search was not closed, and any statement here that every admitted surface was observed is withdrawn.
 
@@ -2121,16 +2124,44 @@ contamination
 
 This is the boundary C014 established: **affiliation is not designation.** There the repository carried the project's name, held the source tree, and pointed at the official site through its website field, and none of that amounted to upstream designating it. The same standard applies here, where less is available.
 
+SUPERSEDED, TWICE OVER. The passage from here to the end of the paragraph after the table defends an exemption that no longer exists, and draws a distinction that no longer holds. It is kept because it is what the entry argued.
+
+```text
+withdrawn by   RETRACTION 8, immediately below this entry, and QA-22
+               C010 and C012 ARE reopened. Their E2-REP entries are
+               quarantined and re-recorded at EV-C010-E2REP-02 and
+               EV-C012-E2REP-02, both UNRESOLVED. So the question
+               this passage answers -- why they are NOT reopened --
+               was answered the other way.
+
+withdrawn by   QA-39
+               the passage's ground for treating C017 differently is
+               that C017 reaches no step-1 project surface. The
+               frozen infrastructure defaults C017 a HOMEPAGE, and
+               it is this same repository. C017 is therefore in the
+               SAME topology as C010 and C012, not a contrasting
+               one.
+```
+
+Both corrections push the same way and neither moves a verdict: C010, C012 and C017 are alike, and all three are UNRESOLVED at E2-REP on QA-22's ground that step 1 = step 3 answers which surface, not who designated it.
+
+The superseded passage follows.
+
 Why C010 and C012 are not reopened by this, and the reason is navigation topology rather than any difference in evidential weight between metadata fields. Both are equally frozen OpenBSD starting points; neither is upstream evidence in itself.
 
 ```text
 C010   frozen starting URL IS the project landing surface
-       and IS the repository root      -> step 1 = step 3     PASS stands
-C012   same                            -> step 1 = step 3     PASS stands
+       and IS the repository root      -> step 1 = step 3
+       [SUPERSEDED: "PASS stands" is the exemption QA-22 found to
+        be the withdrawn move in another shape]                UNRESOLVED
+C012   same                            -> step 1 = step 3
+       [SUPERSEDED: read "PASS stands" here too, withdrawn by
+        QA-22 on the same ground]                              UNRESOLVED
 C014   a separate project site exists; it designates no
        source location                                        UNRESOLVED
-C017   [SUPERSEDED per QA-39: a defaulted HOMEPAGE exists and is
-        the repository itself] a packaging identifier
+C017   [SUPERSEDED per QA-39: this row read "no project landing
+        URL at all". A defaulted HOMEPAGE exists and is the
+        repository itself] a packaging identifier
        reaches a repository and nothing more                   UNRESOLVED
 ```
 
@@ -4129,13 +4160,13 @@ Decision: PASS
 Candidate: C032
 Gate: E2-REP
 
-Per QA-27, the frozen metadata's URLs and identifiers are enumerated: there is no HOMEPAGE and no SITES, so the only admitted starting point is the GH_ACCOUNT/GH_PROJECT pair.
+Per QA-27, the frozen metadata's URLs and identifiers are enumerated: there is no HOMEPAGE and no SITES, so the only admitted starting point is the GH_ACCOUNT/GH_PROJECT pair. Navigation step 1 has no target. This is C017's shape.
 
 SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/arx/ArxLibertatis`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
 
 CLOSURE CLAIM WITHDRAWN per QA-39 and RETRACTION 10. This entry treated `GH_ACCOUNT/GH_PROJECT` as one starting point and concluded that no surface was left unobserved. RETRACTION 10 settled at C018 that the ACCOUNT token is a separate admitted identifier, and C018 and C071 accordingly observed the account surface as well; this entry did not. So its bounded search was not closed, and any statement here that every admitted surface was observed is withdrawn.
 
-Nothing is reopened. `https://github.com/arx` is not requested now: this candidate carries a terminal record, and opening a surface afterwards to supply fresh verdict evidence is what QA-21 exists to stop. Nothing is claimed about what it holds. The verdict is unchanged and was never resting on closure -- it rests on affiliation not being designation. Navigation step 1 has no target. This is C017's shape.
+Nothing is reopened. `https://github.com/arx` is not requested now: this candidate carries a terminal record, and opening a surface afterwards to supply fresh verdict evidence is what QA-21 exists to stop. Nothing is claimed about what it holds. The verdict is unchanged and was never resting on closure -- it rests on affiliation not being designation.
 
 Surface: https://github.com/arx/ArxLibertatis
 observed_at_utc: 2026-08-27T16:38:05Z-16:38:06Z; http_status 200; redirect_chain: NONE (num_redirects 0)
@@ -6162,6 +6193,8 @@ Nothing is reopened. `https://github.com/bderrly` is not requested now: this can
 
 The pair resolves to https://github.com/bderrly/braincurses, which is itself a repository. This is the C010/C012/C017 topology in its barest form -- step 1 and step 3 are the same surface, and there is no project page anywhere in the frozen metadata. QA-22 settled that the topology answers WHICH surface and supplies no designation of its own.
 
+SUPERSEDED per QA-39: the completeness half of the sentence above is withdrawn on the ground recorded at the head of this entry -- RETRACTION 10 settled that the ACCOUNT token is a separate admitted identifier, and this entry did not observe that surface, so its search was not closed. What survives is the topology claim: the defaulted HOMEPAGE is this same repository, so no SEPARATE project page is named. `https://github.com/bderrly` is an admitted identifier that was not observed, and nothing is claimed about it. The verdict is unchanged; it never rested on closure.
+
 Observation scope, fixed before the request: existence; repository and owner name; default branch; fork, mirror, archive and template flags; the website metadata field; the repository description; whether a source tree is present at the root; any statement designating this location as the project's source; any primary or mirror marking. Not: README prose, releases, issues, docs, or any source file.
 
 observed_at_utc: 2026-08-28T07:46:48Z (metadata), 07:46:49Z (root listing); http_status 200 on both; redirect_chain: NONE on both
@@ -6201,7 +6234,11 @@ E2REP-NO-SOURCE not established
   a source tree WAS observed, so source access is not what is missing.
 ```
 
-The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family. What the sealed criteria do not describe is a frame item whose frozen metadata supplies only a repository identifier.
+The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family.
+
+SUPERSEDED per QA-39: the completeness half of that sentence -- "no surface is left unobserved" -- is withdrawn on the ground recorded at the head of this entry: RETRACTION 10 settled that the ACCOUNT token is a separate admitted identifier, and this entry did not observe that surface, so its search was not closed. What survives is the transport conclusion, which rests on its own ground rather than on completeness: every request this entry made was determinately answered, http_status 200, and the transport family turns on retries exhausted with endpoint state unknown, not on whether every admitted surface was reached. The verdict is unchanged; it never rested on closure.
+
+What the sealed criteria do not describe is a frame item whose frozen metadata supplies only a repository identifier.
 
 Stated precisely, because C032 had to correct this exact wording once already: the frozen metadata supplies no separate upstream-authored project surface, and the one admissible surface -- the repository root -- WAS examined and carried no designation signal. It is not that no surface could bear a designation. The repository root can: "whether upstream designates this location as its source" is among the observations the contract allows there. That bounded absence does not establish that upstream designates no canonical source location.
 
@@ -6998,7 +7035,11 @@ E2REP-NO-SOURCE not established
   a source tree WAS observed, so source access is not what is missing.
 ```
 
-The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family. Stated as C050's correction requires: the frozen metadata supplies no separate upstream-authored project surface, and the one admissible surface -- the repository root -- was examined and carried no designation signal. It is not that no surface could bear one.
+The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family.
+
+SUPERSEDED per QA-39: the completeness half of that sentence -- "no surface is left unobserved" -- is withdrawn on the ground recorded at the head of this entry: RETRACTION 10 settled that the ACCOUNT token is a separate admitted identifier, and this entry did not observe that surface, so its search was not closed. What survives is the transport conclusion, which rests on its own ground rather than on completeness: every request this entry made was determinately answered, http_status 200, and the transport family turns on retries exhausted with endpoint state unknown, not on whether every admitted surface was reached. The verdict is unchanged; it never rested on closure.
+
+Stated as C050's correction requires: the frozen metadata supplies no separate upstream-authored project surface, and the one admissible surface -- the repository root -- was examined and carried no designation signal. It is not that no surface could bear one.
 
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
