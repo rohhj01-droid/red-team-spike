@@ -8980,6 +8980,305 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C084-UR-01
+Candidate: C084 (frame rank 84, games/crispy-doom)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/crispy-doom/Makefile and distinfo
+Observed: V=7.1; `DIST_TUPLE = github fabiangreffrath crispy-doom crispy-doom-${V} .`; PKGNAME=crispy-doom-${V}; HOMEPAGE=https://fabiangreffrath.github.io/crispy-homepage/; COMMENT="enhanced release of Doom, Heretic, Hexen, and Strife"; distinfo names fabiangreffrath-crispy-doom-crispy-doom-7.1.tar.gz, SIZE 2609031. There is no SITES field.
+Inference: the frozen fields name one packaged system, Crispy Doom, with a project site and one account/project pair on one code host -- the protocol's "several facts about one system" shape, so not UR-AMBIGUOUS.
+
+Recorded because a reader will ask, and because the answer is not a judgement call: this system is a fork of Chocolate Doom, which is C065. It is not a duplicate of it. UR resolves each frame item by what its own frozen metadata names, and these name different accounts and different projects -- fabiangreffrath/crispy-doom against C065's chocolate-doom repository. Lineage between two systems is not identity between them.
+Decision: PASS
+
+## EV-C084-E1-01
+Candidate: C084
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party source port, packaged from the account fabiangreffrath, unrelated to this project. The Makefile separately carries a `# GPLv2+` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C084-E2REP-01
+Candidate: C084
+Gate: E2-REP
+
+Step 1: https://fabiangreffrath.github.io/crispy-homepage/ -- the frozen HOMEPAGE. Requested 2026-08-30T06:08:28Z, 200, no redirect, 3154 bytes, sha256 8ab5da4b343133d13f63a390709024e6e505653273e275919683f9a48f181ba8. Seven anchors, parsed element-wise:
+
+```text
+#   x4                                    "About" "Usage" "Download" "Help"
+https://github.com/fabiangreffrath/crispy-doom       "Sourcecode"
+https://github.com/fabiangreffrath/                  "Fabian Greffrath"
+https://github.com/fabiangreffrath/crispy-homepage   "here"
+```
+
+The page is short: a navigation bar whose four items are bare `#` anchors with no corresponding content in the served HTML, the `Sourcecode` link, and two sentences -- "Crispy Doom is released under the GPL-2.0 license, and is maintained by Fabian Greffrath" and "This website's source code is available here", the latter pointing at the SITE's own repository rather than the game's.
+
+Reachability and designation are kept apart, because only the second needs deciding.
+
+```text
+reachability
+  github.com/fabiangreffrath/crispy-doom is the location the frozen
+  DIST_TUPLE names, so it is an admitted STARTING POINT and needs no
+  step-2 permission. Whether the one-word label "Sourcecode" is a
+  whitelist token is therefore never reached, and this entry does not
+  rule on it -- QA-35's question does not arise.
+
+designation
+  the project's own page exposes a link labelled `Sourcecode` whose
+  destination is that repository. QA-23 admits a label as a form a
+  designation may take, and this is not a token-matching question:
+  the label says what the destination is. That is the arrow C014
+  lacked and QA-22 requires be named.
+```
+
+Step 3: https://github.com/fabiangreffrath/crispy-doom, observed under a scope fixed before the request. observed_at_utc 2026-08-30T06:09:15Z; http_status 200; redirect_chain NONE; control https://api.github.com/repos/TASEmulators/fceux -> 200 at the same moment. As at C071, the ordering of that scope file against the fetch rests on the session record.
+
+```text
+full_name    fabiangreffrath/crispy-doom   default_branch  master
+fork         TRUE                          archived        false
+disabled     false                         mirror_url      null
+homepage     https://fabiangreffrath.github.io/crispy-homepage
+license      GPL-2.0                       visibility      public
+description  "Crispy Doom is a limit-removing enhanced-resolution
+              Doom source port based on Chocolate Doom."
+
+root, 38 entries
+  dirs   .devcontainer .github cmake data docs man opl pcsound pkg
+         src textscreen win32
+  files  .clang-format .gitignore .gitmodules .lvimrc .travis.sh
+         AUTHORS CHANGELOG.md CMakeLists.txt CODE_OF_CONDUCT.md
+         COPYING.md HACKING.md Makefile.am NEWS.md NOT-BUGS.md
+         PHILOSOPHY.md README.Music.md README.Strife.md README.md
+         RELEASE_NOTES.md TODO.md autogen.sh check-extern.sh
+         configure.ac quickcheck rpm.spec.in vcpkg.json
+```
+
+A source tree is present. No file was opened at this gate.
+
+`fork: true` is recorded and is not used as a failure ground. No sealed rule says a fork cannot be a canonical source location, and QA-21 settled the analogous point for `isArchived`: coding an incidental repository property as a criterion failure is how gates acquire rules nobody sealed. The fork's parent was NOT followed -- a repository fact is not a route the contract authorizes, which is C032's disposition of C025's fork parent -- and it is not a competing designation for this system, because upstream's page designates this repository and says nothing about the parent.
+
+The repository's `homepage` field points back at the project site. That is the one-way repository->site arrow RETRACTION 23 withdrew as a designation, and it does no work here; the designating direction is site->repository, from the `Sourcecode` label.
+
+Inference: exactly one designated canonical source location, `https://github.com/fabiangreffrath/crispy-doom`, at a stable URL, holding a source tree, with one external target identifier, Crispy Doom.
+Decision: PASS
+
+## EV-C084-PIN-01
+Candidate: C084
+Provenance pin for the gates below.
+
+`master` was resolved at 2026-08-30T06:09:46Z to commit 7775ef82d1e9dfd50eb9d2824acefaeff7247458, committed 2026-08-03T14:08:24Z. The tree was retrieved once as an archive of that commit: 2648481 bytes, sha256 4edfcde1c4f6f9292d673116f81ba40df6cf04033f17346131b4f2fe72fbce55, 832 entries. Files cited below, hashed individually from it:
+
+```text
+README.md             13111 bytes
+  583bbc60755242bcb97ade06666f90e1544240d41f4d9739514eb7cc6511d6d0
+src/d_iwad.c          26304 bytes
+  1cc2f0575aa23314de779ade8841c92fc619780caa5e9a982229407ddbb60b5e
+src/doom/d_main.c     65708 bytes
+  6dd3658604fc1c093562bbb9c2d2e5a92401d81944e3a186745af85396ac17f6
+src/doom/g_game.c     94495 bytes
+  09afab2ea0147fcfa6bb58ff99f87e6a47b7e4e8a8a30a36b8f68f7fd4674cb9
+src/doom/p_saveg.c    39855 bytes
+  391525093535a2e893fa1873cb2a3e833f8ce8e82c6ee9b9c97d78f3b1dc1ae4
+```
+
+These digests identify the objects analysed. They do nothing for QA-28.
+
+Recorded so no later reader has to wonder: every citation below was observed in THIS artifact at THIS commit. This system is a fork of C065's, and several mechanisms are structurally similar to the ones C065 exhibited. Nothing is carried over from that entry; the counts, line numbers and call paths here were taken from the files pinned above, and where they differ from C065's they differ.
+
+## EV-C084-E2RULE-01
+Candidate: C084
+Gate: E2-RULE
+Source: `README.md` at the pinned commit
+Provenance: as above.
+
+Observed: located witness, in the project's own words.
+
+```text
+"Crispy Doom can play nearly all variants of Doom. If you don't own
+ any, you may download the Shareware version of Doom ..., extract it
+ and copy the DOOM1.WAD file into your Crispy Doom directory.
+ Alternatively, you may want to play Crispy Doom with Freedoom and a
+ MegaWAD."
+```
+
+Inference: the project states a concrete validity requirement without our inventing it -- a Doom-variant IWAD must be present, and it names the specific file the shareware route yields. An installation with no IWAD does not satisfy it.
+Decision: PASS
+
+## EV-C084-E3-01
+Candidate: C084
+Gate: E3
+Source: `src/doom/p_saveg.c` and `src/doom/g_game.c` at the pinned commit
+Provenance: as above.
+
+Observed: located witness. The decision, the writer of the state it consults, and the call path are all quoted.
+
+```text
+p_saveg.c:1426-1440  void P_WriteSaveGameHeader(char *description)
+                     {
+                         ... description bytes ...
+                         memset(name, 0, sizeof(name));
+                         M_snprintf(name, sizeof(name), "version %i",
+                                    G_VanillaVersionCode());
+                         for (i=0; i<VERSIONSIZE; ++i)
+                             saveg_write8(name[i]);     // the writer
+
+p_saveg.c:1458-1476  boolean P_ReadSaveGameHeader(void)
+                     {
+                         ... skip the description field ...
+                         for (i=0; i<VERSIONSIZE; ++i)
+                             read_vcheck[i] = saveg_read8();
+                         memset(vcheck, 0, sizeof(vcheck));
+                         M_snprintf(vcheck, sizeof(vcheck), "version %i",
+                                    G_VanillaVersionCode());
+                         if (strcmp(read_vcheck, vcheck) != 0)
+                             return false;   // bad version
+
+g_game.c:2526-2533       if (!P_ReadSaveGameHeader())
+                         {
+                             extern void M_LoadGameVerMismatch ();
+                             M_LoadGameVerMismatch();
+                             fclose(save_stream);
+                             return;
+                         }
+```
+
+The call path was located by searching the whole pinned tree for `P_ReadSaveGameHeader`, which returns the declaration, the definition and one call in the Doom module -- plus an independent definition and call in the Strife module, which this entry does not use and makes no claim about.
+
+Inference, kept to what the quoted lines close: the identical input -- one save file -- is accepted or refused at :1475 according to a version string read out of it, and this program contains the writer of exactly that string at :1437. So the value the check consults is one this program persists and a later run reads back, and refusal at g_game.c:2526-2533 abandons the load before the level is set up at :2538.
+
+Not claimed: that the string in any particular existing save file was written by an earlier run of this program. What is established is the persistent writer and reader path and the branch it drives.
+Decision: PASS
+
+## EV-C084-E4-01
+Candidate: C084
+Gate: E4
+
+Positive construction exhibited, via `U_enforced`.
+Provenance: as above.
+
+The mechanism: the IWAD registry and the name-based identifier that consults it.
+
+```text
+d_iwad.c:34ff      static const iwad_t iwads[] =
+                   {
+                       { "doom2.wad",     doom2,     commercial, "Doom II" },
+                       { "plutonia.wad",  pack_plut, commercial, "Final Doom: Plutonia Experiment" },
+                       ...
+                       //{ "strife0.wad", strife,    commercial, "Strife" },
+                       { "strife1.wad",   strife,    commercial, "Strife" },
+                   };
+
+d_iwad.c:617-644   static GameMission_t IdentifyIWADByName(const char *name,
+                                                           int mask)
+                   {
+                       name = M_BaseName(name);
+                       mission = none;
+                       for (i=0; i<arrlen(iwads); ++i)
+                       {
+                           if (((1 << iwads[i].mission) & mask) == 0)
+                               continue;                      // :631
+                           if (!strcasecmp(name, iwads[i].name))
+                           {
+                               mission = iwads[i].mission;
+                               break;                         // :636-639
+                           }
+                       }
+                       return mission;
+                   }
+
+d_iwad.c:946-955   iwadfile = myargv[iwadparm + 1];
+                   result = D_FindWADByName(iwadfile);
+                   if (result == NULL)
+                       I_Error("IWAD file '%s' not found!", iwadfile);
+                   *mission = IdentifyIWADByName(result, mask);
+
+d_main.c:1663      iwadfile = D_FindIWAD(IWAD_MASK_DOOM, &gamemission);
+d_main.c:1676      D_AddFile(iwadfile);
+d_main.c:1682      D_IdentifyVersion();
+```
+
+EN1 external authorship: the registry and the identifier are the project's, predating this analysis.
+
+EN2 explicit scope: the IWAD files the port recognises by name. Each entry carries four externally segmented fields the project chose -- the filename, the mission, the game mode, and the project's own title for it.
+
+EN3 mechanical membership, counted by parsing the initialiser rather than reading it off:
+
+```text
+17 active rows, 17 distinct filenames
+1 commented-out row, "strife0.wad", counted as ABSENT: it is not
+  compiled
+
+missions  doom 5, doom2 4, heretic 2, and one each of pack_plut,
+          pack_tnt, pack_chex, pack_hacx, hexen, strife
+modes     commercial 9, retail 6, shareware 2
+```
+
+A first pass over this initialiser returned 18 rows because the regular expression did not exclude commented lines; the count above is the corrected one, and the correction is recorded rather than silently applied.
+
+Membership is the array's active entries, bounded by `arrlen(iwads)` at :625, decidable without semantic reading of any item.
+
+```text
+values this validator acts on
+  the entry's filename, compared with strcasecmp against the
+  basename at :636, and its mission, tested against the caller's
+  mask at :631 and returned on a match
+
+retained metadata, not enforcement values
+  the game mode and the project's own title. Both are the project's
+  own fields and neither participates in this decision.
+```
+
+EN4 connection to validation, with the limitation stated and scoped rather than glossed. `IdentifyIWADByName` is called only in the `-iwad` branch at d_iwad.c:955; the other branch reaches a mission through `SearchDirectoryForIWAD`. On the `-iwad` branch a name matching no active entry yields `none`, and rejection follows only if a second, content-based attempt also fails:
+
+```text
+d_main.c:913-944   void D_IdentifyVersion(void)
+                   {
+                       if (gamemission == none)
+                       {
+                           for (i=0; i<numlumps; ++i)
+                           {
+                               if (!strncasecmp(lumpinfo[i]->name, "MAP01", 8))
+                                   { gamemission = doom2; break; }
+                               else if (!strncasecmp(lumpinfo[i]->name, "E1M1", 8))
+                                   { gamemission = doom; break; }
+                           }
+                           if (gamemission == none)
+                               I_Error("Unknown or invalid IWAD file.");
+                       }
+```
+
+So on that branch the registry is not the sole membership authority: it decides NAME-based identification, and a miss falls through to a lump-content heuristic before `I_Error` is reached. The enforcement observation below is scoped accordingly and does not claim that an unregistered IWAD cannot be accepted.
+
+EN5 closed within scope: the registry is a compiled-in `static const` array and the iteration bound is `arrlen` of it, so membership is closed by the array's own contents -- EN5's first case, runtime construction closing the set, tagged `enforced`.
+
+EN6 outcome independence: membership is the set of IWAD files the port recognises by name. It is not a bug list, fix list or known-failure registry.
+
+```text
+one enforcement observation per active registry entry
+
+  "IWAD filename F is identified by name as mission M when the
+   caller's mask admits M; on the -iwad branch a name matching no
+   active entry yields `none` from IdentifyIWADByName, after which
+   identification is attempted from lump contents and `Unknown or
+   invalid IWAD file.` is raised only if that also fails"
+
+retained as externally segmented fields, per observation
+  the IWAD filename
+  the mission it identifies
+  the game mode
+  the project's own title for it
+```
+
+One limit stated rather than left implicit: no exhaustive enumerator inventory is offered. The union obligation is Section 3.4's, and building it is the inventory stage's work under QA-19.
+Decision: PASS
+
+## EV-C084-OVERALL-01
+Candidate: C084
+All five gates PASS. Tenth survivor.
+
+`primary_snapshot` is recorded UNRESOLVED, as for every other survivor: the protocol fixes that field at the survivor-stage checkpoint rather than at a gate, and this entry does not pre-empt it.
+Decision: ELIGIBLE
+
 ## EV-C083-UR-01
 Candidate: C083 (frame rank 83, games/crimson)
 Gate: UR
