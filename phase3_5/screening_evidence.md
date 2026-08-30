@@ -8982,6 +8982,93 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C087-UR-01
+Candidate: C087 (frame rank 87, games/csmash)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/csmash/Makefile and distinfo
+Observed: DISTNAME=csmash-0.6.6; HOMEPAGE=https://cannonsmash.sourceforge.net/; SITES=${SITE_SOURCEFORGE:=cannonsmash/}; COMMENT="Cannon Smash 3D table tennis"; distinfo names csmash-0.6.6.tar.gz, SHA256 (base64) G+CyfaxGuokblVv48SIVG66m7gWzwpYWoJQjJQz9nT0=, SIZE 1989943. `SITE_SOURCEFORGE` resolves in the same frozen tree at infrastructure/db/network.conf:68-69, so SITES is `https://downloads.sourceforge.net/sourceforge/cannonsmash/`.
+Inference: the frozen fields name one packaged system, Cannon Smash, with a per-project site and a code-host project of the same short name -- the protocol's "several facts about one system" shape, so not UR-AMBIGUOUS. No earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C087-E1-01
+Candidate: C087
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party 3D game on an upstream site unrelated to this project. The Makefile separately carries a `# GPLv2` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C087-E2REP-01
+Candidate: C087
+Gate: E2-REP
+
+Step 1: https://cannonsmash.sourceforge.net/ -- the frozen HOMEPAGE. Requested 2026-08-30T07:02:19Z, 200, no redirect, 12274 bytes, sha256 9b065366d53545b75627c4be5beb41a205bcda6bf069fe2fc97cd3bdbfc13d95. Like C062's and C081's, this per-project host serves a page the project itself authored. 28 anchors, parsed element-wise, one with an empty label.
+
+No anchor label is Source, Code, Repository or Development. The designation is not in an anchor label but in the page's own Download table, which assigns a role to each artifact in a left-hand cell. Quoted from the served HTML rather than paraphrased:
+
+```html
+<h1>5. Download</h1>
+<table border="2">
+<tr><td>Source code</td>
+    <td><a href="http://prdownloads.sourceforge.net/cannonsmash/csmash-0.6.6.tar.gz">csmash-0.6.6.tar.gz</a></td></tr>
+<!--<tr><td>Source code patch</td>
+    <td><a href="http://cannonsmash.sourceforge.net/csmash-0.3.10-0.4.0.diff.gz">csmash-0.3.10-0.4.0.diff.gz</a></td></tr>-->
+<tr><td>Binary for<br>Linux 2.2.x(glibc 2.1)</td>
+    <td><a href="csmash-0.3.3_bin.tar.gz">csmash-0.3.3_bin.tar.gz</a></td></tr>
+<tr><td>Installer for Windows</td>
+    <td><a href=".../csmash066.exe">csmash066.exe</a><br><a href="README.en">README.en</a></td></tr>
+<tr><td>Binary for Windows</td>
+    <td><a href=".../csmash065.zip">csmash065.zip</a></td></tr>
+<tr><td>Opening theme ...
+```
+
+Observed: exactly one row carries the source role, and its artifact name is the frozen DISTNAME. The `Source code patch` row is inside an HTML comment, `<!-- ... -->`, and is counted as ABSENT for the same reason C065 and C084 counted a commented-out registry line absent: it is not served as page content. Every other row is given a different role by upstream's own left cell -- binaries for two platforms, a Windows installer, an opening theme.
+
+This is C067's and C074's shape, not C082's: one source-role designation, with the competing artifacts distinguished by upstream rather than by us.
+
+The section 4.2 prose is consistent and adds no location: "Install from source code -- You can download the source code and compile it yourself", followed by `./configure && make && make install`. Under QA-25 that states a form and a procedure, not a location, so the designation rests on the table row.
+
+What could NOT be completed, and it is the reason this gate does not pass. The designated URL was requested at 2026-08-30T07:03:41Z and again by HEAD at 07:04:25Z. Both follow two redirects to `https://sourceforge.net/projects/cannonsmash/files/CannonSmash/0.6.6/csmash-0.6.6.tar.gz/download?use_mirror=master` and return `Content-Type: text/html`. The GET body is 145438 bytes, sha256 7a643991fe669cc69ba3ffad8901f1d4bfe2d27a68c740382242b4b462882a75, and it is an HTML page titled "Download csmash-0.6.6.tar.gz (Cannon Smash)" -- the code host's download landing page for that file, with mirror selection.
+
+```text
+frozen distinfo        SHA256 G+CyfaxG...nT0=   SIZE 1989943
+what was received      an HTML page             145438 bytes
+```
+
+So the artifact was not retrieved, and nothing is claimed about its contents or about whether a source tree is present in it.
+
+No route around that was attempted, and the reason is recorded rather than left implicit. Substituting a mirror parameter, or fetching the same name from `downloads.sourceforge.net`, would be choosing a route upstream did not designate -- and that second host is exactly the construction QA-37 records this run as having disposed of two ways without settling. This entry settles nothing there and requests nothing there.
+
+The frozen SITES, `https://downloads.sourceforge.net/sourceforge/cannonsmash/`, was likewise NOT requested. As at C081, no rule is offered for that: the fact recorded is that no request was made while QA-37's question was unresolved, and nothing is claimed about what the surface holds.
+
+Adjudication:
+
+```text
+PASS not established
+  the designation IS established -- upstream's own table gives
+  exactly one artifact the source role, at a fixed URL, with one
+  external target identifier (Cannon Smash). What is missing is the
+  observation the gate also wants at a distribution candidate, that
+  a source representation is actually there. C013 called that
+  verification "exactly this gate's 'that a source tree is actually
+  present' observation carried over to a distribution candidate",
+  and here it could not be made.
+
+FAIL not established
+  E2REP-NO-SOURCE asserts no access to an actual source
+  representation. A download landing page with mirror selection is a
+  delivery mechanism, not evidence of absence: it says nothing about
+  whether the file is obtainable. Coding it as that failure would
+  convert an incomplete observation into a finding about upstream.
+  E2REP-NO-SINGLE-CANONICAL-LOCATION is separately unavailable --
+  upstream designated one, not several.
+```
+
+Provenance limit, as at C080, C083, C084 and C085: the repository carries the response digests and these transcriptions, not the response bytes, so the anchor count and the table structure above rest on the session record.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C085-UR-01
 Candidate: C085 (frame rank 85, games/cromagrally)
 Gate: UR
