@@ -8982,6 +8982,265 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C090-UR-01
+Candidate: C090 (frame rank 90, games/dd2)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/dd2/Makefile and distinfo
+Observed: V=0.2.2; DISTNAME=dd2-${V}; HOMEPAGE=http://www.usebox.net/jjm/dd2; SITES=http://www.usebox.net/jjm/dd2/releases/; COMMENT="arcade game for one or two players"; distinfo names dd2-0.2.2.tar.gz, SHA256 (base64) nOz4w84mSXfGa39saqHu6agFZKXJpHlATILNlvHepcw=, SIZE 293812.
+Inference: the frozen fields name one packaged system, and SITES is a subdirectory of HOMEPAGE, so both admitted URLs are on the same upstream host. Not UR-AMBIGUOUS; no earlier candidate resolved to it, so not a duplicate.
+
+Recorded because the path invites a wrong classification: the SITES path component is literally `releases`, but the surface is a subdirectory of upstream's own project page, not a code host's release-asset area. QA-31's class is the latter, and C026 and RETRACTION 21 both bar classifying a surface by a word in its URL. This is C026's and C083's shape.
+Decision: PASS
+
+## EV-C090-E1-01
+Candidate: C090
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party arcade game on an upstream site unrelated to this project. The Makefile separately carries a `# GPLv2+` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C090-E2REP-01
+Candidate: C090
+Gate: E2-REP
+
+Step 1: the frozen HOMEPAGE, http://www.usebox.net/jjm/dd2, requested 2026-08-30T09:12:55Z, 200 after two redirects to `https://www.usebox.net/jjm/dd2/`, 12690 bytes, sha256 162cb18a612d39179cbf59bd7d68021534dbbc377c9c2a1a57d681353eeeba9f. 52 anchors, parsed element-wise, three with empty labels. No anchor label is Source, Code, Repository or Development.
+
+The designation is not in a label but in upstream's own Downloads section, quoted rather than paraphrased:
+
+```text
+Downloads
+  "I only provide the source code for UNIX systems and binaries for
+   Win32. Porting the game and contributing binaries would be greatly
+   appreciated."
+
+UNIX
+  dd2-0.2.2.tar.gz: [download] -> ../dd2/releases/dd2-0.2.2.tar.gz
+  "Required to build: SDL 1.2.x and SDL_Mixer."
+
+Win32
+  dd2-0.2.1-win32.zip: [download] -> ../dd2/releases/dd2-0.2.1-win32.zip
+  "This binary release it's ready to run."
+
+Contributed binaries and known ports
+  "I'm not related to those binaries or ports."
+```
+
+Observed: upstream assigns the roles itself, in one sentence that partitions them -- source code for UNIX, binaries for Win32 -- and confirms the second artifact's role where it sits ("This binary release"). The many third-party port links further down are disclaimed by upstream in its own words. So exactly one artifact carries the source role, and its name is the frozen DISTNAME. This is C067's, C074's and C087's shape, not C082's.
+
+The artifact was retrieved, and the basis for retrieving it is stated because RETRACTION 30 turned on this: `https://www.usebox.net/jjm/dd2/releases/dd2-0.2.2.tar.gz` sits inside the frozen SITES, `http://www.usebox.net/jjm/dd2/releases/`, which is an ADMITTED STARTING POINT. No step-2 permission is needed and none is claimed -- the `download` label is not one of the contract's four words, and this entry does not rely on it. That is C067's basis, where the designated artifact likewise sat under the frozen SITES.
+
+observed_at_utc: 2026-08-30T09:13:39Z; http_status 200; redirect_chain NONE; 293812 bytes, sha256 9cecf8c3ce264977c66b7f6c6aa1eee9a80564a5c9a479404c82cd96f1dea5cc.
+
+```text
+frozen distinfo   SHA256 nOz4w84mSXfGa39saqHu6agFZKXJpHlATILNlvHepcw=
+                  SIZE   293812
+retrieved         same digest re-encoded to base64, same byte count
+```
+
+The object upstream designates now is bit-for-bit the object the frozen metadata recorded. What that establishes is the identity of the OBJECT; it does not reconstruct what upstream designated at the sealed instant, which is QA-28's blocker. QA-34 already records that distinction and that C013 and C074 are in the same position; nothing new is claimed here.
+
+Its entry listing -- names only -- shows a source tree: 49 entries under a single root `dd2-0.2.2/`, holding `src/` with 6 `.c` and 6 `.h` files, `configure`, `Makefile.am/.in`, `acinclude.m4`, and AUTHORS, COPYING, ChangeLog, INSTALL, NEWS, README, TODO.
+
+Inference: exactly one designated canonical source location, at a stable URL on upstream's own host, holding a source tree, with one external target identifier -- "Dodgin' Diamond 2", which is the page's own title and h1.
+Decision: PASS
+
+## EV-C090-PIN-01
+Candidate: C090
+Provenance pin for the gates below.
+
+The artifact retrieved above, sha256 9cecf8c3ce264977c66b7f6c6aa1eee9a80564a5c9a479404c82cd96f1dea5cc, 293812 bytes. Files cited below, hashed individually from it:
+
+```text
+README             5903 bytes
+  20760579942382a2e127f6a1d9befc3ee4f298ebd3e3fd4cf277664fdbe2327f
+src/cfg.c          2794 bytes
+  a8794bcd4d1186f1dcb821fddfa991d3a16097b03198fa036fa5240fbcb9392a
+src/main.c        10490 bytes
+  23b8ea721cab290499f8783905b3ad493377c5b583f2f003f685bb32428ea4d6
+src/engine.c      49085 bytes
+  cd9f91478ec95abb11c589ddbe67d72f37dca92d83ae620476888687e849b241
+src/SDL_plus.c     5792 bytes
+  7bb748fd04247ec2d52c0832f53a6484befa00ea315b0bc72399e3850e2bb550
+src/data/game.act  4696 bytes
+  ff05f2b960acde6c7137b98399faa8e9f3bb20993be8ebeeafb32955c5f8ad10
+```
+
+These digests identify the objects analysed. They do nothing for QA-28.
+
+## EV-C090-E2RULE-01
+Candidate: C090
+Gate: E2-RULE
+Source: `README`, an entry of the designated artifact
+Provenance: as above.
+
+Observed: located witness, in the project's own words.
+
+```text
+"** Required **
+
+ DD2 needs SDL 1.2.x and SDL_Mixer.
+
+ You can find both needed libraries at http://www.libsdl.org/"
+```
+
+Inference: this states a concrete validity requirement without our inventing it, and version-bounds one of the two libraries. A build environment lacking SDL_Mixer, or carrying an SDL outside 1.2.x, does not satisfy it.
+Decision: PASS
+
+## EV-C090-E3-01
+Candidate: C090
+Gate: E3
+Source: `src/cfg.c` and `src/main.c` at the pinned artifact
+Provenance: as above.
+
+Observed: located witness. The decision, the writer of the state it consults, and the call path are all quoted.
+
+```text
+cfg.c:71-89    saveCFG(char *path, cfg *c)
+               {
+                   f=fopen(path,"wt");
+                   if(!f) return 0;
+                   fprintf(f,"BEGIN\n");
+                   fprintf(f,"SOUND=%i\nCONTROL_1=%i\nCONTROL_2=%i\n"
+                             "FULL_SCREEN=%i\n", c->sound, c->control[0],
+                             c->control[1], c->fullscreen);
+                   fprintf(f,"END\n");
+                   fclose(f); return 1;
+               }
+
+cfg.c:27-68    loadCFG(char *path, cfg *c)
+               {
+                   /* defaults */ c->sound=SOUND_HI; ... c->fullscreen=0;
+                   f=fopen(path,"rt");
+                   if(!f) return 0;                                 // :39-40
+                   if(fscanf(f,"%511[^\n]\n",buffer)!=1)   { ... return 0; }
+                   if(strcmp(buffer,"BEGIN"))             { ... return 0; }  // :46-49
+                   if(fscanf(f,"SOUND=%i\nCONTROL_1=%i\n"
+                               "CONTROL_2=%i\nFULL_SCREEN=%i\n", ...)!=4)
+                                                          { ... return 0; }  // :50-54
+                   if(fscanf(f,"%511[^\n]\n",buffer)!=1)   { ... return 0; }
+                   if(strcmp(buffer,"END"))               { ... return 0; }  // :60-63
+                   fclose(f); return 1;
+               }
+
+main.c:284-295 sprintf(buffer,"%.500s/.dd2rc",getenv("HOME"));
+               if(!loadCFG(buffer,&conf)) {
+                   sprintf(buffer,"%s/dd2.cfg",DD2_DATA);
+                   if(!loadCFG(buffer,&conf))
+                       fprintf(stderr,"unable to read configuration,"
+                                      " using defaults\n");
+               }
+main.c:463     saveCFG(buffer,&conf);
+```
+
+Inference, kept to what the quoted lines close: the identical input -- a configuration path -- is accepted or refused according to whether a file written by an earlier run is there and still carries the exact frame this program writes: the literal `BEGIN`, the four keys in that order, and the literal `END`. The writer of that frame is `saveCFG` at :79-84, called at main.c:463, so the value the check consults is one this program persists and a later run reads back. Refusal at :46, :50 or :60 leaves the defaults set at :32-36 in place and, at main.c:290, is reported.
+
+Not claimed: that the contents of any particular existing file were written by an earlier run of this program. What is established is the persistent writer and reader path and the branch it drives. The missing-file branch at :39-40 is a further, non-historical condition and is recorded rather than leaned on.
+Decision: PASS
+
+## EV-C090-E4-01
+Candidate: C090
+Gate: E4
+
+Positive construction exhibited, via `U_enforced`.
+Provenance: as above.
+
+The mechanism: the action list the engine loads from the shipped data file, and the loader that rejects a file which does not conform.
+
+```text
+engine.c:200-229   /* load the actions */
+                   sprintf(buffer,"%s/game.act",DD2_DATA);
+                   fd=fopen(buffer,"rt");
+                   if(!fd) {
+                       fprintf(stderr,"ENGINE_ERROR: unable to open act"
+                                      " file\n");
+                       exit(-1);
+                   }
+                   if(fscanf(fd,"ITEMS=%i\n",&j)!=1) {
+                       fprintf(stderr,"ENGINE_ERROR: bad act file, error"
+                                      " at line 1\n");
+                       exit(-1);
+                   }
+                   act=(struct actionStruct *)malloc(
+                           sizeof(struct actionStruct)*j);
+                   ...
+                   for(i=0;i<j;i++)
+                       if(fscanf(fd,"%li - %i (%i,%i) %32[^\n]\n",
+                                 &act[i].a, &act[i].type,
+                                 &act[i].x, &act[i].y, comm)!=5) {
+                           fprintf(stderr,"ENGINE_ERROR: bad act file,"
+                                          " error at line %i\n", i+2);
+                           exit(-1);
+                       }
+
+main.c:383         engine_init();
+engine.c:64        engine_init()   -- the function containing the above
+```
+
+EN1 external authorship: the loader, the record layout and the data file are the project's, shipped inside the designated artifact.
+
+EN2 explicit scope: the project's own comment at :200 names the domain -- "load the actions" -- and each member carries externally segmented fields the project chose: the `actionStruct`'s `a`, `type`, `x`, `y`, and a trailing comment field.
+
+EN3 mechanical membership, counted from the data rather than trusting its own header:
+
+```text
+src/data/game.act declares  ITEMS=220
+non-empty rows after line 1 220
+rows matching the record grammar
+  ^-?\d+ - -?\d+ \( -?\d+ , -?\d+ \)      220
+```
+
+Membership is the records the loop at :222 reaches, bounded by the count parsed at :208. Deciding it requires no semantic reading of any record.
+
+EN4 connection to validation, in project code on both sides: the loader tests each record against that grammar and, on any failure, raises the project's own `ENGINE_ERROR: bad act file, error at line %i` naming the offending line and exits. The deciding and the rejecting code are the project's -- not a library's, and not a silent skip.
+
+EN5 closed within scope: the set is closed by the file's own `ITEMS` count and the loop bounded by it -- EN5's first case, runtime construction closing the set, so the tag is `enforced`.
+
+EN6 outcome independence: membership is the set of scripted engine actions the game executes. It is not a bug list, fix list or known-failure registry.
+
+```text
+one enforcement observation per action record
+
+  "action record i of game.act is present in the loaded action list,
+   carrying the project's own time, type, x and y fields; a record
+   that does not match the declared grammar is rejected with
+   `ENGINE_ERROR: bad act file, error at line <n>` and the program
+   exits"
+
+retained as externally segmented fields, per observation
+  the action's time value
+  its type
+  its x and y
+```
+
+Two mechanisms were examined and are NOT used, recorded so the choice is visible rather than implied:
+
+```text
+SDL_plus.c:145-191, font_descr[]
+  a genuine static registry of glyph keys, zero-terminated, and its
+  membership is mechanically decidable. It fails EN4: the lookup at
+  :201-214 scans for a matching key and, finding none, simply
+  advances the cursor by 12 pixels. A non-member is silently skipped,
+  never rejected -- the same defect as C078's loadLuaFolder.
+
+cfg.c's four configuration keys
+  they do carry project-side rejection, at :50-54. Whether four key
+  names inside a single fscanf format literal constitute a registry
+  for EN3 is the question C075's colour chain raised and this run has
+  not settled, so it is not relied on. The act-file mechanism above
+  needs no such reading.
+```
+
+One limit stated rather than left implicit: no exhaustive enumerator inventory is offered. The union obligation is Section 3.4's, and building it is the inventory stage's work under QA-19.
+Decision: PASS
+
+## EV-C090-OVERALL-01
+Candidate: C090
+All five gates PASS. Eleventh survivor, and the fourth distribution-type PASS after C013, C067 and C074.
+
+`primary_snapshot` is recorded UNRESOLVED, as for every other survivor: the protocol fixes that field at the survivor-stage checkpoint rather than at a gate, and this entry does not pre-empt it. QA-34's observation applies here too -- the designated artifact is bit-identical to the frozen one -- and QA-34 already records why that does not settle the field.
+Decision: ELIGIBLE
+
 ## EV-C089-UR-01
 Candidate: C089 (frame rank 89, games/dangerdeep)
 Gate: UR
