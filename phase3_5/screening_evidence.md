@@ -8982,6 +8982,75 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C088-UR-01
+Candidate: C088 (frame rank 88, games/cubiomes-viewer)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/cubiomes-viewer/Makefile and distinfo
+Observed: V=4.1.2; DISTNAME=cubiomes-viewer-${V}; EXTRACT_SUFX=-src.tar.gz; `SITES = https://github.com/Cubitect/cubiomes-viewer/releases/download/${V}/`; COMMENT="graphical Minecraft seed finder and map viewer"; WRKDIST=${WRKDIR}/cubiomes-viewer; distinfo names cubiomes-viewer-4.1.2-src.tar.gz, SIZE 2447165. There is no HOMEPAGE, no GH_ACCOUNT/GH_PROJECT and no DIST_TUPLE.
+Inference: the frozen fields name one packaged system, Cubiomes Viewer, through a single URL that carries its version and its distfile name. No second system appears, so not UR-AMBIGUOUS; no earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C088-E1-01
+Candidate: C088
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party graphical tool on an upstream account unrelated to this project. The Makefile separately carries a `# GPL v3` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C088-E2REP-01
+Candidate: C088
+Gate: E2-REP
+
+No request was made at this gate, and the reason is the gate's own contract rather than a choice about effort.
+
+The frozen metadata supplies exactly one URL:
+
+```text
+SITES = https://github.com/Cubitect/cubiomes-viewer/releases/download/4.1.2/
+```
+
+and no HOMEPAGE, no `GH_ACCOUNT`/`GH_PROJECT`, and no `DIST_TUPLE`. So navigation step 1 has no target -- there is no project or landing page in the metadata to begin at.
+
+That single URL is inside the class QA-31 closes to this gate. It is the same construction QA-31 was raised on at C045, a code host's release-download path, and QA-31's disposition applies: accounted for under QA-27's third branch, with the prohibition as the named reason, and not requested. Nothing is claimed about what it holds.
+
+What is new here, and is recorded at QA-38 rather than resolved: every earlier candidate meeting that prohibition had another admitted surface to work with. This one has none. The account and project names do appear inside the URL as path components, and whether that makes `https://github.com/Cubitect/cubiomes-viewer` an admitted starting point in its own right is not settled by the seal:
+
+```text
+reading A   the string is in the frozen metadata, so the repository
+            root is admitted -- as the repo path and account were at
+            C018
+
+reading B   C018's identifiers came from a STRUCTURED field whose
+            components are the account and the project. Lifting a
+            repository root out of a distfile URL's prefix reads a
+            location off a URL's shape, which QA-25 refuses and
+            RETRACTION 25 called the worse of two rescues
+```
+
+This entry chooses neither, and offers no rule for what to do when they are undecided. What is recorded is that no request was made -- not to the SITES URL, and not to any repository root derived from it -- while the question was unresolved. RETRACTION 30, at the immediately preceding candidate, is why that restraint is concrete rather than cautious: a request made past an undetermined authorization boundary had to be quarantined there, and its results could do no work.
+
+Adjudication:
+
+```text
+PASS not established
+  no surface was observed, so no designation witness exists. A PASS
+  would require both a reading that admits the repository root and an
+  observation made under it, and neither is on the record lawfully.
+
+FAIL not established
+  every E2-REP code is a statement ABOUT a designated canonical
+  location, and none was established. The sole admitted URL is
+  unobserved because the contract closes it, so its contents are
+  unknown rather than absent -- coding a failure would convert a
+  prohibition into a finding about upstream.
+```
+
+Not claimed: that upstream designates no canonical source location, that the repository exists or does not, or that the distfile is or is not obtainable.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C087-UR-01
 Candidate: C087 (frame rank 87, games/csmash)
 Gate: UR

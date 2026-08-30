@@ -2357,3 +2357,85 @@ are distinguishable in advance. Run 1 cannot supply it.
 gap, QA-30's family, plus an adjudication/inference error at C069 for
 introducing a reading without auditing precedent. Detected by the author
 while screening rank 81.
+
+
+## QA-38 — a candidate whose only admitted URL is inside a forbidden class (RECORDED, no rule made)
+
+Found while screening frame rank 88. QA-31 established that a
+metadata-supplied starting point can fall inside a surface class the
+contract forbids, and disposed of that by accounting for it under
+QA-27's third branch. Every case so far had something else to work with.
+This one does not.
+
+**The shape.** `games/cubiomes-viewer` carries no HOMEPAGE, no
+`GH_ACCOUNT`/`GH_PROJECT`, no `DIST_TUPLE`, and one URL:
+
+```text
+SITES = https://github.com/Cubitect/cubiomes-viewer/releases/download/${V}/
+```
+
+That is QA-31's class exactly -- it is the same construction as C045's,
+the case QA-31 was raised on. So the sole admitted URL is one the
+contract closes, and E2-REP has no observable starting point at all.
+
+**The question the seal does not answer.** The account and project names
+appear inside that URL as path components. Whether they are therefore
+"identifiers found in the frozen OpenBSD metadata", making
+`github.com/Cubitect/cubiomes-viewer` an admitted starting point in its
+own right, is not settled:
+
+```text
+reading A
+  the string is in the metadata, so the repository root is admitted,
+  as the account and repo path were at C018 from a DIST_TUPLE
+
+reading B
+  C018's identifiers came from a STRUCTURED field whose components
+  are the account and the project. Taking a repository root out of a
+  distfile URL's prefix is reading a location off a URL's shape,
+  which QA-25 refuses and which RETRACTION 25 called the worse of
+  two rescues when it was tried on a common parent
+```
+
+**Nothing was requested.** No request was made to the SITES URL or to a
+repository root derived from it, while that question was unresolved.
+That is a record of what happened, not a disposition rule -- the C081
+formulation. RETRACTION 30, one candidate earlier, is what makes the
+restraint concrete: there a request past an undetermined authorization
+boundary had to be quarantined.
+
+**Not claimed:** what either surface holds, or what verdict an
+observation would have supported.
+
+**Bounded scan, with its procedure, because the scope claim is otherwise
+unverifiable.**
+
+```text
+surface   the 128 paths in screening_set_128.txt against the frozen
+          ports tree; per item the port Makefile plus the parent
+          directory's Makefile.inc where one exists
+test      a SITES assignment (=, ?= or +=) whose value contains both
+          github.com and releases; then whether the same files carry a
+          HOMEPAGE or any of GH_ACCOUNT, GH_PROJECT, DIST_TUPLE,
+          MODGO_MODNAME, MODCPAN, CPAN_AUTHOR
+result    8 frame items have such a SITES. 7 also carry a HOMEPAGE or
+          an identifier field -- emulators/advancemame,
+          games/alephone/alephone, games/angband, games/blockgame,
+          games/enigma, games/ezquake, games/fnaify-extralibs.
+          1 carries neither: games/cubiomes-viewer.
+limits    textual, not a `make` evaluation: a value assembled through
+          a variable this pass does not expand, or an include other
+          than the parent Makefile.inc, would be missed
+```
+
+So on that scan this shape occurs once. It is not established that no
+other frame item could reach it through an unexpanded variable.
+
+**What this needs, and where it belongs.** A Run 2 preregistration must
+say whether identifiers embedded in a metadata URL are themselves
+admitted starting points, and what E2-REP does when every admitted URL
+is inside a forbidden class. Run 1 can supply neither.
+
+**Classification, pending the Run 1 coding protocol.** Methodology/design
+gap, QA-30's family, adjacent to QA-31 and QA-35. Detected by the author
+while screening.
