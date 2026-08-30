@@ -8980,6 +8980,87 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C083-UR-01
+Candidate: C083 (frame rank 83, games/crimson)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/crimson/Makefile and distinfo
+Observed: DISTNAME=crimson-0.5.3; HOMEPAGE=http://crimson.seul.org/; SITES=${HOMEPAGE}files/; COMMENT="tactical war game like Battle Isle; multiplayer"; distinfo names crimson-0.5.3.tar.gz, SIZE 1005150.
+Inference: the frozen fields name one packaged system, Crimson Fields, and SITES is expressed relative to HOMEPAGE, so both admitted URLs are on the same upstream host. Not UR-AMBIGUOUS. No earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C083-E1-01
+Candidate: C083
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party tactical war game on an upstream site unrelated to this project. The Makefile separately carries a `# GPLv2` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C083-E2REP-01
+Candidate: C083
+Gate: E2-REP
+
+Both admitted starting points were observed. Neither designates a source location.
+
+Step 1: http://crimson.seul.org/ -- the frozen HOMEPAGE. Requested 2026-08-30T05:48:47Z, 200 after one redirect to https, 2690 bytes, sha256 27c2bc68f446f01ea7b529cd98996c0f0a62d081819f02972775057d05a47ef0. Nine anchors, parsed element-wise:
+
+```text
+gnu.org/copyleft/gpl.html      "GNU General Public License (GPL)"
+dl.openhandhelds.org/...       "Pandora Handheld"
+archives.aros-exec.org/...     "AROS"
+dreamcast.es/...               "Dreamcast"
+anotherguest.se                "version for Symbian phones"
+maemo.org/downloads/...        "Nokia's Maemo"
+iaccarino.de/silvio/...        "ported the game to MacOS X"
+files/NEWS                     "NEWS"   (twice)
+```
+
+No label is Source, Code, Repository or Development, and the words themselves are absent from the document -- a standalone-word count returns `source` 0, `code` 0, `repository` 0, `development` 0, `git` 0, `cvs` 0, `svn` 0, `download` 0, `release` 0. So step 2 has no target under any of QA-35's three readings, and this entry does not depend on which is right: the labels are not the words, the page presents no link as a source location, and no destination is a repository. The exclusion is by observation, not by a reading of the kind RETRACTION 29 had to withdraw at C082.
+
+The page is a description and a news list. Its news items announce releases -- "Crimson Fields 0.5.3 released (NEWS)" -- and link only to `files/NEWS`. The remaining links are third-party ports, each introduced by upstream's own sentence naming its author and platform. There is no download section and no artifact link on this surface.
+
+Step 2 disposition, second starting point: the frozen SITES, `${HOMEPAGE}files/` -> http://crimson.seul.org/files/.
+Necessary because: the gate was unsettled after step 1, and this is the remaining admitted starting point. It is on upstream's own domain, under HOMEPAGE, which is C026's situation and not QA-37's disputed construction -- no forbidden-class question arises, so nothing here turns on that open issue.
+observed_at_utc: 2026-08-30T05:49:10Z; http_status 200 after one redirect to https; 25918 bytes, sha256 c25160e0fa4ab6148783c027c9cf85878c6a59e8b05ed2a2edc01d3661425d77
+
+Observed: an Apache directory index, `Index of /files`, footer "Apache/2.4.68 (Debian) Server at crimson.seul.org Port 443". 116 anchors over 115 table rows, of which 66 are archive-like -- `.tar.gz`, `.tar.bz2`, `-win32.zip`, `-osx.tar.gz`, `.rpm` and others, spanning versions from 0.3.1 upward.
+
+The index's own Description column was checked rather than assumed empty: **0 of 115 rows carry a non-empty Description cell.** So the surface carries nothing beyond index furniture -- Name, Last modified, Size, Description, Parent Directory -- and makes no statement at all.
+
+The frozen distfile is present, alongside three siblings of the same version:
+
+```text
+crimson-0.5.3.tar.gz      crimson-0.5.3.tar.bz2
+crimson-0.5.3-1.i586.rpm  crimson-0.5.3-1.src.rpm
+```
+
+That corroborates the packaging fetch path and nothing more. No role is assigned to any listed name: C026 bars inferring an artifact's source role from a filename, and RETRACTION 21 refused to promote a file area into a source location at C044.
+
+Adjudication:
+
+```text
+PASS not established
+  no designation signal was observed on either admitted surface. The
+  project page names no source location, and a bare directory index
+  designates nothing -- C028's finding, on the same kind of surface.
+
+FAIL not established
+  E2REP-NO-SINGLE-CANONICAL-LOCATION does not apply. It records that
+  upstream designated SEVERAL locations with no primary among them,
+  and upstream designated none here: a listing is not a designation,
+  so the four same-version artifacts are not four competing
+  designations. Reading them as such would be exactly the promotion
+  RETRACTION 21 refused.
+
+  E2REP-NO-SOURCE is separately unavailable: source archives are
+  plainly listed, so source access is not what is missing.
+```
+
+Not claimed: that upstream designates no canonical source location anywhere. Both surfaces the contract admits were observed and neither carries one; that is a finding about these two surfaces, and C017's boundary holds -- not finding a designation is not a demonstration that none exists.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C082-UR-01
 Candidate: C082 (frame rank 82, games/crack-attack)
 Gate: UR
