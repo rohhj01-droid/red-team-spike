@@ -9066,26 +9066,46 @@ The frozen SITES, `https://downloads.sourceforge.net/sourceforge/dangerdeep/`, w
 
 Adjudication:
 
+The adjudication is written per QA-30 branch, because writing it once
+means writing it in one branch's vocabulary. An earlier version did
+that: it said "no designation witness" and "none was established",
+which are true only under the not-designation reading, one paragraph
+after this entry said it chooses neither.
+
 ```text
-PASS not established
-  no designation witness. The step-1 surface's project-authored
-  content names no source location, and the one navigation item that
-  could have led to one returned a challenge instead of a surface.
+under QA-30's DESIGNATION reading
+  the Code item may itself be the designation witness, so the gate
+  does not fail for want of one.
 
-FAIL not established
-  every E2-REP code is a statement ABOUT a designated canonical
-  location, and none was established. Three branches are in three
-  different states and are not summed:
+  PASS is still unavailable: the gate also wants the designated
+  location's source representation observed, and the intended Code
+  resource was not served -- a challenge was. Two further branches
+  are undecided rather than closed: Git, and the frozen SITES.
 
-    Code    a challenge response was served; the intended resource's
-            contents are unknown rather than absent
-    SITES   not requested, QA-37's construction question unresolved
-    Git     not taken; unadmitted under theory 1 and undecided
-            under QA-35's other readings
+  No failure code either. Each is a statement ABOUT a designated
+  location; on this reading one exists, and nothing observed says
+  anything false or absent about it.
 
-  Coding a failure would convert those into a finding about
-  upstream.
+under QA-30's NOT-designation reading
+  the Code item authorises navigation only, and no designation
+  witness was reached -- the step-1 surface's project-authored
+  content names no source location.
+
+  PASS is unavailable for want of a witness. No failure code either:
+  each code is a statement ABOUT a designated location and none was
+  established.
+
+common to both, and not summed -- three branches in three states
+  Code    a challenge response was served; the intended resource's
+          contents are unknown rather than absent
+  SITES   not requested, QA-37's construction question unresolved
+  Git     not taken; unadmitted under theory 1 and undecided under
+          QA-35's other readings
 ```
+
+So neither reading reaches PASS and neither reaches a failure code. The
+outcome is the same on both, which is why this entry can leave QA-30
+open without the verdict resting on the choice.
 
 Provenance limit, as at C080, C083, C084, C085 and C087: the repository carries the response digests and these transcriptions, not the response bytes, so the anchor and navigation transcriptions and the word counts in the 403 body rest on the session record.
 
