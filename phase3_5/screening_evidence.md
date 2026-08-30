@@ -9234,10 +9234,8 @@ conversions only, whitespace-tolerant as scanf is:
                                    220
 
 rows matching the five-field shape -- the same, plus a non-empty
-trailing field standing for the loader's %32[^
-]:
-  ...\)\s*[^
-]{1,32}$        220
+trailing field standing for the loader's %32[^\n]:
+  ...\)\s*[^\r\n]{1,32}$        220
 
 rows whose trailing field is empty   0
 longest trailing field               13 characters
@@ -9257,8 +9255,23 @@ decimal five-field records this particular file contains, and the
 trailing-length figure is why the 32-character bound is not reached
 here.
 
-The expressions are given in the form actually run. An earlier version of
-this entry printed it with literal spaces around the dash, the
+The expressions are given in the form actually run.
+
+RECORDING ERROR, repaired and recorded rather than quietly fixed. The
+commit that first added this block wrote them through a non-raw Python
+string, so `\n` and `\r` were materialised into real control
+characters: the committed file carried `%32[^` and `]` split across a
+line, and `[^` followed by CR CR LF. The same write also converted the
+whole file from LF to CRLF and left one isolated CR. So the artifact
+did not contain, on one line, the expressions the surrounding sentence
+claimed had been run -- the same class of defect as recording a
+procedure that does not reproduce its own count. The file is normalised
+back to LF here and the two expressions restored as literal text; the
+measured counts were unaffected and are unchanged.
+
+A SEPARATE earlier defect in the same block, kept distinct from the one
+above because they have different causes. The first version of this
+measurement printed its expression with literal spaces around the dash, the
 parenthesis and the comma -- `^-?\d+ - -?\d+ \( -?\d+ , -?\d+ \)` --
 and that expression matches 0 of the 220 rows, because the data has no
 spaces inside `(6,1)` and at least one row reads `45- 7 (230,-32) .`
