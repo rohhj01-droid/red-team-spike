@@ -8982,6 +8982,84 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C089-UR-01
+Candidate: C089 (frame rank 89, games/dangerdeep)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/dangerdeep/Makefile and distinfo
+Observed: PKGNAME=dangerdeep-0.3.99.3327; HOMEPAGE=https://dangerdeep.sourceforge.net/; SITES=${SITE_SOURCEFORGE:=dangerdeep/}; COMMENT="WWII German submarine simulator"; WRKDIST=${WRKDIR}/dangerdeep-0.4.0_pre3327. There is no DISTNAME; two DISTFILES are named, and distinfo lists both:
+
+```text
+dangerdeep-0.4.0_pre3327.tar.gz            SIZE 899924
+dangerdeep-data-0.4.0_pre3327.zip          SIZE 198099252
+```
+
+`SITE_SOURCEFORGE` resolves in the same frozen tree at infrastructure/db/network.conf:68-69, so SITES is `https://downloads.sourceforge.net/sourceforge/dangerdeep/`.
+
+Inference: the frozen fields name one packaged system, Danger from the Deep, with a per-project site and a code-host project of the same short name -- "several facts about one system", so not UR-AMBIGUOUS. The two DISTFILES are two artifacts of that one system, split by the port itself into code and data, which the separate licence comment lines also mark; they are not two systems. No earlier candidate resolved to it, so not a duplicate.
+Decision: PASS
+
+## EV-C089-E1-01
+Candidate: C089
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party simulator on an upstream site unrelated to this project. The Makefile separately carries three licence marker lines above `PERMIT_PACKAGE = Yes` -- `# Code GPLv2+`, `# Graphics CC BY-NC-ND 2.5`, `# Music CC BY-NC-ND 2.0`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C089-E2REP-01
+Candidate: C089
+Gate: E2-REP
+
+Step 1: the frozen HOMEPAGE.
+requested_url: https://dangerdeep.sourceforge.net/
+final_url: https://sourceforge.net/projects/dangerdeep/
+observed_at_utc: 2026-08-30T08:25:15Z; http_status 200; redirect_chain: 1 redirect; 135872 bytes, sha256 f53ce97c41f828ad871db6080b09fa390c6120a6305ed2c819c9116689802d74
+
+Recorded exactly, in C046's words because this is C046's topology: the frozen per-project host answered with a redirect, and what was served is the SourceForge project page. No inference is drawn about why, or about what that host held before. The surface observed is the one the admitted URL actually returned.
+
+Project-authored content on that surface: the title "Danger from the Deep", the tagline "WW2 U-boat simulation", `Status: Alpha`, three maintainer profiles, and a Web Site field pointing at `http://dangerdeep.sourceforge.net` -- back at the frozen URL that redirected here, naming no further surface. None of it designates a source location.
+
+Project navigation exposed: Summary, Files, Reviews, Support, Mailing Lists, Tickets (Features not implemented yet, Bugs, Support Requests, Patches, Feature Requests), Discussion, **Code**, **Git**. C046's equivalent surface had no Code item; this one does, which is the difference between that candidate and this.
+
+Step 2: the anchor labelled `Code` -> /p/dangerdeep/code/. Its label is one of the contract's four words verbatim, so the navigation is authorized under QA-35's theory 1, the narrowest of the three readings, and no broader one is relied on. The `Git` link was NOT taken: "Git" is not one of the four words, and RETRACTION 29 is the reason a near-word is not stretched into one.
+
+Kept apart, because RETRACTION 30 turned on exactly this distinction: that `Code` item authorizes NAVIGATION and is not itself upstream designating a canonical source location. It is the hub's standard project navigation, not a sentence or label the project authored -- C007's finding that a generic project hub is not a repository root, and QA-22's that arriving somewhere is not being designated there.
+
+What step 2 returned:
+observed_at_utc: 2026-08-30T08:26:37Z (GET), 08:26:51Z (HEAD)
+http_status: 403, 403; redirect_chain: NONE; 5588 bytes, sha256 65cd14699bba9b5475d789292eaaf295a3afc792224627d9605392a4a9e2b9b2
+control: https://sourceforge.net/projects/dangerdeep/ -> 200 at the same moment
+
+The 403 body is not a plain refusal. It is titled "Just a moment...", contains `challenge` 8 times and `robot` twice, and carries no captcha element -- a bot-detection interstitial rather than a statement about the resource.
+
+**It was not bypassed, and no attempt was made to bypass it.** That is an absolute constraint on this work rather than a screening judgement, and it is recorded so the gap has a stated cause. As at C080, what follows is narrow: transport completed and the server answered definitely, so this is not the timeout / DNS / refused / 5xx family. Two paths on this host were observed at the same moment, one answering 403-with-challenge and one 200; nothing wider than that is claimed about the host.
+
+So the code surface was not observed, and nothing is claimed about what it holds -- whether a repository is there, what it contains, or whether it is designated.
+
+The frozen SITES, `https://downloads.sourceforge.net/sourceforge/dangerdeep/`, was not requested. As at C081 and C087, no rule is offered for that: the fact recorded is that no request was made while QA-37's question about that construction was unresolved.
+
+Adjudication:
+
+```text
+PASS not established
+  no designation witness. The step-1 surface's project-authored
+  content names no source location, and the one navigation item that
+  could have led to one returned a challenge instead of a surface.
+
+FAIL not established
+  every E2-REP code is a statement ABOUT a designated canonical
+  location, and none was established. The code surface's contents are
+  unknown rather than absent, and the SITES branch was closed by an
+  unresolved question rather than by observation. Coding a failure
+  would convert two prevented observations into a finding about
+  upstream.
+```
+
+Provenance limit, as at C080, C083, C084, C085 and C087: the repository carries the response digests and these transcriptions, not the response bytes, so the anchor and navigation transcriptions and the word counts in the 403 body rest on the session record.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C088-UR-01
 Candidate: C088 (frame rank 88, games/cubiomes-viewer)
 Gate: UR
