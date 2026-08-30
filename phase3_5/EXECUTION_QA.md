@@ -2471,3 +2471,86 @@ restated here.
 **Classification, pending the Run 1 coding protocol.** Methodology/design
 gap, QA-30's family, adjacent to QA-31 and QA-35. Detected by the author
 while screening.
+
+
+## QA-39 — six entries said "no HOMEPAGE" where the frozen infrastructure defaults one (RECORDED, wording corrected, no verdict moved)
+
+Found while screening frame rank 92, whose port also sets no HOMEPAGE.
+
+**What the frozen tree does.** Two infrastructure files supply a HOMEPAGE
+when the port does not:
+
+```text
+infrastructure/mk/bsd.port.mk:1280,1295
+  .if !empty(GH_ACCOUNT) && !empty(GH_PROJECT)
+  ...
+  HOMEPAGE ?= https://github.com/${GH_ACCOUNT}/${GH_PROJECT}
+
+infrastructure/mk/dist-tuple.port.mk:42-43
+  TEMPLATE_HOMEPAGE.${_template} ?= ${TEMPLATE_HOMEPAGE}
+  HOMEPAGE ?= ${TEMPLATE_HOMEPAGE.${_template}:${_subst}}
+infrastructure/db/dist-tuple.pattern
+  TEMPLATE_HOMEPAGE ?= <site><account>/<project>
+  SITES.github ?= https://github.com/
+```
+
+So a port carrying `GH_ACCOUNT`/`GH_PROJECT`, or a github `DIST_TUPLE`,
+has a HOMEPAGE in the resolved metadata even when its Makefile has no
+such line.
+
+**Why that matters to this run rather than being a triviality.** This
+run has treated infrastructure-resolved values as frozen metadata
+throughout -- `SITE_SOURCEFORGE` at C069, C077, C081, C087 and others,
+`SITE_PERL_CPAN` and `cpan.port.mk` at C080, `SITE_SAVANNAH` at C082,
+`SITES_GITHUB` at rank 92. Reading a defaulted HOMEPAGE differently from
+a defaulted SITES would be inconsistent, and nothing in the seal
+distinguishes them.
+
+**The six affected entries and what each said.**
+
+```text
+C017  "There is no HOMEPAGE field and no SITES field"     GH_*
+C018  "The metadata names no HOMEPAGE and no SITES"       DIST_TUPLE
+C032  "there is no HOMEPAGE and no SITES"                 GH_*
+C050  "There is no HOMEPAGE and no SITES"                 GH_*
+C057  "There is no HOMEPAGE and no SITES"                 GH_*
+C071  "The frozen metadata names no HOMEPAGE and no SITES" DIST_TUPLE
+```
+
+Each is true of the port Makefile and not of the resolved metadata. The
+wording is corrected in place in all six, with the original recorded.
+
+**No verdict moves, and the reason is structural rather than lucky.** In
+every one of the six the defaulted HOMEPAGE is exactly the repository URL
+the GH pair or the tuple already resolves to. So the correction does not
+add a surface; it renames the topology. "Step 1 has no target" becomes
+"step 1 and step 3 are the same surface" -- the C010/C012/C017 shape,
+which QA-22 settled yields affiliation rather than designation, and all
+six are already UNRESOLVED at E2-REP on exactly that ground.
+
+```text
+C017 C018 C032 C050 C057 C071   all UNRESOLVED, all stop_gate E2-REP
+```
+
+**Bounded scan, with its procedure.**
+
+```text
+surface   every entry in screening_evidence.md containing the string
+          "no HOMEPAGE", cross-checked against the frozen port
+          Makefile for GH_ACCOUNT / GH_PROJECT / DIST_TUPLE and for an
+          explicit HOMEPAGE line
+result    10 entries mention "no HOMEPAGE"; 6 belong to ports that
+          carry GH_* or a github DIST_TUPLE and set no HOMEPAGE, so
+          the default applies to them. The other 4 -- C030 angrydd,
+          C035 atomix, C037 bass, C088 cubiomes-viewer -- carry
+          neither, so no default fires and their wording stands.
+limits    textual over the evidence file and the port Makefiles, not
+          a `make` evaluation; a HOMEPAGE arriving through some other
+          module this pass does not read would be missed.
+```
+
+**Classification, pending the Run 1 coding protocol.** Evidence/recording
+error repeated across six entries, with an adjudication component: the
+run resolved defaulted SITES from the infrastructure while reading
+HOMEPAGE only off the Makefile, and did not notice the asymmetry until a
+port made it visible. Detected by the author while screening rank 92.

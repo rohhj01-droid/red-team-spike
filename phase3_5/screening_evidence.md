@@ -2068,6 +2068,8 @@ Candidate: C017 (frame rank 17, games/2048-cli)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/2048-cli/Makefile
 Observed: GH_ACCOUNT=tiehuis; GH_PROJECT=2048-cli; GH_TAGNAME=v0.9.1; COMMENT="terminal version of the 2048 sliding block puzzle game". There is no HOMEPAGE field and no SITES field.
+
+Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `bsd.port.mk:1280,1295` defaults HOMEPAGE from GH_ACCOUNT/GH_PROJECT, so `https://github.com/tiehuis/2048-cli` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged.
 Inference: every field names one packaged system, 2048-cli. Not UR-AMBIGUOUS.
 Decision: PASS
 
@@ -2379,7 +2381,9 @@ depends on a surface the contract does not reach.
 Candidate: C018 (frame rank 18, games/2048-qt)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/2048-qt/Makefile
-Observed: DIST_TUPLE = github OpenOrphanage 2048-Qt v0.1.7 . ; COMMENT="2048 game in Qt"; PKGNAME=${DISTNAME:L}. There is no HOMEPAGE field and no SITES field. The Makefile also carries a COMMENTED-OUT line naming a different upstream, "#DIST_TUPLE = github keshavbhatt 2048-qt 3.0 .", under the note "# different port using WebKit, needing W^X...".
+Observed: DIST_TUPLE = github OpenOrphanage 2048-Qt v0.1.7 . ; COMMENT="2048 game in Qt"; PKGNAME=${DISTNAME:L}. There is no HOMEPAGE field and no SITES field.
+
+Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `dist-tuple.port.mk:42-43` with `dist-tuple.pattern`'s `TEMPLATE_HOMEPAGE ?= <site><account>/<project>` defaults HOMEPAGE from the tuple, so `https://github.com/OpenOrphanage/2048-Qt` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged. The Makefile also carries a COMMENTED-OUT line naming a different upstream, "#DIST_TUPLE = github keshavbhatt 2048-qt 3.0 .", under the note "# different port using WebKit, needing W^X...".
 
 Inference: the port packages one system, OpenOrphanage/2048-Qt. The commented line names a system the port explicitly does NOT package -- it records an alternative the maintainer considered and disabled, and a disabled line is not metadata in effect. Recording it here because it names a second system and a reader of the Makefile will see it, not because it creates ambiguity. Not UR-AMBIGUOUS.
 Decision: PASS
@@ -4096,6 +4100,8 @@ Candidate: C032 (frame rank 32, games/arx-libertatis)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/arx-libertatis/Makefile
 Observed: GH_ACCOUNT=arx; GH_PROJECT=ArxLibertatis; GH_TAGNAME=1.2.1; PKGNAME=arx-libertatis-${GH_TAGNAME}; COMMENT="cross-platform port of Arx Fatalis, a first-person RPG". There is no HOMEPAGE and no SITES.
+
+Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `bsd.port.mk:1280,1295` defaults HOMEPAGE from GH_ACCOUNT/GH_PROJECT, so `https://github.com/arx/ArxLibertatis` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged.
 Inference: the frozen fields name one system, Arx Libertatis. "Arx Fatalis" names the game this ports, not a second packaged system, in the same way flycast's "based on reicast" did. Not UR-AMBIGUOUS.
 Decision: PASS
 
@@ -6112,6 +6118,8 @@ Candidate: C050 (frame rank 50, games/braincurses)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/braincurses/Makefile
 Observed: GH_ACCOUNT=bderrly; GH_PROJECT=braincurses; GH_TAGNAME=v1.1.0; COMMENT="clone of the Mastermind game". There is no HOMEPAGE and no SITES.
+
+Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `bsd.port.mk:1280,1295` defaults HOMEPAGE from GH_ACCOUNT/GH_PROJECT, so `https://github.com/bderrly/braincurses` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged.
 Inference: the frozen fields name one packaged system, braincurses. "clone of the Mastermind game" describes what it imitates, not a second packaged system -- the reading applied at C013, C023, C046 and C048. Not UR-AMBIGUOUS.
 Decision: PASS
 
@@ -6904,6 +6912,8 @@ Candidate: C057 (frame rank 57, games/candycrisis)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/candycrisis/Makefile
 Observed: GH_ACCOUNT=jorio; GH_PROJECT=CandyCrisis; GH_TAGNAME=v3.0.1; PKGNAME=${DISTNAME:L}; COMMENT="open source clone of Puyo Puyo series". There is no HOMEPAGE and no SITES.
+
+Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `bsd.port.mk:1280,1295` defaults HOMEPAGE from GH_ACCOUNT/GH_PROJECT, so `https://github.com/jorio/CandyCrisis` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged.
 Inference: the frozen fields name one packaged system, Candy Crisis. "clone of Puyo Puyo series" describes what it imitates, not a second packaged system -- the reading applied at C013, C023, C046, C048 and C050. Not UR-AMBIGUOUS.
 Decision: PASS
 
@@ -12315,6 +12325,8 @@ Candidate: C071 (frame rank 71, games/classicube)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/classicube/Makefile and distinfo
 Observed: `DIST_TUPLE += github ClassiCube ClassiCube ${V}` with V=1.3.8; PKGNAME=classicube-${V}; COMMENT="classic Minecraft client written in C"; distinfo names ClassiCube-ClassiCube-1.3.8.tar.gz. There is no HOMEPAGE field and no SITES field.
+
+Correction, per QA-39: that sentence is true of the port Makefile and not of the resolved metadata. `dist-tuple.port.mk:42-43` with `dist-tuple.pattern`'s `TEMPLATE_HOMEPAGE ?= <site><account>/<project>` defaults HOMEPAGE from the tuple, so `https://github.com/ClassiCube/ClassiCube` is a HOMEPAGE in the frozen metadata -- and this run reads infrastructure-resolved values as frozen metadata elsewhere (SITE_SOURCEFORGE, SITE_PERL_CPAN, SITE_SAVANNAH). The effect is topological, not additive: it is the same location the identifiers already resolve to, so step 1 and step 3 coincide -- the C010/C012/C017 shape QA-22 settled yields affiliation, not designation. This entry's verdict is unchanged.
 Inference: the frozen fields name one packaged system through one account/project pair on one code host. No second system appears, so not UR-AMBIGUOUS; no earlier candidate resolved to it, so not a duplicate. This is C017's and C018's metadata shape -- a packaging fetch identifier and nothing else.
 Decision: PASS
 
