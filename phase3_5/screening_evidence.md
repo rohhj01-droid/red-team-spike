@@ -4987,7 +4987,9 @@ Decision: PASS
 Candidate: C042
 Gate: E2-REP
 
-Per QA-27, every admitted starting point the frozen metadata supplies is accounted for: the HOMEPAGE, the jorio/BillyFrontier identifiers, and the jorio/Pomme identifiers.
+Per QA-27, every URL and identifier the frozen metadata supplies is accounted for: the HOMEPAGE and the jorio/BillyFrontier identifiers, which are admitted starting points, and the jorio/Pomme identifiers, which are not.
+
+Corrected wording, recorded rather than replaced silently. This line first called the Pomme identifiers admitted starting points. They are accounted for, and they were never opened, so nothing in this entry's execution changes; but the sealed clause admits only "the URLs and identifiers found in the frozen OpenBSD metadata that UR ALREADY RESOLVED TO ONE SYSTEM", and UR resolved Pomme to a different system. The same wording is corrected at C053, C054 and C085, where the shape recurs.
 
 Surface 1: the frozen HOMEPAGE.
 requested_url: https://pangeasoft.net/billy ; final_url: https://pangeasoft.net/billy/
@@ -6416,7 +6418,7 @@ Decision: PASS
 Candidate: C053
 Gate: E2-REP
 
-Per QA-27 every admitted starting point is accounted for: the HOMEPAGE, the jorio/Bugdom identifiers, and the jorio/Pomme identifiers.
+Per QA-27 every URL and identifier the frozen metadata supplies is accounted for: the HOMEPAGE and the jorio/Bugdom identifiers, which are admitted starting points, and the jorio/Pomme identifiers, which are not -- the sealed clause admits only identifiers UR resolved to the packaged system, and UR resolved Pomme to a different one. This line first called them admitted; the correction is the same one made at C042, C054 and C085, and changes nothing in this entry's execution, since Pomme was never opened.
 
 Surface 1: the frozen HOMEPAGE.
 requested_url: https://pangeasoft.net/bug ; final_url: https://pangeasoft.net/bug/
@@ -6513,7 +6515,7 @@ Decision: PASS
 Candidate: C054
 Gate: E2-REP
 
-Per QA-27 every admitted starting point is accounted for: the HOMEPAGE, the jorio/Bugdom2 identifiers, and the jorio/Pomme identifiers.
+Per QA-27 every URL and identifier the frozen metadata supplies is accounted for: the HOMEPAGE and the jorio/Bugdom2 identifiers, which are admitted starting points, and the jorio/Pomme identifiers, which are not -- the sealed clause admits only identifiers UR resolved to the packaged system, and UR resolved Pomme to a different one. This line first called them admitted; the correction is the same one made at C042, C053 and C085, and changes nothing in this entry's execution, since Pomme was never opened.
 
 Surface 1: the frozen HOMEPAGE.
 requested_url: https://pangeasoft.net/bug2 ; final_url: https://pangeasoft.net/bug2/
@@ -8994,7 +8996,9 @@ DIST_TUPLE += github jorio Pomme ef94150e2dcec522e3099f4d03a4e8f2639f7232
 
 distinfo lists both artifacts: jorio-CroMagRally-3.0.1.tar.gz, SIZE 143630062, and jorio-Pomme-ef94150e...tar.gz, SIZE 152738.
 
-Inference: the frozen fields name one packaged system, Cro-Mag Rally. The second tuple is not a second packaged system and does not make this UR-AMBIGUOUS: the metadata's own structure files it with a destination subdirectory, `extern/Pomme`, so the port itself declares it as vendored INTO the first rather than packaged alongside it. That is the C072 disposition applied to a tuple instead of a module list -- and, as there, those identifiers are NOT admitted starting points for this candidate, because the contract admits only identifiers UR resolved to the packaged system.
+Inference: the frozen fields name one packaged system, Cro-Mag Rally. The second tuple is not a second packaged system and does not make this UR-AMBIGUOUS: the metadata's own structure files it with a destination subdirectory, `extern/Pomme`, so the port itself declares it as vendored INTO the first rather than packaged alongside it. Those identifiers are NOT admitted starting points for this candidate, because the contract admits only identifiers UR resolved to the packaged system -- the C072 disposition, applied to a tuple instead of a module list.
+
+The direct precedents are nearer than C072, and they are named because their wording differs from this one's. C042 (Billy Frontier), C053 (Bugdom) and C054 (Bugdom 2) are the same porter, the same two-tuple shape with `extern/Pomme` as the second destination, and the same split licence line. All three reached the same practical result -- Pomme accounted for and never opened -- while describing the identifiers as admitted starting points. That wording is corrected in each of them alongside this entry; the sealed clause admits only what UR resolved to the packaged system, and UR resolved Pomme to a different one.
 
 Recorded because it bears on E2-REP below and is easy to mistake for ambiguity: HOMEPAGE names a site belonging to the original game's publisher, while the tuple names a repository under a different account. The protocol settles that shape -- a HOMEPAGE at a website beside a code-host repository is "several facts about one system" -- so UR resolves. Whether that site designates that repository is a separate question, answered below rather than assumed here.
 Decision: PASS
@@ -9013,7 +9017,7 @@ Gate: E2-REP
 
 Both admitted surfaces for the packaged system were observed. Neither designates a source location.
 
-Step 1: https://pangeasoft.net/cromag -- the frozen HOMEPAGE. Requested 2026-08-30T06:40:15Z, 200 after one redirect to the trailing-slash form, 12318 bytes, sha256 c96e3271650ad1229477fab8db0ee99382a49ac35c997157ca2dddd7e541ecc9. Fourteen anchors, parsed element-wise; ten carry no anchor text at all, being image navigation:
+Step 1: https://pangeasoft.net/cromag -- the frozen HOMEPAGE. Requested 2026-08-30T06:40:15Z, 200 after one redirect to the trailing-slash form, 12318 bytes, sha256 c96e3271650ad1229477fab8db0ee99382a49ac35c997157ca2dddd7e541ecc9. Fourteen anchors, parsed element-wise. Thirteen carry no anchor text at all, being image navigation, and exactly one is labelled:
 
 ```text
 ../index.html  ../macGames.html  ../iphone/index.html  ../pano/index.html
@@ -9023,6 +9027,14 @@ info.html      demo.html         support.html   screenshots.html
                                                         (no anchor text)
 ../iphone/cromag/index.html      "Click here for the iPhone version"
 ```
+
+The count is corrected here rather than left to be caught later. An
+earlier version of this entry said "ten carry no anchor text", which
+disagreed with its own transcription table -- 9 + 4 unlabelled entries
+against 1 labelled. Recounting from the preserved response, sha256
+c96e3271...ecc9, gives 14 anchors: 13 with an empty label, 1 with the
+iPhone-version text. The transcription was right and the sentence was
+wrong; the figure in 306a22c's commit message is superseded too.
 
 No label is Source, Code, Repository or Development, and the words are absent from the document: standalone-word counts return `source` 0, `code` 0, `repository` 0, `development` 0, `git` 0, `github` 0, `download` 0. So step 2 has no target under any of QA-35's three readings, and this entry does not depend on which is right.
 
