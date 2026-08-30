@@ -9036,8 +9036,23 @@ code / repository / git                                          0
 ```
 
 ```text
-theory 1, the label reading
-  no anchor carries one of the four words. No step-2 target.
+theory 1, the label reading -- and it is NOT closed either
+  On anchor TEXT, no anchor carries one of the four words. But the
+  one image-only anchor on the page, href http://www.opensource.org/,
+  has alt="[OSI Certified Open Source Software - GPL]", which carries
+  the token `Source`. Whether a link's sealed "label" is its text or
+  includes an image link's accessible name is not something the seal
+  settles, and this entry does not settle it.
+
+  It does not need to. That anchor was not followed and it is not a
+  designation candidate on any reading: its destination is
+  opensource.org, and nothing observed presents it as a location of
+  Defendguin's source. It is an OSI/GPL badge. So theory 1 leaves an
+  undetermined label question open and no step-2 target either way.
+
+  An earlier version of this block wrote "no anchor carries one of
+  the four words" while the paragraph above it recorded that very
+  alt text. Withdrawn.
 
 theory 2, the page supplying the role
   the two headings above DO carry contract words, and each stands
@@ -9054,9 +9069,23 @@ theory 3, the destination reading
   destination actually is.
 ```
 
-`/defendguin/download/` was not followed under any of them: `download` is not one of the four words, QA-17 settled that a criterion's wording cannot widen the contract, and as corrected at C069 a non-whitelisted link is OUTSIDE the search rather than unobserved within it -- it contributes neither evidence nor uncertainty.
+`/defendguin/download/` was not followed, and the reason differs by reading rather than resting on the label rule alone, as an earlier version had it:
 
-Neither `source` occurrence names a location, so no designation was observed on this surface.
+```text
+theory 1   `download` is not one of the four words. QA-17 settled
+           that a criterion's wording cannot widen the contract, and
+           as corrected at C069 a non-whitelisted link is OUTSIDE the
+           search rather than unobserved within it -- contributing
+           neither evidence nor uncertainty.
+
+theory 2   the link sits under no contract-word heading, so even the
+           broader reading supplies it no role.
+
+theory 3   its destination was not observed and no claim is made
+           about what it is.
+```
+
+Neither `source` occurrence names a location, so no designation was observed on this surface. What remains open on this surface is not a designation but a permission: whether the two contract-word headings confer step-2 access to the links beneath them, and whether an image link's alt counts as its label.
 
 Step 2 disposition, second starting point: the frozen SITES, `ftp://ftp.tuxpaint.org/unix/x/defendguin/src/`.
 Necessary because: the gate was unsettled after step 1, and this is the remaining admitted starting point. It names no class the contract forbids -- it is a directory on a different host from the HOMEPAGE, not a code host's release-asset area, so QA-31 does not arise, and it is not the `downloads.sourceforge.net` construction QA-37 records as disputed. An earlier version called it "a distfile directory on a project host"; nothing observed establishes that `ftp.tuxpaint.org` is this system's project host, and asserting it would contradict the UR paragraph above, which declines to infer any relationship between the two hosts. That is C026's lesson applied as at C028 and C083.
@@ -9087,6 +9116,15 @@ PASS not established
   no designation signal on either admitted surface. The project page
   names no source location, and a bare directory listing designates
   nothing -- C028's finding, on the same kind of surface, and C083's.
+
+  And the search behind that is not closed on every reading. Under
+  theory 2 the links beneath the two contract-word headings -- 29
+  platform pages and two other products -- were not observed, and
+  whether those headings admit them is QA-35's open question; under
+  the label question above, whether an image link's alt counts is
+  likewise unsettled. So this is not a completed bounded search of
+  the kind SCREENING_PROTOCOL.md:242-251 lets an absence-shaped code
+  rest on.
 
 FAIL not established
   E2REP-NO-SINGLE-CANONICAL-LOCATION does not apply: it records that
