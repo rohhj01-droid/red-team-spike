@@ -8982,6 +8982,106 @@ Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The gates were read at commit 55974b0a on `dev`, the frozen metadata pins COMMIT=f11082f6, and no observation fixes where the designated ref pointed at the sealed instant. The three inventory fields are consequently NOT_REACHED.
 
+## EV-C091-UR-01
+Candidate: C091 (frame rank 91, games/defendguin)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/defendguin/Makefile and distinfo
+Observed: DISTNAME=defendguin-0.0.13; HOMEPAGE=http://www.newbreedsoftware.com/defendguin/; SITES=ftp://ftp.tuxpaint.org/unix/x/defendguin/src/; COMMENT="clone of arcade game 'Defender' with a Linux theme"; distinfo names defendguin-0.0.13.tar.gz, SHA256 (base64) 1VJlPXG6OWJz1XbMHH60x7o6BhhngrYl46e23RvOWoE=, SIZE 10355991.
+Inference: the frozen fields name one packaged system, Defendguin. The two admitted URLs are on different hosts, which is the shape the protocol settles explicitly -- a HOMEPAGE at a project website beside a distfile location elsewhere is "several facts about one system". Not UR-AMBIGUOUS, and no earlier candidate resolved to it, so not a duplicate. Nothing is inferred here about the relationship between the two hosts.
+Decision: PASS
+
+## EV-C091-E1-01
+Candidate: C091
+Gate: E1
+Source: same frozen metadata
+Observed: a third-party arcade clone on an upstream site unrelated to this project. The Makefile separately carries a `# GPLv2` marker line above `PERMIT_PACKAGE = Yes`; recorded as seen, not used.
+Inference: external-authorship requirement satisfied from the frozen metadata alone.
+Decision: PASS
+
+## EV-C091-E2REP-01
+Candidate: C091
+Gate: E2-REP
+
+Both admitted starting points were observed. Neither designates a source location.
+
+Step 1: http://www.newbreedsoftware.com/defendguin/ -- the frozen HOMEPAGE. Requested 2026-08-30T14:27:17Z, 200 after two redirects to `https://newbreedsoftware.com/defendguin/`, 11711 bytes, sha256 54818354d99b6f0639510ef28209acbce056e5a7ad4af3dbd49d15b3abcc4ced. 80 anchors, parsed element-wise, one with an empty label.
+
+Most are the vendor's site-wide navigation -- platform lists and a catalogue of the author's other programs. The candidate's own sub-navigation is six items:
+
+```text
+/defendguin/               "about"
+/defendguin/features/      "features"
+/defendguin/screenshots/   "screenshots"
+/defendguin/reviews/       "reviews"
+/defendguin/requirements/  "requirements"
+/defendguin/download/      "download"
+```
+
+No anchor label is Source, Code, Repository or Development, so step 2 has no target under any of QA-35's three readings and this entry does not depend on which is right. `/defendguin/download/` was not followed: `download` is not one of the four words, QA-17 settled that a criterion's wording cannot widen the contract, and as corrected at C069 a non-whitelisted link is OUTSIDE the search rather than unobserved within it -- it contributes neither evidence nor uncertainty.
+
+The four contract words were counted rather than eyeballed, and where they occur they are site furniture:
+
+```text
+source       2, both in the vendor's page frame -- the banner
+             "Open Source Software for:" and a line near
+             "Licenced under the GPL"
+development  1, the navigation heading "Our Software For Development:"
+code / repository / git                                            0
+```
+
+Neither occurrence names a location, so the page designates none.
+
+Step 2 disposition, second starting point: the frozen SITES, `ftp://ftp.tuxpaint.org/unix/x/defendguin/src/`.
+Necessary because: the gate was unsettled after step 1, and this is the remaining admitted starting point. It names no class the contract forbids -- it is a distfile directory on a project host, not a code host's release-asset area, so QA-31 does not arise, and it is not the `downloads.sourceforge.net` construction QA-37 records as disputed. That is C026's lesson applied as at C028 and C083.
+observed_at_utc: 2026-08-30T14:27:52Z; FTP reply 226; 562 bytes, sha256 242df8344fa9f3750f3f18fc636e17341cbc85cb12cea692e16584a8487ad312
+
+Observed: a bare FTP directory listing, seven entries -- one directory and six files -- in standard `ls -l` columns. Checked rather than assumed: no line carries any text beyond those columns, so the surface makes no statement at all.
+
+```text
+d ... 4096      Jun 28  2023  beta
+- ... 2174785   Mar 13  2004  defendguin-0.0.10-pt_BR.tar.gz
+- ... 2299261   Aug 18  2003  defendguin-0.0.10.tar.gz
+- ... 2233817   Jan 29  2006  defendguin-0.0.11.tar.gz
+- ... 2235694   Nov 05  2009  defendguin-0.0.12.tar.gz
+- ... 10355991  Jun 28  2023  defendguin-0.0.13.tar.gz
+- ... 2284952   Aug 18  2003  defendguin-0.0.2b.beos.zip
+```
+
+For each listed artifact the surface exposes a filename plus generic FTP metadata -- permissions, owner, size and date. None of those fields establishes a source role or any contents; that is C026's bar and RETRACTION 21's restraint, and it is the wording C083 had to be corrected into.
+
+One entry's size, 10355991, equals the frozen SIZE for `defendguin-0.0.13.tar.gz`. That corroborates the packaging fetch path and nothing more -- QA-22 settled that a fetch path is not upstream designation. No artifact was retrieved and no role is assigned to any name.
+
+The `beta` subdirectory was not opened. Listing the admitted directory discharges QA-27's obligation for that starting point; descending into a child of it is a step the navigation ladder does not provide. Nothing is claimed about its contents.
+
+Adjudication:
+
+```text
+PASS not established
+  no designation signal on either admitted surface. The project page
+  names no source location, and a bare directory listing designates
+  nothing -- C028's finding, on the same kind of surface, and C083's.
+
+FAIL not established
+  E2REP-NO-SINGLE-CANONICAL-LOCATION does not apply: it records that
+  upstream designated SEVERAL locations with no primary among them,
+  and upstream designated none here, so six same-project filenames
+  are not six competing designations.
+
+  E2REP-NO-SOURCE does not apply either. The listing exposes
+  filenames and generic FTP metadata; those establish neither a
+  source role nor any contents, and the observed surfaces equally do
+  not establish that access to an actual source representation is
+  absent. The code needs that positive evidence and this run does
+  not have it.
+```
+
+Not claimed: that upstream designates no canonical source location anywhere. Both surfaces the contract admits were observed and neither carries one; that is a finding about these two surfaces, and C017's boundary holds.
+
+Provenance limit, as at C080, C083, C084, C085, C087, C089 and C090: the repository carries the response digests and these transcriptions, not the response bytes. So the 80-anchor count, the word tallies, and the FTP listing's column structure cannot be reproduced from this repository and rest on the session record.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
 ## EV-C090-UR-01
 Candidate: C090 (frame rank 90, games/dd2)
 Gate: UR
