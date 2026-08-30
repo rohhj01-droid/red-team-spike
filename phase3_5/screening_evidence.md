@@ -9233,9 +9233,10 @@ conversions only, whitespace-tolerant as scanf is:
   ^\s*-?\d+\s*-\s*-?\d+\s*\(\s*-?\d+\s*,\s*-?\d+\s*\)
                                    220
 
-rows matching the five-field shape -- the same, plus a non-empty
-trailing field standing for the loader's %32[^\n]:
-  ...\)\s*[^\r\n]{1,32}$        220
+rows matching the five-field shape, one regex over the whole line,
+its trailing [^\r\n]{1,32} standing for the loader's %32[^\n]:
+  ^\s*-?\d+\s*-\s*-?\d+\s*\(\s*-?\d+\s*,\s*-?\d+\s*\)\s*[^\r\n]{1,32}$
+                                   220
 
 rows whose trailing field is empty   0
 longest trailing field               13 characters
@@ -9255,7 +9256,10 @@ decimal five-field records this particular file contains, and the
 trailing-length figure is why the 32-character bound is not reached
 here.
 
-The expressions are given in the form actually run.
+Both expressions are printed in full, as single regexes run over each
+line -- the numeric-prefix one and the whole-line five-field one, the
+latter replacing an earlier `...` elision that a reader could not tell
+from three literal wildcards.
 
 RECORDING ERROR, repaired and recorded rather than quietly fixed. The
 commit that first added this block wrote them through a non-raw Python
