@@ -2843,7 +2843,7 @@ limits    textual over the evidence file and the port Makefiles, not a
 Detected by the author while enumerating rank 92's starting points.
 
 
-## QA-41 -- every ELIGIBLE candidate's E2-REP PASS rests on an unclosed bounded search (AUDIT COMPLETE; two moved at RETRACTION 31, nine pending)
+## QA-41 -- audit of unopened admitted starting points among the ELIGIBLE candidates (two moved at RETRACTION 31, six with necessity established, three without)
 
 Raised by external review of QA-40's C078 note. The finding is not about
 C078.
@@ -2951,21 +2951,49 @@ C067  http://level7.org.uk/chroma/download/
       the `${HOMEPAGE}download/` construction verbatim -- C026's, the
       case QA-27 was written on, where it had to be opened
 C090  http://www.usebox.net/jjm/dd2/releases/
-      the entry argues at length that this is NOT a code host's
-      release area but "a subdirectory of upstream's own project
-      page". Taking its own argument: no forbidden class is named,
-      so QA-27 requires it, and it was not opened.
+      upstream's own project host, not a code host's release area.
+      The entry argues this itself, and C064 supplies the standard
+      rather than the entry's own say-so.
+C013  https://mednafen.github.io/releases/files/
+      a directory on the project's own domain. See the correction
+      immediately below: this was first placed in group 2 on the
+      strength of the `releases` path segment.
 ```
 
-**Group 2 -- a SITES that DOES name a forbidden class.** QA-31 applies
-and its disposition is not PASS.
+**C013's ground is corrected, and its conclusion is not.** An earlier
+version put C013 in group 2, reasoning that its entry "says `releases`
+is named in the contract's forbidden list". That is the literal-segment
+test C064's Correction 2 already withdrew:
 
 ```text
-C013  https://mednafen.github.io/releases/files/
-      the entry itself says "releases" is "named in the contract's
-      forbidden list". Then the surface is admitted and unobservable,
-      and QA-31 sends that to UNRESOLVED rather than letting the gate
-      complete over it.
+C064: QA-31 "is written in terms of a surface CLASS -- 'surface class
+= releases' -- and its scope paragraph speaks of 'a code host's release
+assets', not of a spelling. Reducing it to a search for the literal
+segment" is the error.
+```
+
+C064 withdrew that test in the permissive direction, to stop a
+code-host artifact area escaping QA-31 for want of the word. Using it in
+the restrictive direction, to pull a project-domain directory INTO
+QA-31 because the word is present, is the same error mirrored.
+`mednafen.github.io/releases/files/` is a directory on the project's own
+domain, and nothing observed makes it a code host's release-asset area.
+So the route is group 1's, not group 2's:
+
+```text
+not established as QA-31's forbidden class
+  -> QA-27, as QA-31 restates it, requires the frozen SITES be observed
+  -> it was not observed
+  -> the bounded search is not closed
+  -> UNRESOLVED
+```
+
+**Group 2 -- a SITES whose class is disputed, and both branches defeat
+the PASS.** An earlier version headed this "a SITES that DOES name a
+forbidden class", which its only member contradicts: QA-37 records the
+class as unsettled and the point is that settling it is unnecessary.
+
+```text
 C074  https://downloads.sourceforge.net/sourceforge/clonekeen/
       QA-37 records this construction's class as unsettled, and it
       does not need settling here: forbidden -> QA-31 -> UNRESOLVED;
@@ -3007,18 +3035,24 @@ the observation QA-21 bars.
 ```text
 C049 C078   moved at RETRACTION 31. Confirmed by external review from
             the record before the move.
-C013 C063 C066 C067 C074 C090
-            necessity established above, by QA-27's standing
-            requirement or by QA-31's disposition. Not yet moved:
-            the batch decision was reserved, and this analysis is
-            what it was reserved for.
+C013 C063 C066 C067 C090
+            necessity established by QA-27's standing requirement:
+            a SITES naming no forbidden class, not observed.
+C074        necessity established without settling its class, since
+            both branches defeat the PASS.
+            None of these six is moved yet: the batch decision was
+            reserved, and this analysis is what it was reserved for.
 C059 C065 C084
             enumeration error only. Necessity not established and not
             excluded. No verdict move proposed.
 ```
 
-**The stop rule does not save them, and the circularity is why.** Seven
-entries reason that navigation ended because a PASS was determined.
+**The stop rule does not save them, and the circularity is why.** Five
+entries -- C049, C066, C067, C074 and C078, counted by searching each
+candidate's record for the phrase rather than from memory -- reason that
+navigation ended because a PASS was determined. An earlier version said
+seven, conflating entries that invoke the rule with entries that merely
+rest on the same ground silently.
 The PASS is what needed determining, and it is not determined until
 exactly-one is, which is what the unopened surface bears on. QA-27's
 "account for each, not open each" is not a defence either: QA-27 makes
@@ -3026,7 +3060,11 @@ admission-plus-necessity the test, and its own worked case went the
 other way -- C026's `${HOMEPAGE}download/` SITES had to be opened. C067's
 frozen SITES is the identical construction and was not.
 
-**Disposition.**
+**EARLIER DISPOSITION, SUPERSEDED** by "Disposition, corrected" above.
+Kept because it is what this entry first concluded. Its second row says
+the audit "finds the same defect in all nine", which the necessity
+analysis withdrew: three of the nine have an enumeration error and no
+established necessity, so no verdict move is proposed for them.
 
 ```text
 C049 C078   moved at RETRACTION 31, ELIGIBLE -> UNRESOLVED @ E2-REP,
@@ -3084,7 +3122,8 @@ is an adjudication error, not a design gap.
    required be closed and that the record says was not. C049, C078
    and groups 1 and 2 above.
 
-2  evidence/recording error, 4 candidate records
+2  execution/procedure error, evidence/recording subtype,
+   4 candidate records
    C059, C063, C065 and C084 state that "both admitted starting
    points are accounted for" where the metadata supplies three or
    four. For C063 this compounds item 1; for the other three it is
