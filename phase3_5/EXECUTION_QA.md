@@ -2523,7 +2523,18 @@ wording is corrected in place in all six, with the original recorded.
 **No verdict moves, and the reason is structural rather than lucky.** In
 every one of the six the defaulted HOMEPAGE is exactly the repository URL
 the GH pair or the tuple already resolves to. So the correction does not
-add a surface; it renames the topology. "Step 1 has no target" becomes
+add a surface; it renames the topology.
+
+**But the six are not affected identically, and an earlier version of
+this entry said they were.** RETRACTION 10 settled that the ACCOUNT token
+is a separate admitted identifier. C018 and C071 observed the account
+surface; C017, C032, C050 and C057 treated `GH_ACCOUNT/GH_PROJECT` as one
+starting point and concluded that no surface was left unobserved. For
+those four the closure claim is withdrawn in place: their bounded search
+was not closed. Nothing is reopened -- all four carry terminal records
+and QA-21 bars observation after one. Their verdicts are unchanged and
+never rested on closure; they rest on affiliation not being
+designation. "Step 1 has no target" becomes
 "step 1 and step 3 are the same surface" -- the C010/C012/C017 shape,
 which QA-22 settled yields affiliation rather than designation, and all
 six are already UNRESOLVED at E2-REP on exactly that ground.
@@ -2535,15 +2546,20 @@ C017 C018 C032 C050 C057 C071   all UNRESOLVED, all stop_gate E2-REP
 **Bounded scan, with its procedure.**
 
 ```text
-surface   every entry in screening_evidence.md containing the string
-          "no HOMEPAGE", cross-checked against the frozen port
-          Makefile for GH_ACCOUNT / GH_PROJECT / DIST_TUPLE and for an
-          explicit HOMEPAGE line
-result    10 entries mention "no HOMEPAGE"; 6 belong to ports that
-          carry GH_* or a github DIST_TUPLE and set no HOMEPAGE, so
-          the default applies to them. The other 4 -- C030 angrydd,
-          C035 atomix, C037 bass, C088 cubiomes-viewer -- carry
-          neither, so no default fires and their wording stands.
+surface   every occurrence of the string "no HOMEPAGE" in
+          screening_evidence.md, attributed to the candidate record it
+          falls in, cross-checked against the frozen port Makefile for
+          GH_ACCOUNT / GH_PROJECT / DIST_TUPLE and for an explicit
+          HOMEPAGE line
+result    20 line occurrences, falling in 10 distinct CANDIDATE
+          records -- the two units are stated separately because an
+          earlier version said "10 entries", which does not say
+          whether an entry is an evidence block or a candidate.
+          Of the 10 candidates, 6 carry GH_* or a github DIST_TUPLE
+          and set no HOMEPAGE, so the default applies: C017, C018,
+          C032, C050, C057, C071. The other 4 -- C030 angrydd, C035
+          atomix, C037 bass, C088 cubiomes-viewer -- carry neither, so
+          no default fires and their wording stands.
 limits    textual over the evidence file and the port Makefiles, not
           a `make` evaluation; a HOMEPAGE arriving through some other
           module this pass does not read would be missed.

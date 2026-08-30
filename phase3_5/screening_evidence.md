@@ -2087,7 +2087,13 @@ Candidate: C017
 Gate: E2-REP
 
 Surface: https://github.com/tiehuis/2048-cli, reached from the frozen GH_ACCOUNT/GH_PROJECT pair, which the contract admits as a starting point.
-Necessary because: E2-REP asks whether upstream designates exactly one canonical source location, and this is the only upstream surface the frozen metadata reaches. The metadata names no HOMEPAGE, so navigation step 1 has no target at all.
+
+
+SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/tiehuis/2048-cli`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
+
+CLOSURE CLAIM WITHDRAWN per QA-39 and RETRACTION 10. This entry treated `GH_ACCOUNT/GH_PROJECT` as one starting point and concluded that no surface was left unobserved. RETRACTION 10 settled at C018 that the ACCOUNT token is a separate admitted identifier, and C018 and C071 accordingly observed the account surface as well; this entry did not. So its bounded search was not closed, and any statement here that every admitted surface was observed is withdrawn.
+
+Nothing is reopened. `https://github.com/tiehuis` is not requested now: this candidate carries a terminal record, and opening a surface afterwards to supply fresh verdict evidence is what QA-21 exists to stop. Nothing is claimed about what it holds. The verdict is unchanged and was never resting on closure -- it rests on affiliation not being designation.
 
 observed_at_utc: 2026-08-27T10:49:56Z-10:49:57Z; http_status 200; redirect_chain: NONE (num_redirects 0)
 evidence_role: upstream-controlled repository
@@ -2123,7 +2129,8 @@ C010   frozen starting URL IS the project landing surface
 C012   same                            -> step 1 = step 3     PASS stands
 C014   a separate project site exists; it designates no
        source location                                        UNRESOLVED
-C017   no project landing URL at all; a packaging identifier
+C017   [SUPERSEDED per QA-39: a defaulted HOMEPAGE exists and is
+        the repository itself] a packaging identifier
        reaches a repository and nothing more                   UNRESOLVED
 ```
 
@@ -2468,7 +2475,11 @@ reason given -- that a differently-named repository must not be selected
 Candidate: C018 (frame rank 18, games/2048-qt)
 Gate: E2-REP
 
-The frozen metadata names no HOMEPAGE and no SITES. Its DIST_TUPLE
+The frozen metadata names no HOMEPAGE and no SITES.
+
+SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/OpenOrphanage/2048-Qt`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
+
+The account surface WAS observed here, so only the topology wording is affected. Its DIST_TUPLE
 yields two admitted starting identifiers: the repository path and the
 account.
 
@@ -4118,7 +4129,13 @@ Decision: PASS
 Candidate: C032
 Gate: E2-REP
 
-Per QA-27, the frozen metadata's URLs and identifiers are enumerated: there is no HOMEPAGE and no SITES, so the only admitted starting point is the GH_ACCOUNT/GH_PROJECT pair. Navigation step 1 has no target. This is C017's shape.
+Per QA-27, the frozen metadata's URLs and identifiers are enumerated: there is no HOMEPAGE and no SITES, so the only admitted starting point is the GH_ACCOUNT/GH_PROJECT pair.
+
+SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/arx/ArxLibertatis`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
+
+CLOSURE CLAIM WITHDRAWN per QA-39 and RETRACTION 10. This entry treated `GH_ACCOUNT/GH_PROJECT` as one starting point and concluded that no surface was left unobserved. RETRACTION 10 settled at C018 that the ACCOUNT token is a separate admitted identifier, and C018 and C071 accordingly observed the account surface as well; this entry did not. So its bounded search was not closed, and any statement here that every admitted surface was observed is withdrawn.
+
+Nothing is reopened. `https://github.com/arx` is not requested now: this candidate carries a terminal record, and opening a surface afterwards to supply fresh verdict evidence is what QA-21 exists to stop. Nothing is claimed about what it holds. The verdict is unchanged and was never resting on closure -- it rests on affiliation not being designation. Navigation step 1 has no target. This is C017's shape.
 
 Surface: https://github.com/arx/ArxLibertatis
 observed_at_utc: 2026-08-27T16:38:05Z-16:38:06Z; http_status 200; redirect_chain: NONE (num_redirects 0)
@@ -6137,6 +6154,12 @@ Gate: E2-REP
 
 Per QA-27 the admitted starting points are enumerated, and there is exactly one: the GH_ACCOUNT/GH_PROJECT pair. No HOMEPAGE and no SITES exist, so no second surface is supplied, nothing is left unaccounted for, and QA-31 does not arise.
 
+SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/bderrly/braincurses`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
+
+CLOSURE CLAIM WITHDRAWN per QA-39 and RETRACTION 10. This entry treated `GH_ACCOUNT/GH_PROJECT` as one starting point and concluded that no surface was left unobserved. RETRACTION 10 settled at C018 that the ACCOUNT token is a separate admitted identifier, and C018 and C071 accordingly observed the account surface as well; this entry did not. So its bounded search was not closed, and any statement here that every admitted surface was observed is withdrawn.
+
+Nothing is reopened. `https://github.com/bderrly` is not requested now: this candidate carries a terminal record, and opening a surface afterwards to supply fresh verdict evidence is what QA-21 exists to stop. Nothing is claimed about what it holds. The verdict is unchanged and was never resting on closure -- it rests on affiliation not being designation.
+
 The pair resolves to https://github.com/bderrly/braincurses, which is itself a repository. This is the C010/C012/C017 topology in its barest form -- step 1 and step 3 are the same surface, and there is no project page anywhere in the frozen metadata. QA-22 settled that the topology answers WHICH surface and supplies no designation of its own.
 
 Observation scope, fixed before the request: existence; repository and owner name; default branch; fork, mirror, archive and template flags; the website metadata field; the repository description; whether a source tree is present at the root; any statement designating this location as the project's source; any primary or mirror marking. Not: README prose, releases, issues, docs, or any source file.
@@ -6930,6 +6953,12 @@ Candidate: C057
 Gate: E2-REP
 
 Per QA-27 the admitted starting points are enumerated, and there is exactly one: the GH_ACCOUNT/GH_PROJECT pair. No HOMEPAGE and no SITES exist, so no second surface is supplied and nothing is left unaccounted for. QA-31 does not arise.
+
+SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/jorio/CandyCrisis`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
+
+CLOSURE CLAIM WITHDRAWN per QA-39 and RETRACTION 10. This entry treated `GH_ACCOUNT/GH_PROJECT` as one starting point and concluded that no surface was left unobserved. RETRACTION 10 settled at C018 that the ACCOUNT token is a separate admitted identifier, and C018 and C071 accordingly observed the account surface as well; this entry did not. So its bounded search was not closed, and any statement here that every admitted surface was observed is withdrawn.
+
+Nothing is reopened. `https://github.com/jorio` is not requested now: this candidate carries a terminal record, and opening a surface afterwards to supply fresh verdict evidence is what QA-21 exists to stop. Nothing is claimed about what it holds. The verdict is unchanged and was never resting on closure -- it rests on affiliation not being designation.
 
 This is C050's shape, and the third candidate this run has met where the frozen metadata supplies a repository identifier and nothing else. The pair resolves to https://github.com/jorio/CandyCrisis, which is itself a repository, so step 1 and step 3 are the same surface -- the C010/C012/C017 topology, which QA-22 settled answers WHICH surface and supplies no designation of its own.
 
@@ -12345,7 +12374,11 @@ Decision: PASS
 Candidate: C071
 Gate: E2-REP
 
-The frozen metadata names no HOMEPAGE and no SITES, so navigation step 1 has no target. Its DIST_TUPLE yields the two admitted starting identifiers C018 identified in the same shape: the repository path and the account.
+The frozen metadata names no HOMEPAGE and no SITES, so navigation step 1 has no target.
+
+SUPERSEDED per QA-39: the sentence above reads HOMEPAGE off the port Makefile only. The frozen infrastructure defaults one to `https://github.com/ClassiCube/ClassiCube`, which is the location the identifiers already resolve to, so step 1 and step 3 coincide rather than step 1 having no target. The verdict is unchanged -- QA-22 settled that this topology yields affiliation, not designation.
+
+The account surface WAS observed here, so only the topology wording is affected. Its DIST_TUPLE yields the two admitted starting identifiers C018 identified in the same shape: the repository path and the account.
 
 Both observation scopes were fixed BEFORE their requests, in scratch files timestamped ahead of the fetches, following the discipline RETRACTION 10 imposed at C018.
 
