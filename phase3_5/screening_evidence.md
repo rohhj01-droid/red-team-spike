@@ -9014,12 +9014,20 @@ role the label does not carry, and QA-35 records theory 2 as unsettled
 for NAVIGATION even where it is admitted for DESIGNATION. The entry
 treated it as settled.
 
-**The precedents cited do not control it.** C074's anchor text was
-literally `source code`, and C067's source-role wording sat in the
-sentence containing the link. Both are label-side. C087 is the case
-where the role and the link are in different cells, which is the
-structure QA-35 leaves open -- and an earlier version of this entry cited
-C067 and C074 as though they settled it.
+**The precedent cited does not control it.** C074's anchor text was
+literally `source code`, which is label-side and so theory 1. C087 is
+the case where the role and the link are in different cells, the
+structure QA-35 leaves open, and an earlier version of this entry cited
+C074 as though it settled that.
+
+C067 is dropped from the comparison rather than kept, and the reason is
+that a first version of this paragraph described its source-role wording
+as sitting "in the sentence containing the link" and then called it
+label-side alongside C074. Those cannot both hold: by QA-35's own
+taxonomy, a role supplied by a surrounding sentence is theory 2, not a
+label. The durable record of C067 transcribes its wording against its
+destination but does not preserve the raw HTML, so which side that case
+falls on is not settled from the record here, and it is not used.
 
 **What follows for the two requests.** The GET at 2026-08-30T07:03:41Z
 and the HEAD at 07:04:25Z on
@@ -9077,8 +9085,13 @@ So the gate turns on an unsettled reading, and this entry does not choose:
 label-token reading   no step-2 authorization; the artifact is out of
                       reach and the gate cannot complete
 
-structured-role       the request is authorized, and what it returns
-reading               would decide the gate
+structured-role       the request would be authorized, and its result
+reading               could lawfully bear on the gate. No outcome is
+                      inferred: an authorized request can equally
+                      return an interstitial or an incomplete
+                      response and leave the gate unresolved, and the
+                      GET/HEAD material actually observed is
+                      quarantined and not consulted here
 ```
 
 Under the first reading the gate cannot complete. Under the second it
