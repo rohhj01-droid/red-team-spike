@@ -2555,23 +2555,64 @@ pinned to the file as it stood at `851d5b4`, before any correction
           in this entry was applied. The corrections rewrite some of
           the matched sentences, so an unpinned count is not
           reproducible.
-result    20 occurrences, one per line, falling in 17 EVIDENCE
-          BLOCKS belonging to 10 distinct CANDIDATE records. All
-          three units are given because an earlier version said "10
-          entries", and "entry" is ambiguous between exactly these:
-          the block count and the candidate count are different
-          numbers, and only the candidate count is the one the rest
-          of this section reasons about.
+result    20 occurrences, one per line, falling in 18 EVIDENCE
+          BLOCKS, which are 17 distinct CANDIDATE x GATE pairs,
+          belonging to 10 distinct CANDIDATE records. The units are
+          spelled out because an earlier version said "10 entries",
+          and "entry" is ambiguous between exactly these three;
+          only the candidate count is the one the rest of this
+          section reasons about.
+
+            C017 2   C018 3   C030 2   C032 2   C035 2
+            C037 1   C050 1   C057 1   C088 2   C071 2   = 18
+
+          C018 accounts for both the 3 and the gap between 18 and
+          17: it carries UR-01, E2REP-01 and E2REP-02, and the last
+          two are one candidate x gate pair. It is the only such
+          duplicate among these blocks.
           Of the 10 candidates, 6 carry GH_* or a github DIST_TUPLE
           and set no HOMEPAGE, so the default applies: C017, C018,
           C032, C050, C057, C071. The other 4 -- C030 angrydd, C035
           atomix, C037 bass, C088 cubiomes-viewer -- carry neither, so
           no default fires and their wording stands.
-drift     the same scan on `fd7f9d3` returns 19, not 20. That commit
-          removed C017's original sentence instead of superseding it
-          in place; the sentence is restored and the removal is
-          recorded below. A reader checking the number must therefore
-          pin the commit, which is why this block now does.
+miscount  an earlier version of this block said "17 EVIDENCE
+          BLOCKS". 17 is the candidate x gate pair count, but that
+          is not how the number was reached -- and it is not a
+          coincidence either. The splitter matched headings against
+          `^## (EV-\S+)$`, which does not match the two headings
+          carrying a "(supersedes ...)" suffix -- EV-C018-E2REP-02
+          and EV-C035-E2REP-02 -- and then read each block as
+          running to the next MATCHED heading, so those two blocks
+          were absorbed into their predecessors. The C035 absorption
+          changed nothing, because EV-C035-E2REP-01 contains no
+          occurrence of its own. The C018 absorption merged the one
+          duplicated candidate x gate pair into a single block, and
+          that is exactly the difference between 18 and 17. So the
+          buggy count landed on the pair count for the same reason
+          the pair count differs from the block count, which is why
+          the number looked right. Recorded rather than quietly
+          replaced: a figure that reproduces only under a defective
+          procedure is the kind of thing this section exists to
+          catch, and it was caught by external review, not here.
+
+drift     the figure moves with the corrections, which is why the
+          pin above is not decoration.
+
+            851d5b4   20   the pinned state, before any correction
+            fd7f9d3   19   that commit removed C017's original
+                           sentence instead of superseding it in
+                           place; restored, and recorded below
+            current   20   restored, and holding
+
+          One further hazard, met while writing these corrections
+          and recorded because it was nearly shipped: a correction
+          describing the affected ports had itself contained the
+          string, which pushed the current-file figure to 21 and
+          would have made this section a datum of its own scan. The
+          sentence now reads "neither an explicit HOMEPAGE line nor
+          a SITES line". Nothing about its meaning changed; the
+          rewording removes a false positive rather than a true one,
+          since prose ABOUT the defect is not an instance of it.
 limits    textual over the evidence file and the port Makefiles, not
           a `make` evaluation; a HOMEPAGE arriving through some other
           module this pass does not read would be missed.

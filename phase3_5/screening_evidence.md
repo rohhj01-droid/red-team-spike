@@ -2122,6 +2122,8 @@ contamination
   Retained as provenance; it does no verdict work.
 ```
 
+SUPERSEDED per QA-39 and RETRACTION 10, on one phrase inside the block above: "the one reachable surface". Two surfaces are admitted here, the account and the repository, and this entry observed the repository only. The phrase is withdrawn; the sentence containing it is not, because what it asserts does not depend on the number: not finding a designation where one could have been recorded is not a demonstration that none exists. That is the C017 boundary itself, and it holds of one surface examined out of two as readily as of one out of one. Found by re-reading this entry after the same defect was corrected in C050 and C057, not by review.
+
 This is the boundary C014 established: **affiliation is not designation.** There the repository carried the project's name, held the source tree, and pointed at the official site through its website field, and none of that amounted to upstream designating it. The same standard applies here, where less is available.
 
 SUPERSEDED, TWICE OVER. The passage from here to the end of the paragraph after the table defends an exemption that no longer exists, and draws a distinction that no longer holds. It is kept because it is what the entry argued.
@@ -6234,9 +6236,34 @@ E2REP-NO-SOURCE not established
   a source tree WAS observed, so source access is not what is missing.
 ```
 
+SUPERSEDED per QA-39 and RETRACTION 10, on one line inside the block above: "The only route to it is the packaging metadata's own GH_ACCOUNT/GH_PROJECT pair." The exclusivity is withdrawn. RETRACTION 10 settled that the ACCOUNT token is a separate admitted identifier, and this entry did not observe the account surface, so whether that surface exposes a route to this repository is UNOBSERVED, not excluded. The adjudication never needed exclusivity and is unchanged: arrival by ANY admitted route is affiliation and not designation (QA-22, C017), which says what arrival establishes, not how many routes exist.
+
 The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family.
 
 SUPERSEDED per QA-39: the completeness half of that sentence -- "no surface is left unobserved" -- is withdrawn on the ground recorded at the head of this entry: RETRACTION 10 settled that the ACCOUNT token is a separate admitted identifier, and this entry did not observe that surface, so its search was not closed. What survives is the transport conclusion, which rests on its own ground rather than on completeness: every request this entry made was determinately answered, http_status 200, and the transport family turns on retries exhausted with endpoint state unknown, not on whether every admitted surface was reached. The verdict is unchanged; it never rested on closure.
+
+SUPERSEDED per QA-39 and RETRACTION 10 -- the two paragraphs below, both written after the withdrawal above and both restating what it withdrew:
+
+```text
+"a frame item whose frozen metadata supplies only a repository
+ identifier"
+    false as stated. That metadata also supplies the ACCOUNT token,
+    which RETRACTION 10 settled is a separate admitted identifier,
+    and a defaulted HOMEPAGE (QA-39, bsd.port.mk:1295). What is
+    true is narrower: every identifier it supplies resolves to a
+    repository-shaped surface on one code host, and none names a
+    separate upstream-authored project site.
+
+"the one admissible surface -- the repository root -- WAS examined"
+    there are two admissible surfaces here and one of them was
+    examined. The repository root was examined and carried no
+    designation signal. The account surface was not observed, and
+    nothing is claimed about it.
+```
+
+What those paragraphs were written to establish is untouched, because it is a claim about the repository root alone: that surface CAN bear a designation -- "whether upstream designates this location as its source" is among the observations the contract allows there -- and its not doing so is a bounded absence, which does not establish that upstream designates no canonical source location. That is why the verdict is UNRESOLVED rather than a failure code, and it never required the surface to be the only one.
+
+The superseded paragraphs follow.
 
 What the sealed criteria do not describe is a frame item whose frozen metadata supplies only a repository identifier.
 
@@ -6999,6 +7026,29 @@ Nothing is reopened. `https://github.com/jorio` is not requested now: this candi
 
 This is C050's shape, and the third candidate this run has met where the frozen metadata supplies a repository identifier and nothing else. The pair resolves to https://github.com/jorio/CandyCrisis, which is itself a repository, so step 1 and step 3 are the same surface -- the C010/C012/C017 topology, which QA-22 settled answers WHICH surface and supplies no designation of its own.
 
+SUPERSEDED, on two counts in the sentence above. Its topology half is untouched and QA-39 confirms it: the pair resolves to a repository, so step 1 and step 3 are the same surface.
+
+```text
+"a repository identifier and nothing else"
+    per QA-39 and RETRACTION 10, the frozen metadata also supplies
+    the ACCOUNT token as a separate admitted identifier and a
+    defaulted HOMEPAGE. What is true is that every identifier
+    resolves to a repository-shaped surface on one code host and
+    none names a separate project site.
+
+"the third candidate this run has met"
+    withdrawn as a miscount, and one that predates QA-39 rather
+    than being created by it. The frame items whose frozen metadata
+    has this shape -- a GH pair or a github DIST_TUPLE, with
+    neither an explicit HOMEPAGE line nor a SITES line -- are the
+    six QA-39 enumerates: C017, C018, C032, C050, C057, C071,
+    checked against the frozen Makefiles rather than off this
+    file. In rank order C057 is the FIFTH, and
+    the fifth met at the time it was screened as well, C071 being
+    the only one later. "Third" counted C017 and C050, the two the
+    sentence names, and passed over C018 and C032.
+```
+
 Observation scope, fixed before the request: existence; repository and owner name; default branch; fork, mirror, archive and template flags; the website metadata field; the repository description; whether a source tree is present at the root; any statement designating this location as the project's source; any primary or mirror marking. Not: README prose, releases, issues, docs, or any source file.
 
 observed_at_utc: 2026-08-28T09:15:24Z (metadata), 09:15:25Z (root listing); http_status 200 on both; redirect_chain: NONE on both
@@ -7035,9 +7085,15 @@ E2REP-NO-SOURCE not established
   a source tree WAS observed, so source access is not what is missing.
 ```
 
+SUPERSEDED per QA-39 and RETRACTION 10, on one line inside the block above: "The only route to it is the packaging metadata's own GH_ACCOUNT/GH_PROJECT pair." The exclusivity is withdrawn. RETRACTION 10 settled that the ACCOUNT token is a separate admitted identifier, and this entry did not observe the account surface, so whether that surface exposes a route to this repository is UNOBSERVED, not excluded. The adjudication never needed exclusivity and is unchanged: arrival by ANY admitted route is affiliation and not designation (QA-22, C017), which says what arrival establishes, not how many routes exist.
+
 The single admitted starting point was determinately answered, so no surface is left unobserved and this is not the transport family.
 
 SUPERSEDED per QA-39: the completeness half of that sentence -- "no surface is left unobserved" -- is withdrawn on the ground recorded at the head of this entry: RETRACTION 10 settled that the ACCOUNT token is a separate admitted identifier, and this entry did not observe that surface, so its search was not closed. What survives is the transport conclusion, which rests on its own ground rather than on completeness: every request this entry made was determinately answered, http_status 200, and the transport family turns on retries exhausted with endpoint state unknown, not on whether every admitted surface was reached. The verdict is unchanged; it never rested on closure.
+
+SUPERSEDED per QA-39 and RETRACTION 10 -- the paragraph below, written after the withdrawal above and restating what it withdrew: "the one admissible surface -- the repository root". There are two admissible surfaces here and one was examined; the account surface was not observed. What the paragraph establishes is untouched, because it concerns the repository root alone: that surface can bear a designation, and its not doing so is a bounded absence rather than a demonstration that upstream designates none.
+
+The superseded paragraph follows.
 
 Stated as C050's correction requires: the frozen metadata supplies no separate upstream-authored project surface, and the one admissible surface -- the repository root -- was examined and carried no designation signal. It is not that no surface could bear one.
 
