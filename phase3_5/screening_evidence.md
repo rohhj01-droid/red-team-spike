@@ -9017,7 +9017,7 @@ files/NEWS                     "NEWS"   (twice)
 
 No label is Source, Code, Repository or Development, and the words themselves are absent from the document -- a standalone-word count returns `source` 0, `code` 0, `repository` 0, `development` 0, `git` 0, `cvs` 0, `svn` 0, `download` 0, `release` 0. So step 2 has no target under any of QA-35's three readings, and this entry does not depend on which is right: the labels are not the words, the page presents no link as a source location, and no destination is a repository. The exclusion is by observation, not by a reading of the kind RETRACTION 29 had to withdraw at C082.
 
-The page is a description and a news list. Its news items announce releases -- "Crimson Fields 0.5.3 released (NEWS)" -- and link only to `files/NEWS`. The remaining links are third-party ports, each introduced by upstream's own sentence naming its author and platform. There is no download section and no artifact link on this surface.
+The page is a description and a news list. Its news items announce releases -- "Crimson Fields 0.5.3 released (NEWS)" -- and link only to `files/NEWS`. Of the remaining links, one is the GPL text at gnu.org, introduced by "Crimson Fields is distributed under the terms of the ..."; the other six are platform-specific ports, each introduced by upstream's own sentence naming its author and platform. An earlier version called all of them third-party ports, which the GPL link is not. There is no download section and no artifact link on this surface.
 
 Step 2 disposition, second starting point: the frozen SITES, `${HOMEPAGE}files/` -> http://crimson.seul.org/files/.
 Necessary because: the gate was unsettled after step 1, and this is the remaining admitted starting point. It is on upstream's own domain, under HOMEPAGE, which is C026's situation and not QA-37's disputed construction -- no forbidden-class question arises, so nothing here turns on that open issue.
@@ -9026,6 +9026,8 @@ observed_at_utc: 2026-08-30T05:49:10Z; http_status 200 after one redirect to htt
 Observed: an Apache directory index, `Index of /files`, footer "Apache/2.4.68 (Debian) Server at crimson.seul.org Port 443". 116 anchors over 115 table rows, of which 66 are archive-like -- `.tar.gz`, `.tar.bz2`, `-win32.zip`, `-osx.tar.gz`, `.rpm` and others, spanning versions from 0.3.1 upward.
 
 The index's own Description column was checked rather than assumed empty: **0 of 115 rows carry a non-empty Description cell.** So the surface carries nothing beyond index furniture -- Name, Last modified, Size, Description, Parent Directory -- and makes no statement at all.
+
+Provenance limit on that count, and on the anchor counts above. The repository carries the response digests and these transcriptions, not the response bytes. A third party reading this repository therefore cannot reproduce from it the correspondence between the digest and the transcribed content, nor the 115-row and 0-description tallies; those rest on the session record, as at C071's scope ordering and C080's zero-anchor count.
 
 The frozen distfile is present, alongside three siblings of the same version:
 
@@ -9052,9 +9054,23 @@ FAIL not established
   designations. Reading them as such would be exactly the promotion
   RETRACTION 21 refused.
 
-  E2REP-NO-SOURCE is separately unavailable: source archives are
-  plainly listed, so source access is not what is missing.
+  E2REP-NO-SOURCE is separately unavailable, but not for the reason
+  first given. The index exposes FILENAMES only. Their names do not
+  establish a source role or any contents -- that is the same bar
+  C026 and RETRACTION 21 set two paragraphs above -- and the observed
+  surfaces equally do not establish that access to an actual source
+  representation is absent. The code needs that positive evidence and
+  this run does not have it.
 ```
+
+Correction, recorded rather than smoothed over. An earlier version of
+this entry excluded that code by writing "source archives are plainly
+listed, so source access is not what is missing". That reads a source
+role off `.tar.gz`, `.tar.bz2` and `.src.rpm` filenames, which is the
+inference this same entry had just refused to make about the same
+names, one paragraph earlier. It contradicted itself in the space of a
+few lines, and the commit message of 03276ec repeated the claim; both
+are superseded by the paragraph above.
 
 Not claimed: that upstream designates no canonical source location anywhere. Both surfaces the contract admits were observed and neither carries one; that is a finding about these two surfaces, and C017's boundary holds -- not finding a designation is not a demonstration that none exists.
 
