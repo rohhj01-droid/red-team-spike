@@ -8998,7 +8998,113 @@ Observed: a third-party 3D game on an upstream site unrelated to this project. T
 Inference: external-authorship requirement satisfied from the frozen metadata alone.
 Decision: PASS
 
-## EV-C087-E2REP-01
+## RETRACTION 30 — C087's artifact request crossed an authorization boundary this run has not settled
+
+EV-C087-E2REP-01 is **superseded**. The verdict it reached, UNRESOLVED
+with `PI-UNCLASSIFIED-SHAPE`, stands; its step-1 observations stand and
+are preserved. What is withdrawn is the ground it rested on, and one
+pair of requests it should not have made.
+
+**The contradiction inside the entry.** It records, correctly, that "no
+anchor label is Source, Code, Repository or Development" -- the link's
+anchor text is the filename `csmash-0.6.6.tar.gz`. It then requested
+that link anyway, on the strength of the role in the SIBLING table cell,
+`<td>Source code</td>`. That is QA-35's theory 2, the page supplying a
+role the label does not carry, and QA-35 records theory 2 as unsettled
+for NAVIGATION even where it is admitted for DESIGNATION. The entry
+treated it as settled.
+
+**The precedents cited do not control it.** C074's anchor text was
+literally `source code`, and C067's source-role wording sat in the
+sentence containing the link. Both are label-side. C087 is the case
+where the role and the link are in different cells, which is the
+structure QA-35 leaves open -- and an earlier version of this entry cited
+C067 and C074 as though they settled it.
+
+**What follows for the two requests.** The GET at 2026-08-30T07:03:41Z
+and the HEAD at 07:04:25Z on
+`http://prdownloads.sourceforge.net/cannonsmash/csmash-0.6.6.tar.gz`
+were made past an undetermined authorization boundary. Everything they
+returned -- the two redirects, the final URL
+`.../download?use_mirror=master`, the `text/html` content type, the
+145438-byte body, its sha256 7a643991fe669cc69ba3ffad8901f1d4bfe2d27a68c740382242b4b462882a75
+and its title -- is QUARANTINED. It stays on the record, it is not
+deleted, and it does no verdict work and founds no QA entry.
+
+**And the ground moves.** The superseded entry made UNRESOLVED rest on a
+failure to observe the source representation. That reasoning used the
+quarantined material, so it cannot stand. The ground is now the
+authorization question itself, which is prior to it.
+
+**Errors, separated.** An adjudication/inference error -- treating
+theory 2's navigation authorization as settled -- and an
+execution/procedure error -- issuing two requests past that boundary.
+No new methodology gap: QA-35 already describes exactly this, and the
+failure was not noticing that it applied.
+
+## EV-C087-E2REP-02  (supersedes EV-C087-E2REP-01)
+Candidate: C087 (frame rank 87, games/csmash)
+Gate: E2-REP
+
+Step 1 stands as recorded in the superseded entry and is not repeated:
+https://cannonsmash.sourceforge.net/, 200, 12274 bytes, sha256
+9b065366d53545b75627c4be5beb41a205bcda6bf069fe2fc97cd3bdbfc13d95, 28
+anchors, no anchor label among the contract's four words, and a Download
+table whose left-hand cells assign a role per row -- one row reading
+`Source code` against `csmash-0.6.6.tar.gz`, a `Source code patch` row
+inside an HTML comment, and the remaining rows given other roles.
+
+What that establishes, and what it does not:
+
+```text
+established
+  upstream assigns the source role to exactly one artifact, by its
+  own table, and that artifact's name is the frozen DISTNAME. As a
+  DESIGNATION signal this is QA-23's structured-marking form and it
+  is not in doubt.
+
+not established
+  that the contract authorizes REACHING it. The anchor label is the
+  filename; the role is in a sibling cell. QA-35 records that as
+  theory 2, and records that whether theory 2 supplies navigation
+  permission -- as distinct from designation force -- the seal does
+  not say.
+```
+
+So the gate turns on an unsettled reading, and this entry does not choose:
+
+```text
+label-token reading   no step-2 authorization; the artifact is out of
+                      reach and the gate cannot complete
+
+structured-role       the request is authorized, and what it returns
+reading               would decide the gate
+```
+
+Under the first reading the gate cannot complete. Under the second it
+might have, but this run may not adopt a reading with the survivor set
+in view -- RETRACTION 28's principle -- so neither branch is taken.
+
+PASS is therefore unavailable: it would require the second reading plus
+an observation of the source representation, and neither is on the
+record lawfully. No failure code is available either: each is a
+statement ABOUT a designated location, and while a designation IS
+established here, no code describes "designated but unreachable under an
+unsettled rule". That is what `PI-UNCLASSIFIED-SHAPE` is defined to
+record -- a real screening outcome no sealed criterion describes.
+
+Not claimed: that the artifact is unobtainable, that a source tree is or
+is not present in it, or that upstream fails to provide source. The
+quarantined material above is not used, and nothing replaces it.
+
+The frozen SITES, `https://downloads.sourceforge.net/sourceforge/cannonsmash/`,
+was not requested. As at C081, no rule is offered for that; the fact is
+that no request was made while QA-37's question was unresolved.
+
+Decision: UNRESOLVED
+Protocol issue: PI-UNCLASSIFIED-SHAPE
+
+## SUPERSEDED EV-C087-E2REP-01
 Candidate: C087
 Gate: E2-REP
 
