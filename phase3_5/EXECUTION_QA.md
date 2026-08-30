@@ -2361,11 +2361,23 @@ while screening rank 81.
 
 ## QA-38 — a candidate whose only admitted URL is inside a forbidden class (RECORDED, no rule made)
 
-Found while screening frame rank 88. QA-31 established that a
-metadata-supplied starting point can fall inside a surface class the
-contract forbids, and disposed of that by accounting for it under
-QA-27's third branch. Every case so far had something else to work with.
-This one does not.
+Found while screening frame rank 88.
+
+**Scope, stated first because an earlier version of this entry was wider
+than it should have been.** QA-31 already records the gap in what
+E2-REP does when a necessary starting point is forbidden -- "the sealed
+protocol does not operationalize how E2-REP COMPLETES when a starting
+point that might have been necessary is one the contract forbids
+inspecting". That is QA-31's, not this entry's, and the first version of
+this one restated it as though new. The gap recorded HERE is one
+question only:
+
+```text
+do the account and project names appearing as PATH COMPONENTS of a
+metadata URL count as identifiers found in the frozen metadata, such
+that the repository root they compose is itself an admitted starting
+point?
+```
 
 **The shape.** `games/cubiomes-viewer` carries no HOMEPAGE, no
 `GH_ACCOUNT`/`GH_PROJECT`, no `DIST_TUPLE`, and one URL:
@@ -2375,8 +2387,15 @@ SITES = https://github.com/Cubitect/cubiomes-viewer/releases/download/${V}/
 ```
 
 That is QA-31's class exactly -- it is the same construction as C045's,
-the case QA-31 was raised on. So the sole admitted URL is one the
-contract closes, and E2-REP has no observable starting point at all.
+the case QA-31 was raised on. So the one URL the metadata supplies
+explicitly is one the contract closes, and unlike every earlier
+candidate that met this prohibition, no other UNCONTROVERSIALLY admitted
+surface is supplied alongside it.
+
+That last clause is worded carefully. Saying "the sole admitted URL", as
+an earlier version did, answers in the vocabulary of reading B below
+while the entry claims the readings are undecided. Under reading A the
+repository root is admitted too, and the sentence would be false.
 
 **The question the seal does not answer.** The account and project names
 appear inside that URL as path components. Whether they are therefore
@@ -2418,23 +2437,29 @@ test      a SITES assignment (=, ?= or +=) whose value contains both
           github.com and releases; then whether the same files carry a
           HOMEPAGE or any of GH_ACCOUNT, GH_PROJECT, DIST_TUPLE,
           MODGO_MODNAME, MODCPAN, CPAN_AUTHOR
-result    8 frame items have such a SITES. 7 also carry a HOMEPAGE or
-          an identifier field -- emulators/advancemame,
-          games/alephone/alephone, games/angband, games/blockgame,
-          games/enigma, games/ezquake, games/fnaify-extralibs.
-          1 carries neither: games/cubiomes-viewer.
+result    this textual scan matched 8 frame items. 7 of the 8 also
+          carry a HOMEPAGE or one of the TESTED identifier fields --
+          emulators/advancemame, games/alephone/alephone,
+          games/angband, games/blockgame, games/enigma,
+          games/ezquake, games/fnaify-extralibs. 1 of the 8 carries
+          none of the tested fields: games/cubiomes-viewer.
 limits    textual, not a `make` evaluation: a value assembled through
           a variable this pass does not expand, or an include other
-          than the parent Makefile.inc, would be missed
+          than the parent Makefile.inc, would be missed. The
+          identifier list is the six named above and no others, so
+          "carries no identifier field" means only "none of those
+          six".
 ```
 
-So on that scan this shape occurs once. It is not established that no
-other frame item could reach it through an unexpanded variable.
+So within what this scan tested, the shape occurs once. It is not
+established that no other frame item reaches it through an unexpanded
+variable, nor that no identifier mechanism outside the six tested exists.
 
 **What this needs, and where it belongs.** A Run 2 preregistration must
 say whether identifiers embedded in a metadata URL are themselves
-admitted starting points, and what E2-REP does when every admitted URL
-is inside a forbidden class. Run 1 can supply neither.
+admitted starting points. What E2-REP does when a necessary starting
+point is forbidden is QA-31's open question, not this one's, and is not
+restated here.
 
 **Classification, pending the Run 1 coding protocol.** Methodology/design
 gap, QA-30's family, adjacent to QA-31 and QA-35. Detected by the author

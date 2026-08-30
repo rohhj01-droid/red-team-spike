@@ -8987,7 +8987,7 @@ Candidate: C088 (frame rank 88, games/cubiomes-viewer)
 Gate: UR
 Source: frozen OpenBSD 7.9 ports metadata, games/cubiomes-viewer/Makefile and distinfo
 Observed: V=4.1.2; DISTNAME=cubiomes-viewer-${V}; EXTRACT_SUFX=-src.tar.gz; `SITES = https://github.com/Cubitect/cubiomes-viewer/releases/download/${V}/`; COMMENT="graphical Minecraft seed finder and map viewer"; WRKDIST=${WRKDIR}/cubiomes-viewer; distinfo names cubiomes-viewer-4.1.2-src.tar.gz, SIZE 2447165. There is no HOMEPAGE, no GH_ACCOUNT/GH_PROJECT and no DIST_TUPLE.
-Inference: the frozen fields name one packaged system, Cubiomes Viewer, through a single URL that carries its version and its distfile name. No second system appears, so not UR-AMBIGUOUS; no earlier candidate resolved to it, so not a duplicate.
+Inference: the frozen fields name one packaged system, Cubiomes Viewer. The SITES URL ends at `.../releases/download/${V}/`, so it carries the version and NOT the distfile name; that name is composed from DISTNAME and EXTRACT_SUFX, which is how distinfo's `cubiomes-viewer-4.1.2-src.tar.gz` arises. An earlier version of this line said the URL carries the distfile name, which it does not. No second system appears, so not UR-AMBIGUOUS; no earlier candidate resolved to it, so not a duplicate.
 Decision: PASS
 
 ## EV-C088-E1-01
@@ -9014,7 +9014,7 @@ and no HOMEPAGE, no `GH_ACCOUNT`/`GH_PROJECT`, and no `DIST_TUPLE`. So navigatio
 
 That single URL is inside the class QA-31 closes to this gate. It is the same construction QA-31 was raised on at C045, a code host's release-download path, and QA-31's disposition applies: accounted for under QA-27's third branch, with the prohibition as the named reason, and not requested. Nothing is claimed about what it holds.
 
-What is new here, and is recorded at QA-38 rather than resolved: every earlier candidate meeting that prohibition had another admitted surface to work with. This one has none. The account and project names do appear inside the URL as path components, and whether that makes `https://github.com/Cubitect/cubiomes-viewer` an admitted starting point in its own right is not settled by the seal:
+What is new here, and is recorded at QA-38 rather than resolved: every earlier candidate meeting that prohibition was supplied with another surface whose admission is not in doubt -- a HOMEPAGE, or a structured repository identifier. This one is not. Whether it nonetheless HAS a second admitted surface is exactly the open question below, so this entry does not say it has none. The account and project names do appear inside the URL as path components, and whether that makes `https://github.com/Cubitect/cubiomes-viewer` an admitted starting point in its own right is not settled by the seal:
 
 ```text
 reading A   the string is in the frozen metadata, so the repository
@@ -9040,10 +9040,10 @@ PASS not established
 
 FAIL not established
   every E2-REP code is a statement ABOUT a designated canonical
-  location, and none was established. The sole admitted URL is
-  unobserved because the contract closes it, so its contents are
-  unknown rather than absent -- coding a failure would convert a
-  prohibition into a finding about upstream.
+  location, and none was established. The one URL the metadata
+  supplies explicitly is unobserved because the contract closes it,
+  so its contents are unknown rather than absent -- coding a failure
+  would convert a prohibition into a finding about upstream.
 ```
 
 Not claimed: that upstream designates no canonical source location, that the repository exists or does not, or that the distfile is or is not obtainable.
