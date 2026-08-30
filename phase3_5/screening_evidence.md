@@ -13106,3 +13106,177 @@ Normative route: not pursued. Nothing observed designates an authoritative rule 
 Decision: PASS
 
 Survivor-stage fields: primary_snapshot UNRESOLVED, per QA-28. The designation observed is for 1.21 while the frozen DISTNAME is chroma-1.13, upstream publishes no checksum, and no observation fixes what was designated at the sealed instant. The three inventory fields are consequently NOT_REACHED.
+
+
+## RETRACTION 31 — C049 and C078 E2-REP withdrawn; an E2-REP PASS cannot rest on an incomplete bounded search
+
+Terminal verdict changes, not wording repairs. Both move ELIGIBLE ->
+UNRESOLVED. No new upstream access was made: this is a re-reading of what
+the record already says, the same basis as RETRACTION 8 and RETRACTION 9.
+
+**The argument, and it comes from the seal rather than from a new
+reading.** Two clauses have to be put together.
+
+```text
+SCREENING_PROTOCOL.md:88-92
+  E2-REP asks whether the system "designate[s] exactly one canonical
+  source location, at a stable URL, and does it supply exactly one
+  external target identifier?"
+
+SCREENING_PROTOCOL.md:242-251
+  E2-REP is excluded from the existential treatment QA-13 gave the
+  other gates, and the stated reason is that "its network-access
+  contract fixes the starting points and the navigation whitelist,
+  so 'what was there to look at' is defined by upstream's own link
+  structure rather than by us."
+```
+
+The second clause is what lets E2-REP decide anything negative. `exactly
+one` has a negative component -- one designation was found AND no other
+exists among the surfaces the contract admits -- and that component is
+decidable only because the contract closes the search. If an admitted
+starting point is never opened, the search is not closed, and the clause
+that licenses the negative component does not apply.
+
+**The circle.** Both entries reason from the stop rule: navigation ends
+"the moment a PASS or a specific failure code is determined", so the
+remaining admitted surface need not be opened. But the PASS is what was
+supposed to be determined, and it is not determined until `exactly one`
+is, which is what the unopened surface bears on. Written out:
+
+```text
+1  what the unopened admitted surface holds is unknown
+2  a PASS is declared anyway
+3  the stop rule is applied BECAUSE a PASS was determined
+4  so the surface is not opened
+5  so exactly-one stands
+```
+
+Step 3 uses the conclusion of step 2 to license step 4, which is what
+makes step 5 available. QA-27's "account for each, not open each" is not
+a defence: QA-27 itself makes admission-plus-necessity the test, and
+necessity cannot be retired by announcing the verdict first. QA-27's own
+worked case, C026, went the other way -- a `${HOMEPAGE}download/` SITES
+that had to be opened.
+
+**Why I recorded "referred, not resolved" last commit, and why that was
+wrong.** I argued that deciding would move seven candidates rather than
+one, so deciding either way was the post-hoc move RETRACTION 28 barred.
+That inverts RETRACTION 28. What it established is that when the sealed
+criteria do not support a determination, `UNRESOLVED /
+PI-UNCLASSIFIED-SHAPE` is recordable WITHOUT choosing among readings,
+because it asserts only what is true under all of them. Breadth is a
+reason to widen the audit, not to keep an overclaim already shown to be
+one. This is the second time I have made this exact error; the first was
+RETRACTION 28 itself.
+
+**What is preserved.** Every observation in both entries stands and none
+is deleted. C049 observed https://www.boswars.org/ and its
+`development.shtml`, reaching https://codeberg.org/boswars/boswars.
+C078 observed https://corsixth.com/ and its `Source code` anchor,
+reaching https://github.com/CorsixTH/CorsixTH. Those designations were
+seen and are recorded. What is withdrawn is the inference from one
+designation to `exactly one` across a search that was not closed.
+
+**The unopened admitted starting points.**
+
+```text
+C049  https://www.boswars.org/dist/releases/
+      the frozen SITES. The entry states it "is accounted for and was
+      not observed", and adds that a multi-designation possibility on
+      an unopened surface is "unexamined, not excluded".
+
+C078  https://github.com/CorsixTH/CorsixTH/archive/refs/tags/v0.69.2/
+      the SITES that bsd.port.mk:1294 resolves, recorded at QA-40 and
+      never named by the entry.
+      https://github.com/CorsixTH
+      the ACCOUNT surface, which RETRACTION 10 admits as a separate
+      identifier. The entry's enumeration names two starting points
+      where the metadata supplies four.
+```
+
+**Consequences.**
+
+```text
+C049   E2-REP  UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+       E2-RULE, E3, E4  NOT_REACHED
+       overall UNRESOLVED, stop_gate E2-REP
+C078   the same
+```
+
+EV-C049-E2RULE-01, EV-C049-E3-01, EV-C049-E4-01, EV-C078-E2RULE-01,
+EV-C078-E3-01, EV-C078-E4-01 and EV-C078-OVERALL-01 are **quarantined**
+as post-stop exposure, on the principle applied at C005 (QA-11), C014
+(QA-17), C016 (QA-20) and C010/C012 (RETRACTION 8a). Nothing in them was
+inaccurately observed; they do no verdict work. EV-C078-PIN-01 stands as
+a provenance record. Survivor-stage fields for both become NOT_REACHED.
+
+**Nothing is claimed about the unopened surfaces.** Not that they hold a
+competing designation, not that they hold none. That is the whole of why
+the verdict is UNRESOLVED rather than a failure code.
+
+**Nine more candidates are audited and not yet moved.** QA-41 records the
+audit. C013, C059, C063, C065, C066, C067, C074, C084 and C090 each have
+an admitted starting point that was neither observed nor eliminated
+within the contract, and none of them has C010's packager-side exemption
+-- checked entry by entry rather than assumed. They are left in place in
+this commit only because the batch was reserved for a decision after the
+audit, and the audit is what QA-41 now supplies.
+
+## EV-C049-E2REP-02  (supersedes the quarantined EV-C049-E2REP-01)
+Candidate: C049 (frame rank 49, games/boswars)
+Gate: E2-REP
+
+Surfaces and observations are unchanged from the withdrawn entry and all
+remain accurate: https://www.boswars.org/ at step 1, its
+`development.shtml` at step 2, and https://codeberg.org/boswars/boswars
+at step 3, which the development page names as the source location.
+
+```text
+PASS not established
+  one designation was observed, which establishes at least one. The
+  gate asks for exactly one, and the frozen SITES
+  https://www.boswars.org/dist/releases/ -- an admitted starting
+  point -- was not opened, so the bounded search that
+  SCREENING_PROTOCOL.md:242-251 relies on to license a negative
+  component was not completed.
+
+FAIL not established
+  no competing designation was observed. Not opening a surface is
+  not evidence of what it holds, and E2REP-NO-SINGLE-CANONICAL-
+  LOCATION is positive in shape: it records several designations
+  found with no primary, which is not this.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED. The withdrawn entry's own sentence is
+what settles this: the possibility that the unopened `Download` surface
+designates a source distribution is "unexamined, not excluded".
+
+## EV-C078-E2REP-02  (supersedes the quarantined EV-C078-E2REP-01)
+Candidate: C078 (frame rank 78, games/corsixth)
+Gate: E2-REP
+
+Surfaces and observations are unchanged from the withdrawn entry and all
+remain accurate: https://corsixth.com/ at step 1, its `Source code`
+anchor at step 2, and https://github.com/CorsixTH/CorsixTH at step 3,
+with a source tree present and the other GitHub links on step 1 all
+resolving under that same repository.
+
+```text
+PASS not established
+  one designation was observed. Two admitted starting points were
+  not: the SITES that bsd.port.mk:1294 resolves, and the ACCOUNT
+  surface RETRACTION 10 admits separately. The entry's enumeration
+  named two where the metadata supplies four, so the bounded search
+  was not completed and exactly-one is not established.
+
+FAIL not established
+  no competing designation was observed, and nothing is claimed
+  about the two unopened surfaces.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.

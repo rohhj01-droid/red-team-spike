@@ -2841,3 +2841,135 @@ limits    textual over the evidence file and the port Makefiles, not a
 ```
 
 Detected by the author while enumerating rank 92's starting points.
+
+
+## QA-41 -- every ELIGIBLE candidate's E2-REP PASS rests on an unclosed bounded search (AUDIT COMPLETE; two moved at RETRACTION 31, nine pending)
+
+Raised by external review of QA-40's C078 note. The finding is not about
+C078.
+
+**The rule, from the seal.** `SCREENING_PROTOCOL.md:88-92` requires
+"exactly one" designated canonical source location and "exactly one"
+external target identifier. `:242-251` excludes E2-REP from the
+existential treatment QA-13 gave the other gates, and gives the reason:
+the network-access contract "fixes the starting points and the
+navigation whitelist, so 'what was there to look at' is defined by
+upstream's own link structure rather than by us." That closure is what
+makes the negative half of "exactly one" decidable. Where an admitted
+starting point is never opened, the closure does not obtain and the
+negative half is not available -- so a PASS asserting it is wider than
+its evidence.
+
+**The audit.** Every ELIGIBLE candidate, its admitted starting points
+from the frozen metadata, and whether each was observed. Starting points
+counted per QA-27 (metadata URLs), RETRACTION 10 (the ACCOUNT token as a
+separate identifier) and QA-40 (a bare SITES resolved by
+bsd.port.mk:1294). Observation read from each entry's own surface and
+`requested_url` lines, not inferred.
+
+```text
+cand  unopened admitted starting point            what the entry says
+C013  https://mednafen.github.io/releases/files/  "Surfaces NOT opened
+      (frozen SITES)                              ... /releases/"
+C049  https://www.boswars.org/dist/releases/      "accounted for and
+      (frozen SITES)                              was not observed"
+C059  https://github.com/CleverRaven              not named; enumerates
+      (tuple ACCOUNT token)                       "both" of two
+C063  https://github.com/Isarhamster              not named; enumerates
+      (ACCOUNT token)                             "both" of two, where
+      .../Isarhamster/chessx/archive/refs/        the metadata supplies
+      tags/v1.5.6-lw/  (resolved SITES)           four
+C065  https://github.com/chocolate-doom           not named; enumerates
+      (tuple ACCOUNT token)                       "both" of two
+C066  https://gitlab.com/jazztickets/uploads/...  "accounted for and
+      (frozen SITES)                              was not opened"
+C067  http://level7.org.uk/chroma/download/       "accounted for and
+      (frozen SITES)                              was not opened"
+C074  https://downloads.sourceforge.net/          "accounted for and was
+      sourceforge/clonekeen/  (frozen SITES)      NOT requested"
+C078  .../CorsixTH/CorsixTH/archive/refs/tags/    not named (SITES);
+      v0.69.2/  and  https://github.com/CorsixTH  enumerates two of four
+C084  https://github.com/fabiangreffrath          not named; enumerates
+      (tuple ACCOUNT token)                       "both" of two
+C090  http://www.usebox.net/jjm/dd2/releases/     the artifact INSIDE it
+      (frozen SITES)                              was retrieved; the
+                                                  directory was not
+                                                  opened
+```
+
+Eleven of eleven. **None has C010's exemption**, checked entry by entry
+rather than assumed: C010's SITES went unopened lawfully because the
+port Makefile's own `dist:` target had already shown the host to be the
+packager's. No ELIGIBLE candidate carries such a finding, and C013's
+entry says the opposite of it in terms -- its SITES "resolves inside the
+project's own domain. This is the opposite of C010".
+
+**The stop rule does not save them, and the circularity is why.** Seven
+entries reason that navigation ended because a PASS was determined.
+The PASS is what needed determining, and it is not determined until
+exactly-one is, which is what the unopened surface bears on. QA-27's
+"account for each, not open each" is not a defence either: QA-27 makes
+admission-plus-necessity the test, and its own worked case went the
+other way -- C026's `${HOMEPAGE}download/` SITES had to be opened. C067's
+frozen SITES is the identical construction and was not.
+
+**Disposition.**
+
+```text
+C049 C078   moved at RETRACTION 31, ELIGIBLE -> UNRESOLVED @ E2-REP,
+            PI-UNCLASSIFIED-SHAPE, downstream entries quarantined.
+            External review had already confirmed both from the record.
+
+C013 C059 C063 C065 C066 C067 C074 C084 C090
+            audited above and NOT moved in this commit. The batch was
+            reserved for a decision once the audit existed. It now
+            does, and it finds the same defect in all nine.
+```
+
+**What is NOT claimed.** Nothing about what any unopened surface holds.
+Not that it carries a competing designation, not that it carries none.
+That is precisely why the disposition is UNRESOLVED rather than
+E2REP-NO-SINGLE-CANONICAL-LOCATION, and it is the C017 boundary and
+RETRACTION 22 applied to eleven records at once.
+
+**No surface is opened to settle any of this.** All eleven carry
+terminal records and QA-21 bars observation after one. The audit is a
+re-reading of the existing record, the basis RETRACTION 8, RETRACTION 9
+and RETRACTION 25 used.
+
+**What this does to the run's reportable outcome.** Target selection was
+already INCONCLUSIVE. If the nine move, the ELIGIBLE set is empty and no
+candidate survives screening -- which is a finding about the screening
+methodology, not about the ports. The sealed protocol admits a gate
+whose PASS requires a closed bounded search, and admits a stop rule that
+ends navigation once a PASS is determined, without saying which binds
+first. Run 1 cannot repair that; a Run 2 preregistration must order them.
+
+**Classification, pending the Run 1 coding protocol.**
+
+```text
+1  adjudication/inference error, 11 candidate records
+   an exactly-one conclusion drawn across a search that the record
+   itself says was not closed.
+
+2  methodology/design gap, QA-30's family
+   the seal does not order the stop rule against the bounded-search
+   requirement that licenses E2-REP's negative component. Every one
+   of the eleven sits on that gap.
+
+3  adjudication/inference error, 1 QA entry, mine
+   QA-40 defended C078 by calling E2-REP existential, which
+   SCREENING_PROTOCOL.md:242-251 explicitly denies, and by reading
+   a URL's role off its path shape, which QA-25 refuses. Both
+   withdrawn at 53abead0.
+
+4  adjudication/inference error, 1 commit, mine
+   53abead0 then argued the question could not be decided because
+   deciding would move seven candidates rather than one. That
+   inverts RETRACTION 28: UNRESOLVED is recordable precisely
+   BECAUSE it needs no choice among readings, and breadth widens an
+   audit rather than preserving an overclaim. Second occurrence of
+   this exact error; RETRACTION 28 was the first.
+```
+
+Detected by external review; the eleven-candidate audit is the author's.
