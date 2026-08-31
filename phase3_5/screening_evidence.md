@@ -13881,14 +13881,16 @@ http_status      200
 redirect_chain   NONE (num_redirects 0)
 observed_at_utc  2026-08-31T07:51:05Z
 completed_at_utc 2026-08-31T07:51:36Z
-role             the metadata read for the fields below
+evidence_role    official-source-location
+request_purpose  the repository metadata read for the fields below
 
 requested_url    https://github.com/diasurgical/devilutionX
 final_url        https://github.com/diasurgical/devilutionX
 http_status      200
 redirect_chain   NONE (num_redirects 0)
 observed_at_utc  2026-08-31T07:51:36Z
-role             status and redirect chain ONLY. The rendered page was
+evidence_role    official-project-page
+request_purpose  status and redirect chain ONLY. The rendered page was
                  not read; the metadata comes from the API surface,
                  which is the same repository and keeps the README out
                  of the observation rather than relying on the
@@ -13900,25 +13902,52 @@ http_status      200
 redirect_chain   NONE (num_redirects 0)
 observed_at_utc  2026-08-31T07:51:50Z
 completed_at_utc 2026-08-31T07:51:51Z
-role             the root listing
+evidence_role    official-source-location
+request_purpose  the root listing
 ```
 
-**`evidence_role` is left unassigned, and the reason is a schema gap
-rather than indecision.** The sealed list offers exactly two values,
-`official-project-page | official-source-location`, as alternatives. This
-surface is admitted as BOTH: the defaulted HOMEPAGE makes it step 1's
-project page and the GH pair makes it step 3's repository, which is
-QA-22's coinciding topology. Choosing one would misdescribe the other
-ground, and choosing neither would drop a required field, so the gap is
-named instead. Eleven earlier entries wrote the compound
-`official-project-page / official-source-location` for this same
-situation; that is precedent for the shape of the problem, not a value
-the sealed enum defines, and this entry does not adopt it silently.
+**`evidence_role` is assigned per request, and there is no schema gap
+here.** An earlier version of this block left the field empty on all
+three requests, put an unsealed `role` in its place, and called that a
+gap. That was wrong twice over.
+
+The sealed list is per network observation, not per candidate, so the
+two admitted grounds do not have to be collapsed into one label -- they
+attach to different requests:
+
+```text
+github.com/diasurgical/devilutionX        official-project-page
+    the URL the defaulted HOMEPAGE names, which is step 1
+api.github.com/repos/...                  official-source-location
+api.github.com/repos/.../contents/        official-source-location
+    the repository's metadata and root, which is step 3
+```
+
+And assigning `official-source-location` does not pre-judge designation,
+which is checked against the record rather than assumed: C014, C034 and
+C044 all carry that role on surfaces where their gate then found no
+designation. The field labels a surface's position in the sealed
+navigation, not what upstream designates. The unsealed word `role` is
+kept only as `request_purpose`, marked as auxiliary and carrying no
+schema weight.
+
+The compound `official-project-page / official-source-location` is left
+unused, and the earlier claim about it is corrected. It appears in **11
+line occurrences, in 11 evidence blocks, across 10 distinct candidate
+records** -- an earlier version said "eleven earlier entries" without
+saying which unit. Of those, the coincident step-1/step-3 structure
+QA-22 describes is C010 and C012, which RETRACTION 8 states in terms:
+their frozen starting URL "was simultaneously the project landing
+surface and the repository root". The rest are not described that way
+in the record -- several group more than one surface in a single block --
+and this entry does not classify them individually.
 
 Two departures in the surrounding record are noted here and NOT changed,
-being outside rank 92: 71 `observed_at_utc` values in this file are
+being outside rank 92. Both counts are LINE OCCURRENCES in the current
+file, which include repeated and superseded records and are therefore
+not counts of independent observations: 71 `observed_at_utc` values are
 `Z-...Z` ranges rather than the request instant the sealed list defines,
-and three `evidence_role` values read `upstream-controlled repository`,
+and 3 `evidence_role` values read `upstream-controlled repository`,
 which is not one of the two sealed alternatives.
 
 Observed, confined to the scope fixed at `8448828`:
