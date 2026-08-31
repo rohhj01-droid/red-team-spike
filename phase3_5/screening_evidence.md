@@ -14138,6 +14138,11 @@ Step 4 of the order fixed at `8448828` was reached because step 2
 determined no specific failure code. This is step 5, authorised for one
 surface only.
 
+**ONE logical surface observation, TWO HTTP requests**, stated the way
+step 1's block states it -- the account is observed once in the sense
+that matters to the gate, and the request count is not the surface
+count.
+
 ```text
 requested_url:   https://api.github.com/users/diasurgical
 final_url:       https://api.github.com/users/diasurgical
@@ -14145,7 +14150,7 @@ http_status:     200
 redirect_chain:  NONE (num_redirects 0)
 observed_at_utc: 2026-08-31T09:18:35Z
 completed_at_utc: 2026-08-31T09:18:37Z
-evidence_role:   official-project-page
+evidence_role:   NOT EXPRESSIBLE IN THE SEALED ENUM -- see below
 request_purpose: the account surface RETRACTION 10 admits as a separate
                  identifier
 
@@ -14154,49 +14159,77 @@ final_url:       https://github.com/diasurgical
 http_status:     200
 redirect_chain:  NONE (num_redirects 0)
 observed_at_utc: 2026-08-31T09:18:37Z
-evidence_role:   official-project-page
+evidence_role:   NOT EXPRESSIBLE IN THE SEALED ENUM -- see below
 request_purpose: status and redirect chain ONLY; the rendered page was
                  not read
 ```
 
-`evidence_role` is `official-project-page` on both, and the choice is
-stated rather than assumed: the sealed enum's two values are
-project-page and source-location, an account surface is not a source
-location, and the enum has no third value. It is the nearer of two, not
-an exact fit, and nothing in the adjudication rests on the label.
+**`evidence_role` is left unfilled on both, and this one IS a schema
+gap.** An earlier version wrote `official-project-page` on both while
+admitting in the next sentence that it was "the nearer of two, not an
+exact fit". That is a value presented as compliant when it is not: an
+account surface is neither this system's project page nor its source
+location, the sealed enum (:196) has exactly those two values, and no
+sealed rule says to pick the nearer one. Choosing by nearness would be a
+rule invented here.
 
-Observed, confined to the account scope fixed at `8448828`:
+This is unlike the repository case at step 1. There the two enum values
+both applied and attached to different requests, so the field could be
+filled correctly. Here neither applies to any request. Recorded as
+QA-42, and the observations below are unaffected -- nothing in the
+adjudication rests on the label.
+
+**Observed, and the in-scope fields are kept apart from the rest.** An
+earlier version put six fields the scope never admitted --
+`name`, `company`, `location`, `email`, `hireable`, `twitter_username` --
+inside a table headed "confined to the account scope", and then said of
+the response's other fields that "none was read for content". Both
+cannot hold. Corrected:
 
 ```text
-login              diasurgical
-type               Organization
-blog               "" -- the website metadata field is present and EMPTY
-html_url           https://github.com/diasurgical
-name               null      company   null      location  null
-email              null      hireable  null      twitter_username null
+IN SCOPE, read and used
+  login    diasurgical
+  type     Organization
+  blog     "" -- the website metadata field the scope admits, present
+           and EMPTY
+
+IN SCOPE by purpose, read for one question only
+  bio      the scope admits "any statement on the surface designating a
+           canonical source location for THIS system", and a bio is
+           where such a statement could sit, so it was read for that
+           and nothing else. Its content is quoted below.
+
+NOT IN SCOPE -- field names recorded so the exclusion is checkable,
+values not used
+  html_url  name  company  location  email  hireable
+  twitter_username  avatar_url  created_at  updated_at  id  node_id
+  gravatar_id  site_admin  user_view_type  url  followers  following
+  public_gists  public_repos  repos_url  followers_url  following_url
+  gists_url  organizations_url  received_events_url  events_url
+  starred_url  subscriptions_url
+  33 fields in the response; 3 read and used, 1 read for the
+  designation question, 29 not read for content -- recounted from the
+  response, an earlier version of these figures saying 32 and 28.
+  Repository listings, pins, activity and follower data were excluded
+  by the scope committed before the request.
 ```
 
-No field on this surface designates a canonical source location for
-DevilutionX. No primary, canonical or mirror marking relating to this
-system appears; the surface exposes no field of that kind at all.
+Among the fields the scope permitted and that were inspected, none
+designates a canonical source location for DevilutionX, and none carries
+a primary, canonical or mirror marking relating to this system. No claim
+is made about the 29 fields that were not read.
 
-**Recorded as seen and not used.** The `bio` field reads "Guts of the
-most sinister game ever made, Diablo. Elder sister of @diabpsx". It
-names no location and no URL, so it designates nothing for this gate.
-It does reference another account, `@diabpsx`, which was NOT followed:
-onward links are outside the scope fixed in advance, and an
+**The `bio`, recorded as seen and not used for any designation.** It
+reads "Guts of the most sinister game ever made, Diablo. Elder sister of
+@diabpsx". It names no location and no URL, so it designates nothing for
+this gate. It references another account, `@diabpsx`, which was NOT
+followed: onward links are outside the scope fixed in advance, and an
 account-to-account relation is not a source-location designation.
 
-**Scope discipline, recorded because the response carried more than the
-scope allows.** The response contains 32 fields including `repos_url`,
-`public_repos`, `followers`, `following`, `starred_url`,
-`subscriptions_url`, `organizations_url` and `events_url`. None was read
-for content and none is used: repository listings, pins, activity and
-follower data were excluded by the scope committed before the request,
-and the field names are listed here only to make the exclusion checkable.
-
-**Step 4 adjudication, on the rule fixed at `8448828`, over BOTH
-observed surfaces.**
+**Final adjudication, after step 5, on the rule fixed at `8448828`, over
+BOTH observed surfaces.** An earlier version headed this "Step 4
+adjudication"; step 4 is where the account's necessity arose and step 5
+is the request, so the adjudication comes after step 5.
 
 ```text
 PASS
@@ -14220,8 +14253,9 @@ E2REP-NO-SINGLE-CANONICAL-LOCATION  not established
   is not observing competing ones.
 
 E2REP-NO-STABLE-URL                 not established
-  all four requests returned 200 with redirect_chain NONE. Nothing
-  observed makes any URL unstable.
+  all FIVE HTTP requests across the two surfaces returned 200 with
+  redirect_chain NONE -- three at step 1, two here. An earlier version
+  said four. Nothing observed makes any URL unstable.
 
 E2REP-NO-SINGLE-TARGET-ID           not established
   the observed upstream surfaces expose one external target identifier
@@ -14232,8 +14266,11 @@ E2REP-NO-SINGLE-TARGET-ID           not established
   is not a candidate second UPSTREAM identifier at all.
 ```
 
-**No specific failure code is determined, and no admitted surface
-remains that the contract permits opening.** Starting points 1, 2 and 3
+**No specific failure code is determined, and no remaining admitted
+surface is established as permitted to open.** The earlier wording --
+"no admitted surface remains that the contract permits opening" -- reads
+as though starting point 4 had been settled as forbidden, which the very
+next sentence denies. Starting points 1, 2 and 3
 were observed. Starting point 4 was not requested with its class left
 unsettled, and starting point 5 was not requested as QA-31's forbidden
 class. So the gate ends where QA-31 said this shape ends:
@@ -14254,4 +14291,4 @@ throughout.
 
 **Provenance limit, as at C080 and C083-C091.** The repository carries
 these transcriptions and the response metadata, not the response bytes.
-The field values and the 32-field list rest on the session record.
+The field values and the 33-field list rest on the session record.

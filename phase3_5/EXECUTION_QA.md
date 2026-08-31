@@ -3190,3 +3190,65 @@ is an adjudication error, not a design gap.
 ```
 
 Detected by external review; the eleven-candidate audit is the author's.
+
+
+## QA-42 -- the sealed `evidence_role` enum cannot express an account surface (METHODOLOGY/DESIGN GAP, no verdict moved)
+
+Found at rank 92, where an admitted starting point is a code host's
+account surface and the field had to be filled.
+
+**The enum.** `SCREENING_PROTOCOL.md:196` gives `evidence_role` exactly
+two values:
+
+```text
+evidence_role        official-project-page | official-source-location
+```
+
+**Why neither fits an account surface.** `https://github.com/diasurgical`
+is admitted as a starting point because RETRACTION 10 settled that the
+ACCOUNT token in the frozen metadata is a separate admitted identifier.
+But the surface it reaches is neither this system's project page nor a
+location holding this system's source. It is the owner of the repository,
+one level above the system being screened.
+
+**Why this is a real gap and the repository case was not.** At step 1 of
+this same candidate the two enum values BOTH applied -- the defaulted
+HOMEPAGE made the surface step 1's project page and the GH pair made it
+step 3's repository -- and because the sealed field is per network
+observation they could be attached to different requests, so the field
+was filled correctly with sealed values. Here neither value applies to
+either request, and no sealed rule licenses picking the nearer one.
+
+```text
+step 1, C092     two values applied      -> field filled, no gap
+step 5, C092     no value applies        -> field cannot be filled
+```
+
+**What was done.** An earlier version of the C092 entry wrote
+`official-project-page` on both account requests while admitting in the
+next sentence that it was "the nearer of two, not an exact fit". That
+presents an invented rule as schema compliance and is withdrawn. The
+field now reads `NOT EXPRESSIBLE IN THE SEALED ENUM` with a pointer to
+this entry.
+
+**Scope.** A class, not an incident. Any frame item whose frozen
+metadata carries a GH_ACCOUNT or a DIST_TUPLE account token reaches an
+account surface, and RETRACTION 10 admits it. C018 and C071 observed
+theirs; whether their entries recorded a role for it, and which, is not
+audited here.
+
+**No verdict moves.** Nothing in C092's adjudication rests on the label,
+which is why the observations stand while the field is left unfilled.
+The verdict is UNRESOLVED / PI-UNCLASSIFIED-SHAPE on the ground recorded
+at `03aa5d7` -- starting point 5 admitted and unobservable -- and that
+ground never involved `evidence_role`.
+
+**What Run 2 needs.** A third value, or an explicit rule for surfaces
+that are admitted as starting points without being either a project page
+or a source location. Run 1 cannot add one.
+
+**Classification, pending the Run 1 coding protocol.** Methodology/design
+gap, QA-30's family: the sealed schema is silent on a case the sealed
+starting-point clause admits. Plus an adjudication/inference error in the
+first version of the C092 entry, for presenting a nearest-fit choice as a
+compliant value. Detected by external review of that entry.
