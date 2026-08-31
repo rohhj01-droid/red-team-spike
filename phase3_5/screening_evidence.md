@@ -13983,8 +13983,12 @@ one. Pinning did not save it: the figures were reproducible and wrong
 together, because the instrument and the error shared a cause.
 
 C092 does not disturb the 57 pairings, having no `Decision` line yet, and
-the two result rows above are unaffected. It belongs in the `any role`,
-`single enum` and `no role` denominators, and now is.
+the two result rows above are unaffected. It belongs in the `any role`
+and `single enum` counts, and must be REMOVED from `no role`, which is
+what takes that figure from 329 to 328. An earlier version of this
+sentence listed `no role` among the denominators C092 belongs in, which
+is the opposite of what carrying two roles means and would have made the
+328 unreachable from its own explanation.
 
 A value appearing on blocks that decided PASS, UNRESOLVED and FAIL alike
 is not carrying the designation outcome. It labels a surface's position
