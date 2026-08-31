@@ -13923,19 +13923,48 @@ api.github.com/repos/.../contents/        official-source-location
     the repository's metadata and root, which is step 3
 ```
 
-And assigning `official-source-location` does not pre-judge designation,
-which is checked against the record rather than assumed: C014, C034 and
-C044 all carry that role on surfaces where their gate then found no
-designation. The field labels a surface's position in the sealed
-navigation, not what upstream designates. The unsealed word `role` is
-kept only as `request_purpose`, marked as auxiliary and carrying no
-schema weight.
+And assigning `official-source-location` does not pre-judge designation.
+An earlier version of this paragraph offered a false basis for that --
+"C014, C034 and C044 all carry that role on surfaces where their gate
+then found no designation" -- and every part of it was wrong. C014's and
+C034's E2-REP entries carry the role and decided PASS, having found a
+designation; C014's live entry, `-02`, carries no `evidence_role` at all;
+and C044's block carries BOTH roles across two surfaces rather than the
+one attributed to it. Withdrawn.
+
+The basis that does hold is a tabulation of role against decision across
+every evidence block in this file, and it is the comparison the role
+question actually needs -- the SAME role reaching DIFFERENT designation
+outcomes:
+
+```text
+evidence_role                    decisions of the blocks carrying it
+official-source-location         PASS 13   UNRESOLVED 1
+                                 the UNRESOLVED is C044, whose block
+                                 carries this role on one surface and
+                                 official-project-page on another
+official-project-page            UNRESOLVED 28   PASS 10   FAIL 5
+```
+
+A field that appears on blocks deciding PASS, UNRESOLVED and FAIL alike
+is not carrying the designation outcome. It labels a surface's position
+in the sealed navigation. Unit, stated because a block may carry more
+than one role: these are block-to-decision pairings, counted per
+distinct role within a block, not per request.
+
+The unsealed word `role` is kept only as `request_purpose`, marked as
+auxiliary and carrying no schema weight.
 
 The compound `official-project-page / official-source-location` is left
-unused, and the earlier claim about it is corrected. It appears in **11
-line occurrences, in 11 evidence blocks, across 10 distinct candidate
-records** -- an earlier version said "eleven earlier entries" without
-saying which unit. Of those, the coincident step-1/step-3 structure
+unused, and the earlier claim about it is corrected twice over. **As an
+`evidence_role` FIELD VALUE it appears 11 times, in 11 evidence blocks,
+across 10 distinct candidate records.** An earlier version said "eleven
+earlier entries" with no unit at all, and a second version said "11 line
+occurrences in the current file", which is now false of the file: the
+string occurs 12 times on 12 lines in 12 blocks across 11 candidates,
+because this paragraph writes it once itself. Scoping the claim to the
+field value is what makes it stable under its own correction.
+Of the eleven, the coincident step-1/step-3 structure
 QA-22 describes is C010 and C012, which RETRACTION 8 states in terms:
 their frozen starting URL "was simultaneously the project landing
 surface and the repository root". The rest are not described that way
