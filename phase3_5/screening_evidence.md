@@ -14339,9 +14339,15 @@ dhewm3-1.5.4.tar.gz    SHA256 (base64)
                        SIZE 7685654
 ```
 
-`MAINTAINER` is recorded as seen and NOT used: it names the OpenBSD
-packager, and letting an OpenBSD field carry upstream evidential force is
-the move withdrawn at C014, C017 and QA-22.
+`MAINTAINER` is recorded as seen and NOT used. The frozen tree defines
+what it is, so the definition is quoted rather than supplied:
+`bsd.port.mk:8-9` says each port has a MAINTAINER, "which is the email
+address(es) of the person(s) to contact if you have questions/suggestions
+about that specific port". So it is this port's maintainer or contact
+address. An earlier version of this sentence called it "the OpenBSD
+packager", which assigns a role the frozen text does not state.
+Either way it is an OpenBSD field, and letting one carry upstream
+evidential force is the move withdrawn at C014, C017 and QA-22.
 
 Infrastructure-resolved value, read as frozen metadata on the same
 footing as the Makefile's own lines, which is the practice QA-39 and
@@ -14363,7 +14369,10 @@ four.**
 
 ```text
 1  https://dhewm3.org
-     the frozen HOMEPAGE, an upstream project site on its own domain
+     the frozen HOMEPAGE. Described as what it is in the metadata: an
+     explicit HOMEPAGE on a domain that is not a code host. Whether
+     the surface at that URL is upstream's project site is not
+     established before it is requested, and is not asserted here.
 2  the GH_ACCOUNT/GH_PROJECT pair
      -> https://github.com/dhewm/dhewm3
 3  https://github.com/dhewm
@@ -14375,16 +14384,27 @@ four.**
      be opened at C026.
 ```
 
-Unlike C092 the HOMEPAGE is a separate project site rather than the
-repository, so step 1, step 2 and step 3 are three distinct surfaces
-here and QA-22's coinciding topology does not arise. Nothing about
-starting point 4 is decided at UR.
+Unlike C092, the HOMEPAGE is a URL distinct from the one the GH pair
+resolves to, so starting points 1, 2 and 3 RESOLVE TO three distinct
+surfaces and QA-22's coinciding topology does not arise. An earlier
+version wrote "step 1, step 2 and step 3 are three distinct surfaces",
+which misuses the contract's vocabulary: step 2 is a navigation step
+over links a page exposes, and no page has been requested, so there is
+nothing yet to call a step-2 surface. Nothing about starting point 4 is
+decided at UR.
 
-Inference: the frozen fields name one packaged system, dhewm3. The
-HOMEPAGE sits on the project's own domain while the GH identifiers point
-at a repository on a code host -- the protocol's own "several facts about
-one system" shape at SCREENING_PROTOCOL.md:94-98, not metadata pointing
-at genuinely different systems. Not UR-AMBIGUOUS.
+Inference: the frozen fields associate one packaged system, dhewm3, with
+one HOMEPAGE URL and one account/project pair. The HOMEPAGE is on a
+domain that is not a code host and the identifiers are on one that is --
+the protocol's own "several facts about one system" shape at
+SCREENING_PROTOCOL.md:94-98, not metadata pointing at genuinely different
+systems. Not UR-AMBIGUOUS.
+
+Stated at that level on purpose. An earlier version said the HOMEPAGE
+"sits on the project's own domain" and that the identifiers "point at a
+repository", both of which are claims about surfaces nobody has
+requested. What the metadata supports before any request is the
+association, not the character of either destination.
 
 Not a duplicate, and the check is recorded because two earlier candidates
 have names that look close. `dhewm3`, `dhewm` and `Doom 3` return zero
