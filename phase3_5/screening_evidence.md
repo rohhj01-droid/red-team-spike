@@ -14323,3 +14323,89 @@ throughout.
 these transcriptions and the response metadata, not the response bytes.
 The field values and the 33-field list rest on the session record, and
 so does the split of that 33 into 3 + 1 + 7 + 22.
+
+## EV-C093-UR-01
+Candidate: C093 (frame rank 93, games/dhewm3)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/dhewm3/Makefile and distinfo
+
+Observed, in the Makefile: `ONLY_FOR_ARCHS = amd64 i386`; `GH_ACCOUNT = dhewm`; `GH_PROJECT = dhewm3`; `GH_TAGNAME = 1.5.4`; `COMMENT = open-source version of Doom 3`; `CATEGORIES = games`; `HOMEPAGE = https://dhewm3.org`; `MAINTAINER = Pascal Stumpf <pascal@stumpf.co>`; a `# GPLv3+` comment line above `PERMIT_PACKAGE = Yes`; `MODULES = devel/cmake`; `WRKSRC = ${WRKDIST}/neo`. There is no SITES line and no DIST_TUPLE.
+
+Observed, in distinfo: one artifact.
+
+```text
+dhewm3-1.5.4.tar.gz    SHA256 (base64)
+                       1GDVX3kS4iD00gm2b0fjGq1sKoM69iNqNnkJalHyGFg=
+                       SIZE 7685654
+```
+
+`MAINTAINER` is recorded as seen and NOT used: it names the OpenBSD
+packager, and letting an OpenBSD field carry upstream evidential force is
+the move withdrawn at C014, C017 and QA-22.
+
+Infrastructure-resolved value, read as frozen metadata on the same
+footing as the Makefile's own lines, which is the practice QA-39 and
+QA-40 record this run as following:
+
+```text
+bsd.port.mk:1284-1286,1294   GH_ACCOUNT + GH_PROJECT with GH_TAGNAME
+                             build SITES_GITHUB, then SITES ?= it
+                             -> https://github.com/dhewm/dhewm3/
+                                archive/refs/tags/1.5.4/
+```
+
+`HOMEPAGE` is NOT defaulted here: the port sets it explicitly. So
+QA-39's finding does not arise for this candidate, while QA-40's does --
+the port has no SITES line and the resolved metadata carries one.
+
+**The admitted starting points, enumerated per QA-27, and there are
+four.**
+
+```text
+1  https://dhewm3.org
+     the frozen HOMEPAGE, an upstream project site on its own domain
+2  the GH_ACCOUNT/GH_PROJECT pair
+     -> https://github.com/dhewm/dhewm3
+3  https://github.com/dhewm
+     the ACCOUNT token, a separate admitted identifier per RETRACTION 10
+4  https://github.com/dhewm/dhewm3/archive/refs/tags/1.5.4/
+     `SITES`, resolved via SITES_GITHUB (QA-40). QA-40 records the class
+     of a GitHub `/archive/` path as UNSETTLED -- neither established as
+     QA-31's forbidden class nor as the distfile mirror QA-27 required
+     be opened at C026.
+```
+
+Unlike C092 the HOMEPAGE is a separate project site rather than the
+repository, so step 1, step 2 and step 3 are three distinct surfaces
+here and QA-22's coinciding topology does not arise. Nothing about
+starting point 4 is decided at UR.
+
+Inference: the frozen fields name one packaged system, dhewm3. The
+HOMEPAGE sits on the project's own domain while the GH identifiers point
+at a repository on a code host -- the protocol's own "several facts about
+one system" shape at SCREENING_PROTOCOL.md:94-98, not metadata pointing
+at genuinely different systems. Not UR-AMBIGUOUS.
+
+Not a duplicate, and the check is recorded because two earlier candidates
+have names that look close. `dhewm3`, `dhewm` and `Doom 3` return zero
+matches in both ledgers and in the evidence file before this entry. C065
+Chocolate Doom and C084 Crispy Doom are separate upstream systems with
+their own accounts and projects; sharing the word Doom is not sharing an
+upstream, and neither is this one.
+
+Decision: PASS
+
+## EV-C093-E1-01
+Candidate: C093
+Gate: E1
+Source: same frozen metadata
+
+Observed: `COMMENT = open-source version of Doom 3`; `HOMEPAGE = https://dhewm3.org`; `GH_ACCOUNT = dhewm`; `GH_PROJECT = dhewm3`; a `# GPLv3+` comment line above `PERMIT_PACKAGE = Yes`, recorded as seen and not used.
+
+Inference: those fields name a program authored outside this project, on
+a domain and under an account neither of which is this project's, so the
+external-authorship requirement is satisfied from the frozen metadata
+alone. Nothing beyond the frozen metadata was consulted, and no external
+surface has been observed for this candidate at any gate.
+
+Decision: PASS
