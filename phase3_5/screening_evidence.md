@@ -14395,16 +14395,33 @@ decided at UR.
 
 Inference: the frozen fields associate one packaged system, dhewm3, with
 one HOMEPAGE URL and one account/project pair. The HOMEPAGE is on a
-domain that is not a code host and the identifiers are on one that is --
-the protocol's own "several facts about one system" shape at
-SCREENING_PROTOCOL.md:94-98, not metadata pointing at genuinely different
-systems. Not UR-AMBIGUOUS.
+domain that is not a code host; the GH_ACCOUNT/GH_PROJECT pair points at
+a repository, which is the protocol's own description of what that pair
+does (:94-95) and is resolved mechanically by `bsd.port.mk` to
+`https://github.com/dhewm/dhewm3`. That is the "several facts about one
+system" shape at SCREENING_PROTOCOL.md:94-98, not metadata pointing at
+genuinely different systems. Not UR-AMBIGUOUS.
 
-Stated at that level on purpose. An earlier version said the HOMEPAGE
-"sits on the project's own domain" and that the identifiers "point at a
-repository", both of which are claims about surfaces nobody has
-requested. What the metadata supports before any request is the
-association, not the character of either destination.
+**What is withdrawn here, and what is not.** An earlier version of this
+paragraph withdrew two phrasings together and was wrong about one of
+them:
+
+```text
+withdrawn   the HOMEPAGE "sits on the project's own domain". Before the
+            surface is requested, nothing establishes that it is
+            upstream-controlled, that it is the official project site,
+            or that it designates a canonical source location.
+
+NOT withdrawn, and restored
+            the pair "points at a repository". That is not a claim
+            about an unrequested surface's character -- it is the
+            frozen metadata's own mechanics, it is how :94-95 words
+            the same thing, and this block already records the
+            resolved URL twice and calls GitHub a code host. An
+            earlier version's "association, not the character of
+            either destination" contradicted its own block and is
+            withdrawn.
+```
 
 Not a duplicate, and the check is recorded because two earlier candidates
 have names that look close. `dhewm3`, `dhewm` and `Doom 3` return zero
