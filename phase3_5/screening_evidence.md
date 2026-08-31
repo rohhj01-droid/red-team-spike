@@ -14202,17 +14202,22 @@ IN SCOPE by purpose, read for one question only
            where such a statement could sit, so it was read for that
            and nothing else. Its content is quoted below.
 
-OUT OF SCOPE, but the VALUES WERE READ and are preserved here. They
-  were transcribed at `08c7893` before the scope split was made, so
-  they cannot be reclassified as unread, and `5111e71` should not have
-  dropped them:
+OUT-OF-SCOPE EXPOSURE / QUARANTINED. The values were read and are
+  preserved verbatim. They were transcribed at `08c7893` before the
+  scope split was made, so they cannot be reclassified as unread, and
+  `5111e71` should not have dropped them:
     html_url          https://github.com/diasurgical
     name              null      company           null
     location          null      email             null
     hireable          null      twitter_username  null
-  Read, recorded, and used for NOTHING: none is a designation, and no
-  part of the adjudication cites them. Their presence here is an
-  out-of-scope exposure, logged as such.
+  They do NO verdict work, in either direction. Nothing is said here
+  about what they mean -- not that any is a designation, not that none
+  is. An earlier version of this block wrote "none is a designation"
+  and a later paragraph argued that "because they were read a claim
+  about them is available"; both are withdrawn. Having seen a value
+  the scope excluded does not confer permission to reason from it,
+  which is the same discipline the run applies to post-stop exposure
+  at C005, C014, C016, C091 and RETRACTION 8a.
 
   VALUES NEVER READ -- names recorded so the exclusion is checkable
   avatar_url  created_at  updated_at  id  node_id  gravatar_id
@@ -14230,13 +14235,15 @@ OUT OF SCOPE, but the VALUES WERE READ and are preserved here. They
   the 22 and were excluded by the scope committed before the request.
 ```
 
-Among the fields the scope permitted and that were inspected, none
-designates a canonical source location for DevilutionX, and none carries
-a primary, canonical or mirror marking relating to this system. Nor does
-any of the seven out-of-scope fields whose values were read, which is
-stated because they were read and so a claim about them is available:
-`html_url` names this same account surface and the other six are null.
-No claim is made about the 22 fields whose values were never read.
+Among the IN-SCOPE observations -- `login`, `type`, `blog`, and `bio`
+read for the designation question the scope admits -- none designates a
+canonical source location for DevilutionX and none carries a primary,
+canonical or mirror marking relating to this system.
+
+Nothing is claimed about the seven quarantined fields, in either
+direction, and nothing is claimed about the 22 whose values were never
+read. The seven are not counted toward a designation and not counted
+against one.
 
 **The `bio`, recorded as seen and not used for any designation.** It
 reads "Guts of the most sinister game ever made, Diablo. Elder sister of
@@ -14267,9 +14274,13 @@ E2REP-NO-SOURCE                     not established
 
 E2REP-NO-SINGLE-CANONICAL-LOCATION  not established
   positive in shape (:246-249): it needs several designations with no
-  primary among them. Across both observed surfaces, ZERO designations
-  were observed. Zero is not several, and not observing a designation
-  is not observing competing ones.
+  primary among them. Across the IN-SCOPE observations on both
+  surfaces, ZERO designations were observed -- and "in-scope" is doing
+  work here rather than decorating: the seven quarantined account
+  fields are counted neither toward a designation nor against one, so
+  this is not a claim about everything the responses contained. Zero
+  is not several, and not observing a designation is not observing
+  competing ones.
 
 E2REP-NO-STABLE-URL                 not established
   all FIVE HTTP requests across the two surfaces returned 200 with
