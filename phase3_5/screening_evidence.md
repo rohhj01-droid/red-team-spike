@@ -14131,3 +14131,127 @@ commit, so that the justification for making it is on the record first.
 **Provenance limit, as at C080 and C083-C091.** The repository carries
 these transcriptions and the response metadata, not the response bytes.
 The 24-entry count and the field values rest on the session record.
+
+### EV-C092-E2REP-01, STEP 5 -- SURFACE 3, THE ACCOUNT
+
+Step 4 of the order fixed at `8448828` was reached because step 2
+determined no specific failure code. This is step 5, authorised for one
+surface only.
+
+```text
+requested_url:   https://api.github.com/users/diasurgical
+final_url:       https://api.github.com/users/diasurgical
+http_status:     200
+redirect_chain:  NONE (num_redirects 0)
+observed_at_utc: 2026-08-31T09:18:35Z
+completed_at_utc: 2026-08-31T09:18:37Z
+evidence_role:   official-project-page
+request_purpose: the account surface RETRACTION 10 admits as a separate
+                 identifier
+
+requested_url:   https://github.com/diasurgical
+final_url:       https://github.com/diasurgical
+http_status:     200
+redirect_chain:  NONE (num_redirects 0)
+observed_at_utc: 2026-08-31T09:18:37Z
+evidence_role:   official-project-page
+request_purpose: status and redirect chain ONLY; the rendered page was
+                 not read
+```
+
+`evidence_role` is `official-project-page` on both, and the choice is
+stated rather than assumed: the sealed enum's two values are
+project-page and source-location, an account surface is not a source
+location, and the enum has no third value. It is the nearer of two, not
+an exact fit, and nothing in the adjudication rests on the label.
+
+Observed, confined to the account scope fixed at `8448828`:
+
+```text
+login              diasurgical
+type               Organization
+blog               "" -- the website metadata field is present and EMPTY
+html_url           https://github.com/diasurgical
+name               null      company   null      location  null
+email              null      hireable  null      twitter_username null
+```
+
+No field on this surface designates a canonical source location for
+DevilutionX. No primary, canonical or mirror marking relating to this
+system appears; the surface exposes no field of that kind at all.
+
+**Recorded as seen and not used.** The `bio` field reads "Guts of the
+most sinister game ever made, Diablo. Elder sister of @diabpsx". It
+names no location and no URL, so it designates nothing for this gate.
+It does reference another account, `@diabpsx`, which was NOT followed:
+onward links are outside the scope fixed in advance, and an
+account-to-account relation is not a source-location designation.
+
+**Scope discipline, recorded because the response carried more than the
+scope allows.** The response contains 32 fields including `repos_url`,
+`public_repos`, `followers`, `following`, `starred_url`,
+`subscriptions_url`, `organizations_url` and `events_url`. None was read
+for content and none is used: repository listings, pins, activity and
+follower data were excluded by the scope committed before the request,
+and the field names are listed here only to make the exclusion checkable.
+
+**Step 4 adjudication, on the rule fixed at `8448828`, over BOTH
+observed surfaces.**
+
+```text
+PASS
+  not reachable, determined at `03aa5d7` before any request. Starting
+  point 5 is admitted and unobservable under the same contract that
+  admits it, so the bounded search cannot close and the negative half
+  of "exactly one" is unavailable. Nothing observed since changes this,
+  and nothing observed was needed to establish it.
+
+E2REP-NO-SOURCE                     not established
+  a source tree was observed at the repository root at step 1. The code
+  is absence-shaped, so it would in any case need either a closed
+  search -- unavailable here -- or an explicit upstream statement at
+  candidate level that no source representation is available. Neither
+  exists.
+
+E2REP-NO-SINGLE-CANONICAL-LOCATION  not established
+  positive in shape (:246-249): it needs several designations with no
+  primary among them. Across both observed surfaces, ZERO designations
+  were observed. Zero is not several, and not observing a designation
+  is not observing competing ones.
+
+E2REP-NO-STABLE-URL                 not established
+  all four requests returned 200 with redirect_chain NONE. Nothing
+  observed makes any URL unstable.
+
+E2REP-NO-SINGLE-TARGET-ID           not established
+  the observed upstream surfaces expose one external target identifier
+  for this system, `diasurgical/DevilutionX`. `diasurgical` is the
+  account that owns it, not a second identifier for the system, and
+  `@diabpsx` is another account rather than a target identifier. Per
+  the ground corrected at `a3870d3`, the frozen OpenBSD `GH_PROJECT`
+  is not a candidate second UPSTREAM identifier at all.
+```
+
+**No specific failure code is determined, and no admitted surface
+remains that the contract permits opening.** Starting points 1, 2 and 3
+were observed. Starting point 4 was not requested with its class left
+unsettled, and starting point 5 was not requested as QA-31's forbidden
+class. So the gate ends where QA-31 said this shape ends:
+
+```text
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+```
+
+Gates after E2-REP are NOT_REACHED. Survivor-stage fields are
+NOT_REACHED.
+
+**What is NOT claimed.** Nothing about what starting points 4 or 5 hold
+-- not a competing designation, not none. Nothing about whether upstream
+designates a canonical source location elsewhere. The two surfaces that
+were read carried no designation, which is a bounded observation and not
+a demonstration, and that is the C017 boundary the run has applied
+throughout.
+
+**Provenance limit, as at C080 and C083-C091.** The repository carries
+these transcriptions and the response metadata, not the response bytes.
+The field values and the 32-field list rest on the session record.
