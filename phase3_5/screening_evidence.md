@@ -13647,17 +13647,20 @@ of the host with different recorded dispositions in this run.
 ```text
 1  https://github.com/diasurgical/devilutionX   the defaulted HOMEPAGE
 2  the GH_ACCOUNT/GH_PROJECT pair               resolves to the same URL
-     ONE observation, TWO metadata grounds. The surface is requested
-     once because requesting it twice would observe nothing further;
-     both grounds are recorded as admitting it, and neither is treated
-     as the other. This is QA-22's topology, step 1 and step 3
+     ONE request, TWO metadata grounds. The surface WILL BE requested
+     once -- requesting it twice would observe nothing further -- and
+     both grounds are recorded as admitting it, neither treated as the
+     other. This is QA-22's topology, step 1 and step 3
      coinciding, which answers WHICH surface and supplies no
      designation of its own.
 
 3  https://github.com/diasurgical               the ACCOUNT token
-     Observed under its OWN scope, below. RETRACTION 10 settled that
-     this is a separate admitted identifier rather than half of 2, and
-     C018 and C071 observed theirs.
+     TO BE requested under its OWN scope, below, and ONLY if the
+     repository observation leaves the gate undetermined. RETRACTION 10
+     settled that this is a separate admitted identifier rather than
+     half of 2, and C018 and C071 observed theirs. Whether it is
+     observed here depends on the order fixed below; it is not
+     scheduled unconditionally.
 
 4  https://github.com/diasurgical/devilutionX/archive/refs/tags/1.5.4/
      NOT REQUESTED, and this entry states no rule justifying that.
@@ -13699,22 +13702,70 @@ PASS is not reachable for this candidate.
   eight candidates whose surfaces were merely unopened; here the
   contract itself closes one.
 
-FAIL remains reachable, which is why observation is still necessary.
-  E2REP-NO-SINGLE-CANONICAL-LOCATION is positive in shape (:246-249):
-  it records that several designations were found with no primary among
-  them. A positive finding needs no closed search. So the surfaces
-  below are observed to determine whether such a finding exists, not to
-  reach a PASS that is already out of reach.
+A specific failure code remains reachable, which is why observation
+  is still necessary. The seal defines four E2-REP codes (:364-367):
 
-Necessary because, in QA-11's required form:
-  which question   whether several designations with no primary among
-                   them are exposed, the only determination still open
-  which structure  the frozen metadata reaches a repository surface and
-                   an account surface, both upstream-controlled, and
-                   either could carry a designation under QA-23's
-                   generalisation to a label, a link relation or a
-                   structured marking
-  so the verdict cannot be settled without reading these two surfaces.
+    E2REP-NO-SOURCE                     no access to actual source
+                                        representation
+    E2REP-NO-SINGLE-CANONICAL-LOCATION  not exactly one designated
+                                        canonical location
+    E2REP-NO-STABLE-URL                 canonical location has no
+                                        stable URL
+    E2REP-NO-SINGLE-TARGET-ID           not exactly one external
+                                        target identifier
+
+  Any of the four could in principle be established POSITIVELY from
+  the allowed observations, and a positive finding needs no closed
+  search. Several designations with no primary among them -- the code
+  :246-249 singles out as positive in shape -- is one example and not
+  the only one. An earlier version of this block named that code alone
+  and called it "the only determination still open", which removed the
+  other three in advance without grounds. So the surfaces will be
+  observed, in the order fixed below, to determine whether any
+  specific code is established, not to reach a PASS that is already
+  out of reach.
+
+Necessary because, in QA-11's required form, and stated per surface
+  because the two are not necessary in the same way:
+
+  surface 1+2, the repository
+    which question   whether any of the four specific failure codes is
+                     established on the one surface the metadata's
+                     HOMEPAGE and GH pair both reach
+    which structure  the frozen metadata reaches it directly and it is
+                     upstream-controlled, so a designation, a
+                     competing designation, a marking or the absence
+                     of source access could each appear there, under
+                     QA-23's generalisation to a label, a link
+                     relation or a structured marking
+    so the verdict cannot be settled without reading it.
+
+  surface 3, the account
+    CONDITIONALLY necessary, and an earlier version of this entry
+    asserted it unconditionally -- "the verdict cannot be settled
+    without reading these two surfaces" -- which is false. The stop
+    rule ends navigation "the moment a PASS or a specific failure code
+    is determined. Not one page further" (:145-146). If the repository
+    observation determines a specific code, the account surface must
+    NOT be opened, and its necessity never arises.
+
+**Order of observation, fixed before any request.**
+
+```text
+1  request surface 1+2, the repository, within its scope below
+2  adjudicate immediately on what that surface yields
+3  if a specific failure code is determined, STOP. The account
+   surface is not requested, and this entry will record that the
+   stop rule reached it first rather than that it was declined.
+4  only if no specific code is determined does surface 3 become the
+   remaining admitted surface whose reading the verdict needs
+5  then, and only then, request it under the account scope fixed
+   below
+```
+
+PASS is not an available outcome at step 2 or step 4, for the reason
+above. So step 3's "specific failure code" is the only thing that can
+end navigation early here.
 ```
 
 **Observation scope for surfaces 1 and 2, fixed before the request.**
