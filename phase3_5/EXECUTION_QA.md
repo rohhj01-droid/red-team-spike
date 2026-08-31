@@ -2843,7 +2843,7 @@ limits    textual over the evidence file and the port Makefiles, not a
 Detected by the author while enumerating rank 92's starting points.
 
 
-## QA-41 -- audit of unopened admitted starting points among the ELIGIBLE candidates (two moved at RETRACTION 31, six with necessity established, three without)
+## QA-41 -- audit of unopened admitted starting points among the ELIGIBLE candidates (two moved at RETRACTION 31, six whose PASS is unsupported, three with enumeration-only errors)
 
 Raised by external review of QA-40's C078 note. The finding is not about
 C078.
@@ -2937,16 +2937,22 @@ QA-31: a metadata-supplied starting point that DOES name a forbidden
   -> UNRESOLVED / PI-UNCLASSIFIED-SHAPE, on QA-31's own disposition.
 ```
 
-**Group 1 -- a SITES naming no forbidden class was not observed.**
-QA-27's standing requirement is unmet, so the bounded search is not
-closed and exactly-one is unsupported.
+**Group 1 -- a SITES not established as QA-31's class, and not
+observed.** QA-27's standing requirement is unmet, so the bounded search
+is not closed and exactly-one is unsupported. "Not established as
+QA-31's class" is doing real work here and is not the same as "no
+forbidden class named": C064 forbids settling the class from a URL's
+spelling in either direction, so each entry below says what the surface
+is on its host.
 
 ```text
-C063  https://github.com/Isarhamster/chessx/archive/refs/tags/
-      v1.5.6-lw/            resolved by bsd.port.mk:1294 (QA-40)
 C066  https://gitlab.com/jazztickets/uploads/-/raw/main/
-      a different gitlab namespace from the designated
-      gitlab.com/choria/code
+      a code host, so the class question is live, and it is answered
+      from what the entry observed rather than from the URL's
+      spelling: GitLab's release-asset area is `/-/releases`, and
+      that URL appears on the same page as a SEPARATE link which the
+      entry treats as a forbidden class. The SITES is a raw-file path
+      in a different namespace, not that area.
 C067  http://level7.org.uk/chroma/download/
       the `${HOMEPAGE}download/` construction verbatim -- C026's, the
       case QA-27 was written on, where it had to be opened
@@ -2994,12 +3000,33 @@ forbidden class", which its only member contradicts: QA-37 records the
 class as unsettled and the point is that settling it is unnecessary.
 
 ```text
+C063  https://github.com/Isarhamster/chessx/archive/refs/tags/
+      v1.5.6-lw/            resolved by bsd.port.mk:1294
+      QA-40 records the class of a GitHub `/archive/` path as
+      unsettled, in terms: whether it "is QA-31's forbidden class or
+      the distfile mirror QA-27 required be opened is the question
+      QA-37 records as unsettled". An earlier version of this entry
+      put C063 in group 1 as "naming no forbidden class", which
+      contradicts QA-40 two sections above it.
 C074  https://downloads.sourceforge.net/sourceforge/clonekeen/
-      QA-37 records this construction's class as unsettled, and it
-      does not need settling here: forbidden -> QA-31 -> UNRESOLVED;
-      not forbidden -> QA-27 requires it and it was NOT requested.
-      Both branches defeat the PASS, so no reading is chosen.
+      QA-37 records this construction's class as unsettled.
 ```
+
+Neither needs settling, and neither is settled here:
+
+```text
+forbidden reading      -> QA-31: admitted but unobservable, and the
+                          gate has no way to complete over it
+                          -> UNRESOLVED
+non-forbidden reading  -> QA-27's standing requirement is unmet
+                          -> bounded search not closed
+                          -> UNRESOLVED
+```
+
+Note what the first branch is and is not. It is QA-31's
+unobservable-starting-point gap, NOT a finding that the surface was
+necessary. So "necessity established" is the wrong label for this group,
+and an earlier version of this entry used it.
 
 **Group 3 -- the ACCOUNT token only, and here the audit does NOT
 close.** C059, C065 and C084 omitted the ACCOUNT surface RETRACTION 10
@@ -3035,11 +3062,16 @@ the observation QA-21 bars.
 ```text
 C049 C078   moved at RETRACTION 31. Confirmed by external review from
             the record before the move.
-C013 C063 C066 C067 C090
-            necessity established by QA-27's standing requirement:
-            a SITES naming no forbidden class, not observed.
-C074        necessity established without settling its class, since
-            both branches defeat the PASS.
+C013 C066 C067 C090
+            PASS unsupported. Their SITES is not established as
+            QA-31's class and was not observed, so QA-27's standing
+            requirement is unmet and the bounded search is not
+            closed.
+C063 C074   PASS unsupported without settling their surface class.
+            Under the forbidden reading QA-31 leaves the gate no way
+            to complete; under the other, QA-27's requirement is
+            unmet. Not a necessity finding, which is why the wording
+            here is "unsupported" and not "necessity established".
             None of these six is moved yet: the batch decision was
             reserved, and this analysis is what it was reserved for.
 C059 C065 C084
