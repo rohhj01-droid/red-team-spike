@@ -13626,3 +13626,137 @@ Observed: `COMMENT = open source engine recreation for Diablo 1 game`; `GH_ACCOU
 Inference: those fields name a program authored outside this project, under an account and project on a code host neither of which is this project's, so the external-authorship requirement is satisfied from the frozen metadata alone. Nothing beyond the frozen metadata was consulted, and no external surface has been observed for this candidate at any gate yet.
 
 Decision: PASS
+
+## EV-C092-E2REP-01
+Candidate: C092 (frame rank 92, games/devilutionx)
+Gate: E2-REP
+
+**NO REQUEST HAS BEEN MADE AT THE TIME THIS BLOCK IS COMMITTED.** It
+records the accounting and the observation scopes before any upstream
+surface is touched, so that "scope fixed before the request" is checkable
+from this repository's history rather than from an uncommitted scratch
+file. C063 and C071 recorded that reproducibility limit; for this
+candidate it does not arise. Observations are appended in a later commit.
+
+**The five admitted starting points, accounted for separately.** Their
+enumeration is at EV-C092-UR-01 and is not repeated. What follows is the
+disposition of each, and the two SITES groups are not merged into one
+"GitHub distribution surface": they are different URLs on different areas
+of the host with different recorded dispositions in this run.
+
+```text
+1  https://github.com/diasurgical/devilutionX   the defaulted HOMEPAGE
+2  the GH_ACCOUNT/GH_PROJECT pair               resolves to the same URL
+     ONE observation, TWO metadata grounds. The surface is requested
+     once because requesting it twice would observe nothing further;
+     both grounds are recorded as admitting it, and neither is treated
+     as the other. This is QA-22's topology, step 1 and step 3
+     coinciding, which answers WHICH surface and supplies no
+     designation of its own.
+
+3  https://github.com/diasurgical               the ACCOUNT token
+     Observed under its OWN scope, below. RETRACTION 10 settled that
+     this is a separate admitted identifier rather than half of 2, and
+     C018 and C071 observed theirs.
+
+4  https://github.com/diasurgical/devilutionX/archive/refs/tags/1.5.4/
+     NOT REQUESTED, and this entry states no rule justifying that.
+     QA-40 records the class of a GitHub `/archive/` path as unsettled
+     -- neither established as QA-31's forbidden class nor as the
+     distfile mirror QA-27 required be opened at C026 -- and QA-37
+     records the same question as open for its own construction.
+     Choosing a reading here would be the post-hoc move RETRACTION 28
+     bars. So: no request was made while the authorization question was
+     unresolved. That is a record of what happened, in the form QA-37
+     used at rank 81, and not a disposition principle.
+
+5  https://github.com/diasurgical/devilutionX/releases/download/1.5.4/
+     NOT REQUESTED. This is the construction QA-31 was raised on at
+     C045 -- a code host's release-asset area -- and the contract's
+     forbidden list names releases. Admitted by the starting-point
+     clause, unobservable under the prohibition: QA-31's composition,
+     accounted for under QA-27's third branch with the prohibition as
+     the named reason. Nothing is claimed about what it holds.
+```
+
+**What is already determined, before any request, and why it is recorded
+now rather than after.** If it were written after the observations, an
+UNRESOLVED would read as though the observations produced it. They do
+not.
+
+```text
+PASS is not reachable for this candidate.
+  E2-REP asks for EXACTLY ONE designated canonical source location and
+  EXACTLY ONE external target identifier (:88-92). The negative half of
+  "exactly one" is decidable only because the contract closes the
+  search -- the reason :242-251 gives for exempting E2-REP from QA-13's
+  existential treatment. Starting point 5 is admitted and unobservable
+  under that same contract, so the search cannot be closed, and the
+  negative half is unavailable. QA-31 declared this scope in general:
+  "Every such frame item whose gate is still open after step 1 reaches
+  this same point, and loses its second starting point to the
+  prohibition." RETRACTION 31 and 32 applied the same reasoning to
+  eight candidates whose surfaces were merely unopened; here the
+  contract itself closes one.
+
+FAIL remains reachable, which is why observation is still necessary.
+  E2REP-NO-SINGLE-CANONICAL-LOCATION is positive in shape (:246-249):
+  it records that several designations were found with no primary among
+  them. A positive finding needs no closed search. So the surfaces
+  below are observed to determine whether such a finding exists, not to
+  reach a PASS that is already out of reach.
+
+Necessary because, in QA-11's required form:
+  which question   whether several designations with no primary among
+                   them are exposed, the only determination still open
+  which structure  the frozen metadata reaches a repository surface and
+                   an account surface, both upstream-controlled, and
+                   either could carry a designation under QA-23's
+                   generalisation to a label, a link relation or a
+                   structured marking
+  so the verdict cannot be settled without reading these two surfaces.
+```
+
+**Observation scope for surfaces 1 and 2, fixed before the request.**
+Confined to what the contract allows at a repository (:131-134):
+
+```text
+existence and HTTP status, with the redirect chain
+repository name; owning project or account; default branch
+fork / mirror / archive / template flags, and mirror_url
+the repository website metadata field
+the repository description
+whether a source tree is actually present at the root, by root listing
+any statement designating this location as the project's source
+any primary, canonical or mirror marking
+NOT: README prose, any source file, docs, issues, PRs, changelog,
+     releases, or any link followed onward
+```
+
+**Observation scope for surface 3, fixed before the request, and stated
+separately because the contract does not enumerate allowed observations
+at an account surface.** It enumerates them at a repository. So the scope
+is set by what the gate asks rather than by a list the seal supplies, and
+it is deliberately narrow:
+
+```text
+existence and HTTP status, with the redirect chain
+the account's login and type
+the account's website metadata field, if the surface exposes one
+any statement on the surface designating a canonical source location
+  for THIS system
+any primary, canonical or mirror marking relating to this system
+NOT: profile README prose, pinned or listed repositories treated as
+     designations, follower or activity data, or any link followed
+     onward
+```
+
+Recorded as a limit rather than glossed: because the seal enumerates
+allowed observations for a repository and not for an account surface,
+this scope is narrower than the repository's and is this entry's own
+construction. It is written down before the request so that it cannot be
+widened afterwards to reach a conclusion.
+
+**No later-gate material is sought.** The contract forbids any extra look
+justified by "this might help E3/E4 later", and E2-REP is not settled, so
+nothing beyond the scopes above is read.
