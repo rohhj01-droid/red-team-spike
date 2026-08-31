@@ -14164,8 +14164,11 @@ request_purpose: status and redirect chain ONLY; the rendered page was
                  not read
 ```
 
-**`evidence_role` is left unfilled on both, and this one IS a schema
-gap.** An earlier version wrote `official-project-page` on both while
+**`evidence_role` cannot be filled with a valid enum value on either
+request, so both carry a sentinel recording the gap rather than a value.
+This one IS a schema gap.** An earlier version of this paragraph said the
+field was "left unfilled", which the field itself contradicts: it holds
+`NOT EXPRESSIBLE IN THE SEALED ENUM`. An earlier version wrote `official-project-page` on both while
 admitting in the next sentence that it was "the nearer of two, not an
 exact fit". That is a value presented as compliant when it is not: an
 account surface is neither this system's project page nor its source
@@ -14199,25 +14202,41 @@ IN SCOPE by purpose, read for one question only
            where such a statement could sit, so it was read for that
            and nothing else. Its content is quoted below.
 
-NOT IN SCOPE -- field names recorded so the exclusion is checkable,
-values not used
-  html_url  name  company  location  email  hireable
-  twitter_username  avatar_url  created_at  updated_at  id  node_id
-  gravatar_id  site_admin  user_view_type  url  followers  following
-  public_gists  public_repos  repos_url  followers_url  following_url
-  gists_url  organizations_url  received_events_url  events_url
-  starred_url  subscriptions_url
-  33 fields in the response; 3 read and used, 1 read for the
-  designation question, 29 not read for content -- recounted from the
-  response, an earlier version of these figures saying 32 and 28.
-  Repository listings, pins, activity and follower data were excluded
-  by the scope committed before the request.
+OUT OF SCOPE, but the VALUES WERE READ and are preserved here. They
+  were transcribed at `08c7893` before the scope split was made, so
+  they cannot be reclassified as unread, and `5111e71` should not have
+  dropped them:
+    html_url          https://github.com/diasurgical
+    name              null      company           null
+    location          null      email             null
+    hireable          null      twitter_username  null
+  Read, recorded, and used for NOTHING: none is a designation, and no
+  part of the adjudication cites them. Their presence here is an
+  out-of-scope exposure, logged as such.
+
+  VALUES NEVER READ -- names recorded so the exclusion is checkable
+  avatar_url  created_at  updated_at  id  node_id  gravatar_id
+  site_admin  user_view_type  url  followers  following  followers_url
+  following_url  gists_url  public_gists  public_repos  repos_url
+  organizations_url  received_events_url  events_url  starred_url
+  subscriptions_url
+
+  33 fields in the response = 3 read and used + 1 read for the
+  designation question + 7 out of scope whose values were read + 22
+  whose values were never read. Two earlier versions of this
+  arithmetic were wrong: the first said 32 and 28, the second said 29
+  not read while the parent commit had already transcribed seven of
+  them. Repository listings, pins, activity and follower data are among
+  the 22 and were excluded by the scope committed before the request.
 ```
 
 Among the fields the scope permitted and that were inspected, none
 designates a canonical source location for DevilutionX, and none carries
-a primary, canonical or mirror marking relating to this system. No claim
-is made about the 29 fields that were not read.
+a primary, canonical or mirror marking relating to this system. Nor does
+any of the seven out-of-scope fields whose values were read, which is
+stated because they were read and so a claim about them is available:
+`html_url` names this same account surface and the other six are null.
+No claim is made about the 22 fields whose values were never read.
 
 **The `bio`, recorded as seen and not used for any designation.** It
 reads "Guts of the most sinister game ever made, Diablo. Elder sister of
@@ -14291,4 +14310,5 @@ throughout.
 
 **Provenance limit, as at C080 and C083-C091.** The repository carries
 these transcriptions and the response metadata, not the response bytes.
-The field values and the 33-field list rest on the session record.
+The field values and the 33-field list rest on the session record, and
+so does the split of that 33 into 3 + 1 + 7 + 22.
