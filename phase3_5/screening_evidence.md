@@ -13852,3 +13852,133 @@ widened afterwards to reach a conclusion.
 **No later-gate material is sought.** The contract forbids any extra look
 justified by "this might help E3/E4 later", and E2-REP is not settled, so
 nothing beyond the scopes above is read.
+
+### EV-C092-E2REP-01, STEP 1 -- SURFACE 1+2, THE REPOSITORY
+
+Appended to the block above, whose scope and order were committed at
+`8448828` before any request. This is step 1 and step 2 of that order.
+
+Surface: https://github.com/diasurgical/devilutionX -- admitted on TWO
+grounds, recorded separately and neither standing in for the other: the
+HOMEPAGE that `bsd.port.mk:1295` defaults, and the GH_ACCOUNT/GH_PROJECT
+pair. One request, because a second would observe nothing further.
+
+```text
+requested_url   https://api.github.com/repos/diasurgical/devilutionX
+                http_status 200; num_redirects 0;
+                final_url identical to requested_url
+                observed_at_utc 2026-08-31T07:51:05Z-07:51:36Z
+
+requested_url   https://github.com/diasurgical/devilutionX
+                http_status 200; num_redirects 0;
+                final_url identical to requested_url
+                observed_at_utc 2026-08-31T07:51:36Z
+                Status and redirect chain only. The rendered page was
+                not read; the metadata below comes from the API
+                surface, which is the same repository and avoids the
+                README the contract's unavoidable-exposure clause
+                would otherwise force.
+
+requested_url   https://api.github.com/repos/diasurgical/devilutionX/
+                contents/?ref=1.5.4
+                http_status 200; num_redirects 0
+                observed_at_utc 2026-08-31T07:51:50Z-07:51:51Z
+```
+
+Observed, confined to the scope fixed at `8448828`:
+
+```text
+full_name        diasurgical/DevilutionX     default_branch  master
+name             DevilutionX                 fork            false
+owner.login      diasurgical                 parent          absent
+owner.type       Organization                mirror_url      null
+visibility       public                      archived        false
+homepage         absent                      disabled        false
+description      "Diablo build for modern    is_template     false
+                 operating systems"
+html_url         https://github.com/diasurgical/DevilutionX
+```
+
+Root listing at the frozen tag, 24 entries -- 11 directories and 13
+files, counted from the response rather than from this transcription:
+
+```text
+dirs   .github  3rdParty  android-project  CMake  docs  Packaging
+       Source  test  tools  Translations  uwp-project
+files  .editorconfig  .gitattributes  .gitignore  Brewfile
+       CMakeLists.txt  CMakeSettings.json  CODE_OF_CONDUCT.md
+       codecov.yml  doxygen.config  LICENSE.md  README.md
+       vcpkg.json  VERSION
+```
+
+A source tree is present: `Source/`, `CMakeLists.txt`, `CMake/` and
+`VERSION` are at the root. README.md is listed and was NOT opened.
+
+**Two choices in this observation are recorded rather than glossed.**
+
+```text
+the ref        the listing was taken at ?ref=1.5.4, the frozen
+               GH_TAGNAME, because that is the commit the frozen
+               metadata pins. The scope said "root listing" without
+               naming a ref, so this is a choice. No claim is made
+               about the default branch's root, which was not listed;
+               `master` is recorded above as a metadata field only.
+
+the surface    the API endpoint rather than the HTML page, to keep
+               README prose out of the observation entirely. Both were
+               requested for status; only the API was read.
+```
+
+**A case difference is observed and no inference is drawn from it.**
+The frozen metadata writes `GH_PROJECT = devilutionX`; the repository's
+own `name` is `DevilutionX` and its `html_url` capitalises the D. The
+requested URL with the lower-case d returned 200 with num_redirects 0.
+Nothing is inferred about renames, aliasing or how the host resolves
+case: RETRACTION 10 withdrew exactly that kind of platform-semantics
+claim, and the gate does not need it. What is recorded is the observation.
+
+**Step 2, adjudication, immediately and on the rule fixed at `8448828`.**
+
+```text
+PASS
+  not reachable, determined before any request and not by these
+  observations. Starting point 5 is admitted and unobservable, so the
+  bounded search cannot close and exactly-one's negative half is
+  unavailable.
+
+E2REP-NO-SOURCE                     not established
+  a source tree WAS observed at the root. Source access is not what
+  is missing, and the entry's narrowed rule would in any case require
+  an explicit upstream statement at candidate level rather than an
+  absence.
+
+E2REP-NO-SINGLE-CANONICAL-LOCATION  not established
+  this code is positive in shape (:246-249) and needs several
+  designations with no primary among them. NONE was observed on this
+  surface: `homepage` is absent, the `description` names no location,
+  and no primary, canonical or mirror marking appears -- mirror_url is
+  null, fork is false with no parent, archived and is_template are
+  false. Not observing a designation is not the same as observing
+  several, and it is not this code.
+
+E2REP-NO-STABLE-URL                 not established
+  the location answered 200 with no redirect on both the API and the
+  web surface. Nothing observed makes its URL unstable.
+
+E2REP-NO-SINGLE-TARGET-ID           not established
+  the surface exposes one project name, `DevilutionX`. The frozen
+  metadata writes the same name with a lower-case d; one name in two
+  casings is not two identifiers, and nothing observed exposes a
+  second.
+```
+
+**No specific failure code is determined.** So the stop rule does not
+fire at step 3, and step 4 of the fixed order is reached: the ACCOUNT
+surface `https://github.com/diasurgical` is now the remaining admitted
+surface whose reading the verdict needs, and step 5 requests it under
+the account scope fixed at `8448828`. That request is NOT made in this
+commit, so that the justification for making it is on the record first.
+
+**Provenance limit, as at C080 and C083-C091.** The repository carries
+these transcriptions and the response metadata, not the response bytes.
+The 24-entry count and the field values rest on the session record.
