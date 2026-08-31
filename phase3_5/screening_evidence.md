@@ -13955,21 +13955,36 @@ official-project-page            UNRESOLVED 28   PASS 10   FAIL 5
 
 **Denominator, stated exactly, because "across every evidence block in
 this file" -- an earlier version's phrase -- is far wider than what was
-counted.** Pinned to `4b21066` so the figures do not move as this
-candidate's own block grows:
+counted.** Pinned to `e1304f9` and counted by CONTENT, matching both the
+`evidence_role: value` and the aligned `evidence_role value` forms:
 
 ```text
 EV- blocks in the file                              393
-  carrying any evidence_role                         64
-  carrying one of the two SINGLE sealed enum values  49
-    of those, having a Decision line                 49
-  role-decision pairings counted                     57  = 13+1+28+10+5
+  carrying any evidence_role                         65
+  carrying one of the two SINGLE sealed enum values   50
+    of those, having a Decision line                  49
+    without a Decision line                            1  <- C092, here
+  role-decision pairings counted                      57  = 13+1+28+10+5
 
 excluded, and not silently
   11  blocks whose role is the compound
    4  blocks whose role is outside the sealed enum
- 329  blocks carrying no evidence_role at all
+ 328  blocks carrying no evidence_role at all
 ```
+
+**The previous figures were wrong, and the way they were wrong is worth
+recording.** They read 64 / 49 / 329 and were pinned to `4b21066`. The
+scan that produced them matched `evidence_role: ` with a colon, and at
+that commit THIS candidate's role lines were aligned without one -- the
+very defect the same commit was correcting. So the scan could not see the
+block it was being written inside, and counted C092 among the 329 blocks
+"carrying no evidence_role at all" while three of its requests carried
+one. Pinning did not save it: the figures were reproducible and wrong
+together, because the instrument and the error shared a cause.
+
+C092 does not disturb the 57 pairings, having no `Decision` line yet, and
+the two result rows above are unaffected. It belongs in the `any role`,
+`single enum` and `no role` denominators, and now is.
 
 A value appearing on blocks that decided PASS, UNRESOLVED and FAIL alike
 is not carrying the designation outcome. It labels a surface's position
