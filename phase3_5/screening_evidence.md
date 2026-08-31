@@ -13861,29 +13861,65 @@ Appended to the block above, whose scope and order were committed at
 Surface: https://github.com/diasurgical/devilutionX -- admitted on TWO
 grounds, recorded separately and neither standing in for the other: the
 HOMEPAGE that `bsd.port.mk:1295` defaults, and the GH_ACCOUNT/GH_PROJECT
-pair. One request, because a second would observe nothing further.
+pair.
+
+**ONE logical surface observation, THREE HTTP requests.** An earlier
+version of this block said "One request" while listing three
+`requested_url` values, which is a straight contradiction. The surface is
+observed once in the sense that matters to the gate -- one repository,
+not visited twice for content -- and that is stated as the count of
+surfaces rather than as a count of requests.
+
+Fields per SCREENING_PROTOCOL.md:190-200. `observed_at_utc` is that list's
+"when the request was made", so it carries the request instant only;
+completion is a separate line where it differs.
 
 ```text
-requested_url   https://api.github.com/repos/diasurgical/devilutionX
-                http_status 200; num_redirects 0;
-                final_url identical to requested_url
-                observed_at_utc 2026-08-31T07:51:05Z-07:51:36Z
+requested_url    https://api.github.com/repos/diasurgical/devilutionX
+final_url        https://api.github.com/repos/diasurgical/devilutionX
+http_status      200
+redirect_chain   NONE (num_redirects 0)
+observed_at_utc  2026-08-31T07:51:05Z
+completed_at_utc 2026-08-31T07:51:36Z
+role             the metadata read for the fields below
 
-requested_url   https://github.com/diasurgical/devilutionX
-                http_status 200; num_redirects 0;
-                final_url identical to requested_url
-                observed_at_utc 2026-08-31T07:51:36Z
-                Status and redirect chain only. The rendered page was
-                not read; the metadata below comes from the API
-                surface, which is the same repository and avoids the
-                README the contract's unavoidable-exposure clause
-                would otherwise force.
+requested_url    https://github.com/diasurgical/devilutionX
+final_url        https://github.com/diasurgical/devilutionX
+http_status      200
+redirect_chain   NONE (num_redirects 0)
+observed_at_utc  2026-08-31T07:51:36Z
+role             status and redirect chain ONLY. The rendered page was
+                 not read; the metadata comes from the API surface,
+                 which is the same repository and keeps the README out
+                 of the observation rather than relying on the
+                 contract's unavoidable-exposure clause.
 
-requested_url   https://api.github.com/repos/diasurgical/devilutionX/
-                contents/?ref=1.5.4
-                http_status 200; num_redirects 0
-                observed_at_utc 2026-08-31T07:51:50Z-07:51:51Z
+requested_url    https://api.github.com/repos/diasurgical/devilutionX/contents/?ref=1.5.4
+final_url        https://api.github.com/repos/diasurgical/devilutionX/contents/?ref=1.5.4
+http_status      200
+redirect_chain   NONE (num_redirects 0)
+observed_at_utc  2026-08-31T07:51:50Z
+completed_at_utc 2026-08-31T07:51:51Z
+role             the root listing
 ```
+
+**`evidence_role` is left unassigned, and the reason is a schema gap
+rather than indecision.** The sealed list offers exactly two values,
+`official-project-page | official-source-location`, as alternatives. This
+surface is admitted as BOTH: the defaulted HOMEPAGE makes it step 1's
+project page and the GH pair makes it step 3's repository, which is
+QA-22's coinciding topology. Choosing one would misdescribe the other
+ground, and choosing neither would drop a required field, so the gap is
+named instead. Eleven earlier entries wrote the compound
+`official-project-page / official-source-location` for this same
+situation; that is precedent for the shape of the problem, not a value
+the sealed enum defines, and this entry does not adopt it silently.
+
+Two departures in the surrounding record are noted here and NOT changed,
+being outside rank 92: 71 `observed_at_utc` values in this file are
+`Z-...Z` ranges rather than the request instant the sealed list defines,
+and three `evidence_role` values read `upstream-controlled repository`,
+which is not one of the two sealed alternatives.
 
 Observed, confined to the scope fixed at `8448828`:
 
@@ -13932,10 +13968,11 @@ the surface    the API endpoint rather than the HTML page, to keep
 **A case difference is observed and no inference is drawn from it.**
 The frozen metadata writes `GH_PROJECT = devilutionX`; the repository's
 own `name` is `DevilutionX` and its `html_url` capitalises the D. The
-requested URL with the lower-case d returned 200 with num_redirects 0.
-Nothing is inferred about renames, aliasing or how the host resolves
-case: RETRACTION 10 withdrew exactly that kind of platform-semantics
-claim, and the gate does not need it. What is recorded is the observation.
+requested URL with the lower-case d returned 200 with redirect_chain
+NONE. Nothing is inferred about renames, aliasing or how the host
+resolves case: RETRACTION 10 withdrew exactly that kind of
+platform-semantics claim, and the gate does not need it. What is recorded
+is the observation.
 
 **Step 2, adjudication, immediately and on the rule fixed at `8448828`.**
 
@@ -13966,10 +14003,20 @@ E2REP-NO-STABLE-URL                 not established
   web surface. Nothing observed makes its URL unstable.
 
 E2REP-NO-SINGLE-TARGET-ID           not established
-  the surface exposes one project name, `DevilutionX`. The frozen
-  metadata writes the same name with a lower-case d; one name in two
-  casings is not two identifiers, and nothing observed exposes a
-  second.
+  the observed upstream surface exposes ONE external target
+  identifier, `diasurgical/DevilutionX`, and nothing observed on it
+  exposes a second.
+
+  An earlier version reached this by asserting that "one name in two
+  casings is not two identifiers", which contradicts the paragraph
+  above declaring no inference about case resolution. Withdrawn. The
+  ground needs no such adjudication: E2-REP asks what the UPSTREAM
+  SYSTEM supplies (:88-92), so the frozen OpenBSD field
+  `GH_PROJECT = devilutionX` is not a candidate second upstream target
+  identifier at all -- it is packaging metadata, and letting an
+  OpenBSD field carry upstream evidential force is the move withdrawn
+  at C014, C017 and QA-22. Whether the two spellings denote one thing
+  therefore does not have to be decided here, and is not.
 ```
 
 **No specific failure code is determined.** So the stop rule does not
