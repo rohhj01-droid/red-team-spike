@@ -2954,8 +2954,11 @@ C066  https://gitlab.com/jazztickets/uploads/-/raw/main/
       entry treats as a forbidden class. The SITES is a raw-file path
       in a different namespace, not that area.
 C067  http://level7.org.uk/chroma/download/
-      the `${HOMEPAGE}download/` construction verbatim -- C026's, the
-      case QA-27 was written on, where it had to be opened
+      `${HOMEPAGE}/download/`, the same construction as C026's
+      `${HOMEPAGE}download/` -- HOMEPAGE plus a `download/`
+      subdirectory -- and the case QA-27 was written on, where
+      that shape had to be opened. Not the same string; an
+      earlier version of this line said "verbatim"
 C090  http://www.usebox.net/jjm/dd2/releases/
       upstream's own project host, not a code host's release area.
       The entry argues this itself, and C064 supplies the standard
@@ -3090,7 +3093,9 @@ exactly-one is, which is what the unopened surface bears on. QA-27's
 "account for each, not open each" is not a defence either: QA-27 makes
 admission-plus-necessity the test, and its own worked case went the
 other way -- C026's `${HOMEPAGE}download/` SITES had to be opened. C067's
-frozen SITES is the identical construction and was not.
+frozen SITES is `${HOMEPAGE}/download/`, the same construction with an
+explicit separator, and was not. An earlier version called it "the
+identical construction", which overstates a string difference away.
 
 **EARLIER DISPOSITION, SUPERSEDED** by "Disposition, corrected" above.
 Kept because it is what this entry first concluded. Its second row says

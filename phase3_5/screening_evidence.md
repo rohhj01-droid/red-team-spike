@@ -13354,14 +13354,18 @@ C063  the project page at chessx.sourceforge.net and the repository at
       separately the ACCOUNT surface github.com/Isarhamster, which the
       entry's "both admitted starting points" never counted.
 
-C066  choria.gitlab.io, its `Code` heading, and gitlab.com/choria/code.
+C066  choria.gitlab.io, the `Project` heading it writes itself and
+      the `Source Code` link under it, and gitlab.com/choria/code.
       Unopened: https://gitlab.com/jazztickets/uploads/-/raw/main/
 
 C067  level7.org.uk/chroma, its Download section assigning the source
       role in upstream's own words, and the retrieved tarball.
       Unopened: http://level7.org.uk/chroma/download/ -- C026's
-      `${HOMEPAGE}download/` construction verbatim, the case QA-27 was
-      written on and where it had to be opened.
+      `${HOMEPAGE}/download/`, which is the same construction as C026's -- HOMEPAGE followed by a `download/`
+      subdirectory -- though not the same string: C026's reads
+      `${HOMEPAGE}download/`, whose HOMEPAGE already ends in a slash.
+      "Verbatim" is withdrawn; the case QA-27 was written on
+      and where the shape had to be opened.
 
 C074  clonekeen.sourceforge.net and its designation.
       Unopened: https://downloads.sourceforge.net/sourceforge/clonekeen/
@@ -13450,7 +13454,7 @@ Gates after E2-REP are NOT_REACHED.
 Candidate: C066 (frame rank 66, games/choria)
 Gate: E2-REP
 
-The observations stand: https://choria.gitlab.io/, the `Code` heading it writes itself, and https://gitlab.com/choria/code.
+The observations stand: https://choria.gitlab.io/, the footer's `Project` heading -- one of the two headings the project writes itself, the other being `Links` -- with the `Source Code` link grouped under it, and https://gitlab.com/choria/code. An earlier version of this entry called that a `Code` heading; the record has no such heading, and the correction matters because the heading and the link label are different observations doing different work.
 
 ```text
 PASS not established
@@ -13474,7 +13478,7 @@ The observations stand: the project page at http://level7.org.uk/chroma/, its Do
 ```text
 PASS not established
   one designation was observed, which establishes at least one. The
-  gate asks for exactly one, and the frozen SITES `${HOMEPAGE}/download/` was not observed. This is C026's construction verbatim -- the case QA-27 was written on, where the identical shape had to be opened -- so QA-27's requirement plainly applies and is unmet. The entry's own reason for declining was the stop rule, which cannot license skipping a surface that bears on the determination the stop rule waits for.
+  gate asks for exactly one, and the frozen SITES `${HOMEPAGE}/download/` was not observed. This is the same construction as C026's -- HOMEPAGE followed by a `download/` subdirectory, the case QA-27 was written on and where that shape had to be opened. Not the same string, and an earlier version of this entry said "verbatim": C026's is `${HOMEPAGE}download/`, whose HOMEPAGE already ends in a slash, while this port writes `${HOMEPAGE}/download/`. The difference is a separator and bears on nothing here -- so QA-27's requirement plainly applies and is unmet. The entry's own reason for declining was the stop rule, which cannot license skipping a surface that bears on the determination the stop rule waits for.
 
 FAIL not established
   no competing designation for the packaged system was observed, and nothing is claimed about the unopened directory. An earlier version of the superseded entry asserted what opening it could have shown; that was already withdrawn there and is not revived.
