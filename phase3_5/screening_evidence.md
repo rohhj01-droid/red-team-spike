@@ -13525,3 +13525,104 @@ FAIL not established
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+## EV-C092-UR-01
+Candidate: C092 (frame rank 92, games/devilutionx)
+Gate: UR
+Source: frozen OpenBSD 7.9 ports metadata, games/devilutionx/Makefile and distinfo
+
+Observed, in the Makefile: `COMMENT = open source engine recreation for Diablo 1 game`; `PKGNAME = ${DISTNAME:L}`; `CATEGORIES = games x11`; `REVISION = 0`; `GH_ACCOUNT = diasurgical`; `GH_PROJECT = devilutionX`; `GH_TAGNAME = 1.5.4`; `SITES = ${SITES_GITHUB}`; `SITES.a = https://github.com/diasurgical/devilutionX/releases/download/${GH_TAGNAME}/`; `DISTFILES = ${GH_DISTFILE}`; `DISTFILES.a = devilutionx-src-${GH_TAGNAME}{devilutionx-src}.tar.xz`; a `# Sustainable Use License 1.0` comment line above `PERMIT_PACKAGE = Yes`. There is no HOMEPAGE line.
+
+Observed, in distinfo: two artifacts with their own hashes and sizes.
+
+```text
+devilutionX-1.5.4.tar.gz         SHA256 (base64)
+                                 O020oOHC1y8rytoYt4N9Kzfp/Wp6PIGEqYzXf07kQg4=
+                                 SIZE 9835887
+devilutionx-src-1.5.4.tar.xz     SHA256 (base64)
+                                 wlKg4fJGaM7s0DqkX8MD1RXq8hZ00kTP7MeASKJnfI4=
+                                 SIZE 22665424
+```
+
+Two things are recorded as seen and NOT interpreted here. `DISTFILES.a`
+carries OpenBSD's `name{fetchname}` rename form and this entry does not
+resolve it, because nothing at UR turns on which name is fetched and
+which is stored. And no role is read off either filename: C026 bars
+inferring an artifact's source role from what it is called, so
+`devilutionx-src-...` is a string here and nothing more.
+
+Infrastructure-resolved values, read as frozen metadata on the same
+footing as the Makefile's own lines -- the practice QA-39 and QA-40
+record this run as following:
+
+```text
+bsd.port.mk:1295          HOMEPAGE ?= https://github.com/${GH_ACCOUNT}/${GH_PROJECT}
+                          -> https://github.com/diasurgical/devilutionX
+                          The port sets no HOMEPAGE line; this is the
+                          defaulted one QA-39 was written about.
+bsd.port.mk:1284-1286     SITES_GITHUB += https://github.com/${GH_ACCOUNT}/
+                            ${GH_PROJECT}/archive/refs/tags/${GH_TAGNAME:S/$/\//}
+                          -> https://github.com/diasurgical/devilutionX/
+                             archive/refs/tags/1.5.4/
+                          The port's `SITES = ${SITES_GITHUB}` names this
+                          variable explicitly rather than relying on the
+                          `?=` default at :1294.
+```
+
+**The admitted starting points, enumerated per QA-27, and there are
+five.** They are listed with their sources so that no two are conflated,
+and in particular the two SITES groups are kept apart: they are
+different URLs, on different areas of the same host, with different
+recorded dispositions in this run.
+
+```text
+1  https://github.com/diasurgical/devilutionX
+     the defaulted HOMEPAGE (bsd.port.mk:1295)
+2  the GH_ACCOUNT/GH_PROJECT pair
+     resolves to the same location as 1 -- the QA-22 topology where
+     step 1 and step 3 coincide
+3  https://github.com/diasurgical
+     the ACCOUNT token, which RETRACTION 10 settled is a separate
+     admitted identifier rather than half of 2
+4  https://github.com/diasurgical/devilutionX/archive/refs/tags/1.5.4/
+     `SITES`, via SITES_GITHUB. QA-40 records the class of a GitHub
+     `/archive/` path as UNSETTLED -- neither established as QA-31's
+     forbidden class nor established as a distfile mirror.
+5  https://github.com/diasurgical/devilutionX/releases/download/1.5.4/
+     `SITES.a`. This is the construction QA-31 was raised on at C045,
+     a code host's release-asset area.
+```
+
+Nothing about 4 and 5 is decided here, and their dispositions are NOT
+merged. 4's class is unsettled on the record; 5's class is the one QA-31
+names. Which of them may be observed, and with what consequence, belongs
+to E2-REP and is not prejudged at UR.
+
+Inference: the frozen fields name one packaged system, DevilutionX. All
+five starting points resolve onto one code host under one account, four
+of them under one repository path, which is the protocol's own "several
+facts about one system" shape at SCREENING_PROTOCOL.md:94-98 rather than
+metadata pointing at genuinely different systems. Not UR-AMBIGUOUS. No
+earlier candidate resolved to this system -- checked against the ledger's
+`external_upstream_name` column and against the evidence file for
+`devilutionX` and `diasurgical`, both empty before this entry -- so not a
+duplicate.
+
+The COMMENT calls the system "open source" while the licence marker
+reads "Sustainable Use License 1.0". Both strings are recorded because
+both are in the frozen metadata. Nothing here turns on which
+characterisation is right, no claim is made about the licence's status,
+and E1 does not ask.
+
+Decision: PASS
+
+## EV-C092-E1-01
+Candidate: C092
+Gate: E1
+Source: same frozen metadata
+
+Observed: `COMMENT = open source engine recreation for Diablo 1 game`; `GH_ACCOUNT = diasurgical`; `GH_PROJECT = devilutionX`; `GH_TAGNAME = 1.5.4`; a `# Sustainable Use License 1.0` comment line above `PERMIT_PACKAGE = Yes`, recorded as seen and not used.
+
+Inference: those fields name a program authored outside this project, under an account and project on a code host neither of which is this project's, so the external-authorship requirement is satisfied from the frozen metadata alone. Nothing beyond the frozen metadata was consulted, and no external surface has been observed for this candidate at any gate yet.
+
+Decision: PASS
