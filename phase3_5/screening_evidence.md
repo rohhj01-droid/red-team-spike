@@ -13870,40 +13870,45 @@ observed once in the sense that matters to the gate -- one repository,
 not visited twice for content -- and that is stated as the count of
 surfaces rather than as a count of requests.
 
-Fields per SCREENING_PROTOCOL.md:190-200. `observed_at_utc` is that list's
-"when the request was made", so it carries the request instant only;
-completion is a separate line where it differs.
+Fields per SCREENING_PROTOCOL.md:190-200, written `field: value` to match
+the convention the other 64 role-bearing blocks in this file use. An
+earlier version aligned them into columns without the colon, which meant
+a mechanical scan of the record read this candidate differently from
+every other block. `observed_at_utc` is the sealed list's "when the
+request was made", so it carries the request instant only; completion is
+a separate line where it differs. `request_purpose` is auxiliary and not
+in the sealed list, and is marked as such below.
 
 ```text
-requested_url    https://api.github.com/repos/diasurgical/devilutionX
-final_url        https://api.github.com/repos/diasurgical/devilutionX
-http_status      200
-redirect_chain   NONE (num_redirects 0)
-observed_at_utc  2026-08-31T07:51:05Z
-completed_at_utc 2026-08-31T07:51:36Z
-evidence_role    official-source-location
-request_purpose  the repository metadata read for the fields below
+requested_url:   https://api.github.com/repos/diasurgical/devilutionX
+final_url:       https://api.github.com/repos/diasurgical/devilutionX
+http_status:     200
+redirect_chain:  NONE (num_redirects 0)
+observed_at_utc: 2026-08-31T07:51:05Z
+completed_at_utc: 2026-08-31T07:51:36Z
+evidence_role:   official-source-location
+request_purpose: the repository metadata read for the fields below
 
-requested_url    https://github.com/diasurgical/devilutionX
-final_url        https://github.com/diasurgical/devilutionX
-http_status      200
-redirect_chain   NONE (num_redirects 0)
-observed_at_utc  2026-08-31T07:51:36Z
-evidence_role    official-project-page
-request_purpose  status and redirect chain ONLY. The rendered page was
+requested_url:   https://github.com/diasurgical/devilutionX
+final_url:       https://github.com/diasurgical/devilutionX
+http_status:     200
+redirect_chain:  NONE (num_redirects 0)
+observed_at_utc: 2026-08-31T07:51:36Z
+evidence_role:   official-project-page
+request_purpose: status and redirect chain ONLY. The rendered page was
                  not read; the metadata comes from the API surface,
                  which is the same repository and keeps the README out
                  of the observation rather than relying on the
                  contract's unavoidable-exposure clause.
 
-requested_url    https://api.github.com/repos/diasurgical/devilutionX/contents/?ref=1.5.4
-final_url        https://api.github.com/repos/diasurgical/devilutionX/contents/?ref=1.5.4
-http_status      200
-redirect_chain   NONE (num_redirects 0)
-observed_at_utc  2026-08-31T07:51:50Z
-completed_at_utc 2026-08-31T07:51:51Z
-evidence_role    official-source-location
-request_purpose  the root listing
+requested_url:   https://api.github.com/repos/diasurgical/devilutionX/contents/?ref=1.5.4
+final_url:       https://api.github.com/repos/diasurgical/devilutionX/contents/?ref=1.5.4
+http_status:     200
+redirect_chain:  NONE (num_redirects 0)
+observed_at_utc: 2026-08-31T07:51:50Z
+completed_at_utc: 2026-08-31T07:51:51Z
+evidence_role:   official-source-location
+request_purpose: the root listing
 ```
 
 **`evidence_role` is assigned per request, and there is no schema gap
@@ -13932,13 +13937,15 @@ designation; C014's live entry, `-02`, carries no `evidence_role` at all;
 and C044's block carries BOTH roles across two surfaces rather than the
 one attributed to it. Withdrawn.
 
-The basis that does hold is a tabulation of role against decision across
-every evidence block in this file, and it is the comparison the role
-question actually needs -- the SAME role reaching DIFFERENT designation
-outcomes:
+The basis that does hold is a tabulation of role against decision, and
+it is the comparison the role question actually needs -- the SAME role
+reaching DIFFERENT designation outcomes. The header column is called
+`role_value` rather than `evidence_role` on purpose: written the other
+way it parses as a fourth `evidence_role` field inside this candidate,
+which an earlier version of this table did.
 
 ```text
-evidence_role                    decisions of the blocks carrying it
+role_value                       decisions of the blocks carrying it
 official-source-location         PASS 13   UNRESOLVED 1
                                  the UNRESOLVED is C044, whose block
                                  carries this role on one surface and
@@ -13946,11 +13953,29 @@ official-source-location         PASS 13   UNRESOLVED 1
 official-project-page            UNRESOLVED 28   PASS 10   FAIL 5
 ```
 
-A field that appears on blocks deciding PASS, UNRESOLVED and FAIL alike
+**Denominator, stated exactly, because "across every evidence block in
+this file" -- an earlier version's phrase -- is far wider than what was
+counted.** Pinned to `4b21066` so the figures do not move as this
+candidate's own block grows:
+
+```text
+EV- blocks in the file                              393
+  carrying any evidence_role                         64
+  carrying one of the two SINGLE sealed enum values  49
+    of those, having a Decision line                 49
+  role-decision pairings counted                     57  = 13+1+28+10+5
+
+excluded, and not silently
+  11  blocks whose role is the compound
+   4  blocks whose role is outside the sealed enum
+ 329  blocks carrying no evidence_role at all
+```
+
+A value appearing on blocks that decided PASS, UNRESOLVED and FAIL alike
 is not carrying the designation outcome. It labels a surface's position
 in the sealed navigation. Unit, stated because a block may carry more
-than one role: these are block-to-decision pairings, counted per
-distinct role within a block, not per request.
+than one role: these are block-to-decision pairings, counted per distinct
+role within a block, not per request.
 
 The unsealed word `role` is kept only as `request_purpose`, marked as
 auxiliary and carrying no schema weight.
