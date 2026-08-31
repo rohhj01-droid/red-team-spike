@@ -13714,16 +13714,48 @@ A specific failure code remains reachable, which is why observation
     E2REP-NO-SINGLE-TARGET-ID           not exactly one external
                                         target identifier
 
-  Any of the four could in principle be established POSITIVELY from
-  the allowed observations, and a positive finding needs no closed
-  search. Several designations with no primary among them -- the code
-  :246-249 singles out as positive in shape -- is one example and not
-  the only one. An earlier version of this block named that code alone
-  and called it "the only determination still open", which removed the
-  other three in advance without grounds. So the surfaces will be
-  observed, in the order fixed below, to determine whether any
-  specific code is established, not to reach a PASS that is already
-  out of reach.
+  All four stay in scope for adjudication and none is pre-excluded.
+  That is as far as it goes, and two earlier versions of this block
+  overshot it in opposite directions:
+
+    first version   named E2REP-NO-SINGLE-CANONICAL-LOCATION alone and
+                    called it "the only determination still open",
+                    removing the other three in advance without
+                    grounds. Withdrawn.
+    second version  said "any of the four could in principle be
+                    established POSITIVELY ... and a positive finding
+                    needs no closed search", which contradicts the
+                    seal it cites. Withdrawn too.
+
+  What :246-249 actually says is narrower, and it divides the four:
+
+```text
+  positive in shape   E2REP-NO-SINGLE-CANONICAL-LOCATION
+                      "it records that several designations were found
+                      with no primary among them, not that nothing was
+                      found"
+  absence-shaped      the remaining three, which "stay inside that
+                      bounded whitelist" -- and the whitelist is what
+                      :242-251 says closes the search
+```
+
+  So the rule this entry will apply at step 2 and step 4:
+
+```text
+  if the allowed observations supply sufficient direct POSITIVE
+  evidence for a specific code, that code is determined and the stop
+  rule applies.
+
+  otherwise no code is determined. In particular an absence-shaped
+  code is NOT established here by non-observation, because the search
+  cannot be closed while starting point 5 is admitted and
+  unobservable -- the same defect RETRACTION 31 and 32 found in eight
+  candidates, and the reason PASS is already unavailable above.
+```
+
+  So the surfaces will be observed, in the order fixed below, to
+  determine whether any specific code is established on that rule --
+  not to reach a PASS that is already out of reach.
 
 Necessary because, in QA-11's required form, and stated per surface
   because the two are not necessary in the same way:
@@ -13732,12 +13764,21 @@ Necessary because, in QA-11's required form, and stated per surface
     which question   whether any of the four specific failure codes is
                      established on the one surface the metadata's
                      HOMEPAGE and GH pair both reach
-    which structure  the frozen metadata reaches it directly and it is
-                     upstream-controlled, so a designation, a
-                     competing designation, a marking or the absence
-                     of source access could each appear there, under
-                     QA-23's generalisation to a label, a link
-                     relation or a structured marking
+    which structure  the frozen metadata reaches it directly and it
+                     is upstream-controlled, so a designation, a
+                     competing designation or a marking could appear
+                     there, under QA-23's generalisation to a label, a
+                     link relation or a structured marking.
+                     An earlier version added "the absence of source
+                     access" to that list as though it were an
+                     equivalent observation. It is not: E2REP-NO-SOURCE
+                     is absence-shaped, so it would need either a
+                     closed search -- unavailable here -- or an
+                     explicit upstream statement at candidate level
+                     that no source representation is available. An
+                     empty tree, or a 404 on one endpoint, does not
+                     establish it while starting point 5 is
+                     unobserved.
     so the verdict cannot be settled without reading it.
 
   surface 3, the account
