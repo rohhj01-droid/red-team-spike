@@ -13301,3 +13301,223 @@ FAIL not established
 Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
 
 Gates after E2-REP are NOT_REACHED.
+
+
+## RETRACTION 32 — six ELIGIBLE candidates' E2-REP withdrawn on QA-41's audit
+
+Terminal verdict changes. C013, C063, C066, C067, C074 and C090 move
+ELIGIBLE -> UNRESOLVED at E2-REP. No new upstream access: a re-reading of
+the record, as at RETRACTION 8, 9, 25 and 31.
+
+**The ground, and it is not uniform across the six.** QA-41 carries the
+audit; the two routes are kept apart because they are different
+arguments and one of them is not a necessity finding at all.
+
+```text
+Route A -- C013 C066 C067 C090
+  the frozen SITES is not established as QA-31's forbidden class, so
+  QA-27's standing requirement applies: "it still requires a frozen
+  SITES to be observed where no forbidden class is named". It was not
+  observed. The bounded search that SCREENING_PROTOCOL.md:242-251
+  relies on to license the negative half of "exactly one" is therefore
+  not closed.
+
+Route B -- C063 C074
+  the surface class is unsettled on the record -- QA-40 for a GitHub
+  `/archive/` path, QA-37 for the SourceForge construction -- and it
+  is not settled here. Both readings end in the same place:
+    forbidden      -> QA-31, admitted but unobservable, and the gate
+                      has no way to complete over it
+    non-forbidden  -> QA-27's requirement unmet, search not closed
+  Route B is NOT a finding that the surface was necessary. Under the
+  first branch it is QA-31's unobservable-starting-point gap.
+```
+
+**What every one of the six keeps.** All designation observations stand
+and none is deleted. What is withdrawn in each is only the step from one
+observed designation to `exactly one`.
+
+```text
+C013  the landing page's own presentation of mednafen-1.32.1.tar.xz
+      with upstream's published SHA-256, the hash match, the entry
+      listing showing a source tree, the .zip artifacts named as
+      Windows builds, and older releases read as version history.
+      Unopened: https://mednafen.github.io/releases/files/
+      The live entry was EV-C013-E2REP-03, which restates -01's
+      designation findings and says nothing about the SITES; -01's own
+      "Surfaces NOT opened" line is where the omission is recorded.
+
+C063  the project page at chessx.sourceforge.net and the repository at
+      github.com/Isarhamster/chessx.
+      Unopened: the SITES bsd.port.mk:1294 resolves,
+      .../Isarhamster/chessx/archive/refs/tags/v1.5.6-lw/, and
+      separately the ACCOUNT surface github.com/Isarhamster, which the
+      entry's "both admitted starting points" never counted.
+
+C066  choria.gitlab.io, its `Code` heading, and gitlab.com/choria/code.
+      Unopened: https://gitlab.com/jazztickets/uploads/-/raw/main/
+
+C067  level7.org.uk/chroma, its Download section assigning the source
+      role in upstream's own words, and the retrieved tarball.
+      Unopened: http://level7.org.uk/chroma/download/ -- C026's
+      `${HOMEPAGE}download/` construction verbatim, the case QA-27 was
+      written on and where it had to be opened.
+
+C074  clonekeen.sourceforge.net and its designation.
+      Unopened: https://downloads.sourceforge.net/sourceforge/clonekeen/
+
+C090  usebox.net/jjm/dd2, upstream's Downloads section partitioning
+      source from Win32 binaries, and the retrieved artifact whose
+      bytes matched the frozen distinfo.
+      Unopened: http://www.usebox.net/jjm/dd2/releases/ -- the
+      directory. The artifact INSIDE it was retrieved; that is a
+      different surface.
+```
+
+**Quarantined as post-stop exposure**, on the principle applied at C005
+(QA-11), C014 (QA-17), C016 (QA-20), C010/C012 (RETRACTION 8a) and
+C049/C078 (RETRACTION 31). Nothing in them was inaccurately observed and
+none does verdict work:
+
+```text
+EV-C013-E2RULE-01  EV-C013-E3-01  EV-C013-E4-01  EV-C013-SNAPSHOT-01
+EV-C063-E2RULE-01  EV-C063-E3-01  EV-C063-E4-01
+EV-C066-E2RULE-01  EV-C066-E3-01  EV-C066-E4-01
+EV-C067-E2RULE-01  EV-C067-E3-01  EV-C067-E4-01
+EV-C074-E2RULE-01  EV-C074-E3-01  EV-C074-E4-01  EV-C074-OVERALL-01
+EV-C090-E2RULE-01  EV-C090-E3-01  EV-C090-E4-01  EV-C090-OVERALL-01
+```
+
+EV-C066-PIN-01 and EV-C090-PIN-01 stay on the record as provenance:
+they are file digests, they assert nothing about a verdict, and they do
+no verdict work here. EV-C067-DUP-01 is untouched -- rank 68 still
+resolves to C067, and a duplicate mapping does not depend on C067's
+gate outcome.
+
+**Nothing is claimed about any unopened surface.** Not that it carries a
+competing designation, not that it carries none. That is why all six are
+UNRESOLVED rather than E2REP-NO-SINGLE-CANONICAL-LOCATION, and it is the
+C017 boundary and RETRACTION 22 applied again.
+
+**What remains ELIGIBLE, and why these three are not here.** C059, C065
+and C084 omitted the ACCOUNT surface RETRACTION 10 admits, and each says
+"both admitted starting points are accounted for" where the metadata
+supplies three. That enumeration is short and is corrected in place. But
+necessity for an account surface is not established by the record:
+RETRACTION 10's necessity turned on C018 having no project page at all,
+and these three have one that designates. QA-11 forbids conscripting an
+unnecessary surface to force an UNRESOLVED, so their verdicts stand.
+
+## EV-C013-E2REP-04  (supersedes EV-C013-E2REP-03)
+Candidate: C013 (frame rank 13, emulators/mednafen)
+Gate: E2-REP
+
+The designation findings carried forward from EV-C013-E2REP-01 through -03 all stand and are not re-argued.
+
+```text
+PASS not established
+  one designation was observed, which establishes at least one. The
+  gate asks for exactly one, and the frozen SITES `https://mednafen.github.io/releases/files/` is an admitted starting point and was not observed. It is a directory on the project's own domain, so it is not established as QA-31's class -- C064 bars settling that from the `releases` path segment -- and QA-27's standing requirement therefore applies and is unmet.
+
+FAIL not established
+  no competing designation was observed, and nothing is claimed about the unopened directory. Older releases seen in the landing page's News list are version history, which the superseded entry established and this does not disturb.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
+
+## EV-C063-E2REP-02  (supersedes EV-C063-E2REP-01)
+Candidate: C063 (frame rank 63, games/chessx)
+Gate: E2-REP
+
+The observations stand: the project page at https://chessx.sourceforge.net/, its source link, and https://github.com/Isarhamster/chessx with a source tree.
+
+```text
+PASS not established
+  one designation was observed, which establishes at least one. The
+  gate asks for exactly one, and the entry recorded "Per QA-27 both admitted starting points are accounted for" where the frozen metadata supplies four: the HOMEPAGE, the GH pair, the ACCOUNT token github.com/Isarhamster that RETRACTION 10 admits separately, and the SITES bsd.port.mk:1294 resolves. Of the SITES, QA-40 records the class of a GitHub `/archive/` path as unsettled; it is not settled here because both readings end in UNRESOLVED -- forbidden goes to QA-31's unobservable starting point, non-forbidden to QA-27's unmet requirement.
+
+FAIL not established
+  no competing designation was observed. Nothing is claimed about either unopened surface.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
+
+## EV-C066-E2REP-02  (supersedes EV-C066-E2REP-01)
+Candidate: C066 (frame rank 66, games/choria)
+Gate: E2-REP
+
+The observations stand: https://choria.gitlab.io/, the `Code` heading it writes itself, and https://gitlab.com/choria/code.
+
+```text
+PASS not established
+  one designation was observed, which establishes at least one. The
+  gate asks for exactly one, and the frozen SITES `https://gitlab.com/jazztickets/uploads/-/raw/main/` was not observed. It is on a code host, so the class question is live, and it is answered from what this entry observed rather than from spelling: GitLab's release-asset area is `/-/releases`, that URL appears on the same page as a separate link this entry treats as a forbidden class, and the SITES is a raw-file path in a different namespace. Not established as QA-31's class, so QA-27's requirement applies and is unmet.
+
+FAIL not established
+  no competing designation was observed. The sibling `Releases` and `Issues` links remain unfollowed forbidden classes and nothing is claimed about them either.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
+
+## EV-C067-E2REP-02  (supersedes EV-C067-E2REP-01)
+Candidate: C067 (frame rank 67, games/chroma)
+Gate: E2-REP
+
+The observations stand: the project page at http://level7.org.uk/chroma/, its Download section assigning the source role in upstream's own words with the installer separated in the same list, the retrieved tarball, the absence of a published checksum recorded as a limitation, and the BBC Micro port's source excluded under QA-26.
+
+```text
+PASS not established
+  one designation was observed, which establishes at least one. The
+  gate asks for exactly one, and the frozen SITES `${HOMEPAGE}/download/` was not observed. This is C026's construction verbatim -- the case QA-27 was written on, where the identical shape had to be opened -- so QA-27's requirement plainly applies and is unmet. The entry's own reason for declining was the stop rule, which cannot license skipping a surface that bears on the determination the stop rule waits for.
+
+FAIL not established
+  no competing designation for the packaged system was observed, and nothing is claimed about the unopened directory. An earlier version of the superseded entry asserted what opening it could have shown; that was already withdrawn there and is not revived.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
+
+## EV-C074-E2REP-02  (supersedes EV-C074-E2REP-01)
+Candidate: C074 (frame rank 74, games/clonekeen)
+Gate: E2-REP
+
+The observations stand: https://clonekeen.sourceforge.net/ and the designation it carries.
+
+```text
+PASS not established
+  one designation was observed, which establishes at least one. The
+  gate asks for exactly one, and the frozen SITES `https://downloads.sourceforge.net/sourceforge/clonekeen/` was not requested. QA-37 records this construction's class as unsettled and it is not settled here: forbidden goes to QA-31, where an admitted but unobservable starting point leaves the gate no way to complete; non-forbidden goes to QA-27's unmet requirement. Both end in UNRESOLVED, so no reading is chosen. The entry's second reason was the stop rule, which is the circular one.
+
+FAIL not established
+  no competing designation was observed, and nothing is claimed about the unrequested surface.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
+
+## EV-C090-E2REP-02  (supersedes EV-C090-E2REP-01)
+Candidate: C090 (frame rank 90, games/dd2)
+Gate: E2-REP
+
+The observations stand: http://www.usebox.net/jjm/dd2, upstream's Downloads section partitioning source from Win32 binaries in its own sentence, and the retrieved artifact whose bytes matched the frozen distinfo.
+
+```text
+PASS not established
+  one designation was observed, which establishes at least one. The
+  gate asks for exactly one, and the frozen SITES `http://www.usebox.net/jjm/dd2/releases/` -- the DIRECTORY -- was not observed. Retrieving an artifact inside it is a different surface, and the sealed contract admits starting points as URLs, not as URL prefixes. The entry argues the path is upstream's own project host rather than a code host's release area; taking that argument, it is not established as QA-31's class, so QA-27's requirement applies and is unmet.
+
+FAIL not established
+  no competing designation was observed. The many third-party pages the landing page links remain unfollowed, and nothing is claimed about the unopened directory.
+```
+
+Decision: UNRESOLVED (PI-UNCLASSIFIED-SHAPE)
+
+Gates after E2-REP are NOT_REACHED.
