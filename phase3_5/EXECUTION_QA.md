@@ -3252,3 +3252,150 @@ gap, QA-30's family: the sealed schema is silent on a case the sealed
 starting-point clause admits. Plus an adjudication/inference error in the
 first version of the C092 entry, for presenting a nearest-fit choice as a
 compliant value. Detected by external review of that entry.
+
+## QA-43 -- screening terminated at 96 of 128 frame items (DEVIATION from the sealed budget, by decision; recorded, not amended)
+
+Recorded 2026-10-28. The last external observation in this record was
+made at `2026-08-31T09:18:37Z`; nothing has been observed since, and
+nothing is observed by this entry.
+
+**What is terminated.** Screening of the sealed 128-item set stops with
+96 frame items at a terminal status and 32 not screened.
+
+```text
+screened, terminal     96   ranks 1-92, 105-106, 109-110
+                            (the four above 92 are QA-06's
+                            out-of-order batch)
+not screened           32   ranks 93-104, 107-108, 111-128
+
+rank 93  games/dhewm3  C093   EV-C093-UR-01 PASS, EV-C093-E1-01 PASS,
+                              no E2-REP entry, no external request ever
+                              made for it. It has NO ledger row: the
+                              sealed terminal-status vocabulary has no
+                              value for "screening stopped", and adding
+                              one now would be a post-hoc schema change.
+                              Its two entries stand as written and are
+                              non-terminal.
+```
+
+The ledger is unchanged by this entry: 96 frame rows, 94 candidates --
+UNRESOLVED 86, ELIGIBLE 3, REJECTED 5 -- and 2 duplicates.
+
+**The sealed text this breaks, quoted rather than paraphrased.**
+
+```text
+SCREENING_PROTOCOL.md:520-521
+  "Screening runs through the frozen frame until the frame is
+   exhausted or the budget is reached."
+SCREENING_PROTOCOL.md:526
+  "screen all 128 frame items"
+SCREENING_PROTOCOL.md:722-724  (post-seal corrective amendment)
+  "Screening still completes. Nothing here licenses stopping early.
+   The 128-item screening result is the run's outcome in its own
+   right, the coverage claim depends on finishing it, and the frame
+   budget is sealed."
+QA-19
+  the same sentence, where the selection outcome was first recorded
+  as INCONCLUSIVE.
+```
+
+The methodology design's own no-optional-stopping rule (Section 8.6,
+"Every preregistered primary slice is analyzed even after a
+counterexample is found.") is written for the analysis lane; the
+screening protocol applies the same principle to the frame, and it is
+the protocol's clauses above that this entry contravenes.
+
+**Why this is optional stopping and not a mere pause.** A pause between
+sessions is not a deviation; QA-06 already settled that the deviation
+the frozen order guards against is selecting *what* to look at by what
+has been seen. This is different from QA-06 in one way and the same in
+another. Different: no item among the 32 was chosen or passed over by
+its outcome, because none of them has been looked at. The same: the
+decision to stop short of the sealed count is taken after seeing the
+results of 96 items and in knowledge of what those results fixed. A
+stop whose timing is informed by results is what "no optional stopping"
+forbids, whatever the stop's motive, and this entry does not argue
+otherwise. The facts below bound the stop's effect; they do not make it
+compliant.
+
+**Decision and grounds.** Decided by the project owner on 2026-10-28.
+The grounds given, recorded as the owner's and not as this record's own
+finding:
+
+```text
+1  the outcome the remaining items could have changed was already
+   fixed. QA-19 recorded target selection INCONCLUSIVE with 28 of 128
+   screened, and recorded that even a single eligible candidate would
+   leave the downstream analysis unavailable: "U_primary, P_raw and E5
+   would still be unavailable, because they depend on a complete
+   frozen inventory rather than on the count of candidates."
+2  what completion would have bought is the coverage claim, plus
+   whatever further methodology findings the 32 items would have
+   produced. The second is unknown and is not estimated here.
+3  cost. In the final stretch one rank, 92, took 15 commits under
+   review, and the last working day advanced the frame by one item.
+   The frozen ports tree had also not been kept and would have to be
+   re-fetched, and a two-month gap between the observation of ranks
+   1-92 and any later rank would have to be carried as a limitation.
+```
+
+**What is forfeited.** The coverage claim, exactly as the amendment
+said it would be. No statement about the 128-item set is available
+from this run: not a count, not a rate, not a distribution of terminal
+statuses over the frame. The 96 results are results about those 96
+items. They were screened in frozen order with QA-06's recorded
+exception, but they are not a sample of the 128 in any sense that
+licenses an inference about the other 32, and none is made. Anything
+the remaining 32 would have shown -- about the ports, or about the
+protocol, as QA-39 through QA-42 were, all raised while rank 92 was
+open -- is simply not known.
+
+**What stands, and why it does not depend on completion.**
+
+```text
+all 96 terminal verdicts        unchanged; nothing is reopened
+QA-01 .. QA-42                  unchanged
+36 retraction blocks            unchanged
+selection INCONCLUSIVE          QA-19's ground is that ranking would
+                                have to cross a class boundary the
+                                sealed rules leave undecided. That is a
+                                property of the rules and of the
+                                candidates already seen; a 97th item
+                                could not have made the boundary
+                                decidable.
+the screening-methodology       QA-13, QA-19, QA-28, QA-30, QA-31,
+result                          QA-37 and QA-42 are findings about the
+                                sealed design, each obtained from
+                                candidates that were screened. They are not
+                                prevalence claims and do not become
+                                weaker because fewer items follow them.
+```
+
+**What is not done.** No observation of any unscreened item. No request
+to any surface for rank 93. No re-observation of any screened item. No
+amendment to the seal: the budget still reads 128, and this entry
+records that the run did not reach it rather than redefining what it
+was required to reach. The last screening commit, `e1130d6`, had not
+been verified by review when the pause began; it is left as committed.
+
+**Disposition.** Screening is closed. The record is complete for the 96
+items and silent on the 32. Any future work on the remaining items
+would be a new run against the same frozen frame, not a continuation
+of this one, because the observation-time gap and the loss of the
+extracted tree make the two sets non-comparable without a record of
+their own.
+
+**What Run 2 needs.** Two things this entry could not supply after the
+fact. A screening budget set against a measured per-item cost under
+review, rather than a round number -- this run's cost per item rose by
+an order of magnitude as review tightened, and the budget never moved.
+And a preregistered termination rule: what a partial screening may and
+may not claim, decided before any item is seen, so that a stop short of
+the budget is a defined outcome rather than a deviation.
+
+**Classification, pending the Run 1 coding protocol.** Not an error in
+any of the three top-level classes. A deviation from the sealed
+screening budget, taken by decision and recorded in this file because
+QA-06 set the precedent that departures from the sealed screening
+order are logged here rather than absorbed. Detected by no one; it is
+the record of a choice.
