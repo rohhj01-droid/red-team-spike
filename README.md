@@ -1,3 +1,170 @@
+# Game System Red Team
+
+An experiment in finding exploits in game systems by automated search,
+and -- as it turned out -- in how much of that work can be done without
+analyst discretion. 298 commits, 2026-08-15 to 2026-08-31. Designs,
+contracts and grading rules were committed *before* the code or run
+they govern, so that the commit order itself can show whether a result
+was tuned after being seen. Failures are sealed as produced;
+corrections are recorded, never deleted.
+
+The record is organised by phase. Each phase's results document is the
+authority for that phase; this page only says where things ended up.
+
+## Phase 0 -- feasibility spike (this file, below)
+
+Economy + crafting only, four actions, five planted exploits E1-E5,
+Random vs. Beam at a 100,000-expansion budget. Round 1 (Beam-Naive):
+**AMBIGUOUS**. Round 2 (Beam-Diverse, novelty-weighted): **WEAK
+SUCCESS**, not rounded up. E5 -- twelve actions with no partial-profit
+signal -- resisted every one-step-lookahead method and was reserved,
+untouched, as the first benchmark for a lookahead method. Two bugs found
+mid-spike were oracle bugs, not search bugs. Decision: GO.
+
+## Phase 1 -- minimal core (`phase1/`)
+
+Phase 0's single game re-expressed as `model.py` / `search.py` /
+`profit_check.py`, no generalisation. Its only completion criterion was
+reproducing Phase 0's frozen Round 1 and Round 2 numbers exactly
+(`phase1/verify.py`). Sealed in the same commit as Phase 0 (`a56d2d5`).
+
+## Phase 2 -- held-out evaluation (`phase2/RESULTS.md`)
+
+Contract (`CONTRACT.md`) and benchmark (`BENCHMARK.md`) sealed before any
+algorithm code. E1-E5 became permanent calibration data; three held-out
+categories H1-H3 were instantiated only after algorithms and parameters
+were frozen. Five methods: Random, Beam-Naive, Beam-Diverse, MCTS, and a
+deterministic graph-cycle baseline. One terminal run, never re-tuned.
+
+- **RQ1** (structure-dependent method choice): mixed. The static cycle
+  baseline detected profitable structure in all four cases it supports
+  but produced an executable witness in only one; unsupported on the
+  scarcity and multi-input held-out cases.
+- **RQ2** (diversity): no evidence it helps in this suite -- a
+  scope-narrowing of Phase 0's Round 2, not a refutation.
+- **RQ3** (lookahead): strong evidence MCTS earns its cost on H2, the
+  case built around a genuinely lossy intermediate step.
+
+## Phase 3 -- cross-system cases C1-C4 (`phase3/RESULTS_C*.md`)
+
+Four synthetic cases, each designed to force one representation
+question, each with an exhaustive closure QA against an independently
+written reference (0 mismatches on every transition; a negative control
+confirmed the check is sensitive).
+
+| Case | Planted mechanism | What it forced | Frozen search result |
+|---|---|---|---|
+| C1 | quest claim requires *continuous* equipment | `WorldState` + separate `MonitorState` | all four methods found it (9 states; no ranking reported) |
+| C2 | + a Buff whose validity depends on its source | violation judged at a specific transition, not as a state predicate -- found via a real false positive in the minimality QA | all four (19 states) |
+| C3 | + an Enchantment provenance chain | one monitor field's update needs a *sibling* monitor field; proven by a constructed indistinguishability pair | **FAIL** -- both Beam variants (`ecbd536`, sealed) |
+| C4 | + `consume`, whose legitimacy depends on an earlier `claim`'s verdict | a violation verdict must persist as state (`EventProvenanceState`) | **FAIL** -- Beam-Naive (`2a10826`, sealed) |
+
+Both FAILs were explained by single-variable post-hoc diagnostics that
+never overwrote the sealed result. C3: legitimately completed `CLAIMED`
+states kept being expanded and crowded out every exploit-capable branch;
+excluding them restored discovery (`e3bdfeb`). C4: the correct tainted
+candidate reached the beam but tied in score with five clean ones and
+was cut as the sixth under `BEAM_WIDTH=5`; the official search with
+`beam_width=6` and nothing else changed found it (`ee25b0a`). The two
+mechanisms are different, and C3's fix would make C4 strictly worse --
+recorded as a reason *not* to generalise either into a fixed policy.
+
+`RESULTS_C4.md` closes the synthetic sequence with the question it could
+not answer itself: an architecture that fits four cases by one author
+may be fitting the author's habits. Do these boundaries appear in a
+system this project did not design?
+
+## Phase 3.5 -- external validation (`phase3_5/`)
+
+Methodology sealed at `401924d` (revision 3.5j), in
+`docs/superpowers/specs/2026-08-27-phase3-5-external-validation-methodology-design.md`.
+Its stated success condition is methodological, not directional: the
+protocol is followed and the outcome reported as produced, whichever
+way it points.
+
+**Frame** (`FRAME_ENUMERATION.md`, `1de4559`): the official OpenBSD 7.9
+`ports.tar.gz` (SHA256 `937aef3d…`, checked against the published
+value), enumerated at `2026-08-26T19:23:05Z`. 477 ports declare
+`games` in `CATEGORIES` -- 79 of them outside the `games/` directory --
+and the first 128 in byte order are the screening set
+(`screening_set_128.txt`).
+
+**Screening** (`SCREENING_PROTOCOL.md`, `screening_*.tsv`,
+`screening_evidence.md`): gates `UR → E1 → E2-REP → E2-RULE → E3 → E4`,
+first failure stops, a network-access contract fixing which upstream
+surfaces may be read at E2-REP. State at the pause:
+
+```text
+frame items screened   96 / 128
+candidates             94    UNRESOLVED 86   ELIGIBLE 3   REJECTED 5
+duplicates             2
+```
+
+All three ELIGIBLE candidates (C059, C065, C084) carry
+`primary_snapshot = UNRESOLVED` in the ledger. C059's and C065's records
+ground that in QA-28; C084's records it as a survivor-stage field this
+run never reached.
+
+**Result.** Target selection is **INCONCLUSIVE**, and was determined to
+be so at QA-19, with 28 of the 128 frame items screened: ranking
+would have to cross a class boundary the sealed rules leave undecided,
+and the tie-break is barred from doing that work. In the record's own
+words, *"a protocol can be rigorous enough to ADMIT candidates and
+still unable to SELECT among them, because admission is existential and
+selection is universal."* The run is therefore a screening-methodology
+result rather than a target study, and the analysis Phase 3.5 was built
+to perform did not take place.
+
+**What the execution record holds** (`EXECUTION_QA.md`, 42 entries;
+36 retraction blocks in `screening_evidence.md`). The findings with the
+widest reach came late:
+
+- QA-39 / QA-40: the frozen ports infrastructure defaults `HOMEPAGE` and
+  `SITES` for ports that set `GH_*` identifiers; earlier entries had
+  read both off the port Makefile alone and denied them.
+- QA-41, RETRACTION 31 and 32: an E2-REP PASS asserts *exactly one*
+  designated source location, and the sealed protocol lets E2-REP decide
+  that only because its bounded search can be closed. Where an admitted
+  starting point was never opened, the search was not closed. Eight of
+  the eleven candidates then ELIGIBLE moved to UNRESOLVED, with every
+  observation preserved.
+- QA-42: the sealed `evidence_role` enum cannot describe a code host's
+  account surface, which the starting-point rules nonetheless admit.
+
+The phase was run under external review, and the review is visible in
+the record rather than only asserted here: 32 of the phase's 251 commit
+messages cite it, QA-41 and QA-42 state that they were written to
+review findings about the analyst's own earlier corrections -- QA-41
+logs the analyst overshooting in both directions one commit apart --
+and RETRACTION 31 and 32 carry out QA-41's audit.
+
+## Status (2026-10-28)
+
+Paused at frame rank 93 (`games/dhewm3`) since 2026-08-31. UR and E1 are
+written; E2-REP has not started; the last commit, `e1130d6`, was not yet
+verified when work stopped. 32 ranks remain. Resuming requires
+re-fetching the pinned `ports.tar.gz` (the extracted tree was not kept)
+and recording the two-month gap between ranks 92 and 93 as an
+observation-time limitation. Whether to complete the remaining 32 or to
+record a termination at 96/128 -- which would break QA-19's own
+"screening still completes" -- is an open decision, not yet made.
+
+## Where to read
+
+```text
+phase2/RESULTS.md                     Phase 2 terminal run
+phase3/RESULTS_C1.md … RESULTS_C4.md  one sealed results document per case
+phase3_5/EXECUTION_QA.md              QA-01 … QA-42, in order found
+phase3_5/screening_evidence.md        every observation, retraction, and
+                                      superseded sentence, in place
+phase3_5/screening_candidates.tsv     per-candidate verdicts
+phase3_5/screening_frame_items.tsv    per-frame-item verdicts
+```
+
+The original Phase 0 record follows, unchanged.
+
+---
+
 # Phase 0 Feasibility Spike -- Game System Red Team
 
 Status: **frozen**. This is an experiment record, not a codebase to keep
