@@ -92,7 +92,7 @@ and the first 128 in byte order are the screening set
 **Screening** (`SCREENING_PROTOCOL.md`, `screening_*.tsv`,
 `screening_evidence.md`): gates `UR → E1 → E2-REP → E2-RULE → E3 → E4`,
 first failure stops, a network-access contract fixing which upstream
-surfaces may be read at E2-REP. State at the pause:
+surfaces may be read at E2-REP. State at termination (QA-43):
 
 ```text
 frame items screened   96 / 128
@@ -140,14 +140,17 @@ and RETRACTION 31 and 32 carry out QA-41's audit.
 
 ## Status (2026-10-28)
 
-Paused at frame rank 93 (`games/dhewm3`) since 2026-08-31. UR and E1 are
-written; E2-REP has not started; the last commit, `e1130d6`, was not yet
-verified when work stopped. 32 ranks remain. Resuming requires
-re-fetching the pinned `ports.tar.gz` (the extracted tree was not kept)
-and recording the two-month gap between ranks 92 and 93 as an
-observation-time limitation. Whether to complete the remaining 32 or to
-record a termination at 96/128 -- which would break QA-19's own
-"screening still completes" -- is an open decision, not yet made.
+Screening terminated at 96 of 128 frame items, recorded as QA-43: a
+deviation from the sealed budget, taken by the project owner's decision
+after a two-month pause, with the coverage claim forfeited and the 96
+terminal verdicts, the QA record and the INCONCLUSIVE selection outcome
+unchanged. The entry names the sealed clauses it breaks, including
+QA-19's own "screening still completes", and calls the stop what it is.
+Rank 93 (`games/dhewm3`) has UR and E1 entries and no ledger row; ranks
+93-104, 107-108 and 111-128 were not screened. The last external
+observation was made on 2026-08-31 and nothing was observed after it.
+Any further work on the remaining items would be a new run against the
+same frozen frame, not a continuation of this one.
 
 ## Where to read
 
