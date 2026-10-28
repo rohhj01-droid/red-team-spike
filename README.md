@@ -74,7 +74,7 @@ not answer itself: an architecture that fits four cases by one author
 may be fitting the author's habits. Do these boundaries appear in a
 system this project did not design?
 
-## Phase 3.5 -- external validation (`phase3_5/`)
+## Phase 3.5 -- external validation (`phase3_5/RESULTS.md`)
 
 Methodology sealed at `401924d` (revision 3.5j), in
 `docs/superpowers/specs/2026-08-27-phase3-5-external-validation-methodology-design.md`.
@@ -115,7 +115,7 @@ selection is universal."* The run is therefore a screening-methodology
 result rather than a target study, and the analysis Phase 3.5 was built
 to perform did not take place.
 
-**What the execution record holds** (`EXECUTION_QA.md`, 42 entries;
+**What the execution record holds** (`EXECUTION_QA.md`, 43 entries;
 36 retraction blocks in `screening_evidence.md`). The findings with the
 widest reach came late:
 
@@ -157,7 +157,9 @@ same frozen frame, not a continuation of this one.
 ```text
 phase2/RESULTS.md                     Phase 2 terminal run
 phase3/RESULTS_C1.md … RESULTS_C4.md  one sealed results document per case
-phase3_5/EXECUTION_QA.md              QA-01 … QA-42, in order found
+phase3_5/RESULTS.md                   Phase 3.5 consolidate-and-seal: what was
+                                      executed, the result, what was not obtained
+phase3_5/EXECUTION_QA.md              QA-01 … QA-43, in order found
 phase3_5/screening_evidence.md        every observation, retraction, and
                                       superseded sentence, in place
 phase3_5/screening_candidates.tsv     per-candidate verdicts
