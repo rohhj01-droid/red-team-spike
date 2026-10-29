@@ -281,3 +281,34 @@ version makes its list the one scanned (:678). The same offset value
 recurs across lists (e.g. 0, 4, 64, 104 open all three), so three units
 may name one number; they stay three units, because each list is its
 own source segmentation (sealed Section 4.1).
+
+## NC-07 -- the HHE patch version: `-hhever` against the valid Heretic versions (src/heretic/deh_htic.c)
+source observation ids: E191-001, E191-002, E191-003 (units U1017-U1019)
+native state/data involved: the list of valid version names hhe_versions[] (src/heretic/deh_htic.c:35-38: "1.0", "1.2", "1.3"), parallel to the enum deh_hhe_version_t (src/heretic/deh_htic.h:26-32); the global deh_hhe_version, default deh_hhe_1_0 (src/heretic/deh_htic.c:42); the `-hhever <version>` parameter -- "Select the Heretic version number that was used to generate the HHE patch to be loaded. Patches for each of the Vanilla Heretic versions (1.0, 1.2, 1.3) can be loaded, but the correct version number must be specified" (:89-96)
+writers / creation points: DEH_HereticInit (:85-116), reached from the frame section's initialisation (src/heretic/deh_frame.c:188): if `-hhever` is present, SetHHEVersionByName (:61-81) scans the three names (:65-72) and sets deh_hhe_version to the matching index (:69); a name matching none leaves the version as it was and prints "Unknown Heretic version: %s" followed by "Valid versions:" and the list (:74-80) -- no abort. Then, for a 1.0 patch, the states[] table is altered to cut the two burning-death frames added after 1.0 (:105-115)
+updates / invalidation paths: set once at initialisation; no later writer (grep). Nothing invalidates it; a patch that turns out to be for another version is not re-interpreted -- the loader prints advice instead (DEH_SuggestHereticVersion :168-181: "This patch may be for version %s. You are currently running in Heretic %s mode. For %s mode, add this to your command line: -hhever %s")
+readers / consumption points: the version selects which per-version offset column or list the patch is read against: action pointers by executable offset (src/heretic/deh_frame.c:233), string offsets (src/heretic/deh_htext.c:697) and the unsupported-string list (:678; NC-06); it also maps thing types and frames between the 1.0 and later tables (src/heretic/deh_htic.c:118-166: DEH_MapHereticThingType :125-131, the frame mapping :138-165); and it is printed in the version advice (:168-181)
+lifetime / persistence / reset behavior: process lifetime; not written to disk, not carried in demos or savegames (grep deh_hhe_version: readers above only); an unknown `-hhever` leaves the default 1.0 in force for the whole run
+relevant transitions: startup -> `-hhever` matched or ignored with a message -> the version column for every HHE section lookup fixed for the process -> states[] adjusted for 1.0
+supporting source-code/docs evidence: src/heretic/deh_htic.c:35-42, :61-81, :85-116, :118-166, :168-181; src/heretic/deh_htic.h:26-32, :47-49; src/heretic/deh_frame.c:188, :233; src/heretic/deh_htext.c:678, :697
+remaining native-level uncertainty: when DEH_HereticInit runs relative to the first patch section parsed (src/heretic/deh_frame.c:188 is inside the frame section's init; whether a patch whose first section is not a frame section is read before the version is set was not traced); the frame mapping (:138-165) was read only as far as its role
+lineage: inherited -- src/heretic/deh_htic.c carries no [crispy] marker (grep: 0)
+### Sufficiency
+Q1 created: the fact "patches are read as Heretic version V" -- src/heretic/deh_htic.c:65-72 (a match) or :42 (the default when no match)
+Q2 written: into the global deh_hhe_version (src/heretic/deh_htic.c:42, :69)
+Q3 lifetime: process lifetime (src/heretic/deh_htic.c:42; no later writer, grep); nothing on disk
+Q4 readers: src/heretic/deh_frame.c:233; src/heretic/deh_htext.c:678, :697; src/heretic/deh_htic.c:112, :125, :138, :168-181
+Q5 after consumption: persists unchanged for the process; a refused name is reported (src/heretic/deh_htic.c:74-80) and the default stays; the version is never stored or transmitted
+Status: RESOLVED
+
+Units resolving into this case: one version name each (all three on the same line, src/heretic/deh_htic.c:37).
+
+```text
+unit   observation  row  name  enum value
+U1017  E191-001     :37  1.0   deh_hhe_1_0
+U1018  E191-002     :37  1.2   deh_hhe_1_2
+U1019  E191-003     :37  1.3   deh_hhe_1_3
+```
+
+U1017 is also the default (src/heretic/deh_htic.c:42): a run with no
+`-hhever`, or with an unknown one, reads patches as 1.0.
