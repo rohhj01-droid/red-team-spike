@@ -114,3 +114,83 @@ KF-2 representability: representable for its setting -- the configured music and
 KF-2 domain: in-domain concordant for the part the rule decides -- D10: an OPL device value is SERVED(music_opl_module) and the digital sfx device SERVED(sound_sdl_module), provided their Init succeeds (an input the report leaves unstated and the rule does not decide); the external expectation (these are valid choices that should produce sound) agrees. The reported failure past the selection -- no audible music, wrong pitch -- is not decided by any class: for that part, out-of-domain
 KF-2 attribution: scope mismatch -- the failure is not a validity phenomenon within the frozen scope; the device selection it depends on is concordant
 native replay: N/A (declared in advance, design Section 8)
+
+## KF item #457
+disclosure: fields seen = title, labels (OS-specific, SDL-related, sound-issues-on-windows), state (closed), created_at (2019-09-22), body (1121 chars); cause leakage = no -- symptoms, two command lines, version and OS
+symptom: expected = the same music volume whether or not SDL_SOUNDFONTS is set ; observed = music from a WAD is much quieter without the soundfont variable; music-pack playback unaffected ; reproduction = the two batch files quoted ; affected version = 5.6.2, Windows 7 x64
+KF-2 representability: not representable -- outside every native case of Artifact 1 (music volume through the Windows MIDI process; the device selection of NC-10 is not in question)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #458
+disclosure: fields seen = title, labels (duplicate, sound-issues-on-windows), state (closed), created_at (2019-09-22), body (1043 chars); cause leakage = yes -- the reporter's finding that copying 5.5.2's SDL2, SDL2_mixer and SDL2_net DLLs over 5.6's restores sound (a cause located in the library versions)
+symptom: expected = sounds playing normally ; observed = since 5.6, no music with any settings and sound effects pitched up ; reproduction = original DOOM/DOOM2 WADs on Windows 10 x64, Sound Blaster Z ; affected version = 5.6 to 5.6.2
+KF-2 representability: representable for its setting, as #454 -- the configured devices are NC-10's inputs; the failure (silence, pitch) is inside the modules, outside the native description
+KF-2 domain: in-domain concordant for what D10 decides (a listed device is SERVED by its module, Init permitting); the failure past the selection is out-of-domain -- as #454, of which this is a declared duplicate
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #462
+disclosure: fields seen = title, labels (OS-specific, SDL-related, sound-issues-on-windows), state (closed), created_at (2019-09-25), body (614 chars); cause leakage = no
+symptom: expected = the music slider controls the volume of a virtual MIDI synth ; observed = the slider has no effect with that synth; it works with music packs and with the MS GS Wavetable synth ; reproduction = set VirtualMIDISynth as the default MIDI player ; affected version = 5.6.2, Windows 10 1903
+KF-2 representability: not representable -- outside every native case of Artifact 1 (volume control of an external MIDI device)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #463
+disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2019-09-27), body (188 chars); cause leakage = no -- a feature idea (pause demo playback with the Pause key) with a side note that pausing mutes rather than pauses music
+symptom: expected = none stated as a failure ; observed = demo playback cannot be paused ; reproduction = none documented ; affected version = not stated
+KF-2 representability: not representable -- outside every native case of Artifact 1 (demo playback control)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #475
+disclosure: fields seen = title, labels (upstream, sound-issues-on-windows), state (closed), created_at (2019-10-10), body (1050 chars); cause leakage = yes -- the reporter names the component (midiproc's volume influences MP3/OGG/FLAC played from WADs) and shows the Windows mixer; the screenshot was not opened
+symptom: expected = the MIDI process's volume does not influence music the main program plays ; observed = after setting music volume to 1 and relaunching with a music WAD, the music is almost inaudible ; reproduction = the four steps quoted ; affected version = 5.6.3, Windows 7 x64
+KF-2 representability: not representable -- outside every native case of Artifact 1 (which process plays non-MIDI music)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #498
+disclosure: fields seen = title, labels (OS-specific, SDL-related, sound-issues-on-windows), state (closed), created_at (2019-11-25), body (953 chars); cause leakage = no -- symptoms and the reporter's tool chain; two audio links not opened
+symptom: expected = SIGIL's MIDI plays at an even volume as in PrBoom+ ; observed = a passage of the first SIGIL level's MIDI plays very quietly through VST MIDI players ; reproduction = SIGIL E5M1 with a VSTi MIDI player ; affected version = 5.6.3, Windows 10
+KF-2 representability: not representable -- outside every native case of Artifact 1 (MIDI rendering by an external synth)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #524
+disclosure: fields seen = title, labels (bug, pending, patch), state (closed), created_at (2020-02-21), body (812 chars); cause leakage = yes, a hypothesis -- the reporter attributes the corruption to switching widescreen at the moment memory is being rearranged ("at the moment it would corrupt memory"); the screenshot was not opened
+symptom: expected = switching widescreen on at that moment is disallowed or harmless ; observed = wall textures become 'Tutti-Frutti' when widescreen is switched on exactly as the intro music stops and the demo's map loads ; reproduction = the steps quoted ; affected version = 5.7, Windows 10
+KF-2 representability: not representable -- outside every native case of Artifact 1 (rendering / screen reallocation timing)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #527
+disclosure: fields seen = title, labels (bug), state (closed), created_at (2020-02-24), body (26 chars: "Bug report from the forum."); cause leakage = no
+symptom: expected = none stated beyond the title ; observed = the MAP/WAD automap text widget placed badly in widescreen mode (by title) ; reproduction = none documented ; affected version = not stated
+KF-2 representability: not representable -- outside every native case of Artifact 1 (automap HUD layout)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #528
+disclosure: fields seen = title, labels (bug), state (closed), created_at (2020-02-24), body (26 chars); cause leakage = no
+symptom: expected = none stated beyond the title ; observed = automap markers do not transform well in rotate mode in widescreen (by title) ; reproduction = none documented ; affected version = not stated
+KF-2 representability: not representable -- outside every native case of Artifact 1 (automap rendering)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #556
+disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2020-03-23), body (347 chars); cause leakage = no -- a suggestion about weapon-key double tapping, with the reporter unsure of demo/network safety
+symptom: expected = none stated as a failure (a suggestion: fast double tap of 3 selects the shotgun at once) ; observed = tapping 3 selects SSG first, shotgun second ; reproduction = none documented ; affected version = not stated
+KF-2 representability: not representable -- Doom weapon selection; the only weapon-change case in Artifact 1 is Heretic's shareware gate (NC-08), which does not cover Doom's key handling
+KF-2 domain: out-of-domain -- D8 decides Heretic weapon-change requests only; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)

@@ -20,3 +20,13 @@ whether or not anything is ever found.
 | 2026-10-29T08:35:50Z | X12 (KF-1) | issue #365, first post | title, labels, state, created_at, body read; cause leakage: yes -- cause and change stated with a p_enemy.c line reference | KF item #365 |
 | 2026-10-29T08:35:50Z | X12 (KF-1) | issue #408, first post | title, labels, state, created_at, body read; cause leakage: yes (partial) -- console output before a segfault (REJECT pad message); gdb session start; body cut at 3000 chars | KF item #408 |
 | 2026-10-29T08:35:50Z | X12 (KF-1) | issue #454, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms, version 5.6+, hardware | KF item #454 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #457, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms, command lines | KF item #457 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #458, first post | title, labels, state, created_at, body read; cause leakage: yes -- reporter's finding: 5.5.2's SDL DLLs restore sound | KF item #458 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #462, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #462 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #463, first post | title, labels, state, created_at, body read; cause leakage: no -- feature idea | KF item #463 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #475, first post | title, labels, state, created_at, body read; cause leakage: yes -- component named: midiproc volume couples to WAD music | KF item #475 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #498, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms, tool chain | KF item #498 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #524, first post | title, labels, state, created_at, body read; cause leakage: yes (hypothesis) -- memory corruption at the switch moment | KF item #524 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #527, first post | title, labels, state, created_at, body read; cause leakage: no -- title only | KF item #527 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #528, first post | title, labels, state, created_at, body read; cause leakage: no -- title only | KF item #528 |
+| 2026-10-29T08:37:54Z | X12 (KF-1) | issue #556, first post | title, labels, state, created_at, body read; cause leakage: no -- suggestion | KF item #556 |
