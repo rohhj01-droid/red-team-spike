@@ -40,3 +40,10 @@ whether or not anything is ever found.
 | 2026-10-29T08:39:01Z | X12 (KF-1) | issue #718, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #718 |
 | 2026-10-29T08:39:01Z | X12 (KF-1) | issue #727, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #727 |
 | 2026-10-29T08:39:01Z | X12 (KF-1) | issue #730, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #730 |
+| 2026-10-29T08:40:06Z | X12 (KF-1) | issue #780, first post | title, labels, state, created_at, body read; cause leakage: yes -- code quoted (midiproc start in i_sdlmusic.c), cause as the reporter sees it, proposed check | KF item #780 |
+| 2026-10-29T08:40:06Z | X12 (KF-1) | issue #807, first post | title, labels, state, created_at, body read; cause leakage: yes -- cause stated with two g_game.c line links (G_RecordDemo's G_InitNew before demorecording) | KF item #807 |
+| 2026-10-29T08:40:06Z | X12 (KF-1) | issue #814, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms, setup | KF item #814 |
+| 2026-10-29T08:40:06Z | X12 (KF-1) | issue #886, first post | title, labels, state, created_at, body read; cause leakage: yes (partial) -- 'backwards memcpy' abort, gdb libc frames; Crispy frame beyond the 3000-char cut | KF item #886 |
+| 2026-10-29T08:40:06Z | X12 (KF-1) | issue #890, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms; screenshots not opened | KF item #890 |
+| 2026-10-29T08:40:06Z | X12 (KF-1) | issue #893, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms, comparison builds | KF item #893 |
+| 2026-10-29T08:40:06Z | X12 (KF-1) | issue #1043, first post | title, labels, state, created_at, body read; cause leakage: yes (partial) -- bisected commit 5fd8c76; content not described | KF item #1043 |

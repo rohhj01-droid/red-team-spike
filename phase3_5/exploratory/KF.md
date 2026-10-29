@@ -274,3 +274,59 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+
+## KF item #780
+disclosure: fields seen = title, labels (sound-issues-on-windows), state (closed), created_at (2021-11-08), body (1804 chars); cause leakage = yes -- the reporter quotes the code (the `#if defined(_WIN32)` block of src/i_sdlmusic.c that starts midiproc for every music device but GUS, linked at another revision), names the cause as they see it (midiproc started although libfluidsynth is compiled into SDL2_mixer) and proposes a check
+symptom: expected = with SDL2_mixer built against libfluidsynth and a soundfont configured, MIDI music plays through FluidSynth ; observed = crispy-midiproc is started with the Windows MS GS synth instead; removing crispy-midiproc.exe makes FluidSynth play ; reproduction = a MinGW 32-bit build of 5.10.3 / master with such an SDL2_mixer, Windows 10 64-bit ; affected version = 5.10.3 and latest master
+KF-2 representability: partly -- the configured music device and its selection into a module are NC-10 (the SDL music module's devices, U1050-U1055; the frozen tree also lists a FluidSynth module of its own, music_fl_module serving SNDDEVICE_FSYNTH, U1046, a value the report does not mention); the midiproc start is a second decision on the same configured value inside the SDL music module's Init, as the reporter quotes it, which the native description covers only as 'able to initialise' (not checked against the frozen tree: KF-2 is decided from the frozen artifacts only)
+KF-2 domain: in-domain concordant for what D10 decides -- a MIDI-class device value is SERVED by the first compiled-in module listing it whose Init succeeds, and SNDDEVICE_FSYNTH by the FluidSynth module (U1046); which synthesiser the SDL music module's Init then starts on Windows is decided by no class (Artifact 3 places even an Init failing for reasons outside the list out of domain) -- out-of-domain for the reported failure
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #807
+disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2022-01-04), body (1225 chars); cause leakage = yes -- the cause is stated with two line links into src/heretic/g_game.c at another revision (G_RecordDemo's own G_InitNew call reaches CheckCrispySingleplayer in G_DoLoadLevel before demorecording is set)
+symptom: expected = Heretic refuses to record a demo with a singleplayer-only option such as -wandstart and exits with an error ; observed = recording starts and completes normally ; reproduction = crispy-heretic.exe -wandstart -record wandstart ; affected version = latest master (MSYS2 32-bit), Windows 10 64-bit
+KF-2 representability: not representable -- outside every native case of Artifact 1 (the admission of demo recording under Crispy-only options; Artifact 1's Heretic cases are the HHE patch strings and versions, NC-06 and NC-07, and the shareware weapon gate, NC-08)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #814
+disclosure: fields seen = title, labels (sound-issues-on-windows), state (closed), created_at (2022-01-12), body (842 chars); cause leakage = no -- symptoms and the setup; a video could not be uploaded
+symptom: expected = MIDI music plays correctly ; observed = MIDI music plays incorrectly through a Roland JV-1010 (Doom 2, no mods, launched through ZDL); not in vanilla Doom or PrBoom+ ; reproduction = none documented beyond the setup ; affected version = 5.10.3 and the latest release, Windows 11
+KF-2 representability: not representable -- outside every native case of Artifact 1 (MIDI output to external hardware; the same symptom as #677 and #716)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #886
+disclosure: fields seen = title, labels (bug, non-doom), state (closed), created_at (2022-05-31), body (7853 chars, CUT at 3000); cause leakage = yes, partial -- OpenBSD's 'backwards memcpy' abort is named and a gdb backtrace begins; within the cut only the libc frames (thrkill, _libc_abort, memcpy) appear, the Crispy frame lies beyond it
+symptom: expected = no crash ; observed = crispy-heretic aborts (SIGABRT, 'backwards memcpy') shortly after E1M1 starts, walking toward the outside area ; reproduction = crispy-heretic 5.11.1 on OpenBSD 7.1-current amd64, E1M1 ; affected version = 5.11.1
+KF-2 representability: not representable -- outside every native case of Artifact 1 (an overlapping memcpy somewhere in Heretic's level play, not localised within the cut; Artifact 1's Heretic cases NC-06, NC-07 and NC-08 do not reach level play)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #890
+disclosure: fields seen = title, labels (bug, non-doom, pending, rendering), state (closed), created_at (2022-06-06), body (1030 chars); cause leakage = no -- symptoms; two screenshots not opened
+symptom: expected = the widescreen armor widgets stay in place as in 4:3 ; observed = in 16:9 the armor display breaks once the armor class drops below 7 (Cleric with all four armor items), the widgets moving with every point lost ; reproduction = Hexen, Cleric, four armor items, take damage in widescreen ; affected version = a local build from eb016d4, Windows 10 32-bit
+KF-2 representability: not representable -- outside every native case of Artifact 1 (status-bar rendering)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #893
+disclosure: fields seen = title, labels (bug, pending), state (closed), created_at (2022-06-08), body (819 chars); cause leakage = no -- symptoms and the comparison builds; the reporter has not tracked it down
+symptom: expected = the second internal demo (the Mage on Guardian of Fire) plays in sync ; observed = it desyncs in the latest builds, with vanilla settings too; not in the latest stable Crispy Hexen nor in the latest Chocolate Hexen builds ; reproduction = run Hexen built from e89cc04 and watch the second internal demo ; affected version = built from e89cc04, Windows 10 32-bit
+KF-2 representability: partly -- Hexen's emulated version is NC-05's Hexen units (U1029-U1030), and Artifact 1 records that Hexen never persists the chosen version into its demos or savegames; the demo's contents and the simulation that must replay them are outside every native case
+KF-2 domain: out-of-domain -- D5 decides only whether a -gameversion string is ACCEPTED (Hexen U1029-U1030), and Artifact 3 lists the loadability of Hexen savegames and demos (their fixed format text) as out of domain; a desync of a demo that loaded is further outside; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #1043
+disclosure: fields seen = title, labels (bug), state (closed), created_at (2023-04-06), body (735 chars); cause leakage = yes, partial -- the reporter bisected the hang to one commit (5fd8c7627adffdad220afd8fd7371bdf7a5d3eb2, whose revert on 6.0 fixes it); the commit's content is not described in the first post
+symptom: expected = a new game starts ; observed = the game hangs on New Game (the E1M1 music keeps playing) until the process is killed ; reproduction = Doom shareware (doom1.wad), New Game, on Linux ppc64le 6.1.20 ; affected version = since 5.12, 6.0
+KF-2 representability: not representable -- outside every native case of Artifact 1 (a platform-specific hang at the start of a new game whose mechanism the first post does not give, a bisected commit only; the IWAD identification of NC-02 completed and the game reached its menu)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch (the first post gives a commit, not a mechanism; the environment, Linux ppc64le, is noted)
+native replay: N/A (declared in advance, design Section 8)
