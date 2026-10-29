@@ -1,0 +1,36 @@
+observed_at_utc	frame_rank	step	requested_url	final_url	http_status	redirect_chain	attempt	outcome	body_ref
+2026-10-29T13:07:50Z	1	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	1	transport	
+2026-10-29T13:07:50Z	1	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	2	transport	
+2026-10-29T13:07:50Z	1	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	3	transport	
+2026-10-29T13:07:50Z	1	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html	http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html		NONE	1	transport	
+2026-10-29T13:07:50Z	1	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html	http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html		NONE	2	transport	
+2026-10-29T13:07:50Z	1	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html	http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html		NONE	3	transport	
+2026-10-29T13:07:50Z	2	UR-classify	https://plib.sourceforge.net//dist/	https://plib.sourceforge.net//dist/	403	NONE	1	definitive	target/bodies/002/01.bin
+2026-10-29T13:07:50Z	2	E2REP-1	https://plib.sourceforge.net/	https://plib.sourceforge.net/	200	NONE	1	ok	target/bodies/002/02.bin
+2026-10-29T13:15:00Z	4	E2REP-1	https://www.mapeditor.org/	https://www.mapeditor.org/	200	NONE	1	ok	target/bodies/004/01.bin
+2026-10-29T13:20:29Z	4	E2REP-3	https://github.com/mapeditor/tiled	https://github.com/mapeditor/tiled	200	NONE	1	ok	target/bodies/004/02.bin
+2026-10-29T13:15:01Z	4	E2REP-2	https://www.gnu.org/philosophy/free-sw.html	https://www.gnu.org/philosophy/free-sw.html	200	NONE	1	ok	target/bodies/004/03.bin
+2026-10-29T13:15:02Z	4	E2REP-2	https://doc.mapeditor.org/en/stable/reference/support-for-tmx-maps/	https://doc.mapeditor.org/en/stable/reference/support-for-tmx-maps/	200	NONE	1	ok	target/bodies/004/04.bin
+2026-10-29T13:15:03Z	4	E2REP-2	https://www.mapeditor.org/donate	https://www.mapeditor.org/donate	200	NONE	1	ok	target/bodies/004/05.bin
+2026-10-29T13:15:03Z	4	E2REP-3	https://github.com/bjorn/tiled	https://github.com/mapeditor/tiled	301	https://github.com/bjorn/tiled	1	ok	
+2026-10-29T13:15:04Z	4	E2REP-3	https://github.com/mapeditor/tiled	https://github.com/mapeditor/tiled	200	https://github.com/bjorn/tiled	2	ok	target/bodies/004/06.bin
+2026-10-29T13:07:51Z	5	E2REP-1	https://www.advancemame.it/	https://www.advancemame.it/	200	NONE	1	ok	target/bodies/005/01.bin
+2026-10-29T13:15:05Z	6	E2REP-1	https://dgen.sourceforge.net/	https://dgen.sourceforge.net/	200	NONE	1	ok	target/bodies/006/01.bin
+2026-10-29T13:20:43Z	6	E2REP-2	http://sourceforge.net/projects/dgen/	https://sourceforge.net/projects/dgen/	301	http://sourceforge.net/projects/dgen/	1	ok	
+2026-10-29T13:20:43Z	6	E2REP-2	https://sourceforge.net/projects/dgen/	https://sourceforge.net/projects/dgen/	200	http://sourceforge.net/projects/dgen/	2	ok	target/bodies/006/02.bin
+2026-10-29T13:20:44Z	6	E2REP-2	http://sourceforge.net/projects/dgen/files/dgen/	https://sourceforge.net/projects/dgen/files/dgen/	301	http://sourceforge.net/projects/dgen/files/dgen/	1	ok	
+2026-10-29T13:20:44Z	6	E2REP-2	https://sourceforge.net/projects/dgen/files/dgen/	https://sourceforge.net/projects/dgen/files/dgen/	200	http://sourceforge.net/projects/dgen/files/dgen/	2	ok	target/bodies/006/04.bin
+2026-10-29T13:20:45Z	6	E2REP-3	https://sourceforge.net/p/dgen/dgen	https://sourceforge.net/p/dgen/dgen/ci/master/tree/	301	https://sourceforge.net/p/dgen/dgen > https://sourceforge.net/p/dgen/dgen/ > https://sourceforge.net/p/dgen/dgen/ref/master/	1	ok	
+2026-10-29T13:20:45Z	6	E2REP-3	https://sourceforge.net/p/dgen/dgen/	https://sourceforge.net/p/dgen/dgen/ci/master/tree/	301	https://sourceforge.net/p/dgen/dgen > https://sourceforge.net/p/dgen/dgen/ > https://sourceforge.net/p/dgen/dgen/ref/master/	2	ok	
+2026-10-29T13:20:45Z	6	E2REP-3	https://sourceforge.net/p/dgen/dgen/ref/master/	https://sourceforge.net/p/dgen/dgen/ci/master/tree/	301	https://sourceforge.net/p/dgen/dgen > https://sourceforge.net/p/dgen/dgen/ > https://sourceforge.net/p/dgen/dgen/ref/master/	3	ok	
+2026-10-29T13:20:46Z	6	E2REP-3	https://sourceforge.net/p/dgen/dgen/ci/master/tree/	https://sourceforge.net/p/dgen/dgen/ci/master/tree/	200	https://sourceforge.net/p/dgen/dgen > https://sourceforge.net/p/dgen/dgen/ > https://sourceforge.net/p/dgen/dgen/ref/master/	4	ok	target/bodies/006/06.bin
+2026-10-29T13:20:47Z	6	E2REP-2	https://sourceforge.net/projects/dgen/support	https://sourceforge.net/projects/dgen/support	200	NONE	1	ok	target/bodies/006/10.bin
+2026-10-29T13:15:06Z	6	E2REP-1	https://downloads.sourceforge.net/sourceforge/dgen/	https://downloads.sourceforge.net/sourceforge/dgen/	404	NONE	1	definitive	target/bodies/006/11.bin
+2026-10-29T13:15:08Z	7	E2REP-1	https://www.dosbox.com/	https://www.dosbox.com/	200	NONE	1	ok	target/bodies/007/01.bin
+2026-10-29T13:15:09Z	7	E2REP-1	https://downloads.sourceforge.net/sourceforge/dosbox/	https://downloads.sourceforge.net/sourceforge/dosbox/	404	NONE	1	definitive	target/bodies/007/02.bin
+2026-10-29T13:07:51Z	8	E2REP-1	https://dosbox-x.com/	https://dosbox-x.com/	200	NONE	1	ok	target/bodies/008/01.bin
+2026-10-29T13:07:52Z	8	E2REP-2	https://dosbox-x.com/newdosdevelopment.html	https://dosbox-x.com/newdosdevelopment.html	200	NONE	1	ok	target/bodies/008/02.bin
+2026-10-29T13:07:54Z	8	E2REP-3	https://github.com/joncampbell123/dosbox-x	https://github.com/joncampbell123/dosbox-x	200	NONE	1	ok	target/bodies/008/03.bin
+2026-10-29T13:07:53Z	8	E2REP-2	https://dosbox-x.com/devel-build.html	https://dosbox-x.com/devel-build.html	200	NONE	1	ok	target/bodies/008/04.bin
+2026-10-29T13:20:54Z	8	E2REP-2	http://pages.github.com	https://pages.github.com/	301	http://pages.github.com	1	ok	
+2026-10-29T13:20:54Z	8	E2REP-2	https://pages.github.com/	https://pages.github.com/	200	http://pages.github.com	2	ok	target/bodies/008/05.bin

@@ -1,0 +1,9 @@
+batch	frame_rank	gate_reached	session_s	review_s	conditions
+1	1	E2-REP	3737		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+1	2	E2-REP	3737		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+1	3	UR	3737		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+1	4	E4	3737		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+1	5	E2-REP	3737		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+1	6	E4	3737		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+1	7	E2-REP	3737		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+1	8	E4	3737		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과

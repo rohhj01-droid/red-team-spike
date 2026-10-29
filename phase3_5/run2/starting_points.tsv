@@ -1,0 +1,17 @@
+frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_status	evidence_role	note
+1	http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html	HOMEPAGE		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html		2026-10-29T13:07:50Z			PI-TRANSPORT-INDETERMINATE after two retries
+1	http://perso.b2b2c.ca/~sarrazip/dev/	SITES		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/		2026-10-29T13:07:50Z			PI-TRANSPORT-INDETERMINATE after two retries
+2	https://plib.sourceforge.net/	HOMEPAGE		observed	https://plib.sourceforge.net/	project-page	2026-10-29T13:07:50Z	200	official-project-page	
+2	https://plib.sourceforge.net//dist/	SITES		observed	https://plib.sourceforge.net//dist/	distfile-location	2026-10-29T13:07:50Z	403	distfile-location	HTTP 403
+4	https://www.mapeditor.org/	HOMEPAGE		observed	https://www.mapeditor.org/	project-page	2026-10-29T13:15:00Z	200	official-project-page	
+4	https://github.com/bjorn/tiled/archive/refs/tags/v1.8.6/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+4	https://github.com/bjorn/tiled	GH	repository-root	observed	https://github.com/mapeditor/tiled	repository-root	2026-10-29T13:15:03Z	200	official-source-location	
+5	https://www.advancemame.it/	HOMEPAGE		observed	https://www.advancemame.it/	project-page	2026-10-29T13:07:51Z	200	official-project-page	
+5	https://github.com/amadvance/advancemame/releases/download/v5.0/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+6	https://dgen.sourceforge.net/	HOMEPAGE		observed	https://dgen.sourceforge.net/	project-page	2026-10-29T13:15:05Z	200	official-project-page	
+6	https://downloads.sourceforge.net/sourceforge/dgen/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/dgen/	distfile-location	2026-10-29T13:15:06Z	404	distfile-location	HTTP 404
+7	https://www.dosbox.com/	HOMEPAGE		observed	https://www.dosbox.com/	project-page	2026-10-29T13:15:08Z	200	official-project-page	
+7	https://downloads.sourceforge.net/sourceforge/dosbox/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/dosbox/	distfile-location	2026-10-29T13:15:09Z	404	distfile-location	HTTP 404
+8	https://dosbox-x.com/	HOMEPAGE		observed	https://dosbox-x.com/	project-page	2026-10-29T13:07:51Z	200	official-project-page	
+8	https://github.com/joncampbell123/dosbox-x/archive/refs/tags/dosbox-x-v2025.05.03/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+8	https://github.com/joncampbell123/dosbox-x	GH	repository-root	observed	https://github.com/joncampbell123/dosbox-x	repository-root	2026-10-29T13:07:54Z	200	official-source-location	

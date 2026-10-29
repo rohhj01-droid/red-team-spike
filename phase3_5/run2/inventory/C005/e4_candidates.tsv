@@ -1,0 +1,134 @@
+cand_id	file	line	symbol	class	element_type	members	absent	conditional	en1	en2	en3	en4	en5	en6	tag	reject_reason	evidence	decided_by
+C001	cyclone/Disa/Disa.c	762	AsrName	K1	char *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C002	cyclone/Ea.cpp	21	g_jmp_cycle_table	K1	int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C003	cyclone/Ea.cpp	34	g_jsr_cycle_table	K1	int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C004	cyclone/Ea.cpp	47	g_lea_cycle_table	K1	int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C005	cyclone/Ea.cpp	60	g_pea_cycle_table	K1	int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C006	cyclone/Ea.cpp	73	g_movem_cycle_table	K1	int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C007	cyclone/Main.cpp	20	Narm	K1	char *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C008	cyclone/Main.cpp	21	Sarm	K1	char *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C009	cyclone/Main.cpp	27	hot_opcodes	K1	unsigned short	49	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C010	cyclone/OpAny.cpp	17	OpData	K1	unsigned char	16	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C011	cyclone/OpBranch.cpp	306	Cond	K1	char *	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C012	debug.cpp	30	debug_context_names	K1	char *	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C013	debug.cpp	39	psg_aliases	K1	char *	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a table whose symbol names a mapping or translation (lookup, rename, alias, convert): a mapping, not an accepted-input set		catalogue:mapping-vocabulary
+C014	debug.cpp	41	fm_aliases	K1	char *	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a table whose symbol names a mapping or translation (lookup, rename, alias, convert): a mapping, not an accepted-input set		catalogue:mapping-vocabulary
+C015	debug.cpp	43	z80_aliases	K1	char *	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a table whose symbol names a mapping or translation (lookup, rename, alias, convert): a mapping, not an accepted-input set		catalogue:mapping-vocabulary
+C016	debug.cpp	45	m68k_aliases	K1	char *	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a table whose symbol names a mapping or translation (lookup, rename, alias, convert): a mapping, not an accepted-input set		catalogue:mapping-vocabulary
+C017	dz80/config.c	71	cfgTable	K2	CFGITEM	29	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C018	dz80/dz80.c	24	FileExtList	K1	DISFILE	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C019	dz80/tables.c	12	IMModes	K1	char *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C020	dz80/tables.c	14	Conditions	K1	char *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C021	dz80/tables.c	26	AccRotType	K1	char *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C022	dz80/tables.c	38	CBRotType	K1	char *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C023	dz80/tables.c	50	Reg8Idx	K1	char *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C024	dz80/tables.c	62	Reg8AFIdx	K1	char *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C025	dz80/tables.c	75	Reg16Idx	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C026	dz80/tables.c	84	BasicOps	K1	char *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C027	dz80/tables.c	96	RepeatOps	K1	char *	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C028	dz80/tables.c	120	Z180RepeatOps	K1	char *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C029	dz80/tables.c	129	dZ80CpuTypeNames	K1	char *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C030	dz80/tables.c	136	dZ80ErrorMsgs	K1	char *	10	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C031	fm.c	199	sl_table	K1	UINT32	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C032	fm.c	207	eg_inc	K1	UINT8	152	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C033	fm.c	240	eg_rate_select	K1	UINT8	128	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C034	fm.c	281	eg_rate_select2612	K1	UINT8	128	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C035	fm.c	329	eg_rate_shift	K1	UINT8	128	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C036	fm.c	371	dt_tab	K1	UINT8	128	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C037	fm.c	390	opn_fktable	K1	UINT8	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C038	fm.c	395	lfo_samples_per_step	K1	UINT32	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C039	fm.c	416	lfo_ams_depth_shift	K1	UINT8	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C040	fm.c	440	lfo_pm_output	K1	UINT8	56	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C041	fm.c	2622	steps	K1	int	49	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C042	fm.c	2634	step_inc	K1	int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C043	fm.c	2865	YM2608_ADPCM_ROM_addr	K1	unsigned int	12	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C044	fm.c	2880	YM2608_ADPCM_ROM	K1	unsigned char	8192	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C045	linenoise/linenoise.c	223	unsupported_term	K1	char *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C046	md.cpp	320	mem_read	K2	struct MemoryReadByte	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C047	md.cpp	325	mem_write	K2	struct MemoryWriteByte	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C048	md.cpp	330	io_read	K2	struct z80PortRead	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C049	md.cpp	335	io_write	K2	struct z80PortWrite	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C050	musa/m68k_in.c	144	m68k_opcode_handler_table	K1	opcode_handler_struct	1	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C051	musa/m68kcpu.c	52	m68ki_cpu_names	K1	char *	17	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C052	musa/m68kcpu.c	86	m68ki_shift_8_table	K1	uint8	65	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C053	musa/m68kcpu.c	95	m68ki_shift_16_table	K1	uint16	65	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C054	musa/m68kcpu.c	106	m68ki_shift_32_table	K1	uint	65	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C055	musa/m68kcpu.c	125	m68ki_exception_cycle_table	K1	uint8	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C056	musa/m68kcpu.c	421	m68ki_ea_idx_cycle_table	K1	uint8	64	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C057	musa/m68kdasm.c	211	g_3bit_qdata_table	K1	uint	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C058	musa/m68kdasm.c	213	g_5bit_data_table	K1	uint	32	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C059	musa/m68kdasm.c	219	g_cc	K1	char *	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C060	musa/m68kdasm.c	222	g_cpcc	K1	char *	63	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C061	musa/m68kdasm.c	3053	g_opcode_info	K1	opcode_struct	301	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C062	musa/m68kmake.c	268	g_ea_info_table	K1	ea_info_struct	13	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C063	musa/m68kmake.c	286	g_cc_table	K1	char *	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C064	musa/m68kmake.c	307	g_size_select_table	K1	int	33	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C065	musa/m68kmake.c	317	g_ea_cycle_table	K1	int	13	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C066	musa/m68kmake.c	335	g_jmp_cycle_table	K1	int	13	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C067	musa/m68kmake.c	353	g_jsr_cycle_table	K1	int	13	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C068	musa/m68kmake.c	371	g_lea_cycle_table	K1	int	13	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C069	musa/m68kmake.c	389	g_pea_cycle_table	K1	int	13	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C070	musa/m68kmake.c	407	g_movem_cycle_table	K1	int	13	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C071	musa/m68kmake.c	425	g_moves_cycle_table	K1	int	13	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C072	musa/m68kmake.c	443	g_clr_cycle_table	K1	int	13	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C073	myfm.cpp	146	per_frame	K1	struct {unsigned int samples; unsigned int usecs;}	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C074	mz80/makez80.c	116	pbLocalReg	K1	INT8 *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C075	mz80/makez80.c	128	pbLocalRegC	K1	INT8 *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C076	mz80/makez80.c	140	pbPushReg	K1	INT8 *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C077	mz80/makez80.c	152	pbFlags	K1	INT8 *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C078	mz80/makez80.c	164	pbRegPairC	K1	INT8 *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C079	mz80/makez80.c	172	pbFlagsC	K1	INT8 *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C080	mz80/makez80.c	184	pbMathReg	K1	INT8 *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C081	mz80/makez80.c	196	pbMathRegC	K1	INT8 *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C082	mz80/makez80.c	208	pbRegPairs	K1	INT8 *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C083	mz80/makez80.c	216	pbRegPairsC	K1	INT8 *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C084	mz80/makez80.c	224	pbPopRegPairs	K1	INT8 *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C085	mz80/makez80.c	232	pbPopRegPairC	K1	INT8 *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C086	mz80/makez80.c	240	pbIndexedRegPairs	K1	INT8 *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C087	mz80/makez80.c	250	bTimingRegular	K1	UINT8	256	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C088	mz80/makez80.c	273	bTimingCB	K1	UINT8	256	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C089	mz80/makez80.c	294	bTimingXXCB	K1	UINT8	256	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C090	mz80/makez80.c	314	bTimingDDFD	K1	UINT8	256	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C091	mz80/makez80.c	336	bTimingED	K1	UINT8	256	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C092	mz80/makez80.c	432	StandardOps	K2	struct sOp	257	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C093	mz80/makez80.c	723	CBOps	K2	struct sOp	257	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C094	mz80/makez80.c	1007	EDOps	K2	struct sOp	58	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C095	mz80/makez80.c	1074	DDFDOps	K2	struct sOp	87	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C096	mz80/makez80.c	1180	DDFDCBOps	K2	struct sOp	32	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C097	rc.cpp	27	ctv_names	K1	char *	6	0	0	PASS	PASS	PASS	PASS	PASS	PASS	enforced		EN2: rc.cpp:27 'const char *ctv_names[] = {'; EN4: rc.cpp:492 'if(!strcasecmp(value, ctv_names[i])) return i;'; EN4: rc.cpp:1082 '/* If we got a bad value, discard and warn user */'; EN4: rc.cpp:1085 '"rc: %s:%u:%u: invalid value for key"'	quoted
+C098	rc.cpp	33	scaling_names	K1	char *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C099	rc.cpp	45	emu_z80_names	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C100	rc.cpp	46	emu_m68k_names	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C101	rc.cpp	51	rc_keysyms	K1	struct rc_keysym	82	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C102	rc.cpp	139	keymod	K1	struct {const char *name; uint32_t flag;}	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C103	rc.cpp	241	joypad_axis_type	K1	char *	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C104	rc.cpp	247	joypad_axis_value	K1	unsigned int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C105	rc.cpp	253	joypad_hat_type	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C106	rc.cpp	257	joypad_hat_value	K1	unsigned int	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C107	rc.cpp	389	mouse_motion_type	K1	char *	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C108	rc.cpp	580	rc_fields	K2	struct rc_field	231	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C109	sdl/font.cpp	19	dgen_font	K2	struct dgen_font	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C110	sdl/prompt.c	52	prompt_parse_state	K1	struct state	14	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C111	sdl/sdl.cpp	458	prompt_command	K2	struct prompt_command	21	0	4	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C112	sdl/sdl.cpp	1011	filters_available	K1	struct filter	10	0	7	PASS		PASS		PASS	PASS				UNDECIDED
+C113	sdl/sdl.cpp	5695	control	K2	struct ctl	59	0	5	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C114	sdl/sdl.cpp	5776	calibration_steps	K1	struct {char const* name; ///< Controller button name. enum ctl_e const id[2]; ///< Controls indices in control[]. bool once; ///< If button has been pressed once. bool twice; ///< If button has been pressed twice. enum rc_binding_type type; ///< Type of code. intptr_t code; ///< Temporary code.}	13	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C115	star/cpudebug.c	117	opsize	K1	int08	1024	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C116	star/star.c	171	x86ax	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C117	star/star.c	172	x86bx	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C118	star/star.c	173	x86cx	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C119	star/star.c	174	x86dx	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C120	star/star.c	175	sizename	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C121	star/star.c	176	quickvalue	K1	int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C122	star/star.c	177	direction	K1	char	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+D001	COPYING	1	doc:COPYING:1	K4													With the exceptions listed below, all files in this archive fall under this licence: # Copyright (c) 1998, 1999 Dave.	UNDECIDED
+D002	README	89	doc:README:89	K4													Q: I make dgen setuid-root, and try to run it fullscreen, and all I get is a black screen with the game running in the middle of it.	UNDECIDED
+D003	cyclone/Cyclone.txt	425	doc:cyclone/Cyclone.txt:425	K4													CPU state (all FC bits set) is active in IrqCallback function.	UNDECIDED
+D004	dgenrc.5	55	doc:dgenrc.5:55	K4													Pp All of them can be modified interactively from the prompt, as described in .	UNDECIDED
+D005	mz80/mz80.txt	161	doc:mz80/mz80.txt:161	K4													These instructions used to run to completion - even beyond the # of cycles left to execute * INI/IND/INIR/INDR countdown bug fixed - it was decrementing B twice for each IN!	UNDECIDED
+D006	mz80/mz80.txt	571	doc:mz80/mz80.txt:571	K4													mz80 Keeps all of the Z80 register in native x86 register (including most of the flags, HL, BC, and A).	UNDECIDED
+D007	mz80/mz80.txt	790	doc:mz80/mz80.txt:790	K4													I've validated all instructions (That I could) against a custom built Z80 on an ISA card (that fits in a PC) so I'm quite confident that it works just like a real Z80.	UNDECIDED
+D008	star/stardoc.txt	380	doc:star/stardoc.txt:380	K4													A program address space is defined using an array of STARSCREAM_PROGRAMREGION structures: struct STARSCREAM_PROGRAMREGION { unsigned lowaddr; unsigned highaddr; unsigned offset; }; Each structure contains the range of addresses in a program region, and an offset which is added to the 68K address to obtain the equivalent host address.	UNDECIDED
+D009	star/stardoc.txt	408	doc:star/stardoc.txt:408	K4													To this end, Starscream defines data address spaces using an array of STARSCREAM_DATAREGION structures: struct STARSCREAM_DATAREGION { unsigned lowaddr; unsigned highaddr; void *memorycall; void *userdata; }; Each structure contains the low and high addresses in a region, as before.	UNDECIDED
+D010	star/stardoc.txt	617	doc:star/stardoc.txt:617	K4													All data in s68000context is undefined.	UNDECIDED
+D011	star/stardoc.txt	717	doc:star/stardoc.txt:717	K4													For example: struct S68000CONTEXT myContext[number_of_68000s]; When you use your own contexts, it's a good idea to initialize all the bytes in the new contexts to zero: memset (myContext, 0, sizeof(myContext)); To use one of your own contexts, you must follow these three steps: 1.	UNDECIDED
