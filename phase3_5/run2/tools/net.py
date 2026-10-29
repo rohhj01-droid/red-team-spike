@@ -71,7 +71,7 @@ def fetch(url: str, fetch=None, clock=None) -> dict:
             try:
                 status, headers, body = do(current)
             except Exception as ex:  # timeout, DNS, refused, reset: all transport-level
-                rec["attempts"].append((t, "transport"))
+                rec["attempts"].append((t, "transport", current, None))
                 transport_failures += 1
                 if transport_failures > RETRIES:
                     rec["outcome"], rec["final_url"] = "transport", current
@@ -79,13 +79,13 @@ def fetch(url: str, fetch=None, clock=None) -> dict:
                     return rec
                 continue
             if status >= 500:
-                rec["attempts"].append((t, "transport"))
+                rec["attempts"].append((t, "transport", current, status))
                 transport_failures += 1
                 if transport_failures > RETRIES:
                     rec["outcome"], rec["final_url"], rec["http_status"] = "transport", current, status
                     return rec
                 continue
-            rec["attempts"].append((t, "ok" if status < 400 else "http"))
+            rec["attempts"].append((t, "ok" if status < 400 else "definitive", current, status))
             break
         rec["http_status"], rec["final_url"] = status, current
         rec["content_type"] = _header(headers, "Content-Type").split(";")[0].strip().lower()

@@ -30,6 +30,8 @@ import surfaces  # noqa: E402
 import net  # noqa: E402
 import en_verdicts  # noqa: E402
 import pin  # noqa: E402
+import ledger  # noqa: E402
+import screen  # noqa: E402
 import inventory  # noqa: E402  (exploratory tool)
 
 
@@ -311,6 +313,129 @@ def test_write_record_files():
     assert os.path.exists(os.path.join(d, "pin_record.md")) and os.path.exists(os.path.join(d, "pin.json"))
     text = open(os.path.join(d, "pin_record.md"), encoding="utf-8").read()
     assert "abc123" in text and "a.c" in text and "observation time" in text.lower()
+
+
+# ---------------------------------------------------------------- Task 8: screen + ledger
+
+def _html(path):
+    return open(os.path.join(FIX, "html", path), "rb").read()
+
+
+def _tiny_targz():
+    import io as _io
+    import tarfile
+    buf = _io.BytesIO()
+    with tarfile.open(fileobj=buf, mode="w:gz") as t:
+        for name, data in [("alpha-abc123/src/modes.c", b"x"), ("alpha-abc123/README", b"r")]:
+            info = tarfile.TarInfo(name); info.size = len(data)
+            t.addfile(info, _io.BytesIO(data))
+    return buf.getvalue()
+
+
+def canned_map(mapping):
+    """fetch(url) -> (status, headers, body); a list value is consumed in order; a missing url is a 404."""
+    m = {k: (list(v) if isinstance(v, list) else [v]) for k, v in mapping.items()}
+
+    def fetch(url):
+        seq = m.get(url)
+        if not seq:
+            return (404, {"Content-Type": "text/html"}, b"<html>missing</html>")
+        return seq.pop(0) if len(seq) > 1 else seq[0]
+    return fetch
+
+
+HTML = {"Content-Type": "text/html"}
+LISTING = (200, HTML, b"<html><head><title>Index of /alpha</title></head><body><a href='alpha-1.0.tar.gz'>alpha-1.0.tar.gz</a></body></html>")
+ALPHA_MAP = {
+    "https://alpha.example.org/": (200, HTML, _html("alpha_project.html")),
+    "https://downloads.sourceforge.net/sourceforge/alpha/": LISTING,
+    "https://netix.dl.sourceforge.net/project/alpha/": LISTING,
+    "https://github.com/acme/alpha": (200, HTML, _html("repo.html")),
+    "https://github.com/acme/alpha/archive/abc123.tar.gz": (200, {"Content-Type": "application/x-gzip"}, _tiny_targz()),
+}
+ALPHA_WITNESSES = [
+    dict(frame_rank="1", candidate_id="", gate="E2-REP", kind="designation", surface="https://github.com/acme/alpha",
+         location="https://github.com/acme/alpha", quote="Official repository.", tag=""),
+    dict(frame_rank="1", candidate_id="", gate="E2-REP", kind="identifier", surface="https://github.com/acme/alpha",
+         location="https://github.com/acme/alpha", quote="acme/alpha", tag=""),
+]
+
+
+def fake_git_factory(calls=None):
+    import shutil
+    calls = [] if calls is None else calls
+
+    def git(args):
+        calls.append(list(args))
+        if args[0] == "ls-remote":
+            return "ref: refs/heads/main\tHEAD\nabc123\tHEAD\n"
+        if "checkout" in args:
+            dest = args[args.index("-C") + 1]
+            shutil.copytree(CTREE, dest, dirs_exist_ok=True)
+        if "ls-files" in args:
+            return "src/modes.c\nsrc/strings.c\n"
+        return ""
+    return git
+
+
+def _state(name):
+    root = os.path.join(TMP, name)
+    os.makedirs(root, exist_ok=True)
+    return screen.new_state(root)
+
+
+def test_alpha_passes_e2rep_with_one_designation():
+    out = screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ALPHA_WITNESSES, state=_state("s1"),
+                             fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    c = out["candidate_row"]
+    assert c["E2_REP"] == "PASS" and c["canonical_source_location"] == "https://github.com/acme/alpha", c
+    assert c["external_target_identifier"] == "acme/alpha" and c["primary_snapshot"] == "abc123"
+    assert all(sp["action"] in ("observed", "closed-by-class") for sp in out["starting_points"]), out["starting_points"]
+    assert c["E2_RULE"] == "UNRESOLVED" and c["E3"] == "NOT_REACHED" and c["overall"] == "UNRESOLVED"   # no witnesses past E2-REP
+    assert any(b.startswith("## EV-C001-E2REP-") for b in out["evidence_blocks"])
+
+
+def test_404_does_not_fail_candidate_alone():                   # Review Focus 4
+    out = screen.screen_item(2, "devel/beta", FIX + "/ports", witnesses=[], state=_state("s2"),
+                             fetch=canned_map({}), clock=fixed_clock, git=fake_git_factory())
+    c = out["candidate_row"]
+    assert c["E2_REP"] == "UNRESOLVED" and c["failure_code"] == "NONE" and c["protocol_issue_code"] == "PI-UNCLASSIFIED-SHAPE", c
+    assert any(o["http_status"] == 404 for o in out["observations"])
+    assert [sp["action"] for sp in out["starting_points"]] == ["observed", "closed-by-class"]
+
+
+def test_redirect_into_forbidden_class_closes():                # Review Focus 2
+    m = dict(ALPHA_MAP)
+    m["https://alpha.example.org/"] = (301, {"Location": "https://github.com/acme/alpha/releases"}, b"")
+    out = screen.screen_item(3, "games/alpha", FIX + "/ports", witnesses=[], state=_state("s3"),
+                             fetch=canned_map(m), clock=fixed_clock, git=fake_git_factory())
+    sp = [s for s in out["starting_points"] if s["source"] == "HOMEPAGE"][0]
+    assert sp["action"] == "closed-by-class" and sp["final_class"] == "release-assets", sp
+    assert len([o for o in out["observations"] if o["requested_url"] == sp["url"]]) == 1
+
+
+def test_duplicate_upstream_one_candidate():                    # Review Focus 5
+    st = _state("s4")
+    a = screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ALPHA_WITNESSES, state=st,
+                           fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    g = screen.screen_item(2, "games/alpha2", FIX + "/ports", witnesses=[], state=st,
+                           fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    assert g["frame_row"]["upstream_resolution"] == "DUPLICATE" and g["frame_row"]["duplicate_of"] == a["frame_row"]["candidate_id"]
+    assert g["candidate_row"] is None and g["frame_row"]["terminal_status"] == "DUPLICATE"
+
+
+def test_batch_document_and_check():
+    root = os.path.join(TMP, "run2")
+    os.makedirs(root, exist_ok=True)
+    open(os.path.join(root, "screening_set_128.txt"), "w").write("games/alpha\ndevel/beta\ngames/alpha2\ngames/modport\n")
+    ledger.write_witnesses(root, 1, ALPHA_WITNESSES)
+    p = screen.run_batch(1, root, FIX + "/ports", fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    text = open(p, encoding="utf-8").read()
+    assert text.count("## EV-") >= 3 and "| rank |" in text, text[:400]
+    assert ledger.check(root, expect_rows=4) == 0
+    rows = ledger.read_rows(os.path.join(root, "screening_frame_items.tsv"), ledger.FRAME_FIELDS)
+    assert [r["terminal_status"] for r in rows] == ["UNRESOLVED", "UNRESOLVED", "DUPLICATE", "UNRESOLVED"]
+    assert rows[3]["protocol_issue_code"] == "PI-METADATA-UNRESOLVED" and rows[3]["stop_gate"] == "UR"
 
 
 # ---------------------------------------------------------------- runner
