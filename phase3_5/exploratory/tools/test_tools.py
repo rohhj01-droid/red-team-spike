@@ -294,6 +294,19 @@ def test_comments_keep_only_body_and_date():
     assert comments("o/r", 7, fetch=_serve) == [{"created_at": "2026-01-04T00:00:00Z", "body": "I think flag X was not persisted"}]
 
 
+# ---------------------------------------------------------------- Task 8
+
+def test_checks_docs_ok():
+    for sub in ["units", "artifact1", "artifact2", "artifact3", "primary", "cost", "results"]:
+        assert checks.run(sub, FIX + "/docs_ok") == 0, sub
+
+
+def test_checks_docs_bad():
+    assert checks.run("artifact1", FIX + "/docs_bad") == 1      # MonitorState in Artifact 1
+    assert checks.run("units", FIX + "/docs_bad") == 1          # an E? unit without its E_LOG entry (a missing row is only pending)
+    assert checks.run("artifact2", FIX + "/docs_bad") == 1      # R0 with an empty competitor
+
+
 # ---------------------------------------------------------------- runner
 
 if __name__ == "__main__":
