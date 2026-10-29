@@ -90,7 +90,5 @@ nature.
 
 ## 5. Decision T2
 
-T2 -- pending the owner's decision, on the count alone: `attempt in
-full` (X12-X14 run on all 37 items) or `N/A -- boundedness failure`
-(the lane reports the rule, `L`, the count and this decision, and
-X12-X14 are not executed).
+T2 -- `attempt in full` (owner, 2026-10-29; XQA-10). X12-X14 will run
+on all 37 items after the primary lane is sealed (X11).

@@ -65,3 +65,8 @@ Withdrawn in place from XQA-03, marked there: "a table of recognised configurati
 **Step:** X7   **Clause(s):** design 7, 7.1 (T1)
 **What happened or was decided:** Input: P_raw = 1,132 counting units from 23 admitted enumerators (all `enforced`), 946 of them the three Heretic HHE unsupported-string lists (`E5.md`). The owner decided `proceed`, in their words: "진행, 끝까지 하기로 했으니까" ("proceed -- we decided to go to the end"). No unit had been read; the decision rests on the count and the owner's standing choice of no deadline.
 **Effect on the record:** E5 PASS. X8 follows; the lane analyses every one of the 1,132 units (design 3, anti-goal 2); the next decision point is T2 at X8, on the KF count alone.
+
+## XQA-10 -- T2 decision: attempt the known-failure lane in full (2026-10-29)
+**Step:** X8   **Clause(s):** design 7.1 (T2), 8
+**What happened or was decided:** Input: KF count = 37 under the frozen rule (`L = {bug, maybe-critical, sound-issues-on-windows}`, union of 14 + 12 + 11 disjoint sets; `KF0.md`). The owner decided `attempt in full`, in their words: "전부 시도, 끝까지 하기로 했으니까" ("attempt all -- we decided to go to the end"). No issue had been opened; the decision rests on the count alone.
+**Effect on the record:** X12-X14 will run on every one of the 37 items, in id order, after the primary lane is sealed at X11; the next decision point is T3, once, after the first native case is accepted under review (X9).
