@@ -13,8 +13,12 @@ import io
 import json
 import os
 import subprocess
+import sys
 
-import paths
+HERE = os.path.dirname(os.path.abspath(__file__))
+if HERE not in sys.path:                      # `python -I` leaves the script's own directory off sys.path
+    sys.path.insert(0, HERE)
+import paths  # noqa: E402
 
 paths.use_exploratory_tools()
 from common import sha256_file  # noqa: E402  (exploratory tool)
