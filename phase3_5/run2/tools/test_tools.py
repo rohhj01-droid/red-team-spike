@@ -570,6 +570,16 @@ def test_e4_absence_survey_quote_is_verified():
     assert False, "an absence-survey quote that is not in the pinned tree was accepted"
 
 
+def test_unresolved_past_e2rep_carries_unclassified_shape():
+    # design 4.7: E2-RULE, E3 and E4 are decided as Run 1's amendment decides them -- UNRESOLVED / PI-UNCLASSIFIED-SHAPE (RQA-10)
+    for name, ws, gate in (("s14", ALPHA_WITNESSES, "E2-RULE"), ("s15", PAST_E2REP, "E4")):
+        out = screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ws, state=_state(name),
+                                 fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+        c, f = out["candidate_row"], out["frame_row"]
+        assert c["overall"] == "UNRESOLVED" and c["stop_gate"] == gate and c["failure_code"] == "NONE", c
+        assert c["protocol_issue_code"] == "PI-UNCLASSIFIED-SHAPE" and f["protocol_issue_code"] == "PI-UNCLASSIFIED-SHAPE", (c, f)
+
+
 # ---------------------------------------------------------------- RQA-02 readings (before any verdict)
 
 def test_modules_matter_only_when_they_supply_a_field():        # RQA-02 (a)

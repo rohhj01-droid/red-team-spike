@@ -460,7 +460,7 @@ def screen_item(rank: int, port_path: str, ports_root: str, witnesses: list[dict
                         result["evidence_blocks"].append(blk)
                         cand[col] = st
                         if st != "PASS":
-                            cand.update(overall="UNRESOLVED", stop_gate=gate)
+                            cand.update(overall="UNRESOLVED", stop_gate=gate, protocol_issue_code="PI-UNCLASSIFIED-SHAPE")   # Run 1's amendment (design 4.7, RQA-10)
                             break
                     else:
                         gate_reached = "E4"
@@ -473,7 +473,7 @@ def screen_item(rank: int, port_path: str, ports_root: str, witnesses: list[dict
                                         authoritative_source_inventory_ref="PENDING_INVENTORY", enumerator_inventory_ref="PENDING_INVENTORY",
                                         class_sensitivity_ref="PENDING_INVENTORY")
                         else:
-                            cand.update(overall="UNRESOLVED", stop_gate="E4")
+                            cand.update(overall="UNRESOLVED", stop_gate="E4", protocol_issue_code="PI-UNCLASSIFIED-SHAPE")
                 elif e2["state"] == "FAIL":
                     cand.update(overall="REJECTED", stop_gate="E2-REP")
                 else:
