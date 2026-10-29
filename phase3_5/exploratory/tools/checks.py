@@ -342,6 +342,9 @@ def _results(d: str) -> int:
             problems.append("RESULTS.md lacks heading %s in order" % h)
         else:
             pos = i
+    import results_write  # local import: results_write imports this module
+    if results_write.can_render(d) and results_write.check(d) != 0:
+        problems.append("RESULTS.md differs from its regeneration from the tables (run tools/results_write.py)")
     for p in problems:
         print("PROBLEM " + p)
     return 1 if problems else 0

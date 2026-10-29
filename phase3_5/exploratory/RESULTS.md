@@ -12,14 +12,18 @@ with a later confirmatory result, or Run 2's preregistration being
 tuned to reproduce or avoid them." Nothing below is the Phase 3.5
 result: that is `phase3_5/RESULTS.md` (`8344da1`), unchanged by this
 study. Written 2026-10-29, after the record and from it; every number is
-recomputed from the frozen tables, `KF.md`, `EXECUTION_QA.md` and the
-commit record by the script that wrote this file, and no observation of
-the target was made for this document.
+computed from the frozen tables, `KF.md`, `EXECUTION_QA.md`,
+`disclosure_log.md`, `pin_record.md` and the commit record by
+`tools/results_write.py`, which also checks this file against them
+(`checks.py results`); no observation of the target was made for this
+document. First sealed at `e2baa63`; corrected after the whole-branch
+review (XQA-15), with every superseded sentence kept in place and
+marked.
 
 Design: `docs/superpowers/specs/2026-10-29-phase3-5-exploratory-c084-design.md`
 (sealed `984f0c5`). Plan: `docs/superpowers/plans/2026-10-29-phase3-5-exploratory-c084.md`
 (`573c19c`). Record: this directory, `phase3_5/exploratory/`, with its own
-QA log (`EXECUTION_QA.md`, XQA-01 .. XQA-14) kept apart from the
+QA log (`EXECUTION_QA.md`, XQA-01 .. XQA-15) kept apart from the
 screening run's QA-01 .. QA-43.
 
 ## 1. The question, and the two substitutions (design Section 2.1)
@@ -76,7 +80,7 @@ X12   4a79e22  2026-10-29T17:35  KF items enumerated: 37 (X8 count 37); lane ope
 X12/13 d9e0f20 .. f5b3299  KF-1 and KF-2 per item, four batch commits
 X13   504d302  2026-10-29T17:59  KF-2 sealed
 X14   e8ee098 .. 24d6dbd  KF-3 per item, 4 batch commits; completion recorded as XQA-14 (172102c)
-X15   this document
+X15   this document, sealed at e2baa63; corrected after the whole-branch review (XQA-15)
 ```
 
 Steps 1-3 and 5 of sealed Section 15 are the screening run's and are
@@ -209,7 +213,7 @@ NC-01  F1         11  U001..U011  the launcher's IWAD slots, keyed by the standa
 NC-02  F0         17  U012..U028  the IWAD registry: identifying the game's IWAD by its filena
 NC-03  R0         15  U029..U043  valid game mode/mission combinations, with their episode and
 NC-04  F0         16  U044..U059  valid mission/version pairs for a network game (src/d_mode.c
-NC-05  F3         15  U060..U1128  the emulated game version: `-gameversion` against the suppor
+NC-05  F3         15  U060..U1128  the emulated game version: `-gameversion` against the suppor  [F3 scoped to U060-U070, 11 units]
 NC-06  F0        946  U071..U1016  HHE text replacement: string offsets that are valid but unsu
 NC-07  F0          3  U1017..U1019  the HHE patch version: `-hhever` against the valid Heretic v
 NC-08  F1          9  U1020..U1028  which weapons may be selected in the Heretic shareware game 
@@ -221,7 +225,7 @@ NC-13  F0          4  U1123..U1126  the games the setup tool configures: `-game`
 NC-14  F0          4  U1129..U1132  lumps unique to each game, used to refuse an IWAD run under 
 
 native cases    R0 1   F0 9   F1 3   F2 0   F3 1
-counting units  R0 15   F0 1061   F1 41   F2 0   F3 15
+counting units  R0 15   F0 1061   F1 41   F2 0   F3 15   (the F3 row counts NC-05's 15 units; the finding is scoped to 11)
 ```
 
 Each case carries its full supported subset of {F1, F2, F3}, or R0/F0
@@ -288,8 +292,10 @@ KF-0 rule      every issue of the tracker of record (README.md:106), open and cl
                L = {bug, maybe-critical, sound-issues-on-windows}; no window, no filter
 count          37 at X8 (14 + 12 + 11, disjoint); 37 enumerated at X12 -- equal
 T2             attempt in full (XQA-10)
-disclosure     1 X4b row (XQA-06), 37 X12 rows (one per item, first post only, cause
-               leakage yes 18 / no 19), 37 X14 rows (comments, timelines, linked commits)
+disclosure     1 X4b row (XQA-06), 1 X9 row (an in-source comment on the Hexen v1.0 IWAD,
+               read while tracing NC-02), 37 X12 rows (one per item, first post only,
+               cause leakage yes 18 / no 19), 37 X14 rows (comments, timelines, linked
+               commits); 76 rows in all [the version sealed at e2baa63 omitted the X9 row]
 KF-2 domain    in-domain concordant 3   DISCORDANT 0   indeterminate 0   out-of-domain 34
 KF-2 repr.     representable 2   partly 4   not representable 31
 attribution    scope mismatch 37
@@ -396,7 +402,8 @@ L1  hand-chosen target, chosen for witness shape -- the one F3 is on that
     mechanism (NC-05) and is reported as looked for, not found
 L2  inventory classes K1-K4 are the analyst's -- widened once before the run
     (XQA-02) and corrected once against its own class (XQA-04); two idioms
-    the classes cannot see are recorded and not added
+    the classes cannot see are recorded and not added; the EN2 verdicts were
+    mostly decided by batch rules rather than per-row quotation (XQA-15)
 L3  the analyst's prior exposure -- the XQA-04 defect was found by looking for
     a table the analyst already knew; without that knowledge it would have been
     found later or not at all
@@ -408,8 +415,10 @@ L5  E5 reduced to finiteness plus T1 on the count -- E5 PASS (E5.md); E? was
     tested unit by unit and stayed empty
 L6  the KF lane's size unknown until X8 -- 37, attempted in full by the owner's
     T2, with no numeric ceiling preregistered
-L7  one analyst, one reviewer -- every native case, Artifact 2 and the primary
-    seal accepted by the owner in the commit record; no independent replication
+L7  one analyst, one reviewer -- the analyst is an AI model operating the tools
+    and writing the artifacts (as in the screening run), the reviewer the owner;
+    every native case, Artifact 2 and the primary seal accepted by the owner in
+    the commit record; no independent replication
 L8  consequence for Run 2 -- if Run 2's rule selects C084 or C065, its analysis
     of that target is not blind to this study; the preregistration must say how
     that is handled and may not exclude the target by hand
@@ -453,25 +462,42 @@ enumerators          618 candidates: K1 525, K2 78, K3 0, K4 15 (generation 1: 5
                      +22 anonymous-struct arrays after XQA-04)
 admitted             23, all K1, all `enforced`
 rejected             595: first failed criterion EN2 592, EN4 3
+EN2 evidence         32 of the 592 EN2 rejects quote a located identification (a :line);
+                     560 were decided by the batch rules of x4b_verdicts.py's rules() on
+                     element type, file name or symbol, with the scope class named and no
+                     quotation (XQA-15; the sealed design's per-row located evidence was
+                     not produced for them)
 members              1141 initializer rows -> 1132 units (8 terminators, 1 out-of-bound)
 time                 tools committed 15:06; candidates generated +2 min; regenerated
                      +10 min; all 618 verdicts written +22 min; P_raw frozen +28 min
-                     (committer times; the inventory's reading of code for EN4
-                     evidence is inside these minutes)
+                     (committer times; the minutes are the cost of the batch-rule
+                     procedure above, not of a per-row quoted test)
 ```
 
-What Run 2 can take from it (XQA-05, 07, 08): the EN2 test rejected
-592 of 618 candidates by the project's own identification of the set,
-and would in any C codebase of this kind; the candidate-to-admission
-ratio (618 : 23) is the cost of a registry-idiom inventory; membership
-needs three exclusions a parser cannot see alone -- commented rows,
-terminator rows, rows beyond the consulting loop's bound -- and the
-third needs the loop read at inventory time; a pattern committed before
-the run can still be wrong against its own class (XQA-04).
+What Run 2 can take from it (XQA-05, 07, 08, 15): the EN2 test rejected
+592 of 618 candidates by the project's own identification of the set
+-- quoted and located for 32 of them, applied as a class rule to the
+other 560 (XQA-15) -- and would in any C codebase of this kind; the
+candidate-to-admission ratio (618 : 23) is the cost of a registry-idiom
+inventory; membership needs three exclusions a parser cannot see alone
+-- commented rows, terminator rows, rows beyond the consulting loop's
+bound -- and the third needs the loop read at inventory time; a pattern
+committed before the run can still be wrong against its own class
+(XQA-04). [The version sealed at e2baa63 said "rejected 592 of 618
+candidates by the project's own identification of the set" without the
+quoted / class-rule split.]
 
-**5.3 Per-unit and per-native-case cost** (`cost_log.tsv`: session
-time between the case's first reading and its commit, as logged; the
-owner's review time is outside it):
+**5.3 Per-unit and per-native-case cost** (`cost_log.tsv`). What the
+clock measures: the analyst is an AI model operating the committed
+tools, reading the frozen tree and writing the artifacts; "session
+time" is the span between the analyst's first read of a case's units
+and the case's commit, as logged per case; the owner's review lies
+between that commit and the acceptance timestamp. The table is per
+native case; no per-unit timestamps exist (XQA-15: the design's Section
+9 asked for both grains, and the per-unit grain was not kept). NC-13
+and NC-14 were analysed in one session, logged on both rows; NC-05's
+Hexen and Strife units were analysed inside NC-09's and NC-13/14's
+sessions, so its row covers the Doom units only.
 
 ```text
 case    session s  units   s/unit   accepted (UTC)
@@ -487,12 +513,14 @@ NC-09        90     15     6.00   07:57:49
 NC-10        77     21     3.67   08:01:17
 NC-11        37     26     1.42   08:02:52
 NC-12        72     30     2.40   08:07:12
-NC-13        92      4    23.00   08:26:23
-NC-14        92      4    23.00   08:26:23
+NC-13        92      4    23.00   08:26:23   [shared session]
+NC-14        92      4    23.00   08:26:23   [shared session]
 
-session seconds   total 1259   min 37   median 88   max 216
-seconds per unit  min 0.10   median 5.97   max 23.00   overall 1.11 (1259 s / 1132 units)
+distinct sessions 13   total 1167 s   min 37   median 88   max 216
+seconds per unit  min 0.10   median 5.97   max 23.00   overall 1.03 (1167 s / 1132 units)
 wall time of X9   06:55 .. 08:26, 14 cases, review included
+[the version sealed at e2baa63 summed the 14 rows, counting the shared session twice:
+ total 1259 s, overall 1.11 s per unit]
 ```
 
 The design's estimate was one to three hours per unit; the measured
@@ -501,8 +529,9 @@ session time whatever its unit count (NC-06's 946 units and NC-07's 3
 cost 90 s and 54 s), because the units of one enumerator share one
 consulting path. A Run 2 budget should be set per native case, with
 the number of cases bounded above by the number of admitted
-enumerators (here 14 cases from 23), and the per-unit figure read as a
-distribution (0.10 to 23.00 s) rather than its 1.11 s mean.
+enumerators (here 14 cases from 23), the per-unit figure read as a
+distribution (0.10 to 23.00 s) rather than its 1.03 s mean, and the
+analyst and clock above stated beside any figure taken from here.
 
 **5.4 The KF-0 rule as applied** (`KF0.md`): tracker of record from
 the project's own README; L from the label names alone (every API
@@ -532,7 +561,9 @@ T3  X9   input NC-01: 125 s / 11 units = 11.4 s per unit,     owner: continue
 The rule was executable: each point had a defined input available
 before anything downstream was read, and each decision is the owner's
 in their own words. The projection at T3 overestimated by a factor of
-about 10 (measured 1.11 s per unit against 11.4), for the reason in 5.3.
+about 11 (measured 1.03 s per unit against 11.4), for the reason in 5.3
+[the version sealed at e2baa63 said 1.11 s and a factor of about 10,
+counting one shared session twice].
 
 **5.6 Readings the sealed text left open.** The XQA entries that name
 a rule the sealed text lacked, each recording the reading taken and
@@ -544,12 +575,13 @@ XQA-03  reading of EN2 against EN4 fixed before any candidate is decided
 XQA-05  the EN2 test and the EN4 test, stated before the first verdict; one XQA-03 example withdrawn
 XQA-07  X4b outcome: 23 enumerators admitted, no authoritative source; sentinel rows; two observations
 XQA-08  rows beyond the consulting loop's bound are not members; one X4b evidence sentence corrected
+XQA-15  corrections after the whole-branch review: EN2 batch rules, the cost grain, the RESULTS check, the measurement conditions
 ```
 
 The other entries are a check result (XQA-01), a defect against a
 committed pattern (XQA-04), an exposure incident (XQA-06), the three
-termination decisions (XQA-09, 10, 11) and two acceptances (XQA-12,
-13):
+termination decisions (XQA-09, 10, 11), two acceptances (XQA-12, 13)
+and the known-failure lane's completion (XQA-14):
 
 ```text
 XQA-01  sealed-instant consistency check returned DIFFERS

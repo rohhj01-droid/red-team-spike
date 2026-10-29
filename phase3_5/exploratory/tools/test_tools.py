@@ -307,6 +307,14 @@ def test_checks_docs_bad():
     assert checks.run("artifact2", FIX + "/docs_bad") == 1      # R0 with an empty competitor
 
 
+def test_results_regenerates_from_tables():                   # XQA-15: RESULTS.md's counts are recomputed, not transcribed
+    import results_write
+    study = os.path.join(HERE, "..")
+    assert not results_write.can_render(FIX + "/docs_ok")      # fixtures carry a hand-written RESULTS.md; no regeneration there
+    assert results_write.can_render(study)
+    assert results_write.check(study) == 0                     # the committed RESULTS.md equals its regeneration (needs git history)
+
+
 # ---------------------------------------------------------------- runner
 
 if __name__ == "__main__":
