@@ -224,6 +224,8 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external cause is identified and fixed in the tracker's repository: Crispy merges texture definitions from every PNAMES and TEXTURE1/2 lump, so it still knew DBRAIN1 from the IWAD when the PWAD's own TEXTURE1 lacked it, and tried to build the animation cycle that vanilla and Chocolate Doom silently skip (comments 2020-08-10); fix fabiangreffrath/crispy-doom 3911122 (2020-08-10, 'skip invalid animation sequences', src/doom/p_spec.c: the I_Error in P_InitPicAnims becomes a stderr warning and the sequence is skipped, marked '[crispy] make non-fatal'). PWAD texture validity, outside every native case, as KF-2 placed it; cause agreement N/A
+KF-3 post-hoc observation: a second instance of the shape XQA-07 (d) recorded for deh_signatures -- the fork turns a refusing validity check into a warning that lets the input through ('[crispy] make non-fatal'); an observation only, outside P_raw (sealed Sections 4.3, 8.6)
 
 ## KF item #655
 disclosure: fields seen = title, labels (bug), state (closed), created_at (2020-08-26), body (335 chars); cause leakage = yes -- the triggering condition is identified (a mixed-case file name in the autoload directory is not loaded; all-lower or all-upper is)
@@ -232,6 +234,8 @@ KF-2 representability: partly -- the autoload directory's NAME is derived from t
 KF-2 domain: out-of-domain -- D2 decides the IWAD's identification, not the loading of files from the autoload directory; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external cause is identified and fixed: the autoload looked for the Sigil WADs under upper-case names only, while the files ship mixed-case, which a case-sensitive file system does not match ('Sigh, mixed-case file names on case-sensitive file systems', 2020-08-27); fix fabiangreffrath/crispy-doom 7b30ea0 (2020-08-27, 'consider Sigil's mixed case file names', src/doom/d_pwad.c: the three names of sigil_wads[] re-cased). Which files the autoload loads stays outside every native case, as KF-2 placed it; cause agreement N/A
+KF-3 post-hoc observation: the list the fix edits is an enumerator of the inventory's kind -- accepted file names matched against the file system -- and at the frozen revision it is a function-scope initializer (src/doom/d_pwad.c:45, inside LoadSigilWad :38, consulted :93-103), which class K1 (file-scope initializers) cannot generate; K1's three d_pwad.c candidates (C036, C037; Hexen's C306) do not include it, and the nearest of them, masterlevels_wads (C037), was rejected at EN2 as 'discovery of known files, not acceptance of input', so the same test would likely have rejected this list as well. An L2 instance recorded for Run 2 beside XQA-04's two idioms; it creates no candidate, unit or finding (sealed Sections 4.3, 8.6)
 
 ## KF item #657
 disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2020-08-28), body (1737 chars); cause leakage = yes, by class -- the reporter names it a vanilla limit (crusher stop affecting only the 30 lowest-numbered sectors of a tag); a test WAD attached, not opened
@@ -240,6 +244,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the cause (MAXCEILINGS, a vanilla limit) was in the first post; the maintainer asked what removing it would do to demos exchanged with vanilla (2020-08-28) and the reporter withdrew the request as a limit Crispy respects, like the lost-soul limit; closed unfixed the same day; cause agreement N/A
 
 ## KF item #677
 disclosure: fields seen = title, labels (sound-issues-on-windows), state (closed), created_at (2020-10-06), body (747 chars); cause leakage = no
@@ -248,6 +253,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: insufficient external causal evidence -- closed the same day as outside the port ('it's not the port's responsibility to actually render the MIDI music content', 2020-10-14); a later comment (2020-10-23) hypothesises that no GM/GS reset is sent between songs so parameters carry over from one song to the next, and went unanswered. No cause was established; the symptom stays outside every native case, as KF-2 placed it (see #716 for the later note on native Windows MIDI)
 
 ## KF item #703
 disclosure: fields seen = title, labels (bug, duplicate), state (open), created_at (2020-12-20), body (1605 chars); cause leakage = yes, partial -- the reporter states the mechanism observed ('If player is not moving horizontally, gravity isn't applied when the monster the player was standing on has moved'); a test map with a DEHACKED lump and a video attached, not opened
@@ -256,6 +262,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the maintainer acknowledged the over/under feature's vertical movement as still broken, tied to #381 (2020-12-21); the issue is open. A 2026 fork (Paf2020/crispy-doom-zaxis-fix, commits 906a636 and d6ca5b4) proposes re-syncing things standing on a supporter that moved and updating heights in P_XYMovement, offered as pull request fabiangreffrath/crispy-doom#1370 'Z Axis Fix' (open at the time of reading, so not in the frozen revision; a Woof port, #2932, closed 2026-10-01); the pull requests were not fetched (request budget). Physics of a fork feature, outside every native case, as KF-2 placed it; cause agreement N/A (a proposed cause from a fork, not a maintainer diagnosis)
 
 ## KF item #706
 disclosure: fields seen = title, labels (duplicate, maybe-critical), state (closed), created_at (2021-01-09), body (609 chars); cause leakage = no
@@ -264,6 +271,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- closed as a duplicate of #463 on the reporter's own confirmation (2021-01-09); nothing further; cause agreement N/A
 
 ## KF item #716
 disclosure: fields seen = title, labels (sound-issues-on-windows), state (open), created_at (2021-02-07), body (883 chars); cause leakage = no
@@ -272,6 +280,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: insufficient external causal evidence -- never diagnosed: comments place the symptom with external MIDI modules across several ports (2021-08-06), suggest a VST host feature (2022-02-23), and a later comment says it is 'likely resolved with the current native Windows MIDI support' (2022-02-23) -- the module the frozen tree carries as music_win_module (NC-10, U1062-U1066) -- without a cause stated; the issue is open. Outside every native case, as KF-2 placed it
 
 ## KF item #718
 disclosure: fields seen = title, labels (sound-issues-on-windows), state (open), created_at (2021-02-16), body (451 chars); cause leakage = no
@@ -280,6 +289,7 @@ KF-2 representability: not representable -- a single sound effect missing while 
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the maintainer's diagnosis, hedged: the nightly build is compiled against an SDL2 built without DirectX support while the release is full-featured, 'so this is pretty sure a driver problem' (2021-02-16); a later comment surveys the Windows audio backends and SDL_AUDIODRIVER; cross-referenced from chocolate-doom/chocolate-doom#1311; open, unfixed. Build library and audio driver, outside every native case, as KF-2 placed it; cause agreement N/A
 
 ## KF item #727
 disclosure: fields seen = title, labels (bug, question, patch), state (open), created_at (2021-03-28), body (962 chars); cause leakage = no -- symptoms; two screenshots not opened
@@ -288,6 +298,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the mechanism is identified in substance: opening the menu or pausing while recording a demo pauses the game and mutes audio, the mute reaches the Windows mixer through midiproc (MIDI playback only; OPL and GUS unaffected), and Windows keeps that per-application volume across runs; a one-line patch (S_ResumeSound before 'Demo recorded') helped in game but not when a new game follows the finished recording (comments 2021-04-06 to 2021-05-15); open, unfixed. Demo-recording pause handling and the OS mixer, outside every native case, as KF-2 placed it; cause agreement N/A
 
 ## KF item #730
 disclosure: fields seen = title, labels (bug), state (open), created_at (2021-04-02), body (941 chars); cause leakage = no -- symptoms and the loaded mods
@@ -296,6 +307,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: insufficient external causal evidence -- one crash caught under gdb in R_DrawColumn's brightmap lookup (r_draw.c:173) after thirty minutes of play with four autoloaded PWADs, never reproduced again (Valgrind clean, 2021-04-04); a 2026 comment withdrew a claimed fix; cross-referenced from Russian-Doom/russian-doom#272; open. Outside every native case, as KF-2 placed it
 
 ## KF item #780
 disclosure: fields seen = title, labels (sound-issues-on-windows), state (closed), created_at (2021-11-08), body (1804 chars); cause leakage = yes -- the reporter quotes the code (the `#if defined(_WIN32)` block of src/i_sdlmusic.c that starts midiproc for every music device but GUS, linked at another revision), names the cause as they see it (midiproc started although libfluidsynth is compiled into SDL2_mixer) and proposes a check
