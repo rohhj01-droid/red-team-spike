@@ -28,8 +28,11 @@ import frame  # noqa: E402
 import metadata  # noqa: E402
 import surfaces  # noqa: E402
 import net  # noqa: E402
+import en_verdicts  # noqa: E402
+import inventory  # noqa: E402  (exploratory tool)
 
 INFRA = FIX + "/ports/infrastructure"
+CTREE = FIX + "/ctree"
 TIMEOUT = "TIMEOUT"
 
 
@@ -212,6 +215,60 @@ def test_designation_is_not_permission():
     assert all("official" not in l["label"].lower() for l in net.step2_links(ls))
     assert net.designation_signals("Our official repository is on GitHub. Have fun.") == ["Our official repository is on GitHub."]
     assert "Alpha README" in net.text_of(open(FIX + "/html/repo.html", "rb").read())
+
+
+# ---------------------------------------------------------------- Task 6: en_verdicts
+
+def _decided():
+    return {r["symbol"]: en_verdicts.decide(r, tree=CTREE) for r in inventory.enumerators(CTREE)}
+
+
+def _cid(rows, symbol):
+    return [r for r in rows if r["symbol"] == symbol][0]["cand_id"]
+
+
+def test_catalogue_has_no_project_specific_rule():
+    assert all(r.kind not in en_verdicts.RULE_KINDS_FORBIDDEN for r in en_verdicts.CATALOGUE)
+    assert all(not re.search(r"\.(c|h|m)\b", r.name) for r in en_verdicts.CATALOGUE)   # no file names in rule names
+    assert all(r.en in ("EN2", "EN4") for r in en_verdicts.CATALOGUE)
+
+
+def test_decide_by_catalogue_and_undecided():
+    d = _decided()
+    assert d["sine_table"]["decided_by"] == "catalogue:numeric-data" and d["sine_table"]["en2"] == "FAIL"
+    assert d["dispatch"]["decided_by"] == "catalogue:dispatch-table"
+    assert d["menu_labels"]["decided_by"] == "catalogue:presentation-vocabulary"
+    assert d["valid_modes"]["decided_by"] == "UNDECIDED" and d["valid_modes"]["en2"] == ""   # acceptance vocabulary: quotation needed
+    assert d["expected_values"]["decided_by"] == "catalogue:test-fixture"
+    assert d["old_names"]["decided_by"] == "catalogue:dead-code"
+    assert all(v["en1"] == "PASS" and v["en3"] == "PASS" for v in d.values())
+
+
+def test_apply_quoted_requires_citation_for_admit():
+    rows = [en_verdicts.decide(r, tree=CTREE) for r in inventory.enumerators(CTREE)]
+    cid = _cid(rows, "valid_modes")
+    try:
+        en_verdicts.apply_quoted(rows, [dict(cand_id=cid, verdict="ADMIT", tag="enforced", evidence="no citation")])
+        assert False, "an ADMIT without a file:line citation must be refused"
+    except ValueError:
+        pass
+    out = en_verdicts.apply_quoted(rows, [dict(cand_id=cid, verdict="ADMIT", tag="enforced",
+                                               evidence="EN2: src/modes.c:4 'the valid modes'; EN4: src/modes.c:22 miss -> I_Error")])
+    vm = [r for r in out if r["symbol"] == "valid_modes"][0]
+    assert vm["tag"] == "enforced" and vm["decided_by"] == "quoted" and all(vm[k] == "PASS" for k in ("en1", "en2", "en3", "en4", "en5", "en6"))
+
+
+def test_class_and_sensitivity():
+    rows = [en_verdicts.decide(r, tree=CTREE) for r in inventory.enumerators(CTREE)]
+    cid = _cid(rows, "valid_modes")
+    rows = en_verdicts.apply_quoted(rows, [dict(cand_id=cid, verdict="ADMIT", tag="enforced", evidence="EN2: src/modes.c:4; EN4: src/modes.c:22")])
+    assert en_verdicts.class_of(rows) == "A"
+    rows2 = [dict(r, tag="asserted") if r["symbol"] == "valid_modes" else r for r in rows]
+    assert en_verdicts.class_of(rows2) == "B"
+    assert en_verdicts.class_of([r for r in rows if r["symbol"] != "valid_modes"]) == "B"      # nothing admitted
+    s = en_verdicts.sensitivity(rows)
+    assert any(r["symbol"] == "valid_modes" and r["why"] == "admitted" for r in s)
+    assert all(r["decided_by"] != "catalogue:numeric-data" for r in s)
 
 
 # ---------------------------------------------------------------- runner
