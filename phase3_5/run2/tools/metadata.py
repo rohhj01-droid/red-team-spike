@@ -5,8 +5,9 @@ HOMEPAGE and SITES by exactly the mechanisms the contract lists: explicit lines
 (with SITE_* macros expanded from the frozen network.conf.template and the
 `${NAME:=suffix}` modifier), GH_ACCOUNT/GH_PROJECT defaults (bsd.port.mk), and
 DIST_TUPLE templates (dist-tuple.port.mk + dist-tuple.pattern). Not a `make`
-evaluation. A `MODULES` line, or a `${...}` left unexpanded, makes the item
-PI-METADATA-UNRESOLVED; nothing is guessed.
+evaluation. Macro forms are `${NAME}`, `${NAME:=suffix}` and BSD make's one-letter
+`$X`; one left unexpanded in HOMEPAGE, SITES or GH_TAGNAME makes the item
+PI-METADATA-UNRESOLVED (RQA-06); nothing is guessed.
 """
 from __future__ import annotations
 
@@ -16,7 +17,7 @@ import re
 
 DECLARED_MODULES: list[str] = []            # contract Section 2: no module beyond bsd.port.mk / dist-tuple is resolved
 ASSIGN_RE = re.compile(r"^([A-Za-z_][\w.]*)[ \t]*(\?=|\+=|:=|=)[ \t]*(.*)$")
-MACRO_RE = re.compile(r"\$\{([A-Za-z_][\w.]*)(?::=([^}]*))?\}")
+MACRO_RE = re.compile(r"\$(?:\{([A-Za-z_][\w.]*)(?::=([^}]*))?\}|([A-Za-z_]))")   # ${NAME}, ${NAME:=suffix}, $X (one letter, BSD make)
 PI_METADATA = "PI-METADATA-UNRESOLVED"
 TUPLE_SITES = {"github": "https://github.com/", "gitlab": "https://gitlab.com/", "codeberg": "https://codeberg.org/"}
 
@@ -85,7 +86,7 @@ def tuple_sites(infra_root: str) -> dict[str, str]:
 def expand(value: str, macros: dict[str, str]) -> str:
     """Expand ${NAME} and ${NAME:=suffix} (each word of NAME with suffix appended); unknown names stay as written."""
     def sub(m: re.Match) -> str:
-        name, suffix = m.group(1), m.group(2)
+        name, suffix = m.group(1) or m.group(3), m.group(2)
         if name not in macros:
             return m.group(0)
         words = macros[name].split()
@@ -101,12 +102,12 @@ def expand(value: str, macros: dict[str, str]) -> str:
 def resolve(port_dir: str, infra_root: str) -> dict:
     mk = parse_assignments(_read(os.path.join(port_dir, "Makefile")))
     macros = dict(macro_table(infra_root))
-    macros.update({k: v for k, v in mk.items() if "${" not in v})          # port-local simple values
+    macros.update({k: v for k, v in mk.items() if not MACRO_RE.search(v)})  # port-local simple values
     tsites = tuple_sites(infra_root)
     out: dict = dict(homepage=None, homepage_mechanism=None, sites=[], sites_mechanism={}, gh=None,
                      dist_tuples=[], modules=[], distname=None, comment=None, descr="", issue=None, unresolved=[])
     out["modules"] = mk.get("MODULES", "").split()
-    out["distname"] = mk.get("DISTNAME") or None
+    out["distname"] = expand(mk["DISTNAME"], macros) if mk.get("DISTNAME") else None
     out["comment"] = mk.get("COMMENT") or None
     out["descr"] = _read(os.path.join(port_dir, "pkg", "DESCR"))
     acct, proj = mk.get("GH_ACCOUNT", ""), mk.get("GH_PROJECT", "")
@@ -120,7 +121,7 @@ def resolve(port_dir: str, infra_root: str) -> dict:
     # HOMEPAGE
     if "HOMEPAGE" in mk:
         hp = expand(mk["HOMEPAGE"], macros)
-        if "${" in hp:
+        if MACRO_RE.search(hp):
             unresolved.append(hp)
         else:
             out["homepage"], out["homepage_mechanism"] = hp, "explicit"
@@ -132,22 +133,26 @@ def resolve(port_dir: str, infra_root: str) -> dict:
     # SITES
     if "SITES" in mk:
         for w in expand(mk["SITES"], macros).split():
-            if "${" in w:
+            if MACRO_RE.search(w):
                 unresolved.append(w)
             else:
                 out["sites"].append(w); out["sites_mechanism"][w] = "explicit"
     elif out["gh"]:
         base = "https://github.com/%s/%s/" % out["gh"]
         if mk.get("GH_TAGNAME"):
-            url = base + "archive/refs/tags/%s/" % mk["GH_TAGNAME"]
-            out["sites"].append(url); out["sites_mechanism"][url] = "gh-tagname"
+            tag = expand(mk["GH_TAGNAME"], macros)
+            if MACRO_RE.search(tag):
+                unresolved.append(tag)
+            else:
+                url = base + "archive/refs/tags/%s/" % tag
+                out["sites"].append(url); out["sites_mechanism"][url] = "gh-tagname"
         elif mk.get("GH_COMMIT"):
             url = base + "archive/"
             out["sites"].append(url); out["sites_mechanism"][url] = "gh-commit"
     for k, v in mk.items():
         if k.startswith("SITES."):
             for w in expand(v, macros).split():
-                if "${" in w:
+                if MACRO_RE.search(w):
                     unresolved.append(w)
                 else:
                     out["sites"].append(w); out["sites_mechanism"][w] = "group:" + k[len("SITES."):]

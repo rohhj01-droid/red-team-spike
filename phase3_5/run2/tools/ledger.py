@@ -153,7 +153,7 @@ def check(run2_dir: str, expect_rows: int = 128) -> int:
     for sp in sps:
         if sp["action"] not in SP_ACTIONS:
             problems.append("rank %s: starting point %s action %r" % (sp["frame_rank"], sp["url"], sp["action"]))
-        if "${" in sp["url"]:
+        if re.search(r"\$[{A-Za-z_]", sp["url"]):
             problems.append("rank %s: unexpanded macro in %s" % (sp["frame_rank"], sp["url"]))
         if sp["evidence_role"] not in EVIDENCE_ROLES:
             problems.append("rank %s: evidence_role %r" % (sp["frame_rank"], sp["evidence_role"]))

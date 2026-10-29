@@ -144,6 +144,30 @@ def test_unknown_macro_is_unresolved():                         # Review Focus 1
     assert m["issue"] == "PI-METADATA-UNRESOLVED" and all("${" not in s for s in m["sites"])
 
 
+def test_tag_and_distname_macros_expand():                      # batch 1: rank 8 GH_TAGNAME = dosbox-x-v${VERSION}; rank 5 SITES = ...v$V/
+    m = metadata.resolve(FIX + "/ports/games/tagmac", INFRA)
+    assert m["sites"] == ["https://github.com/acme/tagmac/archive/refs/tags/v1.2/", "https://example.org/dl/v1.2/"], m["sites"]
+    assert m["distname"] == "tagmac-1.2" and m["issue"] is None, m
+
+
+def test_unknown_tag_macro_is_unresolved():
+    m = metadata.resolve(FIX + "/ports/games/tagbad", INFRA)
+    assert m["issue"] == "PI-METADATA-UNRESOLVED" and m["sites"] == [], m
+
+
+def test_ledger_check_flags_single_char_macro():
+    root = os.path.join(TMP, "run2m")
+    os.makedirs(root, exist_ok=True)
+    open(os.path.join(root, "screening_set_128.txt"), "w").write("games/alpha\n")
+    screen.run_batch(1, root, FIX + "/ports", fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    assert ledger.check(root, expect_rows=1) == 0
+    sps = ledger.read_rows(os.path.join(root, "starting_points.tsv"), ledger.SP_FIELDS)
+    bad = dict(sps[0])
+    bad["url"] = "https://example.org/dl/v$V/"
+    ledger.write_rows(os.path.join(root, "starting_points.tsv"), sps + [bad], ledger.SP_FIELDS)
+    assert ledger.check(root, expect_rows=1) == 1
+
+
 # ---------------------------------------------------------------- Task 4: surfaces
 
 def test_normalize_url():
