@@ -272,6 +272,9 @@ def _e2rep(ctx: dict) -> dict:
         _verify_page_quote(ctx, w)
     designations += label_designations
     targets = {surfaces.normalize_url(w["location"]) for w in designations}
+    for sp in sps:                                 # contract 7: a root no designation names is only an admitted starting point (RQA-16)
+        if sp["evidence_role"] == "official-source-location" and surfaces.normalize_url(sp["final_url"] or sp["url"]).lower() not in {t.lower() for t in targets}:
+            sp["evidence_role"] = "admitted-starting-point"
     if len(targets) > 1:
         mirror = any("mirror" in w["quote"].lower() for w in designations)
         if not mirror:

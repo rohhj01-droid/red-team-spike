@@ -451,6 +451,15 @@ def test_unreachable_starting_point_blocks_e2rep_pass():
     assert c["primary_snapshot"] == "NOT_REACHED" and c["E2_RULE"] == "NOT_REACHED", c
 
 
+def test_undesignated_repository_root_is_an_admitted_starting_point():   # contract 7's roles (RQA-16)
+    beta = {"https://github.com/acme/Beta": (200, HTML, b"<html><body><p>Beta, a library.</p></body></html>")}
+    out = screen.screen_item(2, "devel/beta", FIX + "/ports", witnesses=[], state=_state("s18"),
+                             fetch=canned_map(beta), clock=fixed_clock, git=fake_git_factory())
+    assert out["candidate_row"]["E2_REP"] == "UNRESOLVED", out["candidate_row"]
+    roots = [sp for sp in out["starting_points"] if sp["final_class"] == "repository-root"]
+    assert roots and all(sp["action"] == "observed" and sp["evidence_role"] == "admitted-starting-point" for sp in roots), roots
+
+
 def test_404_does_not_fail_candidate_alone():                   # Review Focus 4
     out = screen.screen_item(2, "devel/beta", FIX + "/ports", witnesses=[], state=_state("s2"),
                              fetch=canned_map({}), clock=fixed_clock, git=fake_git_factory())
