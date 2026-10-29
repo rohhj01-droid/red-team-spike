@@ -42,6 +42,7 @@ KF-2 representability: not representable -- blood splats and player powers are g
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides blood or invulnerability; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external record is a design decision, not a cause: the maintainer marked the request wontfix because an invulnerability tell would hand an advantage to the Crispy player in games with Chocolate Doom clients (comment 2016-03-07) and closed it as irrelevant (2020-03-26); nothing read touches a native case, and KF-2's out-of-domain placement stands; cause agreement N/A (no failure, no fix)
 
 ## KF item #92
 disclosure: fields seen = title, labels (wontfix, maybe-critical), state (closed), created_at (2016-03-07), body (457 chars); cause leakage = yes -- the body names the current mechanism it would replace ("the current pause/unpause dance that happens when a menu is opened while recording a demo") and MBF's basetic/gametic distinction; no failure is reported, a reminder to the maintainer
@@ -50,6 +51,7 @@ KF-2 representability: not representable -- demo recording's tic bookkeeping is 
 KF-2 domain: out-of-domain -- N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- declined rather than diagnosed: the maintainer would not change the gametic bookkeeping because it breaks network compatibility with Chocolate Doom and older Crispy (comment 2016-05-26); closed 2020-03-26; cross-referenced from #174; KF-2's placement stands; cause agreement N/A
 
 ## KF item #174
 disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2017-03-28), body (865 chars); cause leakage = yes -- the reporter's hypothesis names code: "I believe this is because of `if (gametic & 3)` in `A_Tracer`", and a suggested fix (store `dest`, or save gametic); a video link not opened
@@ -58,6 +60,8 @@ KF-2 representability: partly -- the savegame's header and its load judgment are
 KF-2 domain: out-of-domain -- D5 decides only whether a Doom savegame is LOADABLE (its version string); this save loads, and what the frozen evidence does not define is the restored state's validity; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external cause is identified (comments 2017-03-30 and 2017-04-04): whether a Revenant rocket homes depends on the parity of gametic when A_Tracer first runs, and a restored game calls every rocket's A_Tracer on the restore tic, so the parity is re-decided; Doom's savegame does not carry gametic. Doom Retro fixed it by writing gametic into its savegame header (bradharding/doomretro 77fa1a2, 2017-03-29); Crispy left it for network and demo compatibility (comments 2017-04-10, 2017-06-16) and closed it 2020-03-26. The cause lies in what the save body does not persist, outside D5's header check, where KF-2 placed it; cause agreement N/A (the frozen account named no cause)
+KF-3 post-hoc observation: the artifact whose header NC-05 covers (a fact written by the save and judged at load) here fails for a fact the save does not write; an observation only -- it creates no unit, edge or finding (sealed Section 4.3)
 
 ## KF item #250
 disclosure: fields seen = title, labels (bug, rendering), state (closed), created_at (2018-01-03), body (812 chars); cause leakage = yes, speculative -- the reporter's "possible explanation" (the far line of a sector leaving the top screen bound) and two renderer functions named as candidates; screenshots not opened
@@ -66,6 +70,7 @@ KF-2 representability: not representable -- rendering is outside every native ca
 KF-2 domain: out-of-domain -- N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external record locates the symptom in the renderer's sprite clipping behind two-sided lines when the view looks down (R_StoreWallRange's silhouette conditions, comments 2018-01-08 to 2018-03-09); a partial patch exists only in Russian Doom (Russian-Doom/russian-doom b5eb9ec, 2018-01-09, src/doom/r_segs.c) and its author withdrew it as wrong on MAP19; closed unfixed 2020-03-26; KF-2's placement stands; cause agreement N/A
 
 ## KF item #258
 disclosure: fields seen = title, labels (wontfix, maybe-critical), state (closed), created_at (2018-01-19), body (1072 chars); cause leakage = yes -- the cause is stated (an emulated vanilla bug at a named line of g_game.c) with a fix commit in another project linked and a test map attached (not opened)
@@ -74,6 +79,7 @@ KF-2 representability: not representable -- deathmatch spawn effects are game-wo
 KF-2 domain: out-of-domain -- N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the cause was in the first post (an emulated vanilla bug); the external record adds only the decision: the fog's corrected position would differ between a Crispy and a Chocolate Doom client, so it was left as is (wontfix 2018-02-15; closed 2020-03-26); nothing touches a native case; cause agreement N/A
 
 ## KF item #318
 disclosure: fields seen = title, labels (patch, maybe-critical, help wanted), state (closed), created_at (2018-05-14), body (610 chars); cause leakage = yes -- the body IS the fix: a diff replacing `actor->target->x` with `->y` in A_VileTarget, with the wiki page named
@@ -82,6 +88,7 @@ KF-2 representability: not representable -- monster behaviour outside every nati
 KF-2 domain: out-of-domain -- N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the cause (the x-for-y typo in A_VileTarget) was in the first post; the discussion (comments 2018-05-15 to 2018-05-22) weighed demo compatibility, with full-run demo tests reported in sync, and the issue was closed 2019-11-08 without a commit id in its timeline (comments 32-49 lie beyond the item cap, so the closing change is not identified here); outside every native case; cause agreement N/A
 
 ## KF item #362
 disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2018-12-02), body (208 chars); cause leakage = no -- a wiki page name only ("Lopsided final boss explosions"), the question whether it can be fixed without breaking demos or dehacked
@@ -90,6 +97,7 @@ KF-2 representability: not representable -- outside every native case
 KF-2 domain: out-of-domain -- N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- not diagnosed beyond the wiki page: moving the exploding spawns is judged unsafe for demos and kill counts (comments 2018-12-03, 2019-10-15) and the issue was closed as irrelevant (2020-03-26); cause agreement N/A
 
 ## KF item #365
 disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2018-12-18), body (894 chars); cause leakage = yes -- the cause and the proposed change are stated with a line reference into p_enemy.c (the alive-player check in the boss death action)
@@ -98,6 +106,7 @@ KF-2 representability: not representable -- level-end logic outside every native
 KF-2 domain: out-of-domain -- N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the cause was in the first post; the maintainer declined because level progression must stay identical to vanilla and Chocolate Doom for demos and network games (2018-12-19) and the reporter accepted it; cause agreement N/A
 
 ## KF item #408
 disclosure: fields seen = title, labels (bug, pending, patch), state (closed), created_at (2019-04-24), body (4308 chars, CUT at 3000); cause leakage = yes, partial -- the console output shows "PadRejectArray: REJECT lump too short to pad!" before a segmentation fault and the start of a gdb session (the backtrace itself lies beyond the cut); the log also shows "This is not a valid dehacked patch file!" followed by a loaded DEHACKED lump -- the non-fatal signature path of deh_main.c:319-323 (XQA-07 d) seen in the wild
@@ -106,6 +115,8 @@ KF-2 representability: not representable -- PWAD map loading is outside every na
 KF-2 domain: out-of-domain -- Artifact 3 lists PWAD and map validity as outside; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external cause is identified and fixed in the tracker's repository (fabiangreffrath/crispy-doom 5e9069b, 2019-04-26, 'prevent flat lumps from being mistaken as patches', src/doom/r_data.c): sunder.wad carries a flat named BODIES, the patch-name lookup of R_InitTextures (W_CheckNumForName) returned that flat, and composing a texture from it read past the lump once composites were precached for every texture (c8abc70); the fix skips lumps in the flat range and moves R_InitFlats first. The dehacked signature line noted at KF-1 was unrelated. The cause lies in PWAD content handling, outside every native case, as KF-2 placed it; cause agreement N/A
+KF-3 post-hoc observation: the cause is a lump-name lookup that ignores the lump's kind (the maintainer's own diagnosis of 2019-04-26: no namespaces for lumps); recorded as an observation only (sealed Section 4.3)
 
 ## KF item #454
 disclosure: fields seen = title, labels (SDL-related, sound-issues-on-windows), state (closed), created_at (2019-09-10), body (870 chars); cause leakage = no -- symptoms, version and hardware only
@@ -114,6 +125,7 @@ KF-2 representability: representable for its setting -- the configured music and
 KF-2 domain: in-domain concordant for the part the rule decides -- D10: an OPL device value is SERVED(music_opl_module) and the digital sfx device SERVED(sound_sdl_module), provided their Init succeeds (an input the report leaves unstated and the rule does not decide); the external expectation (these are valid choices that should produce sound) agrees. The reported failure past the selection -- no audible music, wrong pitch -- is not decided by any class: for that part, out-of-domain
 KF-2 attribution: scope mismatch -- the failure is not a validity phenomenon within the frozen scope; the device selection it depends on is concordant
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external cause lies in the SDL libraries, not the source port: with SDL2 2.0.10 / SDL2_mixer 2.0.4 on Windows and a 5.1 or 7.1 speaker layout, sound effects cut out or pitch up and music is silent; the older DLLs (SDL2 2.0.5, SDL2_mixer 2.0.1), a stereo layout or Windows Sonic restore sound (comments 2019-09-10 to 2020-04-17; reported upstream as SDL bug 4799, cross-referenced from libsdl-org/SDL#3396); the maintainer: 'solely an SDL issue and nothing that could be fixed in the source port' (2019-09-10). The one referenced commit (f105d6b, 2020-04-24) reverts an OPL stereo-channel change and is not the cause. KF-2's concordance for the device selection (D10) is untouched and its out-of-domain placement of the failure is confirmed; cause agreement N/A (the frozen account named no cause)
 
 ## KF item #457
 disclosure: fields seen = title, labels (OS-specific, SDL-related, sound-issues-on-windows), state (closed), created_at (2019-09-22), body (1121 chars); cause leakage = no -- symptoms, two command lines, version and OS
