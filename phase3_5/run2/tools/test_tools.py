@@ -26,6 +26,7 @@ import paths  # noqa: E402
 paths.use_exploratory_tools()
 import frame  # noqa: E402
 import metadata  # noqa: E402
+import surfaces  # noqa: E402
 
 INFRA = FIX + "/ports/infrastructure"
 
@@ -108,6 +109,53 @@ def test_module_is_unresolved():
 def test_unknown_macro_is_unresolved():                         # Review Focus 1
     m = metadata.resolve(FIX + "/ports/games/eps", INFRA)
     assert m["issue"] == "PI-METADATA-UNRESOLVED" and all("${" not in s for s in m["sites"])
+
+
+# ---------------------------------------------------------------- Task 4: surfaces
+
+def test_normalize_url():
+    assert surfaces.normalize_url("HTTP://GitHub.com/Acme/Beta.git/?x=1#f") == "https://github.com/Acme/Beta"
+    assert surfaces.normalize_url("https://user:pw@example.org/p/") == "https://example.org/p"
+
+
+def test_classify_table():
+    c = surfaces.classify
+    assert c("https://github.com/acme/beta") == "repository-root"
+    assert c("https://github.com/acme/beta/releases/download/v1/x.tgz") == "release-assets"
+    assert c("https://github.com/acme/beta/archive/refs/tags/v1.2/") == "release-assets"
+    assert c("https://gitlab.com/grp/sub/proj/-/releases") == "release-assets"
+    assert c("https://gitlab.com/grp/sub/proj") == "repository-root"
+    assert c("https://git.example.org/acme/beta") == "repository-root"
+    assert c("https://example.org/src/beta.git") == "repository-root"
+    assert c("https://downloads.sourceforge.net/sourceforge/alpha/") == "distfile-location"
+    assert c("https://sourceforge.net/projects/alpha/files/") == "distfile-location"
+    assert c("https://ftp.gnu.org/gnu/alpha/") == "distfile-location"
+    assert c("https://example.org/dl/alpha-1.0.tar.gz") == "distfile-location"
+    assert c("https://alpha.example.org/") is None          # unmatched: one request decides (Task 8)
+    assert all(len(row) == 3 and row[2] in surfaces.CLASSES for row in surfaces.SURFACE_TABLE)
+
+
+def test_starting_points_from_gh_port():                       # contract 4: one surface, two sources
+    sp = surfaces.starting_points(metadata.resolve(FIX + "/ports/devel/beta", INFRA))
+    assert [(s["url"], s["source"], s["klass"]) for s in sp] == [
+        ("https://github.com/acme/Beta", "HOMEPAGE+GH", "repository-root"),
+        ("https://github.com/acme/Beta/archive/refs/tags/v1.2/", "SITES", "release-assets")], sp
+
+
+def test_starting_points_each_sites_url():                     # Task 3 ruling: every mirror word is a starting point
+    sp = surfaces.starting_points(metadata.resolve(FIX + "/ports/games/alpha", INFRA))
+    assert [s["source"] for s in sp] == ["HOMEPAGE", "SITES", "SITES"] and sp[0]["klass"] is None and sp[1]["klass"] == "distfile-location"
+
+
+def test_identity_key_and_ambiguity():
+    m = metadata.resolve(FIX + "/ports/devel/beta", INFRA)
+    assert surfaces.identity_key(m, {}) == ("PASS", "https://github.com/acme/beta")
+    m2 = dict(m, dist_tuples=[("github", "other", "thing", "1")])
+    assert surfaces.identity_key(m2, {})[0] == "FAIL_AMBIGUOUS"
+    a = metadata.resolve(FIX + "/ports/games/alpha", INFRA)
+    assert surfaces.identity_key(a, {}) == ("PASS", "https://alpha.example.org")
+    none = dict(a, homepage=None, sites=["https://distfiles.openbsd.org/x/alpha-1.0.tar.gz"])
+    assert surfaces.identity_key(none, {})[0] == "FAIL_NONE"
 
 
 # ---------------------------------------------------------------- runner
