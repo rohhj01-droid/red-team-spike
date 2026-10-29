@@ -134,6 +134,22 @@ def _block(ctx: dict, gate: str, source: str, observed: str, inference: str, dec
 
 # ---------------------------------------------------------------- witnesses
 
+def _expose(ctx: dict, line: str) -> None:
+    """One exposure line per distinct exposure: the same line reached through several links is written once."""
+    if line not in ctx["exposure"]:
+        ctx["exposure"].append(line)
+
+
+def _locate_name(ctx: dict, name: str) -> str | None:
+    """The first observed surface whose text carries `name` as a whole word (contract 6: the identifier is quoted
+    where it appears), or None."""
+    pat = re.compile(r"(?<!\w)%s(?!\w)" % re.escape(name.casefold()))
+    for rec in ctx["bodies"].values():
+        if rec.get("body") and pat.search(net.text_of(rec["body"]).casefold()):
+            return rec["final_url"]
+    return None
+
+
 def _witnesses(ctx: dict, gate: str, kind: str) -> list[dict]:
     return [w for w in ctx["witnesses"] if str(w.get("frame_rank")) == str(ctx["rank"]) and w.get("gate") == gate and w.get("kind") == kind]
 
@@ -187,7 +203,7 @@ def _e2rep(ctx: dict) -> dict:
             if n not in observed_roots:
                 observed_roots.append(n)
             if "readme" in rec["body"][:200000].decode("utf-8", "replace").lower():
-                ctx["exposure"].append("| %s | %d | %s | landing page rendered a README (%d chars of page text); not used | used: no |" % (rec["observed_at_utc"], rank, rec["final_url"], len(net.text_of(rec["body"]))))
+                _expose(ctx, "| %s | %d | %s | landing page rendered a README (%d chars of page text); not used | used: no |" % (rec["observed_at_utc"], rank, rec["final_url"], len(net.text_of(rec["body"]))))
         return rec
 
     for sp in sps:
@@ -230,7 +246,7 @@ def _e2rep(ctx: dict) -> dict:
                 lk = surfaces.classify(link["href"])
                 label = link["label"] or link.get("title") or link.get("aria_label") or ""
                 if lk in surfaces.FORBIDDEN:
-                    ctx["exposure"].append("| %s | %d | %s | step-2 link %r leads to a forbidden class; not followed | used: no |" % (rec["observed_at_utc"], rank, link["href"], label))
+                    _expose(ctx, "| %s | %d | %s | step-2 link %r leads to a forbidden class; not followed | used: no |" % (rec["observed_at_utc"], rank, link["href"], label))
                     continue
                 root = surfaces.repository_root_of(link["href"]) if lk in ("repository-root", "repository-file") else None
                 if root is None:
@@ -240,11 +256,11 @@ def _e2rep(ctx: dict) -> dict:
                     fc = surfaces.classify(r2["final_url"]) or _class_by_response(r2)
                     root = surfaces.repository_root_of(r2["final_url"]) if fc in ("repository-root", "repository-file") else None
                     if root is None:
-                        ctx["exposure"].append("| %s | %d | %s | step-2 link %r: target is not a repository root (%s); observed once, not read | used: no |" % (r2["observed_at_utc"], rank, link["href"], label, fc))
+                        _expose(ctx, "| %s | %d | %s | step-2 link %r: target is not a repository root (%s); observed once, not read | used: no |" % (r2["observed_at_utc"], rank, link["href"], label, fc))
                         ctx["step2"].append(dict(url=link["href"], label=label, final_url=r2["final_url"], final_class=fc, outcome=r2["outcome"]))
                         continue
                 if lk == "repository-file" or surfaces.normalize_url(link["href"]) != surfaces.normalize_url(root):
-                    ctx["exposure"].append("| %s | %d | %s | step-2 link %r points at a file inside %s; the file is not opened, the root is | used: no |" % (rec["observed_at_utc"], rank, link["href"], label, root))
+                    _expose(ctx, "| %s | %d | %s | step-2 link %r points at a file inside %s; the file is not opened, the root is | used: no |" % (rec["observed_at_utc"], rank, link["href"], label, root))
                 r3 = observe_root(root)
                 ctx["step2"].append(dict(url=link["href"], label=label, final_url=r3["final_url"], final_class="repository-root", outcome=r3["outcome"]))
                 if r3["outcome"] == "ok":
@@ -293,7 +309,17 @@ def _e2rep(ctx: dict) -> dict:
     ids = _witnesses(ctx, "E2-REP", "identifier")
     for w in ids:
         _verify_page_quote(ctx, w)
-    identifier = ids[0]["quote"] if ids else canonical.rstrip("/").split("/")[-1]
+    if ids:
+        identifier = ids[0]["quote"]
+        id_note = "".join(" | identifier %r at %s" % (w["quote"], w["surface"]) for w in ids)
+    else:                                          # contract 6: the repository's name, quoted where it appears (RQA-07)
+        identifier = canonical.rstrip("/").split("/")[-1]
+        where = _locate_name(ctx, identifier)
+        if where is None:
+            return dict(state="UNRESOLVED", failure_code="NONE", pi_code="PI-UNCLASSIFIED-SHAPE", canonical=canonical, identifier="", snapshot="",
+                        block=_block(ctx, "E2-REP", canonical, "designated, but the repository's name %r appears on no observed surface" % identifier,
+                                     "contract 6: the identifier is quoted where it appears; a designated repository whose name no observed surface shows is a shape no sealed criterion describes", "UNRESOLVED", accounting))
+        id_note = " | identifier %r (the repository's name, contract 6) appears on %s" % (identifier, where)
     # pin at observation time (contract Section 10): the source tree is established by the fetch;
     # a pin already taken for this candidate (the preview run) is reused, never re-taken
     host = canonical.split("/")[2]
@@ -313,7 +339,7 @@ def _e2rep(ctx: dict) -> dict:
         return dict(state="FAIL", failure_code="E2REP-NO-SOURCE", pi_code="NONE", canonical=canonical, identifier=identifier, snapshot=recpin["sha"],
                     block=_block(ctx, "E2-REP", canonical, "the fetched tree at %s holds no files" % recpin["sha"], "no source tree at the designated location (contract Section 7)", "FAIL", accounting))
     observed = " | ".join("%s %r at %s -> %s" % ("link label" if w.get("kind") == "label" else "designation", w["quote"], w["surface"], w["location"]) for w in designations)
-    observed += "".join(" | identifier %r at %s" % (w["quote"], w["surface"]) for w in ids)
+    observed += id_note
     return dict(state="PASS", failure_code="NONE", pi_code="NONE", canonical=canonical, identifier=identifier, snapshot=recpin["sha"],
                 block=_block(ctx, "E2-REP", canonical, observed + " | tree pinned at %s (%s tracked files)" % (recpin["sha"], recpin.get("tracked_files")),
                              "exactly one designated canonical location and one identifier on observed surfaces; the source tree is present (contract Section 7); step-2 links followed by the label rule only (Section 6; a label-authorized link into the repository is the project's own designation, RQA-02)",

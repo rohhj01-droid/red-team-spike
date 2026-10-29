@@ -630,6 +630,39 @@ def test_unfetchable_repository_is_unresolved():                 # RQA-03 (j): a
 
 # ---------------------------------------------------------------- runner
 
+TWIN_MAP = dict(GAMMA_MAP)
+TWIN_MAP["https://gamma.example.org/"] = (200, HTML, b"<html><body><p><a href='https://github.com/acme/gamma'>Source code</a></p>"
+                                                     b"<p><a href='https://github.com/acme/gamma'>Source code</a></p></body></html>")
+
+
+def test_exposure_lines_are_not_repeated_within_a_run():        # two identical label links -> one landing-page line
+    out = screen.screen_item(1, "x11/gamma", FIX + "/ports", witnesses=[], state=_state("s11"),
+                             fetch=canned_map(TWIN_MAP), clock=fixed_clock, git=fake_git_factory())
+    landing = [l for l in out["exposure"] if "landing page rendered" in l]
+    assert out["candidate_row"]["E2_REP"] == "PASS" and len(landing) == 1, out["exposure"]
+
+
+def test_derived_identifier_is_located_on_an_observed_surface():   # contract 6: the identifier row quotes where it appears
+    out = screen.screen_item(1, "x11/gamma", FIX + "/ports", witnesses=[], state=_state("s12"),
+                             fetch=canned_map(GAMMA_MAP), clock=fixed_clock, git=fake_git_factory())
+    c = out["candidate_row"]
+    block = [b for b in out["evidence_blocks"] if "Gate: E2-REP" in b][0]
+    assert c["E2_REP"] == "PASS" and c["external_target_identifier"] == "gamma", c
+    assert "identifier 'gamma'" in block.split("Observed:")[1], block
+
+
+NAMELESS_MAP = dict(GAMMA_MAP)
+NAMELESS_MAP["https://gamma.example.org/"] = (200, HTML, b"<html><head><title>a game</title></head><body><p><a href='https://github.com/acme/gamma'>Source code</a></p></body></html>")
+NAMELESS_MAP["https://github.com/acme/gamma"] = (200, HTML, b"<html><head><title>a repository</title></head><body><p>code lives here</p></body></html>")
+
+
+def test_identifier_on_no_observed_surface_is_unresolved():
+    out = screen.screen_item(1, "x11/gamma", FIX + "/ports", witnesses=[], state=_state("s13"),
+                             fetch=canned_map(NAMELESS_MAP), clock=fixed_clock, git=fake_git_factory())
+    c = out["candidate_row"]
+    assert c["E2_REP"] == "UNRESOLVED" and c["protocol_issue_code"] == "PI-UNCLASSIFIED-SHAPE", c
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0
