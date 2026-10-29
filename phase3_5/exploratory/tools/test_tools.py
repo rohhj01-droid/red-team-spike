@@ -190,7 +190,7 @@ def test_members_from_fixture():
 
 
 def test_members_drop_final_sentinel():      # XQA-07 (c)
-    rows, absent, sentinels = members_detail(FIX + "/tree", FIX + "/enumerators_admit.tsv")
+    rows, absent, sentinels, _beyond = members_detail(FIX + "/tree", FIX + "/enumerators_admit.tsv")
     gv = [r for r in rows if r["enum_id"] == "C007"]
     assert [r["text"] for r in gv] == ['{ "doom", 1 }', '{ "ultimate", 2 }']
     assert sentinels == [("C007", "{ NULL, 0 }")]
@@ -209,6 +209,15 @@ def test_units_components():
 def test_units_no_links():
     o, p, linked = units(FIX + "/obs5.tsv", FIX + "/links0.tsv", TMP + "/P.tsv")
     assert (o, p, linked) == (5, 5, 0)
+
+
+def test_members_drop_rows_beyond_bound():    # XQA-08
+    rows, absent, sentinels, beyond = members_detail(FIX + "/tree", FIX + "/enumerators_admit.tsv",
+                                                     bounds_tsv=FIX + "/bounds1.tsv")
+    assert [r["obs_id"] for r in rows if r["enum_id"] == "C001"] == ["E001-001", "E001-002", "E001-003"]
+    assert beyond == [("C001", '{ "a,b{c}.wad", 5 }')]
+    rows2, _, _, beyond2 = members_detail(FIX + "/tree", FIX + "/enumerators_admit.tsv")
+    assert len([r for r in rows2 if r["enum_id"] == "C001"]) == 4 and beyond2 == []
 
 
 # ---------------------------------------------------------------- runner

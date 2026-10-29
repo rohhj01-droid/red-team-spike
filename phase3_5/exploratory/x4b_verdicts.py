@@ -78,8 +78,10 @@ ADMIT = {
     ("pkg/osx/IWADController.m", "IWADFilenames"): ("enforced",
         "EN2: IWADController.m:419-420 'Find an IWAD file that matches the filename in the path that we have been "
         "given'. EN4: :425-443: a file whose name matches no entry is not configured as an IWAD ('No IWAD found with "
-        "this name', return NO). EN5: fixed-size array NUM_IWAD_TYPES+1 with a trailing nil -> enforced. The nil row "
-        "is a sentinel, not a member."),
+        "this name', return NO). EN5: fixed-size array NUM_IWAD_TYPES+1, consulted by loops bounded by "
+        "i < NUM_IWAD_TYPES (:161, :191, :425; NUM_IWAD_TYPES is the last enumerator of the type list at :25-35, "
+        "i.e. 11) -> enforced. The 12th row @\"undefined\" lies beyond that bound and is the 'no IWAD selected' "
+        "placeholder (:110): not a member (XQA-08). An earlier version of this row called it a trailing nil."),
     ("src/setup/joystick.c", "known_joysticks"): ("enforced",
         "EN2: the name 'known_joysticks' (recognised controllers). EN4: GetJoystickType joystick.c:701-733: a "
         "joystick matching no entry gets 'Unknown joystick ...' and NULL, and IsKnownJoystick :737-740 is false: "

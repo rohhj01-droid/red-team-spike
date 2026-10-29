@@ -1,0 +1,2 @@
+cand_id	bound	evidence
+C013	11	pkg/osx/IWADController.m: the array is NUM_IWAD_TYPES+1 long (:53) and every loop that matches input against it stops at i < NUM_IWAD_TYPES (:161, :191, :425); NUM_IWAD_TYPES is the last enumerator of the IWAD type list (:25-35), so the bound is 11; row 12 (@"undefined") is the 'no IWAD selected' placeholder (:110)
