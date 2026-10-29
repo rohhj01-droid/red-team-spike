@@ -246,3 +246,38 @@ selects. U060 (1.2) and U061 (1.5) select versions that write no
 version byte into demos (src/doom/g_game.c:3213); U067-U070 and U066
 select versions whose savegame and demo code is 109, the same as 1.9
 (src/doom/g_game.c:3185-3187).
+
+## NC-06 -- HHE text replacement: string offsets that are valid but unsupported, per Heretic version (src/heretic/deh_htext.c)
+source observation ids: E186-001 .. E186-336, E187-001 .. E187-305, E188-001 .. E188-305 (units U071-U1016; 946 units in one case)
+native state/data involved: three compiled-in lists of executable string offsets, one per HHE version the port emulates -- "String offsets that are valid but we don't support." (src/heretic/deh_htext.c:531): unsupported_strings_1_0 (:533-578, 336 offsets), unsupported_strings_1_2 (:580-621, 305), unsupported_strings_1_3 (:623-671, 305), each -1-terminated, indexed by version through unsupported_strings[] (:666-671); the running HHE version deh_hhe_version (set by -hhever, src/heretic/deh_htic.c:61-81; a later native case); the main offset-to-string table strings[] (:44-529: "Offsets / String" per version, rejected at EN2 as a mapping) read by GetStringByOffset (:691-705); a patch's "Text <offset> <length>" section (:774); and the process-wide string substitution table that successful replacements go into (DEH_AddStringReplacement, src/deh_str.c:175-)
+writers / creation points: StringIsUnsupported (:673-689) -- the running version's list is scanned for the offset (:678-686). DEH_TextStart (:767-829) parses the section header (:774-778), reads the replacement text (:780-792), and then decides in order: unsupported offset -> DEH_Warning("Unsupported string replacement: %i") and nothing else (:796-799); unknown offset -> SuggestOtherVersions (:732-765, which scans the main table AND the three unsupported lists for other versions holding the offset and prints "-hhever" advice, src/heretic/deh_htic.c:168-) then DEH_Error("Unknown string offset") (:803-807); replacement longer than the executable allows -> DEH_Error (:812-817); otherwise DEH_AddStringReplacement (:818-823). DEH_Warning prints to stderr and sets nothing (src/deh_io.c:365-376); DEH_Error prints and sets context->had_error (:378-391), which makes DEH_LoadFile abort the program after the file -- I_Error("Error parsing dehacked file") (src/deh_main.c:455-462)
+updates / invalidation paths: the lists are compiled in and never modified; the verdict is not stored. The replacement text of an unsupported line is freed (:825-826) and the line has no further effect; the patch continues to parse. Replacements that succeed persist in the substitution table for the process (src/deh_str.c:175-197: an existing substitution for the same original is replaced)
+readers / consumption points: DEH_TextStart :796 is the only reader of StringIsUnsupported (grep); SuggestOtherVersions :751-764 reads all three lists to advise a version when an offset is unknown. Nothing downstream can tell that a replacement was refused as unsupported: later DEH_String lookups of the original string return the original (src/deh_str.c), exactly as if the patch line had not existed
+lifetime / persistence / reset behavior: the verdict lives for the call and leaves one stderr line; the lists live for the process; a refused line leaves no state; an accepted line's substitution lives for the process. Nothing is written to disk by this case
+relevant transitions: patch file loaded -> "Text" section parsed -> offset classified (unsupported / unknown / too long / accepted) -> warning and skip, error and abort-after-file, error and abort-after-file, or substitution stored
+supporting source-code/docs evidence: src/heretic/deh_htext.c:32-46, :44-529 (the main table's shape), :531-671, :673-689, :691-705, :732-765, :767-829; src/deh_io.c:365-391; src/deh_main.c:455-462; src/deh_str.c:175-197; src/heretic/deh_htic.c:61-81, :168-
+remaining native-level uncertainty: what the offsets denote in the three Heretic executables is known only from the comment "valid but we don't support" (:531) -- the tree carries no map from these offsets to strings (the main table :44-529 holds the supported ones); the default value of deh_hhe_version when -hhever is absent was not read (src/heretic/deh_htic.c); the substitution table's lookup path (DEH_String) was not read line by line
+lineage: inherited -- src/heretic/deh_htext.c carries 0 [crispy] marker(s); the lists, StringIsUnsupported and DEH_TextStart's decision chain carry none
+### Sufficiency
+Q1 created: the transient fact "offset O is a valid string offset of Heretic version V that the port does not support" -- src/heretic/deh_htext.c:678-686, for the running version V
+Q2 written: N/A: the verdict is returned as a boolean (:684, :688) and acted on at once -- a stderr warning (:798, src/deh_io.c:365-376) -- and no field, flag or file records it; the replacement text is freed (:826)
+Q3 lifetime: N/A: no persistent value is created (:796-799, :825-826); the lists themselves are compiled in (:533-671); an accepted replacement, the other branch, lives for the process in the substitution table (src/deh_str.c:175-197)
+Q4 readers: DEH_TextStart, src/heretic/deh_htext.c:796 (the decision); SuggestOtherVersions, src/heretic/deh_htext.c:751-764 (advice when an offset is unknown); no other reader (grep StringIsUnsupported, unsupported_strings)
+Q5 after consumption: the line disappears without trace -- the patch continues (:827-828), nothing marks the refusal, and later string lookups behave as if the line were absent (src/deh_str.c); the program does not abort for an unsupported offset (DEH_Warning sets no error, src/deh_io.c:365-376), in contrast with an unknown offset (DEH_Error, :390; src/deh_main.c:459-462)
+Status: RESOLVED
+
+Units resolving into this case: one offset each, grouped by the list (the version) they belong to. Each unit's own evidence is its row: the line of its offset in src/heretic/deh_htext.c, recorded per unit in observations.tsv (the `line` column) and summarised here by list.
+
+```text
+list                      version  units          count  rows (deh_htext.c)
+unsupported_strings_1_0   1.0      U071-U406     336  :535-576 (declared :533)
+unsupported_strings_1_2   1.2      U407-U711     305  :582-620 (declared :580)
+unsupported_strings_1_3   1.3      U712-U1016    305  :625-663 (declared :623)
+```
+
+The three lists share every writer, reader and lifetime above; a unit
+differs from its neighbours only in its offset and in which running
+version makes its list the one scanned (:678). The same offset value
+recurs across lists (e.g. 0, 4, 64, 104 open all three), so three units
+may name one number; they stay three units, because each list is its
+own source segmentation (sealed Section 4.1).
