@@ -17,5 +17,4 @@ frame_rank	candidate_id	gate	kind	surface	location	quote	tag
 4	C003	E4	absence-survey	src/plugins/python/pythonbind.cpp:375	src/plugins/python/pythonbind.cpp:375	static PyMethodDef tiled_qt_functions[] = {	
 8	C007	E4	enumerator	EN:C505	src/hardware/serialport/serialport.cpp:1470	static const char *serialTypes[SERIAL_TYPE_COUNT] = {	enforced
 8	C007	E4	refusal-path	EN:C505	src/hardware/serialport/serialport.cpp:1545	if (!strcasecmp(temp_line.c_str(), serialTypes[x])) {	
-8	C007	E4	refusal-path	EN:C505	src/hardware/serialport/serialport.cpp:1552	WriteOut("Type must be one of the following:
-");	
+8	C007	E4	refusal-path	EN:C505	src/hardware/serialport/serialport.cpp:1552	WriteOut("Type must be one of the following:\n");	

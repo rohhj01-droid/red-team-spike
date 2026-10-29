@@ -160,6 +160,11 @@ def check(run2_dir: str, expect_rows: int = 128) -> int:
     for o in obs:
         if o["outcome"] not in ("ok", "definitive", "transport"):
             problems.append("observation %s: outcome %r" % (o["requested_url"], o["outcome"]))
+    for name in sorted(os.listdir(run2_dir)):              # the witness tables: one well-formed row per line (RQA-09)
+        if name.startswith("witness_b") and name.endswith(".tsv"):
+            for w in read_rows(os.path.join(run2_dir, name), WITNESS_FIELDS):
+                if not w["frame_rank"].isdigit() or w["gate"] not in GATES[2:] or w["kind"] not in WITNESS_KINDS:
+                    problems.append("%s: malformed witness row (rank %r, gate %r, kind %r)" % (name, w["frame_rank"], w["gate"], w["kind"]))
     for p in problems:
         print("PROBLEM " + p)
     return 1 if problems else 0

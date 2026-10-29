@@ -168,6 +168,22 @@ def test_ledger_check_flags_single_char_macro():
     assert ledger.check(root, expect_rows=1) == 1
 
 
+def test_ledger_check_flags_malformed_witness_row():
+    root = os.path.join(TMP, 'run2w')
+    os.makedirs(root, exist_ok=True)
+    TAB, NL, BS = chr(9), chr(10), chr(92)
+    open(os.path.join(root, 'screening_set_128.txt'), 'w').write('games/alpha' + NL)
+    screen.run_batch(1, root, FIX + '/ports', fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    path = os.path.join(root, 'witness_b01.tsv')
+    head = TAB.join(ledger.WITNESS_FIELDS) + NL
+    good = ['1', 'C001', 'E4', 'refusal-path', 'EN:C001', 'src/a.c:3', 'puts("bad' + BS + 'n");', '']
+    open(path, 'w', encoding='utf-8', newline=NL).write(head + TAB.join(good) + NL)
+    assert ledger.check(root, expect_rows=1) == 0
+    split = ['1', 'C001', 'E4', 'refusal-path', 'EN:C001', 'src/a.c:3', 'puts("bad' + NL + '");', '']
+    open(path, 'w', encoding='utf-8', newline=NL).write(head + TAB.join(split) + NL)
+    assert ledger.check(root, expect_rows=1) == 1
+
+
 # ---------------------------------------------------------------- Task 4: surfaces
 
 def test_normalize_url():
