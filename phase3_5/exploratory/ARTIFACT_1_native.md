@@ -156,3 +156,50 @@ episode and map limits D_ValidEpisodeMap applies to it. The two Heretic
 special cases (src/d_mode.c:72-84) extend U040 (registered: episode 4
 map 1) and U041 (retail: episode 6 maps 1-3) beyond their rows'
 limits; no other unit has an exception outside the table.
+
+## NC-04 -- valid mission/version pairs for a network game (src/d_mode.c)
+source observation ids: E023-001 .. E023-016 (units U044-U059)
+native state/data involved: the "Table of valid versions" (src/d_mode.c:119-141): sixteen rows of (mission, version) naming which emulated executable versions a mission may run under; D_ValidGameVersion (:143-166), which first folds every Doom-family mission onto `doom` -- "All Doom variants can use the Doom versions" (:147-154: doom2, pack_plut, pack_tnt, pack_hacx, pack_chex, pack_nerve, pack_master) -- then returns true iff a row has the pair (:156-165). The validator stores nothing. The only caller is NET_ValidGameSettings (src/net_common.c:433-455), which checks a controller's settings in order -- ticdup, extratics, deathmatch, skill, then the version (:448-449), then episode/map (:451-452) -- and is itself called only by the server when the controlling client sends the game-start settings (src/net_server.c:1018-1035); on success the settings are kept as sv_settings (:1035)
+writers / creation points: the fact "version V is valid for mission M" is produced by D_ValidGameVersion (src/d_mode.c:156-165) from the server's adopted mission (sv_gamemission, src/net_server.c:756, :1029) and the version in the controller's settings (settings->gameversion, src/net_common.c:448). The version in the settings is written by the controller from its own global: Doom and Strife put their running gameversion in (src/doom/d_net.c:148, src/strife/d_net.c:156); Heretic and Hexen put a constant in (src/heretic/d_net.c:144 exe_heretic_1_3; src/hexen/d_net.c:151 exe_hexen_1_1)
+updates / invalidation paths: the table is compiled in and never modified; the verdict is not stored. Valid settings replace sv_settings (src/net_server.c:1035); invalid settings are dropped with a log line and no reply (:1029-1033) -- the server stays in the waiting state and the controller is not told
+readers / consumption points: src/net_server.c:1029 (the only consumer of the verdict). After acceptance the settings go to every client at game start (src/net_client.c:308 NET_CL_StartGame; src/doom/d_net.c:259-261), but the Doom client's LoadGameSettings (src/doom/d_net.c:107-133) does not read settings->gameversion: it loads deathmatch, episode, map, skill, loadgame, lowres_turn, nomonsters, fast, respawn, timelimit, consoleplayer and the player count (:111-132) and leaves its own gameversion as it was. No other reader of the received version was found in src/doom/d_net.c, src/strife/d_net.c or src/net_client.c (grep)
+lifetime / persistence / reset behavior: the verdict lives for the call; the accepted settings live in sv_settings for the server's session (src/net_server.c:1035) and are copied to clients at start; the version value inside them is carried but, on the Doom client, not applied. Nothing is written to disk
+relevant transitions: controller sends game-start settings -> server validates version against its adopted mission (after the Doom-family fold) -> settings kept or silently dropped -> game start distributes the kept settings -> clients load everything but the version
+supporting source-code/docs evidence: src/d_mode.c:119-166; src/net_common.c:431-455; src/net_server.c:1003-1036; src/net_client.c:308; src/doom/d_net.c:107-133, :138-150, :248-262; src/heretic/d_net.c:144; src/hexen/d_net.c:151; src/strife/d_net.c:156
+remaining native-level uncertainty: whether a dropped settings packet is ever retried by the controller was not traced (src/net_client.c); the Strife client's LoadGameSettings was not read (its SaveGameSettings mirrors Doom's at :156); NET_CL_StartGame's handling of the settings between receipt and LoadGameSettings was not read line by line
+lineage: inherited -- src/d_mode.c carries no [crispy] marker (grep: 0)
+### Sufficiency
+Q1 created: the transient fact "version V is valid for mission M (Doom-family missions folded to doom)" -- src/d_mode.c:149-165
+Q2 written: N/A: the validator returns its boolean at once (src/d_mode.c:161, :165) and nothing records the verdict; the gated value -- the settings including the version -- is stored by the server at src/net_server.c:1035 only when the whole settings check passes (src/net_common.c:436-454)
+Q3 lifetime: N/A: no lifetime beyond the call (src/d_mode.c:143-166); the accepted settings live for the server session (src/net_server.c:1035) and are handed to clients at start (src/net_client.c:308)
+Q4 readers: src/net_common.c:448 inside NET_ValidGameSettings, from src/net_server.c:1029; the carried version is read by no client code found (src/doom/d_net.c:107-133 omits it; grep over src/doom/d_net.c, src/strife/d_net.c, src/net_client.c)
+Q5 after consumption: the verdict disappears with the call; a failing settings packet is dropped without reply (src/net_server.c:1031-1032); a passing one is stored and later distributed (:1035, src/net_client.c:308), the version inside it travelling to clients that do not read it (src/doom/d_net.c:107-133)
+Status: RESOLVED
+
+Units resolving into this case: one row each.
+
+```text
+unit  observation  row  mission   version
+U044  E023-001     :125  doom      exe_doom_1_2
+U045  E023-002     :126  doom      exe_doom_1_5
+U046  E023-003     :127  doom      exe_doom_1_666
+U047  E023-004     :128  doom      exe_doom_1_7
+U048  E023-005     :129  doom      exe_doom_1_8
+U049  E023-006     :130  doom      exe_doom_1_9
+U050  E023-007     :131  doom      exe_hacx
+U051  E023-008     :132  doom      exe_ultimate
+U052  E023-009     :133  doom      exe_final
+U053  E023-010     :134  doom      exe_final2
+U054  E023-011     :135  doom      exe_chex
+U055  E023-012     :136  heretic   exe_heretic_1_3
+U056  E023-013     :137  hexen     exe_hexen_1_1
+U057  E023-014     :138  hexen     exe_hexen_1_1r2
+U058  E023-015     :139  strife    exe_strife_1_2
+U059  E023-016     :140  strife    exe_strife_1_31
+```
+
+Each unit's fact, writer, reader and lifetime are the case's; the
+unit's own row is the pair D_ValidGameVersion accepts. The eleven
+`doom` rows (U044-U054) serve every Doom-family mission through the
+fold at src/d_mode.c:149-154; the other five serve their own mission
+only.
