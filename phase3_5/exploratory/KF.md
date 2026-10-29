@@ -194,3 +194,83 @@ KF-2 representability: not representable -- Doom weapon selection; the only weap
 KF-2 domain: out-of-domain -- D8 decides Heretic weapon-change requests only; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+
+## KF item #646
+disclosure: fields seen = title, labels (bug), state (closed), created_at (2020-08-03), body (1374 chars); cause leakage = yes -- the program's own diagnostics (R_GenerateLookup: column without a patch; P_InitPicAnims: bad cycle from DBRAIN1 to DBRAIN4) and the reporter's description of the malformed TEXTURE1/PNAMES lumps
+symptom: expected = the PWAD loads, as in Chocolate Doom and PrBoom+ ; observed = Crispy refuses it after texture lookup warnings with 'P_InitPicAnims: bad cycle' ; reproduction = crispy-doom -file reticue1.wad ; affected version = latest git at the time
+KF-2 representability: not representable -- outside every native case of Artifact 1 (PWAD texture and animation validity; Artifact 3 lists PWAD validity as outside)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #655
+disclosure: fields seen = title, labels (bug), state (closed), created_at (2020-08-26), body (335 chars); cause leakage = yes -- the triggering condition is identified (a mixed-case file name in the autoload directory is not loaded; all-lower or all-upper is)
+symptom: expected = SIGIL auto-loads from the autoload directory as in 5.8.0 ; observed = since 5.9.0 it does not unless the file name is all lower- or upper-case; -file works ; reproduction = place SIGIL_v1_21.wad in the autoload directory ; affected version = 5.9.0 and git
+KF-2 representability: partly -- the autoload directory's NAME is derived from the identified IWAD (NC-02: D_SaveGameIWADName, src/doom/d_main.c:1802), but which files in it are loaded, and how their names are matched, is outside every native case
+KF-2 domain: out-of-domain -- D2 decides the IWAD's identification, not the loading of files from the autoload directory; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #657
+disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2020-08-28), body (1737 chars); cause leakage = yes, by class -- the reporter names it a vanilla limit (crusher stop affecting only the 30 lowest-numbered sectors of a tag); a test WAD attached, not opened
+symptom: expected = a crusher-stop action stops every crusher sharing the tag ; observed = only the 30 lowest-numbered crusher sectors stop; the rest keep crushing ; reproduction = the attached 32crushers.wad with the quoted command line ; affected version = 5.9.0, Windows 8.1
+KF-2 representability: not representable -- outside every native case of Artifact 1 (map special actions and a vanilla limit)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #677
+disclosure: fields seen = title, labels (sound-issues-on-windows), state (closed), created_at (2020-10-06), body (747 chars); cause leakage = no
+symptom: expected = MIDI music plays correctly ; observed = sometimes some instruments play at a higher pitch through a Roland JV-1010 over USB MIDI ; reproduction = none documented beyond the setup ; affected version = 5.9.1, Windows 10 x64
+KF-2 representability: not representable -- outside every native case of Artifact 1 (MIDI output to external hardware)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #703
+disclosure: fields seen = title, labels (bug, duplicate), state (open), created_at (2020-12-20), body (1605 chars); cause leakage = yes, partial -- the reporter states the mechanism observed ('If player is not moving horizontally, gravity isn't applied when the monster the player was standing on has moved'); a test map with a DEHACKED lump and a video attached, not opened
+symptom: expected = the player falls when the monster beneath moves (the reporter notes vanilla has no over/under, so 'correct' is unclear) ; observed = with Walk Over/Under Monsters on, the player stays mid-air until a movement key is tapped ; reproduction = the seven steps quoted ; affected version = 5.10.0, Ubuntu 18.04
+KF-2 representability: not representable -- outside every native case of Artifact 1 (movement physics of a Crispness feature)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #706
+disclosure: fields seen = title, labels (duplicate, maybe-critical), state (closed), created_at (2021-01-09), body (609 chars); cause leakage = no
+symptom: expected = the Pause key pauses demo playback as it pauses play ; observed = in Doom it does nothing during playback; in Heretic it opens the menu ; reproduction = press Pause during a demo ; affected version = 5.9.2, Windows 10
+KF-2 representability: not representable -- outside every native case of Artifact 1 (demo playback control; a declared duplicate of the idea in #463)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #716
+disclosure: fields seen = title, labels (sound-issues-on-windows), state (open), created_at (2021-02-07), body (883 chars); cause leakage = no
+symptom: expected = MIDI music plays correctly ; observed = sometimes some instruments play at higher pitches through a Roland JV-1010; not seen in PrBoom+ ; reproduction = none documented beyond the setup ; affected version = 5.9.2 and 5.10.0, Windows 10 x64
+KF-2 representability: not representable -- outside every native case of Artifact 1 (MIDI output to external hardware; the same symptom as #677)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #718
+disclosure: fields seen = title, labels (sound-issues-on-windows), state (open), created_at (2021-02-16), body (451 chars); cause leakage = no
+symptom: expected = the item pickup sound plays ; observed = on the 2021-02-15 win32 nightly build, ammo and health pickups are silent while music and most effects play; the 5.10.0 release is fine ; reproduction = DOOM1.WAD, default settings, Windows 10 ; affected version = nightly 20210215 (not 5.10.0)
+KF-2 representability: not representable -- a single sound effect missing while the selected modules play everything else; NC-10's device selection is not in question
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #727
+disclosure: fields seen = title, labels (bug, question, patch), state (open), created_at (2021-03-28), body (962 chars); cause leakage = no -- symptoms; two screenshots not opened
+symptom: expected = the Windows mixer volume is unchanged by the program ; observed = after a demo recording completes and the program closes, the Windows mixer volume for it is set to 0, so the next launch is silent ; reproduction = the shortcut and command line quoted (-longtics -record) ; affected version = 5.10.0, Windows 10 19042
+KF-2 representability: not representable -- outside every native case of Artifact 1 (the program's interaction with the Windows mixer)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #730
+disclosure: fields seen = title, labels (bug), state (open), created_at (2021-04-02), body (941 chars); cause leakage = no -- symptoms and the loaded mods
+symptom: expected = no crashes ; observed = four silent exits in three to four hours of BTSX E1 with several autoloaded WADs and a DEHACKED patch; no specific area ; reproduction = none reproducible ; affected version = 5.10.1, Windows 10 20H2
+KF-2 representability: not representable -- outside every native case of Artifact 1 (an unlocalised crash)
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)

@@ -30,3 +30,13 @@ whether or not anything is ever found.
 | 2026-10-29T08:37:54Z | X12 (KF-1) | issue #527, first post | title, labels, state, created_at, body read; cause leakage: no -- title only | KF item #527 |
 | 2026-10-29T08:37:54Z | X12 (KF-1) | issue #528, first post | title, labels, state, created_at, body read; cause leakage: no -- title only | KF item #528 |
 | 2026-10-29T08:37:54Z | X12 (KF-1) | issue #556, first post | title, labels, state, created_at, body read; cause leakage: no -- suggestion | KF item #556 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #646, first post | title, labels, state, created_at, body read; cause leakage: yes -- program diagnostics naming the failing texture checks; malformed lumps described | KF item #646 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #655, first post | title, labels, state, created_at, body read; cause leakage: yes -- triggering condition identified: mixed-case file name in the autoload directory | KF item #655 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #657, first post | title, labels, state, created_at, body read; cause leakage: yes (by class) -- named a vanilla limit (30 crushers) | KF item #657 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #677, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #677 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #703, first post | title, labels, state, created_at, body read; cause leakage: yes (partial) -- mechanism observed: gravity not applied while not moving horizontally | KF item #703 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #706, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #706 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #716, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #716 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #718, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #718 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #727, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #727 |
+| 2026-10-29T08:39:01Z | X12 (KF-1) | issue #730, first post | title, labels, state, created_at, body read; cause leakage: no -- symptoms | KF item #730 |
