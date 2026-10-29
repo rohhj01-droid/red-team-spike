@@ -526,3 +526,64 @@ U1092  E434-026     :44  "-shorttics"
 
 Each unit's fact, writer, reader and lifetime are the case's; the
 unit's own row is the parameter name scanned for.
+
+## NC-12 -- known joysticks: which controllers the setup tool recognises and configures without calibration (src/setup/joystick.c)
+source observation ids: E455-001 .. E455-030 (units U1093-U1122)
+native state/data involved: the table known_joysticks[] (src/setup/joystick.c:397-628; "Known controllers. There are lots of game controllers on the market. Try to configure them in a consistent way", :118-134): thirty rows of (SDL name pattern -- a trailing `*` means prefix match --, axes, buttons, hats, configuration set); the per-controller configuration sets the rows point to (joystick_config_t tables :146-396, :632-686, each a list of (variable name, value) bindings) and empty_defaults (:146, "Always loaded before others, to get a known starting configuration", :145); the joystick the user is configuring, joystick_index / joystick_guid (:57-58, :811-830); the setup tool's binding variables (joyb_*, joystick axes) that the configuration sets write through LoadConfigurationSet (:743-777), which the tool saves to the configuration file at exit (src/setup/mainmenu.c:129, :170 M_SaveDefaults)
+writers / creation points: during calibration, the first button press on a joystick selects it (CalibrationEventCallback :1002-1012). If SDL knows it as a game controller, the table is not consulted: a gamepad configuration is derived from SDL's mapping string (:1014-1023, GetGamepadDefaultConfig :972-1000). Otherwise IsKnownJoystick (:737-740) calls GetJoystickType (:688-734): the joystick's reported name is compared with each row -- exact, or by prefix when the row's name ends in `*` (:701-719) -- and its axes, buttons and hats must equal the row's (:721-726); the first match is the type. A match loads empty_defaults then the row's configuration set (LoadKnownConfiguration :780-792) and closes the calibration window (:1035-1039); a miss prints "Unknown joystick '%s' with %i axes, %i buttons, %i hats" and "Please consider sending in details about your gamepad!" (:729-731) and the tool proceeds to calibrate axes and buttons by hand (:1040-1045 on)
+updates / invalidation paths: the table is compiled in; the match is not stored. The bindings it loads are ordinary configuration variables: they persist to the configuration file at exit and can be changed afterwards by hand in the same tool; nothing records that they came from a known type rather than from calibration
+readers / consumption points: :1035 (the one decision); the loaded bindings are read by the game's joystick code at run time from the configuration file (src/i_joystick.c; not this case)
+lifetime / persistence / reset behavior: the verdict lives for the button-press event; the loaded bindings live in the setup tool's variables and then in the configuration file across runs; the configuration file does not carry the type, only the resulting bindings
+relevant transitions: setup tool calibration -> button press -> game controller? (SDL mapping path) / known type? (bindings loaded, window closed) / unknown (printed, manual calibration) -> save at exit
+supporting source-code/docs evidence: src/setup/joystick.c:57-58, :118-146, :397-628, :688-740, :743-792, :811-830, :972-1045; src/setup/mainmenu.c:129, :170
+remaining native-level uncertainty: SetJoystickGUID (:811-830) and the rest of the manual calibration (:1045 on) were read only to the branch; which devices SDL reports as game controllers (and so never reach the table) depends on SDL's own mapping database, outside the tree; the game's run-time reading of the bindings (src/i_joystick.c) was not traced
+lineage: inherited -- src/setup/joystick.c carries [crispy] markers at lines 95, 1258, 1304; the table (:397-628), the matching (:688-740) and the loading (:743-792) carry none
+### Sufficiency
+Q1 created: the transient fact "the joystick being configured is known type T" -- src/setup/joystick.c:701-726 (name and shape match), consumed at :1035
+Q2 written: N/A: the verdict is returned as a pointer and used at once (src/setup/joystick.c:725, :733, :1035); what is written is the row's configuration set into the binding variables (LoadConfigurationSet :743-777, via :790-791)
+Q3 lifetime: N/A: the verdict has no lifetime beyond the event (src/setup/joystick.c:1002-1039); the loaded bindings persist in the configuration file (src/setup/mainmenu.c:129, :170), without the type
+Q4 readers: src/setup/joystick.c:1035 (IsKnownJoystick) and :784 (GetJoystickType inside LoadKnownConfiguration)
+Q5 after consumption: the verdict disappears; a known type's bindings persist as plain configuration (src/setup/joystick.c:743-777; src/setup/mainmenu.c:129, :170); an unknown joystick is reported on stdout (:729-731) and configured by hand, with nothing recording that it was unknown
+Status: RESOLVED
+
+Units resolving into this case: one known controller each (name pattern, axes, buttons, hats, configuration set).
+
+```text
+unit   observation  row   row text
+U1093  E455-001     :399  { "PLAYSTATION(R)3 Controller", 4, 19, 0, ps3_controller, }
+U1094  E455-002     :405  { "AIRFLO ", 4, 13, 1, airflo_controller, }
+U1095  E455-003     :411  { "Wiimote (*", 6, 26, 0, wii_controller_wjoy, }
+U1096  E455-004     :417  { "Controller (XBOX 360 For Windows)", 5, 10, 1, xbox360_controller, }
+U1097  E455-005     :423  { "Controller (XBOX One For Windows)", 5, 10, 1, xbox360_controller, }
+U1098  E455-006     :430  { "Microsoft X-Box 360 pad", 6, 11, 1, xbox360_controller_linux, }
+U1099  E455-007     :437  { "Microsoft X-Box One pad", 6, 11, 1, xbox360_controller_linux, }
+U1100  E455-008     :443  { "Logitech Dual Action", 4, 12, 1, logitech_f310_controller, }
+U1101  E455-009     :449  { "USB Vibration Joystick", 4, 12, 1, multilaser_js030_controller, }
+U1102  E455-010     :455  { "USB,2-axis 8-button gamepad ", 2, 8, 0, buffalo_classic_controller, }
+U1103  E455-011     :464  { "Wireless Controller", 6, 14, 1, ps4_ds4_controller, }
+U1104  E455-012     :476  { "WiseGroup.,Ltd Gameport to USB Controller", 4, 8, 1, pc_gameport_controller, }
+U1105  E455-013     :483  { "Gameport to USB Controller", 2, 8, 1, pc_gameport_controller, }
+U1106  E455-014     :490  { "8Bitdo NES30 Pro", 4, 16, 1, nes30_pro_controller, }
+U1107  E455-015     :497  { "8Bitdo NES30 Pro*", 6, 15, 1, nes30_pro_controller, }
+U1108  E455-016     :504  { "8Bitdo NES30 Pro", 6, 16, 1, nes30_pro_controller, }
+U1109  E455-017     :513  { "8Bitdo NES30 Pro Joystick", 6, 16, 1, nes30_pro_controller, }
+U1110  E455-018     :522  { "8Bitdo NES30 Pro", 4, 15, 1, nes30_pro_controller, }
+U1111  E455-019     :531  { "8Bitdo FC30 Pro", 4, 16, 1, nes30_pro_controller, }
+U1112  E455-020     :538  { "8Bitdo FC30 Pro*", 6, 15, 1, nes30_pro_controller, }
+U1113  E455-021     :545  { "8Bitdo FC30 Pro", 6, 16, 1, nes30_pro_controller, }
+U1114  E455-022     :552  { "8Bitdo FC30 Pro", 4, 15, 1, nes30_pro_controller, }
+U1115  E455-023     :562  { "8Bitdo SFC30 GamePad*", 4, 16, 1, sfc30_controller, }
+U1116  E455-024     :569  { "8Bitdo SFC30 GamePad*", 6, 16, 1, sfc30_controller, }
+U1117  E455-025     :577  { "8Bitdo SNES30 GamePad*", 4, 16, 1, sfc30_controller, }
+U1118  E455-026     :590  { "SFC30 *", 4, 12, 1, sfc30_controller, }
+U1119  E455-027     :599  { "8Bitdo NES30 GamePad*", 4, 16, 1, sfc30_controller, }
+U1120  E455-028     :605  { "8Bitdo FC30 GamePad*", 4, 16, 1, sfc30_controller, }
+U1121  E455-029     :612  { "NES30*", 4, 12, 1, sfc30_controller, }
+U1122  E455-030     :618  { "FC30*", 4, 12, 1, sfc30_controller, }
+```
+
+Each unit's fact, writers, readers and lifetime are the case's; the
+unit's own row is the name pattern and shape that make its controller
+known and the configuration set that is then loaded. Several rows name
+the same controller with different shapes (e.g. the 8Bitdo NES30 Pro
+with 4 or 6 axes and 15 or 16 buttons, U1106-U1110), each a unit.
