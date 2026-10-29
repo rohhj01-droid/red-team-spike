@@ -1,0 +1,28 @@
+# Pin record -- Run 2, candidate C005
+
+Pinned at OBSERVATION TIME, the moment E2-REP passed (contract Section 10; a declared
+deviation from the sealed instant, QA-28 / XQA-01). Every later step for this candidate
+is defined against the hash below.
+
+```text
+observed_at_utc  2026-10-29T13:20:53Z
+location         https://git.code.sf.net/p/dgen/dgen
+default branch   master
+tip hash         a6f61a594b996840110a6c4bc0347a9d8e4f81e7
+tracked files    190
+```
+
+## Ten digests (the ten largest source files; ties by path)
+
+| file | bytes | sha256 |
+|---|---|---|
+| sdl/splash.h | 337872 | 851193d4150c4f09a4fc12993ec9bcb521bf252a2b3c1dd0c75eb36a5507affd |
+| mz80/makez80.c | 290498 | 9962ce7ecf648cb42d725414838e1b9f7ba93e15bf9322df7426a41be94a956e |
+| musa/m68k_in.c | 234596 | 5ba341ba76645f14b09eb273249803f4b517a5ed09eba319290238517db4ef43 |
+| fm.c | 171603 | bbfc9a7d4bf186b80a14a0ba0f0cef56ca4afdac104d5e6c243e74ab8c218dfa |
+| sdl/sdl.cpp | 169898 | 9294291b05f46794a0c6983b7648631c37c766090afa497459fbd021b272ba02 |
+| hqx/src/hq4x-int.h | 168993 | 2581846b07951307a029c3d824b3165fdb44fdffa7d3e345e8c89f9c0de29b8f |
+| star/star.c | 141296 | c551d4ec1ff75f3bf72bcf573c276d3a789f03f7ce0bc8bbe718eea624a563b3 |
+| hqx/src/hq3x-int.h | 118393 | 91b452092425ccad5c7b312b483b25d356e155c29acc542810b8cda6cd0f30de |
+| musa/m68kdasm.c | 104179 | 446426d2a6f04b142bd7d950c59c3817a05a8f8aa29b0f35bffac78b893ff0e1 |
+| hqx/src/hq2x-int.h | 84594 | 76123a4ee5bee8716486ec95a25055110667b0056750f2bddc9d3cfa6c4d1767 |

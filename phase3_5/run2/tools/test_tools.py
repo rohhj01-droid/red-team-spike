@@ -460,6 +460,27 @@ def test_undesignated_repository_root_is_an_admitted_starting_point():   # contr
     assert roots and all(sp["action"] == "observed" and sp["evidence_role"] == "admitted-starting-point" for sp in roots), roots
 
 
+def test_batch_commits_pin_records_under_inventory():            # contract 10 (RQA-18)
+    root = os.path.join(TMP, "run2pin")
+    os.makedirs(root, exist_ok=True)
+    open(os.path.join(root, "screening_set_128.txt"), "w").write("games/alpha" + chr(10))
+    ledger.write_witnesses(root, 1, ALPHA_WITNESSES)
+    screen.run_batch(1, root, FIX + "/ports", fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    frame = ledger.read_rows(os.path.join(root, "screening_frame_items.tsv"), ledger.FRAME_FIELDS)[0]
+    assert frame["pin_ref"] == "inventory/C001/pin.json", frame
+    for name in ("pin.json", "pin_record.md"):
+        assert open(os.path.join(root, "inventory", "C001", name), "rb").read() == open(os.path.join(root, "target", "C001", name), "rb").read(), name
+
+
+def test_pin_archive_request_is_an_observation():                 # contract 9.4: step `pin` (RQA-18)
+    for _ in range(2):                                             # the second run reuses the pin and still reports its request
+        out = screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ALPHA_WITNESSES, state=_state("s20"),
+                                 fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+        pins = [o for o in out["observations"] if o["step"] == "pin"]
+        assert [o["requested_url"] for o in pins] == ["https://github.com/acme/alpha/archive/abc123.tar.gz"], out["observations"]
+        assert pins[0]["outcome"] == "ok" and pins[0]["http_status"] == 200, pins
+
+
 def test_404_does_not_fail_candidate_alone():                   # Review Focus 4
     out = screen.screen_item(2, "devel/beta", FIX + "/ports", witnesses=[], state=_state("s2"),
                              fetch=canned_map({}), clock=fixed_clock, git=fake_git_factory())

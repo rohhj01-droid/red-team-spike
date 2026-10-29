@@ -122,13 +122,20 @@ def pin_repository(candidate_id: str, url: str, dest_root: str, archive_url_fmt:
     if archive_url_fmt:
         aurl = archive_url_fmt.format(url=url.rstrip("/"), sha=sha)
         out_path = os.path.join(dest_root, candidate_id, "archive.tar.gz")
+        log = []
         if os.path.exists(out_path):            # already fetched for this candidate: listed again, never re-downloaded
             import tarfile
             with tarfile.open(out_path, "r:gz") as t:
                 e = sum(1 for _ in t)
             n, h = os.path.getsize(out_path), sha256_file(out_path)
         else:
-            n, h, e = archive_pin(aurl, out_path, fetch=fetch)
+            def recording(u):                   # recorded like any observation (contract 9.4, step `pin`; RQA-18)
+                r = net.fetch(u, fetch=fetch, clock=clock)
+                log.append({k: v for k, v in r.items() if k != "body"})
+                return r["http_status"] or 0, {}, r["body"]
+            n, h, e = archive_pin(aurl, out_path, fetch=recording)
         rec["archive"] = dict(url=aurl, bytes=n, sha256=h, entries=e)
+        if log:
+            rec["archive"]["request"] = log[0]
     write_record(os.path.join(dest_root, candidate_id), rec)
     return rec

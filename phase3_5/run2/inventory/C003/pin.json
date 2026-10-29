@@ -1,0 +1,66 @@
+{
+ "archive": {
+  "bytes": 18034120,
+  "entries": 1922,
+  "sha256": "3cef763d4d4c0f271eb4b125ccd67db4af5cce4716f88b2a69941be106d69b04",
+  "url": "https://github.com/mapeditor/tiled/archive/83e4cfd9faa653e543e64d1af3b1010f8d5794da.tar.gz"
+ },
+ "branch": "master",
+ "candidate_id": "C003",
+ "digests": [
+  [
+   "translations/tiled_ta.ts",
+   373058,
+   "4fcb7eca867b6d139abf4aff4af618eb8e1332b5de9b953adf323b4c8b6f960e"
+  ],
+  [
+   "translations/tiled_bg.ts",
+   342487,
+   "68d6f0f479b6fa798fcf5418b22174da837ecb58f7889ff359945802aee9bb49"
+  ],
+  [
+   "translations/tiled_ru.ts",
+   339873,
+   "45d063868ac40d95b647a43e12f1500fb62884834b7f9727f06d12487f9180d7"
+  ],
+  [
+   "translations/tiled_th.ts",
+   332741,
+   "e46891328434370a2bd2f801bb8fa18a3877780e5bf12fc701c3186a52e2793b"
+  ],
+  [
+   "translations/tiled_fr.ts",
+   314207,
+   "0eb21d357d101757945b6ca0b2db214d8646080233f806508eaf4a04f70d50df"
+  ],
+  [
+   "translations/tiled_ja.ts",
+   314017,
+   "649fc7a0f3a09617f15d627be07b5b9a9899cbd775831b835e3fd8151760c158"
+  ],
+  [
+   "translations/tiled_uk.ts",
+   312328,
+   "3cb8d2c479697f8aab73a8368500cceb1d38761f746b7a16c5fc65ea7da03c22"
+  ],
+  [
+   "translations/tiled_ko.ts",
+   311156,
+   "190d8ab300a1175484a1eb9453bc8ba8338a7dbe17d25da3db419a0936a37dc0"
+  ],
+  [
+   "translations/tiled_cs.ts",
+   309878,
+   "67c55d002eff2a4b8b7c1e5a455fb6a1981f34e284a4975b345eede49a0d07ae"
+  ],
+  [
+   "translations/tiled_hu.ts",
+   309163,
+   "d5a1a81aa31f46fc8301aea5eefeb9acef9138c86c939cc7c820366a0c76b714"
+  ]
+ ],
+ "observed_at_utc": "2026-10-29T13:20:39Z",
+ "sha": "83e4cfd9faa653e543e64d1af3b1010f8d5794da",
+ "tracked_files": 1715,
+ "url": "https://github.com/mapeditor/tiled"
+}

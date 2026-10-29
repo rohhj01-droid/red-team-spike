@@ -1,0 +1,37 @@
+# Pin record -- Run 2, candidate C007
+
+Pinned at OBSERVATION TIME, the moment E2-REP passed (contract Section 10; a declared
+deviation from the sealed instant, QA-28 / XQA-01). Every later step for this candidate
+is defined against the hash below.
+
+```text
+observed_at_utc  2026-10-29T13:16:27Z
+location         https://github.com/joncampbell123/dosbox-x
+default branch   master
+tip hash         997f616e0886a835fc3660f2b935688f17f20d42
+tracked files    7833
+```
+
+## Archive (listed, not extracted)
+
+```text
+url      https://github.com/joncampbell123/dosbox-x/archive/997f616e0886a835fc3660f2b935688f17f20d42.tar.gz
+bytes    133551210
+sha256   92eac39005ac7cfcf16a94e59994dc89be49a6b8483d3d0a8c752097d040058d
+entries  8806
+```
+
+## Ten digests (the ten largest source files; ties by path)
+
+| file | bytes | sha256 |
+|---|---|---|
+| src/builtin/4dos.cpp | 7698954 | cd9a7fd5c63bb120e7c3ecc6fa316016b540293aa00e599db91bec8fb2b9ec53 |
+| src/builtin/mpxplay.cpp | 3822782 | 994fb1e9e4270047daee69fd0ac24906c34e8c99d609db8910e51460f695317e |
+| include/jfont.h | 2572396 | 0ba027317a6a5d0318665105b00f364f7fd9a0f6f36c9c5b7538f0e7c4ef79ae |
+| src/builtin/cdplay.cpp | 1865164 | a65a83f310e77b12dcd1a5c85e497799059673ff1afbb79287be22c7e7fe5c53 |
+| src/builtin/dos4gw_exe.cpp | 1790698 | f9a226950ce7aa6457f1d6042b4c2068ba09fd746dba242fce33ffc81e4006cd |
+| src/builtin/zip.cpp | 1014309 | 45d4af3eb8c817933ebc91598d04a7714a4008f46e8370be5186318246ccef26 |
+| vs/sdl2/src/video/khronos/vulkan/vulkan_core.h | 986858 | f3da6d1730e1914b6fbcb64583ef52fd8bd7423162484a4f40be9ad76bbe24e2 |
+| vs/sdl2/include/SDL_opengl_glext.h | 864070 | 1abb28891c9b0661b6ff3749de2671da5fe12beb5bcb1833b2d6bdf5c89ecdf8 |
+| src/dos/dos_codepages.h | 804938 | 9f5deac35c523afabb389c7524a48dc938a66965fc04d74fa5fd25aa5c9e39ca |
+| src/builtin/edit_com.cpp | 750764 | b5cabdc2468c89e301916f410293fe01dc05df6e0370432910674c201ddac8ad |

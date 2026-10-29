@@ -14,6 +14,7 @@ import io
 import json
 import os
 import re
+import shutil
 import sys
 import time
 
@@ -349,6 +350,14 @@ def _e2rep(ctx: dict) -> dict:
             return dict(state="UNRESOLVED", failure_code="NONE", pi_code="PI-UNCLASSIFIED-SHAPE", canonical=canonical, identifier=identifier, snapshot="",
                         block=_block(ctx, "E2-REP", canonical, "designated and observed, but the pin could not be taken: %s" % str(ex).splitlines()[0][:160],
                                      "a designated repository that git cannot fetch is a shape no sealed criterion describes (contract Section 7)", "UNRESOLVED", accounting))
+    req = (recpin.get("archive") or {}).get("request")
+    if req:                                        # contract 9.4: the pin's archive request is an observation (RQA-18)
+        arc = os.path.relpath(os.path.join(ctx["state"]["target"], ctx["cid"], "archive.tar.gz"), ctx["state"]["root"]).replace(os.sep, "/")
+        for i, (t, outcome, requested, status) in enumerate(req["attempts"], 1):
+            ctx["observations"].append(dict(observed_at_utc=t, frame_rank=ctx["rank"], step="pin", requested_url=requested,
+                                            final_url=req["final_url"], http_status=status if status is not None else "",
+                                            redirect_chain=" > ".join(req["redirect_chain"]) or "NONE", attempt=i, outcome=outcome,
+                                            body_ref=arc if i == len(req["attempts"]) else ""))
     ctx["tree"] = os.path.join(ctx["state"]["target"], ctx["cid"], "tree")
     if recpin.get("tracked_files", 0) == 0 and not recpin.get("digests"):
         return dict(state="FAIL", failure_code="E2REP-NO-SOURCE", pi_code="NONE", canonical=canonical, identifier=identifier, snapshot=recpin["sha"],
@@ -557,6 +566,13 @@ def run_batch(k: int, run2_dir: str, ports_root: str, fetch=None, clock=None, gi
             d = os.path.join(run2_dir, "inventory", r["candidate_row"]["candidate_id"])
             os.makedirs(d, exist_ok=True)
             ledger.write_rows(os.path.join(d, "e4_candidates.tsv"), r["e4_rows"], inventory.EN_FIELDS + ["decided_by"])
+    for r in results:                             # contract 10: the pin record is part of the committed record (RQA-18)
+        if r["frame_row"]["pin_ref"] != "NONE":
+            cid = r["candidate_row"]["candidate_id"]
+            d = os.path.join(run2_dir, "inventory", cid)
+            os.makedirs(d, exist_ok=True)
+            for name in ("pin.json", "pin_record.md"):
+                shutil.copyfile(os.path.join(state["target"], cid, name), os.path.join(d, name))
     doc = ledger.batch_document(k, results)
     p = os.path.join(run2_dir, "screening_evidence_b%02d.md" % k)
     io.open(p, "w", encoding="utf-8", newline="\n").write(doc)
