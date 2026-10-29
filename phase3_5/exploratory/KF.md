@@ -1,0 +1,116 @@
+# Known-failure lane -- EXPLORATORY C084 study (X12-X14)
+
+EXPLORATORY. The challenge lane of the sealed methodology (§11),
+opened after the primary seal (`6da6a50`) by the owner's decision
+(XQA-13). Rule and set: `KF0.md` -- the issue tracker of record,
+`L = {bug, maybe-critical, sound-issues-on-windows}`, every issue
+carrying one of them, pull requests excluded; counted 37 at X8
+(2026-10-29T06:48:11Z) and enumerated 37 at X12 (2026-10-29T08:35:29Z,
+`kf_items.tsv`, `4a79e22`): the two counts agree. Items are taken in
+id order.
+
+Reading rule (design 5.2): each item's FIRST POST only -- number,
+title, state, created_at, labels, body -- through `tools/kf_api.py
+first-post`; bodies are read up to 3,000 characters and a cut is noted
+in the item's disclosure line; comments are not fetched before X14.
+Every exposure is logged per item here and in `disclosure_log.md`.
+
+KF-2 is decided from the frozen artifacts only (Artifacts 1-3,
+`PRIMARY_RESULT.md`), on the sealed axes:
+
+```text
+representability   can the reported symptom / history be expressed with
+                   Artifact 1's native description and Artifact 2's
+                   mapping without adding or reassigning a role
+domain             placed against Artifact 3's frozen classes D1-D14:
+                   in-domain concordant / in-domain DISCORDANT /
+                   in-domain indeterminate / out-of-domain (N/A)
+attribution        measurement insufficiency | F2-like architectural
+                   limitation | judgment-layer limitation |
+                   reproduction/environment issue | scope mismatch
+native replay      N/A for the whole lane, declared in advance (design
+                   Section 8, decision 11)
+```
+
+KF-3 (cause / fix comparison) is appended per item only after KF-2 is
+sealed (X14); nothing above an item's `KF-3:` line is edited then.
+
+## KF item #90
+disclosure: fields seen = title, labels (wontfix, maybe-critical), state (closed), created_at (2016-03-06), body (353 chars); cause leakage = no -- a design suggestion (invulnerable players' blood colour), no failure mechanism
+symptom: expected = none stated as a failure (the reporter proposes that invulnerable players bleed white) ; observed = players with invulnerability bleed normally ; reproduction = none documented ; affected version = not stated
+KF-2 representability: not representable -- blood splats and player powers are game-world behaviour outside every native case of Artifact 1; nothing in the four roles is asked to hold them
+KF-2 domain: out-of-domain -- no class of Artifact 3 decides blood or invulnerability; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #92
+disclosure: fields seen = title, labels (wontfix, maybe-critical), state (closed), created_at (2016-03-07), body (457 chars); cause leakage = yes -- the body names the current mechanism it would replace ("the current pause/unpause dance that happens when a menu is opened while recording a demo") and MBF's basetic/gametic distinction; no failure is reported, a reminder to the maintainer
+symptom: expected = none stated ; observed = none stated (a note that the pause/unpause handling while recording is error-prone) ; reproduction = none documented ; affected version = not stated
+KF-2 representability: not representable -- demo recording's tic bookkeeping is outside every native case (Artifact 3 lists a demo's contents as out of domain)
+KF-2 domain: out-of-domain -- N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #174
+disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2017-03-28), body (865 chars); cause leakage = yes -- the reporter's hypothesis names code: "I believe this is because of `if (gametic & 3)` in `A_Tracer`", and a suggested fix (store `dest`, or save gametic); a video link not opened
+symptom: expected = Revenant missiles keep homing after a saved game is loaded ; observed = after loading, missiles sometimes lose homing, randomly ; reproduction = save during homing missiles, load (video linked) ; affected version = not stated
+KF-2 representability: partly -- the savegame's header and its load judgment are NC-05 (Artifact 1), but the fidelity of the restored game state (what the save body carries) is outside every native case; the symptom concerns the body, not the header
+KF-2 domain: out-of-domain -- D5 decides only whether a Doom savegame is LOADABLE (its version string); this save loads, and what the frozen evidence does not define is the restored state's validity; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #250
+disclosure: fields seen = title, labels (bug, rendering), state (closed), created_at (2018-01-03), body (812 chars); cause leakage = yes, speculative -- the reporter's "possible explanation" (the far line of a sector leaving the top screen bound) and two renderer functions named as candidates; screenshots not opened
+symptom: expected = items hidden by floors stay hidden ; observed = with mouse look, items "shine" through floors on E1M1 ; reproduction = E1M1 Hangar, mouse look, two screenshot positions ; affected version = not stated
+KF-2 representability: not representable -- rendering is outside every native case
+KF-2 domain: out-of-domain -- N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #258
+disclosure: fields seen = title, labels (wontfix, maybe-critical), state (closed), created_at (2018-01-19), body (1072 chars); cause leakage = yes -- the cause is stated (an emulated vanilla bug at a named line of g_game.c) with a fix commit in another project linked and a test map attached (not opened)
+symptom: expected = respawn fog appears at every deathmatch spot ; observed = no fog at spots facing angle 180 ; reproduction = the attached map with -solo-net -deathmatch -warp 01 ; affected version = not stated
+KF-2 representability: not representable -- deathmatch spawn effects are game-world behaviour outside every native case
+KF-2 domain: out-of-domain -- N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #318
+disclosure: fields seen = title, labels (patch, maybe-critical, help wanted), state (closed), created_at (2018-05-14), body (610 chars); cause leakage = yes -- the body IS the fix: a diff replacing `actor->target->x` with `->y` in A_VileTarget, with the wiki page named
+symptom: expected = Arch-Vile fire spawns at the target's position ; observed = spawned at the wrong location (x used for y) ; reproduction = none documented beyond the wiki ; affected version = not stated
+KF-2 representability: not representable -- monster behaviour outside every native case
+KF-2 domain: out-of-domain -- N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #362
+disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2018-12-02), body (208 chars); cause leakage = no -- a wiki page name only ("Lopsided final boss explosions"), the question whether it can be fixed without breaking demos or dehacked
+symptom: expected = none stated beyond the wiki's title ; observed = final boss explosions lopsided (by title) ; reproduction = none documented ; affected version = not stated
+KF-2 representability: not representable -- outside every native case
+KF-2 domain: out-of-domain -- N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #365
+disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2018-12-18), body (894 chars); cause leakage = yes -- the cause and the proposed change are stated with a line reference into p_enemy.c (the alive-player check in the boss death action)
+symptom: expected = the episode ends when the ExM8 boss dies even if every player is dead (coop) ; observed = the ending is not triggered; players are stuck ; reproduction = Doom 1 coop, boss dies while all players are dead (rare) ; affected version = not stated
+KF-2 representability: not representable -- level-end logic outside every native case
+KF-2 domain: out-of-domain -- N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #408
+disclosure: fields seen = title, labels (bug, pending, patch), state (closed), created_at (2019-04-24), body (4308 chars, CUT at 3000); cause leakage = yes, partial -- the console output shows "PadRejectArray: REJECT lump too short to pad!" before a segmentation fault and the start of a gdb session (the backtrace itself lies beyond the cut); the log also shows "This is not a valid dehacked patch file!" followed by a loaded DEHACKED lump -- the non-fatal signature path of deh_main.c:319-323 (XQA-07 d) seen in the wild
+symptom: expected = Sunder.wad's maps load ; observed = crash after loading any of its 14 maps ; reproduction = ./crispy-doom -file sunder.wad -warp 01 ; affected version = 5.5.2 (released and git), Windows 10 x64 and Debian x32
+KF-2 representability: not representable -- PWAD map loading is outside every native case (the one native mechanism visible in the log, the dehacked signature check, is a rejected enumerator, not a unit)
+KF-2 domain: out-of-domain -- Artifact 3 lists PWAD and map validity as outside; N/A
+KF-2 attribution: scope mismatch
+native replay: N/A (declared in advance, design Section 8)
+
+## KF item #454
+disclosure: fields seen = title, labels (SDL-related, sound-issues-on-windows), state (closed), created_at (2019-09-10), body (870 chars); cause leakage = no -- symptoms, version and hardware only
+symptom: expected = music and sound as in 5.5.2 ; observed = since 5.6, with the OPL (Adlib/Soundblaster) music device no music is heard while GUS (emulated) plays; "Digital sound effects" are high-pitched ; reproduction = select those devices on Win7 SP1 x64 with a Sound Blaster X-Fi ; affected version = 5.6+
+KF-2 representability: representable for its setting -- the configured music and sfx devices are NC-10's inputs (snd_musicdevice = an OPL device, U1047-U1048; snd_sfxdevice = the SDL sound module's, U1056-U1061) and the module selection is NC-10's flow; the failure itself (silence from a served module; pitch) is behaviour inside the module, outside the native description
+KF-2 domain: in-domain concordant for the part the rule decides -- D10: an OPL device value is SERVED(music_opl_module) and the digital sfx device SERVED(sound_sdl_module), provided their Init succeeds (an input the report leaves unstated and the rule does not decide); the external expectation (these are valid choices that should produce sound) agrees. The reported failure past the selection -- no audible music, wrong pitch -- is not decided by any class: for that part, out-of-domain
+KF-2 attribution: scope mismatch -- the failure is not a validity phenomenon within the frozen scope; the device selection it depends on is concordant
+native replay: N/A (declared in advance, design Section 8)
