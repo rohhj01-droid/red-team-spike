@@ -418,3 +418,57 @@ U1045  E364-015     :135  CD_TITLE_TRACK          MCMD_CD_TITLETRACK   cd_NonLev
 Each unit's fact, writer, reader and lifetime are the case's; the
 unit's own row is the token the scanner must match, and the switch arm
 beside it is what the command writes.
+
+
+## NC-10 -- which sound devices each sound and music module supports, and how the configured device picks a module (src/i_sound.c)
+source observation ids: E403-001; E410-001 .. E410-002; E412-001; E413-001 .. E413-006; E414-001 .. E414-006; E426-001 .. E426-005 (units U1046-U1066; six lists, 21 members, one case)
+native state/data involved: the device numbers of the vanilla sound setup, snddevice_t (src/i_sound.h:91-105: NONE, PCSPEAKER, ADLIB, SB, PAS, GUS, WAVEBLASTER, SOUNDCANVAS, GENMIDI, AWE32, CD, FSYNTH); the two configuration variables snd_sfxdevice and snd_musicdevice, default SB (src/i_sound.c:60-61), bound to the configuration file (:547-548); per module, the list of devices it serves, carried in the module's own struct with its length (sound_devices, num_sound_devices: src/i_sdlsound.c:1192-1206, src/i_pcsound.c:328-337, src/i_sdlmusic.c:444-458, src/i_oplmusic.c:1768-1778, src/i_flmusic.c:303-312, src/i_winmusic.c:1887-1900); the compile-time lists of modules to try, in order (sound_modules :86-93, music_modules :97-110, with #ifdef guards for the Windows, FluidSynth and SDL modules); the chosen modules sound_module and music_module (:137, :164)
+writers / creation points: InitSfxModule (:133-157) and InitMusicModule (:160-203), called from I_InitSound (:211-287) unless -nosound / -nosfx / -nomusic (:221-237, :251-273): each walks its module list in order and asks SndDeviceInList (:114-128) whether the configured device is in that module's list (:144-146, :171-173); the first module that lists the device AND whose Init succeeds becomes the module (:150-153, :187-189); on Windows the native MIDI module is skipped when a Timidity configuration is set (:175-183). A configured device that no module lists leaves the module NULL -- no message, no fallback (:137, :164). The fact created is "device D is served by module M"; what is kept is the module pointer
+updates / invalidation paths: the lists are compiled in; the module pointers are set once at start; the configuration variables can be changed by the setup tool or by editing the file and take effect at the next start; the value is saved back as it was, whether or not any module listed it (M_SaveDefaults at exit; the variable is only bound, :547-548)
+readers / consumption points: every sound and music entry point guards on the module pointer -- shutdown, update, volume, sound start/stop, music (src/i_sound.c:291, :310, :318, :330, :335, :364, :373 and on): with no module these calls do nothing. Under Crispy the SDL music module is initialised even when another music module was chosen (:191-196, "[crispy] Always initialize SDL music module"), and the music-pack module is initialised only if a music module exists (:276-279)
+lifetime / persistence / reset behavior: the module pointers live for the process; the device values live in the configuration file across runs and are never validated against the lists before being saved; a device no module serves therefore persists as a silent "no sound" setting until the user changes it
+relevant transitions: start -> configuration read -> for sfx and for music, the first module listing the device and able to initialise is chosen, else none -> every later sound call is a no-op when none; exit -> the device values written back unchanged
+supporting source-code/docs evidence: src/i_sound.h:91-105; src/i_sound.c:60-61, :84-110, :112-128, :133-157, :160-203, :211-287, :289-373, :547-548; src/i_sdlsound.c:1192-1206; src/i_pcsound.c:328-337; src/i_sdlmusic.c:444-458; src/i_oplmusic.c:1768-1778; src/i_flmusic.c:303-312; src/i_winmusic.c:1887-1900
+remaining native-level uncertainty: which modules are compiled in depends on the build (the #ifdef guards :86-110); the setup tool's device menu (src/setup/sound.c) -- whether it offers only listed values -- was not read; M_SaveDefaults' write-back was cited from its binding (:547-548) and the Doom module's I_AtExit (src/doom/d_main.c:1660), not read in m_config.c
+lineage: inherited with fork changes beside the selection -- src/i_sound.c carries 3 [crispy] markers, two of them in this flow (always initialising the SDL music module :191-196; printing the SDL audio driver :281-286); the six lists and SndDeviceInList carry none
+### Sufficiency
+Q1 created: the fact "the configured device D is served by module M" -- src/i_sound.c:144-153 (sfx) and :171-189 (music), from each module's list (the units) and the configured value
+Q2 written: into sound_module / music_module (src/i_sound.c:152, :189; NULL when no module serves the device, :137, :164)
+Q3 lifetime: process lifetime for the module pointers (set once in I_InitSound, src/i_sound.c:211-287); the configured device values persist in the configuration file across runs (src/i_sound.c:547-548) independently of the verdict
+Q4 readers: every guarded entry point -- src/i_sound.c:291, :310, :318, :330, :335, :364, :373 and the rest of the file's `if (sound_module != NULL)` / `music_module` tests -- and src/i_sound.c:276-279 for the music packs
+Q5 after consumption: the module pointer persists for the process; a device no module lists leaves the pointer NULL for the whole run with no message, and the value is written back unchanged at exit -- the refusal is neither recorded nor reported (src/i_sound.c:137, :164; :547-548)
+Status: RESOLVED
+
+Units resolving into this case: one (module, device) pair each.
+
+```text
+unit   observation  file              row    list                    module                 device
+U1046  E403-001     src/i_flmusic.c   :305   music_fl_devices        music_fl_module        SNDDEVICE_FSYNTH
+U1047  E410-001     src/i_oplmusic.c  :1770  music_opl_devices       music_opl_module       SNDDEVICE_ADLIB
+U1048  E410-002     src/i_oplmusic.c  :1771  music_opl_devices       music_opl_module       SNDDEVICE_SB
+U1049  E412-001     src/i_pcsound.c   :330   sound_pcsound_devices   sound_pcsound_module   SNDDEVICE_PCSPEAKER
+U1050  E413-001     src/i_sdlmusic.c  :446   music_sdl_devices       music_sdl_module       SNDDEVICE_PAS
+U1051  E413-002     src/i_sdlmusic.c  :447   music_sdl_devices       music_sdl_module       SNDDEVICE_GUS
+U1052  E413-003     src/i_sdlmusic.c  :448   music_sdl_devices       music_sdl_module       SNDDEVICE_WAVEBLASTER
+U1053  E413-004     src/i_sdlmusic.c  :449   music_sdl_devices       music_sdl_module       SNDDEVICE_SOUNDCANVAS
+U1054  E413-005     src/i_sdlmusic.c  :450   music_sdl_devices       music_sdl_module       SNDDEVICE_GENMIDI
+U1055  E413-006     src/i_sdlmusic.c  :451   music_sdl_devices       music_sdl_module       SNDDEVICE_AWE32
+U1056  E414-001     src/i_sdlsound.c  :1194  sound_sdl_devices       sound_sdl_module       SNDDEVICE_SB
+U1057  E414-002     src/i_sdlsound.c  :1195  sound_sdl_devices       sound_sdl_module       SNDDEVICE_PAS
+U1058  E414-003     src/i_sdlsound.c  :1196  sound_sdl_devices       sound_sdl_module       SNDDEVICE_GUS
+U1059  E414-004     src/i_sdlsound.c  :1197  sound_sdl_devices       sound_sdl_module       SNDDEVICE_WAVEBLASTER
+U1060  E414-005     src/i_sdlsound.c  :1198  sound_sdl_devices       sound_sdl_module       SNDDEVICE_SOUNDCANVAS
+U1061  E414-006     src/i_sdlsound.c  :1199  sound_sdl_devices       sound_sdl_module       SNDDEVICE_AWE32
+U1062  E426-001     src/i_winmusic.c  :1889  music_win_devices       music_win_module       SNDDEVICE_PAS
+U1063  E426-002     src/i_winmusic.c  :1890  music_win_devices       music_win_module       SNDDEVICE_WAVEBLASTER
+U1064  E426-003     src/i_winmusic.c  :1891  music_win_devices       music_win_module       SNDDEVICE_SOUNDCANVAS
+U1065  E426-004     src/i_winmusic.c  :1892  music_win_devices       music_win_module       SNDDEVICE_GENMIDI
+U1066  E426-005     src/i_winmusic.c  :1893  music_win_devices       music_win_module       SNDDEVICE_AWE32
+```
+
+Each unit's fact, writers, readers and lifetime are the case's; the
+unit's own row is the device value that makes its module eligible. A
+device named by two modules (SB: U1048 for OPL music and U1056 for SDL
+sound; PAS, GUS, WAVEBLASTER, SOUNDCANVAS, AWE32 across the SDL and
+Windows music modules) goes to whichever module comes first in the
+compiled-in order (src/i_sound.c:86-110) and initialises.
