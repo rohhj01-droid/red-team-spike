@@ -1,0 +1,5 @@
+cand_id	file	line	symbol	class	element_type	members	absent	conditional	en1	en2	en3	en4	en5	en6	tag	reject_reason	evidence
+C001	src/a.c	1	iwads	K1		4	0	0	PASS	PASS	PASS	PASS	PASS	PASS	enforced		fixture
+C002	src/a.c	11	names	K1		2	0	0	PASS	FAIL						EN2: fixture	fixture
+C007	src/a.c	17	gameversions	K1		3	0	0	PASS	PASS	PASS	PASS	PASS	PASS	enforced		fixture
+C008	src/b.c	1	t2	K1		1	0	0	PASS	PASS	PASS	PASS	PASS	PASS	asserted		fixture

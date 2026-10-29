@@ -96,7 +96,8 @@ def count_members(text: str, start: int) -> tuple[list[dict], list[str]]:
     """Members of the brace initializer whose `{` is at text[start].
 
     Returns (present_members, absent_texts); a present member is
-    {"index", "text", "cond"}. Rules (design Section 6.3 and the plan's
+    {"index", "text", "cond", "pos"} where pos is the offset of its first
+    non-blank character (for line numbers). Rules (design Section 6.3 and the plan's
     Task 3): `//` and `/* */` comments are not members, but a comment
     whose content begins with `{` is recorded as ABSENT; string and
     character literals are opaque; `#if 0` makes its block ABSENT; any
@@ -109,6 +110,7 @@ def count_members(text: str, start: int) -> tuple[list[dict], list[str]]:
     absent: list[str] = []
     stack: list[tuple[str, str]] = []            # ("absent", directive) or ("cond", directive)
     cur: list[str] = []
+    first_pos = [-1]                          # offset of the current member's first non-blank char
     depth = 1
     i = start + 1
     n = len(text)
@@ -122,13 +124,20 @@ def count_members(text: str, start: int) -> tuple[list[dict], list[str]]:
 
     def flush():
         t = _collapse("".join(cur))
+        pos = first_pos[0]
         cur.clear()
+        first_pos[0] = -1
         if not t:
             return
         if in_absent():
             absent.append(t)
         else:
-            members.append({"index": len(members) + 1, "text": t, "cond": cond_text()})
+            members.append({"index": len(members) + 1, "text": t, "cond": cond_text(), "pos": pos})
+
+    def put(ch: str, at: int):
+        if first_pos[0] < 0 and not ch.isspace():
+            first_pos[0] = at
+        cur.append(ch)
 
     while i < n:
         c = text[i]
@@ -165,7 +174,7 @@ def count_members(text: str, start: int) -> tuple[list[dict], list[str]]:
                 at_line_start = True
                 continue
         if c == "\n":
-            cur.append(c)
+            put(c, i)
             at_line_start = True
             i += 1
             continue
@@ -190,22 +199,23 @@ def count_members(text: str, start: int) -> tuple[list[dict], list[str]]:
             k = i + 1
             while k < n and text[k] != q:
                 k += 2 if text[k] == "\\" else 1
-            cur.append(text[i:k + 1])
+            put(text[i], i)
+            cur.append(text[i + 1:k + 1])
             i = k + 1
             continue
         if c == "{":
             depth += 1
-            cur.append(c)
+            put(c, i)
         elif c == "}":
             depth -= 1
             if depth == 0:
                 flush()
                 break
-            cur.append(c)
+            put(c, i)
         elif c == "," and depth == 1:
             flush()
         else:
-            cur.append(c)
+            put(c, i)
         i += 1
     return members, absent
 

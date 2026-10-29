@@ -21,4 +21,5 @@ static struct
 } gameversions[] = {
     { "doom", 1 },
     { "ultimate", 2 },
+    { NULL, 0 },
 };

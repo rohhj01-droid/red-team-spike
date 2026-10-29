@@ -28,6 +28,7 @@ from common import api_get, is_quarantined, read_tsv, sha256_file, strip, write_
 from snapshot import PINNED, archive, digest, sealed_instant  # noqa: E402
 from inventory import EN_FIELDS, SRC_FIELDS, enumerators, sources  # noqa: E402
 import checks  # noqa: E402
+from universe import members, members_detail, units  # noqa: E402
 
 LATIN1 = b"/* caf\xe9 */\n"
 
@@ -172,8 +173,42 @@ def test_anonymous_struct_array():          # K1 idiom `static struct { ... } na
     rows = {r["symbol"]: r for r in enumerators(FIX + "/tree")}
     assert "gameversions" in rows, sorted(rows)
     r = rows["gameversions"]
-    assert r["class"] == "K1" and r["members"] == "2" and r["element_type"].startswith("struct {"), r
+    assert r["class"] == "K1" and r["members"] == "3" and r["element_type"].startswith("struct {"), r
     assert rows["iwads"]["cand_id"] == "C001" and rows["t2"]["cand_id"] == "C008"
+
+
+# ---------------------------------------------------------------- Task 5
+
+def test_members_from_fixture():
+    rows = members(FIX + "/tree", FIX + "/enumerators_admit.tsv")
+    assert [r["obs_id"] for r in rows if r["enum_id"] == "C001"] == ["E001-001", "E001-002", "E001-003", "E001-004"]
+    assert [r["text"] for r in rows if r["enum_id"] == "C008"] == ['{ "live.wad", 2 }']
+    assert [r["cond"] for r in rows if r["enum_id"] == "C001"][2] == "#ifdef HAVE_X"
+    assert [r["tag"] for r in rows if r["enum_id"] == "C008"] == ["asserted"]
+    assert all(r["enum_id"] != "C002" for r in rows)               # a rejected row yields no observations
+    assert [r["line"] for r in rows if r["enum_id"] == "C001"] == ["3", "5", "7", "9"]
+
+
+def test_members_drop_final_sentinel():      # XQA-07 (c)
+    rows, absent, sentinels = members_detail(FIX + "/tree", FIX + "/enumerators_admit.tsv")
+    gv = [r for r in rows if r["enum_id"] == "C007"]
+    assert [r["text"] for r in gv] == ['{ "doom", 1 }', '{ "ultimate", 2 }']
+    assert sentinels == [("C007", "{ NULL, 0 }")]
+    assert absent == [("C001", '{ "strife0.wad", 9 },'), ("C008", '{ "dead.wad", 1 }')]
+
+
+def test_units_components():
+    o, p, linked = units(FIX + "/obs5.tsv", FIX + "/links2.tsv", TMP + "/P.tsv")
+    assert (o, p, linked) == (5, 3, 1)
+    rows = read_tsv(TMP + "/P.tsv")
+    assert rows[0]["unit_id"] == "U001" and rows[0]["obs_ids"] == "o1,o2,o3" and rows[0]["linked"] == "1"
+    assert rows[1]["obs_ids"] == "o4" and rows[2]["obs_ids"] == "o5" and rows[2]["linked"] == "0"
+    assert rows[0]["enum_ids"] == "E001" and rows[0]["tags"] == "enforced" and rows[0]["text"] == "m1 || m2 || m3"
+
+
+def test_units_no_links():
+    o, p, linked = units(FIX + "/obs5.tsv", FIX + "/links0.tsv", TMP + "/P.tsv")
+    assert (o, p, linked) == (5, 5, 0)
 
 
 # ---------------------------------------------------------------- runner
