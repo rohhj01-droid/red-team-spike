@@ -138,7 +138,7 @@ review findings about the analyst's own earlier corrections -- QA-41
 logs the analyst overshooting in both directions one commit apart --
 and RETRACTION 31 and 32 carry out QA-41's audit.
 
-## Status (2026-10-28)
+## Status (2026-10-29)
 
 Screening terminated at 96 of 128 frame items, recorded as QA-43: a
 deviation from the sealed budget, taken by the project owner's decision
@@ -150,7 +150,12 @@ Rank 93 (`games/dhewm3`) has UR and E1 entries and no ledger row; ranks
 93-104, 107-108 and 111-128 were not screened. The last external
 observation was made on 2026-08-31 and nothing was observed after it.
 Any further work on the remaining items would be a new run against the
-same frozen frame, not a continuation of this one.
+same frozen frame, not a continuation of this one. An exploratory
+single-target study of C084 Crispy Doom, labelled EXPLORATORY and
+firewalled from this record, was executed on 2026-10-29 under the
+sealed methodology's analysis lane and sealed at `e2baa63`
+(`phase3_5/exploratory/RESULTS.md`); it is not the Phase 3.5 result,
+and the Phase 3.5 record is unchanged.
 
 ## Where to read
 
@@ -164,6 +169,8 @@ phase3_5/screening_evidence.md        every observation, retraction, and
                                       superseded sentence, in place
 phase3_5/screening_candidates.tsv     per-candidate verdicts
 phase3_5/screening_frame_items.tsv    per-frame-item verdicts
+phase3_5/exploratory/RESULTS.md       exploratory C084 study (hand-chosen
+                                      target; not the Phase 3.5 result)
 ```
 
 The original Phase 0 record follows, unchanged.
