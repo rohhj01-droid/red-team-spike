@@ -25,6 +25,9 @@ TMP = tempfile.mkdtemp(prefix="run2tools_")
 import paths  # noqa: E402
 paths.use_exploratory_tools()
 import frame  # noqa: E402
+import metadata  # noqa: E402
+
+INFRA = FIX + "/ports/infrastructure"
 
 
 # ---------------------------------------------------------------- Task 2: frame
@@ -72,6 +75,39 @@ def test_extract_selected_filters_members():
     assert os.path.exists(os.path.join(dest, "ports", "games", "x", "Makefile"))
     assert not os.path.exists(os.path.join(dest, "ports", "games", "x", "README"))
     assert not os.path.exists(os.path.join(TMP, "evil")) and not os.path.exists(os.path.join(dest, "evil"))
+
+
+# ---------------------------------------------------------------- Task 3: metadata
+
+def test_explicit_homepage_and_sites_macro_expansion():          # Review Focus 1
+    m = metadata.resolve(FIX + "/ports/games/alpha", INFRA)
+    assert m["homepage"] == "https://alpha.example.org/" and m["homepage_mechanism"] == "explicit"
+    assert m["sites"] == ["https://downloads.sourceforge.net/sourceforge/alpha/",
+                          "https://netix.dl.sourceforge.net/project/alpha/"], m["sites"]
+    assert m["sites_mechanism"][m["sites"][0]] == "explicit" and m["issue"] is None
+    assert m["comment"] == "alpha game" and m["descr"].startswith("Alpha") and m["distname"] == "alpha-1.0"
+
+
+def test_gh_defaults_homepage_and_sites():
+    m = metadata.resolve(FIX + "/ports/devel/beta", INFRA)
+    assert m["homepage"] == "https://github.com/acme/Beta" and m["homepage_mechanism"] == "gh"
+    assert m["sites"] == ["https://github.com/acme/Beta/archive/refs/tags/v1.2/"]
+    assert m["sites_mechanism"][m["sites"][0]] == "gh-tagname" and m["gh"] == ("acme", "Beta")
+
+
+def test_dist_tuple_homepage_and_empty_bare_sites():
+    m = metadata.resolve(FIX + "/ports/games/delta/sub", INFRA)
+    assert m["homepage"] == "https://github.com/acme/gamma" and m["homepage_mechanism"] == "dist-tuple"
+    assert m["sites"] == [] and m["dist_tuples"] == [("github", "acme", "gamma", "1.0")]
+
+
+def test_module_is_unresolved():
+    assert metadata.resolve(FIX + "/ports/games/modport", INFRA)["issue"] == "PI-METADATA-UNRESOLVED"
+
+
+def test_unknown_macro_is_unresolved():                         # Review Focus 1
+    m = metadata.resolve(FIX + "/ports/games/eps", INFRA)
+    assert m["issue"] == "PI-METADATA-UNRESOLVED" and all("${" not in s for s in m["sites"])
 
 
 # ---------------------------------------------------------------- runner
