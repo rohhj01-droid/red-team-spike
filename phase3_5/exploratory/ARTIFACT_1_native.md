@@ -51,3 +51,61 @@ the unit's own row (above) as the recognised name and the unit's own
 slot as the written place; nothing distinguishes the eleven units
 except the name, the slot and the executable chosen for the type
 (NameForIWAD :122-138: heretic, hexen, strife, else doom).
+
+## NC-02 -- the IWAD registry: identifying the game's IWAD by its filename (src/d_iwad.c)
+source observation ids: E017-001 .. E017-017 (units U012-U028)
+native state/data involved: the registry `iwads[]` (src/d_iwad.c:34-54): seventeen active rows of (name, mission, mode, description) and one commented-out row (strife0.wad, :52); the calling module's mask of admitted missions (src/d_iwad.h:24-32: IWAD_MASK_DOOM admits doom, doom2, pack_tnt, pack_plut, pack_chex, pack_hacx; IWAD_MASK_HERETIC, _HEXEN, _STRIFE one mission each); the IWAD search-directory list (BuildIWADDirList :787); the results of identification: the IWAD path `iwadfile` and the mission -- the Doom module's global `gamemission` (src/doom/d_main.c:1663), a local in Heretic's D_DoomMain (src/heretic/d_main.c:961), the Hexen and Strife module globals (src/hexen/h2_main.c:546, src/strife/d_main.c:1862); and, in the Doom module, what is derived from the mission: `gamemode` (d_main.c:947-973), `logical_gamemission` (src/doom/doomstat.h:68), `gamevariant` (d_main.c:1685-1700), the savegame directory name and the per-IWAD autoload directory name (D_SaveGameIWADName src/d_iwad.c:1015-1053 -> d_main.c:2083, :1802)
+writers / creation points: D_FindIWAD (src/d_iwad.c:925-972). With `-iwad <file>`: D_FindWADByName (:846-900) locates the file as an absolute path or in the IWAD directories, I_Error("IWAD file '%s' not found!") if it does not exist (:950-953), then IdentifyIWADByName (:617-644) sets the mission from the row whose name equals the file's basename, case-insensitively, among the rows the mask admits (:631-639), else `none` (:623). Without `-iwad`: SearchDirectoryForIWAD (:589-612) walks the IWAD directories (:963-968) and takes the first admitted row whose name -- after DEH_String (:601): a dehacked patch can rename it -- exists in that directory (CheckDirectoryHasIWAD :560-584), setting the mission from the row (:605). Doom module only: D_IdentifyVersion (src/doom/d_main.c:913-945) resolves a `none` from the loaded lumps (MAP01 -> doom2, E1M1 -> doom, :925-937) or aborts with I_Error("Unknown or invalid IWAD file.") (:939-944); `-pack <name>` can override a Doom II mission (:979-991, SetMissionForPackName, error at :906). Strife: D_IdentifyVersion sets gamemission = strife unconditionally (src/strife/d_main.c:953-956). Hexen: D_IdentifyVersion (src/hexen/h2_main.c:336-362) reads lumps for gamemode only; the mission stays as D_FindIWAD left it. Heretic: the mission D_FindIWAD returns is never read again (src/heretic/d_main.c:961, :1130); Heretic's connect data hardcodes `heretic` (src/heretic/d_net.c:165)
+updates / invalidation paths: the mission is set once at startup; the Doom module may rewrite it in D_IdentifyVersion (:929, :934) or by `-pack`; no later code path invalidates it. The IWAD file itself is then loaded (D_AddFile src/doom/d_main.c:1676 and the three module equivalents) and W_CheckCorrectIWAD (:1678; src/w_main.c:267-292, another native case) aborts if the loaded file carries another game's unique lump
+readers / consumption points: Doom: D_IdentifyVersion (gamemode from lumps, d_main.c:947-973) and D_SetGameDescription (:997); D_SaveGameIWADName (src/d_iwad.c:1015-1053) maps the mission (and variant) back to a canonical row name -- "we match on gamemission rather than on IWAD name. This ensures that doom1.wad and doom.wad saves are stored in the same place" (:1022-1024) -- for the savegame directory (d_main.c:2083) and the per-IWAD autoload directory (:1802); the network: connect_data->gamemission = gamemission (src/doom/d_net.c:197), which the server validates against valid_modes (src/net_server.c:706-713; another native case) and compares with its own mission (:756-772); D_SuggestGameName / D_SuggestIWADName (src/d_iwad.c:1055-1084) turn a mission (and mode) back into a row's description or name for messages (src/w_main.c:283; src/setup/multiplayer.c:911); D_FindAllIWADs (:976-1010) lists installed rows for the setup tool (src/setup/mode.c:222, :298); D_IsIWADName (:56-69) answers whether a name is any registry name (callers not followed)
+lifetime / persistence / reset behavior: the mission lives for the process and is re-derived from scratch at every start; no copy of it is stored. What persists on disk is derived from it: the savegame directory name and the autoload directory name are chosen by mission (and variant), not by the actual filename (src/d_iwad.c:1015-1053), so a later run with a differently named IWAD of the same mission finds the same saves (:1022-1024). The Heretic result does not outlive the call; the Strife result is replaced by a constant; the Hexen result is kept but not read for identification
+relevant transitions: startup with `-iwad`: locate the file, identify by name under the module's mask -> mission or none; startup without `-iwad`: the first admitted registry name found in the search directories -> mission; Doom: none -> lump heuristic -> mission or abort; load the IWAD; Doom: gamemode from lumps, variant from the FREEDOOM / FREEDM lumps; savegame and autoload directories named from the mission; network connect: the mission copied into the connect data and checked by the server
+supporting source-code/docs evidence: src/d_iwad.c:34-69, :560-612, :617-644, :846-870, :925-1010, :1015-1084; src/d_iwad.h:24-32; src/doom/d_main.c:913-993, :1655-1700, :1796-1806, :2078-2083; src/doom/doomstat.h:68; src/doom/d_net.c:197; src/heretic/d_main.c:961, :1126-1139; src/heretic/d_net.c:165; src/hexen/h2_main.c:336-362, :542-559; src/strife/d_main.c:940-957, :1858-1877; src/net_server.c:700-713, :756-772; README.md:74
+remaining native-level uncertainty: BuildIWADDirList (:787-845) and the directory walk of D_FindWADByName (:860-900) were not read line by line (they decide where to look, not what is accepted); D_IsIWADName's callers were not followed; Hexen's handling of a `none` mission past D_IdentifyVersion, and its connect data, were not traced; SetMissionForPackName's body was not read past its error line (:906)
+lineage: inherited, with rows the tree does not date -- src/d_iwad.c carries 7 [crispy] marker(s); the registry rows and the identification path carry none; which rows (e.g. rekkrsa.wad, rekkrsl.wad, doom2f.wad) are the fork's additions is not visible in the tree
+### Sufficiency
+Q1 created: the fact "the IWAD file F is mission M" -- created by the name match in IdentifyIWADByName (src/d_iwad.c:636-639) or SearchDirectoryForIWAD (:601-607), by the Doom module's lump heuristic (src/doom/d_main.c:925-937), or by Strife's constant (src/strife/d_main.c:955)
+Q2 written: into `*mission`, i.e. the Doom module's global gamemission (src/doom/d_main.c:1663), Heretic's local (src/heretic/d_main.c:1130), Hexen's and Strife's globals (src/hexen/h2_main.c:546, src/strife/d_main.c:1862); `iwadfile` alongside; in Doom also gamemode (d_main.c:957-973), gamevariant (:1687-1700), savegamedir (:2083) and the autoload directory (:1802)
+Q3 lifetime: process lifetime -- set once at startup (src/doom/d_main.c:1663), no invalidation path located; the names derived from it persist on disk across runs as directory names (src/d_iwad.c:1015-1053; src/doom/d_main.c:1802, :2083)
+Q4 readers: D_IdentifyVersion and D_SetGameDescription (src/doom/d_main.c:913-997); the savegame and autoload directories (:2083, :1802); the connect data (src/doom/d_net.c:197) and the server's checks (src/net_server.c:706-713, :763-772); D_SaveGameIWADName, D_SuggestIWADName, D_SuggestGameName (src/d_iwad.c:1015-1084); D_FindAllIWADs (:976-1010, src/setup/mode.c:222)
+Q5 after consumption: persists for the process; the mission itself is not stored, the directory names derived from it persist on disk and are re-derived identically next run (src/d_iwad.c:1022-1024); over the network it is copied into the connect data (src/doom/d_net.c:197) and checked, not re-identified, by the server (src/net_server.c:706, :763)
+Status: RESOLVED
+
+Units resolving into this case: one registry row each, admitted by one module's mask, consumed on that module's branch.
+
+```text
+unit  observation  row  name            mission     mode        mask      branch after a miss
+U012  E017-001     :36  doom2.wad       doom2       commercial  DOOM     Doom
+U013  E017-002     :37  plutonia.wad    pack_plut   commercial  DOOM     Doom
+U014  E017-003     :38  tnt.wad         pack_tnt    commercial  DOOM     Doom
+U015  E017-004     :39  doom.wad        doom        retail      DOOM     Doom
+U016  E017-005     :40  doom1.wad       doom        shareware   DOOM     Doom
+U017  E017-006     :41  doom2f.wad      doom2       commercial  DOOM     Doom
+U018  E017-007     :42  chex.wad        pack_chex   retail      DOOM     Doom
+U019  E017-008     :43  hacx.wad        pack_hacx   commercial  DOOM     Doom
+U020  E017-009     :44  freedoom2.wad   doom2       commercial  DOOM     Doom
+U021  E017-010     :45  freedoom1.wad   doom        retail      DOOM     Doom
+U022  E017-011     :46  freedm.wad      doom2       commercial  DOOM     Doom
+U023  E017-012     :47  rekkrsa.wad     doom        retail      DOOM     Doom
+U024  E017-013     :48  rekkrsl.wad     doom        retail      DOOM     Doom
+U025  E017-014     :49  heretic.wad     heretic     retail      HERETIC  Heretic
+U026  E017-015     :50  heretic1.wad    heretic     shareware   HERETIC  Heretic
+U027  E017-016     :51  hexen.wad       hexen       commercial  HEXEN    Hexen
+U028  E017-017     :53  strife1.wad     strife      commercial  STRIFE   Strife
+```
+
+Branch notes (the part of the flow that differs by mask):
+
+- Doom: a `none` goes to the lump heuristic, then abort (d_main.c:921-944)
+- Heretic: the mission is a local of D_DoomMain, never read again (heretic/d_main.c:961, :1130)
+- Hexen: kept as returned; D_IdentifyVersion reads lumps for gamemode only (h2_main.c:336-362)
+- Strife: overwritten by the constant `strife` (strife/d_main.c:955)
+
+Each unit's fact, writers, readers and lifetime are the case's, with
+the unit's own row as the name matched (:636, :601) and the mission
+written; the mode and description fields are read only by
+D_SuggestIWADName / D_SuggestGameName (:1055-1084) and D_FindAllIWADs
+(:976-1010), never by the identification itself. The thirteen rows
+IWAD_MASK_DOOM admits are the only ones whose miss can be recovered by
+contents (the lump heuristic); the other four are accepted or refused
+by name alone.
