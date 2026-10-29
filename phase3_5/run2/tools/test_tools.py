@@ -29,7 +29,17 @@ import metadata  # noqa: E402
 import surfaces  # noqa: E402
 import net  # noqa: E402
 import en_verdicts  # noqa: E402
+import pin  # noqa: E402
 import inventory  # noqa: E402  (exploratory tool)
+
+
+def make_tree(root, sizes):
+    """Files of the given byte sizes under root/<name>; returns root."""
+    for rel, n in sizes.items():
+        p = os.path.join(root, rel)
+        os.makedirs(os.path.dirname(p), exist_ok=True)
+        open(p, "wb").write(b"x" * n)
+    return root
 
 INFRA = FIX + "/ports/infrastructure"
 CTREE = FIX + "/ctree"
@@ -269,6 +279,38 @@ def test_class_and_sensitivity():
     s = en_verdicts.sensitivity(rows)
     assert any(r["symbol"] == "valid_modes" and r["why"] == "admitted" for r in s)
     assert all(r["decided_by"] != "catalogue:numeric-data" for r in s)
+
+
+# ---------------------------------------------------------------- Task 7: pin
+
+def test_ten_digests_largest_source_files_in_path_order():
+    tree = make_tree(os.path.join(TMP, "pintree"), {"a.c": 300, "b.h": 300, "c.txt": 999, "d.py": 10, "e/f.c": 300, ".git/x.c": 5000})
+    rows = pin.ten_digests(tree)
+    assert [p for p, _, _ in rows] == ["a.c", "b.h", "e/f.c", "d.py"], rows      # .txt and .git excluded; size desc; ties by path
+    assert all(len(sha) == 64 for _, _, sha in rows) and rows[0][1] == 300
+
+
+def test_ls_remote_parses_symref():
+    out = "ref: refs/heads/main\tHEAD\nabc123\tHEAD\n"
+    assert pin.ls_remote("https://x", git=lambda args: out) == ("main", "abc123")
+
+
+def test_fetch_by_hash_sets_autocrlf_false():
+    calls = []
+    pin.fetch_by_hash("https://x", "abc123", os.path.join(TMP, "t"), git=lambda args: calls.append(args) or "")
+    assert ["config", "core.autocrlf", "false"] in [c[-3:] for c in calls]
+    assert any("--depth" in c and "abc123" in c for c in calls) and ["checkout", "--detach", "FETCH_HEAD"] in [c[-3:] for c in calls]
+
+
+def test_write_record_files():
+    d = os.path.join(TMP, "pinrec")
+    rec = dict(candidate_id="C001", url="https://github.com/acme/alpha", branch="main", sha="abc123", observed_at_utc="2026-10-29T12:00:00Z",
+               archive=dict(url="https://github.com/acme/alpha/archive/abc123.tar.gz", bytes=10, sha256="f" * 64, entries=3),
+               digests=[("a.c", 300, "e" * 64)], tracked_files=4)
+    pin.write_record(d, rec)
+    assert os.path.exists(os.path.join(d, "pin_record.md")) and os.path.exists(os.path.join(d, "pin.json"))
+    text = open(os.path.join(d, "pin_record.md"), encoding="utf-8").read()
+    assert "abc123" in text and "a.c" in text and "observation time" in text.lower()
 
 
 # ---------------------------------------------------------------- runner
