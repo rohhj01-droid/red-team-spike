@@ -27,8 +27,26 @@ paths.use_exploratory_tools()
 import frame  # noqa: E402
 import metadata  # noqa: E402
 import surfaces  # noqa: E402
+import net  # noqa: E402
 
 INFRA = FIX + "/ports/infrastructure"
+TIMEOUT = "TIMEOUT"
+
+
+def canned(seq):
+    """A fetch callable returning (status, headers, body) per call; the TIMEOUT sentinel raises like a transport failure."""
+    items = list(seq)
+
+    def fetch(url):
+        item = items.pop(0)
+        if item == TIMEOUT:
+            raise TimeoutError("canned timeout")
+        return item
+    return fetch
+
+
+def fixed_clock():
+    return "2026-10-29T12:00:00Z"
 
 
 # ---------------------------------------------------------------- Task 2: frame
@@ -156,6 +174,44 @@ def test_identity_key_and_ambiguity():
     assert surfaces.identity_key(a, {}) == ("PASS", "https://alpha.example.org")
     none = dict(a, homepage=None, sites=["https://distfiles.openbsd.org/x/alpha-1.0.tar.gz"])
     assert surfaces.identity_key(none, {})[0] == "FAIL_NONE"
+
+
+# ---------------------------------------------------------------- Task 5: net
+
+def test_redirect_chain_recorded():                             # Review Focus 2
+    seq = [(301, {"Location": "https://new.example.org/"}, b""), (200, {"Content-Type": "text/html"}, b"<html></html>")]
+    r = net.fetch("http://old.example.org/", fetch=canned(seq), clock=fixed_clock)
+    assert r["final_url"] == "https://new.example.org/" and r["redirect_chain"] == ["http://old.example.org/"]
+    assert r["http_status"] == 200 and r["outcome"] == "ok" and r["content_type"] == "text/html"
+
+
+def test_transport_retries_then_pi():                           # Review Focus 4
+    r = net.fetch("https://x.example.org/", fetch=canned([TIMEOUT, TIMEOUT, TIMEOUT]), clock=fixed_clock)
+    assert r["outcome"] == "transport" and [a[1] for a in r["attempts"]] == ["transport"] * 3
+
+
+def test_5xx_is_transport_and_recovers():
+    r = net.fetch("https://x.example.org/", fetch=canned([(503, {}, b""), (200, {}, b"ok")]), clock=fixed_clock)
+    assert r["outcome"] == "ok" and [a[1] for a in r["attempts"]] == ["transport", "ok"]
+
+
+def test_definitive_404_is_not_transport():
+    r = net.fetch("https://x.example.org/", fetch=canned([(404, {}, b"")]), clock=fixed_clock)
+    assert r["outcome"] == "definitive" and r["http_status"] == 404 and len(r["attempts"]) == 1
+
+
+def test_step2_whole_word_only():                               # Review Focus 3
+    ls = net.links(open(FIX + "/html/project.html", "rb").read(), "https://alpha.example.org/")
+    assert [l["href"] for l in net.step2_links(ls)] == ["https://github.com/acme/beta", "https://alpha.example.org/dev"]
+    assert net.is_step2(dict(label="Quellcode", title="", aria_label="", href="x"))
+    assert not net.is_step2(dict(label="Barcode", title="", aria_label="", href="x"))
+
+
+def test_designation_is_not_permission():
+    ls = net.links(open(FIX + "/html/project.html", "rb").read(), "https://alpha.example.org/")
+    assert all("official" not in l["label"].lower() for l in net.step2_links(ls))
+    assert net.designation_signals("Our official repository is on GitHub. Have fun.") == ["Our official repository is on GitHub."]
+    assert "Alpha README" in net.text_of(open(FIX + "/html/repo.html", "rb").read())
 
 
 # ---------------------------------------------------------------- runner
