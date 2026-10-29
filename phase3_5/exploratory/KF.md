@@ -316,6 +316,8 @@ KF-2 representability: partly -- the configured music device and its selection i
 KF-2 domain: in-domain concordant for what D10 decides -- a MIDI-class device value is SERVED by the first compiled-in module listing it whose Init succeeds, and SNDDEVICE_FSYNTH by the FluidSynth module (U1046); which synthesiser the SDL music module's Init then starts on Windows is decided by no class (Artifact 3 places even an Init failing for reasons outside the list out of domain) -- out-of-domain for the reported failure
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the one comment names the fix, fabiangreffrath/crispy-doom 5582295 (2021-11-19, a merge from chocolate-doom carrying src/i_sdlmusic.c): I_SDL_InitMusic now records whether a FluidSynth soundfont is configured and present, and the Windows MIDI path is opened only 'if (snd_musicdevice != SNDDEVICE_GUS && !fluidsynth_sf_is_set)' -- the branch inside the module's Init gained a configuration predicate; the device selection that D10 decides is untouched. That confirms KF-2's placement: concordant for the selection, out-of-domain for the Init's own branch; cause agreement N/A (the frozen account named no cause)
+KF-3 post-hoc observation: the fix decides inside the SDL music module's Init, on the device value and a path setting, which synthesiser serves MIDI; the frozen tree carries a FluidSynth module of its own (music_fl_module serving SNDDEVICE_FSYNTH, U1046), which this 2021 fix does not have -- a choice made inside Init there is a device value the selection decides here; an observation only, outside P_raw (sealed Sections 4.3, 8.6)
 
 ## KF item #807
 disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2022-01-04), body (1225 chars); cause leakage = yes -- the cause is stated with two line links into src/heretic/g_game.c at another revision (G_RecordDemo's own G_InitNew call reaches CheckCrispySingleplayer in G_DoLoadLevel before demorecording is set)
@@ -324,6 +326,8 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the maintainers confirmed the first post's cause (the check runs at level load, before G_RecordDemo has set demorecording: 'the checks in the code should get moved a bit in order to error out as soon as possible', 2022-01-06; the preferred fix: factor the checks out and call them at D_ConnectNetGame, G_RecordDemo, G_DoPlayDemo and G_TimeDemo, 2022-01-07) and closed it on the merge of pull request #796 'Custom difficulty parameters' (fabiangreffrath/crispy-doom 8bb1ccf, 2022-02-04; its commit list includes 'Disable demo recording with -autohealth in Heretic and Hexen', 'Demo reel checks for critical params', 'Custom parameters fixes'; 21 files, the Heretic change not among the five displayed). The admission of demo recording under singleplayer-only options stays outside every native case, as KF-2 placed it; cause agreement N/A
+KF-3 post-hoc observation: the failure is a validity check evaluated at a transition (level load) before the action under way (record) had written the state the check reads (demorecording) -- the ordering that Phase 3's transition-local judgment role exists to fix, met here in a mechanism outside every native case; an observation only (sealed Sections 4.3, 8.6)
 
 ## KF item #814
 disclosure: fields seen = title, labels (sound-issues-on-windows), state (closed), created_at (2022-01-12), body (842 chars); cause leakage = no -- symptoms and the setup; a video could not be uploaded
@@ -332,6 +336,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- resolved without a stated cause: 'Recently, Windows MIDI support has been redesigned' (2022-01-12) and the reporter confirmed 'The MIDI bug is fixed in the latest daily build' (2022-01-13); closed. The MIDI rendering path is outside every native case, as KF-2 placed it; the redesigned module is in the frozen tree as NC-10's music_win_module (U1062-U1066), whose selection D10 decides and whose rendering no class does; cause agreement N/A (fixed by a redesign, no cause stated)
 
 ## KF item #886
 disclosure: fields seen = title, labels (bug, non-doom), state (closed), created_at (2022-05-31), body (7853 chars, CUT at 3000); cause leakage = yes, partial -- OpenBSD's 'backwards memcpy' abort is named and a gdb backtrace begins; within the cut only the libc frames (thrkill, _libc_abort, memcpy) appear, the Crispy frame lies beyond it
@@ -340,6 +345,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external cause is identified and fixed: Crispy Heretic's sprite-clipping copy used sizeof(lastopening), the size of a pointer, where sizeof(*lastopening), the size of an int, was meant (src/heretic/r_segs.c, two lines), so a 64-bit build copies twice the bytes and the regions overlap -- which OpenBSD's memcpy turns into an abort; a typo from the 2017 Crispy Heretic implementation (pull request #242), fixed by pull request #887 'Heretic: refer to pointer, not to integer' (closed 2022-05-31; the reporter confirmed on commit c14260f). Renderer, outside every native case, as KF-2 placed it; cause agreement N/A
 
 ## KF item #890
 disclosure: fields seen = title, labels (bug, non-doom, pending, rendering), state (closed), created_at (2022-06-06), body (1030 chars); cause leakage = no -- symptoms; two screenshots not opened
@@ -348,6 +354,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- 'I see the cause of this issue and will submit a fix this evening' (2022-06-06); fixed by pull request #891 'Make V_DrawAltTLPatch() widescreen-compatible' (closed 2022-06-07; the issue closed the same day): a translucent patch drawer that did not take the widescreen offset into account, by its title; the pull request was not fetched. Status-bar rendering, outside every native case, as KF-2 placed it; cause agreement N/A
 
 ## KF item #893
 disclosure: fields seen = title, labels (bug, pending), state (closed), created_at (2022-06-08), body (819 chars); cause leakage = no -- symptoms and the comparison builds; the reporter has not tracked it down
@@ -356,6 +363,7 @@ KF-2 representability: partly -- Hexen's emulated version is NC-05's Hexen units
 KF-2 domain: out-of-domain -- D5 decides only whether a -gameversion string is ACCEPTED (Hexen U1029-U1030), and Artifact 3 lists the loadability of Hexen savegames and demos (their fixed format text) as out of domain; a desync of a demo that loaded is further outside; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the cause is the fork's own: the new Heretic/Hexen mouselook code (9ab1e67e) did not apply the MLOOKUNIT factor everywhere ('I'm guessing this is my fault', 2022-06-08); fixed by pull request #894, merged as fabiangreffrath/crispy-doom 83d50fc (2022-06-08, 'Heretic/Hexen: Further mouselook and mouselook-adjacent improvements', first item 'HH: Simplify usage of MLOOKUNIT'), confirmed by the reporter on the branch. A desync of the demo's simulation under playback, outside every native case, as KF-2 placed it (D5 decides only the -gameversion string, and Artifact 3 lists Hexen demo loadability as outside); cause agreement N/A
 
 ## KF item #1043
 disclosure: fields seen = title, labels (bug), state (closed), created_at (2023-04-06), body (735 chars); cause leakage = yes, partial -- the reporter bisected the hang to one commit (5fd8c7627adffdad220afd8fd7371bdf7a5d3eb2, whose revert on 6.0 fixes it); the commit's content is not described in the first post
@@ -364,6 +372,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch (the first post gives a commit, not a mechanism; the environment, Linux ppc64le, is noted)
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external cause is the compiler: clang on ppc64le miscompiles a tail-recursive angle-difference function so that its branch is always taken (a minimal reproducer loops forever; confirmed with an LLVM developer; llvm/llvm-project#62294), and the Crispy commit the reporter had bisected to (5fd8c76) only exposed it; the reporter closed it as 'a compiler bug and not crispy-doom bug' (2023-04-22). Outside the port, as KF-2 placed the hang; cause agreement N/A
 
 ## X13 seal -- KF-2 sealed
 
