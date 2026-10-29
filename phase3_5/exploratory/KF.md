@@ -134,6 +134,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the reporter located the cause outside the port: the quieter music came from the SDL2 2.0.5 / SDL2_mixer 2.0.1 pair they were running (under which midiproc does not start when FluidSynth is in use, while under 2.0.10 it starts either way) and the rest was the Windows mixer (comments 2019-09-24, 2019-09-25); 'in fact this is a Choco issue' (2019-09-27); closed. The library-version and mixer causes are outside the frozen scope, as KF-2 placed the failure; cause agreement N/A
 
 ## KF item #458
 disclosure: fields seen = title, labels (duplicate, sound-issues-on-windows), state (closed), created_at (2019-09-22), body (1043 chars); cause leakage = yes -- the reporter's finding that copying 5.5.2's SDL2, SDL2_mixer and SDL2_net DLLs over 5.6's restores sound (a cause located in the library versions)
@@ -142,6 +143,7 @@ KF-2 representability: representable for its setting, as #454 -- the configured 
 KF-2 domain: in-domain concordant for what D10 decides (a listed device is SERVED by its module, Init permitting); the failure past the selection is out-of-domain -- as #454, of which this is a declared duplicate
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- closed on its one comment as a duplicate of #454 (SDL2 2.0.10 with a 5.1 audio configuration; the old-DLL pack offered); the external cause is #454's, in the SDL libraries, outside the port; KF-2's concordance for the device selection (D10) is untouched and its placement of the failure confirmed; cause agreement N/A
 
 ## KF item #462
 disclosure: fields seen = title, labels (OS-specific, SDL-related, sound-issues-on-windows), state (closed), created_at (2019-09-25), body (614 chars); cause leakage = no
@@ -150,6 +152,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- not diagnosed: the slider also fails with the Chocolate Doom daily build, and the maintainer closed it as 'nothing that can be fixed by the source port' (2019-09-27); the volume of an external virtual MIDI synth lies outside every native case, as KF-2 placed it; cause agreement N/A (no mechanism given)
 
 ## KF item #463
 disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2019-09-27), body (188 chars); cause leakage = no -- a feature idea (pause demo playback with the Pause key) with a side note that pausing mutes rather than pauses music
@@ -158,6 +161,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- a feature request, not a failure: the maintainer's one concern was basetic / leveltime drift (2019-09-27); the timeline shows three pull requests cross-referencing it (#798 and #799 'Demo pause and fast-forward', #802 'Enable demo pause', all closed 2021-12-27 to 2022-01-02) and the issue closed 2022-01-04 without a commit id; the pull requests were not fetched (request budget), so the resolution is recorded from the timeline only. Demo playback control stays outside every native case; cause agreement N/A
 
 ## KF item #475
 disclosure: fields seen = title, labels (upstream, sound-issues-on-windows), state (closed), created_at (2019-10-10), body (1050 chars); cause leakage = yes -- the reporter names the component (midiproc's volume influences MP3/OGG/FLAC played from WADs) and shows the Windows mixer; the screenshot was not opened
@@ -166,6 +170,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: insufficient external causal evidence -- the thread (fourteen comments, 2019-10-10 to 2019-10-16) never establishes why the in-game volume stops controlling midiproc when a WAD's music lump is MP3/OGG/FLAC: the reporter proposes playing non-MIDI lumps in the main process, the maintainer refuses a workaround without the underlying reason ('I hate "I don't know why, but it works this way" kind of solutions', 2019-10-14), a volume-resync patch did not help, and the issue was closed as orphaned (2022-02-02). The symptom (which process plays a lump, and the mixer coupling) stays outside the frozen scope, as KF-2 placed it; cause agreement N/A
 
 ## KF item #498
 disclosure: fields seen = title, labels (OS-specific, SDL-related, sound-issues-on-windows), state (closed), created_at (2019-11-25), body (953 chars); cause leakage = no -- symptoms and the reporter's tool chain; two audio links not opened
@@ -174,6 +179,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the maintainer could not reproduce it ('I will never be able to reproduce this', 2019-11-26); the reporter later made the passage play by hosting the Sound Canvas VA plugin in a 64-bit host and by resetting the MIDI player before the SIGIL episode (comments 2019-11-27, 2019-12-01), which places the cause in the external MIDI host and its plugins; the thread also ties the reporter's baseline to the old-DLL workaround of #454. Outside every native case, as KF-2 placed it; cause agreement N/A
 
 ## KF item #524
 disclosure: fields seen = title, labels (bug, pending, patch), state (closed), created_at (2020-02-21), body (812 chars); cause leakage = yes, a hypothesis -- the reporter attributes the corruption to switching widescreen at the moment memory is being rearranged ("at the moment it would corrupt memory"); the screenshot was not opened
@@ -182,6 +188,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external cause is identified and fixed in the tracker's repository: the widescreen (and high-resolution) toggle is applied by a post-rendering hook, and when it ran during a screen wipe the wipe's buffers, allocated at the old size, were overrun -- zone-memory corruption, a silent crash on Windows (comments 2020-02-24 to 2020-02-28; 'Yep, it's the wipe!', 2020-02-28); fix fabiangreffrath/crispy-doom d62113a (2020-03-02, 'never change screen resolution during a wipe', src/doom/d_main.c: the hook is skipped while a wipe is in progress). The reporter's first-post hypothesis (memory being rearranged at that moment) was right in substance. Rendering timing, outside every native case, as KF-2 placed it; cause agreement N/A
 
 ## KF item #527
 disclosure: fields seen = title, labels (bug), state (closed), created_at (2020-02-24), body (26 chars: "Bug report from the forum."); cause leakage = no
@@ -190,6 +197,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- no comments; closed by commit fabiangreffrath/crispy-doom 6c5a3a6 (2020-02-24, 'don't draw the obtrusive MAP/WAD automap text widget in widescreen mode', src/doom/hu_stuff.c: the line is not drawn when widescreen is on). HUD layout, outside every native case, as KF-2 placed it; cause agreement N/A
 
 ## KF item #528
 disclosure: fields seen = title, labels (bug), state (closed), created_at (2020-02-24), body (26 chars); cause leakage = no
@@ -198,6 +206,7 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- no comments; closed by commit fabiangreffrath/crispy-doom 4a64201 (2020-02-24, 'fix horizontal coordinates of automap markers in widescreen mode', src/doom/am_map.c: the marker's x coordinate now subtracts DELTAWIDTH). Automap rendering, outside every native case, as KF-2 placed it; cause agreement N/A
 
 ## KF item #556
 disclosure: fields seen = title, labels (maybe-critical), state (closed), created_at (2020-03-23), body (347 chars); cause leakage = no -- a suggestion about weapon-key double tapping, with the reporter unsure of demo/network safety
@@ -206,6 +215,7 @@ KF-2 representability: not representable -- Doom weapon selection; the only weap
 KF-2 domain: out-of-domain -- D8 decides Heretic weapon-change requests only; N/A
 KF-2 attribution: scope mismatch
 native replay: N/A (declared in advance, design Section 8)
+KF-3: scope mismatch -- the external record explains Doom's weapon-key resolution and rejects the change: the key for the shotgun selects it only when the super shotgun is not owned or is already the ready weapon (src/doom/p_user.c, comments 2020-03-26), what a tic records for demos and network games is 'player pressed 3', not the weapon, and the engine decides from that (2020-03-27); closed as game mechanics not to be refactored (2020-04-16). Doom weapon selection stays outside every native case (the only weapon-change case is Heretic's shareware gate, NC-08), as KF-2 placed it; cause agreement N/A
 
 ## KF item #646
 disclosure: fields seen = title, labels (bug), state (closed), created_at (2020-08-03), body (1374 chars); cause leakage = yes -- the program's own diagnostics (R_GenerateLookup: column without a patch; P_InitPicAnims: bad cycle from DBRAIN1 to DBRAIN4) and the reporter's description of the malformed TEXTURE1/PNAMES lumps
