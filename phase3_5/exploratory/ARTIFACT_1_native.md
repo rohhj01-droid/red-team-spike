@@ -109,3 +109,50 @@ D_SuggestIWADName / D_SuggestGameName (:1055-1084) and D_FindAllIWADs
 IWAD_MASK_DOOM admits are the only ones whose miss can be recovered by
 contents (the lump heuristic); the other four are accepted or refused
 by name alone.
+
+## NC-03 -- valid game mode/mission combinations, with their episode and map counts (src/d_mode.c)
+source observation ids: E022-001 .. E022-015 (units U029-U043)
+native state/data involved: the table `valid_modes[]` (src/d_mode.c:26-48; the file describes itself as "Functions and definitions relating to the game type and operational mode", :15-17; the table as "Valid game mode/mission combinations, with the number of episodes/maps for each", :23-24): fifteen rows of (mission, mode, episodes, maps). Three functions read it: D_ValidGameMode (:52-65) -- "Check that a gamemode+gamemission received over the network is valid" (:50) -- true iff some row has the pair; D_ValidEpisodeMap (:67-100) -- true iff the pair has a row and 1 <= episode <= row.episode and 1 <= map <= row.map (:88-96), with two Heretic special cases written into the function rather than the table (:72-84: retail episode 6 has maps 1-3; registered episode 4 has map 1); D_GetNumEpisodes (:105-117) -- the largest episode for which D_ValidEpisodeMap holds with map 1. No value is stored by these functions; each returns a boolean or a count computed on the spot. What the callers then keep: the server's adopted `sv_gamemode` / `sv_gamemission` (src/net_server.c:152, :753-759) and `sv_settings` (:1035); Heretic's `startepisode` / `startmap` (src/heretic/d_main.c:1506-1510)
+writers / creation points: the fact "the pair (mission, mode) is valid" is produced by D_ValidGameMode (src/d_mode.c:56-64); the fact "(episode, map) is valid for the pair" by D_ValidEpisodeMap (:72-100). Their inputs come from: a connecting client's connect data (src/net_server.c:700-713 -- data.gamemission / data.gamemode, sent by the client from its own identification, src/doom/d_net.c:197); the controlling client's game settings (src/net_server.c:1018-1033, through NET_ValidGameSettings src/net_common.c:433-455 which checks ticdup, extratics, deathmatch, skill, version and episode/map in that order, :436-452); Heretic's -warp parameters at startup (src/heretic/d_main.c:1504-1506); Heretic's warp cheat (src/heretic/sb_bar.c:1572-1574); the setup tool's warp menu (src/setup/multiplayer.c:411, :425, :458)
+updates / invalidation paths: the table is compiled in and never modified; the verdicts are not stored and so are never invalidated. The server adopts the FIRST connecting client's pair as the session's (src/net_server.c:752-759) after validating it (:706-713), and every later client's pair is compared with it (:761-777) -- a mismatch is a reject ("Game mismatch: server is %s (%s), client is %s (%s)", :768-776). The controller's settings replace sv_settings only if valid (:1029-1035)
+readers / consumption points: src/net_server.c:706-713 (refuse connect data: log and return, no slot allocated); :753-759 (adopt the pair); :763-777 (reject a client whose pair differs); :1029-1035 (refuse the controller's settings; otherwise store them -- they later reach every client as the game start settings, src/net_client.c:308, and the Doom client loads them into startepisode / startmap, src/doom/d_net.c:107-112); src/heretic/d_main.c:1504-1510 (an invalid -warp becomes episode 1 map 1); src/heretic/sb_bar.c:1574-1577 (an invalid cheat warp does nothing); src/setup/multiplayer.c:411 (number of episodes for the menu), :425-429 and :458-462 (invalid E/M buttons left out of the warp menu); D_GetNumEpisodes (src/d_mode.c:105-117)
+lifetime / persistence / reset behavior: the verdict lives for the call; the table lives for the process; what the verdict gates persists for the network session -- sv_gamemode / sv_gamemission from the first client until the server's state changes (:153-156 region; not traced further) and sv_settings until the next valid settings packet -- or for the Heretic process (startepisode / startmap). Nothing is written to disk by this case
+relevant transitions: client connect -> pair validated -> adopted or compared -> accepted or rejected; controller sends settings -> validated (version, then episode/map against the pair) -> stored and later distributed; Heretic startup with -warp -> validated or reset; Heretic cheat warp -> validated or ignored; setup tool opens the warp menu -> valid cells only
+supporting source-code/docs evidence: src/d_mode.c:15-17, :23-48, :50-117; src/net_server.c:152, :700-713, :752-777, :1003-1036; src/net_common.c:431-455; src/net_client.c:308; src/doom/d_net.c:107-112, :197; src/heretic/d_main.c:1503-1511; src/heretic/sb_bar.c:1566-1579; src/setup/multiplayer.c:411, :418-429, :452-462
+remaining native-level uncertainty: the Doom module's own -warp / -episode handling (src/doom/d_main.c:2264 region) does not consult this table and was not traced here; how long sv_gamemode / sv_gamemission survive a server reset was not traced; the Strife and Hexen modules' use of the table beyond the shared network code was not searched (no caller found by grep outside the files above); the client never validates settings it receives (no caller of NET_ValidGameSettings outside the server, grep)
+lineage: inherited -- src/d_mode.c carries no [crispy] marker; the pack_nerve and pack_master rows (:41-42) are not datable from the tree
+### Sufficiency
+Q1 created: two transient facts -- "the pair (mission, mode) is a valid game" (src/d_mode.c:56-64) and "(episode, map) exists for the pair" (:72-100) -- each a boolean returned to the caller
+Q2 written: N/A: no persistent value is created by the validators -- each returns its boolean immediately (src/d_mode.c:60, :64, :78, :82, :93-94, :100); what the callers write afterwards is their own state: sv_gamemode / sv_gamemission (src/net_server.c:755-756), sv_settings (:1035), startepisode / startmap (src/heretic/d_main.c:1508-1509)
+Q3 lifetime: N/A: the verdict has no lifetime beyond the call (src/d_mode.c:52-65, :67-100); the table is compiled in (:26-48); the gated state lives for the network session (src/net_server.c:752-759, :1035) or the Heretic process (src/heretic/d_main.c:1508-1509)
+Q4 readers: src/net_server.c:706 (connect), :763 (session pair comparison, indirectly), :1029 via src/net_common.c:448-452 (settings); src/heretic/d_main.c:1506; src/heretic/sb_bar.c:1574; src/setup/multiplayer.c:411, :425, :458; src/d_mode.c:111 (D_GetNumEpisodes)
+Q5 after consumption: the verdict disappears with the call; a refused connect or settings packet is dropped (src/net_server.c:712, :1032) and a mismatching client is told why (:775); an accepted pair becomes the server's for the session (:755-756) and is thereafter compared, not re-validated (:763); accepted settings are distributed to the clients, which load them without validating (src/net_client.c:308, src/doom/d_net.c:107-112)
+Status: RESOLVED
+
+Units resolving into this case: one row each.
+
+```text
+unit  observation  row  mission      mode        episodes  maps
+U029  E022-001     :33  pack_chex    retail      1         5
+U030  E022-002     :34  doom         shareware   1         9
+U031  E022-003     :35  doom         registered  3         9
+U032  E022-004     :36  doom         retail      4         9
+U033  E022-005     :37  doom2        commercial  1         32
+U034  E022-006     :38  pack_tnt     commercial  1         32
+U035  E022-007     :39  pack_plut    commercial  1         32
+U036  E022-008     :40  pack_hacx    commercial  1         32
+U037  E022-009     :41  pack_nerve   commercial  1         9
+U038  E022-010     :42  pack_master  commercial  1         21
+U039  E022-011     :43  heretic      shareware   1         9
+U040  E022-012     :44  heretic      registered  3         9
+U041  E022-013     :45  heretic      retail      5         9
+U042  E022-014     :46  hexen        commercial  1         60
+U043  E022-015     :47  strife       commercial  1         34
+```
+
+Each unit's facts, writers, readers and lifetime are the case's; the
+unit's own row supplies the pair that D_ValidGameMode accepts and the
+episode and map limits D_ValidEpisodeMap applies to it. The two Heretic
+special cases (src/d_mode.c:72-84) extend U040 (registered: episode 4
+map 1) and U041 (retail: episode 6 maps 1-3) beyond their rows'
+limits; no other unit has an exception outside the table.
