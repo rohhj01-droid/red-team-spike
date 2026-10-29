@@ -1,0 +1,8 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+16	C015	E2-RULE	absence-survey	README	README:5	1oom is a Master of Orion (1993) game engine recreation.	
+16	C015	E2-RULE	absence-survey	doc/format_gam.txt	doc/format_gam.txt:39	difficulty (0..4)	
+16	C015	E2-RULE	absence-survey	doc/format_lbx.txt	doc/format_lbx.txt:1	MOO1 .lbx file format	
+16	C015	E2-RULE	absence-survey	doc/format_moo.txt	doc/format_moo.txt:1	MOO1 config.moo file format	
+16	C015	E2-RULE	absence-survey	doc/format_pbx.txt	doc/format_pbx.txt:11	version (== 1)	
+16	C015	E2-RULE	absence-survey	doc/format_save.txt	doc/format_save.txt:20	number of players: @PLAYERS (2..6)	
+16	C015	E2-RULE	absence-survey	HACKING	HACKING:1	# Coding style guidelines	

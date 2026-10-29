@@ -34,3 +34,25 @@ observed_at_utc	frame_rank	step	requested_url	final_url	http_status	redirect_cha
 2026-10-29T13:07:53Z	8	E2REP-2	https://dosbox-x.com/devel-build.html	https://dosbox-x.com/devel-build.html	200	NONE	1	ok	target/bodies/008/04.bin
 2026-10-29T13:20:54Z	8	E2REP-2	http://pages.github.com	https://pages.github.com/	301	http://pages.github.com	1	ok	
 2026-10-29T13:20:54Z	8	E2REP-2	https://pages.github.com/	https://pages.github.com/	200	http://pages.github.com	2	ok	target/bodies/008/05.bin
+2026-10-29T18:33:52Z	9	E2REP-1	https://fceux.com/web/home.html	https://fceux.com/web/home.html	200	NONE	1	ok	target/bodies/009/01.bin
+2026-10-29T18:33:52Z	9	E2REP-3	https://github.com/TASEmulators/fceux	https://github.com/TASEmulators/fceux	200	NONE	1	ok	target/bodies/009/02.bin
+2026-10-29T18:33:53Z	10	UR-classify	https://messagemode2.com/source/	https://messagemode2.com/source/	200	NONE	1	ok	target/bodies/010/01.bin
+2026-10-29T18:33:54Z	10	E2REP-3	https://github.com/flyinghead/flycast	https://github.com/flyinghead/flycast	200	NONE	1	ok	target/bodies/010/02.bin
+2026-10-29T18:33:54Z	11	UR-classify	http://frodo.cebix.net/downloads/	http://frodo.cebix.net/downloads/	403	NONE	1	definitive	target/bodies/011/01.bin
+2026-10-29T18:33:55Z	11	UR-classify	ftp://sunsite.unc.edu/pub/micro/commodore/crossplatform/emulators/unix/	ftp://sunsite.unc.edu/pub/micro/commodore/crossplatform/emulators/unix/		NONE	1	transport	
+2026-10-29T18:33:59Z	11	UR-classify	ftp://sunsite.unc.edu/pub/micro/commodore/crossplatform/emulators/unix/	ftp://sunsite.unc.edu/pub/micro/commodore/crossplatform/emulators/unix/		NONE	2	transport	
+2026-10-29T18:34:02Z	11	UR-classify	ftp://sunsite.unc.edu/pub/micro/commodore/crossplatform/emulators/unix/	ftp://sunsite.unc.edu/pub/micro/commodore/crossplatform/emulators/unix/		NONE	3	transport	
+2026-10-29T18:34:05Z	11	E2REP-1	http://frodo.cebix.net/	http://frodo.cebix.net/	200	NONE	1	ok	target/bodies/011/05.bin
+2026-10-29T18:34:05Z	11	E2REP-2	http://frodo.cebix.net/downloads/Frodo-4.5.tar.gz	http://frodo.cebix.net/downloads/Frodo-4.5.tar.gz	200	NONE	1	ok	target/bodies/011/06.bin
+2026-10-29T18:34:07Z	11	E2REP-3	https://github.com/cebix/frodo4	https://github.com/cebix/frodo4	200	NONE	1	ok	target/bodies/011/07.bin
+2026-10-29T18:34:09Z	11	E2REP-2	http://frodo.cebix.net/downloads/FrodoV4_1b.Src.tar.gz	http://frodo.cebix.net/downloads/FrodoV4_1b.Src.tar.gz	200	NONE	1	ok	target/bodies/011/08.bin
+2026-10-29T18:34:14Z	12	E2REP-3	https://github.com/rtissera/libchdr	https://github.com/rtissera/libchdr	200	NONE	1	ok	target/bodies/012/01.bin
+2026-10-29T18:34:15Z	13	UR-classify	https://mednafen.github.io/releases/files/	https://mednafen.github.io/releases/files/	404	NONE	1	definitive	target/bodies/013/01.bin
+2026-10-29T18:34:15Z	13	E2REP-1	https://mednafen.github.io	https://mednafen.github.io	200	NONE	1	ok	target/bodies/013/02.bin
+2026-10-29T18:34:15Z	14	E2REP-1	http://www.snes9x.com/	http://www.snes9x.com/	200	NONE	1	ok	target/bodies/014/01.bin
+2026-10-29T18:34:17Z	14	E2REP-3	https://github.com/snes9xgit/snes9x	https://github.com/snes9xgit/snes9x	200	NONE	1	ok	target/bodies/014/02.bin
+2026-10-29T18:34:17Z	15	UR-classify	https://icculus.org/virtualjaguar/tarballs/	https://icculus.org/virtualjaguar/tarballs/	200	NONE	1	ok	target/bodies/015/01.bin
+2026-10-29T18:34:18Z	15	E2REP-1	https://icculus.org/virtualjaguar/	https://icculus.org/virtualjaguar/	200	NONE	1	ok	target/bodies/015/02.bin
+2026-10-29T18:34:19Z	15	E2REP-2	https://icculus.org/virtualjaguar/tarballs/virtualjaguar-2.1.2.tar.bz2	https://icculus.org/virtualjaguar/tarballs/virtualjaguar-2.1.2.tar.bz2	200	NONE	1	ok	target/bodies/015/03.bin
+2026-10-29T18:34:22Z	16	E2REP-1	https://kilgoretroutmaskreplicant.gitlab.io/plain-html/	https://kilgoretroutmaskreplicant.gitlab.io/plain-html/	200	NONE	1	ok	target/bodies/016/01.bin
+2026-10-29T18:34:23Z	16	E2REP-3	https://gitlab.com/KilgoreTroutMaskReplicant/1oom	https://gitlab.com/KilgoreTroutMaskReplicant/1oom	200	NONE	1	ok	target/bodies/016/02.bin

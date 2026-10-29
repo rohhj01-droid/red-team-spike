@@ -15,3 +15,22 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 8	https://dosbox-x.com/	HOMEPAGE		observed	https://dosbox-x.com/	project-page	2026-10-29T13:07:51Z	200	official-project-page	
 8	https://github.com/joncampbell123/dosbox-x/archive/refs/tags/dosbox-x-v2025.05.03/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
 8	https://github.com/joncampbell123/dosbox-x	GH	repository-root	observed	https://github.com/joncampbell123/dosbox-x	repository-root	2026-10-29T13:07:54Z	200	official-source-location	
+9	https://fceux.com/web/home.html	HOMEPAGE		observed	https://fceux.com/web/home.html	project-page	2026-10-29T18:33:52Z	200	official-project-page	
+9	https://github.com/TASEmulators/fceux/archive/refs/tags/v2.6.6/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+9	https://github.com/TASEmulators/fceux	GH	repository-root	observed	https://github.com/TASEmulators/fceux	repository-root	2026-10-29T18:33:52Z	200	admitted-starting-point	
+10	https://github.com/flyinghead/flycast	HOMEPAGE	repository-root	observed	https://github.com/flyinghead/flycast	repository-root	2026-10-29T18:33:54Z	200	admitted-starting-point	
+10	https://messagemode2.com/source/	SITES		observed	https://messagemode2.com/source/	distfile-location	2026-10-29T18:33:53Z	200	distfile-location	
+11	http://frodo.cebix.net/	HOMEPAGE		observed	http://frodo.cebix.net/	project-page	2026-10-29T18:34:05Z	200	official-project-page	
+11	http://frodo.cebix.net/downloads/	SITES		observed	http://frodo.cebix.net/downloads/	distfile-location	2026-10-29T18:33:54Z	403	distfile-location	HTTP 403
+11	ftp://sunsite.unc.edu/pub/micro/commodore/crossplatform/emulators/unix/	SITES		unreachable	ftp://sunsite.unc.edu/pub/micro/commodore/crossplatform/emulators/unix/		2026-10-29T18:33:55Z			PI-TRANSPORT-INDETERMINATE after two retries
+12	https://github.com/rtissera/libchdr	HOMEPAGE+GH	repository-root	observed	https://github.com/rtissera/libchdr	repository-root	2026-10-29T18:34:14Z	200	admitted-starting-point	
+12	https://github.com/rtissera/libchdr/archive/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+13	https://mednafen.github.io	HOMEPAGE		observed	https://mednafen.github.io	project-page	2026-10-29T18:34:15Z	200	official-project-page	
+13	https://mednafen.github.io/releases/files/	SITES		observed	https://mednafen.github.io/releases/files/	distfile-location	2026-10-29T18:34:15Z	404	distfile-location	HTTP 404
+14	http://www.snes9x.com/	HOMEPAGE		observed	http://www.snes9x.com/	project-page	2026-10-29T18:34:15Z	200	official-project-page	
+14	https://github.com/snes9xgit/snes9x/archive/refs/tags/1.63/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+14	https://github.com/snes9xgit/snes9x	GH	repository-root	observed	https://github.com/snes9xgit/snes9x	repository-root	2026-10-29T18:34:17Z	200	admitted-starting-point	
+15	https://icculus.org/virtualjaguar/	HOMEPAGE		observed	https://icculus.org/virtualjaguar/	project-page	2026-10-29T18:34:18Z	200	official-project-page	
+15	https://icculus.org/virtualjaguar/tarballs/	SITES		observed	https://icculus.org/virtualjaguar/tarballs/	distfile-location	2026-10-29T18:34:17Z	200	distfile-location	
+16	https://kilgoretroutmaskreplicant.gitlab.io/plain-html/	HOMEPAGE		observed	https://kilgoretroutmaskreplicant.gitlab.io/plain-html/	project-page	2026-10-29T18:34:22Z	200	official-project-page	
+16	https://gitlab.com/KilgoreTroutMaskReplicant/1oom/uploads/13d2d645650929c6f7f08be356b62f66/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
