@@ -173,10 +173,23 @@ def _e2rep(ctx: dict) -> dict:
     """Returns dict(state, failure_code, pi_code, canonical, identifier, snapshot, block)."""
     sps = ctx["sps"]
     observed_roots: list[str] = []
+    label_designations: list[dict] = []          # RQA-02 (e)(f): a label-authorized step-2 link into a repository
+    rank = ctx["rank"]
+
+    def observe_root(root: str, step: str = "E2REP-3") -> dict:
+        rec = ctx["bodies"].get(root) or _observe(ctx, step, root)
+        if rec["outcome"] == "ok" and (surfaces.classify(rec["final_url"]) == "repository-root"):
+            n = surfaces.normalize_url(rec["final_url"])
+            if n not in observed_roots:
+                observed_roots.append(n)
+            if "readme" in rec["body"][:200000].decode("utf-8", "replace").lower():
+                ctx["exposure"].append("| %s | %d | %s | landing page rendered a README (%d chars of page text); not used | used: no |" % (rec["observed_at_utc"], rank, rec["final_url"], len(net.text_of(rec["body"]))))
+        return rec
+
     for sp in sps:
         klass = sp["klass"] or sp.get("pre_classified")
         sp.update(action="", final_url="", final_class="", observed_at_utc="", http_status="", evidence_role="", note="")
-        if klass == "release-assets":
+        if klass in surfaces.FORBIDDEN:
             sp.update(action="closed-by-class", final_class=klass, note="forbidden class, never requested")
             continue
         rec = ctx["bodies"].get(sp["url"]) or _observe(ctx, "E2REP-1" if klass != "repository-root" else "E2REP-3", sp["url"])
@@ -184,10 +197,21 @@ def _e2rep(ctx: dict) -> dict:
         if rec["outcome"] == "transport":
             sp.update(action="unreachable", note="PI-TRANSPORT-INDETERMINATE after two retries")
             continue
-        final_class = surfaces.classify(rec["final_url"]) or (klass if klass and klass != "project-page" else None) or _class_by_response(rec)
+        table_class = surfaces.classify(rec["final_url"]) or (klass if klass and klass != "project-page" else None)
+        if rec["outcome"] == "definitive":        # RQA-02 (b): a definitive error answer is an observation of that surface
+            final_class = table_class or ("distfile-location" if sp["source"].startswith("SITES") else "project-page")
+            sp.update(final_class=final_class, note="HTTP %s" % rec["http_status"])
+            if final_class in surfaces.FORBIDDEN:
+                sp.update(action="closed-by-class", note="final URL is a forbidden class; revealed by the one request")
+            else:
+                sp["action"] = "observed"
+                sp["evidence_role"] = {"repository-root": "official-source-location", "project-page": "official-project-page",
+                                       "distfile-location": "distfile-location"}.get(final_class, "admitted-starting-point")
+            continue
+        final_class = table_class or _class_by_response(rec)
         sp["final_class"] = final_class
-        if final_class == "release-assets":
-            sp.update(action="closed-by-class", note="final URL is the forbidden class; revealed by the one request")
+        if final_class in surfaces.FORBIDDEN:
+            sp.update(action="closed-by-class", note="final URL is a forbidden class; revealed by the one request")
             continue
         if final_class == "unclassifiable":
             sp.update(action="unclassifiable")
@@ -195,30 +219,38 @@ def _e2rep(ctx: dict) -> dict:
         sp["action"] = "observed"
         sp["evidence_role"] = {"repository-root": "official-source-location", "project-page": "official-project-page",
                                "distfile-location": "distfile-location"}.get(final_class, "admitted-starting-point")
-        if final_class == "repository-root" and rec["outcome"] == "ok":
-            observed_roots.append(surfaces.normalize_url(rec["final_url"]))
-        if final_class == "project-page" and rec["outcome"] == "ok":
+        if final_class == "repository-root":
+            observe_root(sp["url"])
+        if final_class == "project-page":
             for link in net.step2_links(net.links(rec["body"], rec["final_url"])):
                 lk = surfaces.classify(link["href"])
-                if lk == "release-assets":
-                    ctx["exposure"].append("| %s | %d | %s | step-2 link to a forbidden class, not followed | used: no |" % (rec["observed_at_utc"], ctx["rank"], link["href"]))
+                label = link["label"] or link.get("title") or link.get("aria_label") or ""
+                if lk in surfaces.FORBIDDEN:
+                    ctx["exposure"].append("| %s | %d | %s | step-2 link %r leads to a forbidden class; not followed | used: no |" % (rec["observed_at_utc"], rank, link["href"], label))
                     continue
-                if surfaces.normalize_url(link["href"]) in [surfaces.normalize_url(s["url"]) for s in sps] or link["href"] in ctx["bodies"]:
-                    continue
-                r2 = _observe(ctx, "E2REP-2", link["href"])
-                fc = surfaces.classify(r2["final_url"]) or _class_by_response(r2)
-                ctx["step2"].append(dict(url=link["href"], label=link["label"], final_url=r2["final_url"], final_class=fc, outcome=r2["outcome"]))
-                if fc == "repository-root" and r2["outcome"] == "ok":
-                    observed_roots.append(surfaces.normalize_url(r2["final_url"]))
-        if final_class == "repository-root" and rec["outcome"] == "ok":
-            t = net.text_of(rec["body"])
-            if "readme" in rec["body"][:200000].decode("utf-8", "replace").lower():
-                ctx["exposure"].append("| %s | %d | %s | landing page rendered a README (%d chars of page text); not used | used: no |" % (rec["observed_at_utc"], ctx["rank"], rec["final_url"], len(t)))
+                root = surfaces.repository_root_of(link["href"]) if lk in ("repository-root", "repository-file") else None
+                if root is None:
+                    if surfaces.normalize_url(link["href"]) in [surfaces.normalize_url(s["url"]) for s in sps]:
+                        continue
+                    r2 = _observe(ctx, "E2REP-2", link["href"])              # one request, to learn its class
+                    fc = surfaces.classify(r2["final_url"]) or _class_by_response(r2)
+                    root = surfaces.repository_root_of(r2["final_url"]) if fc in ("repository-root", "repository-file") else None
+                    if root is None:
+                        ctx["exposure"].append("| %s | %d | %s | step-2 link %r: target is not a repository root (%s); observed once, not read | used: no |" % (r2["observed_at_utc"], rank, link["href"], label, fc))
+                        ctx["step2"].append(dict(url=link["href"], label=label, final_url=r2["final_url"], final_class=fc, outcome=r2["outcome"]))
+                        continue
+                if lk == "repository-file" or surfaces.normalize_url(link["href"]) != surfaces.normalize_url(root):
+                    ctx["exposure"].append("| %s | %d | %s | step-2 link %r points at a file inside %s; the file is not opened, the root is | used: no |" % (rec["observed_at_utc"], rank, link["href"], label, root))
+                r3 = observe_root(root)
+                ctx["step2"].append(dict(url=link["href"], label=label, final_url=r3["final_url"], final_class="repository-root", outcome=r3["outcome"]))
+                if r3["outcome"] == "ok":
+                    label_designations.append(dict(quote=label, surface=rec["final_url"], location=root, kind="label"))
     accounting = ["%s -> %s%s" % (sp["url"], sp["action"], (" (%s)" % sp["note"]) if sp["note"] else "") for sp in sps]
-    # the analyst's designation witnesses
-    designations = _witnesses(ctx, "E2-REP", "designation")
+    # designations: the analyst's quoted witnesses, and the project page's own labelled pointers (RQA-02 e)
+    designations = [dict(w, kind="witness") for w in _witnesses(ctx, "E2-REP", "designation")]
     for w in designations:
         _verify_page_quote(ctx, w)
+    designations += label_designations
     targets = {surfaces.normalize_url(w["location"]) for w in designations}
     if len(targets) > 1:
         mirror = any("mirror" in w["quote"].lower() for w in designations)
@@ -270,10 +302,11 @@ def _e2rep(ctx: dict) -> dict:
     if recpin.get("tracked_files", 0) == 0 and not recpin.get("digests"):
         return dict(state="FAIL", failure_code="E2REP-NO-SOURCE", pi_code="NONE", canonical=canonical, identifier=identifier, snapshot=recpin["sha"],
                     block=_block(ctx, "E2-REP", canonical, "the fetched tree at %s holds no files" % recpin["sha"], "no source tree at the designated location (contract Section 7)", "FAIL", accounting))
-    observed = " | ".join("%r at %s" % (w["quote"], w["surface"]) for w in designations + ids)
+    observed = " | ".join("%s %r at %s -> %s" % ("link label" if w.get("kind") == "label" else "designation", w["quote"], w["surface"], w["location"]) for w in designations)
+    observed += "".join(" | identifier %r at %s" % (w["quote"], w["surface"]) for w in ids)
     return dict(state="PASS", failure_code="NONE", pi_code="NONE", canonical=canonical, identifier=identifier, snapshot=recpin["sha"],
                 block=_block(ctx, "E2-REP", canonical, observed + " | tree pinned at %s (%s tracked files)" % (recpin["sha"], recpin.get("tracked_files")),
-                             "exactly one designated canonical location and one identifier on observed surfaces; the source tree is present (contract Section 7); step-2 links followed by the label rule only (Section 6)",
+                             "exactly one designated canonical location and one identifier on observed surfaces; the source tree is present (contract Section 7); step-2 links followed by the label rule only (Section 6; a label-authorized link into the repository is the project's own designation, RQA-02)",
                              "PASS", accounting))
 
 

@@ -59,10 +59,17 @@ def parse_assignments(text: str) -> dict[str, str]:
     return vals
 
 
+MACRO_FILES = (os.path.join("db", "network.conf"), os.path.join("templates", "network.conf.template"))
+
+
 def macro_table(infra_root: str) -> dict[str, str]:
-    """SITE_* macros from the frozen network.conf.template, each as its whitespace-joined word list."""
-    text = _read(os.path.join(infra_root, "templates", "network.conf.template"))
-    return {k: v for k, v in parse_assignments(text).items() if k.startswith("SITE")}
+    """SITE_* macros from the frozen tree's macro file (infrastructure/db/network.conf in the 7.9 tree; the
+    template path the contract named does not exist there -- RQA-02), each as its whitespace-joined word list."""
+    for rel in MACRO_FILES:
+        text = _read(os.path.join(infra_root, rel))
+        if text:
+            return {k: v for k, v in parse_assignments(text).items() if k.startswith("SITE")}
+    return {}
 
 
 def tuple_sites(infra_root: str) -> dict[str, str]:
@@ -144,6 +151,11 @@ def resolve(port_dir: str, infra_root: str) -> dict:
                     unresolved.append(w)
                 else:
                     out["sites"].append(w); out["sites_mechanism"][w] = "group:" + k[len("SITES."):]
-    if any(m not in DECLARED_MODULES for m in out["modules"]) or unresolved:
+    # RQA-02 (a): a module makes the item unresolved only where it could be SUPPLYING a field the port's own
+    # lines and the two bsd.port.mk / dist-tuple mechanisms did not resolve (HOMEPAGE missing, or SITES
+    # missing with no GH pair and no DIST_TUPLE); a build-tool module beside explicit fields resolves nothing
+    undeclared = [m for m in out["modules"] if m not in DECLARED_MODULES]
+    field_gap = out["homepage"] is None or (not out["sites"] and not out["gh"] and not out["dist_tuples"])
+    if (undeclared and field_gap) or unresolved:
         out["issue"] = PI_METADATA
     return out

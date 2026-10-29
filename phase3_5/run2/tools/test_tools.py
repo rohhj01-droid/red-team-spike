@@ -464,7 +464,7 @@ def test_run_batch_preview_writes_no_ledger_and_caches_observations():
     ledger.write_witnesses(root, 1, ALPHA_WITNESSES)
     p = screen.run_batch(1, root, FIX + "/ports", fetch=f, clock=fixed_clock, git=fake_git_factory())
     extra = f.calls[first:]                                                  # the final run re-used every cached observation;
-    assert extra and all("/archive/" in u for u in extra), extra             # only the pin, taken when E2-REP passes, is new
+    assert all("/archive/" in u for u in extra), extra                       # at most the pin's archive, taken when E2-REP passes, is new
     rows = ledger.read_rows(os.path.join(root, "screening_candidates.tsv"), ledger.CANDIDATE_FIELDS)
     assert rows[0]["E2_REP"] == "PASS" and os.path.exists(p)
 
@@ -481,6 +481,53 @@ def test_run_batch_rerun_replaces_its_own_rows():
     assert [r["frame_rank"] for r in frame_rows] == ["1", "2"]
     assert len({(o["requested_url"], o["attempt"]) for o in obs_rows}) == len(obs_rows)   # no duplicated observation rows
     assert ledger.check(root, expect_rows=2) == 0
+
+
+# ---------------------------------------------------------------- RQA-02 readings (before any verdict)
+
+def test_modules_matter_only_when_they_supply_a_field():        # RQA-02 (a)
+    assert metadata.resolve(FIX + "/ports/games/qmaker", INFRA)["issue"] is None            # GH pair resolves both fields; the module is a build tool
+    assert metadata.resolve(FIX + "/ports/games/pyport", INFRA)["issue"] == "PI-METADATA-UNRESOLVED"   # SITES would come from the module
+    assert metadata.resolve(FIX + "/ports/games/modport", INFRA)["issue"] == "PI-METADATA-UNRESOLVED"  # nothing resolved, module present
+
+
+def test_classify_repository_file_and_root():                    # RQA-02 (f)
+    assert surfaces.classify("https://github.com/acme/gamma/blob/main/BUILD.md") == "repository-file"
+    assert surfaces.classify("https://gitlab.com/grp/proj/-/blob/main/README.md") == "repository-file"
+    assert surfaces.repository_root_of("https://github.com/acme/gamma/blob/main/BUILD.md") == "https://github.com/acme/gamma"
+    assert surfaces.repository_root_of("https://github.com/acme/gamma") == "https://github.com/acme/gamma"
+    assert surfaces.repository_root_of("https://gamma.example.org/dev.html") is None
+
+
+GAMMA_MAP = {
+    "https://gamma.example.org/": (200, HTML, _html("gamma_project.html")),
+    "https://gamma.example.org/dev.html": (200, HTML, b"<html><body><p>Development builds here.</p></body></html>"),
+    "https://github.com/acme/gamma/blob/main/BUILD.md": (200, HTML, b"<html><body><p>Build with make.</p></body></html>"),
+    "https://github.com/acme/gamma": (200, HTML, b"<html><head><title>acme/gamma: Gamma</title></head><body><p class='about'>Gamma, the game.</p><div class='readme'>README text</div></body></html>"),
+    "https://github.com/acme/gamma/archive/abc123.tar.gz": (200, {"Content-Type": "application/x-gzip"}, _tiny_targz()),
+}
+
+
+def test_label_link_to_repository_is_a_designation():           # RQA-02 (e)(f)
+    out = screen.screen_item(1, "x11/gamma", FIX + "/ports", witnesses=[], state=_state("s5"),
+                             fetch=canned_map(GAMMA_MAP), clock=fixed_clock, git=fake_git_factory())
+    c = out["candidate_row"]
+    assert c["E2_REP"] == "PASS" and c["canonical_source_location"] == "https://github.com/acme/gamma", c
+    block = [b for b in out["evidence_blocks"] if "Gate: E2-REP" in b][0]
+    assert "Source code building instructions" in block                      # the label is the quoted designation
+    assert any("not a repository root" in line and "dev.html" in line for line in out["exposure"])   # RQA-02 (d): quarantined
+    assert any("BUILD.md" in line for line in out["exposure"])
+
+
+def test_error_response_is_an_observation():                     # RQA-02 (b)
+    m = dict(ALPHA_MAP)
+    m["https://downloads.sourceforge.net/sourceforge/alpha/"] = (403, HTML, b"<html>403 Forbidden</html>")
+    m["https://netix.dl.sourceforge.net/project/alpha/"] = (403, HTML, b"<html>403 Forbidden</html>")
+    out = screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ALPHA_WITNESSES, state=_state("s6"),
+                             fetch=canned_map(m), clock=fixed_clock, git=fake_git_factory())
+    sps = [s for s in out["starting_points"] if s["source"] == "SITES"]
+    assert all(s["action"] == "observed" and s["final_class"] == "distfile-location" and str(s["http_status"]) == "403" for s in sps), sps
+    assert out["candidate_row"]["E2_REP"] == "PASS"
 
 
 # ---------------------------------------------------------------- runner

@@ -8,7 +8,9 @@ from __future__ import annotations
 import re
 from urllib.parse import urlsplit
 
-CLASSES = ("repository-root", "release-assets", "distfile-location", "project-page")
+CLASSES = ("repository-root", "release-assets", "distfile-location", "project-page", "repository-file", "tracker-page")
+FORBIDDEN = ("release-assets", "tracker-page")      # never requested at E2-REP (sealed contract: releases; issues / PRs / wiki)
+CODE_HOST_RE = re.compile(r"^(github\.com|codeberg\.org|bitbucket\.org|salsa\.debian\.org|gitlab\.com|gitlab\..+)$")
 IDENTIFYING_CLASSES = ("distfile-location", "project-page")
 NON_IDENTIFYING_HOSTS = ("distfiles.openbsd.org", "ftp.openbsd.org", "mirrors.kernel.org", "www.kernel.org",
                          "registry.npmjs.org", "files.pythonhosted.org", "pypi.io", "pypi.org", "crates.io",
@@ -23,6 +25,12 @@ SURFACE_TABLE: list[tuple[str, str, str]] = [
     (r"^(gitlab\.com|gitlab\..+)$", r"(/-/(releases|archive|tags)(/|$)|/uploads/)", "release-assets"),
     (r"^codeberg\.org$", r"^/[^/]+/[^/]+/(releases|archive)(/|$)", "release-assets"),
     (r"^bitbucket\.org$", r"^/[^/]+/[^/]+/downloads(/|$)", "release-assets"),
+    # tracker-page (forbidden: issues / PRs / wiki / discussions, the sealed contract's own list) -- RQA-02 (g)
+    (r"^(github\.com|codeberg\.org|bitbucket\.org)$", r"^/[^/]+/[^/]+/(issues|pulls|pull|discussions|wiki|projects|security|actions)(/|$)", "tracker-page"),
+    (r"^(gitlab\.com|gitlab\..+)$", r"/-/(issues|merge_requests|wikis|boards|pipelines)(/|$)", "tracker-page"),
+    # repository-file (a file or tree view inside a repository: designates its root, is not itself read) -- RQA-02 (f)
+    (r"^(github\.com|codeberg\.org|bitbucket\.org|salsa\.debian\.org)$", r"^/[^/]+/[^/]+/(blob|tree|raw|src|commits?|branch)(/|$)", "repository-file"),
+    (r"^(gitlab\.com|gitlab\..+)$", r"/-/(blob|tree|raw|commits?)(/|$)", "repository-file"),
     # repository-root
     (r"^(github\.com|codeberg\.org|bitbucket\.org|salsa\.debian\.org)$", r"^/[^/]+/[^/]+/?$", "repository-root"),
     (r"^(gitlab\.com|gitlab\..+)$", r"^(/[^/]+){2,}/?$", "repository-root"),
@@ -68,6 +76,27 @@ def classify(url: str) -> str | None:
         if h.match(host) and p.search(path):
             return c
     return None
+
+
+def repository_root_of(url: str) -> str | None:
+    """The repository root a code-host URL belongs to (https://host/<a>/<p>; gitlab: the path before /-/),
+    or None for a URL that is not inside a repository on a code host."""
+    u = urlsplit(url.strip())
+    host = (u.hostname or "").lower()
+    if not CODE_HOST_RE.match(host):
+        return None
+    path = u.path or "/"
+    if host == "gitlab.com" or host.startswith("gitlab."):
+        before = path.split("/-/")[0]
+        parts = [p for p in before.split("/") if p]
+        if len(parts) < 2:
+            return None
+        return "https://" + host + "/" + "/".join(parts)
+    parts = [p for p in path.split("/") if p]
+    if len(parts) < 2:
+        return None
+    root = "https://" + host + "/" + parts[0] + "/" + parts[1]
+    return root[:-4] if root.endswith(".git") else root
 
 
 def starting_points(meta: dict) -> list[dict]:
