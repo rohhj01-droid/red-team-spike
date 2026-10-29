@@ -472,3 +472,57 @@ device named by two modules (SB: U1048 for OPL music and U1056 for SDL
 sound; PAS, GUS, WAVEBLASTER, SOUNDCANVAS, AWE32 across the SDL and
 Windows music modules) goes to whichever module comes first in the
 compiled-in order (src/i_sound.c:86-110) and initialises.
+
+## NC-11 -- game options a dedicated server refuses to accept on its own command line (src/net_dedicated.c)
+source observation ids: E434-001 .. E434-026 (units U1067-U1092)
+native state/data involved: the list not_dedicated_options[] (src/net_dedicated.c:39-45, NULL-terminated): twenty-six command-line parameter names that are game options -- the project's own explanation: "People can become confused about how dedicated servers work. Game options are specified to the controlling player who is the first to join a game. Bomb out with an error message if game options are specified to a dedicated server." (:32-37); the process's command line (myargv, read through M_CheckParm)
+writers / creation points: CheckForClientOptions (:47-62), the first thing NET_DedicatedServer does (:64-66): for each name in the list, if the parameter is present on the command line (:51-53), I_Error("The command line parameter '%s' was specified to a dedicated server. Game parameters should be specified to the first player to join a server, not to the server itself.") (:55-59). NET_DedicatedServer is reached by `-dedicated` in the Doom and Strife modules (src/doom/d_main.c:1474-1477; src/strife/d_main.c:1653-1656) and by the standalone server program (src/d_dedicated.c:45). The fact created -- "option O was given to the server" -- ends the program the moment it is found
+updates / invalidation paths: the list is compiled in; nothing is stored, so nothing is invalidated. A server that passes the check goes on to open its log, initialise and register with the master, and loop (:68-78)
+readers / consumption points: only CheckForClientOptions (:51-53). The options themselves are consumed by the game clients, where the controlling player's settings become the game's (NC-03, NC-04); the server never reads them
+lifetime / persistence / reset behavior: none -- the check runs once at server start and either aborts or leaves no trace; nothing is written anywhere
+relevant transitions: server started with -dedicated (or as the server binary) -> command line scanned for the twenty-six names -> abort with the explanation, or continue
+supporting source-code/docs evidence: src/net_dedicated.c:32-45, :47-62, :64-79; src/doom/d_main.c:1474-1477; src/strife/d_main.c:1653-1656; src/d_dedicated.c:45
+remaining native-level uncertainty: whether the Heretic and Hexen modules offer -dedicated at all was not checked (grep found the call only in Doom, Strife and the server program); M_CheckParm's matching (prefix or exact) was not read
+lineage: inherited -- src/net_dedicated.c carries no [crispy] marker (grep: 0)
+### Sufficiency
+Q1 created: the transient fact "game option O is present on a dedicated server's command line" -- src/net_dedicated.c:51-53
+Q2 written: N/A: nothing is written; the fact is acted on in the same statement by I_Error (src/net_dedicated.c:55-59)
+Q3 lifetime: N/A: no persistent value is created (src/net_dedicated.c:47-62); the list is compiled in (:39-45)
+Q4 readers: src/net_dedicated.c:51-53, reached from :66 and, through -dedicated, src/doom/d_main.c:1477, src/strife/d_main.c:1656, src/d_dedicated.c:45
+Q5 after consumption: the program ends with the message (src/net_dedicated.c:55-59); a command line without any listed option leaves nothing behind (:68-78)
+Status: RESOLVED
+
+Units resolving into this case: one option name each (src/net_dedicated.c:41-44).
+
+```text
+unit   observation  row  option
+U1067  E434-001     :41  "-deh"
+U1068  E434-002     :41  "-iwad"
+U1069  E434-003     :41  "-cdrom"
+U1070  E434-004     :41  "-gameversion"
+U1071  E434-005     :41  "-nomonsters"
+U1072  E434-006     :41  "-respawn"
+U1073  E434-007     :42  "-fast"
+U1074  E434-008     :42  "-altdeath"
+U1075  E434-009     :42  "-deathmatch"
+U1076  E434-010     :42  "-turbo"
+U1077  E434-011     :42  "-merge"
+U1078  E434-012     :42  "-af"
+U1079  E434-013     :42  "-as"
+U1080  E434-014     :43  "-aa"
+U1081  E434-015     :43  "-file"
+U1082  E434-016     :43  "-wart"
+U1083  E434-017     :43  "-skill"
+U1084  E434-018     :43  "-episode"
+U1085  E434-019     :43  "-timer"
+U1086  E434-020     :43  "-avg"
+U1087  E434-021     :43  "-warp"
+U1088  E434-022     :44  "-loadgame"
+U1089  E434-023     :44  "-longtics"
+U1090  E434-024     :44  "-extratics"
+U1091  E434-025     :44  "-dup"
+U1092  E434-026     :44  "-shorttics"
+```
+
+Each unit's fact, writer, reader and lifetime are the case's; the
+unit's own row is the parameter name scanned for.
