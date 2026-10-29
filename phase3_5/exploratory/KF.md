@@ -330,3 +330,35 @@ KF-2 representability: not representable -- outside every native case of Artifac
 KF-2 domain: out-of-domain -- no class of Artifact 3 decides it; N/A
 KF-2 attribution: scope mismatch (the first post gives a commit, not a mechanism; the environment, Linux ppc64le, is noted)
 native replay: N/A (declared in advance, design Section 8)
+
+## X13 seal -- KF-2 sealed
+
+sealed at 2026-10-29T08:59:32Z. 37 items (#90 .. #1043), in id order, each with its
+disclosure line, KF-1 symptom fields and KF-2 lines; the set equals
+`kf_items.tsv` (X12). No comment, linked commit, pull request or
+third-party source was read for any item (design 5.2); the bodies of
+#408 and #886 were cut at 3,000 characters. Counts recomputed from the
+item lines above:
+
+```text
+in-domain concordant        3   #454, #458, #780
+in-domain DISCORDANT        0   --
+in-domain indeterminate     0   --
+out-of-domain              34   #90, #92, #174, #250, #258, #318, #362, #365, #408, #457, #462, #463, #475, #498, #524, #527, #528, #556, #646, #655, #657, #677, #703, #706, #716, #718, #727, #730, #807, #814, #886, #890, #893, #1043
+
+representable               2   #454, #458
+partly                      4   #174, #655, #780, #893
+not representable          31   the rest
+
+attribution: scope mismatch 37
+
+cause leakage yes          18   #92, #174, #250, #258, #318, #365, #408, #458, #475, #524, #646, #655, #657, #703, #780, #807, #886, #1043
+cause leakage no           19
+```
+
+The three in-domain concordant results (#454, #458, #780) are each
+concordant for the device selection the report rests on (D10) with the
+reported failure itself out-of-domain; no item is in-domain DISCORDANT
+or indeterminate. Nothing above this line is edited after this commit;
+KF-3 lines are appended per item at X14 (design 5.3), below each
+item's `native replay` line, and nothing else changes.
