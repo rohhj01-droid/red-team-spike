@@ -80,3 +80,8 @@ Withdrawn in place from XQA-03, marked there: "a table of recognised configurati
 **Step:** X10b, X10c   **Clause(s):** design 10; sealed 9
 **What happened or was decided:** Artifact 2 (`bc6361d`) was accepted by the owner ("다음 진행해줘", 2026-10-29T08:31:36Z). Artifact 3 was then written with its applicability domain stated before its decision procedure, fourteen classes D1-D14 mapped one-to-one onto the native cases, the out-of-domain list stated by the same mechanical rule, and a totality line naming its one known limit (D2 for the non-Doom modules).
 **Effect on the record:** X10c committed; the primary lane is sealed at X11.
+
+## XQA-13 -- the owner opened the known-failure lane (2026-10-29)
+**Step:** X12   **Clause(s):** design 11, 14; sealed KF-0, KF-1
+**What happened or was decided:** Artifact 3 (`3d44781`) and the primary seal (`6da6a50`) were accepted by the owner ("열어", 2026-10-29T08:35:27Z). The KF set is enumerated now, at its own timestamp, under the rule frozen at X8 (KF0.md); its count is compared with X8's 37. Items are then opened in id order, first post only (design 5.2), each with a disclosure log line, and KF-2 is decided from the frozen artifacts only.
+**Effect on the record:** from this entry on, nothing in Artifacts 1-3, units.tsv, E_LOG.md or PRIMARY_RESULT.md is edited (design Section 10); corrections, if any, are new XQA entries.
