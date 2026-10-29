@@ -312,3 +312,42 @@ U1019  E191-003     :37  1.3   deh_hhe_1_3
 
 U1017 is also the default (src/heretic/deh_htic.c:42): a run with no
 `-hhever`, or with an unknown one, reads patches as 1.0.
+
+## NC-08 -- which weapons may be selected in the Heretic shareware game (src/heretic/p_user.c)
+source observation ids: E268-001 .. E268-009 (units U1020-U1028)
+native state/data involved: the table WeaponInShareware[] (src/heretic/p_user.c:39-49): one boolean per weapon number, in weapon order (staff, gold wand, crossbow, blaster true; skull rod, phoenix rod, mace false; gauntlets, beak true); the game mode `gamemode`, set at startup from the IWAD's lumps -- no E2M1 lump means shareware (src/heretic/d_main.c:1334-1338); the player's ownership flags player->weaponowned[] (set by pickups, src/heretic/p_inter.c:259-286, or by the all-weapons cheat, src/heretic/sb_bar.c:1417-1426); the per-tic command's weapon-change request (cmd->buttons, BT_CHANGE and the weapon bits, :657-662); the player's pendingweapon, which the weapon sprite consumes when it is ready (src/heretic/p_pspr.c:420-442)
+writers / creation points: the gate in P_PlayerThink (src/heretic/p_user.c:652-676): when the command asks for a weapon change (:657), the requested weapon is read from the command (:662; staff is redirected to the gauntlets when owned, :663-667); if it is owned and not already ready (:668-669), then "if (WeaponInShareware[newweapon] || gamemode != shareware)" the weapon becomes pending (:671-673). A weapon marked false, in shareware, is silently not made pending even when owned. The verdict is computed every tic the request appears; nothing records it
+updates / invalidation paths: the table is compiled in. The same three weapons are refused elsewhere by code rather than by the table: the all-weapons cheat grants every weapon and then, in shareware, clears ownership of the skull rod, phoenix rod and mace (src/heretic/sb_bar.c:1417-1426); the map loader does not place the non-shareware ammo, artifacts and the mace in shareware (src/heretic/p_mobj.c:1200-1218). The table itself is read nowhere else (grep WeaponInShareware: one site)
+readers / consumption points: src/heretic/p_user.c:671 (the gate); downstream, pendingweapon is consumed by P_BringUpWeapon (src/heretic/p_pspr.c:420-442) once the weapon sprite is ready: it picks the up-state for the pending weapon (:432-439) and clears the pending value (:440)
+lifetime / persistence / reset behavior: the verdict lives for the tic; the gated value, pendingweapon, lives until the weapon sprite consumes it (src/heretic/p_pspr.c:440) and is itself part of the player state saved and restored with the game (not traced here); gamemode lives for the process (src/heretic/d_main.c:1334-1350). Nothing of this case is written to disk
+relevant transitions: each tic with a weapon-change request -> ownership checked -> shareware gate -> pending or ignored; the weapon sprite becomes ready -> the pending weapon is brought up
+supporting source-code/docs evidence: src/heretic/p_user.c:39-49, :652-676; src/heretic/p_pspr.c:420-442; src/heretic/p_inter.c:259-286; src/heretic/sb_bar.c:1417-1426; src/heretic/p_mobj.c:1200-1218; src/heretic/d_main.c:1334-1350
+remaining native-level uncertainty: how weaponowned and pendingweapon travel through savegames (src/heretic/p_saveg.c) was not traced; whether a non-shareware weapon can be owned in shareware through any path other than the cheat (which clears it) was not exhausted -- the pickup path has no gate (src/heretic/p_inter.c:259-286), but the non-shareware weapon things are not placed in shareware (src/heretic/p_mobj.c:1200-1218)
+lineage: inherited -- src/heretic/p_user.c carries 8 [crispy] markers elsewhere in the file; the table (:39-49) and the gate (:671-673) carry none
+### Sufficiency
+Q1 created: the transient fact "weapon W may be switched to in the shareware game" -- src/heretic/p_user.c:671, from the table (:39-49) and gamemode
+Q2 written: N/A: the verdict is used in the same statement (src/heretic/p_user.c:671-673) and not stored; the gated effect is player->pendingweapon = newweapon (:673)
+Q3 lifetime: N/A: no persistent value is created by the gate (src/heretic/p_user.c:671-675); pendingweapon lives until P_BringUpWeapon clears it (src/heretic/p_pspr.c:440); the table is compiled in (:39-49)
+Q4 readers: src/heretic/p_user.c:671 (the only reader of the table, grep); the pending value's reader, src/heretic/p_pspr.c:424-440
+Q5 after consumption: the verdict disappears with the tic; a refused request leaves pendingweapon unchanged and no message (src/heretic/p_user.c:671-675); an accepted one is consumed and cleared when the weapon comes up (src/heretic/p_pspr.c:440)
+Status: RESOLVED
+
+Units resolving into this case: one weapon each.
+
+```text
+unit   observation  row  value  weapon
+U1020  E268-001     :40  true   Staff
+U1021  E268-002     :41  true   Gold wand
+U1022  E268-003     :42  true   Crossbow
+U1023  E268-004     :43  true   Blaster
+U1024  E268-005     :44  false  Skull rod
+U1025  E268-006     :45  false  Phoenix rod
+U1026  E268-007     :46  false  Mace
+U1027  E268-008     :47  true   Gauntlets
+U1028  E268-009     :48  true   Beak
+```
+
+The three units marked false (U1024-U1026) are the ones the gate
+refuses in shareware; the same three are cleared by the all-weapons
+cheat in shareware (src/heretic/sb_bar.c:1421-1426), a second copy of
+the rule kept in code rather than read from this table.
