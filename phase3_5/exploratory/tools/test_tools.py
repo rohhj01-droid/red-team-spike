@@ -127,7 +127,7 @@ def test_enumerator_candidates():
     assert set(rows) >= {"iwads", "names", "nums", "grid", "fns", "cmds", "t2"} and "loc" not in rows, sorted(rows)
     assert rows["iwads"]["class"] == "K1" and rows["cmds"]["class"] == "K2" and rows["fns"]["class"] == "K2"
     assert rows["iwads"]["element_type"] == "iwad_t" and rows["iwads"]["line"] == "1"
-    assert rows["iwads"]["cand_id"] == "C001" and rows["t2"]["cand_id"] == "C007"
+    assert rows["iwads"]["cand_id"] == "C001" and rows["t2"]["cand_id"] == "C008"
 
 
 def test_members_absent_and_conditional():     # Review Focus 1
@@ -166,6 +166,14 @@ def test_checks_inventory():
     src_bad = [dict(src_ok[0], decision="")]              # an undecided source row
     write_tsv(TMP + "/inventory_sources.tsv", src_bad, SRC_FIELDS)
     assert checks.run("inventory", TMP) == 1
+
+
+def test_anonymous_struct_array():          # K1 idiom `static struct { ... } name[] = {`
+    rows = {r["symbol"]: r for r in enumerators(FIX + "/tree")}
+    assert "gameversions" in rows, sorted(rows)
+    r = rows["gameversions"]
+    assert r["class"] == "K1" and r["members"] == "2" and r["element_type"].startswith("struct {"), r
+    assert rows["iwads"]["cand_id"] == "C001" and rows["t2"]["cand_id"] == "C008"
 
 
 # ---------------------------------------------------------------- runner

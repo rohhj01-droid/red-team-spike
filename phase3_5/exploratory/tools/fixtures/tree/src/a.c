@@ -14,3 +14,11 @@ static char grid[2][3] = { {1,2,3}, {4,5,6} };
 void (*fns[])(void) = { f, g };
 static const cmd_t cmds[] = { { "x", f } };
 void h(void) { int loc[] = { 1 }; }
+static struct
+{
+    const char *description;
+    int version;
+} gameversions[] = {
+    { "doom", 1 },
+    { "ultimate", 2 },
+};
