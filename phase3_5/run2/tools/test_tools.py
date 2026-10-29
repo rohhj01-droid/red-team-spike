@@ -530,6 +530,33 @@ def test_error_response_is_an_observation():                     # RQA-02 (b)
     assert out["candidate_row"]["E2_REP"] == "PASS"
 
 
+# ---------------------------------------------------------------- RQA-03 readings (before any verdict)
+
+def test_host_name_label_authorizes_step2():                     # RQA-03 (i)
+    assert net.is_step2(dict(label="GitHub", title="", aria_label="", href="x"))
+    assert net.is_step2(dict(label="this project on SourceForge", title="", aria_label="", href="x"))
+    assert not net.is_step2(dict(label="Download", title="", aria_label="", href="x"))
+
+
+def test_sourceforge_code_repository_root_and_git_url():         # RQA-03 (j)
+    assert surfaces.classify("https://sourceforge.net/p/dgen/dgen/") == "repository-root"
+    assert surfaces.classify("https://sourceforge.net/projects/dgen/files/dgen/") == "distfile-location"
+    assert surfaces.repository_root_of("https://sourceforge.net/p/dgen/dgen/ci/master/tree/") == "https://sourceforge.net/p/dgen/dgen"
+    assert surfaces.git_url_of("https://sourceforge.net/p/dgen/dgen") == "https://git.code.sf.net/p/dgen/dgen"
+    assert surfaces.git_url_of("https://github.com/acme/alpha") == "https://github.com/acme/alpha"
+
+
+def test_unfetchable_repository_is_unresolved():                 # RQA-03 (j): a pin that cannot be taken
+    def git_no_remote(args):
+        if args[0] == "ls-remote":
+            raise RuntimeError("fatal: repository not found")
+        return ""
+    out = screen.screen_item(1, "x11/gamma", FIX + "/ports", witnesses=[], state=_state("s7"),
+                             fetch=canned_map(GAMMA_MAP), clock=fixed_clock, git=git_no_remote)
+    c = out["candidate_row"]
+    assert c["E2_REP"] == "UNRESOLVED" and c["protocol_issue_code"] == "PI-UNCLASSIFIED-SHAPE", c
+
+
 # ---------------------------------------------------------------- runner
 
 if __name__ == "__main__":

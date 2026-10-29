@@ -28,6 +28,7 @@ TRANSLATIONS = ("quellcode", "quelltext", "repositorium", "entwicklung",
                 "ソース", "ソースコード", "リポジトリ", "開発",
                 "소스", "소스 코드", "저장소", "개발")
 DESIGNATION_WORDS = ("official", "canonical", "primary", "main repository", "our repository", "the source", "mirror")
+HOST_LABELS = ("github", "gitlab", "codeberg", "bitbucket", "sourceforge", "sr.ht", "savannah")   # RQA-03 (i)
 
 
 def utc_now() -> str:
@@ -147,7 +148,7 @@ def is_step2(link: dict) -> bool:
     """Whole-word match of a step-2 word or translation on the label, title or aria-label (contract Section 6)."""
     for field in ("label", "title", "aria_label"):
         text = _norm(link.get(field, ""))
-        for word in STEP2_WORDS + TRANSLATIONS:
+        for word in STEP2_WORDS + TRANSLATIONS + HOST_LABELS:
             if re.search(r"(?<!\w)%s(?!\w)" % re.escape(_norm(word)), text):
                 return True
     return False

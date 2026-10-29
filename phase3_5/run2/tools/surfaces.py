@@ -32,6 +32,8 @@ SURFACE_TABLE: list[tuple[str, str, str]] = [
     (r"^(github\.com|codeberg\.org|bitbucket\.org|salsa\.debian\.org)$", r"^/[^/]+/[^/]+/(blob|tree|raw|src|commits?|branch)(/|$)", "repository-file"),
     (r"^(gitlab\.com|gitlab\..+)$", r"/-/(blob|tree|raw|commits?)(/|$)", "repository-file"),
     # repository-root
+    (r"^sourceforge\.net$", r"^/p/[^/]+/[^/]+/?$", "repository-root"),                       # Allura code repository (RQA-03 j)
+    (r"^sourceforge\.net$", r"^/p/[^/]+/[^/]+/(ci|tree|commit)(/|$)", "repository-file"),
     (r"^(github\.com|codeberg\.org|bitbucket\.org|salsa\.debian\.org)$", r"^/[^/]+/[^/]+/?$", "repository-root"),
     (r"^(gitlab\.com|gitlab\..+)$", r"^(/[^/]+){2,}/?$", "repository-root"),
     (r"^(sr\.ht|git\.sr\.ht)$", r"^/~[^/]+/[^/]+/?$", "repository-root"),
@@ -83,9 +85,14 @@ def repository_root_of(url: str) -> str | None:
     or None for a URL that is not inside a repository on a code host."""
     u = urlsplit(url.strip())
     host = (u.hostname or "").lower()
+    path = u.path or "/"
+    if host == "sourceforge.net":                                   # RQA-03 (j): /p/<project>/<repo>
+        parts = [p for p in path.split("/") if p]
+        if len(parts) >= 3 and parts[0] == "p":
+            return "https://sourceforge.net/p/%s/%s" % (parts[1], parts[2])
+        return None
     if not CODE_HOST_RE.match(host):
         return None
-    path = u.path or "/"
     if host == "gitlab.com" or host.startswith("gitlab."):
         before = path.split("/-/")[0]
         parts = [p for p in before.split("/") if p]
@@ -97,6 +104,17 @@ def repository_root_of(url: str) -> str | None:
         return None
     root = "https://" + host + "/" + parts[0] + "/" + parts[1]
     return root[:-4] if root.endswith(".git") else root
+
+
+def git_url_of(root: str) -> str:
+    """The URL `git ls-remote` / `git fetch` take for a repository root: the root itself on git hosts, the Allura
+    git endpoint for a SourceForge code repository (RQA-03 j)."""
+    u = urlsplit(root.strip())
+    if (u.hostname or "").lower() == "sourceforge.net":
+        parts = [p for p in (u.path or "/").split("/") if p]
+        if len(parts) >= 3 and parts[0] == "p":
+            return "https://git.code.sf.net/p/%s/%s" % (parts[1], parts[2])
+    return root.rstrip("/")
 
 
 def starting_points(meta: dict) -> list[dict]:

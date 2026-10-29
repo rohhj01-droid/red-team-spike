@@ -90,8 +90,12 @@ def _observe(ctx: dict, step: str, url: str) -> dict:
     return rec
 
 
-def _class_by_response(rec: dict) -> str:
+def _class_by_response(rec: dict, source: str = "") -> str:
+    """Class of an unmatched URL from its one response (contract Section 5); a definitive error answer is an
+    observation of the surface the field named (RQA-02 b): distfile-location for a SITES URL, else project-page."""
     ct = rec.get("content_type", "")
+    if rec["outcome"] == "definitive":
+        return "distfile-location" if source.startswith("SITES") else "project-page"
     if rec["outcome"] != "ok":
         return "unclassifiable"
     if ct in ("application/x-gzip", "application/gzip", "application/zip", "application/x-xz", "application/x-bzip2", "application/zstd") \
@@ -163,7 +167,7 @@ def _ur(ctx: dict, meta: dict) -> tuple[str, str]:
     for sp in ctx["sps"]:
         if sp["klass"] is None and sp["source"].startswith("SITES"):
             rec = _observe(ctx, "UR-classify", sp["url"])
-            classes[sp["url"]] = _class_by_response(rec)
+            classes[sp["url"]] = _class_by_response(rec, sp["source"])
             sp["pre_classified"] = classes[sp["url"]]
     ur, key = surfaces.identity_key(meta, classes)
     return ur, key
@@ -297,7 +301,13 @@ def _e2rep(ctx: dict) -> dict:
     if os.path.exists(pin_json):
         recpin = json.load(io.open(pin_json, encoding="utf-8"))
     else:
-        recpin = pin.pin_repository(ctx["cid"], canonical, ctx["state"]["target"], ARCHIVE_FMT.get(host), git=ctx["git"], fetch=ctx["fetch"], clock=ctx["clock"])
+        try:
+            recpin = pin.pin_repository(ctx["cid"], surfaces.git_url_of(canonical), ctx["state"]["target"], ARCHIVE_FMT.get(host),
+                                        git=ctx["git"], fetch=ctx["fetch"], clock=ctx["clock"])
+        except Exception as ex:                   # RQA-03 (j): a designated repository the tools cannot fetch
+            return dict(state="UNRESOLVED", failure_code="NONE", pi_code="PI-UNCLASSIFIED-SHAPE", canonical=canonical, identifier=identifier, snapshot="",
+                        block=_block(ctx, "E2-REP", canonical, "designated and observed, but the pin could not be taken: %s" % str(ex).splitlines()[0][:160],
+                                     "a designated repository that git cannot fetch is a shape no sealed criterion describes (contract Section 7)", "UNRESOLVED", accounting))
     ctx["tree"] = os.path.join(ctx["state"]["target"], ctx["cid"], "tree")
     if recpin.get("tracked_files", 0) == 0 and not recpin.get("digests"):
         return dict(state="FAIL", failure_code="E2REP-NO-SOURCE", pi_code="NONE", canonical=canonical, identifier=identifier, snapshot=recpin["sha"],
