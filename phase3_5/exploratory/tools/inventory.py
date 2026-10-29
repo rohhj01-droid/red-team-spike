@@ -9,7 +9,9 @@ fills them (Section 6.1 / 6.2) and `checks.py inventory` verifies the
 filled table's shape.
 
 Column 0 is the file-scope proxy for K1-K3 (Doom-era sources indent
-function bodies). K1 takes ANY element type, scalar and pointer
+function bodies). K1 also takes an anonymous struct element type
+(`static struct { ... } name[] = {`); an initializer hidden behind a
+macro (`name[] = SOME_MACRO;`) is not a candidate (XQA-04). K1 takes ANY element type, scalar and pointer
 included -- wider than the design's parenthetical, recorded as an XQA
 entry at X4b. Files are decoded as latin-1 for scanning, so Latin-1
 bytes neither crash the scan nor shift line numbers.
@@ -30,7 +32,7 @@ EN_FIELDS = ["cand_id", "file", "line", "symbol", "class", "element_type", "memb
              "en1", "en2", "en3", "en4", "en5", "en6", "tag", "reject_reason", "evidence"]
 
 # K1: `<type words> <name>[...]... = {` at column 0; `=` and `{` may sit on later lines.
-K1_RE = re.compile(r"^([A-Za-z_][\w\s\*]*?)\s*\b([A-Za-z_]\w*)\s*\[[^\]]*\](?:\s*\[[^\]]*\])*\s*=\s*\{", re.M)
+K1_RE = re.compile(r"^((?:(?:static|const|extern)\s+)*struct\s*\{[^{}]*\}|[A-Za-z_][\w\s\*]*?)\s*\b([A-Za-z_]\w*)\s*\[[^\]]*\](?:\s*\[[^\]]*\])*\s*=\s*\{", re.M)
 # direct function-pointer array: `type (*name[])(args) = {`
 K2_FN_RE = re.compile(r"^([A-Za-z_][\w\s\*]*?)\s*\(\s*\*\s*([A-Za-z_]\w*)\s*\[[^\]]*\]\s*\)\s*\([^)]*\)\s*=\s*\{", re.M)
 K3_DEFINE_RE = re.compile(r"^[ \t]*#[ \t]*define[ \t]+(\w+)(\([^)]*\))?[ \t]*\\[ \t]*$", re.M)
@@ -245,9 +247,13 @@ def _code_candidates(tree: str, rel: str, text: str, structs: dict[str, str]) ->
             continue
         brace = m.end() - 1
         present, absent = count_members(text, brace)
-        etype = _element_type(m.group(1))
-        base = etype.replace("*", "").replace("struct", "").strip().split()[-1] if etype.strip() else ""
-        klass = "K2" if "(*" in structs.get(base, "") else "K1"
+        if "{" in m.group(1):                      # anonymous struct element type
+            etype = "struct {" + _collapse(m.group(1).split("{", 1)[1].rsplit("}", 1)[0]) + "}"
+            klass = "K2" if "(*" in m.group(1) else "K1"
+        else:
+            etype = _element_type(m.group(1))
+            base = etype.replace("*", "").replace("struct", "").strip().split()[-1] if etype.strip() else ""
+            klass = "K2" if "(*" in structs.get(base, "") else "K1"
         rows.append(_row(rel, line, m.group(2), klass, etype, present, absent))
     for m in K3_DEFINE_RE.finditer(text):
         k = m.end()
