@@ -1,43 +1,43 @@
 path	bytes	decision	reason
-.github/CONTRIBUTING.md	4440		
-.github/ISSUE_TEMPLATE.md	394		
-AUTHORS	246		
+.github/CONTRIBUTING.md	4440	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; contribution guidelines
+.github/ISSUE_TEMPLATE.md	394	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; issue template
+AUTHORS	246	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; author list
 CHANGELOG.md	6471	QUARANTINED	
-CMakeLists.txt	3185		
-CODE_OF_CONDUCT.md	3225		
-COPYING.md	17895		
-HACKING.md	7340		
+CMakeLists.txt	3185	REJECT	no designation; a build file
+CODE_OF_CONDUCT.md	3225	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; conduct rules for contributors, not program rules
+COPYING.md	17895	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; licence text
+HACKING.md	7340	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; coding style guidelines for contributors, not program rules
 NEWS.md	73170	QUARANTINED	
 NOT-BUGS.md	6520	QUARANTINED	
-PHILOSOPHY.md	10022		
-README.Music.md	6759		
-README.Strife.md	5269		
-README.md	13111		
+PHILOSOPHY.md	10022	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; declares itself 'descriptive, not proscriptive' (:6)
+README.Music.md	6759	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; music playback documentation, designated by nothing
+README.Strife.md	5269	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; Chocolate Strife notes, designated by nothing
+README.md	13111	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; states a requirement itself (:74 an IWAD is needed) but designates no file and is prose (no segmentation)
 RELEASE_NOTES.md	2745	QUARANTINED	
 TODO.md	1688	QUARANTINED	
-docs/build-linux.md	362		
-docs/build-macos.md	11274		
-docs/build-windows.md	2246		
+docs/build-linux.md	362	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'
+docs/build-macos.md	11274	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'
+docs/build-windows.md	2246	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'
 docs/changelog-history.md	180302	QUARANTINED	
-docs/cheats.md	1410		
-docs/compatibility.md	2555		
-docs/controls.md	879		
-docs/crispness.md	11028		
-docs/faq.md	3435		
-docs/params.md	2305		
-man/CMDLINE.template.md	197		
-man/docgen	17015		
-man/environ.man	1023		
-man/iwad_paths.man	2239		
-man/simplecpp	5584		
-man/wikipages	148		
-opl/CMakeLists.txt	1055		
-pcsound/CMakeLists.txt	949		
-pkg/style.html	746		
-src/CMakeLists.txt	10765		
-src/doom/CMakeLists.txt	3447		
-src/heretic/CMakeLists.txt	2400		
-src/hexen/CMakeLists.txt	2444		
-src/setup/CMakeLists.txt	1250		
-src/strife/CMakeLists.txt	2622		
-textscreen/CMakeLists.txt	1434		
+docs/cheats.md	1410	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; README.md:93 designates the wiki page of this name, not this file
+docs/compatibility.md	2555	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; README.md:55 and :97 designate the wiki page of this name, not this file
+docs/controls.md	879	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; README.md:95 designates the wiki page of this name, not this file
+docs/crispness.md	11028	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; README.md:96 designates the wiki page of this name, not this file
+docs/faq.md	3435	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; README.md:98 designates the wiki page of this name, not this file
+docs/params.md	2305	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; README.md:94 designates the wiki page of this name, not this file
+man/CMDLINE.template.md	197	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; designates the generated manual, and itself carries no items (@content placeholder)
+man/docgen	17015	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; a script
+man/environ.man	1023	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; environment variable documentation, designated by nothing
+man/iwad_paths.man	2239	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; states 'To play, an IWAD file is needed' and lists the standard IWAD names as .IR items, but no statement designates it
+man/simplecpp	5584	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; a script
+man/wikipages	148	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; a script
+opl/CMakeLists.txt	1055	REJECT	no designation; a build file
+pcsound/CMakeLists.txt	949	REJECT	no designation; a build file
+pkg/style.html	746	REJECT	no designation: no project statement names this file as stating the program's rules, requirements, valid configurations or accepted inputs -- README.md:91-98 (Documentation) points at wiki pages, README.md:55 points at the wiki for compatibility, man/CMDLINE.template.md:1-4 designates the generated manual as 'a full list of the supported command line parameters' (that file is not in the tree), PHILOSOPHY.md:6 is 'descriptive, not proscriptive'; a stylesheet
+src/CMakeLists.txt	10765	REJECT	no designation; a build file
+src/doom/CMakeLists.txt	3447	REJECT	no designation; a build file
+src/heretic/CMakeLists.txt	2400	REJECT	no designation; a build file
+src/hexen/CMakeLists.txt	2444	REJECT	no designation; a build file
+src/setup/CMakeLists.txt	1250	REJECT	no designation; a build file
+src/strife/CMakeLists.txt	2622	REJECT	no designation; a build file
+textscreen/CMakeLists.txt	1434	REJECT	no designation; a build file
