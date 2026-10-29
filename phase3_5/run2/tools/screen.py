@@ -294,6 +294,15 @@ def _e2rep(ctx: dict) -> dict:
                                  "no designation witness on any observed surface; observed roots: %s" % (", ".join(observed_roots) or "none"),
                                  "the gate cannot complete: a PASS needs a designation witness and a failure code needs positive evidence (contract Section 7) -> %s" % pi,
                                  "UNRESOLVED", accounting))
+    unobserved = [sp for sp in sps if sp["action"] in ("unreachable", "unclassifiable")]
+    if unobserved:                                 # contract 7 / Run 1 QA-41: "exactly one" needs every admitted point observed (RQA-11)
+        pi = "PI-UNCLASSIFIABLE-SURFACE" if any(sp["action"] == "unclassifiable" for sp in unobserved) else "PI-TRANSPORT-INDETERMINATE"
+        return dict(state="UNRESOLVED", failure_code="NONE", pi_code=pi, canonical="", identifier="", snapshot="",
+                    block=_block(ctx, "E2-REP", "the starting-point set (contract Section 4)",
+                                 " | ".join("%s %r at %s -> %s" % ("link label" if w.get("kind") == "label" else "designation", w["quote"], w["surface"], w["location"]) for w in designations)
+                                 + " | not observed: " + ", ".join("%s (%s)" % (sp["url"], sp["action"]) for sp in unobserved),
+                                 "a PASS needs every admitted starting point not closed-by-class observed; an unobserved one leaves \"exactly one\" undecided (contract Section 7; Run 1 QA-41) -> %s" % pi,
+                                 "UNRESOLVED", accounting))
     canonical = targets.pop()
     rec = ctx["bodies"].get(canonical) or next((r for u, r in ctx["bodies"].items() if surfaces.normalize_url(u) == canonical), None)
     if rec is None:

@@ -435,6 +435,22 @@ def test_alpha_passes_e2rep_with_one_designation():
     assert any(b.startswith("## EV-C001-E2REP-") for b in out["evidence_blocks"])
 
 
+def test_unreachable_starting_point_blocks_e2rep_pass():
+    # contract 7 / Run 1 QA-41: a PASS needs every admitted starting point not closed-by-class observed (RQA-11)
+    base = canned_map(ALPHA_MAP)
+
+    def fetch(url):
+        if url == "https://downloads.sourceforge.net/sourceforge/alpha/":
+            raise TimeoutError("canned timeout")
+        return base(url)
+    out = screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ALPHA_WITNESSES, state=_state("s16"),
+                             fetch=fetch, clock=fixed_clock, git=fake_git_factory())
+    c = out["candidate_row"]
+    assert "unreachable" in [sp["action"] for sp in out["starting_points"]], out["starting_points"]
+    assert c["E2_REP"] == "UNRESOLVED" and c["failure_code"] == "NONE" and c["protocol_issue_code"] == "PI-TRANSPORT-INDETERMINATE", c
+    assert c["primary_snapshot"] == "NOT_REACHED" and c["E2_RULE"] == "NOT_REACHED", c
+
+
 def test_404_does_not_fail_candidate_alone():                   # Review Focus 4
     out = screen.screen_item(2, "devel/beta", FIX + "/ports", witnesses=[], state=_state("s2"),
                              fetch=canned_map({}), clock=fixed_clock, git=fake_git_factory())
