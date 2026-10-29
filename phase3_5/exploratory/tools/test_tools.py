@@ -29,6 +29,7 @@ from snapshot import PINNED, archive, digest, sealed_instant  # noqa: E402
 from inventory import EN_FIELDS, SRC_FIELDS, enumerators, sources  # noqa: E402
 import checks  # noqa: E402
 from universe import members, members_detail, units  # noqa: E402
+from kf_api import comments, count, first_post, issue_numbers, labels, list_ids  # noqa: E402
 
 LATIN1 = b"/* caf\xe9 */\n"
 
@@ -218,6 +219,79 @@ def test_members_drop_rows_beyond_bound():    # XQA-08
     assert beyond == [("C001", '{ "a,b{c}.wad", 5 }')]
     rows2, _, _, beyond2 = members_detail(FIX + "/tree", FIX + "/enumerators_admit.tsv")
     assert len([r for r in rows2 if r["enum_id"] == "C001"]) == 4 and beyond2 == []
+
+
+# ---------------------------------------------------------------- Task 7
+
+def _page_of(url):
+    import urllib.parse
+    return urllib.parse.parse_qs(urllib.parse.urlparse(url).query).get("page", ["1"])[0]
+
+
+def _serve(url):
+    """Canned GitHub API: labels page, two issue pages (page 1, page 2), empty after; issue 7; its comments.
+    The page is read from the query string: a substring test would match 'per_page=100' (that mistake
+    sent the first run of this suite into an endless loop)."""
+    body = b"[]"
+    page = _page_of(url)
+    if "/labels" in url:
+        body = open(FIX + "/labels.json", "rb").read() if page == "1" else b"[]"
+    elif "/issues/7/comments" in url:
+        body = open(FIX + "/comments7.json", "rb").read() if page == "1" else b"[]"
+    elif "/issues/7" in url:
+        body = open(FIX + "/issue7.json", "rb").read()
+    elif "/issues?" in url:
+        if page == "1":
+            body = open(FIX + "/issues_p1.json", "rb").read()
+        elif page == "2":
+            body = open(FIX + "/issues_p2.json", "rb").read()
+    return 200, {}, body
+
+
+def _serve_labels(url):
+    """label=bug -> numbers {1,2}; label=crash -> {2,3}; one page each."""
+    import urllib.parse
+    q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+    if _page_of(url) != "1":
+        return 200, {}, b"[]"
+    nums = {"bug": [1, 2], "crash": [2, 3]}[q["labels"][0]]
+    return 200, {}, json.dumps([{"number": n, "title": "t", "body": "b", "labels": []} for n in nums]).encode()
+
+
+def test_labels():
+    assert labels("o/r", fetch=_serve) == [("bug", "Something isn't working"), ("enhancement", "")]
+
+
+def test_issue_numbers_excludes_prs_and_paginates():    # Review Focus 2
+    nums = issue_numbers("o/r", None, fetch=_serve)
+    assert len(nums) == 102 and 50 not in nums and 103 in nums
+
+
+def test_count_union():
+    assert count("o/r", ["bug", "crash"], fetch=_serve_labels) == 3
+
+
+def test_rate_limit_stops_count():                      # Review Focus 2
+    try:
+        count("o/r", [], fetch=lambda u: (403, {"X-RateLimit-Reset": "1"}, b"[]"))
+        assert False, "403 must raise, never return a partial count"
+    except RuntimeError:
+        pass
+
+
+def test_list_ids_writes_sorted():
+    n = list_ids("o/r", ["bug", "crash"], TMP + "/kf_items.tsv", fetch=_serve_labels)
+    assert n == 3 and [r["number"] for r in read_tsv(TMP + "/kf_items.tsv")] == ["1", "2", "3"]
+
+
+def test_first_post_has_no_comments_key():
+    r = first_post("o/r", 7, fetch=_serve)
+    assert set(r) == {"number", "title", "state", "created_at", "labels", "body"}
+    assert r["labels"] == [{"name": "bug", "description": "x"}]
+
+
+def test_comments_keep_only_body_and_date():
+    assert comments("o/r", 7, fetch=_serve) == [{"created_at": "2026-01-04T00:00:00Z", "body": "I think flag X was not persisted"}]
 
 
 # ---------------------------------------------------------------- runner
