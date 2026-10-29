@@ -336,6 +336,9 @@ def _witness_gate(ctx: dict, gate: str, kind: str, surfaces_read: list[str]) -> 
 
 def _e4(ctx: dict) -> tuple[str, str, list[dict]]:
     rows = [en_verdicts.decide(r, tree=ctx["tree"]) for r in inventory.enumerators(ctx["tree"])]
+    survey = _witnesses(ctx, "E4", "absence-survey")
+    for w in survey:
+        _verify_tree_quote(ctx, w)
     ws = _witnesses(ctx, "E4", "enumerator")
     quoted = []
     for w in ws:
@@ -354,7 +357,8 @@ def _e4(ctx: dict) -> tuple[str, str, list[dict]]:
                               "one enumerator admitted under the frozen grammar with a quoted identification and refusal path (contract Section 8)", "PASS"), rows
     return "UNRESOLVED", _block(ctx, "E4", "the frozen grammar over %d candidate rows" % len(rows),
                                 "catalogue decided %d rows, %d undecided, none admitted" % (sum(1 for r in rows if r["decided_by"].startswith("catalogue")), sum(1 for r in rows if r["decided_by"] == "UNDECIDED")),
-                                "no quoted ADMIT -> UNRESOLVED, never FAIL (Run 1's amendment)", "UNRESOLVED"), rows
+                                "no quoted ADMIT -> UNRESOLVED, never FAIL (Run 1's amendment)", "UNRESOLVED",
+                                [w["surface"] for w in survey] or ["(none)"]), rows
 
 
 # ---------------------------------------------------------------- the item

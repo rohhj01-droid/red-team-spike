@@ -483,6 +483,38 @@ def test_run_batch_rerun_replaces_its_own_rows():
     assert ledger.check(root, expect_rows=2) == 0
 
 
+# ---------------------------------------------------------------- contract 8: E4 UNRESOLVED lists the surfaces read
+
+PAST_E2REP = ALPHA_WITNESSES + [
+    dict(frame_rank="1", candidate_id="", gate="E2-RULE", kind="validity", surface="src/modes.c", location="src/modes.c:4",
+         quote="the valid modes a player may ask for", tag=""),
+    dict(frame_rank="1", candidate_id="", gate="E3", kind="stateful", surface="src/modes.c", location="src/modes.c:9",
+         quote='{ "easy", 1 },', tag=""),
+]
+
+
+def test_e4_unresolved_block_lists_absence_survey():
+    ws = PAST_E2REP + [dict(frame_rank="1", candidate_id="", gate="E4", kind="absence-survey", surface="src/strings.c:1",
+                            location="src/strings.c:1", quote="const char *menu_labels[] = {", tag="")]
+    out = screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ws, state=_state("s9"),
+                             fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    c = out["candidate_row"]
+    assert c["E2_RULE"] == "PASS" and c["E3"] == "PASS" and c["E4"] == "UNRESOLVED", c
+    block = [b for b in out["evidence_blocks"] if "Gate: E4" in b][0]
+    assert "src/strings.c:1" in block, block
+
+
+def test_e4_absence_survey_quote_is_verified():
+    ws = PAST_E2REP + [dict(frame_rank="1", candidate_id="", gate="E4", kind="absence-survey", surface="src/strings.c:1",
+                            location="src/strings.c:1", quote="not a line of that file", tag="")]
+    try:
+        screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ws, state=_state("s10"),
+                           fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    except screen.Witness:
+        return
+    assert False, "an absence-survey quote that is not in the pinned tree was accepted"
+
+
 # ---------------------------------------------------------------- RQA-02 readings (before any verdict)
 
 def test_modules_matter_only_when_they_supply_a_field():        # RQA-02 (a)
