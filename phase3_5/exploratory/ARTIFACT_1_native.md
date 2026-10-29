@@ -268,7 +268,29 @@ item is a monster suppressed under -nomonsters, 1.1r2 only
 (src/hexen/d_net.c:151); and Hexen's savegames carry a fixed format text,
 HXS_VERSION_TEXT, written and compared as such (src/hexen/sv_save.c:1998-2000,
 :2124), not the emulated version -- so in Hexen the chosen version is
-never persisted. The Strife table (E499-*) will be added when reached.
+never persisted.
+
+Added last in P_raw order -- the Strife module's table (units
+U1127-U1128, E499-001 .. E499-002; src/strife/d_main.c:1126-1131, two
+rows and a NULL sentinel):
+
+```text
+unit   observation  row    cmdline  version          description
+U1127  E499-001     :1132  1.2      exe_strife_1_2   Strife 1.2
+U1128  E499-002     :1133  1.31     exe_strife_1_31  Strife 1.31
+```
+
+Strife's InitGameVersion (src/strife/d_main.c:1140-1187) matches and
+aborts the same way (:1161-1181) and defaults to exe_strife_1_31 (:1185;
+the global's default, src/strife/doomstat.c:27). The version governs
+the title string (:1048-1062), three finale branches
+(src/strife/f_finale.c:238, :439, :464) and one menu branch
+(src/strife/m_menu.c:840), and is sent in the controller's settings
+(src/strife/d_net.c:156). Strife's demos carry a fixed STRIFE_VERSION
+byte, written and compared as such (src/strife/g_game.c:2693,
+:2765-2790), not the emulated version -- so, as in Hexen, the chosen
+version is never persisted. Of the three modules only Doom writes the
+emulated version's code into its demos and savegames.
 
 ## NC-06 -- HHE text replacement: string offsets that are valid but unsupported, per Heretic version (src/heretic/deh_htext.c)
 source observation ids: E186-001 .. E186-336, E187-001 .. E187-305, E188-001 .. E188-305 (units U071-U1016; 946 units in one case)
@@ -587,3 +609,70 @@ unit's own row is the name pattern and shape that make its controller
 known and the configuration set that is then loaded. Several rows name
 the same controller with different shapes (e.g. the 8Bitdo NES30 Pro
 with 4 or 6 axes and 15 or 16 buttons, U1106-U1110), each a unit.
+
+## NC-13 -- the games the setup tool configures: `-game` against the four mission configurations (src/setup/mode.c)
+source observation ids: E464-001 .. E464-004 (units U1123-U1126)
+native state/data involved: the table mission_configs[] (src/setup/mode.c:61-; four rows of label, mission, IWAD mask, name, configuration file, extra configuration file, executable; the struct :46-55); the default row DEFAULT_MISSION (:57-59, "Default mission to fall back on, if no IWADs are found at all"); the `-game <game>` parameter -- "Specify the game to configure the settings for. Valid values are 'doom', 'heretic', 'hexen' and 'strife'" (:343-348); the tool's selected mission: gamemission (:43), the IWAD list for the mask (iwads :44, :222), the executable to launch (:205-218), the window title (:225) and the two configuration file names the tool loads and saves (:226, M_SetConfigFilenames)
+writers / creation points: SetupMission (:337-370). With `-game`: GetMissionForName (:229-242) compares the value with each row's name; a match is set (SetMission :220-227), a miss aborts, I_Error("Invalid parameter - '%s'") (:358-361). Without it: CheckExecutableName (:247-268) picks the row whose name occurs in the executable's own file name (e.g. a "-hexen-setup" binary, :244-245, :259); failing that, OpenGameSelectDialog (:278-335) offers a button for every row for which an IWAD is installed -- under Crispy the IWAD search is for all games, "[crispy] always all games" (:298) -- and, with none installed, falls back to DEFAULT_MISSION (:311-321), with exactly one game installed selects it without a dialog (:326-332)
+updates / invalidation paths: the table is compiled in; the selection is made once at the tool's start and not changed; nothing records how it was made
+readers / consumption points: SetMission :220-227 is the consumer: D_FindAllIWADs for the row's mask (:222; the IWAD registry, NC-02), gamemission (:223), the executable name (:224, :205-218), the title (:225), and the configuration file names (:226) that every later load and save of the tool uses (src/setup/mainmenu.c:277 M_LoadDefaults, :129 and :170 M_SaveDefaults)
+lifetime / persistence / reset behavior: the selection lives for the tool's run; what persists is indirect -- the configuration files it names are the ones read and written (src/setup/mainmenu.c:129, :170, :277), so a run configuring "hexen" writes hexen's files. Nothing records the game chosen
+relevant transitions: setup tool start -> `-game` matched or rejected / executable name matched / dialog or fallback -> the mission's mask, executable, title and configuration files set -> the tool loads, edits and saves those files
+supporting source-code/docs evidence: src/setup/mode.c:43-59, :61- (the rows at :63, :72, :81, :90), :205-242, :244-268, :278-335, :337-370; src/setup/mainmenu.c:129, :170, :277
+remaining native-level uncertainty: what the setup tool launches with the executable name (the "launch game" button) was not traced; M_SetConfigFilenames (src/m_config.c) was not read
+lineage: inherited with one fork change in the dialog -- "[crispy] always all games" (src/setup/mode.c:298); the table, GetMissionForName and SetupMission carry none
+### Sufficiency
+Q1 created: the fact "this run of the setup tool configures game G" -- from the `-game` match (src/setup/mode.c:233-238), the executable's name (:255-264), the dialog (:270-276) or the fallback (:319)
+Q2 written: into gamemission, iwads, executable, game_title and the configuration file names (src/setup/mode.c:220-227)
+Q3 lifetime: the tool's run (src/setup/mode.c:220-227); indirectly on disk through the configuration files the names select (src/setup/mainmenu.c:129, :170, :277)
+Q4 readers: src/setup/mode.c:222-226 and the tool's load/save of the named files (src/setup/mainmenu.c:129, :170, :277)
+Q5 after consumption: the selection persists for the run; a rejected `-game` value ends the program (src/setup/mode.c:360); the chosen game is not itself recorded anywhere -- only its configuration files are touched
+Status: RESOLVED
+
+Units resolving into this case: one game each.
+
+```text
+unit   observation  row  name     mission  mask              config files                          executable
+U1123  E464-001     :63  doom     doom     IWAD_MASK_DOOM    default.cfg, <prefix>doom.cfg         <prefix>doom
+U1124  E464-002     :72  heretic  heretic  IWAD_MASK_HERETIC heretic.cfg, <prefix>heretic.cfg      <prefix>heretic
+U1125  E464-003     :81  hexen    hexen    IWAD_MASK_HEXEN   hexen.cfg, <prefix>hexen.cfg          <prefix>hexen
+U1126  E464-004     :90  strife   strife   IWAD_MASK_STRIFE  strife.cfg, <prefix>strife.cfg        <prefix>strife
+```
+
+Each unit's fact, writers, readers and lifetime are the case's; the
+unit's own row is the name `-game` must match and what is then set.
+U1123 is also the fallback (src/setup/mode.c:59, :319).
+
+## NC-14 -- lumps unique to each game, used to refuse an IWAD run under the wrong executable (src/w_main.c)
+source observation ids: E595-001 .. E595-004 (units U1129-U1132)
+native state/data involved: the table unique_lumps[] (src/w_main.c:256-265): four rows of (mission, lump name) -- "Lump names that are unique to particular game types. This lets us check the user is not trying to play with the wrong executable, eg. chocolate-doom -iwad hexen.wad" (:253-255); the loaded WAD directory (W_CheckNumForName); the calling module's own mission constant
+writers / creation points: W_CheckCorrectIWAD (:267-292), called by each module right after its IWAD is loaded with that module's mission as the argument (src/doom/d_main.c:1678; src/heretic/d_main.c:1139; src/hexen/h2_main.c:555; src/strife/d_main.c:1876): for every row whose mission is not the caller's (:272-274), if the row's lump is present in the loaded WADs (:276-278) the program aborts -- I_Error("You are trying to use a %s IWAD file with the %s%s binary. This isn't going to work. You probably want to use the %s%s binary.") (:280-288), naming the other game through D_SuggestGameName (src/d_iwad.c:1070-1084; the IWAD registry, NC-02). The fact created -- "the loaded IWAD belongs to game X, not this executable" -- ends the program the moment it is found
+updates / invalidation paths: the table is compiled in; nothing is stored; the check runs once per start, after the IWAD is added and before the module identifies its version (the call sites above)
+readers / consumption points: the four call sites; no other reader (grep W_CheckCorrectIWAD)
+lifetime / persistence / reset behavior: none -- abort, or no trace
+relevant transitions: startup -> IWAD loaded -> the other three games' marker lumps looked up -> abort with the suggestion, or continue
+supporting source-code/docs evidence: src/w_main.c:253-292; src/doom/d_main.c:1676-1678; src/heretic/d_main.c:1138-1139; src/hexen/h2_main.c:554-555; src/strife/d_main.c:1875-1876; src/d_iwad.c:1070-1084
+remaining native-level uncertainty: the check looks at every loaded WAD, not only the IWAD (W_CheckNumForName searches the whole directory, :276) -- whether a PWAD loaded before the call could trigger it was not traced; the lump names' meaning (the first sprite of each game's first monster, by their names) is not stated in the tree and is not claimed here
+lineage: inherited -- src/w_main.c carries one [crispy] marker at :197, outside this flow; the table and the check carry none
+### Sufficiency
+Q1 created: the transient fact "a lump unique to another game is loaded" -- src/w_main.c:272-278
+Q2 written: N/A: nothing is written; the fact is acted on at once by I_Error (src/w_main.c:280-288)
+Q3 lifetime: N/A: no persistent value (src/w_main.c:267-292); the table is compiled in (:256-265)
+Q4 readers: src/w_main.c:272-278, reached from src/doom/d_main.c:1678, src/heretic/d_main.c:1139, src/hexen/h2_main.c:555, src/strife/d_main.c:1876
+Q5 after consumption: the program ends with the message (src/w_main.c:280-288); otherwise nothing remains (:291)
+Status: RESOLVED
+
+Units resolving into this case: one game's marker lump each.
+
+```text
+unit   observation  row   mission  lump
+U1129  E595-001     :261  doom     POSSA1
+U1130  E595-002     :262  heretic  IMPXA1
+U1131  E595-003     :263  hexen    ETTNA1
+U1132  E595-004     :264  strife   AGRDA1
+```
+
+Each unit's fact, writer, reader and lifetime are the case's; the
+unit's own row is the lump whose presence, under a different
+executable, is the refusal. A unit is never checked by its own
+module (src/w_main.c:274).
