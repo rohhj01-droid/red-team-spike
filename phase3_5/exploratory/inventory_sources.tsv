@@ -1,0 +1,43 @@
+path	bytes	decision	reason
+.github/CONTRIBUTING.md	4440		
+.github/ISSUE_TEMPLATE.md	394		
+AUTHORS	246		
+CHANGELOG.md	6471	QUARANTINED	
+CMakeLists.txt	3185		
+CODE_OF_CONDUCT.md	3225		
+COPYING.md	17895		
+HACKING.md	7340		
+NEWS.md	73170	QUARANTINED	
+NOT-BUGS.md	6520	QUARANTINED	
+PHILOSOPHY.md	10022		
+README.Music.md	6759		
+README.Strife.md	5269		
+README.md	13111		
+RELEASE_NOTES.md	2745	QUARANTINED	
+TODO.md	1688	QUARANTINED	
+docs/build-linux.md	362		
+docs/build-macos.md	11274		
+docs/build-windows.md	2246		
+docs/changelog-history.md	180302	QUARANTINED	
+docs/cheats.md	1410		
+docs/compatibility.md	2555		
+docs/controls.md	879		
+docs/crispness.md	11028		
+docs/faq.md	3435		
+docs/params.md	2305		
+man/CMDLINE.template.md	197		
+man/docgen	17015		
+man/environ.man	1023		
+man/iwad_paths.man	2239		
+man/simplecpp	5584		
+man/wikipages	148		
+opl/CMakeLists.txt	1055		
+pcsound/CMakeLists.txt	949		
+pkg/style.html	746		
+src/CMakeLists.txt	10765		
+src/doom/CMakeLists.txt	3447		
+src/heretic/CMakeLists.txt	2400		
+src/hexen/CMakeLists.txt	2444		
+src/setup/CMakeLists.txt	1250		
+src/strife/CMakeLists.txt	2622		
+textscreen/CMakeLists.txt	1434		
