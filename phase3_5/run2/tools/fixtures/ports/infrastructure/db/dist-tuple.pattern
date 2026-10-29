@@ -1,0 +1,4 @@
+TEMPLATE_HOMEPAGE ?= <site><account>/<project>
+SITES.github ?= https://github.com/
+SITES.gitlab ?= https://gitlab.com/
+SITES.codeberg ?= https://codeberg.org/

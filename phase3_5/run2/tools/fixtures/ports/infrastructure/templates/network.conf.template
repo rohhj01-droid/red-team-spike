@@ -1,0 +1,3 @@
+# fixture macro table
+SITE_SOURCEFORGE =	https://downloads.sourceforge.net/sourceforge/ \n			https://netix.dl.sourceforge.net/project/
+SITE_GNU =		https://ftp.gnu.org/gnu/

@@ -1,0 +1,2 @@
+SUBDIR =
+SUBDIR +=	sub

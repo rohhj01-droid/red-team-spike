@@ -1,0 +1,3 @@
+COMMENT =	eps
+CATEGORIES =	misc
+SITES =		${SITE_NOWHERE:=eps/}
