@@ -117,7 +117,14 @@ def pin_repository(candidate_id: str, url: str, dest_root: str, archive_url_fmt:
                tracked_files=tracked_count(tree, git=git))
     if archive_url_fmt:
         aurl = archive_url_fmt.format(url=url.rstrip("/"), sha=sha)
-        n, h, e = archive_pin(aurl, os.path.join(dest_root, candidate_id, "archive.tar.gz"), fetch=fetch)
+        out_path = os.path.join(dest_root, candidate_id, "archive.tar.gz")
+        if os.path.exists(out_path):            # already fetched for this candidate: listed again, never re-downloaded
+            import tarfile
+            with tarfile.open(out_path, "r:gz") as t:
+                e = sum(1 for _ in t)
+            n, h = os.path.getsize(out_path), sha256_file(out_path)
+        else:
+            n, h, e = archive_pin(aurl, out_path, fetch=fetch)
         rec["archive"] = dict(url=aurl, bytes=n, sha256=h, entries=e)
     write_record(os.path.join(dest_root, candidate_id), rec)
     return rec

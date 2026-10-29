@@ -438,6 +438,51 @@ def test_batch_document_and_check():
     assert rows[3]["protocol_issue_code"] == "PI-METADATA-UNRESOLVED" and rows[3]["stop_gate"] == "UR"
 
 
+# ---------------------------------------------------------------- Task 10 support: cache, preview, idempotent re-run
+
+def counting_fetch(mapping):
+    base = canned_map(mapping)
+    calls = []
+
+    def fetch(url):
+        calls.append(url)
+        return base(url)
+    fetch.calls = calls
+    return fetch
+
+
+def test_run_batch_preview_writes_no_ledger_and_caches_observations():
+    root = os.path.join(TMP, "run2p")
+    os.makedirs(root, exist_ok=True)
+    open(os.path.join(root, "screening_set_128.txt"), "w").write("games/alpha\ndevel/beta\n")
+    f = counting_fetch(ALPHA_MAP)
+    results = screen.run_batch(1, root, FIX + "/ports", fetch=f, clock=fixed_clock, git=fake_git_factory(), commit=False)
+    assert isinstance(results, list) and len(results) == 2
+    assert not os.path.exists(os.path.join(root, "screening_frame_items.tsv")) and not os.path.exists(os.path.join(root, "screening_evidence_b01.md"))
+    first = len(f.calls)
+    assert first > 0
+    ledger.write_witnesses(root, 1, ALPHA_WITNESSES)
+    p = screen.run_batch(1, root, FIX + "/ports", fetch=f, clock=fixed_clock, git=fake_git_factory())
+    extra = f.calls[first:]                                                  # the final run re-used every cached observation;
+    assert extra and all("/archive/" in u for u in extra), extra             # only the pin, taken when E2-REP passes, is new
+    rows = ledger.read_rows(os.path.join(root, "screening_candidates.tsv"), ledger.CANDIDATE_FIELDS)
+    assert rows[0]["E2_REP"] == "PASS" and os.path.exists(p)
+
+
+def test_run_batch_rerun_replaces_its_own_rows():
+    root = os.path.join(TMP, "run2r")
+    os.makedirs(root, exist_ok=True)
+    open(os.path.join(root, "screening_set_128.txt"), "w").write("games/alpha\ndevel/beta\n")
+    kw = dict(fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    screen.run_batch(1, root, FIX + "/ports", **kw)
+    screen.run_batch(1, root, FIX + "/ports", **kw)
+    frame_rows = ledger.read_rows(os.path.join(root, "screening_frame_items.tsv"), ledger.FRAME_FIELDS)
+    obs_rows = ledger.read_rows(os.path.join(root, "observations.tsv"), ledger.OBS_FIELDS)
+    assert [r["frame_rank"] for r in frame_rows] == ["1", "2"]
+    assert len({(o["requested_url"], o["attempt"]) for o in obs_rows}) == len(obs_rows)   # no duplicated observation rows
+    assert ledger.check(root, expect_rows=2) == 0
+
+
 # ---------------------------------------------------------------- runner
 
 if __name__ == "__main__":

@@ -45,8 +45,28 @@ class Witness(ValueError):
 
 # ---------------------------------------------------------------- observation bookkeeping
 
+def _cache_path(ctx: dict, url: str) -> str:
+    import hashlib
+    d = os.path.join(ctx["state"]["target"], "cache", "%03d" % ctx["rank"])
+    os.makedirs(d, exist_ok=True)
+    return os.path.join(d, hashlib.sha1(url.encode("utf-8")).hexdigest())
+
+
 def _observe(ctx: dict, step: str, url: str) -> dict:
-    rec = net.fetch(url, fetch=ctx["fetch"], clock=ctx["clock"])
+    """Fetch once per (rank, url): a cached observation (target/cache) is reused on every later run of the
+    same item, so the final run of a batch makes no request the preview run did not make."""
+    cp = _cache_path(ctx, url)
+    if os.path.exists(cp + ".json"):
+        rec = json.load(io.open(cp + ".json", encoding="utf-8"))
+        rec["attempts"] = [tuple(a) for a in rec["attempts"]]
+        rec["body"] = open(cp + ".bin", "rb").read() if os.path.exists(cp + ".bin") else b""
+    else:
+        rec = net.fetch(url, fetch=ctx["fetch"], clock=ctx["clock"])
+        meta = {k: v for k, v in rec.items() if k != "body"}
+        io.open(cp + ".json", "w", encoding="utf-8", newline="\n").write(json.dumps(meta, indent=1))
+        if rec["body"]:
+            with open(cp + ".bin", "wb") as f:
+                f.write(rec["body"])
     n = len(ctx["observations"]) + 1
     body_ref = ""
     if rec["body"]:
@@ -234,9 +254,14 @@ def _e2rep(ctx: dict) -> dict:
     for w in ids:
         _verify_page_quote(ctx, w)
     identifier = ids[0]["quote"] if ids else canonical.rstrip("/").split("/")[-1]
-    # pin at observation time (contract Section 10): the source tree is established by the fetch
+    # pin at observation time (contract Section 10): the source tree is established by the fetch;
+    # a pin already taken for this candidate (the preview run) is reused, never re-taken
     host = canonical.split("/")[2]
-    recpin = pin.pin_repository(ctx["cid"], canonical, ctx["state"]["target"], ARCHIVE_FMT.get(host), git=ctx["git"], fetch=ctx["fetch"], clock=ctx["clock"])
+    pin_json = os.path.join(ctx["state"]["target"], ctx["cid"], "pin.json")
+    if os.path.exists(pin_json):
+        recpin = json.load(io.open(pin_json, encoding="utf-8"))
+    else:
+        recpin = pin.pin_repository(ctx["cid"], canonical, ctx["state"]["target"], ARCHIVE_FMT.get(host), git=ctx["git"], fetch=ctx["fetch"], clock=ctx["clock"])
     ctx["tree"] = os.path.join(ctx["state"]["target"], ctx["cid"], "tree")
     if recpin.get("tracked_files", 0) == 0 and not recpin.get("digests"):
         return dict(state="FAIL", failure_code="E2REP-NO-SOURCE", pi_code="NONE", canonical=canonical, identifier=identifier, snapshot=recpin["sha"],
@@ -387,17 +412,35 @@ def screen_item(rank: int, port_path: str, ports_root: str, witnesses: list[dict
 
 # ---------------------------------------------------------------- the batch
 
-def run_batch(k: int, run2_dir: str, ports_root: str, fetch=None, clock=None, git=None, state: dict | None = None) -> str:
+def _replace_rows(path: str, fields: list[str], rank_field: str, ranks: list[int], new_rows: list[dict]) -> None:
+    """Rewrite a ledger with this batch's rows replacing any earlier rows of the same ranks (idempotent runs)."""
+    keep = [r for r in ledger.read_rows(path, fields) if int(r[rank_field]) not in ranks] if os.path.exists(path) else []
+    if keep or new_rows:
+        ledger.write_rows(path, keep + new_rows, fields)
+
+
+def run_batch(k: int, run2_dir: str, ports_root: str, fetch=None, clock=None, git=None, state: dict | None = None, commit: bool = True):
+    """Screen batch k (ranks 8k-7..8k). commit=False is the preview: observations are made and cached, nothing is
+    written to the ledgers and no state is saved -- the analyst then writes witness_bNN.tsv from the cached
+    bodies. commit=True starts from the state as it stood before batch k, reuses every cached observation,
+    replaces the batch's own rows in every ledger, writes the review document and saves the state after k."""
     items = [l.strip() for l in io.open(os.path.join(run2_dir, "screening_set_128.txt"), encoding="utf-8").read().splitlines() if l.strip()]
-    state = state or load_state(run2_dir)
-    if not state.get("batch_start"):
-        state["batch_start"] = time.time()
+    state = state or load_state(run2_dir, before_batch=k)
+    start_file = os.path.join(run2_dir, "target", "batch_b%02d_start" % k)       # the session clock: first read of the batch
+    if os.path.exists(start_file):
+        started = float(io.open(start_file, encoding="utf-8").read().strip() or time.time())
+    else:
+        started = time.time()
+        os.makedirs(os.path.dirname(start_file), exist_ok=True)
+        io.open(start_file, "w", encoding="utf-8", newline="\n").write("%f\n" % started)
     witnesses = ledger.read_witnesses(run2_dir, k)
     ranks = list(range(8 * k - 7, min(8 * k, len(items)) + 1))
     results = []
     for rank in ranks:
         results.append(screen_item(rank, items[rank - 1], ports_root, witnesses, state, fetch=fetch, clock=clock, git=git))
-    session_s = int(time.time() - state["batch_start"])
+    if not commit:
+        return results
+    session_s = int(time.time() - started)
     frame_rows = [r["frame_row"] for r in results]
     cand_rows = [r["candidate_row"] for r in results if r["candidate_row"]]
     sp_rows = [sp for r in results for sp in r["starting_points"]]
@@ -406,18 +449,17 @@ def run_batch(k: int, run2_dir: str, ports_root: str, fetch=None, clock=None, gi
     for r in results:
         c = dict(r["cost_row"]); c["batch"] = k; c["session_s"] = session_s
         cost_rows.append(c)
-    ledger.append_rows(os.path.join(run2_dir, "screening_frame_items.tsv"), frame_rows, ledger.FRAME_FIELDS)
-    if cand_rows:
-        ledger.append_rows(os.path.join(run2_dir, "screening_candidates.tsv"), cand_rows, ledger.CANDIDATE_FIELDS)
-    if sp_rows:
-        ledger.append_rows(os.path.join(run2_dir, "starting_points.tsv"), sp_rows, ledger.SP_FIELDS)
-    if obs_rows:
-        ledger.append_rows(os.path.join(run2_dir, "observations.tsv"), obs_rows, ledger.OBS_FIELDS)
-    ledger.append_rows(os.path.join(run2_dir, "screening_cost.tsv"), cost_rows, ledger.COST_FIELDS)
-    with io.open(os.path.join(run2_dir, "exposure_log.md"), "a", encoding="utf-8", newline="\n") as f:
-        for r in results:
-            for line in r["exposure"]:
-                f.write(line + "\n")
+    _replace_rows(os.path.join(run2_dir, "screening_frame_items.tsv"), ledger.FRAME_FIELDS, "frame_rank", ranks, frame_rows)
+    _replace_rows(os.path.join(run2_dir, "screening_candidates.tsv"), ledger.CANDIDATE_FIELDS, "first_frame_rank", ranks, cand_rows)
+    _replace_rows(os.path.join(run2_dir, "starting_points.tsv"), ledger.SP_FIELDS, "frame_rank", ranks, sp_rows)
+    _replace_rows(os.path.join(run2_dir, "observations.tsv"), ledger.OBS_FIELDS, "frame_rank", ranks, obs_rows)
+    _replace_rows(os.path.join(run2_dir, "screening_cost.tsv"), ledger.COST_FIELDS, "frame_rank", ranks, cost_rows)
+    xp = os.path.join(run2_dir, "exposure_log.md")
+    old = io.open(xp, encoding="utf-8").read().splitlines() if os.path.exists(xp) else []
+    kept = [l for l in old if not (l.startswith("| ") and len(l.split("|")) > 2 and l.split("|")[2].strip().isdigit() and int(l.split("|")[2].strip()) in ranks)]
+    with io.open(xp, "w", encoding="utf-8", newline="\n") as f:
+        for line in kept + [line for r in results for line in r["exposure"]]:
+            f.write(line + "\n")
     for r in results:
         if r["e4_rows"] and r["candidate_row"]:
             d = os.path.join(run2_dir, "inventory", r["candidate_row"]["candidate_id"])
@@ -427,31 +469,43 @@ def run_batch(k: int, run2_dir: str, ports_root: str, fetch=None, clock=None, gi
     p = os.path.join(run2_dir, "screening_evidence_b%02d.md" % k)
     io.open(p, "w", encoding="utf-8", newline="\n").write(doc)
     state["batch_start"] = None
-    save_state(run2_dir, state)
+    save_state(run2_dir, state, after_batch=k)
     return p
 
 
-def load_state(run2_dir: str) -> dict:
-    p = os.path.join(run2_dir, "target", "state.json")
+def _state_file(run2_dir: str, after_batch: int) -> str:
+    return os.path.join(run2_dir, "target", "state_b%02d.json" % after_batch)
+
+
+def load_state(run2_dir: str, before_batch: int = 1) -> dict:
+    """The run state as it stood before batch `before_batch` (keys and ids of batches 1..before_batch-1)."""
     st = new_state(run2_dir)
-    if os.path.exists(p):
+    p = _state_file(run2_dir, before_batch - 1)
+    if before_batch > 1 and os.path.exists(p):
         st.update(json.load(io.open(p, encoding="utf-8")))
+    elif before_batch > 1:
+        raise RuntimeError("no state after batch %d: run the batches in order" % (before_batch - 1))
     return st
 
 
-def save_state(run2_dir: str, state: dict) -> None:
+def save_state(run2_dir: str, state: dict, after_batch: int) -> None:
     os.makedirs(os.path.join(run2_dir, "target"), exist_ok=True)
-    io.open(os.path.join(run2_dir, "target", "state.json"), "w", encoding="utf-8", newline="\n").write(
-        json.dumps({k: v for k, v in state.items() if k in ("keys", "next_id", "batch_start")}, indent=1))
+    io.open(_state_file(run2_dir, after_batch), "w", encoding="utf-8", newline="\n").write(
+        json.dumps({k: v for k, v in state.items() if k in ("keys", "next_id")}, indent=1))
 
 
 def main(argv: list[str]) -> int:
-    if len(argv) == 3 and argv[0] == "batch":
-        print("written", run_batch(int(argv[1]), paths.RUN2, argv[2]))
+    if len(argv) == 3 and argv[0] in ("preview", "batch"):
+        out = run_batch(int(argv[1]), paths.RUN2, argv[2], commit=(argv[0] == "batch"))
+        if argv[0] == "batch":
+            print("written", out)
+        else:
+            for r in out:
+                f = r["frame_row"]
+                print("rank %s %s: UR=%s cand=%s terminal=%s stop=%s" % (f["frame_rank"], f["port_path"], f["upstream_resolution"], f["candidate_id"], f["terminal_status"], f["stop_gate"]))
+                for sp in r["starting_points"]:
+                    print("   %-18s %-10s %s -> %s %s %s" % (sp["source"], sp["action"], sp["url"], sp.get("final_url", ""), sp.get("final_class", ""), sp.get("http_status", "")))
         return 0
-    if len(argv) == 2 and argv[0] == "start":
-        st = load_state(paths.RUN2); st["batch_start"] = time.time(); save_state(paths.RUN2, st)
-        print("batch session started"); return 0
     print(__doc__)
     return 2
 
