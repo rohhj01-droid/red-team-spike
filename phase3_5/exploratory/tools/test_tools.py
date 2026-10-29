@@ -26,6 +26,8 @@ TMP = tempfile.mkdtemp(prefix="c084tools_")
 
 from common import api_get, is_quarantined, read_tsv, sha256_file, strip, write_tsv  # noqa: E402
 from snapshot import PINNED, archive, digest, sealed_instant  # noqa: E402
+from inventory import EN_FIELDS, SRC_FIELDS, enumerators, sources  # noqa: E402
+import checks  # noqa: E402
 
 LATIN1 = b"/* caf\xe9 */\n"
 
@@ -108,6 +110,62 @@ def test_archive_counts_entries():
     n, digest_hex, entries = archive("https://example.invalid/x.tar.gz", TMP + "/a.tgz",
                                      fetch=lambda url: (200, {}, open(TMP + "/small.tar.gz", "rb").read()))
     assert entries == 3 and len(digest_hex) == 64 and n == os.path.getsize(TMP + "/small.tar.gz")
+
+
+# ---------------------------------------------------------------- Task 3
+
+def test_sources_membership():
+    rows = {r["path"]: r for r in sources(FIX + "/tree")}
+    assert set(rows) == {"README.md", "NEWS.md", "INSTALL", "docs/rules.md", "docs/NOTES.txt",
+                         "docs/RELEASE_NOTES.md", "docs/release/notes.md", "man/prog.6"}, sorted(rows)
+    assert rows["NEWS.md"]["decision"] == "QUARANTINED" == rows["docs/release/notes.md"]["decision"]
+    assert rows["README.md"]["decision"] == ""
+
+
+def test_enumerator_candidates():
+    rows = {r["symbol"]: r for r in enumerators(FIX + "/tree")}
+    assert set(rows) >= {"iwads", "names", "nums", "grid", "fns", "cmds", "t2"} and "loc" not in rows, sorted(rows)
+    assert rows["iwads"]["class"] == "K1" and rows["cmds"]["class"] == "K2" and rows["fns"]["class"] == "K2"
+    assert rows["iwads"]["element_type"] == "iwad_t" and rows["iwads"]["line"] == "1"
+    assert rows["iwads"]["cand_id"] == "C001" and rows["t2"]["cand_id"] == "C007"
+
+
+def test_members_absent_and_conditional():     # Review Focus 1
+    r = {r["symbol"]: r for r in enumerators(FIX + "/tree")}
+    assert (r["iwads"]["members"], r["iwads"]["absent"], r["iwads"]["conditional"]) == ("4", "1", "1")
+    assert (r["t2"]["members"], r["t2"]["absent"]) == ("1", "1")
+    assert r["grid"]["members"] == "2" and r["names"]["members"] == "2"
+
+
+def test_k4_sentence():
+    rows = [r for r in enumerators(FIX + "/tree") if r["class"] == "K4"]
+    assert rows and rows[0]["file"] == "docs/rules.md" and "wads directory" in rows[0]["evidence"]
+    assert rows[0]["cand_id"] == "D001" and rows[0]["symbol"] == "doc:docs/rules.md:1"
+
+
+def test_latin1_scan():                        # Review Focus 4
+    assert all(r["file"] != "src/latin1.c" for r in enumerators(FIX + "/tree"))  # scanned, no crash, no rows
+
+
+def test_checks_inventory():
+    src_ok = [{"path": "README.md", "bytes": "1", "decision": "REJECT", "reason": "no designation"},
+              {"path": "NEWS.md", "bytes": "1", "decision": "QUARANTINED", "reason": ""}]
+    en_ok = [dict(cand_id="C001", file="src/a.c", line="1", symbol="iwads", **{"class": "K1"}, element_type="iwad_t",
+                  members="4", absent="1", conditional="1", en1="PASS", en2="PASS", en3="PASS", en4="PASS",
+                  en5="PASS", en6="PASS", tag="enforced", reject_reason="", evidence="src/a.c:1 ..."),
+             dict(cand_id="C002", file="src/a.c", line="9", symbol="names", **{"class": "K1"}, element_type="char *",
+                  members="2", absent="0", conditional="0", en1="PASS", en2="FAIL", en3="", en4="", en5="", en6="",
+                  tag="", reject_reason="EN2: no declared scope", evidence="")]
+    write_tsv(TMP + "/inventory_sources.tsv", src_ok, SRC_FIELDS)
+    write_tsv(TMP + "/inventory_enumerators.tsv", en_ok, EN_FIELDS)
+    assert checks.run("inventory", TMP) == 0
+    en_bad = [dict(en_ok[1], en3="PASS")]                 # a FAIL followed by a PASS
+    write_tsv(TMP + "/inventory_enumerators.tsv", en_bad, EN_FIELDS)
+    assert checks.run("inventory", TMP) == 1
+    write_tsv(TMP + "/inventory_enumerators.tsv", en_ok, EN_FIELDS)
+    src_bad = [dict(src_ok[0], decision="")]              # an undecided source row
+    write_tsv(TMP + "/inventory_sources.tsv", src_bad, SRC_FIELDS)
+    assert checks.run("inventory", TMP) == 1
 
 
 # ---------------------------------------------------------------- runner
