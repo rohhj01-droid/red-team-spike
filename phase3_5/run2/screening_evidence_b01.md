@@ -186,6 +186,7 @@ Surfaces:  src/libtiled/propertytype.cpp:419
            src/plugins/python/pythonbind.cpp:375
 Necessary because: the gate's question needs every admitted starting point accounted for
   (contract Section 7); each line above is its accounting.
+  [CORRECTED after review, RQA-17: for E4 the lines above are surfaces read under contract Section 8, not starting points]
 
 Observed: catalogue decided 1 rows, 91 undecided, none admitted
 

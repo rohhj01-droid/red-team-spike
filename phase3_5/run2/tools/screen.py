@@ -127,7 +127,10 @@ def _block(ctx: dict, gate: str, source: str, observed: str, inference: str, dec
          "Source:   %s" % source, ""]
     if surfaces_lines:
         L += ["Surfaces:  " + surfaces_lines[0]] + ["           " + s for s in surfaces_lines[1:]]
-        L += ["Necessary because: the gate's question needs every admitted starting point accounted for", "  (contract Section 7); each line above is its accounting.", ""]
+        if gate == "E2-REP":
+            L += ["Necessary because: the gate's question needs every admitted starting point accounted for", "  (contract Section 7); each line above is its accounting.", ""]
+        else:                                      # E2-RULE / E3 / E4 absence surveys (RQA-17)
+            L += ["Necessary because: a positive-only gate is left UNRESOLVED only after the surfaces the contract names", "  for it are read (contract Section 8); each line above is a surface read.", ""]
     L += ["Observed: %s" % observed, "", "Inference: %s" % inference, "", "Decision: %s" % decision]
     return "\n".join(L)
 
