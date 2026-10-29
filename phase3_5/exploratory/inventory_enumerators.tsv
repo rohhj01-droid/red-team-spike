@@ -1,585 +1,607 @@
 cand_id	file	line	symbol	class	element_type	members	absent	conditional	en1	en2	en3	en4	en5	en6	tag	reject_reason	evidence
-C001	opl/opl.c	36	drivers	K1	opl_driver_t *	5	0	4									
-C002	opl/opl3.c	110	exprom	K1	uint16_t	256	0	0									
-C003	opl/opl3.c	151	mt	K1	uint8_t	16	0	0									
-C004	opl/opl3.c	159	kslrom	K1	uint8_t	16	0	0									
-C005	opl/opl3.c	163	kslshift	K1	uint8_t	4	0	0									
-C006	opl/opl3.c	171	eg_incstep	K1	uint8_t	4	0	0									
-C007	opl/opl3.c	182	ad_slot	K1	int8_t	32	0	0									
-C008	opl/opl3.c	187	ch_slot	K1	uint8_t	18	0	0									
-C009	opl/wf_rom.h	19	logsin_wf	K1	uint16_t	8	0	0									
-C010	pcsound/pcsound.c	27	drivers	K1	pcsound_driver_t *	5	0	4									
-C011	pkg/osx/IWADController.m	38	IWADLabels	K1	NSString *	11	0	0									
-C012	pkg/osx/IWADController.m	53	IWADFilenames	K1	NSString *	12	0	0									
-C013	src/aes_prng.c	108	rco_tab	K1	uint32_t	10	0	0									
-C014	src/aes_prng.c	110	crypto_ft_tab	K1	uint32_t	4	0	0									
-C015	src/aes_prng.c	374	crypto_fl_tab	K1	uint32_t	4	0	0									
-C016	src/d_iwad.c	34	iwads	K1	iwad_t	17	1	0									
-C017	src/d_iwad.c	124	uninstall_values	K1	registry_value_t	4	0	0									
-C018	src/d_iwad.c	165	root_path_keys	K1	registry_value_t	13	0	0									
-C019	src/d_iwad.c	274	root_path_subdirs	K1	char *	9	0	0									
-C020	src/d_iwad.c	298	steam_install_subdirs	K1	char *	17	0	0									
-C021	src/doom/am_map.c	188	player_arrow	K1	mline_t	7	0	0									
-C022	src/doom/am_map.c	200	cheat_player_arrow	K1	mline_t	16	0	0									
-C023	src/doom/am_map.c	221	triangle_guy	K1	mline_t	3	0	0									
-C024	src/doom/am_map.c	229	thintriangle_guy	K1	mline_t	3	0	0									
-C025	src/doom/am_map.c	235	cross_mark	K1	mline_t	2	0	0									
-C026	src/doom/am_map.c	239	square_mark	K1	mline_t	4	0	0									
-C027	src/doom/d_items.c	37	weaponinfo	K1	weaponinfo_t	9	0	0									
-C028	src/doom/d_main.c	377	chat_macro_defaults	K1	char *	10	0	0									
-C029	src/doom/d_main.c	784	banners	K1	char *	8	0	0									
-C030	src/doom/d_main.c	1079	copyright_banners	K1	char *	3	0	0									
-C031	src/doom/d_main.c	1444	loadparms	K1	char *	3	0	0									
-C032	src/doom/d_pwad.c	541	master_lumps	K1	lump_rename_t	9	0	0									
-C033	src/doom/deh_bexpars.c	25	bex_pars	K1	int	1	0	0									
-C034	src/doom/deh_bexpars.c	26	bex_cpars	K1	int	1	0	0									
-C035	src/doom/deh_bexptr.c	123	bex_codeptrtable	K1	bex_codeptr_t	88	0	0									
-C036	src/doom/deh_bexstr.c	34	bex_stringtable	K1	bex_string_t	292	0	0									
-C037	src/doom/deh_cheat.c	35	allcheats	K1	deh_cheat_t	17	0	0									
-C038	src/doom/deh_doom.c	22	deh_signatures	K1	char *	3	0	0									
-C039	src/doom/deh_doom.c	34	deh_section_types	K1	deh_section_t *	14	0	0									
-C040	src/doom/deh_thing.c	35	bex_thingbitstable	K1	bex_thingbits_t	35	0	0									
-C041	src/doom/doom_icon.c	4	doom_icon_data	K1	unsigned int	16384	0	0									
-C042	src/doom/dstrings.c	23	doom1_endmsg	K1	char *	8	0	0									
-C043	src/doom/dstrings.c	35	doom2_endmsg	K1	char *	8	0	0									
-C044	src/doom/dstrings.c	52	endmsg	K1	char *	9	0	0									
-C045	src/doom/f_finale.c	73	textscreens	K1	textscreen_t	27	0	0									
-C046	src/doom/f_finale.c	361	castorder	K1	castinfo_t	18	0	0									
-C047	src/doom/f_finale.c	459	actionsounds	K1	actionsound_t	19	0	0									
-C048	src/doom/g_game.c	170	forwardmove	K1	fixed_t	2	0	0									
-C049	src/doom/g_game.c	171	sidemove	K1	fixed_t	2	0	0									
-C050	src/doom/g_game.c	172	angleturn	K1	fixed_t	3	0	0									
-C051	src/doom/g_game.c	174	weapon_keys	K1	int *	8	0	0									
-C052	src/doom/g_game.c	1967	pars	K1	int	7	0	0									
-C053	src/doom/g_game.c	1982	cpars	K1	int	32	0	0									
-C054	src/doom/g_game.c	1991	chexpars	K1	int	6	0	0									
-C055	src/doom/g_game.c	1997	npars	K1	int	9	0	0									
-C056	src/doom/hu_stuff.c	80	player_names	K1	char *	4	0	0									
-C057	src/doom/hu_stuff.c	261	mapnames_commercial	K1	char *	129	0	0									
-C058	src/doom/hu_stuff.c	540	speciallevels	K1	speciallevel_t	28	0	0									
-C059	src/doom/hu_stuff.c	596	kex_masterlevels	K1	int	21	0	0									
-C060	src/doom/hu_stuff.c	1028	crispy_statslines	K1	crispy_statsline_func_t	4	0	0									
-C061	src/doom/info.c	32	sprnames	K1	char *	246	0	0									
-C062	src/doom/info.c	150	states	K2	state_t	1036	0	0									
-C063	src/doom/info.c	1207	mobjinfo	K1	mobjinfo_t	145	0	0									
-C064	src/doom/m_background.h	55	crispness_background	K1	byte	4096	0	0									
-C065	src/doom/m_crispy.c	31	multiitem_bobfactor	K1	multiitem_t	3	0	0									
-C066	src/doom/m_crispy.c	38	multiitem_brightmaps	K1	multiitem_t	4	0	0									
-C067	src/doom/m_crispy.c	46	multiitem_coloredblood	K1	multiitem_t	3	0	0									
-C068	src/doom/m_crispy.c	53	multiitem_centerweapon	K1	multiitem_t	3	0	0									
-C069	src/doom/m_crispy.c	60	multiitem_coloredhud	K1	multiitem_t	4	0	0									
-C070	src/doom/m_crispy.c	68	multiitem_crosshair	K1	multiitem_t	3	0	0									
-C071	src/doom/m_crispy.c	75	multiitem_crosshairtype	K1	multiitem_t	4	0	0									
-C072	src/doom/m_crispy.c	83	multiitem_freeaim	K1	multiitem_t	3	0	0									
-C073	src/doom/m_crispy.c	90	multiitem_demotimer	K1	multiitem_t	4	0	0									
-C074	src/doom/m_crispy.c	98	multiitem_demotimerdir	K1	multiitem_t	3	0	0									
-C075	src/doom/m_crispy.c	105	multiitem_freelook	K1	multiitem_t	3	0	0									
-C076	src/doom/m_crispy.c	112	multiitem_jump	K1	multiitem_t	3	0	0									
-C077	src/doom/m_crispy.c	119	multiitem_secretmessage	K1	multiitem_t	3	0	0									
-C078	src/doom/m_crispy.c	126	multiitem_difficulties	K1	multiitem_t	5	0	0									
-C079	src/doom/m_crispy.c	135	multiitem_statsformat	K1	multiitem_t	4	0	0									
-C080	src/doom/m_crispy.c	143	multiitem_translucency	K1	multiitem_t	4	0	0									
-C081	src/doom/m_crispy.c	151	multiitem_sndchannels	K1	multiitem_t	3	0	0									
-C082	src/doom/m_crispy.c	158	multiitem_widgets	K1	multiitem_t	4	0	0									
-C083	src/doom/m_crispy.c	166	multiitem_widescreen	K1	multiitem_t	5	0	0									
-C084	src/doom/m_menu.c	108	gammamsg	K1	char	18	0	0									
-C085	src/doom/m_menu.c	208	skullName	K1	char *	2	0	0									
-C086	src/doom/m_menu.c	291	MainMenu	K2	menuitem_t	6	0	0									
-C087	src/doom/m_menu.c	327	EpisodeMenu	K2	menuitem_t	6	0	0									
-C088	src/doom/m_menu.c	338	EpisodeMenuSII	K2	menuitem_t	5	0	0									
-C089	src/doom/m_menu.c	370	NewGameMenu	K2	menuitem_t	5	0	0									
-C090	src/doom/m_menu.c	407	OptionsMenu	K2	menuitem_t	8	0	0									
-C091	src/doom/m_menu.c	442	MouseMenu	K2	menuitem_t	7	0	0									
-C092	src/doom/m_menu.c	489	Crispness1Menu	K2	menuitem_t	18	0	0									
-C093	src/doom/m_menu.c	545	Crispness2Menu	K2	menuitem_t	17	0	0									
-C094	src/doom/m_menu.c	600	Crispness3Menu	K2	menuitem_t	17	0	0									
-C095	src/doom/m_menu.c	652	Crispness4Menu	K2	menuitem_t	13	0	0									
-C096	src/doom/m_menu.c	679	CrispnessMenus	K2	menu_t *	4	0	0									
-C097	src/doom/m_menu.c	698	ReadMenu1	K2	menuitem_t	1	0	0									
-C098	src/doom/m_menu.c	719	ReadMenu2	K2	menuitem_t	1	0	0									
-C099	src/doom/m_menu.c	746	SoundMenu	K2	menuitem_t	4	0	0									
-C100	src/doom/m_menu.c	780	LoadMenu	K2	menuitem_t	8	0	0									
-C101	src/doom/m_menu.c	805	SaveMenu	K2	menuitem_t	8	0	0									
-C102	src/doom/m_menu.c	1399	detailNames	K1	char *	2	0	0									
-C103	src/doom/m_menu.c	1400	msgNames	K1	char *	2	0	0									
-C104	src/doom/m_menu.c	1806	quitsounds	K1	int	8	0	0									
-C105	src/doom/m_menu.c	1818	quitsounds2	K1	int	8	0	0									
-C106	src/doom/m_random.c	24	rndtable	K1	unsigned char	256	0	0									
-C107	src/doom/p_doors.c	42	slideFrameNames	K1	slidename_t	2	0	0									
-C108	src/doom/p_enemy.c	64	opposite	K1	dirtype_t	9	0	0									
-C109	src/doom/p_enemy.c	70	diags	K1	dirtype_t	4	0	0									
-C110	src/doom/p_enemy.c	275	xspeed	K1	fixed_t	8	0	0									
-C111	src/doom/p_enemy.c	276	yspeed	K1	fixed_t	8	0	0									
-C112	src/doom/p_extsaveg.c	469	extsavegdata	K2	extsavegdata_t	13	0	0									
-C113	src/doom/p_inter.c	50	maxammo	K1	int	4	0	0									
-C114	src/doom/p_inter.c	51	clipammo	K1	int	4	0	0									
-C115	src/doom/p_inter.c	166	WeaponPickupMessages	K1	char *	9	0	0									
-C116	src/doom/p_maputl.c	794	intercepts_overrun	K1	intercepts_overrun_t	23	0	0									
-C117	src/doom/p_pspr.c	46	recoil_values	K1	int	9	0	0									
-C118	src/doom/p_setup.c	1153	skilltable	K1	char *	6	0	0									
-C119	src/doom/p_spec.c	101	animdefs_vanilla	K1	animdef_t	23	0	0									
-C120	src/doom/p_switch.c	46	alphSwitchList_vanilla	K1	switchlist_t	41	0	0									
-C121	src/doom/p_user.c	48	crispy_bobfactor	K1	fixed_t	3	0	0									
-C122	src/doom/r_bmaps.c	29	nobrightmap	K1	byte	1	0	0									
-C123	src/doom/r_bmaps.c	31	notgray	K1	byte	256	0	0									
-C124	src/doom/r_bmaps.c	51	notgrayorbrown	K1	byte	256	0	0									
-C125	src/doom/r_bmaps.c	71	notgrayorbrown2	K1	byte	256	0	0									
-C126	src/doom/r_bmaps.c	91	bluegreenbrownred	K1	byte	256	0	0									
-C127	src/doom/r_bmaps.c	111	bluegreenbrown	K1	byte	256	0	0									
-C128	src/doom/r_bmaps.c	131	blueandorange	K1	byte	256	0	0									
-C129	src/doom/r_bmaps.c	151	redonly	K1	byte	256	0	0									
-C130	src/doom/r_bmaps.c	171	redonly2	K1	byte	256	0	0									
-C131	src/doom/r_bmaps.c	191	greenonly1	K1	byte	256	0	0									
-C132	src/doom/r_bmaps.c	211	greenonly2	K1	byte	256	0	0									
-C133	src/doom/r_bmaps.c	231	greenonly3	K1	byte	256	0	0									
-C134	src/doom/r_bmaps.c	251	yellowonly	K1	byte	256	0	0									
-C135	src/doom/r_bmaps.c	271	redandgreen	K1	byte	256	0	0									
-C136	src/doom/r_bmaps.c	291	blueandgreen	K1	byte	256	0	0									
-C137	src/doom/r_bmaps.c	311	brighttan	K1	byte	256	0	0									
-C138	src/doom/r_bmaps.c	333	chexred	K1	byte	256	0	0									
-C139	src/doom/r_bmaps.c	355	chexgreen	K1	byte	256	0	0									
-C140	src/doom/r_bmaps.c	377	chexredgreen	K1	byte	256	0	0									
-C141	src/doom/r_bmaps.c	397	hacxlightning	K1	byte	256	0	0									
-C142	src/doom/r_bmaps.c	435	fullbright_doom	K1	fullbright_t	68	2	0									
-C143	src/doom/r_bmaps.c	512	fullbright_finaldoom	K1	fullbright_t	20	1	0									
-C144	src/doom/r_bmaps.c	539	fullbright_chex	K1	fullbright_t	51	8	0									
-C145	src/doom/r_bmaps.c	601	fullbright_hacx	K1	fullbright_t	18	15	0									
-C146	src/doom/r_bsp.c	400	checkcoord	K1	int	11	0	0									
-C147	src/doom/r_draw.c	328	fuzzoffset	K1	int	50	0	0									
-C148	src/doom/r_things.c	68	laserpatch_m	K1	laserpatch_t	4	0	0									
-C149	src/doom/s_sound.c	121	altmusic_tnt	K1	altmusic_t	31	2	0									
-C150	src/doom/s_sound.c	162	altmusic_plut	K1	altmusic_t	25	8	0									
-C151	src/doom/sounds.c	34	S_music	K1	musicinfo_t	129	0	0									
-C152	src/doom/sounds.c	182	S_sfx	K1	sfxinfo_t	265	0	0									
-C153	src/doom/statdump.c	34	doom1_par_times	K1	int	9	0	0									
-C154	src/doom/statdump.c	40	doom2_par_times	K1	int	9	0	0									
-C155	src/doom/statdump.c	46	player_colors	K1	char *	4	0	0									
-C156	src/doom/wi_stuff.c	176	lnodes	K1	point_t	3	0	0									
-C157	src/doom/wi_stuff.c	231	epsd0animinfo	K1	anim_t	60	0	0									
-C158	src/doom/wi_stuff.c	245	epsd1animinfo	K1	anim_t	54	0	0									
-C159	src/doom/wi_stuff.c	258	epsd2animinfo	K1	anim_t	36	0	0									
-C160	src/doom/wi_stuff.c	268	NUMANIMS	K1	int	3	0	0									
-C161	src/doom/wi_stuff.c	275	anims	K1	anim_t *	3	0	0									
-C162	src/doom/wi_stuff.c	345	yah	K1	patch_t *	3	0	0									
-C163	src/doom/wi_stuff.c	348	splat	K1	patch_t *	2	0	0									
-C164	src/heretic/am_data.h	35	player_arrow	K1	mline_t	10	0	0									
-C165	src/heretic/am_data.h	48	keysquare	K1	mline_t	8	0	0									
-C166	src/heretic/am_data.h	74	cheat_player_arrow	K1	mline_t	16	0	0									
-C167	src/heretic/am_data.h	96	triangle_guy	K1	mline_t	3	0	0									
-C168	src/heretic/am_data.h	105	thintriangle_guy	K1	mline_t	3	0	0									
-C169	src/heretic/am_map.c	39	LevelNames	K1	char *	48	0	0									
-C170	src/heretic/am_map.c	171	cheats	K2	Cheat_t	6	0	0									
-C171	src/heretic/am_map.c	183	antialias_normal	K1	byte	3	0	0									
-C172	src/heretic/am_map.c	190	antialias_overlay	K1	byte	3	0	0									
-C173	src/heretic/am_map.c	198	aliasmax	K1	byte *	3	0	0									
-C174	src/heretic/ct_chat.c	71	CT_FromPlrText	K1	char *	4	0	0									
-C175	src/heretic/d_main.c	951	loadparms	K1	char *	3	0	0									
-C176	src/heretic/deh_frame.c	46	action_pointers	K2	hhe_action_pointer_t	126	0	0									
-C177	src/heretic/deh_htext.c	47	strings	K1	hhe_string_t	480	0	0									
-C178	src/heretic/deh_htext.c	533	unsupported_strings_1_0	K1	int	337	0	0									
-C179	src/heretic/deh_htext.c	580	unsupported_strings_1_2	K1	int	306	0	0									
-C180	src/heretic/deh_htext.c	623	unsupported_strings_1_3	K1	int	306	0	0									
-C181	src/heretic/deh_htext.c	666	unsupported_strings	K1	int *	3	0	0									
-C182	src/heretic/deh_htic.c	28	deh_signatures	K1	char *	3	0	0									
-C183	src/heretic/deh_htic.c	35	hhe_versions	K1	char *	3	0	0									
-C184	src/heretic/deh_htic.c	49	deh_section_types	K1	deh_section_t *	7	0	0									
-C185	src/heretic/g_game.c	159	forwardmove	K1	fixed_t	2	0	0									
-C186	src/heretic/g_game.c	160	sidemove	K1	fixed_t	2	0	0									
-C187	src/heretic/g_game.c	161	angleturn	K1	fixed_t	3	0	0									
-C188	src/heretic/g_game.c	163	weapon_keys	K1	int *	7	0	0									
-C189	src/heretic/heretic_icon.c	4	heretic_icon_data	K1	unsigned int	16384	0	0									
-C190	src/heretic/in_lude.c	105	KillersText	K1	char *	7	0	0									
-C191	src/heretic/in_lude.c	114	YAHspot	K1	yahpt_t	3	0	0									
-C192	src/heretic/info.c	19	sprnames	K1	char *	129	0	0									
-C193	src/heretic/info.c	36	states	K2	state_t	1208	0	0									
-C194	src/heretic/info.c	1250	mobjinfo	K1	mobjinfo_t	161	0	0									
-C195	src/heretic/m_random.c	29	rndtable	K1	unsigned int	256	0	0									
-C196	src/heretic/mn_menu.c	220	MainItems	K2	MenuItem_t	5	0	0									
-C197	src/heretic/mn_menu.c	236	EpisodeItems	K2	MenuItem_t	5	0	0									
-C198	src/heretic/mn_menu.c	252	FilesItems	K2	MenuItem_t	2	0	0									
-C199	src/heretic/mn_menu.c	265	LoadItems	K2	MenuItem_t	6	0	0									
-C200	src/heretic/mn_menu.c	282	SaveItems	K2	MenuItem_t	6	0	0									
-C201	src/heretic/mn_menu.c	299	SkillItems	K2	MenuItem_t	5	0	0									
-C202	src/heretic/mn_menu.c	316	OptionsItems	K2	MenuItem_t	5	0	0									
-C203	src/heretic/mn_menu.c	332	MouseItems	K2	MenuItem_t	7	0	0									
-C204	src/heretic/mn_menu.c	350	Options2Items	K2	MenuItem_t	6	0	0									
-C205	src/heretic/mn_menu.c	371	Crispness1Items	K2	MenuItem_t	14	0	0									
-C206	src/heretic/mn_menu.c	396	Crispness2Items	K2	MenuItem_t	14	0	0									
-C207	src/heretic/mn_menu.c	421	Crispness3Items	K2	MenuItem_t	14	0	0									
-C208	src/heretic/mn_menu.c	446	CrispnessMenuDrawers	K2	static void (*)()	3	0	0									
-C209	src/heretic/mn_menu.c	452	CrispnessMenus	K1	MenuType_t	3	0	0									
-C210	src/heretic/mn_menu.c	458	multiitem_bobfactor	K1	multiitem_t	3	0	0									
-C211	src/heretic/mn_menu.c	465	multiitem_brightmaps	K1	multiitem_t	4	0	0									
-C212	src/heretic/mn_menu.c	473	multiitem_centerweapon	K1	multiitem_t	3	0	0									
-C213	src/heretic/mn_menu.c	480	multiitem_widescreen	K1	multiitem_t	5	0	0									
-C214	src/heretic/mn_menu.c	489	multiitem_widgets	K1	multiitem_t	4	0	0									
-C215	src/heretic/mn_menu.c	497	multiitem_secretmessage	K1	multiitem_t	3	0	0									
-C216	src/heretic/mn_menu.c	504	multiitem_freelook_hh	K1	multiitem_t	2	0	0									
-C217	src/heretic/mn_menu.c	510	multiitem_difficulties	K1	multiitem_t	5	0	0									
-C218	src/heretic/mn_menu.c	519	multiitem_he_crosshair	K1	multiitem_t	3	0	0									
-C219	src/heretic/mn_menu.c	526	multiitem_he_crosshairtype	K1	multiitem_t	4	0	0									
-C220	src/heretic/mn_menu.c	538	multiitem_he_crosshaircolor	K1	multiitem_t	4	0	0									
-C221	src/heretic/mn_menu.c	546	multiitem_translucency	K1	multiitem_t	4	0	0									
-C222	src/heretic/mn_menu.c	554	multiitem_sndchannels	K1	multiitem_t	3	0	0									
-C223	src/heretic/mn_menu.c	561	Menus	K2	Menu_t *	12	0	0									
-C224	src/heretic/mn_menu.c	577	GammaText	K1	char *	18	0	0									
-C225	src/heretic/mn_menu.c	860	QuitEndMsg	K1	char *	5	0	0									
-C226	src/heretic/p_enemy.c	246	xspeed	K1	fixed_t	8	0	0									
-C227	src/heretic/p_enemy.c	248	yspeed	K1	fixed_t	8	0	0									
-C228	src/heretic/p_enemy.c	339	opposite	K1	dirtype_t	9	0	0									
-C229	src/heretic/p_enemy.c	344	diags	K1	dirtype_t	4	0	0									
-C230	src/heretic/p_extsaveg.c	93	extsavegdata	K2	extsavegdata_t	2	0	0									
-C231	src/heretic/p_inter.c	31	WeaponValue	K1	int	9	0	0									
-C232	src/heretic/p_inter.c	43	maxammo	K1	int	6	0	0									
-C233	src/heretic/p_inter.c	52	GetWeaponAmmo	K1	int	9	0	0									
-C234	src/heretic/p_inter.c	64	GetAmmoChange	K1	weapontype_t	6	0	0									
-C235	src/heretic/p_inter.c	74	GetAmmoChangePL1	K1	boolean	8	0	0									
-C236	src/heretic/p_inter.c	96	GetAmmoChangePL2	K1	boolean	8	0	0									
-C237	src/heretic/p_inter.c	239	WeaponPickupMessages	K1	char *	9	0	0									
-C238	src/heretic/p_mobj.c	32	FloatBobOffsets	K1	fixed_t	64	0	0									
-C239	src/heretic/p_pspr.c	44	WeaponAmmoUsePL1	K1	int	9	0	0									
-C240	src/heretic/p_pspr.c	56	WeaponAmmoUsePL2	K1	int	9	0	0									
-C241	src/heretic/p_pspr.c	68	wpnlev1info	K1	weaponinfo_t	9	0	0									
-C242	src/heretic/p_pspr.c	152	wpnlev2info	K1	weaponinfo_t	9	0	0									
-C243	src/heretic/p_spec.c	62	AmbSndSeqInit	K1	int	1	0	0									
-C244	src/heretic/p_spec.c	65	AmbSndSeq1	K1	int	3	0	0									
-C245	src/heretic/p_spec.c	69	AmbSndSeq2	K1	int	3	0	0									
-C246	src/heretic/p_spec.c	73	AmbSndSeq3	K1	int	37	0	0									
-C247	src/heretic/p_spec.c	94	AmbSndSeq4	K1	int	38	0	0									
-C248	src/heretic/p_spec.c	112	AmbSndSeq5	K1	int	15	0	0									
-C249	src/heretic/p_spec.c	122	AmbSndSeq6	K1	int	18	0	0									
-C250	src/heretic/p_spec.c	132	AmbSndSeq7	K1	int	3	0	0									
-C251	src/heretic/p_spec.c	136	AmbSndSeq8	K1	int	3	0	0									
-C252	src/heretic/p_spec.c	140	AmbSndSeq9	K1	int	28	0	0									
-C253	src/heretic/p_spec.c	154	AmbSndSeq10	K1	int	38	0	0									
-C254	src/heretic/p_spec.c	173	AmbientSfx	K1	int *	10	0	0									
-C255	src/heretic/p_spec.c	186	animdefs_vanilla	K1	animdef_t	23	0	0									
-C256	src/heretic/p_switch.c	33	alphSwitchList_vanilla	K1	switchlist_t	3	30	0									
-C257	src/heretic/p_user.c	39	WeaponInShareware	K1	boolean	9	0	0									
-C258	src/heretic/p_user.c	52	crispy_bobfactor	K1	fixed_t	3	0	0									
-C259	src/heretic/r_bmaps.c	29	nobrightmap	K1	byte	1	0	0									
-C260	src/heretic/r_bmaps.c	31	fullbright	K1	byte	256	0	0									
-C261	src/heretic/r_bmaps.c	51	surfaces	K1	byte	256	0	0									
-C262	src/heretic/r_bmaps.c	72	consumables	K1	byte	256	0	0									
-C263	src/heretic/r_bmaps.c	92	hellstaff_world	K1	byte	256	0	0									
-C264	src/heretic/r_bmaps.c	112	hellstaff_attack	K1	byte	256	0	0									
-C265	src/heretic/r_bmaps.c	132	flame	K1	byte	256	0	0									
-C266	src/heretic/r_bmaps.c	152	serptorch	K1	byte	256	0	0									
-C267	src/heretic/r_bmaps.c	172	ethereal	K1	byte	256	0	0									
-C268	src/heretic/r_bmaps.c	192	energy	K1	byte	256	0	0									
-C269	src/heretic/r_bmaps.c	212	iron_lich_1	K1	byte	256	0	0									
-C270	src/heretic/r_bmaps.c	232	iron_lich_2	K1	byte	256	0	0									
-C271	src/heretic/r_bmaps.c	262	fullbright_walls	K1	fullbright_t	10	0	0									
-C272	src/heretic/r_bsp.c	343	checkcoord	K1	int	11	0	0									
-C273	src/heretic/r_things.c	98	spriteoffsets	K1	spriteoffset_t	12	0	0									
-C274	src/heretic/r_things.c	794	PSpriteSY	K1	int	9	0	0									
-C275	src/heretic/sb_bar.c	146	crosshairpatch_m	K1	crosshairpatch_t	3	0	0									
-C276	src/heretic/sb_bar.c	206	Cheats	K2	Cheat_t	23	0	0									
-C277	src/heretic/sb_bar.c	610	patcharti	K1	char	11	0	0									
-C278	src/heretic/sb_bar.c	624	ammopic	K1	char	6	0	0									
-C279	src/heretic/sounds.c	30	S_music	K1	musicinfo_t	51	0	0									
-C280	src/heretic/sounds.c	104	S_sfx	K1	sfxinfo_t	434	0	0									
-C281	src/hexen/a_action.c	38	orbitTableX	K1	int	256	0	0									
-C282	src/hexen/a_action.c	73	orbitTableY	K1	int	256	0	0									
-C283	src/hexen/am_data.h	34	player_arrow	K1	mline_t	10	0	0									
-C284	src/hexen/am_data.h	48	keysquare	K1	mline_t	8	0	0									
-C285	src/hexen/am_data.h	76	cheat_player_arrow	K1	mline_t	16	0	0									
-C286	src/hexen/am_data.h	101	triangle_guy	K1	mline_t	3	0	0									
-C287	src/hexen/am_data.h	111	thintriangle_guy	K1	mline_t	3	0	0									
-C288	src/hexen/am_map.c	92	cheat_kills	K1	char	5	0	0									
-C289	src/hexen/am_map.c	97	antialias_normal	K1	byte	3	0	0									
-C290	src/hexen/am_map.c	104	antialias_overlay	K1	byte	3	0	0									
-C291	src/hexen/am_map.c	112	aliasmax	K1	byte *	3	0	0									
-C292	src/hexen/am_map.c	1963	PlayerColorText	K1	char *	8	0	0									
-C293	src/hexen/ct_chat.c	76	CT_FromPlrText	K1	char *	8	0	0									
-C294	src/hexen/d_pwad.c	52	hexdd_lumps	K1	lump_rename_t	15	0	0									
-C295	src/hexen/g_game.c	127	MaxPlayerMove	K1	fixed_t	4	0	0									
-C296	src/hexen/g_game.c	128	forwardmove	K1	fixed_t	4	0	0									
-C297	src/hexen/g_game.c	135	sidemove	K1	fixed_t	4	0	0									
-C298	src/hexen/g_game.c	142	angleturn	K1	fixed_t	3	0	0									
-C299	src/hexen/g_game.c	144	weapon_keys	K1	int *	4	0	0									
-C300	src/hexen/h2_main.c	131	chat_macro_defaults	K1	char *	10	0	0									
-C301	src/hexen/h2_main.c	471	loadparms	K1	char *	3	0	0									
-C302	src/hexen/hexen_icon.c	4	hexen_icon_data	K1	unsigned int	16384	0	0									
-C303	src/hexen/in_lude.c	163	ClusMsgLumpNames	K1	char *	5	0	0									
-C304	src/hexen/info.c	22	sprnames	K1	char *	301	0	0									
-C305	src/hexen/info.c	57	states	K2	state_t	2846	0	0									
-C306	src/hexen/info.c	2918	mobjinfo	K1	mobjinfo_t	398	0	0									
-C307	src/hexen/m_random.c	24	rndtable	K1	unsigned char	256	0	0									
-C308	src/hexen/mn_menu.c	227	MainItems	K2	MenuItem_t	5	0	0									
-C309	src/hexen/mn_menu.c	243	EpisodeItems	K2	MenuItem_t	2	0	0									
-C310	src/hexen/mn_menu.c	256	ClassItems	K2	MenuItem_t	3	0	0									
-C311	src/hexen/mn_menu.c	270	FilesItems	K2	MenuItem_t	2	0	0									
-C312	src/hexen/mn_menu.c	283	LoadItems	K2	MenuItem_t	6	0	0									
-C313	src/hexen/mn_menu.c	300	SaveItems	K2	MenuItem_t	6	0	0									
-C314	src/hexen/mn_menu.c	317	SkillItems	K2	MenuItem_t	5	0	0									
-C315	src/hexen/mn_menu.c	333	OptionsItems	K2	MenuItem_t	5	0	0									
-C316	src/hexen/mn_menu.c	349	MouseItems	K2	MenuItem_t	7	0	0									
-C317	src/hexen/mn_menu.c	366	Options2Items	K2	MenuItem_t	6	0	0									
-C318	src/hexen/mn_menu.c	387	Crispness1Items	K2	MenuItem_t	15	0	0									
-C319	src/hexen/mn_menu.c	413	Crispness2Items	K2	MenuItem_t	15	0	0									
-C320	src/hexen/mn_menu.c	439	Crispness3Items	K2	MenuItem_t	15	0	0									
-C321	src/hexen/mn_menu.c	465	CrispnessMenuDrawers	K2	static void (*)()	3	0	0									
-C322	src/hexen/mn_menu.c	471	CrispnessMenus	K1	MenuType_t	3	0	0									
-C323	src/hexen/mn_menu.c	477	multiitem_bobfactor	K1	multiitem_t	3	0	0									
-C324	src/hexen/mn_menu.c	484	multiitem_brightmaps	K1	multiitem_t	4	0	0									
-C325	src/hexen/mn_menu.c	492	multiitem_centerweapon	K1	multiitem_t	3	0	0									
-C326	src/hexen/mn_menu.c	499	multiitem_widescreen	K1	multiitem_t	5	0	0									
-C327	src/hexen/mn_menu.c	508	multiitem_widgets	K1	multiitem_t	4	0	0									
-C328	src/hexen/mn_menu.c	516	multiitem_freelook_hh	K1	multiitem_t	2	0	0									
-C329	src/hexen/mn_menu.c	522	multiitem_difficulties	K1	multiitem_t	5	0	0									
-C330	src/hexen/mn_menu.c	531	multiitem_he_crosshair	K1	multiitem_t	3	0	0									
-C331	src/hexen/mn_menu.c	538	multiitem_he_crosshairtype	K1	multiitem_t	4	0	0									
-C332	src/hexen/mn_menu.c	550	multiitem_he_crosshaircolor	K1	multiitem_t	4	0	0									
-C333	src/hexen/mn_menu.c	558	multiitem_translucency	K1	multiitem_t	4	0	0									
-C334	src/hexen/mn_menu.c	566	multiitem_sndchannels	K1	multiitem_t	3	0	0									
-C335	src/hexen/mn_menu.c	573	Menus	K2	Menu_t *	13	0	0									
-C336	src/hexen/mn_menu.c	590	GammaText	K1	char *	18	0	0									
-C337	src/hexen/mn_menu.c	879	QuitEndMsg	K1	char *	6	0	0									
-C338	src/hexen/mn_menu.c	1455	class_str	K1	char *	4	0	0									
-C339	src/hexen/p_acs.c	196	PCodeCmds	K2	static int (*)()	102	0	0									
-C340	src/hexen/p_enemy.c	226	xspeed	K1	fixed_t	8	0	0									
-C341	src/hexen/p_enemy.c	228	yspeed	K1	fixed_t	8	0	0									
-C342	src/hexen/p_enemy.c	328	opposite	K1	dirtype_t	9	0	0									
-C343	src/hexen/p_enemy.c	333	diags	K1	dirtype_t	4	0	0									
-C344	src/hexen/p_inter.c	27	ArmorIncrement	K1	int	4	0	0									
-C345	src/hexen/p_inter.c	34	AutoArmorSave	K1	int	4	0	0									
-C346	src/hexen/p_inter.c	37	TextKeyMessages	K1	char *	11	0	0									
-C347	src/hexen/p_lights.c	261	PhaseTable	K1	int	64	0	0									
-C348	src/hexen/p_mobj.c	54	FloatBobOffsets	K1	fixed_t	64	0	0									
-C349	src/hexen/p_pspr.c	49	WeaponInfo	K1	weaponinfo_t	4	0	0									
-C350	src/hexen/p_pspr.c	205	WeaponManaUse	K1	int	4	0	0									
-C351	src/hexen/p_setup.c	120	MapCmdNames	K1	char *	16	0	0									
-C352	src/hexen/p_setup.c	138	MapCmdIDs	K1	int	15	0	0									
-C353	src/hexen/p_switch.c	28	alphSwitchListDemo	K1	switchlist_t	4	0	0									
-C354	src/hexen/p_switch.c	35	alphSwitchListFull	K1	switchlist_t	11	0	0									
-C355	src/hexen/p_things.c	41	TranslateThingType	K1	mobjtype_t	109	0	0									
-C356	src/hexen/p_user.c	35	PStateNormal	K1	int	4	0	0									
-C357	src/hexen/p_user.c	42	PStateRun	K1	int	4	0	0									
-C358	src/hexen/p_user.c	49	PStateAttack	K1	int	4	0	0									
-C359	src/hexen/p_user.c	56	PStateAttackEnd	K1	int	4	0	0									
-C360	src/hexen/p_user.c	63	ArmorMax	K1	int	4	0	0									
-C361	src/hexen/p_user.c	66	crispy_bobfactor	K1	fixed_t	3	0	0									
-C362	src/hexen/r_bmaps.c	29	nobrightmap	K1	byte	1	0	0									
-C363	src/hexen/r_bmaps.c	31	fullbright	K1	byte	256	0	0									
-C364	src/hexen/r_bmaps.c	51	surfaces1	K1	byte	256	0	0									
-C365	src/hexen/r_bmaps.c	71	surfaces2	K1	byte	256	0	0									
-C366	src/hexen/r_bmaps.c	91	artifacts	K1	byte	256	0	0									
-C367	src/hexen/r_bmaps.c	111	flame	K1	byte	256	0	0									
-C368	src/hexen/r_bmaps.c	131	firebull	K1	byte	256	0	0									
-C369	src/hexen/r_bmaps.c	151	brazier	K1	byte	256	0	0									
-C370	src/hexen/r_bmaps.c	171	fireskull	K1	byte	256	0	0									
-C371	src/hexen/r_bmaps.c	191	twintorch	K1	byte	256	0	0									
-C372	src/hexen/r_bmaps.c	211	greenonly	K1	byte	256	0	0									
-C373	src/hexen/r_bmaps.c	231	blueonly	K1	byte	256	0	0									
-C374	src/hexen/r_bmaps.c	261	fullbright_walls	K1	fullbright_t	22	0	0									
-C375	src/hexen/r_bsp.c	343	checkcoord	K1	int	11	0	0									
-C376	src/hexen/r_things.c	748	PSpriteSY	K1	int	4	0	0									
-C377	src/hexen/sb_bar.c	131	crosshairpatch_m	K1	crosshairpatch_t	3	0	0									
-C378	src/hexen/sb_bar.c	246	Cheats	K2	Cheat_t	28	0	0									
-C379	src/hexen/sb_bar.c	788	patcharti	K1	char	33	0	0									
-C380	src/hexen/sb_bar.c	1534	PieceX	K1	int	4	0	0									
-C381	src/hexen/sounds.c	24	S_music	K1	musicinfo_t	31	0	0									
-C382	src/hexen/sounds.c	65	S_sfx	K1	sfxinfo_t	980	0	0									
-C383	src/hexen/st_start.c	55	notchTable	K1	byte	184	0	0									
-C384	src/hexen/st_start.c	83	netnotchTable	K1	byte	64	0	0									
-C385	src/hexen/sv_extsaveg.c	116	extsavegdata	K2	extsavegdata_t	3	0	0									
-C386	src/hexen/sv_save.c	2824	ThinkerInfo	K2	thinkInfo_t	13	0	0									
-C387	src/i_flmusic.c	303	music_fl_devices	K1	snddevice_t	1	0	0									
-C388	src/i_input.c	40	shiftxform	K1	char	128	0	0									
-C389	src/i_joystick.c	92	joystick_physical_buttons	K1	int	17	0	0									
-C390	src/i_musicpack.c	146	known_filenames	K1	subst_music_t	195	1	0									
-C391	src/i_oplmusic.c	160	voice_operators	K1	int	2	0	0									
-C392	src/i_oplmusic.c	167	frequency_curve	K1	unsigned short	668	0	0									
-C393	src/i_oplmusic.c	285	volume_mapping_table	K1	unsigned int	128	0	0									
-C394	src/i_oplmusic.c	1768	music_opl_devices	K1	snddevice_t	2	0	0									
-C395	src/i_pcsound.c	45	divisors	K1	uint16_t	128	0	0									
-C396	src/i_pcsound.c	328	sound_pcsound_devices	K1	snddevice_t	1	0	0									
-C397	src/i_sdlmusic.c	444	music_sdl_devices	K1	snddevice_t	6	0	0									
-C398	src/i_sdlsound.c	1192	sound_sdl_devices	K1	snddevice_t	6	0	0									
-C399	src/i_sound.c	86	sound_modules	K2	sound_module_t *	3	0	1									
-C400	src/i_sound.c	97	music_modules	K2	music_module_t *	5	0	3									
-C401	src/i_system.c	395	mem_dump_dos622	K1	unsigned char	10	0	0									
-C402	src/i_system.c	397	mem_dump_win98	K1	unsigned char	10	0	0									
-C403	src/i_system.c	399	mem_dump_dosbox	K1	unsigned char	10	0	0									
-C404	src/i_video.c	975	gammalevels	K1	float	9	0	0									
-C405	src/i_winmusic.c	57	gm_system_on	K1	byte	6	0	0									
-C406	src/i_winmusic.c	61	gs_reset	K1	byte	11	0	0									
-C407	src/i_winmusic.c	65	xg_system_on	K1	byte	9	0	0									
-C408	src/i_winmusic.c	69	ff_loopStart	K1	byte	9	0	0									
-C409	src/i_winmusic.c	70	ff_loopEnd	K1	byte	7	0	0									
-C410	src/i_winmusic.c	1887	music_win_devices	K1	snddevice_t	5	0	0									
-C411	src/m_config.c	121	doom_defaults_list	K1	default_t	86	0	0									
-C412	src/m_config.c	759	extra_defaults_list	K1	default_t	267	0	19									
-C413	src/m_config.c	2698	scantokey	K1	int	128	0	0									
-C414	src/midifallback.c	24	drums_table	K1	byte	128	0	0									
-C415	src/mus2mid.c	68	midiheader	K1	byte	22	0	0									
-C416	src/mus2mid.c	80	channelvelocities	K1	byte	16	0	0									
-C417	src/mus2mid.c	94	controller_map	K1	byte	15	0	0									
-C418	src/net_dedicated.c	39	not_dedicated_options	K1	char *	27	0	0									
-C419	src/net_petname.c	23	adjectives	K1	char *	41	0	0									
-C420	src/net_petname.c	67	nouns	K1	char *	25	0	0									
-C421	src/p_mapformat.c	42	bsp_names	K1	char *	6	0	0									
-C422	src/setup/display.c	40	window_sizes_unscaled	K1	window_size_t	8	1	0									
-C423	src/setup/display.c	54	window_sizes_scaled	K1	window_size_t	10	2	0									
-C424	src/setup/joystick.c	102	joystick_physical_buttons	K1	int	17	0	0									
-C425	src/setup/joystick.c	146	empty_defaults	K1	joystick_config_t	43	0	0									
-C426	src/setup/joystick.c	193	ps3_controller	K1	joystick_config_t	12	0	0									
-C427	src/setup/joystick.c	210	ps4_ds4_controller	K1	joystick_config_t	11	0	0									
-C428	src/setup/joystick.c	225	airflo_controller	K1	joystick_config_t	12	0	0									
-C429	src/setup/joystick.c	246	wii_controller_wjoy	K1	joystick_config_t	9	0	0									
-C430	src/setup/joystick.c	260	xbox360_controller	K1	joystick_config_t	11	0	0									
-C431	src/setup/joystick.c	276	xbox360_controller_linux	K1	joystick_config_t	11	0	0									
-C432	src/setup/joystick.c	296	logitech_f310_controller	K1	joystick_config_t	12	0	0									
-C433	src/setup/joystick.c	313	multilaser_js030_controller	K1	joystick_config_t	12	0	0									
-C434	src/setup/joystick.c	330	buffalo_classic_controller	K1	joystick_config_t	11	0	0									
-C435	src/setup/joystick.c	347	pc_gameport_controller	K1	joystick_config_t	7	0	0									
-C436	src/setup/joystick.c	363	nes30_pro_controller	K1	joystick_config_t	13	0	0									
-C437	src/setup/joystick.c	382	sfc30_controller	K1	joystick_config_t	11	0	0									
-C438	src/setup/joystick.c	397	known_joysticks	K1	known_joystick_t	30	0	0									
-C439	src/setup/joystick.c	632	modern_gamepad	K1	joystick_config_t	19	0	0									
-C440	src/setup/joystick.c	656	classic_gamepad	K1	joystick_config_t	11	0	0									
-C441	src/setup/joystick.c	672	classic_gamepad_plus	K1	joystick_config_t	12	0	0									
-C442	src/setup/keyboard.c	37	controls	K1	int *	67	0	0									
-C443	src/setup/keyboard.c	62	menu_nav	K1	int *	9	0	0									
-C444	src/setup/keyboard.c	66	shortcuts	K1	int *	25	0	0									
-C445	src/setup/keyboard.c	77	map_keys	K1	int *	15	0	0									
-C446	src/setup/mainmenu.c	44	cheat_sequence	K1	int	12	0	0									
-C447	src/setup/mode.c	61	mission_configs	K1	mission_config_t	4	0	0									
-C448	src/setup/mouse.c	45	game_mouse_buttons	K1	int *	19	0	0									
-C449	src/setup/mouse.c	68	map_mouse_buttons	K1	int *	4	0	0									
-C450	src/setup/multiplayer.c	54	fallback_iwads	K1	iwad_t	4	0	0									
-C451	src/setup/multiplayer.c	74	wad_extensions	K1	char *	4	0	0									
-C452	src/setup/multiplayer.c	76	doom_skills	K1	char *	5	0	0									
-C453	src/setup/multiplayer.c	82	chex_skills	K1	char *	5	0	0									
-C454	src/setup/multiplayer.c	88	heretic_skills	K1	char *	5	0	0									
-C455	src/setup/multiplayer.c	94	hexen_fighter_skills	K1	char *	5	0	0									
-C456	src/setup/multiplayer.c	99	hexen_cleric_skills	K1	char *	5	0	0									
-C457	src/setup/multiplayer.c	104	hexen_mage_skills	K1	char *	5	0	0									
-C458	src/setup/multiplayer.c	109	strife_skills	K1	char *	5	0	0									
-C459	src/setup/multiplayer.c	114	character_classes	K1	char *	3	0	0									
-C460	src/setup/multiplayer.c	116	gamemodes	K1	char *	4	0	0									
-C461	src/setup/multiplayer.c	118	strife_gamemodes	K1	char *	2	0	0									
-C462	src/setup/setup_icon.c	4	setup_icon_data	K1	unsigned int	16384	0	0									
-C463	src/setup/sound.c	50	opltype_strings	K1	char *	2	0	0									
-C464	src/setup/sound.c	56	cfg_extension	K1	char *	2	0	0									
-C465	src/setup/sound.c	59	sf_extension	K1	char *	3	0	0									
-C466	src/setup/txt_joybinput.c	48	all_joystick_buttons	K1	int *	17	0	0									
-C467	src/setup/txt_joybinput.c	71	gamepad_buttons	K1	int	23	0	0									
-C468	src/setup/txt_joybinput.c	100	xbox360_buttons	K1	char *	23	0	0									
-C469	src/setup/txt_joybinput.c	127	xboxone_buttons	K1	char *	23	0	0									
-C470	src/setup/txt_joybinput.c	154	ps3_buttons	K1	char *	23	0	0									
-C471	src/setup/txt_joybinput.c	181	ps4_buttons	K1	char *	23	0	0									
-C472	src/setup/txt_joybinput.c	208	ps5_buttons	K1	char *	23	0	0									
-C473	src/setup/txt_joybinput.c	235	switchpro_buttons	K1	char *	23	0	0									
-C474	src/strife/am_map.c	149	player_arrow	K1	mline_t	7	0	0									
-C475	src/strife/am_map.c	161	cheat_player_arrow	K1	mline_t	16	0	0									
-C476	src/strife/am_map.c	182	triangle_guy	K1	mline_t	3	0	0									
-C477	src/strife/am_map.c	190	thintriangle_guy	K1	mline_t	3	0	0									
-C478	src/strife/d_items.c	39	weaponinfo	K1	weaponinfo_t	11	0	0									
-C479	src/strife/d_main.c	451	chat_macro_defaults	K1	char *	10	0	0									
-C480	src/strife/d_main.c	882	banners	K1	char *	1	0	0									
-C481	src/strife/d_main.c	1082	copyright_banners	K1	char *	3	0	0									
-C482	src/strife/d_main.c	1596	loadparms	K1	char *	3	0	0									
-C483	src/strife/deh_cheat.c	35	allcheats	K1	deh_cheat_t	17	0	0									
-C484	src/strife/deh_strife.c	22	deh_signatures	K1	char *	3	0	0									
-C485	src/strife/deh_strife.c	34	deh_section_types	K1	deh_section_t *	10	0	0									
-C486	src/strife/dstrings.c	23	doom1_endmsg	K1	char *	8	0	0									
-C487	src/strife/dstrings.c	35	doom2_endmsg	K1	char *	8	0	0									
-C488	src/strife/dstrings.c	52	endmsg	K1	char *	9	0	0									
-C489	src/strife/f_finale.c	80	textscreens	K1	textscreen_t	22	0	0									
-C490	src/strife/f_finale.c	608	castorder	K1	castinfo_t	18	0	0									
-C491	src/strife/g_game.c	157	forwardmove	K1	fixed_t	2	0	0									
-C492	src/strife/g_game.c	158	sidemove	K1	fixed_t	2	0	0									
-C493	src/strife/g_game.c	159	angleturn	K1	fixed_t	3	0	0									
-C494	src/strife/g_game.c	164	weapon_keys	K1	int *	8	0	0									
-C495	src/strife/hu_stuff.c	77	player_names	K1	char	8	0	0									
-C496	src/strife/hu_stuff.c	126	mapnames	K1	char *	34	0	0									
-C497	src/strife/info.c	33	sprnames	K1	char *	264	0	0									
-C498	src/strife/info.c	190	states	K2	state_t	1518	0	0									
-C499	src/strife/info.c	1715	mobjinfo	K1	mobjinfo_t	344	0	0									
-C500	src/strife/m_crispy.c	29	multiitem_bobfactor	K1	multiitem_t	3	0	0									
-C501	src/strife/m_crispy.c	36	multiitem_centerweapon	K1	multiitem_t	3	0	0									
-C502	src/strife/m_crispy.c	43	multiitem_difficulties	K1	multiitem_t	5	0	0									
-C503	src/strife/m_crispy.c	52	multiitem_freelook	K1	multiitem_t	2	0	0									
-C504	src/strife/m_crispy.c	58	multiitem_translucency	K1	multiitem_t	2	0	0									
-C505	src/strife/m_crispy.c	64	multiitem_sndchannels	K1	multiitem_t	3	0	0									
-C506	src/strife/m_crispy.c	71	multiitem_widescreen	K1	multiitem_t	5	0	0									
-C507	src/strife/m_crispy.c	80	multiitem_widgets	K1	multiitem_t	4	0	0									
-C508	src/strife/m_menu.c	112	gammamsg	K1	char	18	0	0									
-C509	src/strife/m_menu.c	178	cursorName	K1	char *	8	0	0									
-C510	src/strife/m_menu.c	272	MainMenu	K2	menuitem_t	6	0	0									
-C511	src/strife/m_menu.c	307	EpisodeMenu	K2	menuitem_t	4	0	0									
-C512	src/strife/m_menu.c	339	NewGameMenu	K2	menuitem_t	5	0	0									
-C513	src/strife/m_menu.c	374	OptionsMenu	K2	menuitem_t	6	0	0									
-C514	src/strife/m_menu.c	408	MouseMenu	K2	menuitem_t	7	0	0									
-C515	src/strife/m_menu.c	451	Crispness1Menu	K2	menuitem_t	14	0	0									
-C516	src/strife/m_menu.c	499	Crispness2Menu	K2	menuitem_t	13	0	0									
-C517	src/strife/m_menu.c	547	Crispness3Menu	K2	menuitem_t	14	0	0									
-C518	src/strife/m_menu.c	575	CrispnessMenus	K2	menu_t *	3	0	0									
-C519	src/strife/m_menu.c	593	ReadMenu1	K2	menuitem_t	1	0	0									
-C520	src/strife/m_menu.c	614	ReadMenu2	K2	menuitem_t	1	0	0									
-C521	src/strife/m_menu.c	636	ReadMenu3	K2	menuitem_t	1	0	0									
-C522	src/strife/m_menu.c	669	SoundMenu	K2	menuitem_t	6	0	0									
-C523	src/strife/m_menu.c	703	LoadMenu	K2	menuitem_t	6	0	0									
-C524	src/strife/m_menu.c	726	SaveMenu	K2	menuitem_t	6	0	0									
-C525	src/strife/m_menu.c	1385	detailNames	K1	char	2	0	0									
-C526	src/strife/m_menu.c	1386	msgNames	K1	char	2	0	0									
-C527	src/strife/m_random.c	29	rndtable	K1	unsigned char	256	0	0									
-C528	src/strife/p_dialog.c	115	healthamounts	K1	int	5	0	0									
-C529	src/strife/p_dialog.c	133	dialogstatesets	K1	dialogstateset_t	5	0	0									
-C530	src/strife/p_dialog.c	165	rndMessages	K1	rndmessage_t	5	0	0									
-C531	src/strife/p_dialog.c	354	dialogmenuitems	K2	menuitem_t	6	0	0									
-C532	src/strife/p_doors.c	945	slideFrameNames	K1	slidename_t	8	0	0									
-C533	src/strife/p_doors.c	1038	slideOpenSounds	K1	sfxenum_t	8	0	0									
-C534	src/strife/p_doors.c	1049	slideCloseSounds	K1	sfxenum_t	8	0	0									
-C535	src/strife/p_enemy.c	76	opposite	K1	dirtype_t	9	0	0									
-C536	src/strife/p_enemy.c	82	diags	K1	dirtype_t	4	0	0									
-C537	src/strife/p_enemy.c	389	xspeed	K1	fixed_t	8	0	0									
-C538	src/strife/p_enemy.c	390	yspeed	K1	fixed_t	8	0	0									
-C539	src/strife/p_extsaveg.c	132	extsavegdata	K2	extsavegdata_t	3	0	0									
-C540	src/strife/p_inter.c	51	maxammo	K1	int	7	0	0									
-C541	src/strife/p_inter.c	52	clipammo	K1	int	7	0	0									
-C542	src/strife/p_maputl.c	806	intercepts_overrun	K1	intercepts_overrun_t	23	0	0									
-C543	src/strife/p_spec.c	99	animdefs	K1	animdef_t	34	0	0									
-C544	src/strife/p_spec.c	204	terraintypes	K1	terraintype_t	13	0	0									
-C545	src/strife/p_switch.c	49	alphSwitchList	K1	switchlist_t	69	0	0									
-C546	src/strife/p_user.c	61	crispy_bobfactor	K1	fixed_t	3	0	0									
-C547	src/strife/r_bsp.c	399	checkcoord	K1	int	11	0	0									
-C548	src/strife/sounds.c	35	S_music	K1	musicinfo_t	35	0	0									
-C549	src/strife/sounds.c	87	S_sfx	K1	sfxinfo_t	272	0	0									
-C550	src/strife/st_stuff.c	128	st_yforammo	K1	int	7	0	0									
-C551	src/strife/st_stuff.c	129	st_wforammo	K1	int	7	0	0									
-C552	src/strife/st_stuff.c	221	invammonames	K1	char *	7	0	0									
-C553	src/strife/strife_icon.c	4	strife_icon_data	K1	unsigned int	16384	0	0									
-C554	src/strife/wi_stuff.c	172	lnodes	K1	point_t	3	0	0									
-C555	src/strife/wi_stuff.c	227	epsd0animinfo	K1	anim_t	60	0	0									
-C556	src/strife/wi_stuff.c	241	epsd1animinfo	K1	anim_t	54	0	0									
-C557	src/strife/wi_stuff.c	254	epsd2animinfo	K1	anim_t	36	0	0									
-C558	src/strife/wi_stuff.c	264	NUMANIMS	K1	int	3	0	0									
-C559	src/strife/wi_stuff.c	271	anims	K1	anim_t *	3	0	0									
-C560	src/strife/wi_stuff.c	341	yah	K1	patch_t *	3	0	0									
-C561	src/strife/wi_stuff.c	344	splat	K1	patch_t *	2	0	0									
-C562	src/tables.c	86	finetangent	K1	fixed_t	4096	0	0									
-C563	src/tables.c	603	finesine	K1	fixed_t	10240	0	0									
-C564	src/tables.c	1889	tantoangle	K1	angle_t	2049	0	0									
-C565	src/tables.c	2151	gammatable	K1	byte	5	0	0									
-C566	src/v_trans.c	39	cr_red2blue	K1	byte	256	0	0									
-C567	src/v_trans.c	57	cr_red2green	K1	byte	256	0	0									
-C568	src/v_trans.c	75	cr	K1	byte *	10	0	0									
-C569	src/v_video.c	250	drawpatchpx_a	K1	drawpatchpx_t *	2	0	0									
-C570	src/v_video.c	251	drawtlpatchpx_a	K1	drawpatchpx_t *	2	0	0									
-C571	src/v_video.c	252	drawalttlpatchpx_a	K1	drawpatchpx_t *	2	0	0									
-C572	src/v_video.c	253	drawxlatabpatchpx_a	K1	drawpatchpx_t *	2	0	0									
-C573	src/w_file.c	29	wad_file_classes	K2	wad_file_class_t *	3	0	2									
-C574	textscreen/examples/guitest.c	35	extensions	K1	char *	7	0	0									
-C575	textscreen/examples/guitest.c	37	radio_values	K1	char *	3	0	0									
-C576	textscreen/fonts/large.h	5	large_font_data	K1	uint8_t	16384	0	0									
-C577	textscreen/fonts/normal.h	5	normal_font_data	K1	uint8_t	4096	0	0									
-C578	textscreen/fonts/small.h	5	small_font_data	K1	uint8_t	1024	0	0									
-C579	textscreen/txt_fileselect.c	42	TXT_DIRECTORY	K1	char *	2	0	0									
-C580	textscreen/txt_gui.c	39	borders	K1	int	4	0	0									
-C581	textscreen/txt_sdl.c	88	ega_colors	K1	SDL_Color	16	0	0									
+C001	opl/ioperm_sys.c	77	dll_functions	K1	struct {char *name; void **fn;}	7	0	0									
+C002	opl/opl.c	36	drivers	K1	opl_driver_t *	5	0	4									
+C003	opl/opl3.c	110	exprom	K1	uint16_t	256	0	0									
+C004	opl/opl3.c	151	mt	K1	uint8_t	16	0	0									
+C005	opl/opl3.c	159	kslrom	K1	uint8_t	16	0	0									
+C006	opl/opl3.c	163	kslshift	K1	uint8_t	4	0	0									
+C007	opl/opl3.c	171	eg_incstep	K1	uint8_t	4	0	0									
+C008	opl/opl3.c	182	ad_slot	K1	int8_t	32	0	0									
+C009	opl/opl3.c	187	ch_slot	K1	uint8_t	18	0	0									
+C010	opl/wf_rom.h	19	logsin_wf	K1	uint16_t	8	0	0									
+C011	pcsound/pcsound.c	27	drivers	K1	pcsound_driver_t *	5	0	4									
+C012	pkg/osx/IWADController.m	38	IWADLabels	K1	NSString *	11	0	0									
+C013	pkg/osx/IWADController.m	53	IWADFilenames	K1	NSString *	12	0	0									
+C014	src/aes_prng.c	108	rco_tab	K1	uint32_t	10	0	0									
+C015	src/aes_prng.c	110	crypto_ft_tab	K1	uint32_t	4	0	0									
+C016	src/aes_prng.c	374	crypto_fl_tab	K1	uint32_t	4	0	0									
+C017	src/d_iwad.c	34	iwads	K1	iwad_t	17	1	0									
+C018	src/d_iwad.c	124	uninstall_values	K1	registry_value_t	4	0	0									
+C019	src/d_iwad.c	165	root_path_keys	K1	registry_value_t	13	0	0									
+C020	src/d_iwad.c	274	root_path_subdirs	K1	char *	9	0	0									
+C021	src/d_iwad.c	298	steam_install_subdirs	K1	char *	17	0	0									
+C022	src/d_mode.c	26	valid_modes	K1	struct {GameMission_t mission; GameMode_t mode; int episode; int map;}	15	0	0									
+C023	src/d_mode.c	121	valid_versions	K1	struct {GameMission_t mission; GameVersion_t version;}	16	0	0									
+C024	src/doom/am_map.c	188	player_arrow	K1	mline_t	7	0	0									
+C025	src/doom/am_map.c	200	cheat_player_arrow	K1	mline_t	16	0	0									
+C026	src/doom/am_map.c	221	triangle_guy	K1	mline_t	3	0	0									
+C027	src/doom/am_map.c	229	thintriangle_guy	K1	mline_t	3	0	0									
+C028	src/doom/am_map.c	235	cross_mark	K1	mline_t	2	0	0									
+C029	src/doom/am_map.c	239	square_mark	K1	mline_t	4	0	0									
+C030	src/doom/d_items.c	37	weaponinfo	K1	weaponinfo_t	9	0	0									
+C031	src/doom/d_main.c	377	chat_macro_defaults	K1	char *	10	0	0									
+C032	src/doom/d_main.c	784	banners	K1	char *	8	0	0									
+C033	src/doom/d_main.c	1079	copyright_banners	K1	char *	3	0	0									
+C034	src/doom/d_main.c	1125	gameversions	K1	struct {const char *description; const char *cmdline; GameVersion_t version;}	12	0	0									
+C035	src/doom/d_main.c	1444	loadparms	K1	char *	3	0	0									
+C036	src/doom/d_pwad.c	541	master_lumps	K1	lump_rename_t	9	0	0									
+C037	src/doom/d_pwad.c	649	masterlevels_wads	K1	struct {const char *wad_name; int pc_slot; int psn_slot; boolean custom_sky; char *file_path;}	21	0	0									
+C038	src/doom/deh_bexpars.c	25	bex_pars	K1	int	1	0	0									
+C039	src/doom/deh_bexpars.c	26	bex_cpars	K1	int	1	0	0									
+C040	src/doom/deh_bexptr.c	123	bex_codeptrtable	K1	bex_codeptr_t	88	0	0									
+C041	src/doom/deh_bexstr.c	34	bex_stringtable	K1	bex_string_t	292	0	0									
+C042	src/doom/deh_cheat.c	35	allcheats	K1	deh_cheat_t	17	0	0									
+C043	src/doom/deh_doom.c	22	deh_signatures	K1	char *	3	0	0									
+C044	src/doom/deh_doom.c	34	deh_section_types	K1	deh_section_t *	14	0	0									
+C045	src/doom/deh_misc.c	133	misc_settings	K1	struct {const char *deh_name; int *value;}	15	0	0									
+C046	src/doom/deh_thing.c	35	bex_thingbitstable	K1	bex_thingbits_t	35	0	0									
+C047	src/doom/doom_icon.c	4	doom_icon_data	K1	unsigned int	16384	0	0									
+C048	src/doom/dstrings.c	23	doom1_endmsg	K1	char *	8	0	0									
+C049	src/doom/dstrings.c	35	doom2_endmsg	K1	char *	8	0	0									
+C050	src/doom/dstrings.c	52	endmsg	K1	char *	9	0	0									
+C051	src/doom/f_finale.c	73	textscreens	K1	textscreen_t	27	0	0									
+C052	src/doom/f_finale.c	361	castorder	K1	castinfo_t	18	0	0									
+C053	src/doom/f_finale.c	459	actionsounds	K1	actionsound_t	19	0	0									
+C054	src/doom/g_game.c	170	forwardmove	K1	fixed_t	2	0	0									
+C055	src/doom/g_game.c	171	sidemove	K1	fixed_t	2	0	0									
+C056	src/doom/g_game.c	172	angleturn	K1	fixed_t	3	0	0									
+C057	src/doom/g_game.c	174	weapon_keys	K1	int *	8	0	0									
+C058	src/doom/g_game.c	191	weapon_order_table	K1	struct {weapontype_t weapon; weapontype_t weapon_num;}	9	0	0									
+C059	src/doom/g_game.c	1967	pars	K1	int	7	0	0									
+C060	src/doom/g_game.c	1982	cpars	K1	int	32	0	0									
+C061	src/doom/g_game.c	1991	chexpars	K1	int	6	0	0									
+C062	src/doom/g_game.c	1997	npars	K1	int	9	0	0									
+C063	src/doom/hu_stuff.c	80	player_names	K1	char *	4	0	0									
+C064	src/doom/hu_stuff.c	261	mapnames_commercial	K1	char *	129	0	0									
+C065	src/doom/hu_stuff.c	540	speciallevels	K1	speciallevel_t	28	0	0									
+C066	src/doom/hu_stuff.c	596	kex_masterlevels	K1	int	21	0	0									
+C067	src/doom/hu_stuff.c	1028	crispy_statslines	K1	crispy_statsline_func_t	4	0	0									
+C068	src/doom/info.c	32	sprnames	K1	char *	246	0	0									
+C069	src/doom/info.c	150	states	K2	state_t	1036	0	0									
+C070	src/doom/info.c	1207	mobjinfo	K1	mobjinfo_t	145	0	0									
+C071	src/doom/m_background.h	55	crispness_background	K1	byte	4096	0	0									
+C072	src/doom/m_crispy.c	31	multiitem_bobfactor	K1	multiitem_t	3	0	0									
+C073	src/doom/m_crispy.c	38	multiitem_brightmaps	K1	multiitem_t	4	0	0									
+C074	src/doom/m_crispy.c	46	multiitem_coloredblood	K1	multiitem_t	3	0	0									
+C075	src/doom/m_crispy.c	53	multiitem_centerweapon	K1	multiitem_t	3	0	0									
+C076	src/doom/m_crispy.c	60	multiitem_coloredhud	K1	multiitem_t	4	0	0									
+C077	src/doom/m_crispy.c	68	multiitem_crosshair	K1	multiitem_t	3	0	0									
+C078	src/doom/m_crispy.c	75	multiitem_crosshairtype	K1	multiitem_t	4	0	0									
+C079	src/doom/m_crispy.c	83	multiitem_freeaim	K1	multiitem_t	3	0	0									
+C080	src/doom/m_crispy.c	90	multiitem_demotimer	K1	multiitem_t	4	0	0									
+C081	src/doom/m_crispy.c	98	multiitem_demotimerdir	K1	multiitem_t	3	0	0									
+C082	src/doom/m_crispy.c	105	multiitem_freelook	K1	multiitem_t	3	0	0									
+C083	src/doom/m_crispy.c	112	multiitem_jump	K1	multiitem_t	3	0	0									
+C084	src/doom/m_crispy.c	119	multiitem_secretmessage	K1	multiitem_t	3	0	0									
+C085	src/doom/m_crispy.c	126	multiitem_difficulties	K1	multiitem_t	5	0	0									
+C086	src/doom/m_crispy.c	135	multiitem_statsformat	K1	multiitem_t	4	0	0									
+C087	src/doom/m_crispy.c	143	multiitem_translucency	K1	multiitem_t	4	0	0									
+C088	src/doom/m_crispy.c	151	multiitem_sndchannels	K1	multiitem_t	3	0	0									
+C089	src/doom/m_crispy.c	158	multiitem_widgets	K1	multiitem_t	4	0	0									
+C090	src/doom/m_crispy.c	166	multiitem_widescreen	K1	multiitem_t	5	0	0									
+C091	src/doom/m_menu.c	108	gammamsg	K1	char	18	0	0									
+C092	src/doom/m_menu.c	208	skullName	K1	char *	2	0	0									
+C093	src/doom/m_menu.c	291	MainMenu	K2	menuitem_t	6	0	0									
+C094	src/doom/m_menu.c	327	EpisodeMenu	K2	menuitem_t	6	0	0									
+C095	src/doom/m_menu.c	338	EpisodeMenuSII	K2	menuitem_t	5	0	0									
+C096	src/doom/m_menu.c	370	NewGameMenu	K2	menuitem_t	5	0	0									
+C097	src/doom/m_menu.c	407	OptionsMenu	K2	menuitem_t	8	0	0									
+C098	src/doom/m_menu.c	442	MouseMenu	K2	menuitem_t	7	0	0									
+C099	src/doom/m_menu.c	489	Crispness1Menu	K2	menuitem_t	18	0	0									
+C100	src/doom/m_menu.c	545	Crispness2Menu	K2	menuitem_t	17	0	0									
+C101	src/doom/m_menu.c	600	Crispness3Menu	K2	menuitem_t	17	0	0									
+C102	src/doom/m_menu.c	652	Crispness4Menu	K2	menuitem_t	13	0	0									
+C103	src/doom/m_menu.c	679	CrispnessMenus	K2	menu_t *	4	0	0									
+C104	src/doom/m_menu.c	698	ReadMenu1	K2	menuitem_t	1	0	0									
+C105	src/doom/m_menu.c	719	ReadMenu2	K2	menuitem_t	1	0	0									
+C106	src/doom/m_menu.c	746	SoundMenu	K2	menuitem_t	4	0	0									
+C107	src/doom/m_menu.c	780	LoadMenu	K2	menuitem_t	8	0	0									
+C108	src/doom/m_menu.c	805	SaveMenu	K2	menuitem_t	8	0	0									
+C109	src/doom/m_menu.c	1399	detailNames	K1	char *	2	0	0									
+C110	src/doom/m_menu.c	1400	msgNames	K1	char *	2	0	0									
+C111	src/doom/m_menu.c	1806	quitsounds	K1	int	8	0	0									
+C112	src/doom/m_menu.c	1818	quitsounds2	K1	int	8	0	0									
+C113	src/doom/m_random.c	24	rndtable	K1	unsigned char	256	0	0									
+C114	src/doom/p_doors.c	42	slideFrameNames	K1	slidename_t	2	0	0									
+C115	src/doom/p_enemy.c	64	opposite	K1	dirtype_t	9	0	0									
+C116	src/doom/p_enemy.c	70	diags	K1	dirtype_t	4	0	0									
+C117	src/doom/p_enemy.c	275	xspeed	K1	fixed_t	8	0	0									
+C118	src/doom/p_enemy.c	276	yspeed	K1	fixed_t	8	0	0									
+C119	src/doom/p_extsaveg.c	469	extsavegdata	K2	extsavegdata_t	13	0	0									
+C120	src/doom/p_inter.c	50	maxammo	K1	int	4	0	0									
+C121	src/doom/p_inter.c	51	clipammo	K1	int	4	0	0									
+C122	src/doom/p_inter.c	166	WeaponPickupMessages	K1	char *	9	0	0									
+C123	src/doom/p_maputl.c	794	intercepts_overrun	K1	intercepts_overrun_t	23	0	0									
+C124	src/doom/p_pspr.c	46	recoil_values	K1	int	9	0	0									
+C125	src/doom/p_setup.c	1153	skilltable	K1	char *	6	0	0									
+C126	src/doom/p_spec.c	101	animdefs_vanilla	K1	animdef_t	23	0	0									
+C127	src/doom/p_switch.c	46	alphSwitchList_vanilla	K1	switchlist_t	41	0	0									
+C128	src/doom/p_user.c	48	crispy_bobfactor	K1	fixed_t	3	0	0									
+C129	src/doom/r_bmaps.c	29	nobrightmap	K1	byte	1	0	0									
+C130	src/doom/r_bmaps.c	31	notgray	K1	byte	256	0	0									
+C131	src/doom/r_bmaps.c	51	notgrayorbrown	K1	byte	256	0	0									
+C132	src/doom/r_bmaps.c	71	notgrayorbrown2	K1	byte	256	0	0									
+C133	src/doom/r_bmaps.c	91	bluegreenbrownred	K1	byte	256	0	0									
+C134	src/doom/r_bmaps.c	111	bluegreenbrown	K1	byte	256	0	0									
+C135	src/doom/r_bmaps.c	131	blueandorange	K1	byte	256	0	0									
+C136	src/doom/r_bmaps.c	151	redonly	K1	byte	256	0	0									
+C137	src/doom/r_bmaps.c	171	redonly2	K1	byte	256	0	0									
+C138	src/doom/r_bmaps.c	191	greenonly1	K1	byte	256	0	0									
+C139	src/doom/r_bmaps.c	211	greenonly2	K1	byte	256	0	0									
+C140	src/doom/r_bmaps.c	231	greenonly3	K1	byte	256	0	0									
+C141	src/doom/r_bmaps.c	251	yellowonly	K1	byte	256	0	0									
+C142	src/doom/r_bmaps.c	271	redandgreen	K1	byte	256	0	0									
+C143	src/doom/r_bmaps.c	291	blueandgreen	K1	byte	256	0	0									
+C144	src/doom/r_bmaps.c	311	brighttan	K1	byte	256	0	0									
+C145	src/doom/r_bmaps.c	333	chexred	K1	byte	256	0	0									
+C146	src/doom/r_bmaps.c	355	chexgreen	K1	byte	256	0	0									
+C147	src/doom/r_bmaps.c	377	chexredgreen	K1	byte	256	0	0									
+C148	src/doom/r_bmaps.c	397	hacxlightning	K1	byte	256	0	0									
+C149	src/doom/r_bmaps.c	435	fullbright_doom	K1	fullbright_t	68	2	0									
+C150	src/doom/r_bmaps.c	512	fullbright_finaldoom	K1	fullbright_t	20	1	0									
+C151	src/doom/r_bmaps.c	539	fullbright_chex	K1	fullbright_t	51	8	0									
+C152	src/doom/r_bmaps.c	601	fullbright_hacx	K1	fullbright_t	18	15	0									
+C153	src/doom/r_bsp.c	400	checkcoord	K1	int	11	0	0									
+C154	src/doom/r_draw.c	328	fuzzoffset	K1	int	50	0	0									
+C155	src/doom/r_segs.c	138	scale_values	K1	struct {int clamp; int heightbits;}	8	0	0									
+C156	src/doom/r_things.c	68	laserpatch_m	K1	laserpatch_t	4	0	0									
+C157	src/doom/s_sound.c	121	altmusic_tnt	K1	altmusic_t	31	2	0									
+C158	src/doom/s_sound.c	162	altmusic_plut	K1	altmusic_t	25	8	0									
+C159	src/doom/sounds.c	34	S_music	K1	musicinfo_t	129	0	0									
+C160	src/doom/sounds.c	182	S_sfx	K1	sfxinfo_t	265	0	0									
+C161	src/doom/statdump.c	34	doom1_par_times	K1	int	9	0	0									
+C162	src/doom/statdump.c	40	doom2_par_times	K1	int	9	0	0									
+C163	src/doom/statdump.c	46	player_colors	K1	char *	4	0	0									
+C164	src/doom/wi_stuff.c	176	lnodes	K1	point_t	3	0	0									
+C165	src/doom/wi_stuff.c	231	epsd0animinfo	K1	anim_t	60	0	0									
+C166	src/doom/wi_stuff.c	245	epsd1animinfo	K1	anim_t	54	0	0									
+C167	src/doom/wi_stuff.c	258	epsd2animinfo	K1	anim_t	36	0	0									
+C168	src/doom/wi_stuff.c	268	NUMANIMS	K1	int	3	0	0									
+C169	src/doom/wi_stuff.c	275	anims	K1	anim_t *	3	0	0									
+C170	src/doom/wi_stuff.c	345	yah	K1	patch_t *	3	0	0									
+C171	src/doom/wi_stuff.c	348	splat	K1	patch_t *	2	0	0									
+C172	src/heretic/am_data.h	35	player_arrow	K1	mline_t	10	0	0									
+C173	src/heretic/am_data.h	48	keysquare	K1	mline_t	8	0	0									
+C174	src/heretic/am_data.h	74	cheat_player_arrow	K1	mline_t	16	0	0									
+C175	src/heretic/am_data.h	96	triangle_guy	K1	mline_t	3	0	0									
+C176	src/heretic/am_data.h	105	thintriangle_guy	K1	mline_t	3	0	0									
+C177	src/heretic/am_map.c	39	LevelNames	K1	char *	48	0	0									
+C178	src/heretic/am_map.c	171	cheats	K2	Cheat_t	6	0	0									
+C179	src/heretic/am_map.c	183	antialias_normal	K1	byte	3	0	0									
+C180	src/heretic/am_map.c	190	antialias_overlay	K1	byte	3	0	0									
+C181	src/heretic/am_map.c	198	aliasmax	K1	byte *	3	0	0									
+C182	src/heretic/ct_chat.c	71	CT_FromPlrText	K1	char *	4	0	0									
+C183	src/heretic/d_main.c	951	loadparms	K1	char *	3	0	0									
+C184	src/heretic/deh_frame.c	46	action_pointers	K2	hhe_action_pointer_t	126	0	0									
+C185	src/heretic/deh_htext.c	47	strings	K1	hhe_string_t	480	0	0									
+C186	src/heretic/deh_htext.c	533	unsupported_strings_1_0	K1	int	337	0	0									
+C187	src/heretic/deh_htext.c	580	unsupported_strings_1_2	K1	int	306	0	0									
+C188	src/heretic/deh_htext.c	623	unsupported_strings_1_3	K1	int	306	0	0									
+C189	src/heretic/deh_htext.c	666	unsupported_strings	K1	int *	3	0	0									
+C190	src/heretic/deh_htic.c	28	deh_signatures	K1	char *	3	0	0									
+C191	src/heretic/deh_htic.c	35	hhe_versions	K1	char *	3	0	0									
+C192	src/heretic/deh_htic.c	49	deh_section_types	K1	deh_section_t *	7	0	0									
+C193	src/heretic/g_game.c	71	MonsterMissileInfo	K1	struct {int type; // mobjtype_t int speed[2];}	15	0	0									
+C194	src/heretic/g_game.c	159	forwardmove	K1	fixed_t	2	0	0									
+C195	src/heretic/g_game.c	160	sidemove	K1	fixed_t	2	0	0									
+C196	src/heretic/g_game.c	161	angleturn	K1	fixed_t	3	0	0									
+C197	src/heretic/g_game.c	163	weapon_keys	K1	int *	7	0	0									
+C198	src/heretic/g_game.c	180	weapon_order_table	K1	struct {weapontype_t weapon; weapontype_t weapon_num;}	9	0	0									
+C199	src/heretic/heretic_icon.c	4	heretic_icon_data	K1	unsigned int	16384	0	0									
+C200	src/heretic/in_lude.c	105	KillersText	K1	char *	7	0	0									
+C201	src/heretic/in_lude.c	114	YAHspot	K1	yahpt_t	3	0	0									
+C202	src/heretic/info.c	19	sprnames	K1	char *	129	0	0									
+C203	src/heretic/info.c	36	states	K2	state_t	1208	0	0									
+C204	src/heretic/info.c	1250	mobjinfo	K1	mobjinfo_t	161	0	0									
+C205	src/heretic/m_random.c	29	rndtable	K1	unsigned int	256	0	0									
+C206	src/heretic/mn_menu.c	220	MainItems	K2	MenuItem_t	5	0	0									
+C207	src/heretic/mn_menu.c	236	EpisodeItems	K2	MenuItem_t	5	0	0									
+C208	src/heretic/mn_menu.c	252	FilesItems	K2	MenuItem_t	2	0	0									
+C209	src/heretic/mn_menu.c	265	LoadItems	K2	MenuItem_t	6	0	0									
+C210	src/heretic/mn_menu.c	282	SaveItems	K2	MenuItem_t	6	0	0									
+C211	src/heretic/mn_menu.c	299	SkillItems	K2	MenuItem_t	5	0	0									
+C212	src/heretic/mn_menu.c	316	OptionsItems	K2	MenuItem_t	5	0	0									
+C213	src/heretic/mn_menu.c	332	MouseItems	K2	MenuItem_t	7	0	0									
+C214	src/heretic/mn_menu.c	350	Options2Items	K2	MenuItem_t	6	0	0									
+C215	src/heretic/mn_menu.c	371	Crispness1Items	K2	MenuItem_t	14	0	0									
+C216	src/heretic/mn_menu.c	396	Crispness2Items	K2	MenuItem_t	14	0	0									
+C217	src/heretic/mn_menu.c	421	Crispness3Items	K2	MenuItem_t	14	0	0									
+C218	src/heretic/mn_menu.c	446	CrispnessMenuDrawers	K2	static void (*)()	3	0	0									
+C219	src/heretic/mn_menu.c	452	CrispnessMenus	K1	MenuType_t	3	0	0									
+C220	src/heretic/mn_menu.c	458	multiitem_bobfactor	K1	multiitem_t	3	0	0									
+C221	src/heretic/mn_menu.c	465	multiitem_brightmaps	K1	multiitem_t	4	0	0									
+C222	src/heretic/mn_menu.c	473	multiitem_centerweapon	K1	multiitem_t	3	0	0									
+C223	src/heretic/mn_menu.c	480	multiitem_widescreen	K1	multiitem_t	5	0	0									
+C224	src/heretic/mn_menu.c	489	multiitem_widgets	K1	multiitem_t	4	0	0									
+C225	src/heretic/mn_menu.c	497	multiitem_secretmessage	K1	multiitem_t	3	0	0									
+C226	src/heretic/mn_menu.c	504	multiitem_freelook_hh	K1	multiitem_t	2	0	0									
+C227	src/heretic/mn_menu.c	510	multiitem_difficulties	K1	multiitem_t	5	0	0									
+C228	src/heretic/mn_menu.c	519	multiitem_he_crosshair	K1	multiitem_t	3	0	0									
+C229	src/heretic/mn_menu.c	526	multiitem_he_crosshairtype	K1	multiitem_t	4	0	0									
+C230	src/heretic/mn_menu.c	538	multiitem_he_crosshaircolor	K1	multiitem_t	4	0	0									
+C231	src/heretic/mn_menu.c	546	multiitem_translucency	K1	multiitem_t	4	0	0									
+C232	src/heretic/mn_menu.c	554	multiitem_sndchannels	K1	multiitem_t	3	0	0									
+C233	src/heretic/mn_menu.c	561	Menus	K2	Menu_t *	12	0	0									
+C234	src/heretic/mn_menu.c	577	GammaText	K1	char *	18	0	0									
+C235	src/heretic/mn_menu.c	860	QuitEndMsg	K1	char *	5	0	0									
+C236	src/heretic/p_enemy.c	246	xspeed	K1	fixed_t	8	0	0									
+C237	src/heretic/p_enemy.c	248	yspeed	K1	fixed_t	8	0	0									
+C238	src/heretic/p_enemy.c	339	opposite	K1	dirtype_t	9	0	0									
+C239	src/heretic/p_enemy.c	344	diags	K1	dirtype_t	4	0	0									
+C240	src/heretic/p_extsaveg.c	93	extsavegdata	K2	extsavegdata_t	2	0	0									
+C241	src/heretic/p_inter.c	31	WeaponValue	K1	int	9	0	0									
+C242	src/heretic/p_inter.c	43	maxammo	K1	int	6	0	0									
+C243	src/heretic/p_inter.c	52	GetWeaponAmmo	K1	int	9	0	0									
+C244	src/heretic/p_inter.c	64	GetAmmoChange	K1	weapontype_t	6	0	0									
+C245	src/heretic/p_inter.c	74	GetAmmoChangePL1	K1	boolean	8	0	0									
+C246	src/heretic/p_inter.c	96	GetAmmoChangePL2	K1	boolean	8	0	0									
+C247	src/heretic/p_inter.c	239	WeaponPickupMessages	K1	char *	9	0	0									
+C248	src/heretic/p_mobj.c	32	FloatBobOffsets	K1	fixed_t	64	0	0									
+C249	src/heretic/p_pspr.c	44	WeaponAmmoUsePL1	K1	int	9	0	0									
+C250	src/heretic/p_pspr.c	56	WeaponAmmoUsePL2	K1	int	9	0	0									
+C251	src/heretic/p_pspr.c	68	wpnlev1info	K1	weaponinfo_t	9	0	0									
+C252	src/heretic/p_pspr.c	152	wpnlev2info	K1	weaponinfo_t	9	0	0									
+C253	src/heretic/p_spec.c	62	AmbSndSeqInit	K1	int	1	0	0									
+C254	src/heretic/p_spec.c	65	AmbSndSeq1	K1	int	3	0	0									
+C255	src/heretic/p_spec.c	69	AmbSndSeq2	K1	int	3	0	0									
+C256	src/heretic/p_spec.c	73	AmbSndSeq3	K1	int	37	0	0									
+C257	src/heretic/p_spec.c	94	AmbSndSeq4	K1	int	38	0	0									
+C258	src/heretic/p_spec.c	112	AmbSndSeq5	K1	int	15	0	0									
+C259	src/heretic/p_spec.c	122	AmbSndSeq6	K1	int	18	0	0									
+C260	src/heretic/p_spec.c	132	AmbSndSeq7	K1	int	3	0	0									
+C261	src/heretic/p_spec.c	136	AmbSndSeq8	K1	int	3	0	0									
+C262	src/heretic/p_spec.c	140	AmbSndSeq9	K1	int	28	0	0									
+C263	src/heretic/p_spec.c	154	AmbSndSeq10	K1	int	38	0	0									
+C264	src/heretic/p_spec.c	173	AmbientSfx	K1	int *	10	0	0									
+C265	src/heretic/p_spec.c	186	animdefs_vanilla	K1	animdef_t	23	0	0									
+C266	src/heretic/p_spec.c	221	TerrainTypeDefs	K1	struct {const char *name; int type;}	9	0	0									
+C267	src/heretic/p_switch.c	33	alphSwitchList_vanilla	K1	switchlist_t	3	30	0									
+C268	src/heretic/p_user.c	39	WeaponInShareware	K1	boolean	9	0	0									
+C269	src/heretic/p_user.c	52	crispy_bobfactor	K1	fixed_t	3	0	0									
+C270	src/heretic/r_bmaps.c	29	nobrightmap	K1	byte	1	0	0									
+C271	src/heretic/r_bmaps.c	31	fullbright	K1	byte	256	0	0									
+C272	src/heretic/r_bmaps.c	51	surfaces	K1	byte	256	0	0									
+C273	src/heretic/r_bmaps.c	72	consumables	K1	byte	256	0	0									
+C274	src/heretic/r_bmaps.c	92	hellstaff_world	K1	byte	256	0	0									
+C275	src/heretic/r_bmaps.c	112	hellstaff_attack	K1	byte	256	0	0									
+C276	src/heretic/r_bmaps.c	132	flame	K1	byte	256	0	0									
+C277	src/heretic/r_bmaps.c	152	serptorch	K1	byte	256	0	0									
+C278	src/heretic/r_bmaps.c	172	ethereal	K1	byte	256	0	0									
+C279	src/heretic/r_bmaps.c	192	energy	K1	byte	256	0	0									
+C280	src/heretic/r_bmaps.c	212	iron_lich_1	K1	byte	256	0	0									
+C281	src/heretic/r_bmaps.c	232	iron_lich_2	K1	byte	256	0	0									
+C282	src/heretic/r_bmaps.c	262	fullbright_walls	K1	fullbright_t	10	0	0									
+C283	src/heretic/r_bsp.c	343	checkcoord	K1	int	11	0	0									
+C284	src/heretic/r_segs.c	118	scale_values	K1	struct {int clamp; int heightbits;}	8	0	0									
+C285	src/heretic/r_things.c	98	spriteoffsets	K1	spriteoffset_t	12	0	0									
+C286	src/heretic/r_things.c	794	PSpriteSY	K1	int	9	0	0									
+C287	src/heretic/sb_bar.c	146	crosshairpatch_m	K1	crosshairpatch_t	3	0	0									
+C288	src/heretic/sb_bar.c	206	Cheats	K2	Cheat_t	23	0	0									
+C289	src/heretic/sb_bar.c	610	patcharti	K1	char	11	0	0									
+C290	src/heretic/sb_bar.c	624	ammopic	K1	char	6	0	0									
+C291	src/heretic/sounds.c	30	S_music	K1	musicinfo_t	51	0	0									
+C292	src/heretic/sounds.c	104	S_sfx	K1	sfxinfo_t	434	0	0									
+C293	src/hexen/a_action.c	38	orbitTableX	K1	int	256	0	0									
+C294	src/hexen/a_action.c	73	orbitTableY	K1	int	256	0	0									
+C295	src/hexen/am_data.h	34	player_arrow	K1	mline_t	10	0	0									
+C296	src/hexen/am_data.h	48	keysquare	K1	mline_t	8	0	0									
+C297	src/hexen/am_data.h	76	cheat_player_arrow	K1	mline_t	16	0	0									
+C298	src/hexen/am_data.h	101	triangle_guy	K1	mline_t	3	0	0									
+C299	src/hexen/am_data.h	111	thintriangle_guy	K1	mline_t	3	0	0									
+C300	src/hexen/am_map.c	92	cheat_kills	K1	char	5	0	0									
+C301	src/hexen/am_map.c	97	antialias_normal	K1	byte	3	0	0									
+C302	src/hexen/am_map.c	104	antialias_overlay	K1	byte	3	0	0									
+C303	src/hexen/am_map.c	112	aliasmax	K1	byte *	3	0	0									
+C304	src/hexen/am_map.c	1963	PlayerColorText	K1	char *	8	0	0									
+C305	src/hexen/ct_chat.c	76	CT_FromPlrText	K1	char *	8	0	0									
+C306	src/hexen/d_pwad.c	52	hexdd_lumps	K1	lump_rename_t	15	0	0									
+C307	src/hexen/g_game.c	127	MaxPlayerMove	K1	fixed_t	4	0	0									
+C308	src/hexen/g_game.c	128	forwardmove	K1	fixed_t	4	0	0									
+C309	src/hexen/g_game.c	135	sidemove	K1	fixed_t	4	0	0									
+C310	src/hexen/g_game.c	142	angleturn	K1	fixed_t	3	0	0									
+C311	src/hexen/g_game.c	144	weapon_keys	K1	int *	4	0	0									
+C312	src/hexen/h2_main.c	131	chat_macro_defaults	K1	char *	10	0	0									
+C313	src/hexen/h2_main.c	396	gameversions	K1	struct {const char *description; const char *cmdline; GameVersion_t version;}	3	0	0									
+C314	src/hexen/h2_main.c	471	loadparms	K1	char *	3	0	0									
+C315	src/hexen/hexen_icon.c	4	hexen_icon_data	K1	unsigned int	16384	0	0									
+C316	src/hexen/in_lude.c	163	ClusMsgLumpNames	K1	char *	5	0	0									
+C317	src/hexen/info.c	22	sprnames	K1	char *	301	0	0									
+C318	src/hexen/info.c	57	states	K2	state_t	2846	0	0									
+C319	src/hexen/info.c	2918	mobjinfo	K1	mobjinfo_t	398	0	0									
+C320	src/hexen/m_random.c	24	rndtable	K1	unsigned char	256	0	0									
+C321	src/hexen/mn_menu.c	227	MainItems	K2	MenuItem_t	5	0	0									
+C322	src/hexen/mn_menu.c	243	EpisodeItems	K2	MenuItem_t	2	0	0									
+C323	src/hexen/mn_menu.c	256	ClassItems	K2	MenuItem_t	3	0	0									
+C324	src/hexen/mn_menu.c	270	FilesItems	K2	MenuItem_t	2	0	0									
+C325	src/hexen/mn_menu.c	283	LoadItems	K2	MenuItem_t	6	0	0									
+C326	src/hexen/mn_menu.c	300	SaveItems	K2	MenuItem_t	6	0	0									
+C327	src/hexen/mn_menu.c	317	SkillItems	K2	MenuItem_t	5	0	0									
+C328	src/hexen/mn_menu.c	333	OptionsItems	K2	MenuItem_t	5	0	0									
+C329	src/hexen/mn_menu.c	349	MouseItems	K2	MenuItem_t	7	0	0									
+C330	src/hexen/mn_menu.c	366	Options2Items	K2	MenuItem_t	6	0	0									
+C331	src/hexen/mn_menu.c	387	Crispness1Items	K2	MenuItem_t	15	0	0									
+C332	src/hexen/mn_menu.c	413	Crispness2Items	K2	MenuItem_t	15	0	0									
+C333	src/hexen/mn_menu.c	439	Crispness3Items	K2	MenuItem_t	15	0	0									
+C334	src/hexen/mn_menu.c	465	CrispnessMenuDrawers	K2	static void (*)()	3	0	0									
+C335	src/hexen/mn_menu.c	471	CrispnessMenus	K1	MenuType_t	3	0	0									
+C336	src/hexen/mn_menu.c	477	multiitem_bobfactor	K1	multiitem_t	3	0	0									
+C337	src/hexen/mn_menu.c	484	multiitem_brightmaps	K1	multiitem_t	4	0	0									
+C338	src/hexen/mn_menu.c	492	multiitem_centerweapon	K1	multiitem_t	3	0	0									
+C339	src/hexen/mn_menu.c	499	multiitem_widescreen	K1	multiitem_t	5	0	0									
+C340	src/hexen/mn_menu.c	508	multiitem_widgets	K1	multiitem_t	4	0	0									
+C341	src/hexen/mn_menu.c	516	multiitem_freelook_hh	K1	multiitem_t	2	0	0									
+C342	src/hexen/mn_menu.c	522	multiitem_difficulties	K1	multiitem_t	5	0	0									
+C343	src/hexen/mn_menu.c	531	multiitem_he_crosshair	K1	multiitem_t	3	0	0									
+C344	src/hexen/mn_menu.c	538	multiitem_he_crosshairtype	K1	multiitem_t	4	0	0									
+C345	src/hexen/mn_menu.c	550	multiitem_he_crosshaircolor	K1	multiitem_t	4	0	0									
+C346	src/hexen/mn_menu.c	558	multiitem_translucency	K1	multiitem_t	4	0	0									
+C347	src/hexen/mn_menu.c	566	multiitem_sndchannels	K1	multiitem_t	3	0	0									
+C348	src/hexen/mn_menu.c	573	Menus	K2	Menu_t *	13	0	0									
+C349	src/hexen/mn_menu.c	590	GammaText	K1	char *	18	0	0									
+C350	src/hexen/mn_menu.c	879	QuitEndMsg	K1	char *	6	0	0									
+C351	src/hexen/mn_menu.c	1455	class_str	K1	char *	4	0	0									
+C352	src/hexen/p_acs.c	196	PCodeCmds	K2	static int (*)()	102	0	0									
+C353	src/hexen/p_enemy.c	226	xspeed	K1	fixed_t	8	0	0									
+C354	src/hexen/p_enemy.c	228	yspeed	K1	fixed_t	8	0	0									
+C355	src/hexen/p_enemy.c	328	opposite	K1	dirtype_t	9	0	0									
+C356	src/hexen/p_enemy.c	333	diags	K1	dirtype_t	4	0	0									
+C357	src/hexen/p_inter.c	27	ArmorIncrement	K1	int	4	0	0									
+C358	src/hexen/p_inter.c	34	AutoArmorSave	K1	int	4	0	0									
+C359	src/hexen/p_inter.c	37	TextKeyMessages	K1	char *	11	0	0									
+C360	src/hexen/p_lights.c	261	PhaseTable	K1	int	64	0	0									
+C361	src/hexen/p_mobj.c	54	FloatBobOffsets	K1	fixed_t	64	0	0									
+C362	src/hexen/p_pspr.c	49	WeaponInfo	K1	weaponinfo_t	4	0	0									
+C363	src/hexen/p_pspr.c	205	WeaponManaUse	K1	int	4	0	0									
+C364	src/hexen/p_setup.c	120	MapCmdNames	K1	char *	16	0	0									
+C365	src/hexen/p_setup.c	138	MapCmdIDs	K1	int	15	0	0									
+C366	src/hexen/p_spec.c	45	TerrainTypeDefs	K1	struct {const char *name; int type;}	5	0	0									
+C367	src/hexen/p_switch.c	28	alphSwitchListDemo	K1	switchlist_t	4	0	0									
+C368	src/hexen/p_switch.c	35	alphSwitchListFull	K1	switchlist_t	11	0	0									
+C369	src/hexen/p_things.c	41	TranslateThingType	K1	mobjtype_t	109	0	0									
+C370	src/hexen/p_user.c	35	PStateNormal	K1	int	4	0	0									
+C371	src/hexen/p_user.c	42	PStateRun	K1	int	4	0	0									
+C372	src/hexen/p_user.c	49	PStateAttack	K1	int	4	0	0									
+C373	src/hexen/p_user.c	56	PStateAttackEnd	K1	int	4	0	0									
+C374	src/hexen/p_user.c	63	ArmorMax	K1	int	4	0	0									
+C375	src/hexen/p_user.c	66	crispy_bobfactor	K1	fixed_t	3	0	0									
+C376	src/hexen/r_bmaps.c	29	nobrightmap	K1	byte	1	0	0									
+C377	src/hexen/r_bmaps.c	31	fullbright	K1	byte	256	0	0									
+C378	src/hexen/r_bmaps.c	51	surfaces1	K1	byte	256	0	0									
+C379	src/hexen/r_bmaps.c	71	surfaces2	K1	byte	256	0	0									
+C380	src/hexen/r_bmaps.c	91	artifacts	K1	byte	256	0	0									
+C381	src/hexen/r_bmaps.c	111	flame	K1	byte	256	0	0									
+C382	src/hexen/r_bmaps.c	131	firebull	K1	byte	256	0	0									
+C383	src/hexen/r_bmaps.c	151	brazier	K1	byte	256	0	0									
+C384	src/hexen/r_bmaps.c	171	fireskull	K1	byte	256	0	0									
+C385	src/hexen/r_bmaps.c	191	twintorch	K1	byte	256	0	0									
+C386	src/hexen/r_bmaps.c	211	greenonly	K1	byte	256	0	0									
+C387	src/hexen/r_bmaps.c	231	blueonly	K1	byte	256	0	0									
+C388	src/hexen/r_bmaps.c	261	fullbright_walls	K1	fullbright_t	22	0	0									
+C389	src/hexen/r_bsp.c	343	checkcoord	K1	int	11	0	0									
+C390	src/hexen/r_segs.c	109	scale_values	K1	struct {int clamp; int heightbits;}	8	0	0									
+C391	src/hexen/r_things.c	748	PSpriteSY	K1	int	4	0	0									
+C392	src/hexen/sb_bar.c	131	crosshairpatch_m	K1	crosshairpatch_t	3	0	0									
+C393	src/hexen/sb_bar.c	246	Cheats	K2	Cheat_t	28	0	0									
+C394	src/hexen/sb_bar.c	788	patcharti	K1	char	33	0	0									
+C395	src/hexen/sb_bar.c	1534	PieceX	K1	int	4	0	0									
+C396	src/hexen/sn_sonix.c	76	SequenceTranslate	K1	struct {char name[SS_SEQUENCE_NAME_LENGTH]; int scriptNum; int stopSound;}	21	0	0									
+C397	src/hexen/sounds.c	24	S_music	K1	musicinfo_t	31	0	0									
+C398	src/hexen/sounds.c	65	S_sfx	K1	sfxinfo_t	980	0	0									
+C399	src/hexen/st_start.c	55	notchTable	K1	byte	184	0	0									
+C400	src/hexen/st_start.c	83	netnotchTable	K1	byte	64	0	0									
+C401	src/hexen/sv_extsaveg.c	116	extsavegdata	K2	extsavegdata_t	3	0	0									
+C402	src/hexen/sv_save.c	2824	ThinkerInfo	K2	thinkInfo_t	13	0	0									
+C403	src/i_flmusic.c	303	music_fl_devices	K1	snddevice_t	1	0	0									
+C404	src/i_input.c	40	shiftxform	K1	char	128	0	0									
+C405	src/i_joystick.c	92	joystick_physical_buttons	K1	int	17	0	0									
+C406	src/i_musicpack.c	146	known_filenames	K1	subst_music_t	195	1	0									
+C407	src/i_oplmusic.c	160	voice_operators	K1	int	2	0	0									
+C408	src/i_oplmusic.c	167	frequency_curve	K1	unsigned short	668	0	0									
+C409	src/i_oplmusic.c	285	volume_mapping_table	K1	unsigned int	128	0	0									
+C410	src/i_oplmusic.c	1768	music_opl_devices	K1	snddevice_t	2	0	0									
+C411	src/i_pcsound.c	45	divisors	K1	uint16_t	128	0	0									
+C412	src/i_pcsound.c	328	sound_pcsound_devices	K1	snddevice_t	1	0	0									
+C413	src/i_sdlmusic.c	444	music_sdl_devices	K1	snddevice_t	6	0	0									
+C414	src/i_sdlsound.c	1192	sound_sdl_devices	K1	snddevice_t	6	0	0									
+C415	src/i_sound.c	86	sound_modules	K2	sound_module_t *	3	0	1									
+C416	src/i_sound.c	97	music_modules	K2	music_module_t *	5	0	3									
+C417	src/i_system.c	395	mem_dump_dos622	K1	unsigned char	10	0	0									
+C418	src/i_system.c	397	mem_dump_win98	K1	unsigned char	10	0	0									
+C419	src/i_system.c	399	mem_dump_dosbox	K1	unsigned char	10	0	0									
+C420	src/i_video.c	975	gammalevels	K1	float	9	0	0									
+C421	src/i_winmusic.c	57	gm_system_on	K1	byte	6	0	0									
+C422	src/i_winmusic.c	61	gs_reset	K1	byte	11	0	0									
+C423	src/i_winmusic.c	65	xg_system_on	K1	byte	9	0	0									
+C424	src/i_winmusic.c	69	ff_loopStart	K1	byte	9	0	0									
+C425	src/i_winmusic.c	70	ff_loopEnd	K1	byte	7	0	0									
+C426	src/i_winmusic.c	1887	music_win_devices	K1	snddevice_t	5	0	0									
+C427	src/m_config.c	121	doom_defaults_list	K1	default_t	86	0	0									
+C428	src/m_config.c	759	extra_defaults_list	K1	default_t	267	0	19									
+C429	src/m_config.c	2698	scantokey	K1	int	128	0	0									
+C430	src/midifallback.c	24	drums_table	K1	byte	128	0	0									
+C431	src/mus2mid.c	68	midiheader	K1	byte	22	0	0									
+C432	src/mus2mid.c	80	channelvelocities	K1	byte	16	0	0									
+C433	src/mus2mid.c	94	controller_map	K1	byte	15	0	0									
+C434	src/net_dedicated.c	39	not_dedicated_options	K1	char *	27	0	0									
+C435	src/net_petname.c	23	adjectives	K1	char *	41	0	0									
+C436	src/net_petname.c	67	nouns	K1	char *	25	0	0									
+C437	src/net_structrw.c	29	protocol_names	K1	struct {net_protocol_t protocol; const char *name;}	1	0	0									
+C438	src/p_mapformat.c	42	bsp_names	K1	char *	6	0	0									
+C439	src/setup/display.c	40	window_sizes_unscaled	K1	window_size_t	8	1	0									
+C440	src/setup/display.c	54	window_sizes_scaled	K1	window_size_t	10	2	0									
+C441	src/setup/joystick.c	102	joystick_physical_buttons	K1	int	17	0	0									
+C442	src/setup/joystick.c	146	empty_defaults	K1	joystick_config_t	43	0	0									
+C443	src/setup/joystick.c	193	ps3_controller	K1	joystick_config_t	12	0	0									
+C444	src/setup/joystick.c	210	ps4_ds4_controller	K1	joystick_config_t	11	0	0									
+C445	src/setup/joystick.c	225	airflo_controller	K1	joystick_config_t	12	0	0									
+C446	src/setup/joystick.c	246	wii_controller_wjoy	K1	joystick_config_t	9	0	0									
+C447	src/setup/joystick.c	260	xbox360_controller	K1	joystick_config_t	11	0	0									
+C448	src/setup/joystick.c	276	xbox360_controller_linux	K1	joystick_config_t	11	0	0									
+C449	src/setup/joystick.c	296	logitech_f310_controller	K1	joystick_config_t	12	0	0									
+C450	src/setup/joystick.c	313	multilaser_js030_controller	K1	joystick_config_t	12	0	0									
+C451	src/setup/joystick.c	330	buffalo_classic_controller	K1	joystick_config_t	11	0	0									
+C452	src/setup/joystick.c	347	pc_gameport_controller	K1	joystick_config_t	7	0	0									
+C453	src/setup/joystick.c	363	nes30_pro_controller	K1	joystick_config_t	13	0	0									
+C454	src/setup/joystick.c	382	sfc30_controller	K1	joystick_config_t	11	0	0									
+C455	src/setup/joystick.c	397	known_joysticks	K1	known_joystick_t	30	0	0									
+C456	src/setup/joystick.c	632	modern_gamepad	K1	joystick_config_t	19	0	0									
+C457	src/setup/joystick.c	656	classic_gamepad	K1	joystick_config_t	11	0	0									
+C458	src/setup/joystick.c	672	classic_gamepad_plus	K1	joystick_config_t	12	0	0									
+C459	src/setup/keyboard.c	37	controls	K1	int *	67	0	0									
+C460	src/setup/keyboard.c	62	menu_nav	K1	int *	9	0	0									
+C461	src/setup/keyboard.c	66	shortcuts	K1	int *	25	0	0									
+C462	src/setup/keyboard.c	77	map_keys	K1	int *	15	0	0									
+C463	src/setup/mainmenu.c	44	cheat_sequence	K1	int	12	0	0									
+C464	src/setup/mode.c	61	mission_configs	K1	mission_config_t	4	0	0									
+C465	src/setup/mouse.c	45	game_mouse_buttons	K1	int *	19	0	0									
+C466	src/setup/mouse.c	68	map_mouse_buttons	K1	int *	4	0	0									
+C467	src/setup/multiplayer.c	54	fallback_iwads	K1	iwad_t	4	0	0									
+C468	src/setup/multiplayer.c	74	wad_extensions	K1	char *	4	0	0									
+C469	src/setup/multiplayer.c	76	doom_skills	K1	char *	5	0	0									
+C470	src/setup/multiplayer.c	82	chex_skills	K1	char *	5	0	0									
+C471	src/setup/multiplayer.c	88	heretic_skills	K1	char *	5	0	0									
+C472	src/setup/multiplayer.c	94	hexen_fighter_skills	K1	char *	5	0	0									
+C473	src/setup/multiplayer.c	99	hexen_cleric_skills	K1	char *	5	0	0									
+C474	src/setup/multiplayer.c	104	hexen_mage_skills	K1	char *	5	0	0									
+C475	src/setup/multiplayer.c	109	strife_skills	K1	char *	5	0	0									
+C476	src/setup/multiplayer.c	114	character_classes	K1	char *	3	0	0									
+C477	src/setup/multiplayer.c	116	gamemodes	K1	char *	4	0	0									
+C478	src/setup/multiplayer.c	118	strife_gamemodes	K1	char *	2	0	0									
+C479	src/setup/setup_icon.c	4	setup_icon_data	K1	unsigned int	16384	0	0									
+C480	src/setup/sound.c	50	opltype_strings	K1	char *	2	0	0									
+C481	src/setup/sound.c	56	cfg_extension	K1	char *	2	0	0									
+C482	src/setup/sound.c	59	sf_extension	K1	char *	3	0	0									
+C483	src/setup/txt_joybinput.c	48	all_joystick_buttons	K1	int *	17	0	0									
+C484	src/setup/txt_joybinput.c	71	gamepad_buttons	K1	int	23	0	0									
+C485	src/setup/txt_joybinput.c	100	xbox360_buttons	K1	char *	23	0	0									
+C486	src/setup/txt_joybinput.c	127	xboxone_buttons	K1	char *	23	0	0									
+C487	src/setup/txt_joybinput.c	154	ps3_buttons	K1	char *	23	0	0									
+C488	src/setup/txt_joybinput.c	181	ps4_buttons	K1	char *	23	0	0									
+C489	src/setup/txt_joybinput.c	208	ps5_buttons	K1	char *	23	0	0									
+C490	src/setup/txt_joybinput.c	235	switchpro_buttons	K1	char *	23	0	0									
+C491	src/strife/am_map.c	149	player_arrow	K1	mline_t	7	0	0									
+C492	src/strife/am_map.c	161	cheat_player_arrow	K1	mline_t	16	0	0									
+C493	src/strife/am_map.c	182	triangle_guy	K1	mline_t	3	0	0									
+C494	src/strife/am_map.c	190	thintriangle_guy	K1	mline_t	3	0	0									
+C495	src/strife/d_items.c	39	weaponinfo	K1	weaponinfo_t	11	0	0									
+C496	src/strife/d_main.c	451	chat_macro_defaults	K1	char *	10	0	0									
+C497	src/strife/d_main.c	882	banners	K1	char *	1	0	0									
+C498	src/strife/d_main.c	1082	copyright_banners	K1	char *	3	0	0									
+C499	src/strife/d_main.c	1126	gameversions	K1	struct {const char *description; const char *cmdline; GameVersion_t version;}	3	0	0									
+C500	src/strife/d_main.c	1596	loadparms	K1	char *	3	0	0									
+C501	src/strife/deh_cheat.c	35	allcheats	K1	deh_cheat_t	17	0	0									
+C502	src/strife/deh_misc.c	133	misc_settings	K1	struct {const char *deh_name; int *value;}	15	0	0									
+C503	src/strife/deh_strife.c	22	deh_signatures	K1	char *	3	0	0									
+C504	src/strife/deh_strife.c	34	deh_section_types	K1	deh_section_t *	10	0	0									
+C505	src/strife/dstrings.c	23	doom1_endmsg	K1	char *	8	0	0									
+C506	src/strife/dstrings.c	35	doom2_endmsg	K1	char *	8	0	0									
+C507	src/strife/dstrings.c	52	endmsg	K1	char *	9	0	0									
+C508	src/strife/f_finale.c	80	textscreens	K1	textscreen_t	22	0	0									
+C509	src/strife/f_finale.c	608	castorder	K1	castinfo_t	18	0	0									
+C510	src/strife/g_game.c	157	forwardmove	K1	fixed_t	2	0	0									
+C511	src/strife/g_game.c	158	sidemove	K1	fixed_t	2	0	0									
+C512	src/strife/g_game.c	159	angleturn	K1	fixed_t	3	0	0									
+C513	src/strife/g_game.c	164	weapon_keys	K1	int *	8	0	0									
+C514	src/strife/g_game.c	182	weapon_order_table	K1	struct {weapontype_t weapon; weapontype_t weapon_num;}	11	0	0									
+C515	src/strife/hu_stuff.c	77	player_names	K1	char	8	0	0									
+C516	src/strife/hu_stuff.c	126	mapnames	K1	char *	34	0	0									
+C517	src/strife/info.c	33	sprnames	K1	char *	264	0	0									
+C518	src/strife/info.c	190	states	K2	state_t	1518	0	0									
+C519	src/strife/info.c	1715	mobjinfo	K1	mobjinfo_t	344	0	0									
+C520	src/strife/m_crispy.c	29	multiitem_bobfactor	K1	multiitem_t	3	0	0									
+C521	src/strife/m_crispy.c	36	multiitem_centerweapon	K1	multiitem_t	3	0	0									
+C522	src/strife/m_crispy.c	43	multiitem_difficulties	K1	multiitem_t	5	0	0									
+C523	src/strife/m_crispy.c	52	multiitem_freelook	K1	multiitem_t	2	0	0									
+C524	src/strife/m_crispy.c	58	multiitem_translucency	K1	multiitem_t	2	0	0									
+C525	src/strife/m_crispy.c	64	multiitem_sndchannels	K1	multiitem_t	3	0	0									
+C526	src/strife/m_crispy.c	71	multiitem_widescreen	K1	multiitem_t	5	0	0									
+C527	src/strife/m_crispy.c	80	multiitem_widgets	K1	multiitem_t	4	0	0									
+C528	src/strife/m_menu.c	112	gammamsg	K1	char	18	0	0									
+C529	src/strife/m_menu.c	178	cursorName	K1	char *	8	0	0									
+C530	src/strife/m_menu.c	272	MainMenu	K2	menuitem_t	6	0	0									
+C531	src/strife/m_menu.c	307	EpisodeMenu	K2	menuitem_t	4	0	0									
+C532	src/strife/m_menu.c	339	NewGameMenu	K2	menuitem_t	5	0	0									
+C533	src/strife/m_menu.c	374	OptionsMenu	K2	menuitem_t	6	0	0									
+C534	src/strife/m_menu.c	408	MouseMenu	K2	menuitem_t	7	0	0									
+C535	src/strife/m_menu.c	451	Crispness1Menu	K2	menuitem_t	14	0	0									
+C536	src/strife/m_menu.c	499	Crispness2Menu	K2	menuitem_t	13	0	0									
+C537	src/strife/m_menu.c	547	Crispness3Menu	K2	menuitem_t	14	0	0									
+C538	src/strife/m_menu.c	575	CrispnessMenus	K2	menu_t *	3	0	0									
+C539	src/strife/m_menu.c	593	ReadMenu1	K2	menuitem_t	1	0	0									
+C540	src/strife/m_menu.c	614	ReadMenu2	K2	menuitem_t	1	0	0									
+C541	src/strife/m_menu.c	636	ReadMenu3	K2	menuitem_t	1	0	0									
+C542	src/strife/m_menu.c	669	SoundMenu	K2	menuitem_t	6	0	0									
+C543	src/strife/m_menu.c	703	LoadMenu	K2	menuitem_t	6	0	0									
+C544	src/strife/m_menu.c	726	SaveMenu	K2	menuitem_t	6	0	0									
+C545	src/strife/m_menu.c	1385	detailNames	K1	char	2	0	0									
+C546	src/strife/m_menu.c	1386	msgNames	K1	char	2	0	0									
+C547	src/strife/m_random.c	29	rndtable	K1	unsigned char	256	0	0									
+C548	src/strife/p_dialog.c	115	healthamounts	K1	int	5	0	0									
+C549	src/strife/p_dialog.c	133	dialogstatesets	K1	dialogstateset_t	5	0	0									
+C550	src/strife/p_dialog.c	165	rndMessages	K1	rndmessage_t	5	0	0									
+C551	src/strife/p_dialog.c	354	dialogmenuitems	K2	menuitem_t	6	0	0									
+C552	src/strife/p_doors.c	945	slideFrameNames	K1	slidename_t	8	0	0									
+C553	src/strife/p_doors.c	1038	slideOpenSounds	K1	sfxenum_t	8	0	0									
+C554	src/strife/p_doors.c	1049	slideCloseSounds	K1	sfxenum_t	8	0	0									
+C555	src/strife/p_enemy.c	76	opposite	K1	dirtype_t	9	0	0									
+C556	src/strife/p_enemy.c	82	diags	K1	dirtype_t	4	0	0									
+C557	src/strife/p_enemy.c	389	xspeed	K1	fixed_t	8	0	0									
+C558	src/strife/p_enemy.c	390	yspeed	K1	fixed_t	8	0	0									
+C559	src/strife/p_extsaveg.c	132	extsavegdata	K2	extsavegdata_t	3	0	0									
+C560	src/strife/p_inter.c	51	maxammo	K1	int	7	0	0									
+C561	src/strife/p_inter.c	52	clipammo	K1	int	7	0	0									
+C562	src/strife/p_maputl.c	806	intercepts_overrun	K1	intercepts_overrun_t	23	0	0									
+C563	src/strife/p_spec.c	99	animdefs	K1	animdef_t	34	0	0									
+C564	src/strife/p_spec.c	204	terraintypes	K1	terraintype_t	13	0	0									
+C565	src/strife/p_switch.c	49	alphSwitchList	K1	switchlist_t	69	0	0									
+C566	src/strife/p_user.c	61	crispy_bobfactor	K1	fixed_t	3	0	0									
+C567	src/strife/r_bsp.c	399	checkcoord	K1	int	11	0	0									
+C568	src/strife/r_segs.c	137	scale_values	K1	struct {int clamp; int heightbits;}	8	0	0									
+C569	src/strife/sounds.c	35	S_music	K1	musicinfo_t	35	0	0									
+C570	src/strife/sounds.c	87	S_sfx	K1	sfxinfo_t	272	0	0									
+C571	src/strife/st_stuff.c	128	st_yforammo	K1	int	7	0	0									
+C572	src/strife/st_stuff.c	129	st_wforammo	K1	int	7	0	0									
+C573	src/strife/st_stuff.c	221	invammonames	K1	char *	7	0	0									
+C574	src/strife/strife_icon.c	4	strife_icon_data	K1	unsigned int	16384	0	0									
+C575	src/strife/wi_stuff.c	172	lnodes	K1	point_t	3	0	0									
+C576	src/strife/wi_stuff.c	227	epsd0animinfo	K1	anim_t	60	0	0									
+C577	src/strife/wi_stuff.c	241	epsd1animinfo	K1	anim_t	54	0	0									
+C578	src/strife/wi_stuff.c	254	epsd2animinfo	K1	anim_t	36	0	0									
+C579	src/strife/wi_stuff.c	264	NUMANIMS	K1	int	3	0	0									
+C580	src/strife/wi_stuff.c	271	anims	K1	anim_t *	3	0	0									
+C581	src/strife/wi_stuff.c	341	yah	K1	patch_t *	3	0	0									
+C582	src/strife/wi_stuff.c	344	splat	K1	patch_t *	2	0	0									
+C583	src/tables.c	86	finetangent	K1	fixed_t	4096	0	0									
+C584	src/tables.c	603	finesine	K1	fixed_t	10240	0	0									
+C585	src/tables.c	1889	tantoangle	K1	angle_t	2049	0	0									
+C586	src/tables.c	2151	gammatable	K1	byte	5	0	0									
+C587	src/v_trans.c	39	cr_red2blue	K1	byte	256	0	0									
+C588	src/v_trans.c	57	cr_red2green	K1	byte	256	0	0									
+C589	src/v_trans.c	75	cr	K1	byte *	10	0	0									
+C590	src/v_video.c	250	drawpatchpx_a	K1	drawpatchpx_t *	2	0	0									
+C591	src/v_video.c	251	drawtlpatchpx_a	K1	drawpatchpx_t *	2	0	0									
+C592	src/v_video.c	252	drawalttlpatchpx_a	K1	drawpatchpx_t *	2	0	0									
+C593	src/v_video.c	253	drawxlatabpatchpx_a	K1	drawpatchpx_t *	2	0	0									
+C594	src/w_file.c	29	wad_file_classes	K2	wad_file_class_t *	3	0	2									
+C595	src/w_main.c	256	unique_lumps	K1	struct {GameMission_t mission; const char *lumpname;}	4	0	0									
+C596	textscreen/examples/guitest.c	35	extensions	K1	char *	7	0	0									
+C597	textscreen/examples/guitest.c	37	radio_values	K1	char *	3	0	0									
+C598	textscreen/fonts/large.h	5	large_font_data	K1	uint8_t	16384	0	0									
+C599	textscreen/fonts/normal.h	5	normal_font_data	K1	uint8_t	4096	0	0									
+C600	textscreen/fonts/small.h	5	small_font_data	K1	uint8_t	1024	0	0									
+C601	textscreen/txt_fileselect.c	42	TXT_DIRECTORY	K1	char *	2	0	0									
+C602	textscreen/txt_gui.c	39	borders	K1	int	4	0	0									
+C603	textscreen/txt_sdl.c	88	ega_colors	K1	SDL_Color	16	0	0									
 D001	.github/CONTRIBUTING.md	64	doc:.github/CONTRIBUTING.md:64	K4													Please check the following guidelines before opening a pull request: * All code must be licensed under [the GNU General Public License, version 2](https://www.
 D002	CMakeLists.txt	17	doc:CMakeLists.txt:17	K4													com/fabiangreffrath/crispy-doom/issues") string(REGEX REPLACE " Doom$" "" PACKAGE_SHORTNAME "${PACKAGE_NAME}") set(PACKAGE_COPYRIGHT "Copyright (C) 1993-2025") set(PACKAGE_LICENSE "GNU General Public License, version 2") # Any settings that should apply to all targets in this directory and all # subdirectories should go here.
 D003	CODE_OF_CONDUCT.md	58	doc:CODE_OF_CONDUCT.md:58	K4													All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances.
