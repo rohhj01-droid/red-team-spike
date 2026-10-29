@@ -586,6 +586,17 @@ def test_e4_absence_survey_quote_is_verified():
     assert False, "an absence-survey quote that is not in the pinned tree was accepted"
 
 
+def test_e2rule_absence_survey_quote_is_verified():               # contract 9.5: every witness quote is checked (RQA-13)
+    ws = ALPHA_WITNESSES + [dict(frame_rank="1", candidate_id="", gate="E2-RULE", kind="absence-survey", surface="src/modes.c",
+                                 location="src/modes.c:1", quote="not a line of that file", tag="")]
+    try:
+        screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ws, state=_state("s17"),
+                           fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    except screen.Witness:
+        return
+    assert False, "an E2-RULE absence-survey quote that is not in the pinned tree was accepted"
+
+
 def test_unresolved_past_e2rep_carries_unclassified_shape():
     # design 4.7: E2-RULE, E3 and E4 are decided as Run 1's amendment decides them -- UNRESOLVED / PI-UNCLASSIFIED-SHAPE (RQA-10)
     for name, ws, gate in (("s14", ALPHA_WITNESSES, "E2-RULE"), ("s15", PAST_E2REP, "E4")):

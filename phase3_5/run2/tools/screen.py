@@ -358,7 +358,7 @@ def _e2rep(ctx: dict) -> dict:
 def _witness_gate(ctx: dict, gate: str, kind: str, surfaces_read: list[str]) -> tuple[str, str]:
     """E2-RULE / E3: PASS on one verified quoted witness; else UNRESOLVED with the surfaces read listed."""
     ws = _witnesses(ctx, gate, kind)
-    for w in ws:
+    for w in ws + _witnesses(ctx, gate, "absence-survey"):     # contract 9.5: every quote is checked (RQA-13)
         _verify_tree_quote(ctx, w)
     survey = [w["surface"] for w in _witnesses(ctx, gate, "absence-survey")]
     if ws:
