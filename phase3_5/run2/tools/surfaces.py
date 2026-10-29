@@ -21,7 +21,8 @@ ARCHIVE_EXT = r"\.(tar\.gz|tgz|tar\.bz2|tar\.xz|tar\.zst|zip|7z)$"
 # (host regex, path regex, class) -- contract Section 5, first match wins
 SURFACE_TABLE: list[tuple[str, str, str]] = [
     # release-assets (the only forbidden class)
-    (r"^github\.com$", r"^/[^/]+/[^/]+/(releases|archive|tags|downloads)(/|$)", "release-assets"),
+    (r"^github\.com$", r"^/[^/]+/[^/]+/(releases|archive|tags|downloads|zipball|tarball)(/|$)", "release-assets"),
+    (r"^codeload\.github\.com$", r".*", "release-assets"),                      # archive downloads (RQA-12)
     (r"^(gitlab\.com|gitlab\..+)$", r"(/-/(releases|archive|tags)(/|$)|/uploads/)", "release-assets"),
     (r"^codeberg\.org$", r"^/[^/]+/[^/]+/(releases|archive)(/|$)", "release-assets"),
     (r"^bitbucket\.org$", r"^/[^/]+/[^/]+/downloads(/|$)", "release-assets"),

@@ -604,6 +604,13 @@ def test_modules_matter_only_when_they_supply_a_field():        # RQA-02 (a)
     assert metadata.resolve(FIX + "/ports/games/modport", INFRA)["issue"] == "PI-METADATA-UNRESOLVED"  # nothing resolved, module present
 
 
+def test_code_host_archive_endpoints_are_release_assets():      # RQA-12: zipball / tarball / codeload are archive areas
+    for u in ("https://github.com/cebix/frodo4/zipball/master", "https://github.com/acme/beta/tarball/v1.2",
+              "https://codeload.github.com/cebix/frodo4/legacy.zip/main"):
+        assert surfaces.classify(u) == "release-assets", u
+    assert surfaces.classify("https://github.com/acme/zipball") == "repository-root"   # a repository named zipball is still a root
+
+
 def test_classify_repository_file_and_root():                    # RQA-02 (f)
     assert surfaces.classify("https://github.com/acme/gamma/blob/main/BUILD.md") == "repository-file"
     assert surfaces.classify("https://gitlab.com/grp/proj/-/blob/main/README.md") == "repository-file"
