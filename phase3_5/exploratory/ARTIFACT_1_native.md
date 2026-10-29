@@ -247,6 +247,29 @@ version byte into demos (src/doom/g_game.c:3213); U067-U070 and U066
 select versions whose savegame and demo code is 109, the same as 1.9
 (src/doom/g_game.c:3185-3187).
 
+Added later in P_raw order -- the Hexen module's table of the same shape
+(units U1029-U1030, E313-001 .. E313-002; src/hexen/h2_main.c:396-405,
+two rows and a NULL sentinel):
+
+```text
+unit   observation  row   cmdline  version          description
+U1029  E313-001     :402  1.1      exe_hexen_1_1    Hexen 1.1
+U1030  E313-002     :403  1.1r2    exe_hexen_1_1r2  Hexen 1.1 (alt)
+```
+
+Hexen's InitGameVersion (src/hexen/h2_main.c:409-454) matches
+`-gameversion` the same way (:426-433), prints the supported list and
+aborts on a miss (:435-446), and otherwise sets exe_hexen_1_1 (:452; the
+global's own default, :98). What differs from Doom: the Hexen version
+governs one gameplay branch found by grep -- whether an actor's spawned
+item is a monster suppressed under -nomonsters, 1.1r2 only
+(src/hexen/a_action.c:1175-1180) -- and the startup message
+(PrintGameVersion :456-468); Hexen's connect data carries a constant
+(src/hexen/d_net.c:151); and Hexen's savegames carry a fixed format text,
+HXS_VERSION_TEXT, written and compared as such (src/hexen/sv_save.c:1998-2000,
+:2124), not the emulated version -- so in Hexen the chosen version is
+never persisted. The Strife table (E499-*) will be added when reached.
+
 ## NC-06 -- HHE text replacement: string offsets that are valid but unsupported, per Heretic version (src/heretic/deh_htext.c)
 source observation ids: E186-001 .. E186-336, E187-001 .. E187-305, E188-001 .. E188-305 (units U071-U1016; 946 units in one case)
 native state/data involved: three compiled-in lists of executable string offsets, one per HHE version the port emulates -- "String offsets that are valid but we don't support." (src/heretic/deh_htext.c:531): unsupported_strings_1_0 (:533-578, 336 offsets), unsupported_strings_1_2 (:580-621, 305), unsupported_strings_1_3 (:623-671, 305), each -1-terminated, indexed by version through unsupported_strings[] (:666-671); the running HHE version deh_hhe_version (set by -hhever, src/heretic/deh_htic.c:61-81; a later native case); the main offset-to-string table strings[] (:44-529: "Offsets / String" per version, rejected at EN2 as a mapping) read by GetStringByOffset (:691-705); a patch's "Text <offset> <length>" section (:774); and the process-wide string substitution table that successful replacements go into (DEH_AddStringReplacement, src/deh_str.c:175-)
@@ -351,3 +374,47 @@ The three units marked false (U1024-U1026) are the ones the gate
 refuses in shareware; the same three are cleared by the all-weapons
 cheat in shareware (src/heretic/sb_bar.c:1421-1426), a second copy of
 the rule kept in code rather than read from this table.
+
+## NC-09 -- the MAPINFO commands Hexen's map-information parser accepts (src/hexen/p_setup.c)
+source observation ids: E364-001 .. E364-015 (units U1031-U1045)
+native state/data involved: the command-name table MapCmdNames[] (src/hexen/p_setup.c:120-137, NULL-terminated) and its parallel id table MapCmdIDs[] (:138-); the MAPINFO script lump read through the script scanner (SC_Open :1054; the lump name is MAPINFO, with a "D" suffix for Deathkings under Crispy, :1047-1052); the per-map information table MapInfo[MAPINFO_SIZE] (:119) -- cluster, warpTrans, nextMap, cdTrack, sky textures and scroll deltas, doubleSky, lightning, fadetable, name, songLump -- first filled with defaults for every map (:1024-1041), then overwritten per "MAP n" block; the six non-level CD tracks cd_NonLevelTracks[] (:1142-1143); MapCount (:1150)
+writers / creation points: InitMapInfo (:1007-1151). For each "MAP <n> <name>" block (:1055-1084; a token other than MAP, or a number outside 1-99, is a script error, :1057-1065), every following token until the next MAP is matched against the command names by SC_MustMatchString (:1094): a match selects the command's id (MapCmdIDs[...]) and the switch reads the command's arguments and writes the map's field (:1095-1145, per command in the units table below); a token matching no name is a fatal script error -- SC_MustMatchString (src/hexen/sc_man.c:411-421) calls SC_ScriptError, I_Error("Script error, \"%s\" line %d: Bad syntax.") (:444-451). The fact created by a match is "token T is the command C", consumed in the same statement; the lasting result is the field it writes
+updates / invalidation paths: the table is compiled in. MapInfo is rebuilt from the lump at each InitMapInfo call (defaults :1024-1041, then the script); a field set by one command can be set again by a later line of the same block; nothing records which commands a map's block used
+readers / consumption points: the accessor functions P_GetMapCluster, P_GetMapCDTrack, P_GetMapWarpTrans, P_GetMapNextMap, P_GetMapSky1Texture, P_GetMapSky2Texture, P_GetMapName, P_GetMapSky1ScrollDelta, P_GetMapSky2ScrollDelta, P_GetMapDoubleSky, P_GetMapLightning, P_GetMapFadeTable, P_GetMapSongLump and the six P_GetCD*Track (src/hexen/p_setup.c:1159-1403), used by level setup, the sky renderer (src/hexen/r_plane.c, 5 sites), animation (src/hexen/p_anim.c), music (src/hexen/s_sound.c), the menu, the intermission, the status bar and the savegame code (src/hexen/sv_save.c, 1 site; counts by grep P_GetMap)
+lifetime / persistence / reset behavior: the match itself has no lifetime; the fields written live in MapInfo for the process until the next InitMapInfo; the script error aborts the program. One reader is the savegame code (src/hexen/sv_save.c), not traced here: whether any MapInfo-derived value is written into a save was not followed
+relevant transitions: game start -> MAPINFO lump opened -> per map: defaults copied, block parsed command by command -> an unknown command aborts the program; level load / render / music / intermission -> the fields read through the accessors
+supporting source-code/docs evidence: src/hexen/p_setup.c:119-142, :1007-1151, :1159-1403; src/hexen/sc_man.c:391-403, :411-421, :444-451
+remaining native-level uncertainty: MapCmdIDs' full listing (:138-) was not displayed beyond its first rows (the pairing with the names is by index, :1094); the savegame reader's use of MapInfo (src/hexen/sv_save.c) was not traced; QualifyMap (:1161) was not read; the Deathkings suffix is marked [crispy] (:1048), the only fork marker seen in the parser
+lineage: inherited, with a fork change beside the parser -- "[crispy] add suffix for Deathkings" (src/hexen/p_setup.c:1048) and "[crispy] Set all MapInfo Entries to Default for Episode Selection" (:1024); the command table and the matching carry no marker
+### Sufficiency
+Q1 created: the transient fact "token T is the MAPINFO command C" -- src/hexen/sc_man.c:391-403 (the match) through src/hexen/p_setup.c:1094; and the field the command writes (:1095-1145)
+Q2 written: N/A: the match is consumed in the same statement (src/hexen/p_setup.c:1094) and not stored; the command's effect is written into MapInfo[map]'s field or cd_NonLevelTracks (:1095-1145)
+Q3 lifetime: N/A: no persistent value is created by the match (src/hexen/p_setup.c:1094); the written fields live until the next InitMapInfo (:1024-1041) -- process lifetime in practice
+Q4 readers: the accessors src/hexen/p_setup.c:1159-1403, and their callers (src/hexen/r_plane.c, p_anim.c, s_sound.c, mn_menu.c, in_lude.c, sv_save.c, sb_bar.c; grep P_GetMap)
+Q5 after consumption: the match disappears; an unknown token ends the program (src/hexen/sc_man.c:444-451); a matched command's field persists in MapInfo (src/hexen/p_setup.c:1095-1145) until the table is rebuilt
+Status: RESOLVED
+
+Units resolving into this case: one command name each, with the field it writes.
+
+```text
+unit   observation  row   name                    id                   writes
+U1031  E364-001     :121  SKY1                    MCMD_SKY1            sky1Texture, sky1ScrollDelta (:1113-1118)
+U1032  E364-002     :122  SKY2                    MCMD_SKY2            sky2Texture, sky2ScrollDelta (:1119-1124)
+U1033  E364-003     :123  DOUBLESKY               MCMD_DOUBLESKY       doubleSky = true (:1125-1127)
+U1034  E364-004     :124  LIGHTNING               MCMD_LIGHTNING       lightning = true (:1128-1130)
+U1035  E364-005     :125  FADETABLE               MCMD_FADETABLE       fadetable lump (:1131-1134)
+U1036  E364-006     :126  CLUSTER                 MCMD_CLUSTER         cluster (:1097-1100)
+U1037  E364-007     :127  WARPTRANS               MCMD_WARPTRANS       warpTrans (:1101-1104)
+U1038  E364-008     :128  NEXT                    MCMD_NEXT            nextMap (:1105-1108)
+U1039  E364-009     :129  CDTRACK                 MCMD_CDTRACK         cdTrack (:1109-1112)
+U1040  E364-010     :130  CD_START_TRACK          MCMD_CD_STARTTRACK   cd_NonLevelTracks[0] (:1135-1144)
+U1041  E364-011     :131  CD_END1_TRACK           MCMD_CD_END1TRACK    cd_NonLevelTracks[1] (:1135-1144)
+U1042  E364-012     :132  CD_END2_TRACK           MCMD_CD_END2TRACK    cd_NonLevelTracks[2] (:1135-1144)
+U1043  E364-013     :133  CD_END3_TRACK           MCMD_CD_END3TRACK    cd_NonLevelTracks[3] (:1135-1144)
+U1044  E364-014     :134  CD_INTERMISSION_TRACK   MCMD_CD_INTERTRACK   cd_NonLevelTracks[4] (:1135-1144)
+U1045  E364-015     :135  CD_TITLE_TRACK          MCMD_CD_TITLETRACK   cd_NonLevelTracks[5] (:1135-1144)
+```
+
+Each unit's fact, writer, reader and lifetime are the case's; the
+unit's own row is the token the scanner must match, and the switch arm
+beside it is what the command writes.
