@@ -161,11 +161,14 @@ CATALOGUE: list[Rule] = [
 ]
 
 
+_CTX_BY_TREE: dict[str, dict] = {}      # per-tree read caches (file texts, struct map); no decision depends on them
+
+
 def decide(row: dict, tree: str | None = None) -> dict:
     """Apply the catalogue to one inventory row. K1-K3 rows pass EN1, EN3, EN5, EN6 by construction (compiled-in
     arrays); K4 (document) rows are always UNDECIDED. Returns a new row with en1..en6, tag, reject_reason, decided_by."""
     out = dict(row)
-    ctx = {"tree": tree}
+    ctx = _CTX_BY_TREE.setdefault(tree, {"tree": tree}) if tree else {"tree": None}
     for k in EN:
         out[k] = ""
     out["tag"], out["reject_reason"], out["evidence"] = "", "", out.get("evidence", "")

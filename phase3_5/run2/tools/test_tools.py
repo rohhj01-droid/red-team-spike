@@ -483,6 +483,21 @@ def test_run_batch_rerun_replaces_its_own_rows():
     assert ledger.check(root, expect_rows=2) == 0
 
 
+def test_decide_builds_struct_map_once_per_tree():              # performance only: the catalogue's decisions do not change
+    calls = []
+    real = inventory.struct_map
+
+    def counting(tree):
+        calls.append(tree)
+        return real(tree)
+    inventory.struct_map = counting
+    try:
+        rows = [en_verdicts.decide(r, tree=CTREE) for r in inventory.enumerators(CTREE)]
+    finally:
+        inventory.struct_map = real
+    assert len(rows) >= 5 and len(calls) == 1, (len(rows), len(calls))
+
+
 # ---------------------------------------------------------------- contract 8: E4 UNRESOLVED lists the surfaces read
 
 PAST_E2REP = ALPHA_WITNESSES + [
