@@ -203,3 +203,46 @@ unit's own row is the pair D_ValidGameVersion accepts. The eleven
 `doom` rows (U044-U054) serve every Doom-family mission through the
 fold at src/d_mode.c:149-154; the other five serve their own mission
 only.
+
+## NC-05 -- the emulated game version: `-gameversion` against the supported list, and what the version then governs (src/doom/d_main.c)
+source observation ids: E034-001 .. E034-011 (units U060-U070); the Hexen and Strife tables of the same shape (E313-*, E499-*) are later in P_raw order and will be added to this case when reached
+native state/data involved: the Doom module's table of supported versions (src/doom/d_main.c:1125-1143): eleven rows of (description, cmdline, version) plus a NULL sentinel; the global `gameversion` (GameVersion_t); the vanilla version CODE derived from it by G_VanillaVersionCode (src/doom/g_game.c:3175-3189: 106, 107, 108, or 109 for 1.9 and "All other versions are variants on v1.9", :3186) -- which is what demos and savegames carry
+writers / creation points: InitGameVersion (src/doom/d_main.c:1147-1291). With `-gameversion <value>` (:1165-1190): the value is compared with each row's cmdline (:1169-1176); a miss prints "Supported game versions:" with the table (:1178-1186) and aborts, I_Error("Unknown game version '%s'") (:1188). Without it (:1191-1269): the version is inferred -- chex and hacx from the mission (:1195-1206), shareware / registered / doom2 default to 1.9 and then take the version byte of the IWAD's own demo lumps demo1-demo3 (:1207-1253: byte 0-4 -> 1.2, 106 -> 1.666, 107 -> 1.7, 108 -> 1.8, 109 -> 1.9), retail -> ultimate (:1255-1258), other commercial -> final (:1259-1268, "has the crash in the demo loop; however ... plays back most demos correctly", :1261-1265). The chosen version then rewrites other facts: deathmatch 2 -> 1 before 1.4 (:1271-1275), retail -> registered before ultimate (:1277-1282), tnt/plutonia -> doom2 before final (:1284-1290)
+updates / invalidation paths: set once in InitGameVersion (called from D_DoomMain after D_IdentifyVersion, :1683); no later writer found (grep over src/doom); the version is not changed by a demo or a savegame that carries a different code -- those are refused or warned about instead (below)
+readers / consumption points: (1) compatibility branches throughout the Doom module, about eighty sites in fourteen files (grep `gameversion`, src/doom): item pickup rules (src/doom/p_inter.c:416-570 `> exe_doom_1_2`, :832, :1000), monster behaviour (src/doom/p_enemy.c:184, :701, :962-970, :1685), map specials (src/doom/p_spec.c:608, :1585, :1661), collision (src/doom/p_map.c:1533), lost-soul bounce (src/doom/p_mobj.c:372), menus, status bar, intermission, finale and HUD text (src/doom/m_menu.c, st_stuff.c, wi_stuff.c, f_finale.c, hu_stuff.c), brightmaps (src/doom/r_bmaps.c:960, :981), Crispness options (src/doom/m_crispy.c:219, :316), episode availability (src/doom/g_game.c:2812, :3509); (2) the version CODE written into every demo header (src/doom/g_game.c:3213-3216; longtics demos write DOOM_191_VERSION instead, :3209-3212) and into every savegame header as the string "version %i" (src/doom/p_saveg.c:1436-1440); (3) the checks on read: a demo whose byte differs from the running code is refused with "Demo is from a different game version!" -- fatal for a single demo, "[crispy] make non-fatal" (a warning, then the demo is treated as finished) otherwise (src/doom/g_game.c:3341-3366); a savegame whose version string differs is refused by P_ReadSaveGameHeader (src/doom/p_saveg.c:1470-1476, "bad version") and the load path shows the mismatch (src/doom/g_game.c:2526-2533, M_LoadGameVerMismatch); (4) the game's banner name (src/doom/d_main.c:856-858)
+lifetime / persistence / reset behavior: `gameversion` lives for the process and is re-chosen at every start. The code derived from it persists in every demo (one byte, src/doom/g_game.c:3215) and every savegame (sixteen bytes "version %i", src/doom/p_saveg.c:1437-1440) the program writes, and is compared with the running code when such a file is read (:1474-1476; g_game.c:3341). Because G_VanillaVersionCode folds ultimate, final, final2, hacx and chex onto 109 (:3185-3187), a savegame written under any of those loads under any other of them; only 1.666, 1.7 and 1.8 are distinguished, and 1.2 and 1.5 write no version byte into demos (:3213)
+relevant transitions: startup -> `-gameversion` matched or the version inferred from the mission, mode and the IWAD's demo lumps -> dependent facts downgraded; play -> compatibility branches; save / record -> the code written into the header; load / play back -> the header's code compared with the running code, mismatch refused (save; single demo) or warned (demo loop)
+supporting source-code/docs evidence: src/doom/d_main.c:848-862, :1125-1143, :1147-1291, :1683; src/doom/g_game.c:2522-2533, :3174-3222, :3334-3366; src/doom/p_saveg.c:1426-1480; src/doom/m_menu.c:945-953; the grep listing of `gameversion` over src/doom (fourteen files)
+remaining native-level uncertainty: the eighty-odd compatibility branches were listed, not each traced; M_LoadGameVerMismatch's body (src/doom/m_menu.c) was not read; DemoVersionDescription (src/doom/g_game.c) was not read; whether anything outside src/doom reads the Doom module's gameversion was not searched
+lineage: inherited with fork changes at the checks -- the non-fatal demo-version mismatch is marked "[crispy] make non-fatal" (src/doom/g_game.c:3356) and the load-path mismatch indication "[crispy] indicate game version mismatch" (:2528); the table and InitGameVersion carry no marker
+### Sufficiency
+Q1 created: the fact "this process emulates executable version V" -- from the `-gameversion` match (src/doom/d_main.c:1169-1176) or the inference (:1191-1269); and, derived from it, the vanilla version code (src/doom/g_game.c:3175-3189)
+Q2 written: into the global gameversion (src/doom/d_main.c:1173, :1199, :1205, :1211, :1230-1242, :1257, :1267); into demo headers as one byte (src/doom/g_game.c:3215) and savegame headers as "version %i" (src/doom/p_saveg.c:1437-1440)
+Q3 lifetime: process lifetime for gameversion (no later writer, grep); the code persists in demos and savegames on disk for as long as those files exist (src/doom/g_game.c:3213-3216; src/doom/p_saveg.c:1436-1440)
+Q4 readers: the compatibility branches (src/doom/p_inter.c:416-1000, p_enemy.c:184-1685, p_spec.c:608-1661, p_map.c:1533, p_mobj.c:372, m_menu.c:1329-3390, st_stuff.c:784-1669, wi_stuff.c:813-2028, hu_stuff.c:446-1120, f_finale.c:148, :1008, r_bmaps.c:960, :981, m_crispy.c:219, :316, g_game.c:1034-2812); the header writers (g_game.c:3213-3216; p_saveg.c:1437); the header checks (g_game.c:3341-3366; p_saveg.c:1474-1476 with g_game.c:2526-2533)
+Q5 after consumption: the running version persists for the process; the code in a demo or savegame persists with the file and is compared, not adopted, on read -- a mismatch refuses the savegame (src/doom/p_saveg.c:1476; src/doom/g_game.c:2526-2533) or the single demo, and only warns for a demo in the demo loop (src/doom/g_game.c:3353-3365)
+Status: RESOLVED
+
+Units resolving into this case: one supported version each.
+
+```text
+unit  observation  row    cmdline   version         description
+U060  E034-001     :1131  1.2       exe_doom_1_2    Doom 1.2
+U061  E034-002     :1132  1.5       exe_doom_1_5    Doom 1.5
+U062  E034-003     :1133  1.666     exe_doom_1_666  Doom 1.666
+U063  E034-004     :1134  1.7       exe_doom_1_7    Doom 1.7/1.7a
+U064  E034-005     :1135  1.8       exe_doom_1_8    Doom 1.8
+U065  E034-006     :1136  1.9       exe_doom_1_9    Doom 1.9
+U066  E034-007     :1137  hacx      exe_hacx        Hacx
+U067  E034-008     :1138  ultimate  exe_ultimate    Ultimate Doom
+U068  E034-009     :1139  final     exe_final       Final Doom
+U069  E034-010     :1140  final2    exe_final2      Final Doom (alt)
+U070  E034-011     :1141  chex      exe_chex        Chex Quest
+```
+
+Each unit's fact, writers, readers and lifetime are the case's; the
+unit's own row is the cmdline value accepted and the version it
+selects. U060 (1.2) and U061 (1.5) select versions that write no
+version byte into demos (src/doom/g_game.c:3213); U067-U070 and U066
+select versions whose savegame and demo code is 109, the same as 1.9
+(src/doom/g_game.c:3185-3187).
