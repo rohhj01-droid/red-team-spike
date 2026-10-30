@@ -279,9 +279,14 @@ def _e2rep(ctx: dict) -> dict:
                     label_designations.append(dict(quote=label, surface=rec["final_url"], location=root, kind="label", word=net.is_word_label(link)))
     worded = {d["surface"] for d in label_designations if d["word"]}      # RQA-20: on a page that points at a repository in words,
     label_designations = [d for d in label_designations if d["word"] or d["surface"] not in worded]   # host-name labels are not its pointer
+    other = [w for w in _witnesses(ctx, "E2-REP", "designation") if w.get("tag") == "other-work"]
+    for w in other:                                # RQA-28: the analyst quotes the page saying the labelled repository is another work's source
+        _verify_page_quote(ctx, w)
+    elsewhere = {surfaces.normalize_url(w["location"]) for w in other}
+    label_designations = [d for d in label_designations if surfaces.normalize_url(d["location"]) not in elsewhere]
     accounting = ["%s -> %s%s" % (sp["url"], sp["action"], (" (%s)" % sp["note"]) if sp["note"] else "") for sp in sps]
     # designations: the analyst's quoted witnesses, and the project page's own labelled pointers (RQA-02 e)
-    designations = [dict(w, kind="witness") for w in _witnesses(ctx, "E2-REP", "designation")]
+    designations = [dict(w, kind="witness") for w in _witnesses(ctx, "E2-REP", "designation") if w not in other]
     for w in designations:
         _verify_page_quote(ctx, w)
     designations += label_designations
@@ -310,7 +315,8 @@ def _e2rep(ctx: dict) -> dict:
             pi = "PI-UNCLASSIFIED-SHAPE"
         return dict(state="UNRESOLVED", failure_code="NONE", pi_code=pi, canonical="", identifier="", snapshot="",
                     block=_block(ctx, "E2-REP", "the starting-point set (contract Section 4)",
-                                 "no designation witness on any observed surface; observed roots: %s" % (", ".join(observed_roots) or "none"),
+                                 "no designation witness on any observed surface; observed roots: %s" % (", ".join(observed_roots) or "none")
+                                 + "".join("; a label link leads to another work's source: %r at %s -> %s" % (w["quote"], w["surface"], w["location"]) for w in other),
                                  "the gate cannot complete: a PASS needs a designation witness and a failure code needs positive evidence (contract Section 7) -> %s" % pi,
                                  "UNRESOLVED", accounting))
     unobserved = [sp for sp in sps if sp["action"] in ("unreachable", "unclassifiable")]

@@ -809,6 +809,24 @@ def test_links_only_body_is_a_directory_listing():               # contract 5's 
     assert screen._class_by_response(rec) == "unclassifiable"
 
 
+OTHER_MAP = dict(GAMMA_MAP)
+OTHER_MAP["https://gamma.example.org/"] = (200, HTML, b"<html><body><h1>Gamma</h1><p>Jane Roe has ported Gamma to Windows, and has posted the "
+                                                     b"<a href='https://github.com/jroe/gamma-win'>source code on GitHub</a>.</p></body></html>")
+OTHER_MAP["https://github.com/jroe/gamma-win"] = (200, HTML, b"<html><head><title>jroe/gamma-win</title></head><body><p>Gamma for Windows.</p></body></html>")
+OTHER_MAP["https://github.com/jroe/gamma-win/archive/abc123.tar.gz"] = (200, {"Content-Type": "application/x-gzip"}, _tiny_targz())
+
+
+def test_label_link_to_another_works_source_is_not_a_designation():   # RQA-28
+    w = dict(frame_rank="1", candidate_id="", gate="E2-REP", kind="designation", surface="https://gamma.example.org/",
+             location="https://github.com/jroe/gamma-win", tag="other-work",
+             quote="Jane Roe has ported Gamma to Windows, and has posted the source code on GitHub.")
+    out = screen.screen_item(1, "x11/gamma", FIX + "/ports", witnesses=[w], state=_state("s25"),
+                             fetch=canned_map(OTHER_MAP), clock=fixed_clock, git=fake_git_factory())
+    assert out["candidate_row"]["E2_REP"] == "UNRESOLVED", out["candidate_row"]
+    block = [b for b in out["evidence_blocks"] if "Gate: E2-REP" in b][0]
+    assert "Jane Roe has ported Gamma" in block, block
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0
