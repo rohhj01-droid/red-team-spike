@@ -1,0 +1,37 @@
+# Pin record -- Run 2, candidate C059
+
+Pinned at OBSERVATION TIME, the moment E2-REP passed (contract Section 10; a declared
+deviation from the sealed instant, QA-28 / XQA-01). Every later step for this candidate
+is defined against the hash below.
+
+```text
+observed_at_utc  2026-10-30T06:02:50Z
+location         https://github.com/Isarhamster/chessx
+default branch   master
+tip hash         c7d815796e977c1ededef515d6db00bff326bd8d
+tracked files    764
+```
+
+## Archive (listed, not extracted)
+
+```text
+url      https://github.com/Isarhamster/chessx/archive/c7d815796e977c1ededef515d6db00bff326bd8d.tar.gz
+bytes    18200445
+sha256   523ca36216c392d78e3e12bd90871fda111dfc6969f84e40b608cdce8c976911
+entries  822
+```
+
+## Ten digests (the ten largest source files; ties by path)
+
+| file | bytes | sha256 |
+|---|---|---|
+| i18n/chessx_de.ts | 277554 | 60ace8320b3423ff89e62ed679285b308043c326eca8bdd5bcf0c08dc7c284b4 |
+| i18n/chessx_nl.ts | 214886 | be0cde93cf4982b5bd54b2e1de5482143ceebf20bb5b5ee5762fcca4897ab017 |
+| i18n/chessx_ru.ts | 214801 | 4bc8b8855a3f44332d64de7c15e590f37eb514f7be3e278c8c3825b1b432cd50 |
+| i18n/chessx_pl.ts | 210629 | d8533609670e7ac8f38618f365c4cce65386a143a9170d5842c9ce4a4cb098f1 |
+| i18n/chessx_es.ts | 208946 | 794e5a04716db212430835fa93a944899ae29e6e3fbb36e02298d46f2b11243c |
+| i18n/chessx_it.ts | 208036 | 0b617799d0b328219a33bbc26d3b528ef9c8a3b2c5fa77f319fb02896ba13b1c |
+| i18n/chessx_fr.ts | 207532 | 9a986b0fe59047fdd76712fcf820d29b0aa61a263d8adb30ad197c792ebbbee1 |
+| i18n/chessx_da.ts | 206707 | ea109eb0a3b5d22d4f61d2b22a8d5f90a35c17500dec0cc7be892fece695e4d0 |
+| i18n/chessx_cz.ts | 203792 | c0ee8b30f89cb2883d10ecdf51066a234b663c7fba3e0abcefe2ed557591ae58 |
+| i18n/chessx_zh.ts | 201491 | f9e3305c3f0d3c95f1d2ca0a3f14e180a8da93a43a6fe82798537a23d0666630 |

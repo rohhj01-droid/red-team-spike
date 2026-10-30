@@ -55,3 +55,11 @@ batch	frame_rank	gate_reached	session_s	review_s	conditions
 7	54	E2-REP	458	75	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
 7	55	E2-REP	458	75	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
 7	56	E4	458	75	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+8	57	E2-REP	1427		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+8	58	E2-REP	1427		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+8	59	E4	1427		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+8	60	E2-RULE	1427		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+8	61	E2-REP	1427		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+8	62	E2-REP	1427		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+8	63	E2-RULE	1427		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+8	64	E2-REP	1427		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과

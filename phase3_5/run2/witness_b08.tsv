@@ -1,0 +1,323 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+59	C055	E2-RULE	validity	doc/design-balance-lore/design-balance.md	doc/design-balance-lore/design-balance.md:107	Melee combat will always place the player in harm's way	
+59	C055	E3	stateful	doc/design-balance-lore/design-balance.md	doc/design-balance-lore/design-balance.md:150	over time this will lead to decay of its structure that cannot be restored to mint condition	
+60	C056	E2-RULE	absence-survey	README.md	README.md:48	You will need the SDL2 development libraries installed.	
+60	C056	E2-RULE	absence-survey	doc/README_DATA.md	doc/README_DATA.md:25	Thus, this data is distributed as freeware, NOT	
+63	C059	E2-RULE	absence-survey	README.developers.md	README.developers.md:1	If you start working with code, please read though the following rules:	
+63	C059	E2-RULE	absence-survey	README.md	README.md:5	A free and open source chess database application for Linux, Mac OS X and Windows.	
+63	C059	E2-RULE	absence-survey	tests/	tests/	unittests	
+59	C055	E4	absence-survey	src/cata_imgui.cpp:47	src/cata_imgui.cpp:47	ImVec4 impalette[256] = {};	
+59	C055	E4	absence-survey	src/sdltiles.cpp:4769	src/sdltiles.cpp:4769	static SDL_FingerID finger_id_slots[CATA_MAX_FINGERS] = {	
+59	C055	E4	absence-survey	src/third-party/flatbuffers/idl_parser.cpp:43	src/third-party/flatbuffers/idl_parser.cpp:43	const char *const kTypeNames[] = {	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui.cpp:3690	src/third-party/imgui/imgui.cpp:3690	static const ImGuiStyleVarInfo GStyleVarsInfo[] =	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui.cpp:4223	src/third-party/imgui/imgui.cpp:4223	static const ImGuiLocEntry GLocalizationEntriesEnUS[] =	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui.cpp:6950	src/third-party/imgui/imgui.cpp:6950	static const ImGuiResizeGripDef resize_grip_def[4] =	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui.cpp:6965	src/third-party/imgui/imgui.cpp:6965	static const ImGuiResizeBorderDef resize_border_def[4] =	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui.cpp:9587	src/third-party/imgui/imgui.cpp:9587	static const char* const GKeyNames[] =	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui_demo.cpp:2556	src/third-party/imgui/imgui_demo.cpp:2556	static const char* ExampleNames[] =	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui_draw.cpp:2657	src/third-party/imgui/imgui_draw.cpp:2657	static const ImVec2 FONT_ATLAS_DEFAULT_TEX_CURSOR_DATA[ImGuiMouseCursor_COUNT][3] =	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui_draw.cpp:5516	src/third-party/imgui/imgui_draw.cpp:5516	static ImU32 g_CharClassifierIsSeparator_0000_007f[128 / 16] = {};	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui_draw.cpp:5517	src/third-party/imgui/imgui_draw.cpp:5517	static ImU32 g_CharClassifierIsSeparator_3000_300f[ 16 / 16] = {};	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui_widgets.cpp:2383	src/third-party/imgui/imgui_widgets.cpp:2383	static const ImU32 GDefaultRgbaColorMarkers[4] =	
+59	C055	E4	absence-survey	src/third-party/imgui/imgui_widgets.cpp:2388	src/third-party/imgui/imgui_widgets.cpp:2388	static const ImGuiDataTypeInfo GDataTypeInfo[] =	
+59	C055	E4	absence-survey	src/third-party/imtui/imtui-impl-ncurses.cpp:427	src/third-party/imtui/imtui-impl-ncurses.cpp:427	wchar_t strTmp[] = {0, 0};	
+59	C055	E4	absence-survey	src/third-party/zstd/common/zstd_internal.h:67	src/third-party/zstd/common/zstd_internal.h:67	static UNUSED_ATTR const U32 repStartValue[ZSTD_REP_NUM] = { 1, 4, 8 };	
+59	C055	E4	absence-survey	src/third-party/zstd/common/zstd_internal.h:81	src/third-party/zstd/common/zstd_internal.h:81	static UNUSED_ATTR const size_t ZSTD_fcs_fieldSize[4] = { 0, 2, 4, 8 };	
+59	C055	E4	absence-survey	src/third-party/zstd/common/zstd_internal.h:82	src/third-party/zstd/common/zstd_internal.h:82	static UNUSED_ATTR const size_t ZSTD_did_fieldSize[4] = { 0, 1, 2, 4 };	
+59	C055	E4	absence-survey	src/third-party/zstd/common/zstd_internal.h:121	src/third-party/zstd/common/zstd_internal.h:121	static UNUSED_ATTR const U8 LL_bits[MaxLL+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/common/zstd_internal.h:128	src/third-party/zstd/common/zstd_internal.h:128	static UNUSED_ATTR const S16 LL_defaultNorm[MaxLL+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/common/zstd_internal.h:138	src/third-party/zstd/common/zstd_internal.h:138	static UNUSED_ATTR const U8 ML_bits[MaxML+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/common/zstd_internal.h:147	src/third-party/zstd/common/zstd_internal.h:147	static UNUSED_ATTR const S16 ML_defaultNorm[MaxML+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/common/zstd_internal.h:159	src/third-party/zstd/common/zstd_internal.h:159	static UNUSED_ATTR const S16 OF_defaultNorm[DefaultMaxOff+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/compress/clevels.h:27	src/third-party/zstd/compress/clevels.h:27	static const ZSTD_compressionParameters ZSTD_defaultCParameters[4][ZSTD_MAX_CLEVEL+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/compress/zstd_ldm_geartab.h:17	src/third-party/zstd/compress/zstd_ldm_geartab.h:17	static UNUSED_ATTR const U64 ZSTD_ldm_gearTab[256] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/decompress/huf_decompress.c:1794	src/third-party/zstd/decompress/huf_decompress.c:1794	static const algo_time_t algoTime[16 /* Quantization */][2 /* single, double */] =	
+59	C055	E4	absence-survey	src/third-party/zstd/decompress/zstd_decompress_block.c:364	src/third-party/zstd/decompress/zstd_decompress_block.c:364	static const ZSTD_seqSymbol LL_defaultDTable[(1<<LL_DEFAULTNORMLOG)+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/decompress/zstd_decompress_block.c:402	src/third-party/zstd/decompress/zstd_decompress_block.c:402	static const ZSTD_seqSymbol OF_defaultDTable[(1<<OF_DEFAULTNORMLOG)+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/decompress/zstd_decompress_block.c:425	src/third-party/zstd/decompress/zstd_decompress_block.c:425	static const ZSTD_seqSymbol ML_defaultDTable[(1<<ML_DEFAULTNORMLOG)+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/decompress/zstd_decompress_internal.h:30	src/third-party/zstd/decompress/zstd_decompress_internal.h:30	static UNUSED_ATTR const U32 LL_base[MaxLL+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/decompress/zstd_decompress_internal.h:37	src/third-party/zstd/decompress/zstd_decompress_internal.h:37	static UNUSED_ATTR const U32 OF_base[MaxOff+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/decompress/zstd_decompress_internal.h:43	src/third-party/zstd/decompress/zstd_decompress_internal.h:43	static UNUSED_ATTR const U8 OF_bits[MaxOff+1] = {	
+59	C055	E4	absence-survey	src/third-party/zstd/decompress/zstd_decompress_internal.h:49	src/third-party/zstd/decompress/zstd_decompress_internal.h:49	static UNUSED_ATTR const U32 ML_base[MaxML+1] = {	
+59	C055	E4	absence-survey	CONTRIBUTING.md:276	CONTRIBUTING.md:276	![screenshot](https://docs.github.com/assets/images/help/pull_requests/ready-for-review-button.png)	
+59	C055	E4	absence-survey	CONTRIBUTING.md:372	CONTRIBUTING.md:372	... compilation details ...	
+59	C055	E4	absence-survey	ISSUES.md:11	ISSUES.md:11	Note: `[CR]` and `[WIP]` "tags" are meaningful only for PRs. All open issues by definition are reque	
+59	C055	E4	absence-survey	LICENSE-Apache-Robot-Font.txt:11	LICENSE-Apache-Robot-Font.txt:11	"Licensor" shall mean the copyright owner or entity authorized by the copyright owner that is granti	
+59	C055	E4	absence-survey	Makefile:83	Makefile:83	# Style all json files using the current rules (don't PR this, it's too many changes at once).	
+59	C055	E4	absence-survey	Makefile:1498	Makefile:1498	$(ASTYLE_BINARY) --options=.astylerc -n $< && mkdir -p $(@D) && touch $@	
+59	C055	E4	absence-survey	SIGNOFF:1	SIGNOFF:1	The undersigned release all their contributions to the Cataclysm project under the Creative Commons	
+59	C055	E4	absence-survey	build-data/osx/LICENSE-libiconv.txt:170	build-data/osx/LICENSE-libiconv.txt:170	stating that you changed the files and the date of any change.	
+59	C055	E4	absence-survey	build-data/osx/LICENSE-libiconv.txt:276	build-data/osx/LICENSE-libiconv.txt:276	engineering for debugging such modifications.	
+59	C055	E4	absence-survey	build-data/osx/LICENSE-libiconv.txt:495	build-data/osx/LICENSE-libiconv.txt:495	Yoyodyne, Inc., hereby disclaims all copyright interest in the	
+59	C055	E4	absence-survey	data/json/LOADING_ORDER.md:1	data/json/LOADING_ORDER.md:1	# JSON Loading Order #	
+59	C055	E4	absence-survey	data/json/LOADING_ORDER.md:32	data/json/LOADING_ORDER.md:32	(i.e. all in `data/json/`), they will be read in lexical order, which is	
+59	C055	E4	absence-survey	data/mods/BombasticPerks/docs/contributing.md:18	data/mods/BombasticPerks/docs/contributing.md:18	* perk menu expects a `menu entry` and a `confirmation menu` which go in `perkmenu.json`. These are	
+59	C055	E4	absence-survey	data/mods/DinoMod/DESIGN.md:56	data/mods/DinoMod/DESIGN.md:56	This is much easier!	
+59	C055	E4	absence-survey	data/mods/Magiclysm/magic_balance.md:75	data/mods/Magiclysm/magic_balance.md:75	Phase Door: A very useful spell to get you out of immediate danger, but can backfire because it tele	
+59	C055	E4	absence-survey	data/mods/MindOverMatter/GainingPowerSpoilers.md:35	data/mods/MindOverMatter/GainingPowerSpoilers.md:35	* (The Difficulty of the studied power * 1.5) + 7 + (1 if you have 1 maintained power + 2 for each m	
+59	C055	E4	absence-survey	data/mods/MindOverMatter/NewPowerGuide.md:11	data/mods/MindOverMatter/NewPowerGuide.md:11	7) Add a power learning EoC and place it in the powers/learning_eocs folder under the appropriate pa	
+59	C055	E4	absence-survey	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:231	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:231	*Effects*: Increases the psion's mundane senses, adding 1 Perception plus 1 per 3 power levels, 1 ex	
+59	C055	E4	absence-survey	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:672	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:672	*Channeling Time*: 150 moves, minus 6.5 moves per level to a minimum of 75<br />	
+59	C055	E4	absence-survey	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:695	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:695	*Effects*: Concentrate light into a searing beam, doing 3 to 15 damage plus 1.5 to 3.5 photokinetic	
+59	C055	E4	absence-survey	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:849	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:849	*Effects*: Summon a myriad of holographic clones: 2 to 5 plus 0.75 to 1.5 per power level within 8 s	
+59	C055	E4	absence-survey	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:993	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:993	*Target*: A radius of 2 squares plus 0.4 squares per power level to a maximum of 25 squares, to a ra	
+59	C055	E4	absence-survey	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:1008	data/mods/MindOverMatter/PowerDescriptionSpoilers.md:1008	*Effects*: Flames roar outward from the psion's position, engulfing the entire nearby area in flames	
+59	C055	E4	absence-survey	data/mods/No_Hope/CONTRIBUTING.md:12	data/mods/No_Hope/CONTRIBUTING.md:12	- Made all gas stations have 0 - 5000 units of fuel instead of vanilla 40000 - 50000 units. Also mad	
+59	C055	E4	absence-survey	data/mods/Sky_Island/README.md:18	data/mods/Sky_Island/README.md:18	Should you die, your character's story is not over!  You will simply return to the island at low hea	
+59	C055	E4	absence-survey	data/mods/Sky_Island/README.md:58	data/mods/Sky_Island/README.md:58	- Rebalanced expeditions!  This is a huge one.  Raids are now 3x shorter, so a normal raid has warp	
+59	C055	E4	absence-survey	data/mods/Sorcerer/README.md:44	data/mods/Sorcerer/README.md:44	I've considered adding powers from MoM to the pool of spells you can pick if MoM is installed. But I	
+59	C055	E4	absence-survey	data/mods/Xedra_Evolved/README.md:1	data/mods/Xedra_Evolved/README.md:1	### Agents of Change	
+59	C055	E4	absence-survey	data/mods/Xedra_Evolved/README.md:2	data/mods/Xedra_Evolved/README.md:2	I want to take this space to thank GuardianDll for all the time we've talked about what to do in thi	
+59	C055	E4	absence-survey	data/mods/Xedra_Evolved/design_doc_spoilers.md:81	data/mods/Xedra_Evolved/design_doc_spoilers.md:81	The Vampiric Anathema is intended to be almost impossible to kill without a plan, for they are far s	
+59	C055	E4	absence-survey	data/mods/aftershock_exoplanet/doc/lore/factions.md:3	data/mods/aftershock_exoplanet/doc/lore/factions.md:3	Formed relatively recently, after the discovery of the new FTL method, the United Interstellar Coord	
+59	C055	E4	absence-survey	data/mods/aftershock_exoplanet/doc/lore/factions.md:69	data/mods/aftershock_exoplanet/doc/lore/factions.md:69	A multitude of frontier homesteading groups brought together by their use of the Prepnet communicati	
+59	C055	E4	absence-survey	data/mods/aftershock_exoplanet/doc/lore/organizations.md:1	data/mods/aftershock_exoplanet/doc/lore/organizations.md:1	This page list all the organizations that are mentioned in Aftershock background or that otherwise p	
+59	C055	E4	absence-survey	data/mods/aftershock_exoplanet/doc/lore/organizations.md:25	data/mods/aftershock_exoplanet/doc/lore/organizations.md:25	Less an organization or group, but more of a subculture of people. They are survivalists that beg, b	
+59	C055	E4	absence-survey	data/mods/aftershock_exoplanet/doc/lore/ranged_weapon_balance.md:1	data/mods/aftershock_exoplanet/doc/lore/ranged_weapon_balance.md:1	# Weapon Damage	
+59	C055	E4	absence-survey	data/mods/aftershock_exoplanet/items/armor/exosuit/exosuit_guide.md:11	data/mods/aftershock_exoplanet/items/armor/exosuit/exosuit_guide.md:11	Modules are equipment that enhance the exosuit in various ways. Some are passive, others draw (or pr	
+59	C055	E4	absence-survey	data/mods/classic_zombies/design-doc.md:23	data/mods/classic_zombies/design-doc.md:23	Most changes will be for setting reasons, not balance. We will mostly use the CDDA philosophy that r	
+59	C055	E4	absence-survey	data/mods/hunvre/documentation/lore.md:37	data/mods/hunvre/documentation/lore.md:37	They should not feature clothing or other accessories although those can be represented as part of t	
+59	C055	E4	absence-survey	doc/DEVELOPER_FAQ.md:120	doc/DEVELOPER_FAQ.md:120	**Q: What is the relation of NPCs/Monsters vs maps. How are they stored, where are they stored? Are	
+59	C055	E4	absence-survey	doc/FREQUENTLY_MADE_SUGGESTIONS.md:77	doc/FREQUENTLY_MADE_SUGGESTIONS.md:77	The main reason we are doing this is to resolve technical debt and a dumpster truck full of bugs tha	
+59	C055	E4	absence-survey	doc/FREQUENTLY_MADE_SUGGESTIONS.md:109	doc/FREQUENTLY_MADE_SUGGESTIONS.md:109	#### I should be able to disable features I don't want (fungals, portal storms, etc.): No.	
+59	C055	E4	absence-survey	doc/FREQUENTLY_MADE_SUGGESTIONS.md:133	doc/FREQUENTLY_MADE_SUGGESTIONS.md:133	This isn't just the obvious things like crafting and sleeping, but simply moving around tactically a	
+59	C055	E4	absence-survey	doc/FREQUENTLY_MADE_SUGGESTIONS.md:312	doc/FREQUENTLY_MADE_SUGGESTIONS.md:312	In summary, the main things that stop us from introducing limb loss are, at first, a lack of NPC int	
+59	C055	E4	absence-survey	doc/FREQUENTLY_MADE_SUGGESTIONS.md:333	doc/FREQUENTLY_MADE_SUGGESTIONS.md:333	Absolute best case, you're looking at expending one lance per attack, and retrieving your lances aft	
+59	C055	E4	absence-survey	doc/FREQUENTLY_MADE_SUGGESTIONS.md:339	doc/FREQUENTLY_MADE_SUGGESTIONS.md:339	Mechanically, this would replace the strength stat of the attacker with a calculation based on attac	
+59	C055	E4	absence-survey	doc/FREQUENTLY_MADE_SUGGESTIONS.md:379	doc/FREQUENTLY_MADE_SUGGESTIONS.md:379	This isn’t feasible for several reasons. First, the assumption is that the grid is wrecked. After a	
+59	C055	E4	absence-survey	doc/GUN_NAMING_AND_INCLUSION.md:68	doc/GUN_NAMING_AND_INCLUSION.md:68	in guns. And by completely replacing all the guns in the game, the second issue	
+59	C055	E4	absence-survey	doc/GUN_NAMING_AND_INCLUSION.md:123	doc/GUN_NAMING_AND_INCLUSION.md:123	a Reising, then no. No post samples. All civilian machineguns have a collective	
+59	C055	E4	absence-survey	doc/JSON/ARTIFACTS.md:79	doc/JSON/ARTIFACTS.md:79	- **charges** the number of charges this artifact starts with - a random value between the two ones	
+59	C055	E4	absence-survey	doc/JSON/ARTIFACTS.md:142	doc/JSON/ARTIFACTS.md:142	An artifact's power level is a summation of its attributes. For example, each point of strength addi	
+59	C055	E4	absence-survey	doc/JSON/BASECAMP.md:61	doc/JSON/BASECAMP.md:61	These are arbitrary strings and can be used to control the branching of the upgrade paths.  However,	
+59	C055	E4	absence-survey	doc/JSON/BASECAMP.md:259	doc/JSON/BASECAMP.md:259	If the player attempts to start a basecamp on an overmap terrain that has two or more valid basecamp	
+59	C055	E4	absence-survey	doc/JSON/DIMENSIONS.md:69	doc/JSON/DIMENSIONS.md:69	This will delete the dimension's folder inside `/SAVEFOLDER/dimensions/<dimension_id>`.	
+59	C055	E4	absence-survey	doc/JSON/EFFECTS_JSON.md:149	doc/JSON/EFFECTS_JSON.md:149	in the status screen.	
+59	C055	E4	absence-survey	doc/JSON/EFFECTS_JSON.md:435	doc/JSON/EFFECTS_JSON.md:435	For `chance_kill` and `chance_kill_resist`, it accepts an array of arrays in the format described. E	
+59	C055	E4	absence-survey	doc/JSON/EFFECTS_JSON.md:622	doc/JSON/EFFECTS_JSON.md:622	"respiratory_rate_amount"  // Amount of respiratory rate changes it can give/take.	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:1427	doc/JSON/EFFECT_ON_CONDITION.md:1427	Check the location is in a city.	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:1840	doc/JSON/EFFECT_ON_CONDITION.md:1840	EVENT EOCs trigger on in game events specified in the event_type enum in `event.h`. When an EVENT EO	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:1843	doc/JSON/EFFECT_ON_CONDITION.md:1843	Every event EOC passes context vars with each of their key value pairs that the event has in C++.  T	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:2212	doc/JSON/EFFECT_ON_CONDITION.md:2212	Runs another EoC. It can be a separate EoC, or an inline EoC inside `run_eocs` effect	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:2219	doc/JSON/EFFECT_ON_CONDITION.md:2219	| "time_in_future" | optional | int, duration, [variable object](#variable-object) or value between	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:2393	doc/JSON/EFFECT_ON_CONDITION.md:2393	"false_eocs": { "id": "_EOC_return_to_player_fail_msg", "effect": { "message": "Unable to locate you	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:2654	doc/JSON/EFFECT_ON_CONDITION.md:2654	| "extra_moves_per_item" | optional | int or [variable object](#variable-object) | additional time p	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:2850	doc/JSON/EFFECT_ON_CONDITION.md:2850	Note: current version only supports run EoC "u_location_variable" "u_teleport" to move fix zones.	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:2902	doc/JSON/EFFECT_ON_CONDITION.md:2902	| stop_at_first | optional | bool | If true, stops execution after the first `condition` is met; if	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:2982	doc/JSON/EFFECT_ON_CONDITION.md:2982	"title": "Something good?",	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:3684	doc/JSON/EFFECT_ON_CONDITION.md:3684	| "target_part" | optional | string or [variable object](#variable-object) | default is "whole body"	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:3719	doc/JSON/EFFECT_ON_CONDITION.md:3719	Your character or the NPC will activate the trait.	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:4212	doc/JSON/EFFECT_ON_CONDITION.md:4212	Opens a menu allowing the player to choose a new beard style.	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:4465	doc/JSON/EFFECT_ON_CONDITION.md:4465	| "capped" | optional | boolean | default false; if true, `bonus` is not decreased when stacked (e.g	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:5124	doc/JSON/EFFECT_ON_CONDITION.md:5124	| "allow_vertical" | optional | bool | if true, allows to pick tiles 1 z-level above or below. Defau	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:5216	doc/JSON/EFFECT_ON_CONDITION.md:5216	If the target is an item, it will be deleted.	
+59	C055	E4	absence-survey	doc/JSON/EFFECT_ON_CONDITION.md:5700	doc/JSON/EFFECT_ON_CONDITION.md:5700	| "mon_variables" | optional | [variable object](#variable-object) or [inline variables](#inline-var	
+59	C055	E4	absence-survey	doc/JSON/EXAMINE.md:140	doc/JSON/EXAMINE.md:140	Whether or not to allow hacking this door with an electrohack.	
+59	C055	E4	absence-survey	doc/JSON/EXAMINE.md:168	doc/JSON/EXAMINE.md:168	JSON Object.	
+59	C055	E4	absence-survey	doc/JSON/EXAMINE.md:174	doc/JSON/EXAMINE.md:174	JSON Object.	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:191	doc/JSON/ITEM.md:191	"fragment_mass": 0.05,               // Mass of each fragment in grams. Large fragments hit harder,	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:283	doc/JSON/ITEM.md:283	"fragment_mass": 0.0,  // Mass of each fragment in grams. Large fragments hit harder, small fragment	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:284	doc/JSON/ITEM.md:284	"recovery": 0,         // Percentage chance to drop an item at landing point.	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:623	doc/JSON/ITEM.md:623	1. The condition type:	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:680	doc/JSON/ITEM.md:680	"consumption_effect_on_conditions" : [ "EOC_1" ],  // Effect on conditions to run after consuming.	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:825	doc/JSON/ITEM.md:825	"ammo": [ "357", "38" ],   // Array of string ammunition_type ids to determine which AMMO items shou	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:845	doc/JSON/ITEM.md:845	{ "fault_group": "handles", "weight_add": -5, "weight_mult": 0.8 } // weight_add and weight_mult bot	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:857	doc/JSON/ITEM.md:857	[ "FOOBAR", "Volley", 2, "VOLLEY" ] // Fourth value is an optional flags. Possible flags are:	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:860	doc/JSON/ITEM.md:860	"firing_requirements": {          // Optional. Multimag per-shot consumption keyed by gun mode. Mutu	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:905	doc/JSON/ITEM.md:905	"shot_spread_multiplier_modifier": -0.8, // For shotguns, changes the spread of the pellets. Given a	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:972	doc/JSON/ITEM.md:972	// charged_qualities also accept the object format with "speed".	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:1021	doc/JSON/ITEM.md:1021	{ "GROWTH_SEEDLING": "10 days" },       // it is highly recommended that you use exactly the same st	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:1022	doc/JSON/ITEM.md:1022	{ "GROWTH_MATURE": "99 days" },         // long time, or a very short time, etc. Planting currently	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:1161	doc/JSON/ITEM.md:1161	Possible values (see src/artifact.h for an up-to-date list):	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:1309	doc/JSON/ITEM.md:1309	"cable_length": 4,       // (optional) Maximum length of the cable. Defaults to the item type's maxi	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:1316	doc/JSON/ITEM.md:1316	// A value less than 0.001 means the cable won't transfer any electricity at all	
+59	C055	E4	absence-survey	doc/JSON/ITEM.md:1570	doc/JSON/ITEM.md:1570	`"tick_action"` of active tools is executed once on every turn. This action can be any use action or	
+59	C055	E4	absence-survey	doc/JSON/ITEM_CRAFT_AND_DISASSEMBLY.md:195	doc/JSON/ITEM_CRAFT_AND_DISASSEMBLY.md:195	- An `"abstract"` recipe with steps serves as a template.  Concrete children inherit steps and provi	
+59	C055	E4	absence-survey	doc/JSON/ITEM_CRAFT_AND_DISASSEMBLY.md:371	doc/JSON/ITEM_CRAFT_AND_DISASSEMBLY.md:371	"description": "Recipes related to constructing steel leg guards in various thickness and steel vari	
+59	C055	E4	absence-survey	doc/JSON/ITEM_CRAFT_AND_DISASSEMBLY.md:504	doc/JSON/ITEM_CRAFT_AND_DISASSEMBLY.md:504	`mana` and `stamina` are non-negative integer costs.  Each entry in `vitamins` has these	
+59	C055	E4	absence-survey	doc/JSON/ITEM_CRAFT_AND_DISASSEMBLY.md:759	doc/JSON/ITEM_CRAFT_AND_DISASSEMBLY.md:759	Reversible crafting recipes also have their time, skills used, difficulty, and tools taken from the	
+59	C055	E4	absence-survey	doc/JSON/ITEM_SPAWN.md:23	doc/JSON/ITEM_SPAWN.md:23	In a Collection each entry is chosen independently from the other entries.  Therefore, the probabili	
+59	C055	E4	absence-survey	doc/JSON/ITEM_SPAWN.md:56	doc/JSON/ITEM_SPAWN.md:56	`subtype` is optional. It can be `collection` or `distribution`.  If unspecified, it defaults to `ol	
+59	C055	E4	absence-survey	doc/JSON/ITEM_SPAWN.md:58	doc/JSON/ITEM_SPAWN.md:58	`container-item` causes all the items of the group to spawn in a container, rather than as separate	
+59	C055	E4	absence-survey	doc/JSON/ITEM_SPAWN.md:177	doc/JSON/ITEM_SPAWN.md:177	This will create 4 items; they can have different damage levels as the damage value is rolled separa	
+59	C055	E4	absence-survey	doc/JSON/JSON_FLAGS.md:1514	doc/JSON/JSON_FLAGS.md:1514	These are added programatically when the game is running, not by JSON.  These are set to specific it	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:260	doc/JSON/JSON_INFO.md:260	[the item documentation](#datajsonitems-jsons) for more details.	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:269	doc/JSON/JSON_INFO.md:269	define a JSON object of any type in any file.  If you were writing a small mod	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:430	doc/JSON/JSON_INFO.md:430	The extractor will skip these two specified strings and only these, extracting the remaining unmarke	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:675	doc/JSON/JSON_INFO.md:675	For information about tools with option to export ASCII art in format ready to be pasted into the ap	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:1009	doc/JSON/JSON_INFO.md:1009	| `parent_bodypart` | (_optional_) ID of the parent body part of this graph, if any. Only used to di	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:1012	doc/JSON/JSON_INFO.md:1012	| `rows`            | Array of strings that form the graph. The symbols used for each fragment may c	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:1620	doc/JSON/JSON_INFO.md:1620	| `items`    | List of potential item ID's. Chance of an item spawning is x/T, where X is the value	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:1865	doc/JSON/JSON_INFO.md:1865	| `group`           | The sub-group's unique ID eg. `"GROUP_ZOMBIE"`. Indicates that this entry is a	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:2343	doc/JSON/JSON_INFO.md:2343	stream.  That input stream can be specified in the same was as for	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:2438	doc/JSON/JSON_INFO.md:2438	// you should set manually_given to true, this will avoid errors.	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:2450	doc/JSON/JSON_INFO.md:2450	`"anything"` the `"target"` must be present, and must be an integer.	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:2765	doc/JSON/JSON_INFO.md:2765	"vehicles":[        // List of potential vehicle ID's. Chance of a vehicle spawning is X/T, where	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:3572	doc/JSON/JSON_INFO.md:3572	For example the terrain `t_pit` has the built-in trap `tr_pit`. Every tile in the game that has the	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:4135	doc/JSON/JSON_INFO.md:4135	The name that is shown for the starting location. This is useful if the scenario allows several star	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:4375	doc/JSON/JSON_INFO.md:4375	The internal ID of the mutation. Can be provided as a single string, or an array of strings. The ord	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:4429	doc/JSON/JSON_INFO.md:4429	Fields can exist on top of terrain/furniture, and support different intensity levels. Each intensity	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:4450	doc/JSON/JSON_INFO.md:4450	"radiation_hurt_damage_max": 7, // When standing in this field hurt every limb for a random amount o	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:4592	doc/JSON/JSON_INFO.md:4592	...	
+59	C055	E4	absence-survey	doc/JSON/JSON_INFO.md:4617	doc/JSON/JSON_INFO.md:4617	| `"options"` | _(mandatory)_ A list of option values to apply when selecting this slider level.	
+59	C055	E4	absence-survey	doc/JSON/JSON_INHERITANCE.md:81	doc/JSON/JSON_INHERITANCE.md:81	* The entry you copied from must be of the same `type` as the item you added or changed.  Not all `t	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:21	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:21	<!-- END doctoc generated TOC please keep comment here to allow auto update -->	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:46	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:46	2. You will add entries for each z level you create in the appropriate overmap_terrain file ([data/j	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:57	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:57	* Please avoid editing existing mapgen palettes because you may affect existing maps using a combina	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:93	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:93	3. `"weight"`: This entry is the weight of this particular map compared to others **sharing the same	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:223	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:223	3. `"terrain"`: this defines what all those letters in the rows mean when they are terrains.  A symb	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:223	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:223	3. `"terrain"`: this defines what all those letters in the rows mean when they are terrains.  A symb	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:252	doc/JSON/JSON_Mapping_Guides/Guide_for_beginning_mapgen.md:252	"a" in this case is a fireplace as defined in its map.  So, in the fireplace I want to add the stash	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:22	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:22	**Nested maps vs. variant maps:**	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:149	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:149	Fitting nests into existing foundations/building outlines can be a bit of a puzzle, especially as yo	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:270	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:270	This adds some nice variability if you want the nest's spawn location to shift a bit around the map.	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:371	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:371	We are going to use the simpler implementation found in the Magiclysm basement over the micro_lab bu	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:598	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:598	* Vehicles that spawn across 2 OMT's won't spawn at all.  So if you can't get your vehicle to spawn,	
+59	C055	E4	absence-survey	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:604	doc/JSON/JSON_Mapping_Guides/Guide_for_intermediate_mapgen.md:604	Note: set point type entries (see the example below) don't work well with merged maps and the issue	
+59	C055	E4	absence-survey	doc/JSON/JSON_STYLE.md:63	doc/JSON/JSON_STYLE.md:63	For windows, you can also drag and drop json_formatter.exe to the file you want to format, to format	
+59	C055	E4	absence-survey	doc/JSON/JSON_STYLE.md:74	doc/JSON/JSON_STYLE.md:74	find path/to/desired/folder -name "*.json" -print0 | xargs -P 0 -0 -L 1 json_formatter	
+59	C055	E4	absence-survey	doc/JSON/JSON_STYLE.md:97	doc/JSON/JSON_STYLE.md:97	* Arguments: `-file $(SolutionDir)\style-json.ps1`	
+59	C055	E4	absence-survey	doc/JSON/JSON_TOOLS.md:25	doc/JSON/JSON_TOOLS.md:25	- `values.py` counts how many times each value occurs in a given key (field).  Use this if you want	
+59	C055	E4	absence-survey	doc/JSON/JSON_TOOLS.md:138	doc/JSON/JSON_TOOLS.md:138	| of `weapons` with `wood` material | `keys.py category=weapons material=wood`	
+59	C055	E4	absence-survey	doc/JSON/JSON_TOOLS.md:142	doc/JSON/JSON_TOOLS.md:142	| All `type` values in all JSON data | `values.py -k type`	
+59	C055	E4	absence-survey	doc/JSON/MAGIC.md:155	doc/JSON/MAGIC.md:155	In contrast, an `attack` spell using `effect_str` to grant a `self` buff (without a damage component	
+59	C055	E4	absence-survey	doc/JSON/MAGIC.md:207	doc/JSON/MAGIC.md:207	`pickup`               | Opens up the pickup menu at the target(s), allowing characters to pick up i	
+59	C055	E4	absence-survey	doc/JSON/MAGIC.md:209	doc/JSON/MAGIC.md:209	`recover_energy`       | Recovers an energy source equal to damage of the spell and may be one of `B	
+59	C055	E4	absence-survey	doc/JSON/MAPGEN.md:100	doc/JSON/MAPGEN.md:100	and adding items, monsters, rubber chickens and whatnot. This is all done in a fraction of a second	
+59	C055	E4	absence-survey	doc/JSON/MAPGEN.md:101	doc/JSON/MAPGEN.md:101	in mind for later).	
+59	C055	E4	absence-survey	doc/JSON/MAPGEN.md:310	doc/JSON/MAPGEN.md:310	Fill with the given terrain.	
+59	C055	E4	absence-survey	doc/JSON/MAPGEN.md:621	doc/JSON/MAPGEN.md:621	be used by `map::place_spawns`. Each monster generated from the monster group will be placed in a di	
+59	C055	E4	absence-survey	doc/JSON/MAPGEN.md:659	doc/JSON/MAPGEN.md:659	| patrol      | A list of objects, each of which has an `"x"` field and a `"y"` field. Either value	
+59	C055	E4	absence-survey	doc/JSON/MAPGEN.md:681	doc/JSON/MAPGEN.md:681	Using `place_monsters` to spawn a group of monsters works in a similar fashion to `place_monster`. T	
+59	C055	E4	absence-survey	doc/JSON/MAPGEN.md:778	doc/JSON/MAPGEN.md:778	Each mapping can be an array, for things that can appear several times on the tile (e.g. items, fiel	
+59	C055	E4	absence-survey	doc/JSON/MAPGEN.md:1194	doc/JSON/MAPGEN.md:1194	- "transform": (required, string) the id of the `ter_furn_transform` to run.	
+59	C055	E4	absence-survey	doc/JSON/MAPGEN.md:1527	doc/JSON/MAPGEN.md:1527	`standard_domestic_palette`.  That palette, for example, defines `h` as meaning	
+59	C055	E4	absence-survey	doc/JSON/MAP_SMASHING.md:7	doc/JSON/MAP_SMASHING.md:7	When one of these is smashed, the damage types of the characters weapon are applied to the damage pr	
+59	C055	E4	absence-survey	doc/JSON/MAP_SMASHING.md:17	doc/JSON/MAP_SMASHING.md:17	"profile": { "bash": 1.0, "cut": 0.5, "stab": 2.0 }	
+59	C055	E4	absence-survey	doc/JSON/MARTIALART_JSON.md:274	doc/JSON/MARTIALART_JSON.md:274	"limb_req": [ [ "arm", 2] ]          // Array of pairs. Limb type requirements for this vector. The	
+59	C055	E4	absence-survey	doc/JSON/MISSIONS_JSON.md:156	doc/JSON/MISSIONS_JSON.md:156	inquiring about the mission or reporting its completion.  All these strings are required, even if th	
+59	C055	E4	absence-survey	doc/JSON/MISSIONS_JSON.md:273	doc/JSON/MISSIONS_JSON.md:273	is a consequence.	
+59	C055	E4	absence-survey	doc/JSON/MONSTER_SPECIAL_ATTACKS.md:27	doc/JSON/MONSTER_SPECIAL_ATTACKS.md:27	Depending on the intended effect, these can be valid `use_actions` for tools and weapons, hardcoded	
+59	C055	E4	absence-survey	doc/JSON/MONSTER_SPECIAL_ATTACKS.md:236	doc/JSON/MONSTER_SPECIAL_ATTACKS.md:236	| `exclusive_grab`            | Optional bool, default `false`.  If true the attack will attempt to	
+59	C055	E4	absence-survey	doc/JSON/MOVE_MODE.md:141	doc/JSON/MOVE_MODE.md:141	Optional. Mech power used each step when in this mode.	
+59	C055	E4	absence-survey	doc/JSON/MUTATIONS.md:40	doc/JSON/MUTATIONS.md:40	There are two substances required to mutate: mutagen and primer. All mutagen and primers are handled	
+59	C055	E4	absence-survey	doc/JSON/MUTATIONS.md:64	doc/JSON/MUTATIONS.md:64	The mutation system works in several steps. All time references are in game time.	
+59	C055	E4	absence-survey	doc/JSON/MUTATIONS.md:66	doc/JSON/MUTATIONS.md:66	1. Every 30 to 45 minutes, the game checks if the player has 450 or more `mutagen` vitamin in their	
+59	C055	E4	absence-survey	doc/JSON/MUTATIONS.md:83	doc/JSON/MUTATIONS.md:83	The odds of a mutation being good or bad is directly determined by Instability, which is a hidden va	
+59	C055	E4	absence-survey	doc/JSON/MUTATIONS.md:93	doc/JSON/MUTATIONS.md:93	* Characters need mutagen and primer to mutate. Mutagen causes the actual mutation, while primer det	
+59	C055	E4	absence-survey	doc/JSON/MUTATIONS.md:101	doc/JSON/MUTATIONS.md:101	[changing_eocs.json](/data/json/effects_on_condition/mutation_eocs/changing_eocs.json) - contains th	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:84	doc/JSON/NPCs.md:84	* `"sells_belongings": false` means that this NPC's worn or held items will strictly be excluded fro	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:247	doc/JSON/NPCs.md:247	`talk_mission_describe_urgent` | `TALK_MISSION_DESCRIBE_URGENT` | see [the missions docs](MISSIONS_J	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:293	doc/JSON/NPCs.md:293	For further information on snippets, see [New Contributor Guide: Dialogue](https://github.com/Clever	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:893	doc/JSON/NPCs.md:893	One of `"for_item"` or `"for_category"`, and each can either be a single string or list of items or	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:924	doc/JSON/NPCs.md:924	| `lesser_give_aid`     | Removes bleeding from your character's body and heals 5-15 HP of injury on	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:926	doc/JSON/NPCs.md:926	| `give_aid`            | Removes all bites, infection, and bleeding from your character's body and	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:949	doc/JSON/NPCs.md:949	`u_sell_item: `string or [variable object](#variable-object), (*optional* `cost: `int or [variable o	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:952	doc/JSON/NPCs.md:952	`u_spend_cash: `int or [variable object](#variable-object), (*optional* `true_eocs: eocs_array`), (*	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:956	doc/JSON/NPCs.md:956	`u_buy_monster: `string or [variable object](#variable-object), (*optional* `cost: `int or [variable	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:998	doc/JSON/NPCs.md:998	`u_set_goal, npc_set_goal:assign_mission_target_object`, (*optional* `true_eocs: eocs_array`), (*opt	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:1412	doc/JSON/NPCs.md:1412	| characters_nearby()     |  ✅  |   ❌   | u, n, global  | Return the number of nearby characters (th	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:1431	doc/JSON/NPCs.md:1431	| has_trait(`s`/`v`)    |  ✅   |   ❌  | u, n  | Check whether the actor has a trait. Meant to be use	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:1432	doc/JSON/NPCs.md:1432	| sum_traits_of_category(`s`/`v`)    |  ✅   |   ❌  | u, n  | Return sum of all positive, negative, o	
+59	C055	E4	absence-survey	doc/JSON/NPCs.md:1473	doc/JSON/NPCs.md:1473	| val(`s`)    |  ✅   |   varies  | u, n  | Return or set a Character or item value. Argument is a [C	
+59	C055	E4	absence-survey	doc/JSON/OBSOLETION_AND_MIGRATION.md:41	doc/JSON/OBSOLETION_AND_MIGRATION.md:41	Migration is used, when we want to remove one item by replacing it with another item, that do exist	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:152	doc/JSON/OVERMAP.md:152	overmap terrains wide, 180 overmap terrains tall, and 21 overmap terrains deep (these are the z-leve	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:163	doc/JSON/OVERMAP.md:163	F^^|^^^.^..F.FFF	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:287	doc/JSON/OVERMAP.md:287	more detail about the shown tile. They are as follows:	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:337	doc/JSON/OVERMAP.md:337	| `post_process_generators` | Array of `pp_generator` ids applied after mapgen completes.  See [Post	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:498	doc/JSON/OVERMAP.md:498	| `place_blood`     | Places blood streaks, pools, and splatter.  `chance` is permille [0-1000] per	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:499	doc/JSON/OVERMAP.md:499	| `ter_furn_transform`  | Applies `ter_furn_transform_used` on every tile in map. `chance` is percen	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:586	doc/JSON/OVERMAP.md:586	sewers, subways), and have JSON-defined rules guiding their placement.	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:655	doc/JSON/OVERMAP.md:655	number placed.  the occurrences field defines the chance of the special to be included in any one gi	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:665	doc/JSON/OVERMAP.md:665	it may be placed on. Each individual entry in `overmaps` may have the valid locations specified,	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:869	doc/JSON/OVERMAP.md:869	supported for mutable specials.	
+59	C055	E4	absence-survey	doc/JSON/OVERMAP.md:1054	doc/JSON/OVERMAP.md:1054	end of the last phase.	
+59	C055	E4	absence-survey	doc/JSON/PROFICIENCY.md:141	doc/JSON/PROFICIENCY.md:141	| `category`                  | Mandatory | String | Internal id of the associated `proficiency_cate	
+59	C055	E4	absence-survey	doc/JSON/REGION_LAYOUT.md:103	doc/JSON/REGION_LAYOUT.md:103	A decent drafter for your intended layout: https://alexbeutel.com/webgl/voronoi.html	
+59	C055	E4	absence-survey	doc/JSON/REGION_SETTINGS.md:17	doc/JSON/REGION_SETTINGS.md:17	| `id`                     |                                     | Unique identifier for this region	
+59	C055	E4	absence-survey	doc/JSON/REGION_SETTINGS.md:81	doc/JSON/REGION_SETTINGS.md:81	regional entry to an actual entry.	
+59	C055	E4	absence-survey	doc/JSON/REGION_SETTINGS.md:404	doc/JSON/REGION_SETTINGS.md:404	| `bends`                           | An object with a list of specials and their respective weights	
+59	C055	E4	absence-survey	doc/JSON/VEHICLES_JSON.md:40	doc/JSON/VEHICLES_JSON.md:40	{ "x": 0, "y": 0, "parts": [ "controls" ] }, // See vehicle_parts.json for part ids	
+59	C055	E4	absence-survey	doc/JSON/VEHICLES_JSON.md:119	doc/JSON/VEHICLES_JSON.md:119	"items": [ "itemid1", { "id": "itemid2", "variant": "foo" }, /* ... */ ]        // all the items in	
+59	C055	E4	absence-survey	doc/JSON/VEHICLES_JSON.md:122	doc/JSON/VEHICLES_JSON.md:122	"item_groups": [ "groupid1", "groupid2" /* ... */ ] // one or more items for each group	
+59	C055	E4	absence-survey	doc/JSON/VITAMIN.md:100	doc/JSON/VITAMIN.md:100	What the thresholds of deficiency of this vitamin are.	
+59	C055	E4	absence-survey	doc/JSON/VITAMIN.md:101	doc/JSON/VITAMIN.md:101	Each pair in the list determines the start and end points of that tier of deficiency.	
+59	C055	E4	absence-survey	doc/JSON/VITAMIN.md:105	doc/JSON/VITAMIN.md:105	What the thresholds of excess of this vitamin are.	
+59	C055	E4	absence-survey	doc/JSON/VITAMIN.md:106	doc/JSON/VITAMIN.md:106	Each pair in the list determines the start and end points of that tier of excess.	
+59	C055	E4	absence-survey	doc/JSON/VITAMIN.md:111	doc/JSON/VITAMIN.md:111	Whenever this vitamin is naturally metabolized, it can adjust the levels of other vitamins in the bo	
+59	C055	E4	absence-survey	doc/JSON/WOUNDS.md:43	doc/JSON/WOUNDS.md:43	"amount": 3, // when happens, how big the change would be? +3 pain every 2 seconds, in case of this	
+59	C055	E4	absence-survey	doc/MANUAL_OF_STYLE.md:14	doc/MANUAL_OF_STYLE.md:14	7. All other item and entity names should be in all lower-case letters.	
+59	C055	E4	absence-survey	doc/MODDING.md:33	doc/MODDING.md:33	The majority of modding is done by editing JSON files. An in-depth review of all json files and thei	
+59	C055	E4	absence-survey	doc/MODDING.md:196	doc/MODDING.md:196	Below is an excerpt from the `Mythos` mod that shows how to blacklist monsters individually and by s	
+59	C055	E4	absence-survey	doc/MODDING.md:366	doc/MODDING.md:366	player choose mutations you get on mutation, to `ETERNAL_WEATHER` which let's you pick a type of wea	
+59	C055	E4	absence-survey	doc/PLAYER_ACTIVITY.md:25	doc/PLAYER_ACTIVITY.md:25	1. `player_activities.json` Define properties that apply to all instances	
+59	C055	E4	absence-survey	doc/SOUNDPACKS.md:182	doc/SOUNDPACKS.md:182	A full list of sound effect IDs and variants is given in the following. Each line in the list has th	
+59	C055	E4	absence-survey	doc/TILESET.md:185	doc/TILESET.md:185	You can add `"rotates": true` to allow sprites to be rotated by the game automatically. Alternativel	
+59	C055	E4	absence-survey	doc/TILESET.md:224	doc/TILESET.md:224	`"multitile": true` signifies that there is an `additional_tiles` object (redundant? [probably](http	
+59	C055	E4	absence-survey	doc/TILESET.md:489	doc/TILESET.md:489	So, e.g. all these texts would result in lookup for `graffiti_NO_FUTURE`: "no future", "No Future!!!	
+59	C055	E4	absence-survey	doc/TILESET.md:674	doc/TILESET.md:674	It is recommended to bind a key to the `update tileset` action, so you do not need to restart the ga	
+59	C055	E4	absence-survey	doc/TILESET.md:698	doc/TILESET.md:698	Each tilesheet contains 1 or more sprites with the same width and height.  Each tilesheet contains o	
+59	C055	E4	absence-survey	doc/TILESET.md:786	doc/TILESET.md:786	"file": "moretiles.png",                  // another sprite sheet	
+59	C055	E4	absence-survey	doc/TRANSLATING.md:155	doc/TRANSLATING.md:155	can be found in Cataclysm: DDA's [language notes folder][4].	
+59	C055	E4	absence-survey	doc/TRANSLATING.md:414	doc/TRANSLATING.md:414	You can also change the language in game options if both are installed.	
+59	C055	E4	absence-survey	doc/TRANSLATING_MOD.md:33	doc/TRANSLATING_MOD.md:33	This extracts all translatable text from your mod and stores this information to `./mods/demo/lang/p	
+59	C055	E4	absence-survey	doc/WIDGETS.md:63	doc/WIDGETS.md:63	all about widgets: what they do, and how to use them.	
+59	C055	E4	absence-survey	doc/WIDGETS.md:169	doc/WIDGETS.md:169	character attributes or other information.	
+59	C055	E4	absence-survey	doc/WIDGETS.md:610	doc/WIDGETS.md:610	used, but there is also a "pool" method described below.	
+59	C055	E4	absence-survey	doc/WIDGETS.md:718	doc/WIDGETS.md:718	widget text as a series of lines delimited by a newline (`\n`).	
+59	C055	E4	absence-survey	doc/c++/CODE_STYLE.md:1	doc/c++/CODE_STYLE.md:1	# Code Style Guide	
+59	C055	E4	absence-survey	doc/c++/COMPILING-DEVCONTAINER.md:84	doc/c++/COMPILING-DEVCONTAINER.md:84	1. Follow all of the steps written earlier in this guide	
+59	C055	E4	absence-survey	doc/c++/COMPILING.md:341	doc/c++/COMPILING.md:341	* `genisoimage` and [libdmg-hfsplus](https://github.com/planetbeing/libdmg-hfsplus.git) to create dm	
+59	C055	E4	absence-survey	doc/c++/COMPILING.md:724	doc/c++/COMPILING.md:724	There are reports of CDDA building fine on recent OpenBSD and FreeBSD machines (with appropriately r	
+59	C055	E4	absence-survey	doc/c++/DEVELOPER_TOOLING.md:130	doc/c++/DEVELOPER_TOOLING.md:130	The following set of commands should take you from zero to running clang-tidy equivalent to the CI j	
+59	C055	E4	absence-survey	doc/c++/JSON_INTERFACE.md:253	doc/c++/JSON_INTERFACE.md:253	This is the most basic way to read JSON values, and is not recommended for _game data_, which is cov	
+59	C055	E4	absence-survey	doc/c++/JSON_INTERFACE.md:657	doc/c++/JSON_INTERFACE.md:657	A "flyweight" pattern is used for these types of data.	
+59	C055	E4	absence-survey	doc/c++/TESTING.md:92	doc/c++/TESTING.md:92	CHECK( dummy.has_morale( MORALE_SWEETTOOTH ) >= 5 );	
+59	C055	E4	absence-survey	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:175	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:175	Some items will use an old way of defining armor where their coverage and thickness are loose in the	
+59	C055	E4	absence-survey	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:193	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:193	* WAIST - things worn as belts, this is an old legacy solution designed for having belts not conflic	
+59	C055	E4	absence-survey	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:239	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:239	Sub-locations are a new-ish feature of characters in Cataclysm. Sub-locations are sub divided pieces	
+59	C055	E4	absence-survey	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:317	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:317	Materials inform a lot of the information for an armor. What something is made of determines how lik	
+59	C055	E4	absence-survey	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:361	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:361	It is possible to be more verbose and specific with materials and armor. To do this you can specify	
+59	C055	E4	absence-survey	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:655	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:655	VARSIZE          | Item may not fit you, if it fits encumbrance values are halved compared to define	
+59	C055	E4	absence-survey	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:789	doc/design-balance-lore/ARMOR_BALANCE_AND_DESIGN.md:789	* .2 very well affixed pouches (should have a higher base encumbrance on the item to compensate)	
+59	C055	E4	absence-survey	doc/design-balance-lore/CONSTRUCTION_BALANCE.md:37	doc/design-balance-lore/CONSTRUCTION_BALANCE.md:37	line. This depth varies by location, but is somewhere in the 1 to 3 meter range.	
+59	C055	E4	absence-survey	doc/design-balance-lore/GAME_BALANCE.md:273	doc/design-balance-lore/GAME_BALANCE.md:273	For proper weapons, such as those in the data\json\items\melee file, and common makeshift weapons li	
+59	C055	E4	absence-survey	doc/design-balance-lore/LORE_FAQ.md:62	doc/design-balance-lore/LORE_FAQ.md:62	| Can the Blob infection be cured? | No. The infection is effectively everywhere on Earth, in every	
+59	C055	E4	absence-survey	doc/design-balance-lore/design-balance.md:81	doc/design-balance-lore/design-balance.md:81	- It is perfectly reasonable to balance certain gameplay elements, especially advanced ones, with th	
+59	C055	E4	absence-survey	doc/design-balance-lore/design-balance.md:104	doc/design-balance-lore/design-balance.md:104	4. At the pinnnacle of melee weapons are purpose-built melee weapons such as swords, robust spears,	
+59	C055	E4	absence-survey	doc/design-balance-lore/design-user-experience.md:214	doc/design-balance-lore/design-user-experience.md:214	Cataclysm also contains a vast amount of content to explore and discover, rewarding the player with	
+59	C055	E4	absence-survey	doc/design-balance-lore/lore-background.md:41	doc/design-balance-lore/lore-background.md:41	- An interdimensional traveler from an alternate Earth crash lands a portal traveling vessel in the	
+59	C055	E4	absence-survey	doc/design-balance-lore/lore-background.md:101	doc/design-balance-lore/lore-background.md:101	- **April 16**: In response to portal storms, the government nukes as many lab facilities as it can,	
+59	C055	E4	absence-survey	doc/design-balance-lore/lore-factions.md:439	doc/design-balance-lore/lore-factions.md:439	The Blob is a dispersed intelligence vastly greater than anything conceivable to a human mind.  To i	
+59	C055	E4	absence-survey	doc/design-balance-lore/lore-factions.md:513	doc/design-balance-lore/lore-factions.md:513	More of note is the rogue queen.  A rogue triffid queen is able to root herself and form a new triff	
+59	C055	E4	absence-survey	doc/design-balance-lore/lore-factions.md:553	doc/design-balance-lore/lore-factions.md:553	Despite the differences in appearance across the group they make a universal use of cybernetic devic	
+59	C055	E4	absence-survey	doc/design-balance-lore/lore-factions.md:565	doc/design-balance-lore/lore-factions.md:565	The Exodii only care about survival.  They will stay on CDDA-Earth as long as possible to gather rar	
+59	C055	E4	absence-survey	doc/design-balance-lore/lore-factions.md:602	doc/design-balance-lore/lore-factions.md:602	The Yrax are autonomous alien robots.  What they want is, to the player, unclear.  Their technology	
+59	C055	E4	absence-survey	doc/design-balance-lore/melee_weapons/MELEE_BALANCE_SPREADSHEET.md:57	doc/design-balance-lore/melee_weapons/MELEE_BALANCE_SPREADSHEET.md:57	* Rows W-Y repeat damage and critical damage, but for rapid strikes where the base damage is multipl	
+59	C055	E4	absence-survey	doc/design-balance-lore/melee_weapons/MELEE_BALANCE_SPREADSHEET.md:84	doc/design-balance-lore/melee_weapons/MELEE_BALANCE_SPREADSHEET.md:84	This is a summary tab.	
+59	C055	E4	absence-survey	doc/development_process.md:187	doc/development_process.md:187	This merits its own section because it's such a frequent by-line in various Cataclysm communities.	
+59	C055	E4	absence-survey	doc/reviewing_PR_guide.md:34	doc/reviewing_PR_guide.md:34	It's up to you!  You could have it open in a tab and refer to it, you could read this article and in	
+59	C055	E4	absence-survey	doc/reviewing_PR_guide.md:54	doc/reviewing_PR_guide.md:54	In general, we would prefer even "overhaul" PRs to break their changes into bite-sized chunks where	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:4	doxygen_doc/doxygen_conf.txt:4	# doxygen (www.doxygen.org) for a project.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:13	doxygen_doc/doxygen_conf.txt:13	# Values that contain spaces should be placed between quotes (" ").	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:61	doxygen_doc/doxygen_conf.txt:61	# format and will distribute the generated files over these directories.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:69	doxygen_doc/doxygen_conf.txt:69	# documentation generated by doxygen is written. Doxygen will use this	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:96	doxygen_doc/doxygen_conf.txt:96	# that is used to form the text in various listings. Each string	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:109	doxygen_doc/doxygen_conf.txt:109	# description.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:418	doxygen_doc/doxygen_conf.txt:418	# symbols.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:427	doxygen_doc/doxygen_conf.txt:427	# documentation are documented, even if no documentation was available.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:434	doxygen_doc/doxygen_conf.txt:434	# will be included in the documentation.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:439	doxygen_doc/doxygen_conf.txt:439	# scope will be included in the documentation.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:473	doxygen_doc/doxygen_conf.txt:473	# This option has no effect if EXTRACT_ALL is enabled.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:866	doxygen_doc/doxygen_conf.txt:866	# be generated. Documented entities will be cross-referenced with these sources.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:929	doxygen_doc/doxygen_conf.txt:929	# in which this list will be split (can be a number in the range [1..20])	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:1525	doxygen_doc/doxygen_conf.txt:1525	MAN_EXTENSION          = .3	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:1616	doxygen_doc/doxygen_conf.txt:1616	# Makefile don't overwrite each other's variables.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:1626	doxygen_doc/doxygen_conf.txt:1626	# files.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:1706	doxygen_doc/doxygen_conf.txt:1706	# a tag file that is based on the input files it reads.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:1712	doxygen_doc/doxygen_conf.txt:1712	# will be listed.	
+59	C055	E4	absence-survey	doxygen_doc/doxygen_conf.txt:1718	doxygen_doc/doxygen_conf.txt:1718	# be listed.	
+59	C055	E4	absence-survey	lang/notes/README_all_translators.md:78	lang/notes/README_all_translators.md:78	`%s` and other similar terms are replaced with something else when the game is running. You might ne	
+59	C055	E4	absence-survey	lang/notes/README_all_translators.md:97	lang/notes/README_all_translators.md:97	In this case, each `%s` should be numbered with a digit (1-9) then a dollar sign ($) between the `%`	
+59	C055	E4	absence-survey	src/third-party/snmalloc/README.md:4	src/third-party/snmalloc/README.md:4	The `snmalloc/` include path contains all of the snmalloc headers.	
+59	C055	E4	absence-survey	src/third-party/zstd/README.md:58	src/third-party/zstd/README.md:58	exposed in the second part of `zstd.h`.	

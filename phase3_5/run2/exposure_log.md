@@ -114,3 +114,16 @@
 | 2026-10-30T05:52:04Z | 56 | https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.tar.gz | step-2 link 'Download for Source (.tar.gz) .tar.gz': target is not a repository root (distfile-location); observed once, not read | used: no |
 | 2026-10-30T05:52:21Z | 56 | https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.zip | step-2 link 'Download for Source (.zip) .zip': target is not a repository root (distfile-location); observed once, not read | used: no |
 | 2026-10-30T05:53:21Z | 56 | https://github.com/BZFlag-Dev/bzflag | landing page rendered a README (19631 chars of page text); not used | used: no |
+| 2026-10-30T06:00:36Z | 57 | https://github.com/jorio/CandyCrisis | landing page rendered a README (4343 chars of page text); not used | used: no |
+| 2026-10-30T06:00:40Z | 59 | https://github.com/CleverRaven/Cataclysm-DDA | landing page rendered a README (8340 chars of page text); not used | used: no |
+| 2026-10-30T06:00:40Z | 59 | https://discord.gg/jFEc7Yp | step-2 link 'Development-oriented Discord': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:00:38Z | 59 | https://github.com/CleverRaven/Cataclysm-DDA/issues/ | step-2 link 'our GitHub page' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T06:02:11Z | 60 | https://github.com/cxong/cdogs-sdl | landing page rendered a README (6222 chars of page text); not used | used: no |
+| 2026-10-30T06:02:11Z | 60 | https://github.com/cxong/cdogs-sdl/releases/tag/2.5.0 | step-2 link 'https://github.com/cxong/cdogs-sdl/releases/tag/2.5.0' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T06:02:11Z | 60 | https://github.com/cxong/cdogs-sdl/releases/tag/2.4.0 | step-2 link 'https://github.com/cxong/cdogs-sdl/releases/tag/2.4.0' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T06:02:11Z | 60 | https://github.com/cxong/cdogs-sdl/releases/tag/2.3.2 | step-2 link 'https://github.com/cxong/cdogs-sdl/releases/tag/2.3.2' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T06:02:11Z | 60 | https://github.com/cxong/cdogs-sdl/releases/tag/2.3.1 | step-2 link 'https://github.com/cxong/cdogs-sdl/releases/tag/2.3.1' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T06:02:41Z | 62 | http://sourceforge.net/project/showfiles.php?group_id=52805 | step-2 link 'Sourceforge Download page for the latest release (1.9.13)': target is not a repository root (distfile-location); observed once, not read | used: no |
+| 2026-10-30T06:02:44Z | 63 | https://github.com/Isarhamster/chessx | landing page rendered a README (4825 chars of page text); not used | used: no |
+| 2026-10-30T06:02:44Z | 63 | https://chessx.sourceforge.io | step-2 link 'Sourceforge': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:02:55Z | 64 | https://git.sr.ht/~thestr4ng3r/chiaki | landing page rendered a README (5462 chars of page text); not used | used: no |
