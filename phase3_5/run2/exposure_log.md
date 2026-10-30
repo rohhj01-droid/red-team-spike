@@ -58,3 +58,8 @@
 | 2026-10-30T02:05:05Z | 24 | https://github.com/liballeg/allegro5/releases/5.2.9.1/ | step-2 link 'GitHub' leads to a forbidden class; not followed | used: no |
 | 2026-10-30T02:05:05Z | 24 | https://github.com/liballeg/allegro5/releases/5.2.9.0/ | step-2 link 'GitHub' leads to a forbidden class; not followed | used: no |
 | 2026-10-30T02:05:08Z | 24 | https://github.com/dradtke/go-allegro | landing page rendered a README (5861 chars of page text); not used | used: no |
+| 2026-10-30T04:01:43Z | 25 | http://frictionalgames.blogspot.com | step-2 link 'Dev Blog': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T04:01:46Z | 25 | https://github.com/shamazmazum/AmnesiaTheDarkDescent | landing page rendered a README (4489 chars of page text); not used | used: no |
+| 2026-10-30T04:01:58Z | 29 | https://github.com/angband/angband/releases/download/4.2.6/Angband-4.2.6.tar.gz | step-2 link 'Source code' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T04:02:02Z | 31 | https://download.armagetronad.org/docs/flatpak/ | step-2 link 'our own repository': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T04:02:04Z | 32 | https://github.com/arx/ArxLibertatis | landing page rendered a README (13214 chars of page text); not used | used: no |

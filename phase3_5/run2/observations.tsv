@@ -113,3 +113,33 @@ observed_at_utc	frame_rank	step	requested_url	final_url	http_status	redirect_cha
 2026-10-30T02:05:07Z	24	E2REP-3	https://github.com/liballeg/allegro4	https://github.com/liballeg/allegro4	200	NONE	1	ok	target/bodies/024/05.bin
 2026-10-30T02:05:08Z	24	E2REP-3	https://github.com/dradtke/go-allegro	https://github.com/dradtke/go-allegro	200	NONE	1	ok	target/bodies/024/06.bin
 2026-10-30T02:05:09Z	24	E2REP-1	https://downloads.sourceforge.net/sourceforge/alleg/	https://downloads.sourceforge.net/sourceforge/alleg/	404	NONE	1	definitive	target/bodies/024/07.bin
+2026-10-30T04:01:41Z	25	E2REP-1	https://www.amnesiagame.com/	https://www.amnesiagame.com/	200	NONE	1	ok	target/bodies/025/01.bin
+2026-10-30T04:01:43Z	25	E2REP-2	http://frictionalgames.blogspot.com	https://frictionalgames.blogspot.com/	301	http://frictionalgames.blogspot.com	1	ok	
+2026-10-30T04:01:44Z	25	E2REP-2	https://frictionalgames.blogspot.com/	https://frictionalgames.blogspot.com/	200	http://frictionalgames.blogspot.com	2	ok	target/bodies/025/02.bin
+2026-10-30T04:01:46Z	25	E2REP-3	https://github.com/shamazmazum/AmnesiaTheDarkDescent	https://github.com/shamazmazum/AmnesiaTheDarkDescent	200	NONE	1	ok	target/bodies/025/04.bin
+2026-10-30T04:01:47Z	26	UR-classify	http://www.emma-soft.com/games/amoebax/download/	https://www.emma-soft.com/games/amoebax/download/	302	http://www.emma-soft.com/games/amoebax/download/	1	ok	
+2026-10-30T04:01:49Z	26	UR-classify	https://www.emma-soft.com/games/amoebax/download/	https://www.emma-soft.com/games/amoebax/download/	403	http://www.emma-soft.com/games/amoebax/download/	2	definitive	target/bodies/026/01.bin
+2026-10-30T04:01:49Z	26	E2REP-1	http://www.emma-soft.com/games/amoebax/	https://www.emma-soft.com/games/amoebax/	302	http://www.emma-soft.com/games/amoebax/	1	ok	
+2026-10-30T04:01:50Z	26	E2REP-1	https://www.emma-soft.com/games/amoebax/	https://www.emma-soft.com/games/amoebax/	200	http://www.emma-soft.com/games/amoebax/	2	ok	target/bodies/026/03.bin
+2026-10-30T04:01:51Z	27	UR-classify	http://n.ethz.ch/student/loehrerl/amph/files/	http://n.ethz.ch/student/loehrerl/amph/files/		NONE	1	transport	
+2026-10-30T04:01:52Z	27	UR-classify	http://n.ethz.ch/student/loehrerl/amph/files/	http://n.ethz.ch/student/loehrerl/amph/files/		NONE	2	transport	
+2026-10-30T04:01:52Z	27	UR-classify	http://n.ethz.ch/student/loehrerl/amph/files/	http://n.ethz.ch/student/loehrerl/amph/files/		NONE	3	transport	
+2026-10-30T04:01:52Z	27	E2REP-1	http://n.ethz.ch/student/loehrerl/amph/amph.html	http://n.ethz.ch/student/loehrerl/amph/amph.html		NONE	1	transport	
+2026-10-30T04:01:52Z	27	E2REP-1	http://n.ethz.ch/student/loehrerl/amph/amph.html	http://n.ethz.ch/student/loehrerl/amph/amph.html		NONE	2	transport	
+2026-10-30T04:01:52Z	27	E2REP-1	http://n.ethz.ch/student/loehrerl/amph/amph.html	http://n.ethz.ch/student/loehrerl/amph/amph.html		NONE	3	transport	
+2026-10-30T04:01:52Z	28	UR-classify	http://ftp.au.debian.org/debian/pool/main/a/an/	http://ftp.au.debian.org/debian/pool/main/a/an/	200	NONE	1	ok	target/bodies/028/01.bin
+2026-10-30T04:01:53Z	28	UR-classify	http://ftp.de.debian.org/debian/pool/main/a/an/	http://ftp.de.debian.org/debian/pool/main/a/an/	200	NONE	1	ok	target/bodies/028/02.bin
+2026-10-30T04:01:53Z	28	UR-classify	http://ftp.fr.debian.org/debian/pool/main/a/an/	http://ftp.fr.debian.org/debian/pool/main/a/an/	200	NONE	1	ok	target/bodies/028/03.bin
+2026-10-30T04:01:54Z	28	UR-classify	http://ftp.nl.debian.org/debian/pool/main/a/an/	http://ftp.nl.debian.org/debian/pool/main/a/an/	200	NONE	1	ok	target/bodies/028/04.bin
+2026-10-30T04:01:55Z	28	UR-classify	http://ftp.uk.debian.org/debian/pool/main/a/an/	http://ftp.uk.debian.org/debian/pool/main/a/an/	200	NONE	1	ok	target/bodies/028/05.bin
+2026-10-30T04:01:56Z	28	UR-classify	http://ftp.us.debian.org/debian/pool/main/a/an/	http://ftp.us.debian.org/debian/pool/main/a/an/	200	NONE	1	ok	target/bodies/028/06.bin
+2026-10-30T04:01:57Z	28	E2REP-3	https://salsa.debian.org/pm/an	https://salsa.debian.org/pm/an	200	NONE	1	ok	target/bodies/028/07.bin
+2026-10-30T04:01:58Z	28	E2REP-1	https://deb.debian.org/debian/pool/main/a/an/	https://deb.debian.org/debian/pool/main/a/an/	200	NONE	1	ok	target/bodies/028/08.bin
+2026-10-30T04:01:58Z	28	E2REP-1	http://ftp.debian.org/debian/pool/main/a/an/	http://ftp.debian.org/debian/pool/main/a/an/	200	NONE	1	ok	target/bodies/028/09.bin
+2026-10-30T04:01:58Z	29	E2REP-1	http://rephial.org	https://rephial.org/	301	http://rephial.org	1	ok	
+2026-10-30T04:01:59Z	29	E2REP-1	https://rephial.org/	https://rephial.org/	200	http://rephial.org	2	ok	target/bodies/029/01.bin
+2026-10-30T04:01:59Z	31	E2REP-1	http://armagetronad.org/	https://armagetronad.org/	301	http://armagetronad.org/	1	ok	
+2026-10-30T04:02:01Z	31	E2REP-1	https://armagetronad.org/	https://armagetronad.org/	200	http://armagetronad.org/	2	ok	target/bodies/031/01.bin
+2026-10-30T04:02:02Z	31	E2REP-2	https://download.armagetronad.org/docs/flatpak/	https://download.armagetronad.org/docs/flatpak/	200	NONE	1	ok	target/bodies/031/03.bin
+2026-10-30T04:02:03Z	31	E2REP-1	https://downloads.sourceforge.net/sourceforge/armagetronad/	https://downloads.sourceforge.net/sourceforge/armagetronad/	404	NONE	1	definitive	target/bodies/031/04.bin
+2026-10-30T04:02:04Z	32	E2REP-3	https://github.com/arx/ArxLibertatis	https://github.com/arx/ArxLibertatis	200	NONE	1	ok	target/bodies/032/01.bin

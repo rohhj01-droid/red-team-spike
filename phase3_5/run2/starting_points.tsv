@@ -49,3 +49,25 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 23	https://downloads.sourceforge.net/sourceforge/weland/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/weland/	distfile-location	2026-10-30T02:05:03Z	404	distfile-location	HTTP 404
 24	http://liballeg.org/	HOMEPAGE		observed	https://liballeg.org/	project-page	2026-10-30T02:05:05Z	200	official-project-page	
 24	https://downloads.sourceforge.net/sourceforge/alleg/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/alleg/	distfile-location	2026-10-30T02:05:09Z	404	distfile-location	HTTP 404
+25	https://www.amnesiagame.com/	HOMEPAGE		observed	https://www.amnesiagame.com/	project-page	2026-10-30T04:01:41Z	200	official-project-page	
+25	https://github.com/shamazmazum/AmnesiaTheDarkDescent/archive/refs/tags/v0.3.2/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+25	https://github.com/shamazmazum/AmnesiaTheDarkDescent	GH	repository-root	observed	https://github.com/shamazmazum/AmnesiaTheDarkDescent	repository-root	2026-10-30T04:01:46Z	200	admitted-starting-point	
+26	http://www.emma-soft.com/games/amoebax/	HOMEPAGE		observed	https://www.emma-soft.com/games/amoebax/	project-page	2026-10-30T04:01:49Z	200	official-project-page	
+26	http://www.emma-soft.com/games/amoebax/download/	SITES		observed	https://www.emma-soft.com/games/amoebax/download/	distfile-location	2026-10-30T04:01:47Z	403	distfile-location	HTTP 403
+27	http://n.ethz.ch/student/loehrerl/amph/amph.html	HOMEPAGE		unreachable	http://n.ethz.ch/student/loehrerl/amph/amph.html		2026-10-30T04:01:52Z			PI-TRANSPORT-INDETERMINATE after two retries
+27	http://n.ethz.ch/student/loehrerl/amph/files/	SITES		unreachable	http://n.ethz.ch/student/loehrerl/amph/files/		2026-10-30T04:01:51Z			PI-TRANSPORT-INDETERMINATE after two retries
+28	https://salsa.debian.org/pm/an	HOMEPAGE	repository-root	observed	https://salsa.debian.org/pm/an	repository-root	2026-10-30T04:01:57Z	200	admitted-starting-point	
+28	https://deb.debian.org/debian/pool/main/a/an/	SITES	distfile-location	observed	https://deb.debian.org/debian/pool/main/a/an/	distfile-location	2026-10-30T04:01:58Z	200	distfile-location	
+28	http://ftp.debian.org/debian/pool/main/a/an/	SITES	distfile-location	observed	http://ftp.debian.org/debian/pool/main/a/an/	distfile-location	2026-10-30T04:01:58Z	200	distfile-location	
+28	http://ftp.au.debian.org/debian/pool/main/a/an/	SITES		observed	http://ftp.au.debian.org/debian/pool/main/a/an/	distfile-location	2026-10-30T04:01:52Z	200	distfile-location	
+28	http://ftp.de.debian.org/debian/pool/main/a/an/	SITES		observed	http://ftp.de.debian.org/debian/pool/main/a/an/	distfile-location	2026-10-30T04:01:53Z	200	distfile-location	
+28	http://ftp.fr.debian.org/debian/pool/main/a/an/	SITES		observed	http://ftp.fr.debian.org/debian/pool/main/a/an/	distfile-location	2026-10-30T04:01:53Z	200	distfile-location	
+28	http://ftp.nl.debian.org/debian/pool/main/a/an/	SITES		observed	http://ftp.nl.debian.org/debian/pool/main/a/an/	project-page	2026-10-30T04:01:54Z	200	admitted-starting-point	
+28	http://ftp.uk.debian.org/debian/pool/main/a/an/	SITES		observed	http://ftp.uk.debian.org/debian/pool/main/a/an/	distfile-location	2026-10-30T04:01:55Z	200	distfile-location	
+28	http://ftp.us.debian.org/debian/pool/main/a/an/	SITES		observed	http://ftp.us.debian.org/debian/pool/main/a/an/	project-page	2026-10-30T04:01:56Z	200	admitted-starting-point	
+29	http://rephial.org	HOMEPAGE		observed	https://rephial.org/	project-page	2026-10-30T04:01:58Z	200	official-project-page	
+29	https://github.com/angband/angband/releases/download/4.2.5/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+31	http://armagetronad.org/	HOMEPAGE		observed	https://armagetronad.org/	project-page	2026-10-30T04:01:59Z	200	official-project-page	
+31	https://downloads.sourceforge.net/sourceforge/armagetronad/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/armagetronad/	distfile-location	2026-10-30T04:02:03Z	404	distfile-location	HTTP 404
+32	https://github.com/arx/ArxLibertatis	HOMEPAGE+GH	repository-root	observed	https://github.com/arx/ArxLibertatis	repository-root	2026-10-30T04:02:04Z	200	admitted-starting-point	
+32	https://github.com/arx/ArxLibertatis/archive/refs/tags/1.2.1/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
