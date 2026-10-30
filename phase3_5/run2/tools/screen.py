@@ -167,6 +167,11 @@ def _verify_page_quote(ctx: dict, w: dict) -> None:
 
 
 def _verify_tree_quote(ctx: dict, w: dict) -> None:
+    if w.get("location", "").endswith("/"):      # contract 8: the NAMES (not the contents) of entries under a test directory (RQA-21)
+        d = os.path.join(ctx["tree"], w["location"])
+        if not os.path.isdir(d) or w["quote"] not in os.listdir(d):
+            raise Witness("rank %s: %r is not an entry of %s in the pinned tree" % (ctx["rank"], w["quote"], w["location"]))
+        return
     m = CITE_RE.match(w.get("location", ""))
     if not m:
         raise Witness("rank %s: location %r is not file:line" % (ctx["rank"], w.get("location")))

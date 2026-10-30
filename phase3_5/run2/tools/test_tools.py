@@ -636,6 +636,21 @@ def test_survey_block_cites_the_gate_surfaces_not_starting_points():   # RQA-17
     assert "Section 8" in block and "admitted starting point" not in block, block
 
 
+def test_directory_names_survey_row_is_verified():               # contract 8: the names under test/ (RQA-21)
+    def run(quote, state):
+        ws = ALPHA_WITNESSES + [dict(frame_rank="1", candidate_id="", gate="E2-RULE", kind="absence-survey", surface="test/",
+                                     location="test/", quote=quote, tag="")]
+        return screen.screen_item(1, "games/alpha", FIX + "/ports", witnesses=ws, state=_state(state),
+                                  fetch=canned_map(ALPHA_MAP), clock=fixed_clock, git=fake_git_factory())
+    out = run("data.c", "s22")
+    assert any("test/" in b for b in out["evidence_blocks"] if "Gate: E2-RULE" in b), out["evidence_blocks"]
+    try:
+        run("nope.c", "s23")
+    except screen.Witness:
+        return
+    assert False, "a directory survey row naming an absent entry was accepted"
+
+
 def test_unresolved_past_e2rep_carries_unclassified_shape():
     # design 4.7: E2-RULE, E3 and E4 are decided as Run 1's amendment decides them -- UNRESOLVED / PI-UNCLASSIFIED-SHAPE (RQA-10)
     for name, ws, gate in (("s14", ALPHA_WITNESSES, "E2-RULE"), ("s15", PAST_E2REP, "E4")):
