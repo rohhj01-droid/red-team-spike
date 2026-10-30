@@ -1,0 +1,18 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+75	C068	E2-RULE	validity	cmatrix.1	cmatrix.1:64	Valid colors are green, red, blue, white, yellow, cyan, magenta and black.	
+75	C068	E3	stateful	cmatrix.1	cmatrix.1:33	Locks cmatrix, Unable to quit	
+78	C070	E2-RULE	validity	CorsixTH/corsix-th.6	CorsixTH/corsix-th.6:74	must include the .sav extension.	
+78	C070	E3	absence-survey	README.md	README.md:23	We use graphics, sound and other data from the original game so one of the following is required:	
+78	C070	E3	absence-survey	README.txt	README.txt:6	load the original game data files. This means that you will need a purchased	
+78	C070	E3	absence-survey	CorsixTH/corsix-th.6	CorsixTH/corsix-th.6:60	If a number is given load that month's autosave.	
+78	C070	E3	absence-survey	CONTRIBUTING.md	CONTRIBUTING.md:53	All pull requests in CorsixTH must have an appropriate PR label before merging to	
+75	C068	E4	absence-survey	CODE_OF_CONDUCT.md:37	CODE_OF_CONDUCT.md:37	Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting th	
+75	C068	E4	absence-survey	CONTRIBUTING.md:77	CONTRIBUTING.md:77	mail dot com. All	
+75	C068	E4	absence-survey	COPYING:84	COPYING:84	To "modify" a work means to copy from or adapt all or part of the work	
+75	C068	E4	absence-survey	COPYING:156	COPYING:156	All rights granted under this License are granted for the term of	
+75	C068	E4	absence-survey	COPYING:197	COPYING:197	You may convey verbatim copies of the Program's source code as you	
+75	C068	E4	absence-survey	COPYING:257	COPYING:257	b) Convey the object code in, or embodied in, a physical product	
+75	C068	E4	absence-survey	COPYING:487	COPYING:487	Each contributor grants you a non-exclusive, worldwide, royalty-free	
+75	C068	E4	absence-survey	COPYING:614	COPYING:614	If the disclaimer of warranty and limitation of liability provided	
+75	C068	E4	absence-survey	INSTALL:50	INSTALL:50	for the package's developers.  If you use it, you may have to get	
+75	C068	E4	absence-survey	INSTALL:65	INSTALL:65	env CPPFLAGS=-I/usr/local/include LDFLAGS=-s ./configure	

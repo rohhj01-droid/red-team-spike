@@ -1,0 +1,46 @@
+{
+ "archive": {
+  "bytes": 209418,
+  "entries": 33,
+  "request": {
+   "attempts": [
+    [
+     "2026-10-30T06:42:41Z",
+     "ok",
+     "https://github.com/abishekvashok/cmatrix/archive/5c082c64a1296859a11bee60c8c086655953a416.tar.gz",
+     302
+    ],
+    [
+     "2026-10-30T06:42:41Z",
+     "ok",
+     "https://codeload.github.com/abishekvashok/cmatrix/tar.gz/5c082c64a1296859a11bee60c8c086655953a416",
+     200
+    ]
+   ],
+   "content_type": "application/x-gzip",
+   "final_url": "https://codeload.github.com/abishekvashok/cmatrix/tar.gz/5c082c64a1296859a11bee60c8c086655953a416",
+   "http_status": 200,
+   "observed_at_utc": "2026-10-30T06:42:41Z",
+   "outcome": "ok",
+   "redirect_chain": [
+    "https://github.com/abishekvashok/cmatrix/archive/5c082c64a1296859a11bee60c8c086655953a416.tar.gz"
+   ],
+   "requested_url": "https://github.com/abishekvashok/cmatrix/archive/5c082c64a1296859a11bee60c8c086655953a416.tar.gz"
+  },
+  "sha256": "722fb8e8d4879adf3185f720d5a927134e64c9c7346f603910d235385359f8c3",
+  "url": "https://github.com/abishekvashok/cmatrix/archive/5c082c64a1296859a11bee60c8c086655953a416.tar.gz"
+ },
+ "branch": "master",
+ "candidate_id": "C068",
+ "digests": [
+  [
+   "cmatrix.c",
+   26543,
+   "f8d62a5f83a38c20e2425bba46fd0ee8ad1eaa058c51999ad09196ccec3dd3d0"
+  ]
+ ],
+ "observed_at_utc": "2026-10-30T06:42:41Z",
+ "sha": "5c082c64a1296859a11bee60c8c086655953a416",
+ "tracked_files": 28,
+ "url": "https://github.com/abishekvashok/cmatrix"
+}

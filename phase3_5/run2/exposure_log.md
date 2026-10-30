@@ -134,3 +134,8 @@
 | 2026-10-30T06:27:49Z | 67 | http://level7.org.uk/chroma/chroma.asm | step-2 link 'view the source code': target is not a repository root (unclassifiable); observed once, not read | used: no |
 | 2026-10-30T06:27:51Z | 69 | http://sourceforge.net/projects/chromium-bsu/ | step-2 link 'sourceforge project': target is not a repository root (project-page); observed once, not read | used: no |
 | 2026-10-30T06:27:54Z | 71 | https://github.com/ClassiCube/ClassiCube | landing page rendered a README (20585 chars of page text); not used | used: no |
+| 2026-10-30T06:42:33Z | 74 | https://clonekeen.sourceforge.net/index.html@nav=download | step-2 link 'source code': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:42:37Z | 75 | https://github.com/abishekvashok/cmatrix | landing page rendered a README (7660 chars of page text); not used | used: no |
+| 2026-10-30T06:42:37Z | 75 | http://www.sourceforge.net/ | step-2 link 'SourceForge': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:42:38Z | 75 | http://sourceforge.net/project/?group_id=4055 | step-2 link 'http://sourceforge.net/project/?group_id=4055': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:42:43Z | 78 | https://github.com/CorsixTH/CorsixTH | landing page rendered a README (7859 chars of page text); not used | used: no |

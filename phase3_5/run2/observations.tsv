@@ -335,3 +335,35 @@ observed_at_utc	frame_rank	step	requested_url	final_url	http_status	redirect_cha
 2026-10-30T06:27:52Z	69	E2REP-1	https://downloads.sourceforge.net/sourceforge/chromium-bsu/	https://downloads.sourceforge.net/sourceforge/chromium-bsu/	404	NONE	1	definitive	target/bodies/069/05.bin
 2026-10-30T06:27:52Z	70	UR-classify	https://distfiles.sigtrap.nl/	https://distfiles.sigtrap.nl/	200	NONE	1	ok	target/bodies/070/01.bin
 2026-10-30T06:27:54Z	71	E2REP-3	https://github.com/ClassiCube/ClassiCube	https://github.com/ClassiCube/ClassiCube	200	NONE	1	ok	target/bodies/071/01.bin
+2026-10-30T06:40:26Z	73	UR-classify	http://manticore.2y.net/cgi-bin/dlwct.sh?f=clines/	http://manticore.2y.net/cgi-bin/dlwct.sh?f=clines/		NONE	1	transport	
+2026-10-30T06:40:47Z	73	UR-classify	http://manticore.2y.net/cgi-bin/dlwct.sh?f=clines/	http://manticore.2y.net/cgi-bin/dlwct.sh?f=clines/		NONE	2	transport	
+2026-10-30T06:41:08Z	73	UR-classify	http://manticore.2y.net/cgi-bin/dlwct.sh?f=clines/	http://manticore.2y.net/cgi-bin/dlwct.sh?f=clines/		NONE	3	transport	
+2026-10-30T06:41:29Z	73	E2REP-1	http://manticore.2y.net/prj/clines-a.html	http://manticore.2y.net/prj/clines-a.html		NONE	1	transport	
+2026-10-30T06:41:51Z	73	E2REP-1	http://manticore.2y.net/prj/clines-a.html	http://manticore.2y.net/prj/clines-a.html		NONE	2	transport	
+2026-10-30T06:42:12Z	73	E2REP-1	http://manticore.2y.net/prj/clines-a.html	http://manticore.2y.net/prj/clines-a.html		NONE	3	transport	
+2026-10-30T06:42:33Z	74	E2REP-1	https://clonekeen.sourceforge.net/	https://clonekeen.sourceforge.net/	200	NONE	1	ok	target/bodies/074/01.bin
+2026-10-30T06:42:33Z	74	E2REP-2	https://clonekeen.sourceforge.net/index.html@nav=download	https://clonekeen.sourceforge.net/index.html@nav=download	200	NONE	1	ok	target/bodies/074/02.bin
+2026-10-30T06:42:33Z	74	E2REP-1	https://downloads.sourceforge.net/sourceforge/clonekeen/	https://downloads.sourceforge.net/sourceforge/clonekeen/	404	NONE	1	definitive	target/bodies/074/03.bin
+2026-10-30T06:42:34Z	75	UR-classify	http://www.asty.org/cmatrix//dist/	https://www.asty.org/cmatrix/dist/	301	http://www.asty.org/cmatrix//dist/	1	ok	
+2026-10-30T06:42:35Z	75	UR-classify	https://www.asty.org/cmatrix/dist/	https://www.asty.org/cmatrix/dist/	404	http://www.asty.org/cmatrix//dist/	2	definitive	target/bodies/075/01.bin
+2026-10-30T06:42:35Z	75	E2REP-1	http://www.asty.org/cmatrix/	https://www.asty.org/cmatrix/	301	http://www.asty.org/cmatrix/	1	ok	
+2026-10-30T06:42:36Z	75	E2REP-1	https://www.asty.org/cmatrix/	https://www.asty.org/cmatrix/	200	http://www.asty.org/cmatrix/	2	ok	target/bodies/075/03.bin
+2026-10-30T06:42:37Z	75	E2REP-3	https://github.com/abishekvashok/cmatrix	https://github.com/abishekvashok/cmatrix	200	NONE	1	ok	target/bodies/075/05.bin
+2026-10-30T06:42:37Z	75	E2REP-2	http://www.sourceforge.net/	https://sourceforge.net/	301	http://www.sourceforge.net/	1	ok	
+2026-10-30T06:42:37Z	75	E2REP-2	https://sourceforge.net/	https://sourceforge.net/	200	http://www.sourceforge.net/	2	ok	target/bodies/075/06.bin
+2026-10-30T06:42:38Z	75	E2REP-2	http://sourceforge.net/project/?group_id=4055	https://sourceforge.net/projects/cmatrix/	301	http://sourceforge.net/project/?group_id=4055	1	ok	
+2026-10-30T06:42:38Z	75	E2REP-2	https://sourceforge.net/projects/cmatrix/	https://sourceforge.net/projects/cmatrix/	200	http://sourceforge.net/project/?group_id=4055	2	ok	target/bodies/075/08.bin
+2026-10-30T06:42:41Z	75	pin	https://github.com/abishekvashok/cmatrix/archive/5c082c64a1296859a11bee60c8c086655953a416.tar.gz	https://codeload.github.com/abishekvashok/cmatrix/tar.gz/5c082c64a1296859a11bee60c8c086655953a416	302	https://github.com/abishekvashok/cmatrix/archive/5c082c64a1296859a11bee60c8c086655953a416.tar.gz	1	ok	
+2026-10-30T06:42:41Z	75	pin	https://codeload.github.com/abishekvashok/cmatrix/tar.gz/5c082c64a1296859a11bee60c8c086655953a416	https://codeload.github.com/abishekvashok/cmatrix/tar.gz/5c082c64a1296859a11bee60c8c086655953a416	200	https://github.com/abishekvashok/cmatrix/archive/5c082c64a1296859a11bee60c8c086655953a416.tar.gz	2	ok	target/C068/archive.tar.gz
+2026-10-30T06:42:42Z	77	E2REP-1	https://corewars.org/	https://corewars.org/	200	NONE	1	ok	target/bodies/077/01.bin
+2026-10-30T06:42:42Z	77	E2REP-1	https://downloads.sourceforge.net/sourceforge/corewars/	https://downloads.sourceforge.net/sourceforge/corewars/	404	NONE	1	definitive	target/bodies/077/02.bin
+2026-10-30T06:42:43Z	78	E2REP-1	https://corsixth.com/	https://corsixth.com/	200	NONE	1	ok	target/bodies/078/01.bin
+2026-10-30T06:42:43Z	78	E2REP-3	https://github.com/CorsixTH/CorsixTH	https://github.com/CorsixTH/CorsixTH	200	NONE	1	ok	target/bodies/078/02.bin
+2026-10-30T06:42:48Z	78	pin	https://github.com/CorsixTH/CorsixTH/archive/9bf665ac2a985c1c643c45cec93aa2b7e7edb1df.tar.gz	https://codeload.github.com/CorsixTH/CorsixTH/tar.gz/9bf665ac2a985c1c643c45cec93aa2b7e7edb1df	302	https://github.com/CorsixTH/CorsixTH/archive/9bf665ac2a985c1c643c45cec93aa2b7e7edb1df.tar.gz	1	ok	
+2026-10-30T06:42:48Z	78	pin	https://codeload.github.com/CorsixTH/CorsixTH/tar.gz/9bf665ac2a985c1c643c45cec93aa2b7e7edb1df	https://codeload.github.com/CorsixTH/CorsixTH/tar.gz/9bf665ac2a985c1c643c45cec93aa2b7e7edb1df	200	https://github.com/CorsixTH/CorsixTH/archive/9bf665ac2a985c1c643c45cec93aa2b7e7edb1df.tar.gz	2	ok	target/C070/archive.tar.gz
+2026-10-30T06:42:50Z	79	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	1	transport	
+2026-10-30T06:42:50Z	79	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	2	transport	
+2026-10-30T06:42:50Z	79	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	3	transport	
+2026-10-30T06:42:50Z	79	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html		NONE	1	transport	
+2026-10-30T06:42:50Z	79	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html		NONE	2	transport	
+2026-10-30T06:42:50Z	79	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html		NONE	3	transport	

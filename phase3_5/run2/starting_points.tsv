@@ -152,3 +152,16 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 69	https://downloads.sourceforge.net/sourceforge/chromium-bsu/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/chromium-bsu/	distfile-location	2026-10-30T06:27:52Z	404	distfile-location	HTTP 404
 70	https://distfiles.sigtrap.nl/	SITES		not-reached						
 71	https://github.com/ClassiCube/ClassiCube	HOMEPAGE+DIST_TUPLE	repository-root	observed	https://github.com/ClassiCube/ClassiCube	repository-root	2026-10-30T06:27:54Z	200	admitted-starting-point	
+73	http://manticore.2y.net/prj/clines-a.html	HOMEPAGE		unreachable	http://manticore.2y.net/prj/clines-a.html		2026-10-30T06:41:29Z			PI-TRANSPORT-INDETERMINATE after two retries
+73	http://manticore.2y.net/cgi-bin/dlwct.sh?f=clines/	SITES		unreachable	http://manticore.2y.net/cgi-bin/dlwct.sh?f=clines/		2026-10-30T06:40:26Z			PI-TRANSPORT-INDETERMINATE after two retries
+74	https://clonekeen.sourceforge.net/	HOMEPAGE		observed	https://clonekeen.sourceforge.net/	project-page	2026-10-30T06:42:33Z	200	official-project-page	
+74	https://downloads.sourceforge.net/sourceforge/clonekeen/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/clonekeen/	distfile-location	2026-10-30T06:42:33Z	404	distfile-location	HTTP 404
+75	http://www.asty.org/cmatrix/	HOMEPAGE		observed	https://www.asty.org/cmatrix/	project-page	2026-10-30T06:42:35Z	200	official-project-page	
+75	http://www.asty.org/cmatrix//dist/	SITES		observed	https://www.asty.org/cmatrix/dist/	distfile-location	2026-10-30T06:42:34Z	404	distfile-location	HTTP 404
+77	https://corewars.org/	HOMEPAGE		observed	https://corewars.org/	project-page	2026-10-30T06:42:42Z	200	official-project-page	
+77	https://downloads.sourceforge.net/sourceforge/corewars/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/corewars/	distfile-location	2026-10-30T06:42:42Z	404	distfile-location	HTTP 404
+78	https://corsixth.com/	HOMEPAGE		observed	https://corsixth.com/	project-page	2026-10-30T06:42:43Z	200	official-project-page	
+78	https://github.com/CorsixTH/CorsixTH/archive/refs/tags/v0.69.2/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+78	https://github.com/CorsixTH/CorsixTH	GH	repository-root	observed	https://github.com/CorsixTH/CorsixTH	repository-root	2026-10-30T06:42:43Z	200	official-source-location	
+79	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html	HOMEPAGE		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html		2026-10-30T06:42:50Z			PI-TRANSPORT-INDETERMINATE after two retries
+79	http://perso.b2b2c.ca/~sarrazip/dev/	SITES		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/		2026-10-30T06:42:50Z			PI-TRANSPORT-INDETERMINATE after two retries
