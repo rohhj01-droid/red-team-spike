@@ -63,3 +63,6 @@
 | 2026-10-30T04:01:58Z | 29 | https://github.com/angband/angband/releases/download/4.2.6/Angband-4.2.6.tar.gz | step-2 link 'Source code' leads to a forbidden class; not followed | used: no |
 | 2026-10-30T04:02:02Z | 31 | https://download.armagetronad.org/docs/flatpak/ | step-2 link 'our own repository': target is not a repository root (project-page); observed once, not read | used: no |
 | 2026-10-30T04:02:04Z | 32 | https://github.com/arx/ArxLibertatis | landing page rendered a README (13214 chars of page text); not used | used: no |
+| 2026-10-30T04:15:36Z | 33 | https://github.com/rgoring/asciiquarium | landing page rendered a README (3406 chars of page text); not used | used: no |
+| 2026-10-30T04:15:44Z | 34 | https://github.com/viewizard/astromenace | landing page rendered a README (8951 chars of page text); not used | used: no |
+| 2026-10-30T04:16:07Z | 38 | https://github.com/fph/bastet | landing page rendered a README (5191 chars of page text); not used | used: no |

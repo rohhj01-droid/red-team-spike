@@ -143,3 +143,32 @@ observed_at_utc	frame_rank	step	requested_url	final_url	http_status	redirect_cha
 2026-10-30T04:02:02Z	31	E2REP-2	https://download.armagetronad.org/docs/flatpak/	https://download.armagetronad.org/docs/flatpak/	200	NONE	1	ok	target/bodies/031/03.bin
 2026-10-30T04:02:03Z	31	E2REP-1	https://downloads.sourceforge.net/sourceforge/armagetronad/	https://downloads.sourceforge.net/sourceforge/armagetronad/	404	NONE	1	definitive	target/bodies/031/04.bin
 2026-10-30T04:02:04Z	32	E2REP-3	https://github.com/arx/ArxLibertatis	https://github.com/arx/ArxLibertatis	200	NONE	1	ok	target/bodies/032/01.bin
+2026-10-30T04:15:32Z	33	UR-classify	https://www.robobunny.com/projects/asciiquarium/	https://robobunny.com/projects/asciiquarium/	301	https://www.robobunny.com/projects/asciiquarium/	1	ok	
+2026-10-30T04:15:33Z	33	UR-classify	https://robobunny.com/projects/asciiquarium/	https://robobunny.com/projects/asciiquarium/	200	https://www.robobunny.com/projects/asciiquarium/	2	ok	target/bodies/033/01.bin
+2026-10-30T04:15:34Z	33	E2REP-1	https://www.robobunny.com/projects/asciiquarium/html/	https://robobunny.com/projects/asciiquarium/html/	301	https://www.robobunny.com/projects/asciiquarium/html/	1	ok	
+2026-10-30T04:15:35Z	33	E2REP-1	https://robobunny.com/projects/asciiquarium/html/	https://robobunny.com/projects/asciiquarium/html/	200	https://www.robobunny.com/projects/asciiquarium/html/	2	ok	target/bodies/033/03.bin
+2026-10-30T04:15:36Z	33	E2REP-3	https://github.com/rgoring/asciiquarium	https://github.com/rgoring/asciiquarium	200	NONE	1	ok	target/bodies/033/05.bin
+2026-10-30T04:15:42Z	34	E2REP-1	http://www.viewizard.com/	https://viewizard.com/	301	http://www.viewizard.com/	1	ok	
+2026-10-30T04:15:43Z	34	E2REP-1	https://viewizard.com/	https://viewizard.com/	200	http://www.viewizard.com/	2	ok	target/bodies/034/01.bin
+2026-10-30T04:15:44Z	34	E2REP-3	https://github.com/viewizard/astromenace	https://github.com/viewizard/astromenace	200	NONE	1	ok	target/bodies/034/03.bin
+2026-10-30T04:15:54Z	34	pin	https://github.com/viewizard/astromenace/archive/bbdb3ac5af2774c92b85c4d9b2a238f606911e66.tar.gz	https://codeload.github.com/viewizard/astromenace/tar.gz/bbdb3ac5af2774c92b85c4d9b2a238f606911e66	302	https://github.com/viewizard/astromenace/archive/bbdb3ac5af2774c92b85c4d9b2a238f606911e66.tar.gz	1	ok	
+2026-10-30T04:15:54Z	34	pin	https://codeload.github.com/viewizard/astromenace/tar.gz/bbdb3ac5af2774c92b85c4d9b2a238f606911e66	https://codeload.github.com/viewizard/astromenace/tar.gz/bbdb3ac5af2774c92b85c4d9b2a238f606911e66	200	https://github.com/viewizard/astromenace/archive/bbdb3ac5af2774c92b85c4d9b2a238f606911e66.tar.gz	2	ok	target/C031/archive.tar.gz
+2026-10-30T04:16:03Z	36	E2REP-1	https://lgames.sourceforge.net/?project=Barrage	https://lgames.sourceforge.io/?project=Barrage	301	https://lgames.sourceforge.net/?project=Barrage	1	ok	
+2026-10-30T04:16:05Z	36	E2REP-1	https://lgames.sourceforge.io/?project=Barrage	https://lgames.sourceforge.io/?project=Barrage	200	https://lgames.sourceforge.net/?project=Barrage	2	ok	target/bodies/036/01.bin
+2026-10-30T04:16:06Z	36	E2REP-1	https://downloads.sourceforge.net/sourceforge/lgames/	https://downloads.sourceforge.net/sourceforge/lgames/	404	NONE	1	definitive	target/bodies/036/03.bin
+2026-10-30T04:16:06Z	37	E2REP-1	https://downloads.sourceforge.net/sourceforge/scummvm/	https://downloads.sourceforge.net/sourceforge/scummvm/	404	NONE	1	definitive	target/bodies/037/01.bin
+2026-10-30T04:16:06Z	38	E2REP-1	http://fph.altervista.org/prog/bastet.html	http://fph.altervista.org/prog/bastet.html	200	NONE	1	ok	target/bodies/038/01.bin
+2026-10-30T04:16:07Z	38	E2REP-3	https://github.com/fph/bastet	https://github.com/fph/bastet	200	NONE	1	ok	target/bodies/038/02.bin
+2026-10-30T04:16:13Z	38	pin	https://github.com/fph/bastet/archive/1b3e6922c1f7d72e87640ea4a58a52e1d36f01e1.tar.gz	https://codeload.github.com/fph/bastet/tar.gz/1b3e6922c1f7d72e87640ea4a58a52e1d36f01e1	302	https://github.com/fph/bastet/archive/1b3e6922c1f7d72e87640ea4a58a52e1d36f01e1.tar.gz	1	ok	
+2026-10-30T04:16:13Z	38	pin	https://codeload.github.com/fph/bastet/tar.gz/1b3e6922c1f7d72e87640ea4a58a52e1d36f01e1	https://codeload.github.com/fph/bastet/tar.gz/1b3e6922c1f7d72e87640ea4a58a52e1d36f01e1	200	https://github.com/fph/bastet/archive/1b3e6922c1f7d72e87640ea4a58a52e1d36f01e1.tar.gz	2	ok	target/C034/archive.tar.gz
+2026-10-30T04:16:14Z	39	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	1	transport	
+2026-10-30T04:16:14Z	39	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	2	transport	
+2026-10-30T04:16:14Z	39	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	3	transport	
+2026-10-30T04:16:14Z	39	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/batrachians.html	http://perso.b2b2c.ca/~sarrazip/dev/batrachians.html		NONE	1	transport	
+2026-10-30T04:16:14Z	39	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/batrachians.html	http://perso.b2b2c.ca/~sarrazip/dev/batrachians.html		NONE	2	transport	
+2026-10-30T04:16:14Z	39	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/batrachians.html	http://perso.b2b2c.ca/~sarrazip/dev/batrachians.html		NONE	3	transport	
+2026-10-30T04:16:14Z	40	UR-classify	http://boby.joe.free.fr/dev/belooted/files/	http://boby.joe.free.fr/dev/belooted/files/	403	NONE	1	definitive	target/bodies/040/01.bin
+2026-10-30T04:16:15Z	40	E2REP-1	http://gnomefiles.org/content/show.php/Belooted?content=131848	https://gnomefiles.org/content/show.php/Belooted?content=131848	301	http://gnomefiles.org/content/show.php/Belooted?content=131848	1	ok	
+2026-10-30T04:16:16Z	40	E2REP-1	https://gnomefiles.org/content/show.php/Belooted?content=131848	https://gnomefiles.org/content/show.php/Belooted?content=131848	526	http://gnomefiles.org/content/show.php/Belooted?content=131848	2	transport	
+2026-10-30T04:16:17Z	40	E2REP-1	https://gnomefiles.org/content/show.php/Belooted?content=131848	https://gnomefiles.org/content/show.php/Belooted?content=131848	526	http://gnomefiles.org/content/show.php/Belooted?content=131848	3	transport	
+2026-10-30T04:16:18Z	40	E2REP-1	https://gnomefiles.org/content/show.php/Belooted?content=131848	https://gnomefiles.org/content/show.php/Belooted?content=131848	526	http://gnomefiles.org/content/show.php/Belooted?content=131848	4	transport	

@@ -71,3 +71,18 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 31	https://downloads.sourceforge.net/sourceforge/armagetronad/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/armagetronad/	distfile-location	2026-10-30T04:02:03Z	404	distfile-location	HTTP 404
 32	https://github.com/arx/ArxLibertatis	HOMEPAGE+GH	repository-root	observed	https://github.com/arx/ArxLibertatis	repository-root	2026-10-30T04:02:04Z	200	admitted-starting-point	
 32	https://github.com/arx/ArxLibertatis/archive/refs/tags/1.2.1/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+33	https://www.robobunny.com/projects/asciiquarium/html/	HOMEPAGE		observed	https://robobunny.com/projects/asciiquarium/html/	project-page	2026-10-30T04:15:34Z	200	official-project-page	
+33	https://www.robobunny.com/projects/asciiquarium/	SITES		observed	https://robobunny.com/projects/asciiquarium/	distfile-location	2026-10-30T04:15:32Z	200	distfile-location	
+34	http://www.viewizard.com/	HOMEPAGE		observed	https://viewizard.com/	project-page	2026-10-30T04:15:42Z	200	official-project-page	
+34	https://github.com/viewizard/astromenace/archive/refs/tags/v1.4.3/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+34	https://github.com/viewizard/astromenace	GH	repository-root	observed	https://github.com/viewizard/astromenace	repository-root	2026-10-30T04:15:44Z	200	official-source-location	
+36	https://lgames.sourceforge.net/?project=Barrage	HOMEPAGE		observed	https://lgames.sourceforge.io/?project=Barrage	project-page	2026-10-30T04:16:03Z	200	official-project-page	
+36	https://downloads.sourceforge.net/sourceforge/lgames/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/lgames/	distfile-location	2026-10-30T04:16:06Z	404	distfile-location	HTTP 404
+37	https://downloads.sourceforge.net/sourceforge/scummvm/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/scummvm/	distfile-location	2026-10-30T04:16:06Z	404	distfile-location	HTTP 404
+38	http://fph.altervista.org/prog/bastet.html	HOMEPAGE		observed	http://fph.altervista.org/prog/bastet.html	project-page	2026-10-30T04:16:06Z	200	official-project-page	
+38	https://github.com/fph/bastet/archive/refs/tags/0.43.2/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+38	https://github.com/fph/bastet	GH	repository-root	observed	https://github.com/fph/bastet	repository-root	2026-10-30T04:16:07Z	200	official-source-location	
+39	http://perso.b2b2c.ca/~sarrazip/dev/batrachians.html	HOMEPAGE		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/batrachians.html		2026-10-30T04:16:14Z			PI-TRANSPORT-INDETERMINATE after two retries
+39	http://perso.b2b2c.ca/~sarrazip/dev/	SITES		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/		2026-10-30T04:16:14Z			PI-TRANSPORT-INDETERMINATE after two retries
+40	http://gnomefiles.org/content/show.php/Belooted?content=131848	HOMEPAGE		unreachable	https://gnomefiles.org/content/show.php/Belooted?content=131848		2026-10-30T04:16:15Z	526		PI-TRANSPORT-INDETERMINATE after two retries
+40	http://boby.joe.free.fr/dev/belooted/files/	SITES		observed	http://boby.joe.free.fr/dev/belooted/files/	distfile-location	2026-10-30T04:16:14Z	403	distfile-location	HTTP 403

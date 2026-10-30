@@ -1,0 +1,6 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+33	C030	E2-REP	designation	https://robobunny.com/projects/asciiquarium/html/	https://github.com/rgoring/asciiquarium	Russel Goring has updated J. Sommer's Windows screensaver, and has posted the source code on Github.	other-work
+34	C031	E2-RULE	absence-survey	README.md	README.md:123	libSDL2 (ver 2.0.5+), libopenal (ver 1.0+), libalut (ver 1.0+), libogg (ver 1.1+), libvorbis (ver 1.1+), freetype (ver 2.1.6+)	
+34	C031	E2-RULE	absence-survey	docs/CONTRIBUTING.md	docs/CONTRIBUTING.md:7	This document defines the AstroMenace coding standards and style, all code contributions are expected to adhere to the rules described below.	
+38	C034	E2-RULE	absence-survey	README	README:16	Quits the game immediately and without asking anything (the current game is lost, but previous games are recorded in the high scores file)	
+38	C034	E2-RULE	absence-survey	bastet.6	bastet.6:14	tries to conform as much as possible to the tetris guidelines. We refer to those for the rules of the game.	
