@@ -1,0 +1,49 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+65	C061	E2-RULE	validity	README.md	README.md:51	‘-file’ will not work.	
+65	C061	E3	stateful	man/default.cfg.template	man/default.cfg.template:40	the game exits, so any invalid lines or comments will be lost.	
+66	C062	E2-RULE	validity	README	README:118	All skills must be equipped to your action bar before they're activated.	
+66	C062	E3	stateful	README	README:118	All skills must be equipped to your action bar before they're activated.	
+65	C061	E4	enumerator	EN:C023	src/d_mode.c:23	Valid game mode/mission combinations, with the number of	enforced
+65	C061	E4	refusal-path	EN:C023	src/d_mode.c:48	Check that a gamemode+gamemission received over the network is valid.	
+65	C061	E4	refusal-path	EN:C023	src/net_server.c:706	if (!D_ValidGameMode(data.gamemission, data.gamemode)	
+65	C061	E4	refusal-path	EN:C023	src/net_server.c:709	server: error: invalid connect data	
+65	C061	E4	refusal-path	EN:C023	src/net_common.c:451	if (!D_ValidEpisodeMap(mission, mode, settings->episode, settings->map))	
+66	C062	E4	absence-survey	ext/lua/lauxlib.c:509	ext/lua/lauxlib.c:509	static const luaL_Reg boxmt[] = {  /* box metamethods */	
+66	C062	E4	absence-survey	ext/lua/lbaselib.c:509	ext/lua/lbaselib.c:509	static const luaL_Reg base_funcs[] = {	
+66	C062	E4	absence-survey	ext/lua/lcorolib.c:124	ext/lua/lcorolib.c:124	static const char *const statname[] =	
+66	C062	E4	absence-survey	ext/lua/lcorolib.c:207	ext/lua/lcorolib.c:207	static const luaL_Reg co_funcs[] = {	
+66	C062	E4	absence-survey	ext/lua/lctype.c:28	ext/lua/lctype.c:28	LUAI_DDEF const lu_byte luai_ctype_[UCHAR_MAX + 2] = {	
+66	C062	E4	absence-survey	ext/lua/ldblib.c:452	ext/lua/ldblib.c:452	static const luaL_Reg dblib[] = {	
+66	C062	E4	absence-survey	ext/lua/linit.c:28	ext/lua/linit.c:28	static const luaL_Reg stdlibs[] = {	
+66	C062	E4	absence-survey	ext/lua/liolib.c:754	ext/lua/liolib.c:754	static const luaL_Reg iolib[] = {	
+66	C062	E4	absence-survey	ext/lua/liolib.c:773	ext/lua/liolib.c:773	static const luaL_Reg meth[] = {	
+66	C062	E4	absence-survey	ext/lua/liolib.c:788	ext/lua/liolib.c:788	static const luaL_Reg metameth[] = {	
+66	C062	E4	absence-survey	ext/lua/ljumptab.h:19	ext/lua/ljumptab.h:19	static const void *const disptab[NUM_OPCODES] = {	
+66	C062	E4	absence-survey	ext/lua/llex.c:45	ext/lua/llex.c:45	static const char *const luaX_tokens [] = {	
+66	C062	E4	absence-survey	ext/lua/lmathlib.c:647	ext/lua/lmathlib.c:647	static const luaL_Reg randfuncs[] = {	
+66	C062	E4	absence-survey	ext/lua/lmathlib.c:706	ext/lua/lmathlib.c:706	static const luaL_Reg mathlib[] = {	
+66	C062	E4	absence-survey	ext/lua/loadlib.c:684	ext/lua/loadlib.c:684	static const luaL_Reg pk_funcs[] = {	
+66	C062	E4	absence-survey	ext/lua/loadlib.c:697	ext/lua/loadlib.c:697	static const luaL_Reg ll_funcs[] = {	
+66	C062	E4	absence-survey	ext/lua/lopcodes.c:22	ext/lua/lopcodes.c:22	LUAI_DDEF const lu_byte luaP_opmodes[NUM_OPCODES] = {	
+66	C062	E4	absence-survey	ext/lua/lopnames.h:15	ext/lua/lopnames.h:15	static const char *const opnames[] = {	
+66	C062	E4	absence-survey	ext/lua/loslib.c:409	ext/lua/loslib.c:409	static const luaL_Reg syslib[] = {	
+66	C062	E4	absence-survey	ext/lua/lparser.c:1354	ext/lua/lparser.c:1354	static const struct {	
+66	C062	E4	absence-survey	ext/lua/lstrlib.c:252	ext/lua/lstrlib.c:252	static const luaL_Reg stringmetamethods[] = {	
+66	C062	E4	absence-survey	ext/lua/lstrlib.c:332	ext/lua/lstrlib.c:332	static const luaL_Reg stringmetamethods[] = {	
+66	C062	E4	absence-survey	ext/lua/lstrlib.c:1856	ext/lua/lstrlib.c:1856	static const luaL_Reg strlib[] = {	
+66	C062	E4	absence-survey	ext/lua/ltablib.c:412	ext/lua/ltablib.c:412	static const luaL_Reg tab_funcs[] = {	
+66	C062	E4	absence-survey	ext/lua/ltm.c:30	ext/lua/ltm.c:30	LUAI_DDEF const char *const luaT_typenames_[LUA_TOTALTYPES] = {	
+66	C062	E4	absence-survey	ext/lua/lutf8lib.c:276	ext/lua/lutf8lib.c:276	static const luaL_Reg funcs[] = {	
+66	C062	E4	absence-survey	ext/picosha2/picosha2.h:50	ext/picosha2/picosha2.h:50	const word_t add_constant[64] = {	
+66	C062	E4	absence-survey	ext/picosha2/picosha2.h:63	ext/picosha2/picosha2.h:63	const word_t initial_message_digest[8] = {0x6a09e667, 0xbb67ae85, 0x3c6ef372,	
+66	C062	E4	absence-survey	src/menu.cpp:79	src/menu.cpp:79	const char * const KeyBindingNames[] = {	
+66	C062	E4	absence-survey	src/scripting.cpp:65	src/scripting.cpp:65	static _LuaLibrary Libraries[] = {	
+66	C062	E4	absence-survey	LICENSE:1	LICENSE:1	All choria code is licensed under GPL3.	
+66	C062	E4	absence-survey	LICENSE:2	LICENSE:2	All artwork, sounds, and music are licensed under CC-BY-SA.	
+66	C062	E4	absence-survey	LICENSE:91	LICENSE:91	To "modify" a work means to copy from or adapt all or part of the work	
+66	C062	E4	absence-survey	LICENSE:163	LICENSE:163	All rights granted under this License are granted for the term of	
+66	C062	E4	absence-survey	LICENSE:204	LICENSE:204	You may convey verbatim copies of the Program's source code as you	
+66	C062	E4	absence-survey	LICENSE:264	LICENSE:264	b) Convey the object code in, or embodied in, a physical product	
+66	C062	E4	absence-survey	LICENSE:494	LICENSE:494	Each contributor grants you a non-exclusive, worldwide, royalty-free	
+66	C062	E4	absence-survey	LICENSE:621	LICENSE:621	If the disclaimer of warranty and limitation of liability provided	
+66	C062	E4	absence-survey	LICENSE:990	LICENSE:990	b. if You include all or a substantial portion of the database	

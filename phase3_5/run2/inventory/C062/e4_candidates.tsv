@@ -1,0 +1,42 @@
+cand_id	file	line	symbol	class	element_type	members	absent	conditional	en1	en2	en3	en4	en5	en6	tag	reject_reason	evidence	decided_by
+C001	assets/luac/luac.c	38	Output	K1	char	1	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C002	ext/lua/lauxlib.c	509	boxmt	K1	luaL_Reg	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C003	ext/lua/lbaselib.c	509	base_funcs	K1	luaL_Reg	26	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C004	ext/lua/lcorolib.c	124	statname	K1	char *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C005	ext/lua/lcorolib.c	207	co_funcs	K1	luaL_Reg	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C006	ext/lua/lctype.c	28	luai_ctype_	K1	LUAI_DDEF lu_byte	257	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C007	ext/lua/ldblib.c	452	dblib	K1	luaL_Reg	17	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C008	ext/lua/linit.c	28	stdlibs	K1	luaL_Reg	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C009	ext/lua/liolib.c	754	iolib	K1	luaL_Reg	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C010	ext/lua/liolib.c	773	meth	K1	luaL_Reg	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C011	ext/lua/liolib.c	788	metameth	K1	luaL_Reg	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C012	ext/lua/ljumptab.h	19	disptab	K1	void *	85	1	0	PASS		PASS		PASS	PASS				UNDECIDED
+C013	ext/lua/llex.c	45	luaX_tokens	K1	char *	38	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C014	ext/lua/lmathlib.c	647	randfuncs	K1	luaL_Reg	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C015	ext/lua/lmathlib.c	706	mathlib	K1	luaL_Reg	36	0	6	PASS		PASS		PASS	PASS				UNDECIDED
+C016	ext/lua/loadlib.c	684	pk_funcs	K1	luaL_Reg	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C017	ext/lua/loadlib.c	697	ll_funcs	K1	luaL_Reg	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C018	ext/lua/lopcodes.c	22	luaP_opmodes	K1	LUAI_DDEF lu_byte	510	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C019	ext/lua/lopnames.h	15	opnames	K1	char *	86	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C020	ext/lua/loslib.c	409	syslib	K1	luaL_Reg	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C021	ext/lua/lparser.c	1354	priority	K1	struct {lu_byte left; /* left priority for each binary operator */ lu_byte right; /* right priority */}	21	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C022	ext/lua/lstrlib.c	252	stringmetamethods	K1	luaL_Reg	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C023	ext/lua/lstrlib.c	332	stringmetamethods	K1	luaL_Reg	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C024	ext/lua/lstrlib.c	1856	strlib	K1	luaL_Reg	18	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C025	ext/lua/ltablib.c	412	tab_funcs	K1	luaL_Reg	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C026	ext/lua/ltm.c	30	luaT_typenames_	K1	LUAI_DDEF char *	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C027	ext/lua/lutf8lib.c	276	funcs	K1	luaL_Reg	7	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C028	ext/picosha2/picosha2.h	50	add_constant	K1	word_t	64	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C029	ext/picosha2/picosha2.h	63	initial_message_digest	K1	word_t	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C030	src/menu.cpp	48	KeyBindings	K1	int	28	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C031	src/menu.cpp	79	KeyBindingNames	K1	char *	28	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C032	src/scripting.cpp	65	Libraries	K1	_LuaLibrary	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+D001	LICENSE	1	doc:LICENSE:1	K4													All choria code is licensed under GPL3.	UNDECIDED
+D002	LICENSE	2	doc:LICENSE:2	K4													All artwork, sounds, and music are licensed under CC-BY-SA.	UNDECIDED
+D003	LICENSE	91	doc:LICENSE:91	K4													To "modify" a work means to copy from or adapt all or part of the work in a fashion requiring copyright permission, other than the making of an exact copy.	UNDECIDED
+D004	LICENSE	163	doc:LICENSE:163	K4													All rights granted under this License are granted for the term of copyright on the Program, and are irrevocable provided the stated conditions are met.	UNDECIDED
+D005	LICENSE	204	doc:LICENSE:204	K4													You may convey verbatim copies of the Program's source code as you receive it, in any medium, provided that you conspicuously and appropriately publish on each copy an appropriate copyright notice; keep intact all notices stating that this License and any non-permissive terms added in accord with section 7 apply to the code; keep intact all notices of the absence of any warranty; and give all recipients a copy of this License along with the Program.	UNDECIDED
+D006	LICENSE	264	doc:LICENSE:264	K4													b) Convey the object code in, or embodied in, a physical product (including a physical distribution medium), accompanied by a written offer, valid for at least three years and valid for as long as you offer spare parts or customer support for that product model, to give anyone who possesses the object code either (1) a copy of the Corresponding Source for all the software in the product that is covered by this License, on a durable physical medium customarily used for software interchange, for a price no more than your reasonable cost of physically performing this conveying of source, or (2) access to copy the Corresponding Source from a network server at no charge.	UNDECIDED
+D007	LICENSE	494	doc:LICENSE:494	K4													Each contributor grants you a non-exclusive, worldwide, royalty-free patent license under the contributor's essential patent claims, to make, use, sell, offer for sale, import and otherwise run, modify and propagate the contents of its contributor version.	UNDECIDED
+D008	LICENSE	621	doc:LICENSE:621	K4													If the disclaimer of warranty and limitation of liability provided above cannot be given local legal effect according to their terms, reviewing courts shall apply local law that most closely approximates an absolute waiver of all civil liability in connection with the Program, unless a warranty or assumption of liability accompanies a copy of the Program in return for a fee.	UNDECIDED
+D009	LICENSE	990	doc:LICENSE:990	K4													if You include all or a substantial portion of the database contents in a database in which You have Sui Generis Database Rights, then the database in which You have Sui Generis Database Rights (but not its individual contents) is Adapted Material, including for purposes of Section 3(b); and c.	UNDECIDED

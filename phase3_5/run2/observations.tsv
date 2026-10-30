@@ -312,3 +312,26 @@ observed_at_utc	frame_rank	step	requested_url	final_url	http_status	redirect_cha
 2026-10-30T06:02:51Z	63	pin	https://github.com/Isarhamster/chessx/archive/c7d815796e977c1ededef515d6db00bff326bd8d.tar.gz	https://codeload.github.com/Isarhamster/chessx/tar.gz/c7d815796e977c1ededef515d6db00bff326bd8d	302	https://github.com/Isarhamster/chessx/archive/c7d815796e977c1ededef515d6db00bff326bd8d.tar.gz	1	ok	
 2026-10-30T06:02:51Z	63	pin	https://codeload.github.com/Isarhamster/chessx/tar.gz/c7d815796e977c1ededef515d6db00bff326bd8d	https://codeload.github.com/Isarhamster/chessx/tar.gz/c7d815796e977c1ededef515d6db00bff326bd8d	200	https://github.com/Isarhamster/chessx/archive/c7d815796e977c1ededef515d6db00bff326bd8d.tar.gz	2	ok	target/C059/archive.tar.gz
 2026-10-30T06:02:55Z	64	E2REP-3	https://git.sr.ht/~thestr4ng3r/chiaki	https://git.sr.ht/~thestr4ng3r/chiaki	200	NONE	1	ok	target/bodies/064/01.bin
+2026-10-30T06:27:26Z	65	E2REP-1	https://www.chocolate-doom.org/	https://www.chocolate-doom.org/wiki/index.php/Chocolate_Doom	301	https://www.chocolate-doom.org/	1	ok	
+2026-10-30T06:27:28Z	65	E2REP-1	https://www.chocolate-doom.org/wiki/index.php/Chocolate_Doom	https://www.chocolate-doom.org/wiki/index.php/Chocolate_Doom	200	https://www.chocolate-doom.org/	2	ok	target/bodies/065/01.bin
+2026-10-30T06:27:29Z	65	E2REP-2	https://www.chocolate-doom.org/wiki/index.php/Development	https://www.chocolate-doom.org/wiki/index.php/Development	200	NONE	1	ok	target/bodies/065/03.bin
+2026-10-30T06:27:29Z	65	E2REP-2	https://www.chocolate-doom.org/wiki/index.php/Development	https://www.chocolate-doom.org/wiki/index.php/Development	200	NONE	1	ok	target/bodies/065/04.bin
+2026-10-30T06:27:30Z	65	E2REP-3	https://github.com/chocolate-doom/chocolate-doom	https://github.com/chocolate-doom/chocolate-doom	200	NONE	1	ok	target/bodies/065/05.bin
+2026-10-30T06:27:35Z	65	pin	https://github.com/chocolate-doom/chocolate-doom/archive/a2dfd51fcc00d272dc8a17a97ccd6683333ff4ea.tar.gz	https://codeload.github.com/chocolate-doom/chocolate-doom/tar.gz/a2dfd51fcc00d272dc8a17a97ccd6683333ff4ea	302	https://github.com/chocolate-doom/chocolate-doom/archive/a2dfd51fcc00d272dc8a17a97ccd6683333ff4ea.tar.gz	1	ok	
+2026-10-30T06:27:35Z	65	pin	https://codeload.github.com/chocolate-doom/chocolate-doom/tar.gz/a2dfd51fcc00d272dc8a17a97ccd6683333ff4ea	https://codeload.github.com/chocolate-doom/chocolate-doom/tar.gz/a2dfd51fcc00d272dc8a17a97ccd6683333ff4ea	200	https://github.com/chocolate-doom/chocolate-doom/archive/a2dfd51fcc00d272dc8a17a97ccd6683333ff4ea.tar.gz	2	ok	target/C061/archive.tar.gz
+2026-10-30T06:27:37Z	66	E2REP-1	https://choria.gitlab.io/	https://choria.gitlab.io/	200	NONE	1	ok	target/bodies/066/01.bin
+2026-10-30T06:27:38Z	66	E2REP-3	https://gitlab.com/choria/code	https://gitlab.com/choria/code	200	NONE	1	ok	target/bodies/066/02.bin
+2026-10-30T06:27:45Z	66	pin	https://gitlab.com/choria/code/-/archive/94cb88ea5aa3510e41ccac66e4c26c97ce570a53/archive.tar.gz	https://gitlab.com/choria/code/-/archive/94cb88ea5aa3510e41ccac66e4c26c97ce570a53/archive.tar.gz	200	NONE	1	ok	target/C062/archive.tar.gz
+2026-10-30T06:27:47Z	67	UR-classify	http://level7.org.uk/chroma//download/	http://level7.org.uk/chroma//download/	200	NONE	1	ok	target/bodies/067/01.bin
+2026-10-30T06:27:48Z	67	E2REP-1	http://level7.org.uk/chroma/	http://level7.org.uk/chroma/	200	NONE	1	ok	target/bodies/067/02.bin
+2026-10-30T06:27:49Z	67	E2REP-2	http://level7.org.uk/chroma/chroma.asm	http://level7.org.uk/chroma/chroma.asm	200	NONE	1	ok	target/bodies/067/03.bin
+2026-10-30T06:27:50Z	68	UR-classify	http://leva.ecentrum.hu/openbsd/	http://leva.ecentrum.hu/openbsd/		NONE	1	transport	
+2026-10-30T06:27:50Z	68	UR-classify	http://leva.ecentrum.hu/openbsd/	http://leva.ecentrum.hu/openbsd/		NONE	2	transport	
+2026-10-30T06:27:50Z	68	UR-classify	http://leva.ecentrum.hu/openbsd/	http://leva.ecentrum.hu/openbsd/		NONE	3	transport	
+2026-10-30T06:27:50Z	69	E2REP-1	https://chromium-bsu.sourceforge.net/	https://chromium-bsu.sourceforge.io/	301	https://chromium-bsu.sourceforge.net/	1	ok	
+2026-10-30T06:27:51Z	69	E2REP-1	https://chromium-bsu.sourceforge.io/	https://chromium-bsu.sourceforge.io/	200	https://chromium-bsu.sourceforge.net/	2	ok	target/bodies/069/01.bin
+2026-10-30T06:27:51Z	69	E2REP-2	http://sourceforge.net/projects/chromium-bsu/	https://sourceforge.net/projects/chromium-bsu/	301	http://sourceforge.net/projects/chromium-bsu/	1	ok	
+2026-10-30T06:27:51Z	69	E2REP-2	https://sourceforge.net/projects/chromium-bsu/	https://sourceforge.net/projects/chromium-bsu/	200	http://sourceforge.net/projects/chromium-bsu/	2	ok	target/bodies/069/03.bin
+2026-10-30T06:27:52Z	69	E2REP-1	https://downloads.sourceforge.net/sourceforge/chromium-bsu/	https://downloads.sourceforge.net/sourceforge/chromium-bsu/	404	NONE	1	definitive	target/bodies/069/05.bin
+2026-10-30T06:27:52Z	70	UR-classify	https://distfiles.sigtrap.nl/	https://distfiles.sigtrap.nl/	200	NONE	1	ok	target/bodies/070/01.bin
+2026-10-30T06:27:54Z	71	E2REP-3	https://github.com/ClassiCube/ClassiCube	https://github.com/ClassiCube/ClassiCube	200	NONE	1	ok	target/bodies/071/01.bin

@@ -127,3 +127,10 @@
 | 2026-10-30T06:02:44Z | 63 | https://github.com/Isarhamster/chessx | landing page rendered a README (4825 chars of page text); not used | used: no |
 | 2026-10-30T06:02:44Z | 63 | https://chessx.sourceforge.io | step-2 link 'Sourceforge': target is not a repository root (project-page); observed once, not read | used: no |
 | 2026-10-30T06:02:55Z | 64 | https://git.sr.ht/~thestr4ng3r/chiaki | landing page rendered a README (5462 chars of page text); not used | used: no |
+| 2026-10-30T06:27:29Z | 65 | https://www.chocolate-doom.org/wiki/index.php/Development | step-2 link 'Development': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:27:29Z | 65 | https://www.chocolate-doom.org/wiki/index.php/Development | step-2 link 'development': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:27:30Z | 65 | https://github.com/chocolate-doom/chocolate-doom | landing page rendered a README (7801 chars of page text); not used | used: no |
+| 2026-10-30T06:27:38Z | 66 | https://gitlab.com/choria/code | landing page rendered a README (281 chars of page text); not used | used: no |
+| 2026-10-30T06:27:49Z | 67 | http://level7.org.uk/chroma/chroma.asm | step-2 link 'view the source code': target is not a repository root (unclassifiable); observed once, not read | used: no |
+| 2026-10-30T06:27:51Z | 69 | http://sourceforge.net/projects/chromium-bsu/ | step-2 link 'sourceforge project': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:27:54Z | 71 | https://github.com/ClassiCube/ClassiCube | landing page rendered a README (20585 chars of page text); not used | used: no |

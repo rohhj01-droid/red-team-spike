@@ -140,3 +140,15 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 63	https://github.com/Isarhamster/chessx	GH	repository-root	observed	https://github.com/Isarhamster/chessx	repository-root	2026-10-30T06:02:44Z	200	official-source-location	
 64	https://git.sr.ht/~thestr4ng3r/chiaki	HOMEPAGE	repository-root	observed	https://git.sr.ht/~thestr4ng3r/chiaki	repository-root	2026-10-30T06:02:55Z	200	admitted-starting-point	
 64	https://git.sr.ht/~thestr4ng3r/chiaki/refs/download/v2.2.0/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+65	https://www.chocolate-doom.org/	HOMEPAGE		observed	https://www.chocolate-doom.org/wiki/index.php/Chocolate_Doom	project-page	2026-10-30T06:27:26Z	200	official-project-page	
+65	https://github.com/chocolate-doom/chocolate-doom	DIST_TUPLE	repository-root	observed	https://github.com/chocolate-doom/chocolate-doom	repository-root	2026-10-30T06:27:30Z	200	official-source-location	
+66	https://choria.gitlab.io/	HOMEPAGE		observed	https://choria.gitlab.io/	project-page	2026-10-30T06:27:37Z	200	official-project-page	
+66	https://gitlab.com/jazztickets/uploads/-/raw/main/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+67	http://level7.org.uk/chroma/	HOMEPAGE		observed	http://level7.org.uk/chroma/	project-page	2026-10-30T06:27:48Z	200	official-project-page	
+67	http://level7.org.uk/chroma//download/	SITES		observed	http://level7.org.uk/chroma//download/	distfile-location	2026-10-30T06:27:47Z	200	distfile-location	
+68	http://level7.org.uk/chroma/	HOMEPAGE		not-reached						
+68	http://leva.ecentrum.hu/openbsd/	SITES		not-reached						
+69	https://chromium-bsu.sourceforge.net/	HOMEPAGE		observed	https://chromium-bsu.sourceforge.io/	project-page	2026-10-30T06:27:50Z	200	official-project-page	
+69	https://downloads.sourceforge.net/sourceforge/chromium-bsu/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/chromium-bsu/	distfile-location	2026-10-30T06:27:52Z	404	distfile-location	HTTP 404
+70	https://distfiles.sigtrap.nl/	SITES		not-reached						
+71	https://github.com/ClassiCube/ClassiCube	HOMEPAGE+DIST_TUPLE	repository-root	observed	https://github.com/ClassiCube/ClassiCube	repository-root	2026-10-30T06:27:54Z	200	admitted-starting-point	

@@ -1,0 +1,430 @@
+cand_id	file	line	symbol	class	element_type	members	absent	conditional	en1	en2	en3	en4	en5	en6	tag	reject_reason	evidence	decided_by
+C001	opl/ioperm_sys.c	77	dll_functions	K1	struct {char *name; void **fn;}	7	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C002	opl/opl.c	36	drivers	K1	opl_driver_t *	5	0	4	PASS		PASS		PASS	PASS				UNDECIDED
+C003	opl/opl3.c	105	logsinrom	K1	uint16_t	256	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C004	opl/opl3.c	201	exprom	K1	uint16_t	256	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C005	opl/opl3.c	242	mt	K1	uint8_t	16	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C006	opl/opl3.c	250	kslrom	K1	uint8_t	16	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C007	opl/opl3.c	254	kslshift	K1	uint8_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C008	opl/opl3.c	262	eg_incstep	K1	uint8_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C009	opl/opl3.c	273	ad_slot	K1	int8_t	32	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C010	opl/opl3.c	278	ch_slot	K1	uint8_t	18	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C011	opl/wf_rom.h	19	logsin_wf	K1	uint16_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C012	pcsound/pcsound.c	27	drivers	K1	pcsound_driver_t *	5	0	4	PASS		PASS		PASS	PASS				UNDECIDED
+C013	pkg/osx/IWADController.m	38	IWADLabels	K1	NSString *	11	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C014	pkg/osx/IWADController.m	53	IWADFilenames	K1	NSString *	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C015	src/aes_prng.c	108	rco_tab	K1	uint32_t	10	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C016	src/aes_prng.c	110	crypto_ft_tab	K1	uint32_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C017	src/aes_prng.c	374	crypto_fl_tab	K1	uint32_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C018	src/d_iwad.c	34	iwads	K1	iwad_t	15	1	0	PASS		PASS		PASS	PASS				UNDECIDED
+C019	src/d_iwad.c	122	uninstall_values	K1	registry_value_t	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C020	src/d_iwad.c	163	root_path_keys	K1	registry_value_t	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C021	src/d_iwad.c	248	root_path_subdirs	K1	char *	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C022	src/d_iwad.c	272	steam_install_subdirs	K1	char *	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C023	src/d_mode.c	26	valid_modes	K1	struct {GameMission_t mission; GameMode_t mode; int episode; int map;}	13	0	0	PASS	PASS	PASS	PASS	PASS	PASS	enforced		EN2: src/d_mode.c:23 'Valid game mode/mission combinations, with the number of'; EN4: src/d_mode.c:48 'Check that a gamemode+gamemission received over the network is valid.'; EN4: src/net_server.c:706 'if (!D_ValidGameMode(data.gamemission, data.gamemode)'; EN4: src/net_server.c:709 'server: error: invalid connect data'; EN4: src/net_common.c:451 'if (!D_ValidEpisodeMap(mission, mode, settings->episode, settings->map))'	quoted
+C024	src/d_mode.c	119	valid_versions	K1	struct {GameMission_t mission; GameVersion_t version;}	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C025	src/doom/am_map.c	146	player_arrow	K1	mline_t	7	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C026	src/doom/am_map.c	158	cheat_player_arrow	K1	mline_t	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C027	src/doom/am_map.c	179	triangle_guy	K1	mline_t	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C028	src/doom/am_map.c	187	thintriangle_guy	K1	mline_t	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C029	src/doom/d_items.c	37	weaponinfo	K1	weaponinfo_t	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C030	src/doom/d_main.c	316	chat_macro_defaults	K1	char *	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C031	src/doom/d_main.c	642	banners	K1	char *	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C032	src/doom/d_main.c	929	copyright_banners	K1	char *	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C033	src/doom/d_main.c	975	gameversions	K1	struct {const char *description; const char *cmdline; GameVersion_t version;}	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C034	src/doom/deh_bexstr.c	34	bex_stringtable	K1	bex_string_t	290	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C035	src/doom/deh_cheat.c	35	allcheats	K1	deh_cheat_t	17	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C036	src/doom/deh_doom.c	22	deh_signatures	K1	char *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C037	src/doom/deh_doom.c	34	deh_section_types	K1	deh_section_t *	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C038	src/doom/deh_misc.c	133	misc_settings	K1	struct {const char *deh_name; int *value;}	15	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C039	src/doom/doom_icon.c	4	doom_icon_data	K1	unsigned int	16384	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C040	src/doom/dstrings.c	23	doom1_endmsg	K1	char *	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C041	src/doom/dstrings.c	35	doom2_endmsg	K1	char *	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C042	src/doom/dstrings.c	52	endmsg	K1	char *	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C043	src/doom/f_finale.c	69	textscreens	K1	textscreen_t	22	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C044	src/doom/f_finale.c	306	castorder	K1	castinfo_t	18	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C045	src/doom/g_game.c	159	forwardmove	K1	fixed_t	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C046	src/doom/g_game.c	160	sidemove	K1	fixed_t	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C047	src/doom/g_game.c	161	angleturn	K1	fixed_t	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C048	src/doom/g_game.c	163	weapon_keys	K1	int *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C049	src/doom/g_game.c	180	weapon_order_table	K1	struct {weapontype_t weapon; weapontype_t weapon_num;}	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C050	src/doom/g_game.c	1361	pars	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C051	src/doom/g_game.c	1370	cpars	K1	int	32	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C052	src/doom/g_game.c	1379	chexpars	K1	int	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C053	src/doom/hu_stuff.c	69	player_names	K1	char *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C054	src/doom/hu_stuff.c	216	mapnames_commercial	K1	char *	99	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C055	src/doom/info.c	32	sprnames	K1	char *	139	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C056	src/doom/info.c	127	states	K2	state_t	967	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C057	src/doom/info.c	1098	mobjinfo	K1	mobjinfo_t	137	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C058	src/doom/m_menu.c	99	gammamsg	K1	char	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C059	src/doom/m_menu.c	166	skullName	K1	char *	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C060	src/doom/m_menu.c	236	MainMenu	K2	menuitem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C061	src/doom/m_menu.c	270	EpisodeMenu	K2	menuitem_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C062	src/doom/m_menu.c	301	NewGameMenu	K2	menuitem_t	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C063	src/doom/m_menu.c	338	OptionsMenu	K2	menuitem_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C064	src/doom/m_menu.c	369	ReadMenu1	K2	menuitem_t	1	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C065	src/doom/m_menu.c	390	ReadMenu2	K2	menuitem_t	1	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C066	src/doom/m_menu.c	417	SoundMenu	K2	menuitem_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C067	src/doom/m_menu.c	449	LoadMenu	K2	menuitem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C068	src/doom/m_menu.c	472	SaveMenu	K2	menuitem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C069	src/doom/m_menu.c	959	detailNames	K1	char *	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C070	src/doom/m_menu.c	960	msgNames	K1	char *	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C071	src/doom/m_menu.c	1068	quitsounds	K1	int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C072	src/doom/m_menu.c	1080	quitsounds2	K1	int	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C073	src/doom/m_random.c	24	rndtable	K1	unsigned char	256	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C074	src/doom/p_doors.c	41	slideFrameNames	K1	slidename_t	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C075	src/doom/p_enemy.c	63	opposite	K1	dirtype_t	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C076	src/doom/p_enemy.c	69	diags	K1	dirtype_t	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C077	src/doom/p_enemy.c	264	xspeed	K1	fixed_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C078	src/doom/p_enemy.c	265	yspeed	K1	fixed_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C079	src/doom/p_inter.c	50	maxammo	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C080	src/doom/p_inter.c	51	clipammo	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C081	src/doom/p_maputl.c	802	intercepts_overrun	K1	intercepts_overrun_t	23	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C082	src/doom/p_spec.c	94	animdefs	K1	animdef_t	23	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C083	src/doom/p_switch.c	42	alphSwitchList	K1	switchlist_t	40	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C084	src/doom/r_bsp.c	364	checkcoord	K1	int	11	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C085	src/doom/r_draw.c	261	fuzzoffset	K1	int	50	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C086	src/doom/sounds.c	34	S_music	K1	musicinfo_t	68	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C087	src/doom/sounds.c	116	S_sfx	K1	sfxinfo_t	221	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C088	src/doom/st_stuff.c	322	cheat_powerup	K1	cheatseq_t	14	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C089	src/doom/statdump.c	34	doom1_par_times	K1	int	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C090	src/doom/statdump.c	40	doom2_par_times	K1	int	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C091	src/doom/statdump.c	46	player_colors	K1	char *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C092	src/doom/wi_stuff.c	172	lnodes	K1	point_t	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C093	src/doom/wi_stuff.c	227	epsd0animinfo	K1	anim_t	60	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C094	src/doom/wi_stuff.c	241	epsd1animinfo	K1	anim_t	54	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C095	src/doom/wi_stuff.c	254	epsd2animinfo	K1	anim_t	36	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C096	src/doom/wi_stuff.c	264	NUMANIMS	K1	int	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C097	src/doom/wi_stuff.c	271	anims	K1	anim_t *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C098	src/doom/wi_stuff.c	341	yah	K1	patch_t *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C099	src/doom/wi_stuff.c	344	splat	K1	patch_t *	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C100	src/heretic/am_data.h	25	player_arrow	K1	mline_t	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C101	src/heretic/am_data.h	38	keysquare	K1	mline_t	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C102	src/heretic/am_data.h	64	cheat_player_arrow	K1	mline_t	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C103	src/heretic/am_data.h	86	triangle_guy	K1	mline_t	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C104	src/heretic/am_data.h	95	thintriangle_guy	K1	mline_t	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C105	src/heretic/am_map.c	37	LevelNames	K1	char *	48	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C106	src/heretic/am_map.c	143	cheat_amap	K1	char	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C107	src/heretic/am_map.c	147	antialias	K1	byte	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C108	src/heretic/am_map.c	154	aliasmax	K1	byte *	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C109	src/heretic/ct_chat.c	71	CT_FromPlrText	K1	char *	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C110	src/heretic/deh_frame.c	46	action_pointers	K2	hhe_action_pointer_t	126	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C111	src/heretic/deh_htext.c	47	strings	K1	hhe_string_t	480	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C112	src/heretic/deh_htext.c	533	unsupported_strings_1_0	K1	int	337	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C113	src/heretic/deh_htext.c	580	unsupported_strings_1_2	K1	int	306	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C114	src/heretic/deh_htext.c	623	unsupported_strings_1_3	K1	int	306	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C115	src/heretic/deh_htext.c	666	unsupported_strings	K1	int *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C116	src/heretic/deh_htic.c	28	deh_signatures	K1	char *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C117	src/heretic/deh_htic.c	35	hhe_versions	K1	char *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C118	src/heretic/deh_htic.c	49	deh_section_types	K1	deh_section_t *	7	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C119	src/heretic/g_game.c	63	MonsterMissileInfo	K1	struct {int type; // mobjtype_t int speed[2];}	15	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C120	src/heretic/g_game.c	144	forwardmove	K1	fixed_t	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C121	src/heretic/g_game.c	145	sidemove	K1	fixed_t	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C122	src/heretic/g_game.c	146	angleturn	K1	fixed_t	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C123	src/heretic/g_game.c	148	weapon_keys	K1	int *	7	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C124	src/heretic/g_game.c	165	weapon_order_table	K1	struct {weapontype_t weapon; weapontype_t weapon_num;}	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C125	src/heretic/heretic_icon.c	4	heretic_icon_data	K1	unsigned int	16384	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C126	src/heretic/in_lude.c	100	KillersText	K1	char *	7	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C127	src/heretic/in_lude.c	109	YAHspot	K1	yahpt_t	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C128	src/heretic/info.c	19	sprnames	K1	char *	129	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C129	src/heretic/info.c	36	states	K2	state_t	1208	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C130	src/heretic/info.c	1248	mobjinfo	K1	mobjinfo_t	161	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C131	src/heretic/m_random.c	29	rndtable	K1	unsigned int	256	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C132	src/heretic/mn_menu.c	153	MainItems	K2	MenuItem_t	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C133	src/heretic/mn_menu.c	169	EpisodeItems	K2	MenuItem_t	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C134	src/heretic/mn_menu.c	185	FilesItems	K2	MenuItem_t	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C135	src/heretic/mn_menu.c	198	LoadItems	K2	MenuItem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C136	src/heretic/mn_menu.c	215	SaveItems	K2	MenuItem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C137	src/heretic/mn_menu.c	232	SkillItems	K2	MenuItem_t	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C138	src/heretic/mn_menu.c	249	OptionsItems	K2	MenuItem_t	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C139	src/heretic/mn_menu.c	265	Options2Items	K2	MenuItem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C140	src/heretic/mn_menu.c	282	Menus	K2	Menu_t *	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C141	src/heretic/mn_menu.c	462	QuitEndMsg	K1	char *	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C142	src/heretic/p_enemy.c	240	xspeed	K1	fixed_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C143	src/heretic/p_enemy.c	242	yspeed	K1	fixed_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C144	src/heretic/p_enemy.c	334	opposite	K1	dirtype_t	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C145	src/heretic/p_enemy.c	339	diags	K1	dirtype_t	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C146	src/heretic/p_inter.c	31	WeaponValue	K1	int	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C147	src/heretic/p_inter.c	43	maxammo	K1	int	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C148	src/heretic/p_inter.c	52	GetWeaponAmmo	K1	int	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C149	src/heretic/p_inter.c	64	GetAmmoChange	K1	weapontype_t	6	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C150	src/heretic/p_inter.c	74	GetAmmoChangePL1	K1	boolean	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C151	src/heretic/p_inter.c	96	GetAmmoChangePL2	K1	boolean	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C152	src/heretic/p_mobj.c	32	FloatBobOffsets	K1	fixed_t	64	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C153	src/heretic/p_pspr.c	44	WeaponAmmoUsePL1	K1	int	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C154	src/heretic/p_pspr.c	56	WeaponAmmoUsePL2	K1	int	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C155	src/heretic/p_pspr.c	68	wpnlev1info	K1	weaponinfo_t	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C156	src/heretic/p_pspr.c	152	wpnlev2info	K1	weaponinfo_t	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C157	src/heretic/p_spec.c	52	AmbSndSeqInit	K1	int	1	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C158	src/heretic/p_spec.c	55	AmbSndSeq1	K1	int	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C159	src/heretic/p_spec.c	59	AmbSndSeq2	K1	int	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C160	src/heretic/p_spec.c	63	AmbSndSeq3	K1	int	37	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C161	src/heretic/p_spec.c	84	AmbSndSeq4	K1	int	38	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C162	src/heretic/p_spec.c	102	AmbSndSeq5	K1	int	15	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C163	src/heretic/p_spec.c	112	AmbSndSeq6	K1	int	18	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C164	src/heretic/p_spec.c	122	AmbSndSeq7	K1	int	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C165	src/heretic/p_spec.c	126	AmbSndSeq8	K1	int	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C166	src/heretic/p_spec.c	130	AmbSndSeq9	K1	int	28	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C167	src/heretic/p_spec.c	144	AmbSndSeq10	K1	int	38	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C168	src/heretic/p_spec.c	163	AmbientSfx	K1	int *	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C169	src/heretic/p_spec.c	176	animdefs	K1	animdef_t	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C170	src/heretic/p_spec.c	194	TerrainTypeDefs	K1	struct {const char *name; int type;}	6	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C171	src/heretic/p_switch.c	29	alphSwitchList	K1	switchlist_t	2	30	0	PASS		PASS		PASS	PASS				UNDECIDED
+C172	src/heretic/p_user.c	39	WeaponInShareware	K1	boolean	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C173	src/heretic/r_bsp.c	307	checkcoord	K1	int	11	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C174	src/heretic/r_things.c	643	PSpriteSY	K1	int	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C175	src/heretic/sb_bar.c	163	Cheats	K2	Cheat_t	17	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C176	src/heretic/sb_bar.c	507	patcharti	K1	char	11	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C177	src/heretic/sb_bar.c	521	ammopic	K1	char	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C178	src/heretic/sounds.c	29	S_music	K1	musicinfo_t	51	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C179	src/heretic/sounds.c	103	S_sfx	K1	sfxinfo_t	434	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C180	src/hexen/a_action.c	38	orbitTableX	K1	int	256	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C181	src/hexen/a_action.c	73	orbitTableY	K1	int	256	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C182	src/hexen/am_data.h	24	player_arrow	K1	mline_t	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C183	src/hexen/am_data.h	38	keysquare	K1	mline_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C184	src/hexen/am_data.h	66	cheat_player_arrow	K1	mline_t	16	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C185	src/hexen/am_data.h	91	triangle_guy	K1	mline_t	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C186	src/hexen/am_data.h	101	thintriangle_guy	K1	mline_t	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C187	src/hexen/am_map.c	82	cheat_kills	K1	char	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C188	src/hexen/am_map.c	86	antialias	K1	byte	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C189	src/hexen/am_map.c	93	aliasmax	K1	byte *	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C190	src/hexen/am_map.c	1421	PlayerColorText	K1	char *	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C191	src/hexen/ct_chat.c	76	CT_FromPlrText	K1	char *	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C192	src/hexen/g_game.c	118	MaxPlayerMove	K1	fixed_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C193	src/hexen/g_game.c	119	forwardmove	K1	fixed_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C194	src/hexen/g_game.c	126	sidemove	K1	fixed_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C195	src/hexen/g_game.c	133	angleturn	K1	fixed_t	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C196	src/hexen/g_game.c	135	weapon_keys	K1	int *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C197	src/hexen/h2_main.c	126	chat_macro_defaults	K1	char *	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C198	src/hexen/h2_main.c	356	gameversions	K1	struct {const char *description; const char *cmdline; GameVersion_t version;}	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C199	src/hexen/hexen_icon.c	4	hexen_icon_data	K1	unsigned int	16384	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C200	src/hexen/in_lude.c	157	ClusMsgLumpNames	K1	char *	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C201	src/hexen/info.c	22	sprnames	K1	char *	301	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C202	src/hexen/info.c	57	states	K2	state_t	2846	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C203	src/hexen/info.c	2907	mobjinfo	K1	mobjinfo_t	398	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C204	src/hexen/m_random.c	24	rndtable	K1	unsigned char	256	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C205	src/hexen/mn_menu.c	162	MainItems	K2	MenuItem_t	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C206	src/hexen/mn_menu.c	178	ClassItems	K2	MenuItem_t	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C207	src/hexen/mn_menu.c	192	FilesItems	K2	MenuItem_t	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C208	src/hexen/mn_menu.c	205	LoadItems	K2	MenuItem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C209	src/hexen/mn_menu.c	222	SaveItems	K2	MenuItem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C210	src/hexen/mn_menu.c	239	SkillItems	K2	MenuItem_t	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C211	src/hexen/mn_menu.c	255	OptionsItems	K2	MenuItem_t	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C212	src/hexen/mn_menu.c	271	Options2Items	K2	MenuItem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C213	src/hexen/mn_menu.c	288	Menus	K2	Menu_t *	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C214	src/hexen/mn_menu.c	299	GammaText	K1	char *	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C215	src/hexen/mn_menu.c	499	QuitEndMsg	K1	char *	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C216	src/hexen/p_acs.c	196	PCodeCmds	K2	static int (*)()	102	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C217	src/hexen/p_enemy.c	226	xspeed	K1	fixed_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C218	src/hexen/p_enemy.c	228	yspeed	K1	fixed_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C219	src/hexen/p_enemy.c	328	opposite	K1	dirtype_t	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C220	src/hexen/p_enemy.c	333	diags	K1	dirtype_t	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C221	src/hexen/p_inter.c	27	ArmorIncrement	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C222	src/hexen/p_inter.c	34	AutoArmorSave	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C223	src/hexen/p_inter.c	37	TextKeyMessages	K1	char *	11	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C224	src/hexen/p_lights.c	244	PhaseTable	K1	int	64	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C225	src/hexen/p_mobj.c	54	FloatBobOffsets	K1	fixed_t	64	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C226	src/hexen/p_pspr.c	48	WeaponInfo	K1	weaponinfo_t	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C227	src/hexen/p_pspr.c	204	WeaponManaUse	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C228	src/hexen/p_setup.c	118	MapCmdNames	K1	char *	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C229	src/hexen/p_setup.c	136	MapCmdIDs	K1	int	15	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C230	src/hexen/p_spec.c	45	TerrainTypeDefs	K1	struct {const char *name; int type;}	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C231	src/hexen/p_switch.c	28	alphSwitchListDemo	K1	switchlist_t	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C232	src/hexen/p_switch.c	35	alphSwitchListFull	K1	switchlist_t	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C233	src/hexen/p_things.c	41	TranslateThingType	K1	mobjtype_t	109	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a table whose symbol names a mapping or translation (lookup, rename, alias, convert): a mapping, not an accepted-input set		catalogue:mapping-vocabulary
+C234	src/hexen/p_user.c	35	PStateNormal	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C235	src/hexen/p_user.c	42	PStateRun	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C236	src/hexen/p_user.c	49	PStateAttack	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C237	src/hexen/p_user.c	56	PStateAttackEnd	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C238	src/hexen/p_user.c	63	ArmorMax	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C239	src/hexen/r_bsp.c	307	checkcoord	K1	int	11	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C240	src/hexen/r_things.c	661	PSpriteSY	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C241	src/hexen/sb_bar.c	214	Cheats	K2	Cheat_t	27	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C242	src/hexen/sb_bar.c	693	patcharti	K1	char	33	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C243	src/hexen/sb_bar.c	1331	PieceX	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C244	src/hexen/sn_sonix.c	76	SequenceTranslate	K1	struct {char name[SS_SEQUENCE_NAME_LENGTH]; int scriptNum; int stopSound;}	21	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a table whose symbol names a mapping or translation (lookup, rename, alias, convert): a mapping, not an accepted-input set		catalogue:mapping-vocabulary
+C245	src/hexen/sounds.c	24	S_music	K1	musicinfo_t	31	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C246	src/hexen/sounds.c	65	S_sfx	K1	sfxinfo_t	980	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C247	src/hexen/st_start.c	55	notchTable	K1	byte	184	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C248	src/hexen/st_start.c	83	netnotchTable	K1	byte	64	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C249	src/hexen/sv_save.c	2760	ThinkerInfo	K2	thinkInfo_t	13	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C250	src/i_flmusic.c	310	music_fl_devices	K1	snddevice_t	1	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C251	src/i_input.c	36	shiftxform	K1	char	128	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C252	src/i_joystick.c	92	joystick_physical_buttons	K1	int	17	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C253	src/i_musicpack.c	146	known_filenames	K1	subst_music_t	184	1	0	PASS		PASS		PASS	PASS				UNDECIDED
+C254	src/i_oplmusic.c	160	voice_operators	K1	int	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C255	src/i_oplmusic.c	167	frequency_curve	K1	unsigned short	668	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C256	src/i_oplmusic.c	285	volume_mapping_table	K1	unsigned int	128	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C257	src/i_oplmusic.c	1782	music_opl_devices	K1	snddevice_t	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C258	src/i_pcsound.c	44	divisors	K1	uint16_t	128	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C259	src/i_pcsound.c	320	sound_pcsound_devices	K1	snddevice_t	1	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C260	src/i_sdlmusic.c	445	music_sdl_devices	K1	snddevice_t	6	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C261	src/i_sdlsound.c	1120	sound_sdl_devices	K1	snddevice_t	6	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C262	src/i_sound.c	86	sound_modules	K2	sound_module_t *	3	0	1	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C263	src/i_sound.c	97	music_modules	K2	music_module_t *	5	0	3	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C264	src/i_system.c	385	mem_dump_dos622	K1	unsigned char	10	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C265	src/i_system.c	387	mem_dump_win98	K1	unsigned char	10	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C266	src/i_system.c	389	mem_dump_dosbox	K1	unsigned char	10	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C267	src/i_winmusic.c	57	gm_system_on	K1	byte	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C268	src/i_winmusic.c	61	gs_reset	K1	byte	11	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C269	src/i_winmusic.c	65	xg_system_on	K1	byte	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C270	src/i_winmusic.c	69	ff_loopStart	K1	byte	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C271	src/i_winmusic.c	70	ff_loopEnd	K1	byte	7	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C272	src/i_winmusic.c	1894	music_win_devices	K1	snddevice_t	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C273	src/m_config.c	121	doom_defaults_list	K1	default_t	77	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C274	src/m_config.c	701	extra_defaults_list	K1	default_t	196	0	18	PASS		PASS		PASS	PASS				UNDECIDED
+C275	src/m_config.c	2105	scantokey	K1	int	128	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C276	src/midifallback.c	24	drums_table	K1	byte	128	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C277	src/mus2mid.c	68	midiheader	K1	byte	22	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C278	src/mus2mid.c	80	channelvelocities	K1	byte	16	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C279	src/mus2mid.c	94	controller_map	K1	byte	15	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C280	src/net_dedicated.c	39	not_dedicated_options	K1	char *	27	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C281	src/net_petname.c	23	adjectives	K1	char *	41	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C282	src/net_petname.c	67	nouns	K1	char *	25	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C283	src/net_structrw.c	29	protocol_names	K1	struct {net_protocol_t protocol; const char *name;}	1	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C284	src/setup/display.c	40	window_sizes_unscaled	K1	window_size_t	6	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C285	src/setup/display.c	51	window_sizes_scaled	K1	window_size_t	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C286	src/setup/joystick.c	102	joystick_physical_buttons	K1	int	17	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C287	src/setup/joystick.c	146	empty_defaults	K1	joystick_config_t	43	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C288	src/setup/joystick.c	193	ps3_controller	K1	joystick_config_t	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C289	src/setup/joystick.c	210	ps4_ds4_controller	K1	joystick_config_t	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C290	src/setup/joystick.c	225	airflo_controller	K1	joystick_config_t	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C291	src/setup/joystick.c	246	wii_controller_wjoy	K1	joystick_config_t	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C292	src/setup/joystick.c	260	xbox360_controller	K1	joystick_config_t	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C293	src/setup/joystick.c	276	xbox360_controller_linux	K1	joystick_config_t	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C294	src/setup/joystick.c	296	logitech_f310_controller	K1	joystick_config_t	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C295	src/setup/joystick.c	313	multilaser_js030_controller	K1	joystick_config_t	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C296	src/setup/joystick.c	330	buffalo_classic_controller	K1	joystick_config_t	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C297	src/setup/joystick.c	347	pc_gameport_controller	K1	joystick_config_t	7	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C298	src/setup/joystick.c	363	nes30_pro_controller	K1	joystick_config_t	13	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C299	src/setup/joystick.c	382	sfc30_controller	K1	joystick_config_t	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C300	src/setup/joystick.c	397	known_joysticks	K1	known_joystick_t	30	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C301	src/setup/joystick.c	632	modern_gamepad	K1	joystick_config_t	19	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C302	src/setup/joystick.c	656	classic_gamepad	K1	joystick_config_t	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C303	src/setup/joystick.c	672	classic_gamepad_plus	K1	joystick_config_t	12	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C304	src/setup/keyboard.c	36	controls	K1	int *	59	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C305	src/setup/keyboard.c	58	menu_nav	K1	int *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C306	src/setup/keyboard.c	62	shortcuts	K1	int *	22	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C307	src/setup/keyboard.c	72	map_keys	K1	int *	13	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C308	src/setup/mainmenu.c	43	cheat_sequence	K1	int	12	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C309	src/setup/mode.c	60	mission_configs	K1	mission_config_t	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C310	src/setup/mouse.c	39	all_mouse_buttons	K1	int *	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C311	src/setup/multiplayer.c	54	fallback_iwads	K1	iwad_t	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C312	src/setup/multiplayer.c	74	wad_extensions	K1	char *	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C313	src/setup/multiplayer.c	76	doom_skills	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C314	src/setup/multiplayer.c	82	chex_skills	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C315	src/setup/multiplayer.c	88	heretic_skills	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C316	src/setup/multiplayer.c	94	hexen_fighter_skills	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C317	src/setup/multiplayer.c	99	hexen_cleric_skills	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C318	src/setup/multiplayer.c	104	hexen_mage_skills	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C319	src/setup/multiplayer.c	109	strife_skills	K1	char *	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C320	src/setup/multiplayer.c	114	character_classes	K1	char *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C321	src/setup/multiplayer.c	116	gamemodes	K1	char *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C322	src/setup/multiplayer.c	118	strife_gamemodes	K1	char *	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C323	src/setup/setup_icon.c	4	setup_icon_data	K1	unsigned int	16384	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C324	src/setup/sound.c	50	opltype_strings	K1	char *	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C325	src/setup/sound.c	56	cfg_extension	K1	char *	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C326	src/setup/sound.c	59	sf_extension	K1	char *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C327	src/setup/txt_joybinput.c	48	all_joystick_buttons	K1	int *	17	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C328	src/setup/txt_joybinput.c	71	gamepad_buttons	K1	int	23	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C329	src/setup/txt_joybinput.c	100	xbox360_buttons	K1	char *	23	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C330	src/setup/txt_joybinput.c	127	xboxone_buttons	K1	char *	23	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C331	src/setup/txt_joybinput.c	154	ps3_buttons	K1	char *	23	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C332	src/setup/txt_joybinput.c	181	ps4_buttons	K1	char *	23	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C333	src/setup/txt_joybinput.c	208	ps5_buttons	K1	char *	23	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C334	src/setup/txt_joybinput.c	235	switchpro_buttons	K1	char *	23	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C335	src/strife/am_map.c	122	player_arrow	K1	mline_t	7	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C336	src/strife/am_map.c	134	cheat_player_arrow	K1	mline_t	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C337	src/strife/am_map.c	155	triangle_guy	K1	mline_t	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C338	src/strife/am_map.c	163	thintriangle_guy	K1	mline_t	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C339	src/strife/d_items.c	39	weaponinfo	K1	weaponinfo_t	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C340	src/strife/d_main.c	390	chat_macro_defaults	K1	char *	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C341	src/strife/d_main.c	768	banners	K1	char *	1	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C342	src/strife/d_main.c	968	copyright_banners	K1	char *	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C343	src/strife/d_main.c	1012	gameversions	K1	struct {const char *description; const char *cmdline; GameVersion_t version;}	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C344	src/strife/deh_cheat.c	35	allcheats	K1	deh_cheat_t	17	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C345	src/strife/deh_misc.c	133	misc_settings	K1	struct {const char *deh_name; int *value;}	15	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C346	src/strife/deh_strife.c	22	deh_signatures	K1	char *	3	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C347	src/strife/deh_strife.c	34	deh_section_types	K1	deh_section_t *	10	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C348	src/strife/dstrings.c	23	doom1_endmsg	K1	char *	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C349	src/strife/dstrings.c	35	doom2_endmsg	K1	char *	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a string table whose symbol names presentation (labels, messages, text, menus, help): display, not acceptance		catalogue:presentation-vocabulary
+C350	src/strife/dstrings.c	52	endmsg	K1	char *	9	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C351	src/strife/f_finale.c	80	textscreens	K1	textscreen_t	22	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C352	src/strife/f_finale.c	608	castorder	K1	castinfo_t	18	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C353	src/strife/g_game.c	155	forwardmove	K1	fixed_t	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C354	src/strife/g_game.c	156	sidemove	K1	fixed_t	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C355	src/strife/g_game.c	157	angleturn	K1	fixed_t	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C356	src/strife/g_game.c	162	weapon_keys	K1	int *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C357	src/strife/g_game.c	180	weapon_order_table	K1	struct {weapontype_t weapon; weapontype_t weapon_num;}	11	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C358	src/strife/hu_stuff.c	65	player_names	K1	char	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C359	src/strife/hu_stuff.c	109	mapnames	K1	char *	34	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C360	src/strife/info.c	33	sprnames	K1	char *	264	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C361	src/strife/info.c	190	states	K2	state_t	1518	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C362	src/strife/info.c	1715	mobjinfo	K1	mobjinfo_t	344	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C363	src/strife/m_menu.c	104	gammamsg	K1	char	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C364	src/strife/m_menu.c	144	cursorName	K1	char *	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C365	src/strife/m_menu.c	226	MainMenu	K2	menuitem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C366	src/strife/m_menu.c	261	EpisodeMenu	K2	menuitem_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C367	src/strife/m_menu.c	293	NewGameMenu	K2	menuitem_t	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C368	src/strife/m_menu.c	326	OptionsMenu	K2	menuitem_t	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C369	src/strife/m_menu.c	354	ReadMenu1	K2	menuitem_t	1	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C370	src/strife/m_menu.c	375	ReadMenu2	K2	menuitem_t	1	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C371	src/strife/m_menu.c	397	ReadMenu3	K2	menuitem_t	1	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C372	src/strife/m_menu.c	432	SoundMenu	K2	menuitem_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C373	src/strife/m_menu.c	468	LoadMenu	K2	menuitem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C374	src/strife/m_menu.c	491	SaveMenu	K2	menuitem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C375	src/strife/m_menu.c	1121	detailNames	K1	char	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C376	src/strife/m_menu.c	1122	msgNames	K1	char	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C377	src/strife/m_random.c	29	rndtable	K1	unsigned char	256	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C378	src/strife/p_dialog.c	114	healthamounts	K1	int	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C379	src/strife/p_dialog.c	132	dialogstatesets	K1	dialogstateset_t	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C380	src/strife/p_dialog.c	164	rndMessages	K1	rndmessage_t	5	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C381	src/strife/p_dialog.c	353	dialogmenuitems	K2	menuitem_t	6	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C382	src/strife/p_doors.c	925	slideFrameNames	K1	slidename_t	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C383	src/strife/p_doors.c	1018	slideOpenSounds	K1	sfxenum_t	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C384	src/strife/p_doors.c	1029	slideCloseSounds	K1	sfxenum_t	8	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C385	src/strife/p_enemy.c	76	opposite	K1	dirtype_t	9	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C386	src/strife/p_enemy.c	82	diags	K1	dirtype_t	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C387	src/strife/p_enemy.c	383	xspeed	K1	fixed_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C388	src/strife/p_enemy.c	384	yspeed	K1	fixed_t	8	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C389	src/strife/p_inter.c	51	maxammo	K1	int	7	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C390	src/strife/p_inter.c	52	clipammo	K1	int	7	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C391	src/strife/p_maputl.c	805	intercepts_overrun	K1	intercepts_overrun_t	23	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C392	src/strife/p_spec.c	99	animdefs	K1	animdef_t	34	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C393	src/strife/p_spec.c	204	terraintypes	K1	terraintype_t	13	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C394	src/strife/p_switch.c	49	alphSwitchList	K1	switchlist_t	69	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C395	src/strife/r_bsp.c	364	checkcoord	K1	int	11	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C396	src/strife/sounds.c	35	S_music	K1	musicinfo_t	35	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C397	src/strife/sounds.c	87	S_sfx	K1	sfxinfo_t	272	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C398	src/strife/st_stuff.c	114	st_yforammo	K1	int	7	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C399	src/strife/st_stuff.c	115	st_wforammo	K1	int	7	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C400	src/strife/st_stuff.c	201	invammonames	K1	char *	7	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C401	src/strife/strife_icon.c	4	strife_icon_data	K1	unsigned int	16384	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C402	src/strife/wi_stuff.c	172	lnodes	K1	point_t	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C403	src/strife/wi_stuff.c	227	epsd0animinfo	K1	anim_t	60	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C404	src/strife/wi_stuff.c	241	epsd1animinfo	K1	anim_t	54	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C405	src/strife/wi_stuff.c	254	epsd2animinfo	K1	anim_t	36	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C406	src/strife/wi_stuff.c	264	NUMANIMS	K1	int	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C407	src/strife/wi_stuff.c	271	anims	K1	anim_t *	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C408	src/strife/wi_stuff.c	341	yah	K1	patch_t *	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C409	src/strife/wi_stuff.c	344	splat	K1	patch_t *	2	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: the initializer lies in dead code (#if 0 or a block comment): not a set the program consults		catalogue:dead-code
+C410	src/tables.c	64	finetangent	K1	fixed_t	4096	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C411	src/tables.c	581	finesine	K1	fixed_t	10240	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C412	src/tables.c	1867	tantoangle	K1	angle_t	2049	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C413	src/tables.c	2129	gammatable	K1	byte	5	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C414	src/w_file.c	29	wad_file_classes	K2	wad_file_class_t *	3	0	2	PASS	FAIL	PASS		PASS	PASS		EN2: a dispatch table (function pointers): a mapping from a key to code, not a set of accepted values		catalogue:dispatch-table
+C415	src/w_main.c	231	unique_lumps	K1	struct {GameMission_t mission; const char *lumpname;}	4	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C416	textscreen/examples/guitest.c	35	extensions	K1	char *	7	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a file under a test / fixture / example / documentation directory: test or example data, not an accepted-input set		catalogue:test-fixture
+C417	textscreen/examples/guitest.c	37	radio_values	K1	char *	3	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a file under a test / fixture / example / documentation directory: test or example data, not an accepted-input set		catalogue:test-fixture
+C418	textscreen/fonts/large.h	5	large_font_data	K1	uint8_t	16384	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: generated code: the set is a build product, identified as such by its file		catalogue:generated-code
+C419	textscreen/fonts/normal.h	5	normal_font_data	K1	uint8_t	4096	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: generated code: the set is a build product, identified as such by its file		catalogue:generated-code
+C420	textscreen/fonts/small.h	5	small_font_data	K1	uint8_t	1024	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: generated code: the set is a build product, identified as such by its file		catalogue:generated-code
+C421	textscreen/txt_fileselect.c	42	TXT_DIRECTORY	K1	char *	2	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+C422	textscreen/txt_gui.c	39	borders	K1	int	4	0	0	PASS	FAIL	PASS		PASS	PASS		EN2: a numeric table (plain arithmetic element type): data, not an accepted-input set		catalogue:numeric-data
+C423	textscreen/txt_sdl.c	88	ega_colors	K1	SDL_Color	16	0	0	PASS		PASS		PASS	PASS				UNDECIDED
+D001	.github/CONTRIBUTING.md	64	doc:.github/CONTRIBUTING.md:64	K4													Please check the following guidelines before opening a pull request: * All code must be licensed under [the GNU General Public License, version 2](https://www.	UNDECIDED
+D002	CMakeLists.txt	17	doc:CMakeLists.txt:17	K4													org") string(REGEX REPLACE " Doom$" "" PACKAGE_SHORTNAME "${PACKAGE_NAME}") set(PACKAGE_COPYRIGHT "Copyright (C) 1993-2025") set(PACKAGE_LICENSE "GNU General Public License, version 2") # Any settings that should apply to all targets in this directory and all # subdirectories should go here.	UNDECIDED
+D003	CODE_OF_CONDUCT.md	58	doc:CODE_OF_CONDUCT.md:58	K4													All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances.	UNDECIDED
+D004	COPYING.md	103	doc:COPYING.md:103	K4													**b)** You must cause any work that you distribute or publish, that in whole or in part contains or is derived from the Program or any part thereof, to be licensed as a whole at no charge to all third parties under the terms of this License.	UNDECIDED
+D005	COPYING.md	347	doc:COPYING.md:347	K4													, hereby disclaims all copyright interest in the program `Gnomovision' (which makes passes at compilers) written by James Hacker.	UNDECIDED
+D006	HACKING.md	223	doc:HACKING.md:223	K4													C library function | Wrapper -------------------|------------------- `fopen()` | `M_fopen()` `remove()` | `M_remove()` `rename()` | `M_rename()` `stat()` | `M_stat()` `mkdir()` | `M_MakeDirectory()` `getenv()` | `M_getenv()` ## GNU GPL and licensing All code submitted to the project must be licensed under the GNU GPLv2 or a compatible license.	UNDECIDED
