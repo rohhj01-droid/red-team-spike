@@ -1,0 +1,14 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+43	C039	E2-RULE	absence-survey	README.md	README.md:11	The "Dedicaded Server" runs with a Gamespeed of 100%, which means 75 FPS	
+43	C039	E2-RULE	absence-survey	test/	test/	RulesTest.cpp	
+44	C040	E2-RULE	validity	doc/manual.html	doc/manual.html:258	You must complete the mission within a set time	
+44	C040	E3	stateful	doc/manual.html	doc/manual.html:258	You must complete the mission within a set time	
+44	C040	E4	absence-survey	doc/hacking:85	doc/hacking:85	+++ The FileData Object	
+44	C040	E4	absence-survey	doc/hacking:103	doc/hacking:103	All the data in the PAK file is compressed using	
+44	C040	E4	absence-survey	doc/hacking:360	doc/hacking:360	Three reasons - 1) It takes up less room on disc	
+44	C040	E4	absence-survey	doc/hacking:415	doc/hacking:415	I hope you've all enjoyed playing the game	
+44	C040	E4	absence-survey	doc/license:98	doc/license:98	b) You must cause any work that you distribute or publish, that in	
+44	C040	E4	absence-survey	doc/license:329	doc/license:329	hereby disclaims all copyright interest in the program	
+44	C040	E4	absence-survey	doc/manual.html:229	doc/manual.html:229	(This is just a training level. It does not count toward the game)	
+44	C040	E4	absence-survey	doc/readme:3	doc/readme:3	Version 2.00	
+47	C043	E2-RULE	absence-survey	README.adoc	README.adoc:10	hack bluemoon.6, enhance the asciidoc master instead.	

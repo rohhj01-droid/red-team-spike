@@ -1,0 +1,30 @@
+# Pin record -- Run 2, candidate C040
+
+Candidate id: C040. Pinned under C039 in batch 6's first preview, before RQA-31 gave rank 42 a candidate id; renumbered to C040 (RQA-32). The observation time and hash below are unchanged.
+
+Pinned at OBSERVATION TIME, the moment E2-REP passed (contract Section 10; a declared
+deviation from the sealed instant, QA-28 / XQA-01). Every later step for this candidate
+is defined against the hash below.
+
+```text
+observed_at_utc  2026-10-30T04:32:41Z
+location         https://git.code.sf.net/p/blobwars/code
+default branch   master
+tip hash         69c55522ddaa5712a9837a9bc67c4bc71045bac5
+tracked files    971
+```
+
+## Ten digests (the ten largest source files; ties by path)
+
+| file | bytes | sha256 |
+|---|---|---|
+| src/CGraphics.cpp | 24927 | d5853a890409450acb45e23a88029d55ae66d22956a5610facc1baf49387d098 |
+| src/CEngine.cpp | 22360 | dd73d9a6fc858235c6877eeea575698a8e7d35217d39b52bbec70eb2d7541d7a |
+| src/hub.cpp | 22252 | 138582b20a2830b3a84fee76dc5b5902b85f926e67b58313091a3377fc979f22 |
+| src/game.cpp | 21144 | 94a32b0f1fd6b5d5e7b4a2fe110b2b5cd703b222ce1f34f126213c49523f19ae |
+| src/enemies.cpp | 19264 | 76f32796dbf130863ddd94a02e3a98ec396ba166d0389b16e0a44632ce93b035 |
+| src/finalBattle.cpp | 17997 | 0ab1acbfff92bb578fc845f1220e9ee48e523e96498e9d4b6cff272229869623 |
+| src/mapData.cpp | 15687 | f56bfa45cafce8afa340e7b0d1a28a2ff72531d13383aee88d52c75c7254ddab |
+| src/map.cpp | 15345 | 17ae3071113b9ce6e26edc6fafa1ae0684e45958311fbbeb1e5d4293f18703fc |
+| src/title.cpp | 15263 | ffb063b09516903f175f6ba158b998809f02ccb854ad90d8632fb263f204bc21 |
+| src/mapEditor.cpp | 14154 | 0fb20cd576de4cadba9cac10de14b1fb76acf2b5172174af85e564da8b14b7a0 |

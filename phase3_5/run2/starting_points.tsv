@@ -86,3 +86,20 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 39	http://perso.b2b2c.ca/~sarrazip/dev/	SITES		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/		2026-10-30T04:16:14Z			PI-TRANSPORT-INDETERMINATE after two retries
 40	http://gnomefiles.org/content/show.php/Belooted?content=131848	HOMEPAGE		unreachable	https://gnomefiles.org/content/show.php/Belooted?content=131848		2026-10-30T04:16:15Z	526		PI-TRANSPORT-INDETERMINATE after two retries
 40	http://boby.joe.free.fr/dev/belooted/files/	SITES		observed	http://boby.joe.free.fr/dev/belooted/files/	distfile-location	2026-10-30T04:16:14Z	403	distfile-location	HTTP 403
+41	https://kiwisauce.com/beret/	HOMEPAGE		unreachable	https://kiwisauce.com/beret/		2026-10-30T04:28:49Z			PI-TRANSPORT-INDETERMINATE after two retries
+41	https://mirrors.nycbug.org/pub/distfiles/	SITES		observed	https://mirrors.nycbug.org/pub/distfiles/	distfile-location	2026-10-30T04:28:47Z	200	distfile-location	
+42	https://pangeasoft.net/billy	HOMEPAGE		observed	https://pangeasoft.net/billy/	project-page	2026-10-30T04:36:13Z	200	official-project-page	
+42	https://github.com/jorio/BillyFrontier	DIST_TUPLE	repository-root	observed	https://github.com/jorio/BillyFrontier	repository-root	2026-10-30T04:36:15Z	200	admitted-starting-point	
+42	https://github.com/jorio/Pomme	DIST_TUPLE	repository-root	observed	https://github.com/jorio/Pomme	repository-root	2026-10-30T04:36:16Z	200	admitted-starting-point	
+43	https://blobbyvolley.de/	HOMEPAGE		observed	https://blobbyvolley.de/	project-page	2026-10-30T04:28:49Z	200	official-project-page	
+43	https://github.com/danielknobe/blobbyvolley2/archive/refs/tags/v1.1.1/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+43	https://github.com/danielknobe/blobbyvolley2	GH	repository-root	observed	https://github.com/danielknobe/blobbyvolley2	repository-root	2026-10-30T04:28:50Z	200	official-source-location	
+44	https://sourceforge.net/projects/blobwars/	HOMEPAGE		observed	https://sourceforge.net/projects/blobwars/	project-page	2026-10-30T04:28:58Z	200	official-project-page	
+44	https://downloads.sourceforge.net/sourceforge/blobwars/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/blobwars/	distfile-location	2026-10-30T04:32:24Z	404	distfile-location	HTTP 404
+45	https://github.com/yukiisbored/Launcher	HOMEPAGE	repository-root	observed	https://github.com/yukiisbored/Launcher	repository-root	2026-10-30T04:32:41Z	200	admitted-starting-point	
+45	https://github.com/yukiisbored/Launcher/releases/download/0.6.14.1-bgl/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+46	https://blockrage.sourceforge.net/	HOMEPAGE		observed	https://sourceforge.net/projects/blockrage/	project-page	2026-10-30T04:32:42Z	200	official-project-page	
+46	https://downloads.sourceforge.net/sourceforge/blockrage/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/blockrage/	distfile-location	2026-10-30T04:32:50Z	404	distfile-location	HTTP 404
+47	http://www.catb.org/~esr/bluemoon/	HOMEPAGE+SITES		observed	http://www.catb.org/~esr/bluemoon/	project-page	2026-10-30T04:32:50Z	200	official-project-page	
+48	http://www.bomberclone.de/	HOMEPAGE		observed	https://www.linux-abos.com/spiele/bomberclone/	project-page	2026-10-30T04:33:22Z	200	official-project-page	
+48	https://downloads.sourceforge.net/sourceforge/bomberclone/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/bomberclone/	distfile-location	2026-10-30T04:33:24Z	404	distfile-location	HTTP 404

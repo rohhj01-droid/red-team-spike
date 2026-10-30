@@ -1,0 +1,39 @@
+{
+ "archive": {
+  "bytes": 12385,
+  "entries": 11,
+  "request": {
+   "attempts": [
+    [
+     "2026-10-30T04:33:21Z",
+     "ok",
+     "https://gitlab.com/esr/bluemoon/-/archive/91ff5db75d1eccf9731d2373c7617d6dc1ee6656/archive.tar.gz",
+     200
+    ]
+   ],
+   "content_type": "application/octet-stream",
+   "final_url": "https://gitlab.com/esr/bluemoon/-/archive/91ff5db75d1eccf9731d2373c7617d6dc1ee6656/archive.tar.gz",
+   "http_status": 200,
+   "observed_at_utc": "2026-10-30T04:33:21Z",
+   "outcome": "ok",
+   "redirect_chain": [],
+   "requested_url": "https://gitlab.com/esr/bluemoon/-/archive/91ff5db75d1eccf9731d2373c7617d6dc1ee6656/archive.tar.gz"
+  },
+  "sha256": "8b0416357cf65ad8a7d7e11131142b95676c9fbffdd35bf615107137e9f3c6f2",
+  "url": "https://gitlab.com/esr/bluemoon/-/archive/91ff5db75d1eccf9731d2373c7617d6dc1ee6656/archive.tar.gz"
+ },
+ "branch": "master",
+ "candidate_id": "C043",
+ "digests": [
+  [
+   "bluemoon.c",
+   10793,
+   "81d1aacd1ef4a8b58a52d3ebc5461406b47a2351f370bc0278c6551016525289"
+  ]
+ ],
+ "observed_at_utc": "2026-10-30T04:33:21Z",
+ "sha": "91ff5db75d1eccf9731d2373c7617d6dc1ee6656",
+ "tracked_files": 10,
+ "url": "https://gitlab.com/esr/bluemoon",
+ "id_note": "pinned under C042 in batch 6's first preview, before RQA-31 gave rank 42 a candidate id; renumbered to C043 (RQA-32)"
+}
