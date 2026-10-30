@@ -1,0 +1,17 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+49	C045	E2-RULE	absence-survey	README.md	README.md:10	In a real time strategy game (RTS) the player must combat his enemies	
+49	C045	E2-RULE	absence-survey	doc/README-SDL.txt	doc/README-SDL.txt:1	Please distribute this file with the SDL runtime environment:	
+56	C052	E2-RULE	validity	README	README:332	be listed on the public list server must provide an authentication key	
+56	C052	E3	stateful	README	README:332	be listed on the public list server must provide an authentication key	
+56	C052	E4	absence-survey	tools/TextTool2/TextTool2.cpp:30	tools/TextTool2/TextTool2.cpp:30	const char *fontSizes[] =	
+56	C052	E4	absence-survey	AUTHORS:21	AUTHORS:21	For each section, the contributors are	
+56	C052	E4	absence-survey	DEVINFO:70	DEVINFO:70	There are README files in	
+56	C052	E4	absence-survey	DEVINFO:308	DEVINFO:308	https://github.com/BZFlag-Dev/bzflag/wiki/Developer-Agreement	
+56	C052	E4	absence-survey	README:113	README:113	./configure	
+56	C052	E4	absence-survey	README:120	README:120	After configure completes, it will report whether all the requisite	
+56	C052	E4	absence-survey	README:180	README:180	./configure --prefix=YourHomeDirectoryHere	
+56	C052	E4	absence-survey	misc/multilingualSwearList.txt:1482	misc/multilingualSwearList.txt:1482	# ja - This guy (usually how Japanese start fights with each other)	
+56	C052	E4	absence-survey	plugins/autoFlagReset/README.autoFlagReset.txt:7	plugins/autoFlagReset/README.autoFlagReset.txt:7	This can be useful on maps that tend to get all their superflags	
+56	C052	E4	absence-survey	plugins/bzfscron/README.bzfscron.txt:53	plugins/bzfscron/README.bzfscron.txt:53	to welcome your players every 15 minutes	
+56	C052	E4	absence-survey	plugins/chathistory/README.chathistory.txt:1	plugins/chathistory/README.chathistory.txt:1	BZFlag Server Plugin: chathistory	
+56	C052	E4	absence-survey	plugins/wwzones/README.wwzones.txt:55	plugins/wwzones/README.wwzones.txt:55	It is sent as a private message to the player:	

@@ -100,3 +100,17 @@
 | 2026-10-30T04:32:49Z | 46 | https://www.linkedin.com/company/sourceforge.net | step-2 link 'SourceForge on LinkedIn': target is not a repository root (project-page); observed once, not read | used: no |
 | 2026-10-30T04:32:50Z | 46 | https://sourceforge.net/reviews | step-2 link 'SourceForge Reviews': target is not a repository root (project-page); observed once, not read | used: no |
 | 2026-10-30T04:33:16Z | 47 | https://gitlab.com/esr/bluemoon | landing page rendered a README (289 chars of page text); not used | used: no |
+| 2026-10-30T05:51:06Z | 49 | https://www.boswars.org/development.shtml | step-2 link 'Development': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T05:51:07Z | 49 | https://codeberg.org/boswars/boswars | landing page rendered a README (6757 chars of page text); not used | used: no |
+| 2026-10-30T05:51:09Z | 49 | https://savannah.nongnu.org/projects/stratagus-bos/ | step-2 link 'Savannah': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T05:51:09Z | 49 | https://savannah.nongnu.org/projects/stratagus-bos/ | step-2 link 'Savannah Page': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T05:51:46Z | 50 | https://github.com/bderrly/braincurses | landing page rendered a README (4617 chars of page text); not used | used: no |
+| 2026-10-30T05:51:48Z | 51 | https://github.com/tmewett/BrogueCE | landing page rendered a README (6943 chars of page text); not used | used: no |
+| 2026-10-30T05:51:52Z | 53 | https://github.com/jorio/Bugdom | landing page rendered a README (5751 chars of page text); not used | used: no |
+| 2026-10-30T05:51:52Z | 53 | https://github.com/jorio/Pomme | landing page rendered a README (5347 chars of page text); not used | used: no |
+| 2026-10-30T05:51:55Z | 54 | https://github.com/jorio/Bugdom2 | landing page rendered a README (4475 chars of page text); not used | used: no |
+| 2026-10-30T05:51:55Z | 54 | https://github.com/jorio/Pomme | landing page rendered a README (5347 chars of page text); not used | used: no |
+| 2026-10-30T05:51:58Z | 56 | https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.tar.bz2 | step-2 link 'Download for Source (.tar.bz2) .tar.bz2': target is not a repository root (distfile-location); observed once, not read | used: no |
+| 2026-10-30T05:52:04Z | 56 | https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.tar.gz | step-2 link 'Download for Source (.tar.gz) .tar.gz': target is not a repository root (distfile-location); observed once, not read | used: no |
+| 2026-10-30T05:52:21Z | 56 | https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.zip | step-2 link 'Download for Source (.zip) .zip': target is not a repository root (distfile-location); observed once, not read | used: no |
+| 2026-10-30T05:53:21Z | 56 | https://github.com/BZFlag-Dev/bzflag | landing page rendered a README (19631 chars of page text); not used | used: no |

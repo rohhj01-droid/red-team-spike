@@ -251,3 +251,37 @@ observed_at_utc	frame_rank	step	requested_url	final_url	http_status	redirect_cha
 2026-10-30T04:33:22Z	48	E2REP-1	http://www.bomberclone.de/	https://www.linux-abos.com/spiele/bomberclone/	301	http://www.bomberclone.de/	1	ok	
 2026-10-30T04:33:23Z	48	E2REP-1	https://www.linux-abos.com/spiele/bomberclone/	https://www.linux-abos.com/spiele/bomberclone/	200	http://www.bomberclone.de/	2	ok	target/bodies/048/01.bin
 2026-10-30T04:33:24Z	48	E2REP-1	https://downloads.sourceforge.net/sourceforge/bomberclone/	https://downloads.sourceforge.net/sourceforge/bomberclone/	404	NONE	1	definitive	target/bodies/048/03.bin
+2026-10-30T05:51:04Z	49	UR-classify	https://www.boswars.org/dist/releases/	https://www.boswars.org/dist/releases/	403	NONE	1	definitive	target/bodies/049/01.bin
+2026-10-30T05:51:05Z	49	E2REP-1	https://www.boswars.org/	https://www.boswars.org/	200	NONE	1	ok	target/bodies/049/02.bin
+2026-10-30T05:51:06Z	49	E2REP-2	https://www.boswars.org/development.shtml	https://www.boswars.org/development.shtml	200	NONE	1	ok	target/bodies/049/03.bin
+2026-10-30T05:51:07Z	49	E2REP-3	https://codeberg.org/boswars/boswars	https://codeberg.org/boswars/boswars	200	NONE	1	ok	target/bodies/049/04.bin
+2026-10-30T05:51:09Z	49	E2REP-2	https://savannah.nongnu.org/projects/stratagus-bos/	https://savannah.nongnu.org/projects/stratagus-bos/	200	NONE	1	ok	target/bodies/049/05.bin
+2026-10-30T05:51:09Z	49	E2REP-2	https://savannah.nongnu.org/projects/stratagus-bos/	https://savannah.nongnu.org/projects/stratagus-bos/	200	NONE	1	ok	target/bodies/049/06.bin
+2026-10-30T05:51:28Z	49	pin	https://codeberg.org/boswars/boswars/archive/e7f81b955486d94e77fb3806d109560775d984d1.tar.gz	https://codeberg.org/boswars/boswars/archive/e7f81b955486d94e77fb3806d109560775d984d1.tar.gz	200	NONE	1	ok	target/C045/archive.tar.gz
+2026-10-30T05:51:46Z	50	E2REP-3	https://github.com/bderrly/braincurses	https://github.com/bderrly/braincurses	200	NONE	1	ok	target/bodies/050/01.bin
+2026-10-30T05:51:47Z	51	E2REP-1	https://sites.google.com/site/broguegame/	https://sites.google.com/site/broguegame/	200	NONE	1	ok	target/bodies/051/01.bin
+2026-10-30T05:51:48Z	51	E2REP-3	https://github.com/tmewett/BrogueCE	https://github.com/tmewett/BrogueCE	200	NONE	1	ok	target/bodies/051/02.bin
+2026-10-30T05:51:49Z	52	UR-classify	http://dataapa.net/brumbrumrally/files/	http://dataapa.net/brumbrumrally/files/	200	NONE	1	ok	target/bodies/052/01.bin
+2026-10-30T05:51:50Z	52	E2REP-1	http://dataapa.net/brumbrumrally/	http://dataapa.net/brumbrumrally/	200	NONE	1	ok	target/bodies/052/02.bin
+2026-10-30T05:51:50Z	53	E2REP-1	https://pangeasoft.net/bug	https://pangeasoft.net/bug/	301	https://pangeasoft.net/bug	1	ok	
+2026-10-30T05:51:51Z	53	E2REP-1	https://pangeasoft.net/bug/	https://pangeasoft.net/bug/	200	https://pangeasoft.net/bug	2	ok	target/bodies/053/01.bin
+2026-10-30T05:51:52Z	53	E2REP-3	https://github.com/jorio/Bugdom	https://github.com/jorio/Bugdom	200	NONE	1	ok	target/bodies/053/03.bin
+2026-10-30T05:51:52Z	53	E2REP-3	https://github.com/jorio/Pomme	https://github.com/jorio/Pomme	200	NONE	1	ok	target/bodies/053/04.bin
+2026-10-30T05:51:53Z	54	E2REP-1	https://pangeasoft.net/bug2	https://pangeasoft.net/bug2/	301	https://pangeasoft.net/bug2	1	ok	
+2026-10-30T05:51:54Z	54	E2REP-1	https://pangeasoft.net/bug2/	https://pangeasoft.net/bug2/	200	https://pangeasoft.net/bug2	2	ok	target/bodies/054/01.bin
+2026-10-30T05:51:55Z	54	E2REP-3	https://github.com/jorio/Bugdom2	https://github.com/jorio/Bugdom2	200	NONE	1	ok	target/bodies/054/03.bin
+2026-10-30T05:51:55Z	54	E2REP-3	https://github.com/jorio/Pomme	https://github.com/jorio/Pomme	200	NONE	1	ok	target/bodies/054/04.bin
+2026-10-30T05:51:55Z	55	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	1	transport	
+2026-10-30T05:51:56Z	55	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	2	transport	
+2026-10-30T05:51:56Z	55	UR-classify	http://perso.b2b2c.ca/~sarrazip/dev/	http://perso.b2b2c.ca/~sarrazip/dev/		NONE	3	transport	
+2026-10-30T05:51:56Z	55	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html	http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html		NONE	1	transport	
+2026-10-30T05:51:56Z	55	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html	http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html		NONE	2	transport	
+2026-10-30T05:51:56Z	55	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html	http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html		NONE	3	transport	
+2026-10-30T05:51:56Z	56	UR-classify	https://download.bzflag.org/bzflag/source/2.4.22/	https://download.bzflag.org/bzflag/source/2.4.22/	200	NONE	1	ok	target/bodies/056/01.bin
+2026-10-30T05:51:57Z	56	E2REP-1	https://www.bzflag.org/	https://www.bzflag.org/	200	NONE	1	ok	target/bodies/056/02.bin
+2026-10-30T05:51:58Z	56	E2REP-2	https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.tar.bz2	https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.tar.bz2	200	NONE	1	ok	target/bodies/056/03.bin
+2026-10-30T05:52:04Z	56	E2REP-2	https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.tar.gz	https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.tar.gz	200	NONE	1	ok	target/bodies/056/04.bin
+2026-10-30T05:52:21Z	56	E2REP-2	https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.zip	https://download.bzflag.org/bzflag/source/2.4.30/bzflag-2.4.30.zip	200	NONE	1	ok	target/bodies/056/05.bin
+2026-10-30T05:53:21Z	56	E2REP-3	https://github.com/BZFlag-Dev/bzflag	https://github.com/BZFlag-Dev/bzflag	200	NONE	1	ok	target/bodies/056/06.bin
+2026-10-30T05:53:28Z	56	pin	https://github.com/BZFlag-Dev/bzflag/archive/0946efd9e405aa6e708341f6d0a7b8c187f5a4ad.tar.gz	https://codeload.github.com/BZFlag-Dev/bzflag/tar.gz/0946efd9e405aa6e708341f6d0a7b8c187f5a4ad	302	https://github.com/BZFlag-Dev/bzflag/archive/0946efd9e405aa6e708341f6d0a7b8c187f5a4ad.tar.gz	1	ok	
+2026-10-30T05:53:28Z	56	pin	https://codeload.github.com/BZFlag-Dev/bzflag/tar.gz/0946efd9e405aa6e708341f6d0a7b8c187f5a4ad	https://codeload.github.com/BZFlag-Dev/bzflag/tar.gz/0946efd9e405aa6e708341f6d0a7b8c187f5a4ad	200	https://github.com/BZFlag-Dev/bzflag/archive/0946efd9e405aa6e708341f6d0a7b8c187f5a4ad.tar.gz	2	ok	target/C052/archive.tar.gz

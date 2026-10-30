@@ -103,3 +103,22 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 47	http://www.catb.org/~esr/bluemoon/	HOMEPAGE+SITES		observed	http://www.catb.org/~esr/bluemoon/	project-page	2026-10-30T04:32:50Z	200	official-project-page	
 48	http://www.bomberclone.de/	HOMEPAGE		observed	https://www.linux-abos.com/spiele/bomberclone/	project-page	2026-10-30T04:33:22Z	200	official-project-page	
 48	https://downloads.sourceforge.net/sourceforge/bomberclone/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/bomberclone/	distfile-location	2026-10-30T04:33:24Z	404	distfile-location	HTTP 404
+49	https://www.boswars.org/	HOMEPAGE		observed	https://www.boswars.org/	project-page	2026-10-30T05:51:05Z	200	official-project-page	
+49	https://www.boswars.org/dist/releases/	SITES		observed	https://www.boswars.org/dist/releases/	distfile-location	2026-10-30T05:51:04Z	403	distfile-location	HTTP 403
+50	https://github.com/bderrly/braincurses	HOMEPAGE+GH	repository-root	observed	https://github.com/bderrly/braincurses	repository-root	2026-10-30T05:51:46Z	200	admitted-starting-point	
+50	https://github.com/bderrly/braincurses/archive/refs/tags/v1.1.0/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+51	https://sites.google.com/site/broguegame/	HOMEPAGE		observed	https://sites.google.com/site/broguegame/	project-page	2026-10-30T05:51:47Z	200	official-project-page	
+51	https://github.com/tmewett/BrogueCE/archive/refs/tags/v1.15.1/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+51	https://github.com/tmewett/BrogueCE	GH	repository-root	observed	https://github.com/tmewett/BrogueCE	repository-root	2026-10-30T05:51:48Z	200	admitted-starting-point	
+52	http://dataapa.net/brumbrumrally/	HOMEPAGE		observed	http://dataapa.net/brumbrumrally/	project-page	2026-10-30T05:51:50Z	200	official-project-page	
+52	http://dataapa.net/brumbrumrally/files/	SITES		observed	http://dataapa.net/brumbrumrally/files/	distfile-location	2026-10-30T05:51:49Z	200	distfile-location	
+53	https://pangeasoft.net/bug	HOMEPAGE		observed	https://pangeasoft.net/bug/	project-page	2026-10-30T05:51:50Z	200	official-project-page	
+53	https://github.com/jorio/Bugdom	DIST_TUPLE	repository-root	observed	https://github.com/jorio/Bugdom	repository-root	2026-10-30T05:51:52Z	200	admitted-starting-point	
+53	https://github.com/jorio/Pomme	DIST_TUPLE	repository-root	observed	https://github.com/jorio/Pomme	repository-root	2026-10-30T05:51:52Z	200	admitted-starting-point	
+54	https://pangeasoft.net/bug2	HOMEPAGE		observed	https://pangeasoft.net/bug2/	project-page	2026-10-30T05:51:53Z	200	official-project-page	
+54	https://github.com/jorio/Bugdom2	DIST_TUPLE	repository-root	observed	https://github.com/jorio/Bugdom2	repository-root	2026-10-30T05:51:55Z	200	admitted-starting-point	
+54	https://github.com/jorio/Pomme	DIST_TUPLE	repository-root	observed	https://github.com/jorio/Pomme	repository-root	2026-10-30T05:51:55Z	200	admitted-starting-point	
+55	http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html	HOMEPAGE		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html		2026-10-30T05:51:56Z			PI-TRANSPORT-INDETERMINATE after two retries
+55	http://perso.b2b2c.ca/~sarrazip/dev/	SITES		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/		2026-10-30T05:51:55Z			PI-TRANSPORT-INDETERMINATE after two retries
+56	https://www.bzflag.org/	HOMEPAGE		observed	https://www.bzflag.org/	project-page	2026-10-30T05:51:57Z	200	official-project-page	
+56	https://download.bzflag.org/bzflag/source/2.4.22/	SITES		observed	https://download.bzflag.org/bzflag/source/2.4.22/	distfile-location	2026-10-30T05:51:56Z	200	distfile-location	
