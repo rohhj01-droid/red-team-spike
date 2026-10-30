@@ -31,11 +31,11 @@ batch	frame_rank	gate_reached	session_s	review_s	conditions
 4	30	UR	655	95	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
 4	31	E2-REP	655	95	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
 4	32	E2-REP	655	95	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-5	33	E2-REP	682		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-5	34	E2-RULE	682		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-5	35	UR	682		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-5	36	E2-REP	682		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-5	37	E2-REP	682		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-5	38	E2-RULE	682		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-5	39	E2-REP	682		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-5	40	E2-REP	682		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+5	33	E2-REP	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+5	34	E2-RULE	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+5	35	UR	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+5	36	E2-REP	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+5	37	E2-REP	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+5	38	E2-RULE	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+5	39	E2-REP	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+5	40	E2-REP	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
