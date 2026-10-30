@@ -286,6 +286,7 @@ def _e2rep(ctx: dict) -> dict:
     for w in other:                                # RQA-28: the analyst quotes the page saying the labelled repository is another work's source
         _verify_page_quote(ctx, w)
     elsewhere = {surfaces.normalize_url(w["location"]) for w in other}
+    other_note = "".join("; a label link leads to another work's source: %r at %s -> %s" % (w["quote"], w["surface"], w["location"]) for w in other)
     label_designations = [d for d in label_designations if surfaces.normalize_url(d["location"]) not in elsewhere]
     accounting = ["%s -> %s%s" % (sp["url"], sp["action"], (" (%s)" % sp["note"]) if sp["note"] else "") for sp in sps]
     # designations: the analyst's quoted witnesses, and the project page's own labelled pointers (RQA-02 e)
@@ -304,7 +305,7 @@ def _e2rep(ctx: dict) -> dict:
         if not mirror:
             return dict(state="FAIL", failure_code="E2REP-NO-SINGLE-CANONICAL-LOCATION", pi_code="NONE", canonical="", identifier="", snapshot="",
                         block=_block(ctx, "E2-REP", "; ".join(sorted({w["surface"] for w in designations})),
-                                     " | ".join("%r at %s -> %s" % (w["quote"], w["surface"], w["location"]) for w in designations),
+                                     " | ".join("%r at %s -> %s" % (w["quote"], w["surface"], w["location"]) for w in designations) + other_note,
                                      "two designations name different locations and neither marks a mirror (contract Section 7)",
                                      "FAIL", accounting))
     if not targets:
@@ -319,7 +320,7 @@ def _e2rep(ctx: dict) -> dict:
         return dict(state="UNRESOLVED", failure_code="NONE", pi_code=pi, canonical="", identifier="", snapshot="",
                     block=_block(ctx, "E2-REP", "the starting-point set (contract Section 4)",
                                  "no designation witness on any observed surface; observed roots: %s" % (", ".join(observed_roots) or "none")
-                                 + "".join("; a label link leads to another work's source: %r at %s -> %s" % (w["quote"], w["surface"], w["location"]) for w in other),
+                                 + other_note,
                                  "the gate cannot complete: a PASS needs a designation witness and a failure code needs positive evidence (contract Section 7) -> %s" % pi,
                                  "UNRESOLVED", accounting))
     unobserved = [sp for sp in sps if sp["action"] in ("unreachable", "unclassifiable")]
@@ -328,7 +329,7 @@ def _e2rep(ctx: dict) -> dict:
         return dict(state="UNRESOLVED", failure_code="NONE", pi_code=pi, canonical="", identifier="", snapshot="",
                     block=_block(ctx, "E2-REP", "the starting-point set (contract Section 4)",
                                  " | ".join("%s %r at %s -> %s" % ("link label" if w.get("kind") == "label" else "designation", w["quote"], w["surface"], w["location"]) for w in designations)
-                                 + " | not observed: " + ", ".join("%s (%s)" % (sp["url"], sp["action"]) for sp in unobserved),
+                                 + other_note + " | not observed: " + ", ".join("%s (%s)" % (sp["url"], sp["action"]) for sp in unobserved),
                                  "a PASS needs every admitted starting point not closed-by-class observed; an unobserved one leaves \"exactly one\" undecided (contract Section 7; Run 1 QA-41) -> %s" % pi,
                                  "UNRESOLVED", accounting))
     canonical = targets.pop()
@@ -386,7 +387,7 @@ def _e2rep(ctx: dict) -> dict:
         return dict(state="FAIL", failure_code="E2REP-NO-SOURCE", pi_code="NONE", canonical=canonical, identifier=identifier, snapshot=recpin["sha"],
                     block=_block(ctx, "E2-REP", canonical, "the fetched tree at %s holds no files" % recpin["sha"], "no source tree at the designated location (contract Section 7)", "FAIL", accounting))
     observed = " | ".join("%s %r at %s -> %s" % ("link label" if w.get("kind") == "label" else "designation", w["quote"], w["surface"], w["location"]) for w in designations)
-    observed += id_note
+    observed += other_note + id_note                # RQA-54: RQA-28's quote is shown in a PASS block too
     return dict(state="PASS", failure_code="NONE", pi_code="NONE", canonical=canonical, identifier=identifier, snapshot=recpin["sha"],
                 block=_block(ctx, "E2-REP", canonical, observed + " | tree pinned at %s (%s tracked files)" % (recpin["sha"], recpin.get("tracked_files")),
                              "exactly one designated canonical location and one identifier on observed surfaces; the source tree is present (contract Section 7); step-2 links followed by the label rule only (Section 6; a label-authorized link into the repository is the project's own designation, RQA-02)",

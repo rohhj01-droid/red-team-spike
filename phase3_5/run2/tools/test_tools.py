@@ -827,6 +827,21 @@ def test_label_link_to_another_works_source_is_not_a_designation():   # RQA-28
     assert "Jane Roe has ported Gamma" in block, block
 
 
+def test_other_work_quote_is_shown_when_the_gate_passes():   # RQA-54: RQA-28's quote is "shown in the gate's evidence block"
+    m = dict(OTHER_MAP)
+    m["https://gamma.example.org/"] = (200, HTML, b"<html><body><h1>Gamma</h1><p><a href='https://github.com/acme/gamma'>Source code</a></p>"
+                                                  b"<p>Jane Roe has ported Gamma to Windows, and has posted the "
+                                                  b"<a href='https://github.com/jroe/gamma-win'>source code on GitHub</a>.</p></body></html>")
+    w = dict(frame_rank="1", candidate_id="", gate="E2-REP", kind="designation", surface="https://gamma.example.org/",
+             location="https://github.com/jroe/gamma-win", tag="other-work",
+             quote="Jane Roe has ported Gamma to Windows, and has posted the source code on GitHub.")
+    out = screen.screen_item(1, "x11/gamma", FIX + "/ports", witnesses=[w], state=_state("s28"),
+                             fetch=canned_map(m), clock=fixed_clock, git=fake_git_factory())
+    c = out["candidate_row"]
+    assert c["E2_REP"] == "PASS" and c["canonical_source_location"] == "https://github.com/acme/gamma", c
+    block = [b for b in out["evidence_blocks"] if "Gate: E2-REP" in b][0]
+    assert "Jane Roe has ported Gamma" in block, block
+
 def test_tuple_moved_into_a_subdirectory_is_not_a_second_identity():   # RQA-31
     m = metadata.resolve(FIX + "/ports/games/zeta", INFRA)
     assert m["tuple_dirs"] == [".", "extern/zlib"], m
