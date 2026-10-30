@@ -863,6 +863,14 @@ def test_step2_takes_web_links_only():                          # RQA-38: a mail
     assert [l["href"] for l in net.step2_links(net.links(page, "https://beta.example.org/"))] == ["https://github.com/acme/beta"]
 
 
+def test_tree_citation_accepts_any_path_characters():            # RQA-41: a path such as doc/c++/X.md is cited as file:line
+    tree = os.path.join(TMP, "citetree")
+    os.makedirs(os.path.join(tree, "doc", "c++"), exist_ok=True)
+    with open(os.path.join(tree, "doc", "c++", "STYLE.md"), "w", encoding="utf-8") as f:
+        f.write("All of the code is styled.")
+    screen._verify_tree_quote(dict(tree=tree, rank=1), dict(location="doc/c++/STYLE.md:1", quote="All of the code is styled."))
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0

@@ -35,7 +35,7 @@ import inventory  # noqa: E402  (exploratory tool)
 OWN_NAMESPACE = "https://github.com/rohhj01-droid"
 ARCHIVE_FMT = {"github.com": "{url}/archive/{sha}.tar.gz", "gitlab.com": "{url}/-/archive/{sha}/archive.tar.gz",
                "codeberg.org": "{url}/archive/{sha}.tar.gz"}
-CITE_RE = re.compile(r"^([\w./-]+):(\d+)$")
+CITE_RE = re.compile(r"^(.+):(\d+)$")          # any path, then :line (RQA-41)
 
 
 def new_state(root: str) -> dict:
