@@ -887,6 +887,12 @@ def test_sourcecode_written_as_one_word_is_a_label_word():       # RQA-49: "Sour
     assert net.is_word_label(ls[0])
 
 
+def test_ftp_answer_without_http_status_is_an_observation():     # RQA-52: an ftp:// server answers with no HTTP status
+    rec = net.fetch("ftp://ftp.example.org/pub/x/", fetch=lambda u: (None, {"Content-Type": "text/plain"}, b"x-1.0.tar.gz"),
+                    clock=fixed_clock)
+    assert rec["outcome"] == "ok" and rec["http_status"] is None and rec["body"] == b"x-1.0.tar.gz", rec
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0

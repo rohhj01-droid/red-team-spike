@@ -79,14 +79,15 @@ def fetch(url: str, fetch=None, clock=None) -> dict:
                     rec["error"] = "%s: %s" % (type(ex).__name__, ex)
                     return rec
                 continue
-            if status >= 500:
+            ok = status is None or status < 400   # None: a non-HTTP answer, e.g. an ftp:// listing (RQA-52)
+            if status is not None and status >= 500:
                 rec["attempts"].append((t, "transport", current, status))
                 transport_failures += 1
                 if transport_failures > RETRIES:
                     rec["outcome"], rec["final_url"], rec["http_status"] = "transport", current, status
                     return rec
                 continue
-            rec["attempts"].append((t, "ok" if status < 400 else "definitive", current, status))
+            rec["attempts"].append((t, "ok" if ok else "definitive", current, status))
             break
         rec["http_status"], rec["final_url"] = status, current
         rec["content_type"] = _header(headers, "Content-Type").split(";")[0].strip().lower()
@@ -95,7 +96,7 @@ def fetch(url: str, fetch=None, clock=None) -> dict:
             current, hops = urljoin(current, _header(headers, "Location")), hops + 1
             continue
         rec["body"] = body
-        rec["outcome"] = "ok" if status < 400 else "definitive"
+        rec["outcome"] = "ok" if ok else "definitive"
         return rec
 
 
