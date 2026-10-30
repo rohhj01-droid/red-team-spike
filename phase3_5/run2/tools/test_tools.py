@@ -871,6 +871,15 @@ def test_tree_citation_accepts_any_path_characters():            # RQA-41: a pat
     screen._verify_tree_quote(dict(tree=tree, rank=1), dict(location="doc/c++/STYLE.md:1", quote="All of the code is styled."))
 
 
+def test_distfile_mirror_identifies_nothing():                   # RQA-44: contract 3's "bare mirror host such as distfiles.openbsd.org"
+    a = metadata.resolve(FIX + "/ports/games/alpha", INFRA)
+    for u in ("https://distfiles.example.net/", "https://example.org/openbsd/distfiles/"):
+        m = dict(a, homepage=None, sites=[u])
+        assert surfaces.identity_key(m, {u: "project-page"})[0] == "FAIL_NONE", u
+    u = "https://example.org/files/"
+    assert surfaces.identity_key(dict(a, homepage=None, sites=[u]), {u: "distfile-location"}) == ("PASS", "https://example.org/files")
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0

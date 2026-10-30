@@ -162,7 +162,8 @@ def identity_key(meta: dict, classes: dict[str, str]) -> tuple[str, str]:
     for s in meta.get("sites", []):
         klass = classify(s) or classes.get(s)
         host = (urlsplit(s).hostname or "").lower()
-        if klass in IDENTIFYING_CLASSES and host not in NON_IDENTIFYING_HOSTS:
+        mirror = host.startswith("distfiles.") or "/distfiles/" in (urlsplit(s).path or "") + "/"   # distfile mirrors (RQA-44)
+        if klass in IDENTIFYING_CLASSES and host not in NON_IDENTIFYING_HOSTS and not mirror:
             first = (urlsplit(s).path or "/").strip("/").split("/")[0]
             return ("PASS", "https://" + host + ("/" + first if first else ""))
     return ("FAIL_NONE", "")
