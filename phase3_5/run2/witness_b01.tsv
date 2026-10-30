@@ -1,6 +1,16 @@
 frame_rank	candidate_id	gate	kind	surface	location	quote	tag
-4	C003	E2-RULE	validity	docs/reference/tmx-map-format.rst	docs/reference/tmx-map-format.rst:53	Valid values are ``right-down`` (the default), ``right-up``,	
-4	C003	E3	stateful	docs/reference/tmx-map-format.rst	docs/reference/tmx-map-format.rst:80	number is stored to prevent reuse of the same ID after layers have	
+4	C003	E2-RULE	absence-survey	README.md	README.md:45	Before you can compile Tiled, you must ensure the Qt (>= 6.2) development	
+4	C003	E2-RULE	absence-survey	docs/README.md	docs/README.md:1	# Generating the Tiled Documentation	
+4	C003	E2-RULE	absence-survey	docs/index.rst	docs/index.rst:1	Tiled Documentation	
+4	C003	E2-RULE	absence-survey	docs/scripting-doc/README.md	docs/scripting-doc/README.md:1	# tiled-api	
+4	C003	E2-RULE	absence-survey	man/tiled.1	man/tiled.1:19	Displays the help	
+4	C003	E2-RULE	absence-survey	man/tiled.1.ronn	man/tiled.1.ronn:22	Only check validity of arguments	
+4	C003	E2-RULE	absence-survey	man/tmxrasterizer.1	man/tmxrasterizer.1:19	Displays the help	
+4	C003	E2-RULE	absence-survey	man/tmxrasterizer.1.ronn	man/tmxrasterizer.1.ronn:1	tmxrasterizer(1) -- renders a tile map to an image	
+4	C003	E2-RULE	absence-survey	man/tmxviewer.1	man/tmxviewer.1:19	Displays the help	
+4	C003	E2-RULE	absence-survey	man/tmxviewer.1.ronn	man/tmxviewer.1.ronn:1	tmxviewer(1) -- a simple tile map viewer	
+4	C003	E2-RULE	absence-survey	CONTRIBUTING.md	CONTRIBUTING.md:1	# Contributing to Tiled	
+4	C003	E2-RULE	absence-survey	tests/	tests/	automapping	
 6	C005	E2-RULE	validity	dgen.1	dgen.1:106	XFACT must be a positive	
 6	C005	E3	stateful	dgenrc.5	dgenrc.5:214	This currently has no effect when OpenGL is	
 8	C007	E2-RULE	validity	README.debugger	README.debugger:171	`STEPIN` is rejected unless the debugger is already stopped in its loop	
@@ -9,12 +19,6 @@ frame_rank	candidate_id	gate	kind	surface	location	quote	tag
 6	C005	E4	refusal-path	EN:C097	rc.cpp:492	if(!strcasecmp(value, ctv_names[i])) return i;	
 6	C005	E4	refusal-path	EN:C097	rc.cpp:1082	/* If we got a bad value, discard and warn user */	
 6	C005	E4	refusal-path	EN:C097	rc.cpp:1085	"rc: %s:%u:%u: invalid value for key"	
-4	C003	E4	absence-survey	src/libtiled/propertytype.cpp:419	src/libtiled/propertytype.cpp:419	if (useAsArray.contains(entry.name))	
-4	C003	E4	absence-survey	src/libtiled/wangset.cpp:391	src/libtiled/wangset.cpp:391	static const QColor defaultWangColors[] = {	
-4	C003	E4	absence-survey	src/tiled/wangbrush.cpp:513	src/tiled/wangbrush.cpp:513	static constexpr QPoint aroundTilePoints[WangId::NumIndexes] = {	
-4	C003	E4	absence-survey	src/tiled/wangfiller.cpp:34	src/tiled/wangfiller.cpp:34	static constexpr QPoint aroundTilePoints[WangId::NumIndexes] = {	
-4	C003	E4	absence-survey	src/tiled/worldmovemaptool.cpp:57	src/tiled/worldmovemaptool.cpp:57	static constexpr HandleEdges handleEdges[HandleCount] = {	
-4	C003	E4	absence-survey	src/plugins/python/pythonbind.cpp:375	src/plugins/python/pythonbind.cpp:375	static PyMethodDef tiled_qt_functions[] = {	
 8	C007	E4	enumerator	EN:C505	src/hardware/serialport/serialport.cpp:1470	static const char *serialTypes[SERIAL_TYPE_COUNT] = {	enforced
 8	C007	E4	refusal-path	EN:C505	src/hardware/serialport/serialport.cpp:1545	if (!strcasecmp(temp_line.c_str(), serialTypes[x])) {	
 8	C007	E4	refusal-path	EN:C505	src/hardware/serialport/serialport.cpp:1552	WriteOut("Type must be one of the following:\n");	

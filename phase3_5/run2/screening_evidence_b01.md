@@ -9,7 +9,7 @@ metadata, the recorded observations and the witness table `witness_b01.tsv`; the
 | 1 | devel/flatzebra | PASS | C001 | PASS | UNRESOLVED | NOT_REACHED | NOT_REACHED | NOT_REACHED | UNRESOLVED | E2-REP | PI-TRANSPORT-INDETERMINATE |
 | 2 | devel/plib | PASS | C002 | PASS | UNRESOLVED | NOT_REACHED | NOT_REACHED | NOT_REACHED | UNRESOLVED | E2-REP | PI-UNCLASSIFIED-SHAPE |
 | 3 | devel/pygame | UNRESOLVED | NONE | - | - | - | - | - | UNRESOLVED | UR | PI-METADATA-UNRESOLVED |
-| 4 | editors/tiled | PASS | C003 | PASS | PASS | PASS | PASS | UNRESOLVED | UNRESOLVED | E4 | NONE [CORRECTED after review: PI-UNCLASSIFIED-SHAPE, RQA-10] |
+| 4 | editors/tiled | PASS | C003 | PASS | PASS | PASS | PASS | UNRESOLVED | UNRESOLVED | E4 | NONE [CORRECTED after review: PI-UNCLASSIFIED-SHAPE, RQA-10] [CORRECTED after review, RQA-40: E2-RULE UNRESOLVED, E3 and E4 NOT_REACHED, stop gate E2-RULE] |
 | 5 | emulators/advancemame | PASS | C004 | PASS | UNRESOLVED | NOT_REACHED | NOT_REACHED | NOT_REACHED | UNRESOLVED | E2-REP | PI-UNCLASSIFIED-SHAPE |
 | 6 | emulators/dgen-sdl | PASS | C005 | PASS | PASS | PASS | PASS | PASS | ELIGIBLE | NONE | NONE |
 | 7 | emulators/dosbox | PASS | C006 | PASS | UNRESOLVED | NOT_REACHED | NOT_REACHED | NOT_REACHED | UNRESOLVED | E2-REP | PI-UNCLASSIFIED-SHAPE |
@@ -148,7 +148,36 @@ Inference: exactly one designated canonical location and one identifier on obser
 
 Decision: PASS
 
+## EV-C003-E2RULE-03 [CORRECTED after review, RQA-40]
+
+Candidate: C003
+Gate: E2-RULE
+Source:   the contract's E2-RULE surfaces
+
+Surfaces:  README.md
+           docs/README.md
+           docs/index.rst
+           docs/scripting-doc/README.md
+           man/tiled.1
+           man/tiled.1.ronn
+           man/tmxrasterizer.1
+           man/tmxrasterizer.1.ronn
+           man/tmxviewer.1
+           man/tmxviewer.1.ronn
+           CONTRIBUTING.md
+           tests/
+Necessary because: a positive-only gate is left UNRESOLVED only after the surfaces the contract names
+  for it are read (contract Section 8); each line above is a surface read.
+
+Observed: no validity witness quoted; surfaces read: README.md, docs/README.md, docs/index.rst, docs/scripting-doc/README.md, man/tiled.1, man/tiled.1.ronn, man/tmxrasterizer.1, man/tmxrasterizer.1.ronn, man/tmxviewer.1, man/tmxviewer.1.ronn, CONTRIBUTING.md, tests/
+
+Inference: positive-only PASS; nothing located -> UNRESOLVED, never FAIL (Run 1's amendment)
+
+Decision: UNRESOLVED
+
 ## EV-C003-E2RULE-03
+
+[CORRECTED after review, RQA-40: this block quoted `docs/reference/tmx-map-format.rst`, which is not an E2-RULE surface under RQA-39 (its name does not start with "format"); the block below the corrected one is kept as read in batch 1.]
 
 Candidate: C003
 Gate: E2-RULE
@@ -162,6 +191,8 @@ Decision: PASS
 
 ## EV-C003-E3-04
 
+[CORRECTED after review, RQA-40: NOT_REACHED; E2-RULE is UNRESOLVED under RQA-39, so this gate is not evaluated. Kept as read in batch 1.]
+
 Candidate: C003
 Gate: E3
 Source:   docs/reference/tmx-map-format.rst:80
@@ -173,6 +204,8 @@ Inference: a quoted, located stateful witness (contract Section 8)
 Decision: PASS
 
 ## EV-C003-E4-05
+
+[CORRECTED after review, RQA-40: NOT_REACHED; E2-RULE is UNRESOLVED under RQA-39, so this gate is not evaluated. Kept as read in batch 1.]
 
 Candidate: C003
 Gate: E4
