@@ -39,11 +39,11 @@ batch	frame_rank	gate_reached	session_s	review_s	conditions
 5	38	E2-RULE	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
 5	39	E2-REP	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
 5	40	E2-REP	682	70	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-6	41	E2-REP	1397		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-6	42	E2-REP	1397		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-6	43	E2-RULE	1397		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-6	44	E4	1397		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-6	45	E2-REP	1397		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-6	46	E2-REP	1397		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-6	47	E2-RULE	1397		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
-6	48	E2-REP	1397		analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+6	41	E2-REP	1397	3484	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+6	42	E2-REP	1397	3484	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+6	43	E2-RULE	1397	3484	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+6	44	E4	1397	3484	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+6	45	E2-REP	1397	3484	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+6	46	E2-REP	1397	3484	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+6	47	E2-RULE	1397	3484	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
+6	48	E2-REP	1397	3484	analyst=AI model; session=first read of the batch to the batch commit; review=commit to the owner's 통과
