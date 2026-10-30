@@ -1,0 +1,91 @@
+{
+ "archive": {
+  "bytes": 9215707,
+  "entries": 1077,
+  "request": {
+   "attempts": [
+    [
+     "2026-10-30T02:04:49Z",
+     "ok",
+     "https://github.com/Aleph-One-Marathon/alephone/archive/793e4322e5cd5cf7b9eb0147399514e6ebe25328.tar.gz",
+     302
+    ],
+    [
+     "2026-10-30T02:04:49Z",
+     "ok",
+     "https://codeload.github.com/Aleph-One-Marathon/alephone/tar.gz/793e4322e5cd5cf7b9eb0147399514e6ebe25328",
+     200
+    ]
+   ],
+   "content_type": "application/x-gzip",
+   "final_url": "https://codeload.github.com/Aleph-One-Marathon/alephone/tar.gz/793e4322e5cd5cf7b9eb0147399514e6ebe25328",
+   "http_status": 200,
+   "observed_at_utc": "2026-10-30T02:04:49Z",
+   "outcome": "ok",
+   "redirect_chain": [
+    "https://github.com/Aleph-One-Marathon/alephone/archive/793e4322e5cd5cf7b9eb0147399514e6ebe25328.tar.gz"
+   ],
+   "requested_url": "https://github.com/Aleph-One-Marathon/alephone/archive/793e4322e5cd5cf7b9eb0147399514e6ebe25328.tar.gz"
+  },
+  "sha256": "a944c7d45a3bc427164eef9b1778c212dd7bbc9fd93259923ce8d6c325fe7c95",
+  "url": "https://github.com/Aleph-One-Marathon/alephone/archive/793e4322e5cd5cf7b9eb0147399514e6ebe25328.tar.gz"
+ },
+ "branch": "master",
+ "candidate_id": "C020",
+ "digests": [
+  [
+   "Source_Files/Misc/CourierPrime.h",
+   515442,
+   "62952ef8f4498033a9bc849a9917afd3bcdf2b4375aa87dfd232c26246970973"
+  ],
+  [
+   "Source_Files/Misc/CourierPrimeItalic.h",
+   505159,
+   "963e5e70cb7970747c918a30dec17fca5ad16557d91b25b37a4bfbfbb08264a6"
+  ],
+  [
+   "Source_Files/Misc/CourierPrimeBoldItalic.h",
+   482652,
+   "ea8feaa8a175cbbfa1948e0ebc2725c2e8d3ea98ec9c70aec0204dfa5fb31831"
+  ],
+  [
+   "Source_Files/Misc/CourierPrimeBold.h",
+   479809,
+   "3ef87ab0ab0da39a38c81b84a3c239f81f9e49a63e85f5f49a4dbaac1d1d1e32"
+  ],
+  [
+   "Source_Files/Misc/ProFontAO.h",
+   241112,
+   "4de185af8748d704a44837100f0bd0bf958289dd82d2d2bee54fc08856d4bacb"
+  ],
+  [
+   "Source_Files/Misc/AlephSansMono-Bold.h",
+   232537,
+   "fcb9a56c699847672703338e5aadfb099562be3c14d0a688a07b2a12189ad544"
+  ],
+  [
+   "Source_Files/Misc/preferences.cpp",
+   179933,
+   "5736f0592cec3084eb41274f043178e4409054c3347deb85c04b4572581f7ba7"
+  ],
+  [
+   "Source_Files/GameWorld/weapons.cpp",
+   147933,
+   "3a79ad7d61881b8664e28d87ac3cd2515a4cd80e9be79993eba3cbdea7f6a891"
+  ],
+  [
+   "Source_Files/GameWorld/monsters.cpp",
+   141994,
+   "52cc86f8ef5d125b2dce91a9f805142de36a4dad7ac2edc0dd7cbeec1ffa10dc"
+  ],
+  [
+   "Source_Files/Videos/pl_mpeg.h",
+   139060,
+   "1aac3ee2b06708b0cedc921d979dac8fb106eaf4b4d413a11e8447734ceb3fa5"
+  ]
+ ],
+ "observed_at_utc": "2026-10-30T02:04:48Z",
+ "sha": "793e4322e5cd5cf7b9eb0147399514e6ebe25328",
+ "tracked_files": 986,
+ "url": "https://github.com/Aleph-One-Marathon/alephone"
+}

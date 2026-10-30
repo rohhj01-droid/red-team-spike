@@ -1,0 +1,9 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+24	C022	E2-REP	designation	https://liballeg.org/	https://github.com/liballeg/allegro5	We have moved our official GIT repository over to GitHub.	
+24	C022	E2-REP	designation	https://github.com/liballeg/allegro5	https://github.com/liballeg/allegro5	The official Allegro 5 git repository.	
+24	C022	E2-REP	designation	https://github.com/liballeg/allegro4	https://github.com/liballeg/allegro4	The official Allegro 4 git repository.	
+22	C020	E2-RULE	absence-survey	README.md	README.md:1	# Aleph One	
+22	C020	E2-RULE	absence-survey	docs/README.txt	docs/README.txt:9	Source code and instructions for compiling are available from GitHub:	
+22	C020	E2-RULE	absence-survey	docs/alephone.6	docs/alephone.6:83	argument is ignored.	
+22	C020	E2-RULE	absence-survey	CONTRIBUTING.md	CONTRIBUTING.md:1	We ask all contributors to agree to the following:	
+22	C020	E2-RULE	absence-survey	tests/	tests/	replay_film_test.cpp	

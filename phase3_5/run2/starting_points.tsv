@@ -34,3 +34,18 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 15	https://icculus.org/virtualjaguar/tarballs/	SITES		observed	https://icculus.org/virtualjaguar/tarballs/	distfile-location	2026-10-29T18:34:17Z	200	distfile-location	
 16	https://kilgoretroutmaskreplicant.gitlab.io/plain-html/	HOMEPAGE		observed	https://kilgoretroutmaskreplicant.gitlab.io/plain-html/	project-page	2026-10-29T18:34:22Z	200	official-project-page	
 16	https://gitlab.com/KilgoreTroutMaskReplicant/1oom/uploads/13d2d645650929c6f7f08be356b62f66/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+17	https://github.com/tiehuis/2048-cli	HOMEPAGE+GH	repository-root	observed	https://github.com/tiehuis/2048-cli	repository-root	2026-10-30T02:04:17Z	200	admitted-starting-point	
+17	https://github.com/tiehuis/2048-cli/archive/refs/tags/v0.9.1/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+18	https://github.com/OpenOrphanage/2048-Qt	HOMEPAGE+DIST_TUPLE	repository-root	observed	https://github.com/OpenOrphanage/2048-Qt	repository-root	2026-10-30T02:04:18Z	404	admitted-starting-point	HTTP 404
+19	http://abuse.zoy.org/	HOMEPAGE		observed	http://abuse.zoy.org/	project-page	2026-10-30T02:04:21Z	200	official-project-page	
+19	http://abuse.zoy.org/raw-attachment/wiki/download/	SITES		observed	http://abuse.zoy.org/raw-attachment/wiki/download/	project-page	2026-10-30T02:04:18Z	200	admitted-starting-point	
+19	http://www.linklevel.net/distfiles/	SITES.sfx		observed	http://www.linklevel.net/distfiles/	distfile-location	2026-10-30T02:04:20Z	200	distfile-location	
+20	http://www.delorie.com/store/ace/	HOMEPAGE+SITES		observed	https://www.delorie.com/store/ace/	project-page	2026-10-30T02:04:22Z	200	official-project-page	
+21	http://perso.b2b2c.ca/~sarrazip/dev/afternoonstalker.html	HOMEPAGE		not-reached						
+21	http://perso.b2b2c.ca/~sarrazip/dev/	SITES		not-reached						
+22	https://alephone.lhowon.org/	HOMEPAGE		observed	https://alephone.lhowon.org/	project-page	2026-10-30T02:04:41Z	200	official-project-page	
+22	https://github.com/Aleph-One-Marathon/alephone/releases/download/release-20250829/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+23	https://sourceforge.net/projects/weland/	HOMEPAGE		observed	https://sourceforge.net/projects/weland/	project-page	2026-10-30T02:04:51Z	200	official-project-page	
+23	https://downloads.sourceforge.net/sourceforge/weland/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/weland/	distfile-location	2026-10-30T02:05:03Z	404	distfile-location	HTTP 404
+24	http://liballeg.org/	HOMEPAGE		observed	https://liballeg.org/	project-page	2026-10-30T02:05:05Z	200	official-project-page	
+24	https://downloads.sourceforge.net/sourceforge/alleg/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/alleg/	distfile-location	2026-10-30T02:05:09Z	404	distfile-location	HTTP 404
