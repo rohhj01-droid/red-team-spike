@@ -754,7 +754,7 @@ def test_unfetchable_repository_is_unresolved():                 # RQA-03 (j): a
 # ---------------------------------------------------------------- runner
 
 TWIN_MAP = dict(GAMMA_MAP)
-TWIN_MAP["https://gamma.example.org/"] = (200, HTML, b"<html><body><p><a href='https://github.com/acme/gamma'>Source code</a></p>"
+TWIN_MAP["https://gamma.example.org/"] = (200, HTML, b"<html><body><h1>Gamma</h1><p><a href='https://github.com/acme/gamma'>Source code</a></p>"
                                                      b"<p><a href='https://github.com/acme/gamma'>Source code</a></p></body></html>")
 
 
@@ -797,6 +797,16 @@ def test_host_label_link_does_not_designate_beside_a_word_label():   # RQA-20
                              fetch=canned_map(BINDING_MAP), clock=fixed_clock, git=fake_git_factory())
     c = out["candidate_row"]
     assert c["E2_REP"] == "PASS" and c["canonical_source_location"] == "https://github.com/acme/gamma", c
+
+
+def test_links_only_body_is_a_directory_listing():               # contract 5's third listing test (RQA-25)
+    rec = dict(outcome="ok", content_type="text/html", final_url="https://example.org/files/",
+               body=b"<html><body><a href='a-1.0.tar.gz'>a-1.0.tar.gz</a><br><a href='a-1.1.tar.gz'>a-1.1.tar.gz</a></body></html>")
+    assert screen._class_by_response(rec) == "distfile-location"
+    rec["body"] = b"<html><body><p>Downloads</p><a href='a-1.0.tar.gz'>a-1.0.tar.gz</a></body></html>"
+    assert screen._class_by_response(rec) == "project-page"
+    rec["body"] = b"<html><body><div id='app'></div></body></html>"      # a script-rendered shell: no link, no text
+    assert screen._class_by_response(rec) == "unclassifiable"
 
 
 if __name__ == "__main__":

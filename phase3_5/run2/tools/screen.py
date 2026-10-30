@@ -103,7 +103,10 @@ def _class_by_response(rec: dict, source: str = "") -> str:
             or (ct == "application/octet-stream" and re.search(surfaces.ARCHIVE_EXT, rec["final_url"])):
         return "distfile-location"
     text = net.text_of(rec["body"])
-    if ct.startswith("text/plain") or re.search(r"<title>\s*Index of", rec["body"].decode("utf-8", "replace"), re.I):
+    html = rec["body"].decode("utf-8", "replace")
+    body = re.split(r"(?i)<body\b[^>]*>", html, maxsplit=1)[-1]      # contract 5: "whose body is an <a>-only listing" (RQA-25)
+    links_only = re.search(r"(?i)<a\b[^>]*\bhref", body) and not net.text_of(re.sub(r"(?is)<a\b.*?</a\s*>", " ", body).encode())
+    if ct.startswith("text/plain") or re.search(r"<title>\s*Index of", html, re.I) or links_only:
         return "distfile-location"
     if ct.startswith("text/html") or "<html" in rec["body"][:2000].decode("utf-8", "replace").lower():
         return "project-page" if text else "unclassifiable"
