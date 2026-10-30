@@ -191,13 +191,16 @@ def _verify_tree_quote(ctx: dict, w: dict) -> None:
 # ---------------------------------------------------------------- gates
 
 def _ur(ctx: dict, meta: dict) -> tuple[str, str]:
-    classes = {}
+    classes, open_by_transport = {}, False
     for sp in ctx["sps"]:
         if sp["klass"] is None and sp["source"].startswith("SITES"):
             rec = _observe(ctx, "UR-classify", sp["url"])
             classes[sp["url"]] = _class_by_response(rec, sp["source"])
             sp["pre_classified"] = classes[sp["url"]]
+            open_by_transport |= rec["outcome"] == "transport"
     ur, key = surfaces.identity_key(meta, classes)
+    if ur == "FAIL_NONE" and open_by_transport:   # the key is undecided, not absent (RQA-53)
+        return "UNRESOLVED", ""
     return ur, key
 
 
@@ -462,6 +465,10 @@ def screen_item(rank: int, port_path: str, ports_root: str, witnesses: list[dict
             frame.update(duplicate_of=state["keys"][key], terminal_status="DUPLICATE", stop_gate="UR")
             result["evidence_blocks"].append(_block(ctx, "UR", "%s/Makefile" % port_path, "identity key %s" % key,
                                                     "the same upstream as %s (contract Section 3)" % state["keys"][key], "DUPLICATE"))
+        elif ur == "UNRESOLVED":
+            frame.update(terminal_status="UNRESOLVED", stop_gate="UR", protocol_issue_code="PI-TRANSPORT-INDETERMINATE")
+            result["evidence_blocks"].append(_block(ctx, "UR", "%s/Makefile" % port_path, "homepage=%s sites=%s gh=%s tuples=%s" % (meta["homepage"], meta["sites"], meta["gh"], meta["dist_tuples"]),
+                                                    "no key from the other fields, and a SITES URL whose class would decide it failed in transport after two retries (contract Section 3; RQA-53)", "UNRESOLVED"))
         elif ur != "PASS":
             frame.update(terminal_status="REJECTED", stop_gate="UR", failure_code="UR-NONE" if ur == "FAIL_NONE" else "UR-AMBIGUOUS")
             result["evidence_blocks"].append(_block(ctx, "UR", "%s/Makefile" % port_path, "homepage=%s sites=%s gh=%s tuples=%s" % (meta["homepage"], meta["sites"], meta["gh"], meta["dist_tuples"]),

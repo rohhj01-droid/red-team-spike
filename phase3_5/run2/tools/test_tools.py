@@ -893,6 +893,16 @@ def test_ftp_answer_without_http_status_is_an_observation():     # RQA-52: an ft
     assert rec["outcome"] == "ok" and rec["http_status"] is None and rec["body"] == b"x-1.0.tar.gz", rec
 
 
+def test_key_left_open_by_transport_is_unresolved_not_rejected():   # RQA-53: a failure code needs positive evidence
+    def fetch(url):
+        raise TimeoutError("canned timeout")
+    out = screen.screen_item(1, "misc/onlysites", FIX + "/ports", witnesses=[], state=_state("s27"),
+                             fetch=fetch, clock=fixed_clock, git=fake_git_factory())
+    f = out["frame_row"]
+    assert f["upstream_resolution"] == "UNRESOLVED" and f["terminal_status"] == "UNRESOLVED", f
+    assert f["protocol_issue_code"] == "PI-TRANSPORT-INDETERMINATE" and f["failure_code"] == "NONE", f
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0
