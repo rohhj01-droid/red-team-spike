@@ -481,6 +481,15 @@ def test_pin_archive_request_is_an_observation():                 # contract 9.4
         assert pins[0]["outcome"] == "ok" and pins[0]["http_status"] == 200, pins
 
 
+def test_sites_page_is_an_admitted_starting_point():              # contract 7's roles: only HOMEPAGE is the project page (RQA-23)
+    tag = {"https://example.org/dl/v1.2/": (200, HTML, b"<html><body><p>Downloads for tagmac.</p></body></html>"),
+           "https://github.com/acme/tagmac": (200, HTML, b"<html><head><title>acme/tagmac</title></head><body><p>tagmac</p></body></html>")}
+    out = screen.screen_item(1, "games/tagmac", FIX + "/ports", witnesses=[], state=_state("s24"),
+                             fetch=canned_map(tag), clock=fixed_clock, git=fake_git_factory())
+    page = [sp for sp in out["starting_points"] if sp["source"] == "SITES.extra"]
+    assert page and page[0]["final_class"] == "project-page" and page[0]["evidence_role"] == "admitted-starting-point", out["starting_points"]
+
+
 def test_404_does_not_fail_candidate_alone():                   # Review Focus 4
     out = screen.screen_item(2, "devel/beta", FIX + "/ports", witnesses=[], state=_state("s2"),
                              fetch=canned_map({}), clock=fixed_clock, git=fake_git_factory())
