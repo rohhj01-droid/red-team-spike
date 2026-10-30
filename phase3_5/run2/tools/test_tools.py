@@ -857,6 +857,12 @@ def test_sourcehut_refs_and_archive_are_release_assets():      # RQA-37: sourceh
     assert surfaces.classify("https://git.sr.ht/~someone/proj") == "repository-root"
 
 
+def test_step2_takes_web_links_only():                          # RQA-38: a mailto: link labelled with a host's name is not requested
+    page = (b"<html><body><a href='https://github.com/acme/beta'>Source</a>"
+            b"<a href='mailto:someone@sourceforge.net'>someone@sourceforge.net</a></body></html>")
+    assert [l["href"] for l in net.step2_links(net.links(page, "https://beta.example.org/"))] == ["https://github.com/acme/beta"]
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0

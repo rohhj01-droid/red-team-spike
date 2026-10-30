@@ -164,7 +164,7 @@ def is_word_label(link: dict) -> bool:
 
 
 def step2_links(links_: list[dict]) -> list[dict]:
-    return [l for l in links_ if is_step2(l)]
+    return [l for l in links_ if is_step2(l) and l["href"].startswith(("http://", "https://"))]   # web links only (RQA-38)
 
 
 def designation_signals(text: str) -> list[str]:
