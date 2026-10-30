@@ -354,3 +354,8 @@ Each of the three stays UNRESOLVED at E2-REP (`PI-UNCLASSIFIED-SHAPE`). Ranks 10
 - Rank 87 (C078, csmash): the project page says "You can download the source code and compile it yourself." but no label-authorized link leads to a repository; the SITES directory answered 404. UNRESOLVED.
 - Rank 88 (cubiomes-viewer): no HOMEPAGE, a SITES URL in GitHub's release area, and `devel/qmake` with other modules: `PI-METADATA-UNRESOLVED` at UR (RQA-02 (a)).
 **Effect on the record:** none on the rules.
+
+## RQA-51 -- batch 11 accepted in the owner's words 「진행해줘」; RQA-49's reading stands (2026-10-30)
+**Step:** R4 (batch 11's review)   **Clause(s):** contract 11 (the owner answers 통과 or names a rank; review time runs from the commit to the owner's 통과); RQA-19 and the later acceptances in the same words (RQA-24 to RQA-48); RQA-49 ("The owner decides at batch 11's review which reading stands")
+**What happened or was decided:** Batch 11 was committed at 2026-10-30 15:56:06 KST (bf3d27d); its hold message, sent at 15:56:35 KST, asked for 통과 or a failing rank, set out RQA-49's reading and said that 「통과」 keeps it, and reported rank 84 as ELIGIBLE under it. The owner answered at 15:58:12 KST, in their words: 「진행해줘」. Readings taken: (a) it is batch 11's 통과, since no rank is named, so review_s = 126, measured from the commit as contract 11 defines it; (b) RQA-49's reading stands, so rank 84 stays ELIGIBLE; (c) RQA-50's readings stand. Reading not taken: holding batch 12 for a separate answer on rank 84.
+**Effect on the record:** `screening_cost.tsv` batch 11 rows completed with review_s = 126 (`ledger.record_review`); batch 12 (ranks 89-96) proceeds.
