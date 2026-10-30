@@ -149,8 +149,8 @@ def identity_key(meta: dict, classes: dict[str, str]) -> tuple[str, str]:
     roots = set()
     if meta.get("gh"):
         roots.add(normalize_url("https://github.com/%s/%s" % meta["gh"]).lower())
-    for site, a, p, _tag in meta.get("dist_tuples", []):
-        if site in TUPLE_HOSTS:
+    for (site, a, p, _tag), d in zip(meta.get("dist_tuples", []), meta.get("tuple_dirs", [])):
+        if site in TUPLE_HOSTS and d == ".":       # a tuple moved into a subdirectory is part of the main tree (RQA-31)
             roots.add(normalize_url(TUPLE_HOSTS[site] + a + "/" + p).lower())
     if len(roots) > 1:
         return ("FAIL_AMBIGUOUS", "")

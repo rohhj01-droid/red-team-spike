@@ -223,7 +223,7 @@ def test_starting_points_each_sites_url():                     # Task 3 ruling: 
 def test_identity_key_and_ambiguity():
     m = metadata.resolve(FIX + "/ports/devel/beta", INFRA)
     assert surfaces.identity_key(m, {}) == ("PASS", "https://github.com/acme/beta")
-    m2 = dict(m, dist_tuples=[("github", "other", "thing", "1")])
+    m2 = dict(m, dist_tuples=[("github", "other", "thing", "1")], tuple_dirs=["."])
     assert surfaces.identity_key(m2, {})[0] == "FAIL_AMBIGUOUS"
     a = metadata.resolve(FIX + "/ports/games/alpha", INFRA)
     assert surfaces.identity_key(a, {}) == ("PASS", "https://alpha.example.org")
@@ -825,6 +825,13 @@ def test_label_link_to_another_works_source_is_not_a_designation():   # RQA-28
     assert out["candidate_row"]["E2_REP"] == "UNRESOLVED", out["candidate_row"]
     block = [b for b in out["evidence_blocks"] if "Gate: E2-REP" in b][0]
     assert "Jane Roe has ported Gamma" in block, block
+
+
+def test_tuple_moved_into_a_subdirectory_is_not_a_second_identity():   # RQA-31
+    m = metadata.resolve(FIX + "/ports/games/zeta", INFRA)
+    assert m["tuple_dirs"] == [".", "extern/zlib"], m
+    assert surfaces.identity_key(m, {}) == ("PASS", "https://github.com/acme/zeta")
+    assert surfaces.identity_key(dict(m, tuple_dirs=[".", "."]), {})[0] == "FAIL_AMBIGUOUS"   # two main trees still disagree
 
 
 if __name__ == "__main__":

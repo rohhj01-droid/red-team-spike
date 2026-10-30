@@ -105,7 +105,7 @@ def resolve(port_dir: str, infra_root: str) -> dict:
     macros.update({k: v for k, v in mk.items() if not MACRO_RE.search(v)})  # port-local simple values
     tsites = tuple_sites(infra_root)
     out: dict = dict(homepage=None, homepage_mechanism=None, sites=[], sites_mechanism={}, gh=None,
-                     dist_tuples=[], modules=[], distname=None, comment=None, descr="", issue=None, unresolved=[])
+                     dist_tuples=[], tuple_dirs=[], modules=[], distname=None, comment=None, descr="", issue=None, unresolved=[])
     out["modules"] = mk.get("MODULES", "").split()
     out["distname"] = expand(mk["DISTNAME"], macros) if mk.get("DISTNAME") else None
     out["comment"] = mk.get("COMMENT") or None
@@ -116,6 +116,7 @@ def resolve(port_dir: str, infra_root: str) -> dict:
     words = mk.get("DIST_TUPLE", "").split()
     while len(words) >= 4:
         out["dist_tuples"].append(tuple(words[:4]))
+        out["tuple_dirs"].append(words[4] if len(words) >= 5 else ".")   # targetdir (dist-tuple.port.mk)
         words = words[5:] if len(words) >= 5 else []
     unresolved = out["unresolved"]
     # HOMEPAGE
