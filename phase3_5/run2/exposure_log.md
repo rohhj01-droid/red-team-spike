@@ -190,3 +190,13 @@
 | 2026-10-30T07:03:28Z | 96 | https://github.com/benmwebb/dopewars | landing page rendered a README (8047 chars of page text); not used | used: no |
 | 2026-10-30T07:03:26Z | 96 | https://github.com/benmwebb/dopewars-website/blob/main/index.php | step-2 link 'Edit on GitHub' points at a file inside https://github.com/benmwebb/dopewars-website; the file is not opened, the root is | used: no |
 | 2026-10-30T07:03:29Z | 96 | https://github.com/benmwebb/dopewars-website | landing page rendered a README (3373 chars of page text); not used | used: no |
+| 2026-10-30T07:33:56Z | 97 | https://github.com/dsda-org/dsda-doom | landing page rendered a README (5806 chars of page text); not used | used: no |
+| 2026-10-30T07:34:04Z | 99 | https://github.com/dunecity-project/dunecity | landing page rendered a README (16383 chars of page text); not used | used: no |
+| 2026-10-30T07:36:26Z | 102 | http://www.qt.io | step-2 link 'Qt development framework': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T07:36:27Z | 102 | https://github.com/juzzlin/DustRacing2D | landing page rendered a README (6867 chars of page text); not used | used: no |
+| 2026-10-30T07:36:30Z | 103 | https://www.dxx-rebirth.com/d1x-rebirth_v0.58.1-src.tar.gz | step-2 link 'source': target is not a repository root (distfile-location); observed once, not read | used: no |
+| 2026-10-30T07:36:36Z | 103 | https://www.dxx-rebirth.com/d2x-rebirth_v0.58.1-src.tar.gz | step-2 link 'source': target is not a repository root (distfile-location); observed once, not read | used: no |
+| 2026-10-30T07:36:42Z | 103 | https://github.com/dxx-rebirth/dxx-rebirth | landing page rendered a README (6781 chars of page text); not used | used: no |
+| 2026-10-30T07:36:50Z | 104 | https://github.com/EasyRPG/ | step-2 link 'Code': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T07:36:51Z | 104 | https://easyrpg.org/contribute/ | step-2 link 'Contribute code or assets': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T07:36:52Z | 104 | https://github.com/EasyRPG/Player | landing page rendered a README (7141 chars of page text); not used | used: no |

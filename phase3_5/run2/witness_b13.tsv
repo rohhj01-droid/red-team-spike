@@ -1,0 +1,9 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+99	C087	E2-RULE	validity	docs/formations.md	docs/formations.md:593	Load rejects a point off the map.	
+99	C087	E3	stateful	docs/formations.md	docs/formations.md:1164	ordinary ground passability rejects their occupied tiles	
+103	C091	E2-REP	designation	https://www.dxx-rebirth.com/	https://github.com/dxx-rebirth/dxx-rebirth	There also exists a C++ fork of this project on GitHub	other-work
+99	C087	E4	enumerator	EN:C007	include/FormationPlanner.h:61	The shapes a group can be ordered into	enforced
+99	C087	E4	refusal-path	EN:C007	src/players/QuantBotConfig.cpp:471	for (const FormationPlanner::Shape shape : FormationPlanner::kShapes)	
+99	C087	E4	refusal-path	EN:C007	src/players/QuantBotConfig.cpp:473	return fallback;	
+99	C087	E4	refusal-path	EN:C007	src/players/QuantBotConfig.cpp:695	const int parsed = parseWaveFormation(shape, INT_MIN);	
+99	C087	E4	refusal-path	EN:C007	src/players/QuantBotConfig.cpp:696	QuantBot config: unknown WaveFormation '%s', keeping %s	

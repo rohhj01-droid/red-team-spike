@@ -200,3 +200,23 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 95	https://www.gamers.org/pub/idgames/idstuff/doom/	SITES.19		not-reached						
 96	https://dopewars.sourceforge.io/	HOMEPAGE		observed	https://dopewars.sourceforge.io/	project-page	2026-10-30T07:03:26Z	200	official-project-page	
 96	https://downloads.sourceforge.net/sourceforge/dopewars/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/dopewars/	distfile-location	2026-10-30T07:03:30Z	404	distfile-location	HTTP 404
+97	https://github.com/kraflab/dsda-doom	HOMEPAGE+DIST_TUPLE	repository-root	observed	https://github.com/dsda-org/dsda-doom	repository-root	2026-10-30T07:33:56Z	200	admitted-starting-point	
+98	http://www.3drealms.com/	HOMEPAGE		observed	https://3drealms.com/	project-page	2026-10-30T07:33:57Z	200	official-project-page	
+98	ftp://ftp.3drealms.com/share/	SITES		unreachable	ftp://ftp.3drealms.com/share/		2026-10-30T07:33:57Z			PI-TRANSPORT-INDETERMINATE after two retries
+99	https://dunelegacy.com/	HOMEPAGE		observed	https://dunelegacy.com/	project-page	2026-10-30T07:34:03Z	200	official-project-page	
+99	http://www.linklevel.net/distfiles/	SITES		observed	http://www.linklevel.net/distfiles/	distfile-location	2026-10-30T07:34:02Z	200	distfile-location	
+100	http://mirror.ifarchive.org/if-archive/games/source/	SITES		observed	http://mirror.ifarchive.org/if-archive/games/source/	distfile-location	2026-10-30T07:35:45Z	200	distfile-location	
+100	ftp://ftp.ifarchive.org/if-archive/games/source/	SITES		unreachable	ftp://ftp.ifarchive.org/if-archive/games/source/		2026-10-30T07:35:45Z			PI-TRANSPORT-INDETERMINATE after two retries
+100	ftp://ftp.funet.fi/pub/misc/if-archive/games/source/	SITES		unreachable	ftp://ftp.funet.fi/pub/misc/if-archive/games/source/		2026-10-30T07:35:48Z			PI-TRANSPORT-INDETERMINATE after two retries
+100	http://www.vaxdungeon.com/vax-dungeon/Archive/dungeon/	SITES		observed	http://vaxdungeon.com/vax-dungeon/Archive/dungeon/	distfile-location	2026-10-30T07:35:52Z	404	distfile-location	HTTP 404
+100	http://ifarchive.flavorplex.com/if-archive/games/source/	SITES		observed	https://ifarchive.flavorplex.com/if-archive/games/source/	distfile-location	2026-10-30T07:36:10Z	404	distfile-location	HTTP 404
+101	http://www.dungeoncrawl.org/	HOMEPAGE		observed	http://www.dungeoncrawl.org/	project-page	2026-10-30T07:36:24Z	200	official-project-page	
+101	ftp://ftp.dungeoncrawl.org/dev/4.0.x/src/	SITES		unclassifiable	ftp://ftp.dungeoncrawl.org/dev/4.0.x/src/	unclassifiable	2026-10-30T07:36:12Z			
+102	https://juzzlin.github.io/DustRacing2D/	HOMEPAGE		observed	https://juzzlin.github.io/DustRacing2D/	project-page	2026-10-30T07:36:25Z	200	official-project-page	
+102	https://github.com/juzzlin/DustRacing2D/archive/refs/tags/1.13.0/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+102	https://github.com/juzzlin/DustRacing2D	GH	repository-root	observed	https://github.com/juzzlin/DustRacing2D	repository-root	2026-10-30T07:36:27Z	200	admitted-starting-point	
+103	https://www.dxx-rebirth.com/	HOMEPAGE		observed	https://www.dxx-rebirth.com/	project-page	2026-10-30T07:36:29Z	200	official-project-page	
+103	https://www.dxx-rebirth.com/download/dxx/rebirth/	SITES		observed	https://www.dxx-rebirth.com/download/dxx/rebirth/	distfile-location	2026-10-30T07:36:28Z	404	distfile-location	HTTP 404
+104	https://easyrpg.org/	HOMEPAGE		observed	https://easyrpg.org/	project-page	2026-10-30T07:36:49Z	200	official-project-page	
+104	https://github.com/EasyRPG/Player/archive/refs/tags/0.5.3/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+104	https://github.com/EasyRPG/Player	GH	repository-root	observed	https://github.com/EasyRPG/Player	repository-root	2026-10-30T07:36:52Z	200	admitted-starting-point	

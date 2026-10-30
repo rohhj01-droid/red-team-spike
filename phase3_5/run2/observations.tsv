@@ -468,3 +468,44 @@ observed_at_utc	frame_rank	step	requested_url	final_url	http_status	redirect_cha
 2026-10-30T07:03:30Z	96	E2REP-1	https://downloads.sourceforge.net/sourceforge/dopewars/	https://downloads.sourceforge.net/sourceforge/dopewars/	404	NONE	1	definitive	target/bodies/096/05.bin
 2026-10-30T07:03:34Z	96	pin	https://github.com/benmwebb/dopewars/archive/09d6424798ab3bf4df83699a3b825b871523ecef.tar.gz	https://codeload.github.com/benmwebb/dopewars/tar.gz/09d6424798ab3bf4df83699a3b825b871523ecef	302	https://github.com/benmwebb/dopewars/archive/09d6424798ab3bf4df83699a3b825b871523ecef.tar.gz	1	ok	
 2026-10-30T07:03:37Z	96	pin	https://codeload.github.com/benmwebb/dopewars/tar.gz/09d6424798ab3bf4df83699a3b825b871523ecef	https://codeload.github.com/benmwebb/dopewars/tar.gz/09d6424798ab3bf4df83699a3b825b871523ecef	200	https://github.com/benmwebb/dopewars/archive/09d6424798ab3bf4df83699a3b825b871523ecef.tar.gz	2	ok	target/C084/archive.tar.gz
+2026-10-30T07:33:56Z	97	E2REP-3	https://github.com/kraflab/dsda-doom	https://github.com/dsda-org/dsda-doom	301	https://github.com/kraflab/dsda-doom	1	ok	
+2026-10-30T07:33:56Z	97	E2REP-3	https://github.com/dsda-org/dsda-doom	https://github.com/dsda-org/dsda-doom	200	https://github.com/kraflab/dsda-doom	2	ok	target/bodies/097/01.bin
+2026-10-30T07:33:57Z	98	UR-classify	ftp://ftp.3drealms.com/share/	ftp://ftp.3drealms.com/share/		NONE	1	transport	
+2026-10-30T07:33:57Z	98	UR-classify	ftp://ftp.3drealms.com/share/	ftp://ftp.3drealms.com/share/		NONE	2	transport	
+2026-10-30T07:33:57Z	98	UR-classify	ftp://ftp.3drealms.com/share/	ftp://ftp.3drealms.com/share/		NONE	3	transport	
+2026-10-30T07:33:57Z	98	E2REP-1	http://www.3drealms.com/	https://3drealms.com/	301	http://www.3drealms.com/ > https://www.3drealms.com/	1	ok	
+2026-10-30T07:33:57Z	98	E2REP-1	https://www.3drealms.com/	https://3drealms.com/	301	http://www.3drealms.com/ > https://www.3drealms.com/	2	ok	
+2026-10-30T07:33:59Z	98	E2REP-1	https://3drealms.com/	https://3drealms.com/	200	http://www.3drealms.com/ > https://www.3drealms.com/	3	ok	target/bodies/098/04.bin
+2026-10-30T07:34:02Z	99	UR-classify	http://www.linklevel.net/distfiles/	http://www.linklevel.net/distfiles/	200	NONE	1	ok	target/bodies/099/01.bin
+2026-10-30T07:34:03Z	99	E2REP-1	https://dunelegacy.com/	https://dunelegacy.com/	200	NONE	1	ok	target/bodies/099/02.bin
+2026-10-30T07:34:04Z	99	E2REP-3	https://github.com/ggtothemax/dunecity	https://github.com/dunecity-project/dunecity	301	https://github.com/ggtothemax/dunecity	1	ok	
+2026-10-30T07:34:05Z	99	E2REP-3	https://github.com/dunecity-project/dunecity	https://github.com/dunecity-project/dunecity	200	https://github.com/ggtothemax/dunecity	2	ok	target/bodies/099/03.bin
+2026-10-30T07:35:16Z	99	pin	https://github.com/ggtothemax/dunecity/archive/3b2d555be44816ff45555f8504894997387bea59.tar.gz	https://codeload.github.com/dunecity-project/dunecity/tar.gz/3b2d555be44816ff45555f8504894997387bea59	301	https://github.com/ggtothemax/dunecity/archive/3b2d555be44816ff45555f8504894997387bea59.tar.gz > https://github.com/dunecity-project/dunecity/archive/3b2d555be44816ff45555f8504894997387bea59.tar.gz	1	ok	
+2026-10-30T07:35:16Z	99	pin	https://github.com/dunecity-project/dunecity/archive/3b2d555be44816ff45555f8504894997387bea59.tar.gz	https://codeload.github.com/dunecity-project/dunecity/tar.gz/3b2d555be44816ff45555f8504894997387bea59	302	https://github.com/ggtothemax/dunecity/archive/3b2d555be44816ff45555f8504894997387bea59.tar.gz > https://github.com/dunecity-project/dunecity/archive/3b2d555be44816ff45555f8504894997387bea59.tar.gz	2	ok	
+2026-10-30T07:35:16Z	99	pin	https://codeload.github.com/dunecity-project/dunecity/tar.gz/3b2d555be44816ff45555f8504894997387bea59	https://codeload.github.com/dunecity-project/dunecity/tar.gz/3b2d555be44816ff45555f8504894997387bea59	200	https://github.com/ggtothemax/dunecity/archive/3b2d555be44816ff45555f8504894997387bea59.tar.gz > https://github.com/dunecity-project/dunecity/archive/3b2d555be44816ff45555f8504894997387bea59.tar.gz	3	ok	target/C087/archive.tar.gz
+2026-10-30T07:35:45Z	100	UR-classify	http://mirror.ifarchive.org/if-archive/games/source/	http://mirror.ifarchive.org/if-archive/games/source/	200	NONE	1	ok	target/bodies/100/01.bin
+2026-10-30T07:35:45Z	100	UR-classify	ftp://ftp.ifarchive.org/if-archive/games/source/	ftp://ftp.ifarchive.org/if-archive/games/source/		NONE	1	transport	
+2026-10-30T07:35:46Z	100	UR-classify	ftp://ftp.ifarchive.org/if-archive/games/source/	ftp://ftp.ifarchive.org/if-archive/games/source/		NONE	2	transport	
+2026-10-30T07:35:47Z	100	UR-classify	ftp://ftp.ifarchive.org/if-archive/games/source/	ftp://ftp.ifarchive.org/if-archive/games/source/		NONE	3	transport	
+2026-10-30T07:35:48Z	100	UR-classify	ftp://ftp.funet.fi/pub/misc/if-archive/games/source/	ftp://ftp.funet.fi/pub/misc/if-archive/games/source/		NONE	1	transport	
+2026-10-30T07:35:50Z	100	UR-classify	ftp://ftp.funet.fi/pub/misc/if-archive/games/source/	ftp://ftp.funet.fi/pub/misc/if-archive/games/source/		NONE	2	transport	
+2026-10-30T07:35:51Z	100	UR-classify	ftp://ftp.funet.fi/pub/misc/if-archive/games/source/	ftp://ftp.funet.fi/pub/misc/if-archive/games/source/		NONE	3	transport	
+2026-10-30T07:35:52Z	100	UR-classify	http://www.vaxdungeon.com/vax-dungeon/Archive/dungeon/	http://vaxdungeon.com/vax-dungeon/Archive/dungeon/	301	http://www.vaxdungeon.com/vax-dungeon/Archive/dungeon/	1	ok	
+2026-10-30T07:36:05Z	100	UR-classify	http://vaxdungeon.com/vax-dungeon/Archive/dungeon/	http://vaxdungeon.com/vax-dungeon/Archive/dungeon/	404	http://www.vaxdungeon.com/vax-dungeon/Archive/dungeon/	2	definitive	target/bodies/100/08.bin
+2026-10-30T07:36:10Z	100	UR-classify	http://ifarchive.flavorplex.com/if-archive/games/source/	https://ifarchive.flavorplex.com/if-archive/games/source/	301	http://ifarchive.flavorplex.com/if-archive/games/source/	1	ok	
+2026-10-30T07:36:11Z	100	UR-classify	https://ifarchive.flavorplex.com/if-archive/games/source/	https://ifarchive.flavorplex.com/if-archive/games/source/	404	http://ifarchive.flavorplex.com/if-archive/games/source/	2	definitive	target/bodies/100/10.bin
+2026-10-30T07:36:12Z	101	UR-classify	ftp://ftp.dungeoncrawl.org/dev/4.0.x/src/	ftp://ftp.dungeoncrawl.org/dev/4.0.x/src/		NONE	1	ok	target/bodies/101/01.bin
+2026-10-30T07:36:24Z	101	E2REP-1	http://www.dungeoncrawl.org/	http://www.dungeoncrawl.org/	200	NONE	1	ok	target/bodies/101/02.bin
+2026-10-30T07:36:25Z	102	E2REP-1	https://juzzlin.github.io/DustRacing2D/	https://juzzlin.github.io/DustRacing2D/	200	NONE	1	ok	target/bodies/102/01.bin
+2026-10-30T07:36:26Z	102	E2REP-2	http://www.qt.io	https://www.qt.io/	301	http://www.qt.io	1	ok	
+2026-10-30T07:36:26Z	102	E2REP-2	https://www.qt.io/	https://www.qt.io/	200	http://www.qt.io	2	ok	target/bodies/102/02.bin
+2026-10-30T07:36:27Z	102	E2REP-3	https://github.com/juzzlin/DustRacing2D	https://github.com/juzzlin/DustRacing2D	200	NONE	1	ok	target/bodies/102/04.bin
+2026-10-30T07:36:28Z	103	UR-classify	https://www.dxx-rebirth.com/download/dxx/rebirth/	https://www.dxx-rebirth.com/download/dxx/rebirth/	404	NONE	1	definitive	target/bodies/103/01.bin
+2026-10-30T07:36:29Z	103	E2REP-1	https://www.dxx-rebirth.com/	https://www.dxx-rebirth.com/	200	NONE	1	ok	target/bodies/103/02.bin
+2026-10-30T07:36:30Z	103	E2REP-2	https://www.dxx-rebirth.com/d1x-rebirth_v0.58.1-src.tar.gz	https://www.dxx-rebirth.com/d1x-rebirth_v0.58.1-src.tar.gz	200	NONE	1	ok	target/bodies/103/03.bin
+2026-10-30T07:36:36Z	103	E2REP-2	https://www.dxx-rebirth.com/d2x-rebirth_v0.58.1-src.tar.gz	https://www.dxx-rebirth.com/d2x-rebirth_v0.58.1-src.tar.gz	200	NONE	1	ok	target/bodies/103/04.bin
+2026-10-30T07:36:42Z	103	E2REP-3	https://github.com/dxx-rebirth/dxx-rebirth	https://github.com/dxx-rebirth/dxx-rebirth	200	NONE	1	ok	target/bodies/103/05.bin
+2026-10-30T07:36:49Z	104	E2REP-1	https://easyrpg.org/	https://easyrpg.org/	200	NONE	1	ok	target/bodies/104/01.bin
+2026-10-30T07:36:50Z	104	E2REP-2	https://github.com/EasyRPG/	https://github.com/EasyRPG/	200	NONE	1	ok	target/bodies/104/02.bin
+2026-10-30T07:36:51Z	104	E2REP-2	https://easyrpg.org/contribute/	https://easyrpg.org/contribute/	200	NONE	1	ok	target/bodies/104/03.bin
+2026-10-30T07:36:52Z	104	E2REP-3	https://github.com/EasyRPG/Player	https://github.com/EasyRPG/Player	200	NONE	1	ok	target/bodies/104/04.bin
