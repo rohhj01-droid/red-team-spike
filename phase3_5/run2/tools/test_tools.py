@@ -762,6 +762,19 @@ def test_identifier_on_no_observed_surface_is_unresolved():
     assert c["E2_REP"] == "UNRESOLVED" and c["protocol_issue_code"] == "PI-UNCLASSIFIED-SHAPE", c
 
 
+BINDING_MAP = dict(GAMMA_MAP)
+BINDING_MAP["https://gamma.example.org/"] = (200, HTML, b"<html><body><p><a href='https://github.com/acme/gamma'>Source code</a></p>"
+                                                       b"<p>Go bindings: <a href='https://github.com/other/gamma-go'>GitHub</a></p></body></html>")
+BINDING_MAP["https://github.com/other/gamma-go"] = (200, HTML, b"<html><head><title>other/gamma-go</title></head><body><p>Go bindings.</p></body></html>")
+
+
+def test_host_label_link_does_not_designate_beside_a_word_label():   # RQA-20
+    out = screen.screen_item(1, "x11/gamma", FIX + "/ports", witnesses=[], state=_state("s21"),
+                             fetch=canned_map(BINDING_MAP), clock=fixed_clock, git=fake_git_factory())
+    c = out["candidate_row"]
+    assert c["E2_REP"] == "PASS" and c["canonical_source_location"] == "https://github.com/acme/gamma", c
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0

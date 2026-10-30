@@ -144,14 +144,23 @@ def _norm(s: str) -> str:
     return unicodedata.normalize("NFKC", s or "").casefold()
 
 
-def is_step2(link: dict) -> bool:
-    """Whole-word match of a step-2 word or translation on the label, title or aria-label (contract Section 6)."""
+def _label_has(link: dict, words) -> bool:
     for field in ("label", "title", "aria_label"):
         text = _norm(link.get(field, ""))
-        for word in STEP2_WORDS + TRANSLATIONS + HOST_LABELS:
+        for word in words:
             if re.search(r"(?<!\w)%s(?!\w)" % re.escape(_norm(word)), text):
                 return True
     return False
+
+
+def is_step2(link: dict) -> bool:
+    """Whole-word match of a step-2 word or translation on the label, title or aria-label (contract Section 6)."""
+    return _label_has(link, STEP2_WORDS + TRANSLATIONS + HOST_LABELS)
+
+
+def is_word_label(link: dict) -> bool:
+    """A step-2 label with one of the four words or a translation, not only a code host's name (RQA-20)."""
+    return _label_has(link, STEP2_WORDS + TRANSLATIONS)
 
 
 def step2_links(links_: list[dict]) -> list[dict]:

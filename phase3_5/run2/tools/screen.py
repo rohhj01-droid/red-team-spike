@@ -268,7 +268,9 @@ def _e2rep(ctx: dict) -> dict:
                 r3 = observe_root(root)
                 ctx["step2"].append(dict(url=link["href"], label=label, final_url=r3["final_url"], final_class="repository-root", outcome=r3["outcome"]))
                 if r3["outcome"] == "ok":
-                    label_designations.append(dict(quote=label, surface=rec["final_url"], location=root, kind="label"))
+                    label_designations.append(dict(quote=label, surface=rec["final_url"], location=root, kind="label", word=net.is_word_label(link)))
+    worded = {d["surface"] for d in label_designations if d["word"]}      # RQA-20: on a page that points at a repository in words,
+    label_designations = [d for d in label_designations if d["word"] or d["surface"] not in worded]   # host-name labels are not its pointer
     accounting = ["%s -> %s%s" % (sp["url"], sp["action"], (" (%s)" % sp["note"]) if sp["note"] else "") for sp in sps]
     # designations: the analyst's quoted witnesses, and the project page's own labelled pointers (RQA-02 e)
     designations = [dict(w, kind="witness") for w in _witnesses(ctx, "E2-REP", "designation")]
