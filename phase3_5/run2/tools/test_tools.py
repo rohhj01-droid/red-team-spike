@@ -880,6 +880,13 @@ def test_distfile_mirror_identifies_nothing():                   # RQA-44: contr
     assert surfaces.identity_key(dict(a, homepage=None, sites=[u]), {u: "distfile-location"}) == ("PASS", "https://example.org/files")
 
 
+def test_sourcecode_written_as_one_word_is_a_label_word():       # RQA-49: "Sourcecode" is "source code" written as one word
+    page = b"<html><body><a href='https://github.com/acme/beta'>Sourcecode</a><a href='https://example.org/bar'>Barcode</a></body></html>"
+    ls = net.links(page, "https://beta.example.org/")
+    assert [l["href"] for l in net.step2_links(ls)] == ["https://github.com/acme/beta"]
+    assert net.is_word_label(ls[0])
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0

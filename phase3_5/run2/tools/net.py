@@ -18,7 +18,7 @@ USER_AGENT = "red-team-spike-run2 (python urllib)"
 TIMEOUT_S = 60
 MAX_REDIRECTS = 10
 RETRIES = 2                                   # two recorded retries after the first attempt
-STEP2_WORDS = ("source", "code", "repository", "development")
+STEP2_WORDS = ("source", "code", "repository", "development", "sourcecode")   # "sourcecode": RQA-49
 TRANSLATIONS = ("quellcode", "quelltext", "repositorium", "entwicklung",
                 "code source", "dépôt", "développement",
                 "código", "código fuente", "repositorio", "desarrollo",
