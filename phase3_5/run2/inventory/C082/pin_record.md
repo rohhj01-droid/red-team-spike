@@ -1,0 +1,37 @@
+# Pin record -- Run 2, candidate C082
+
+Pinned at OBSERVATION TIME, the moment E2-REP passed (contract Section 10; a declared
+deviation from the sealed instant, QA-28 / XQA-01). Every later step for this candidate
+is defined against the hash below.
+
+```text
+observed_at_utc  2026-10-30T07:15:13Z
+location         https://github.com/dhewm/dhewm3
+default branch   master
+tip hash         455b88e8dff2be822f08eb498f51b383e851fa38
+tracked files    1551
+```
+
+## Archive (listed, not extracted)
+
+```text
+url      https://github.com/dhewm/dhewm3/archive/455b88e8dff2be822f08eb498f51b383e851fa38.tar.gz
+bytes    8592246
+sha256   07bd65060a1724010b8b3573fad3aabe553da3d518e7c47fa85fd99cb327be11
+entries  1737
+```
+
+## Ten digests (the ten largest source files; ties by path)
+
+| file | bytes | sha256 |
+|---|---|---|
+| neo/libs/imgui/imgui.cpp | 959124 | 767830c36bac46f3b01de5e3b5474e77d0cc2bae2f0cb33fc3442a96d67649f7 |
+| neo/sys/proggyvector_font.h | 616896 | 1db9e83406d0bb18884b98e7a0b45b904554f9b5ffb6faf991a4eb0c3f1dddd7 |
+| neo/libs/imgui/imgui_demo.cpp | 579061 | 41beadcc6c023a62c484b98b629e7d8bcaa130f215b6637b181cabb1709ccd95 |
+| neo/libs/imgui/imgui_widgets.cpp | 547295 | a9e56795ead5e75f4b907a70094c560a1a06ad495e818924703914155c3d9b0d |
+| neo/idlib/math/Simd_SSE.cpp | 474348 | 4413146044d9fea1ebca2c468b913ebc34b99001893629a569baab02b7fc19c2 |
+| neo/libs/imgui/imgui.h | 420850 | 2539ce4f84bbbe15c8336ffafd6e5ea3011e46aaf4b2bef17c87680710c05e21 |
+| neo/idlib/math/Simd_AltiVec.cpp | 373100 | dd1bc54c7e1c26234ff0f2ab8e6a450a9c3145309e3a11394c764d67578135d6 |
+| neo/libs/imgui/imgui_draw.cpp | 330373 | e334b535bda19b57ec3e188f2fb7dbb6b0bed2138ea15dd422aefca7fd961104 |
+| neo/framework/miniz/miniz.c | 322549 | 0fcdc9888cb3a29ca8f176bac087e5fe6c7258a6ab06b1c271c1e109a11d3740 |
+| neo/libs/imgui/imgui_internal.h | 301677 | 81a30f707cac932789150df75ef8fb154cc06569c47c049d605662ad5c148e99 |

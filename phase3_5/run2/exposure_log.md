@@ -144,3 +144,49 @@
 | 2026-10-30T06:50:15Z | 84 | https://github.com/fabiangreffrath/crispy-doom | landing page rendered a README (12983 chars of page text); not used | used: no |
 | 2026-10-30T06:50:17Z | 85 | https://github.com/jorio/CroMagRally | landing page rendered a README (5833 chars of page text); not used | used: no |
 | 2026-10-30T06:50:18Z | 85 | https://github.com/jorio/Pomme | landing page rendered a README (5347 chars of page text); not used | used: no |
+| 2026-10-30T06:58:54Z | 89 | https://sourceforge.net/directory/ | step-2 link 'Open Source Software': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:58:55Z | 89 | https://sourceforge.net/articles/category/sourceforge-podcast/ | step-2 link 'SourceForge Podcast': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:58:56Z | 89 | https://sourceforge.net/projects/dangerdeep/files/latest/download | step-2 link 'Download': target is not a repository root (distfile-location); observed once, not read | used: no |
+| 2026-10-30T06:59:01Z | 89 | https://x.com/share?url=https://sourceforge.net/projects/dangerdeep/&text=Download%20Danger%20from%20the%20Deep%20on%20SourceForge%20for%20free%21%20WW2%20U-boat%20simulation | step-2 link 'Share Danger from the Deep on SourceForge on X': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:02Z | 89 | https://www.facebook.com/sharer/sharer.php?u=https://sourceforge.net/projects/dangerdeep/&title=Danger%20from%20the%20Deep%20on%20SourceForge | step-2 link 'Share Danger from the Deep on SourceForge on facebook': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:02Z | 89 | https://www.linkedin.com/shareArticle?mini=true&url=https://sourceforge.net/projects/dangerdeep/&title=Danger%20from%20the%20Deep%20on%20SourceForge&source=SourceForge.net | step-2 link 'Share Danger from the Deep on SourceForge on LinkedIn': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:03Z | 89 | https://www.google.com/preferences/source?q=sourceforge.net | step-2 link 'Add to Preferred Sources': target is not a repository root (unclassifiable); observed once, not read | used: no |
+| 2026-10-30T06:59:05Z | 89 | https://sourceforge.net/top | step-2 link 'Top Downloaded Projects': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:05Z | 89 | https://sourceforge.net/about/leadership | step-2 link 'Team': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:05Z | 89 | https://x.com/sourceforge | step-2 link 'SourceForge on X': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:06Z | 89 | https://fosstodon.org/@sourceforge | step-2 link 'SourceForge on Mastodon': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:07Z | 89 | https://www.facebook.com/sourceforgenet/ | step-2 link 'SourceForge on Facebook': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:07Z | 89 | https://www.linkedin.com/company/sourceforge.net | step-2 link 'SourceForge on LinkedIn': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:09Z | 89 | https://sourceforge.net/reviews | step-2 link 'SourceForge Reviews': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:15Z | 90 | https://www.usebox.net/jjm/open-source/ | step-2 link 'Open Source': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:16Z | 90 | http://www.gp32x.de/cgi-bin/cfiles.cgi?0,0,0,0,30,927 | step-2 link 'download source code': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:18Z | 90 | http://www.symbioosi.net/English/projects.html | step-2 link 'binaries and the source code for IUQ3 here': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:59:20Z | 90 | http://omnimaga.org/index.php?topic=13589.msg247973 | step-2 link 'binaries and the source code here': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3 | landing page rendered a README (21452 chars of page text); not used | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.5 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:11Z | 93 | https://www.macsourceports.com/game/doom3 | step-2 link 'Mac Source Ports': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.5_RC3 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.5_RC2 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.5_RC1 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.4 | step-2 link 'download dhewm3 1.5.4 at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:11Z | 93 | https://github.com/dhewm/dhewm3-sdk | landing page rendered a README (23161 chars of page text); not used | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.4_RC3 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.4_RC2 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.4_RC1 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.3 | step-2 link 'download dhewm3 1.5.3 at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.3_RC2 | step-2 link 'dhewm3 1.5.3 RC2 at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.3_RC1 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.2 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.2_RC2 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.2_RC1 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:12Z | 93 | https://github.com/dhewm/iddevnet | landing page rendered a README (3580 chars of page text); not used | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.1 | step-2 link 'download dhewm3 1.5.1 at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.1_RC3 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.1_RC2 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.1_RC1 | step-2 link 'download it at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.1_PRE1 | step-2 link 'dhewm3_1.5.1pre1_win32.zip available on Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:01:10Z | 93 | https://github.com/dhewm/dhewm3/releases/tag/1.5.0 | step-2 link 'at Github' leads to a forbidden class; not followed | used: no |
+| 2026-10-30T07:03:27Z | 96 | https://sourceforge.net/projects/dopewars/ | step-2 link 'SourceForge project page': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T07:03:28Z | 96 | https://github.com/benmwebb/dopewars | landing page rendered a README (8047 chars of page text); not used | used: no |
+| 2026-10-30T07:03:26Z | 96 | https://github.com/benmwebb/dopewars-website/blob/main/index.php | step-2 link 'Edit on GitHub' points at a file inside https://github.com/benmwebb/dopewars-website; the file is not opened, the root is | used: no |
+| 2026-10-30T07:03:29Z | 96 | https://github.com/benmwebb/dopewars-website | landing page rendered a README (3373 chars of page text); not used | used: no |

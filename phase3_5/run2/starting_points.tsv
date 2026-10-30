@@ -186,3 +186,17 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 86	https://downloads.sourceforge.net/sourceforge/crossfire/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/crossfire/	distfile-location	2026-10-30T06:51:23Z	404	distfile-location	HTTP 404
 87	https://cannonsmash.sourceforge.net/	HOMEPAGE		observed	https://cannonsmash.sourceforge.net/	project-page	2026-10-30T06:51:24Z	200	official-project-page	
 87	https://downloads.sourceforge.net/sourceforge/cannonsmash/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/cannonsmash/	distfile-location	2026-10-30T06:51:24Z	404	distfile-location	HTTP 404
+89	https://dangerdeep.sourceforge.net/	HOMEPAGE		observed	https://sourceforge.net/projects/dangerdeep/	project-page	2026-10-30T06:58:53Z	200	official-project-page	
+89	https://downloads.sourceforge.net/sourceforge/dangerdeep/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/dangerdeep/	distfile-location	2026-10-30T06:59:09Z	404	distfile-location	HTTP 404
+90	http://www.usebox.net/jjm/dd2	HOMEPAGE		observed	https://www.usebox.net/jjm/dd2/	project-page	2026-10-30T06:59:12Z	200	official-project-page	
+90	http://www.usebox.net/jjm/dd2/releases/	SITES		observed	https://www.usebox.net/jjm/dd2/releases/	distfile-location	2026-10-30T06:59:10Z	403	distfile-location	HTTP 403
+91	http://www.newbreedsoftware.com/defendguin/	HOMEPAGE		observed	https://newbreedsoftware.com/defendguin/	project-page	2026-10-30T07:01:07Z	200	official-project-page	
+91	ftp://ftp.tuxpaint.org/unix/x/defendguin/src/	SITES		unclassifiable	ftp://ftp.tuxpaint.org/unix/x/defendguin/src/	unclassifiable	2026-10-30T07:01:06Z			
+93	https://dhewm3.org	HOMEPAGE		observed	https://dhewm3.org	project-page	2026-10-30T07:01:10Z	200	official-project-page	
+93	https://github.com/dhewm/dhewm3/archive/refs/tags/1.5.4/	SITES	release-assets	closed-by-class		release-assets				forbidden class, never requested
+93	https://github.com/dhewm/dhewm3	GH	repository-root	observed	https://github.com/dhewm/dhewm3	repository-root	2026-10-30T07:01:10Z	200	official-source-location	
+94	https://www.dettus.net/dMagnetic/	HOMEPAGE+SITES		observed	https://www.dettus.net/dMagnetic/	project-page	2026-10-30T07:01:18Z	200	official-project-page	
+95	https://www.gamers.org/pub/idgames/historic/	SITES		not-reached						
+95	https://www.gamers.org/pub/idgames/idstuff/doom/	SITES.19		not-reached						
+96	https://dopewars.sourceforge.io/	HOMEPAGE		observed	https://dopewars.sourceforge.io/	project-page	2026-10-30T07:03:26Z	200	official-project-page	
+96	https://downloads.sourceforge.net/sourceforge/dopewars/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/dopewars/	distfile-location	2026-10-30T07:03:30Z	404	distfile-location	HTTP 404

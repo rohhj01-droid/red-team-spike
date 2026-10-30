@@ -1,0 +1,8 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+93	C082	E2-REP	designation	https://github.com/dhewm/dhewm3	https://github.com/dhewm/dhewm3	dhewm 3 (Doom3 sourceport) main repository	
+93	C082	E2-REP	designation	https://dhewm3.org	https://github.com/dhewm/dhewm3-sdk	Updated the code of all mods hosted in dhewm3-sdk repository	other-work
+93	C082	E2-RULE	absence-survey	README.md	README.md:51	You must patch the game to the latest version (1.3.1).	
+93	C082	E2-RULE	absence-survey	neo/sys/linux/setup/makeself/makeself.1	neo/sys/linux/setup/makeself/makeself.1:15	The following options are supported.	
+96	C084	E2-RULE	absence-survey	README.md	README.md:78	set on the command line of an interactive dopewars server when no players	
+96	C084	E2-RULE	absence-survey	doc/index.html	doc/index.html:55	dopewars is written on the RedHat Linux platform, and should run on most	
+96	C084	E2-RULE	absence-survey	CONTRIBUTING.md	CONTRIBUTING.md:15	These sounds should be in WAV	
