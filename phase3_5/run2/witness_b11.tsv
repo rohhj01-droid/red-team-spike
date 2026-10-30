@@ -1,0 +1,8 @@
+frame_rank	candidate_id	gate	kind	surface	location	quote	tag
+84	C075	E2-RULE	validity	man/default.cfg.template	man/default.cfg.template:38	Invalid lines or comments in the file will be ignored, but it is advisable	
+84	C075	E3	stateful	man/default.cfg.template	man/default.cfg.template:40	the game exits, so any invalid lines or comments will be lost.	
+84	C075	E4	enumerator	EN:C023	src/d_mode.c:23	Valid game mode/mission combinations, with the number of	enforced
+84	C075	E4	refusal-path	EN:C023	src/d_mode.c:50	Check that a gamemode+gamemission received over the network is valid.	
+84	C075	E4	refusal-path	EN:C023	src/net_server.c:706	if (!D_ValidGameMode(data.gamemission, data.gamemode)	
+84	C075	E4	refusal-path	EN:C023	src/net_server.c:709	server: error: invalid connect data	
+84	C075	E4	refusal-path	EN:C023	src/net_common.c:451	if (!D_ValidEpisodeMap(mission, mode, settings->episode, settings->map))	

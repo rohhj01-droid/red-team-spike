@@ -367,3 +367,39 @@ observed_at_utc	frame_rank	step	requested_url	final_url	http_status	redirect_cha
 2026-10-30T06:42:50Z	79	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html		NONE	1	transport	
 2026-10-30T06:42:50Z	79	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html		NONE	2	transport	
 2026-10-30T06:42:50Z	79	E2REP-1	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html		NONE	3	transport	
+2026-10-30T06:48:39Z	81	E2REP-1	https://cpat.sourceforge.net/	https://cpat.sourceforge.net/	200	NONE	1	ok	target/bodies/081/01.bin
+2026-10-30T06:48:40Z	81	E2REP-2	https://sourceforge.net/project/showfiles.php?group_id=160188	https://sourceforge.net/projects/cpat/files/	301	https://sourceforge.net/project/showfiles.php?group_id=160188	1	ok	
+2026-10-30T06:48:40Z	81	E2REP-2	https://sourceforge.net/projects/cpat/files/	https://sourceforge.net/projects/cpat/files/	200	https://sourceforge.net/project/showfiles.php?group_id=160188	2	ok	target/bodies/081/02.bin
+2026-10-30T06:48:40Z	81	E2REP-1	https://downloads.sourceforge.net/sourceforge/cpat/	https://downloads.sourceforge.net/sourceforge/cpat/	404	NONE	1	definitive	target/bodies/081/04.bin
+2026-10-30T06:48:41Z	82	UR-classify	https://download-mirror.savannah.nongnu.org/releases/crack-attack/	https://download-mirror.savannah.gnu.org/releases/crack-attack/	302	https://download-mirror.savannah.nongnu.org/releases/crack-attack/	1	ok	
+2026-10-30T06:48:42Z	82	UR-classify	https://download-mirror.savannah.gnu.org/releases/crack-attack/	https://download-mirror.savannah.gnu.org/releases/crack-attack/	200	https://download-mirror.savannah.nongnu.org/releases/crack-attack/	2	ok	target/bodies/082/01.bin
+2026-10-30T06:48:44Z	82	UR-classify	https://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/	https://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/		NONE	1	transport	
+2026-10-30T06:49:05Z	82	UR-classify	https://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/	https://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/		NONE	2	transport	
+2026-10-30T06:49:26Z	82	UR-classify	https://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/	https://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/		NONE	3	transport	
+2026-10-30T06:49:47Z	82	UR-classify	https://mirror.ossplanet.net/nongnu/crack-attack/	https://mirror.ossplanet.net/nongnu/crack-attack/	200	NONE	1	ok	target/bodies/082/06.bin
+2026-10-30T06:49:58Z	82	UR-classify	https://mirror.csclub.uwaterloo.ca/nongnu/crack-attack/	https://mirror.csclub.uwaterloo.ca/nongnu/crack-attack/	200	NONE	1	ok	target/bodies/082/07.bin
+2026-10-30T06:49:59Z	82	UR-classify	https://nongnu.askapache.com/crack-attack/	https://nongnu.askapache.com/crack-attack/	200	NONE	1	ok	target/bodies/082/08.bin
+2026-10-30T06:49:59Z	82	UR-classify	http://savannah.c3sl.ufpr.br/crack-attack/	http://savannah.c3sl.ufpr.br/crack-attack/	200	NONE	1	ok	target/bodies/082/09.bin
+2026-10-30T06:50:04Z	82	E2REP-1	http://www.nongnu.org/crack-attack/	http://www.nongnu.org/crack-attack/	200	NONE	1	ok	target/bodies/082/10.bin
+2026-10-30T06:50:04Z	82	E2REP-2	http://www.livejournal.com/users/gnu_lorien/	https://gnu-lorien.livejournal.com/	307	http://www.livejournal.com/users/gnu_lorien/ > https://www.livejournal.com/users/gnu_lorien/	1	ok	
+2026-10-30T06:50:06Z	82	E2REP-2	https://www.livejournal.com/users/gnu_lorien/	https://gnu-lorien.livejournal.com/	302	http://www.livejournal.com/users/gnu_lorien/ > https://www.livejournal.com/users/gnu_lorien/	2	ok	
+2026-10-30T06:50:07Z	82	E2REP-2	https://gnu-lorien.livejournal.com/	https://gnu-lorien.livejournal.com/	200	http://www.livejournal.com/users/gnu_lorien/ > https://www.livejournal.com/users/gnu_lorien/	3	ok	target/bodies/082/11.bin
+2026-10-30T06:50:10Z	82	E2REP-1	https://download.savannah.nongnu.org/releases/crack-attack/	https://download.savannah.nongnu.org/releases/crack-attack/	200	NONE	1	ok	target/bodies/082/14.bin
+2026-10-30T06:50:12Z	83	UR-classify	http://crimson.seul.org/files/	https://crimson.seul.org/files/	301	http://crimson.seul.org/files/	1	ok	
+2026-10-30T06:50:13Z	83	UR-classify	https://crimson.seul.org/files/	https://crimson.seul.org/files/	200	http://crimson.seul.org/files/	2	ok	target/bodies/083/01.bin
+2026-10-30T06:50:13Z	83	E2REP-1	http://crimson.seul.org/	https://crimson.seul.org/	301	http://crimson.seul.org/	1	ok	
+2026-10-30T06:50:14Z	83	E2REP-1	https://crimson.seul.org/	https://crimson.seul.org/	200	http://crimson.seul.org/	2	ok	target/bodies/083/03.bin
+2026-10-30T06:50:15Z	84	E2REP-1	https://fabiangreffrath.github.io/crispy-homepage/	https://fabiangreffrath.github.io/crispy-homepage/	200	NONE	1	ok	target/bodies/084/01.bin
+2026-10-30T06:50:15Z	84	E2REP-3	https://github.com/fabiangreffrath/crispy-doom	https://github.com/fabiangreffrath/crispy-doom	200	NONE	1	ok	target/bodies/084/02.bin
+2026-10-30T06:53:42Z	84	pin	https://github.com/fabiangreffrath/crispy-doom/archive/fdeabe4c23a833534b70aa84a22f1685aae7125d.tar.gz	https://codeload.github.com/fabiangreffrath/crispy-doom/tar.gz/fdeabe4c23a833534b70aa84a22f1685aae7125d	302	https://github.com/fabiangreffrath/crispy-doom/archive/fdeabe4c23a833534b70aa84a22f1685aae7125d.tar.gz	1	ok	
+2026-10-30T06:53:43Z	84	pin	https://codeload.github.com/fabiangreffrath/crispy-doom/tar.gz/fdeabe4c23a833534b70aa84a22f1685aae7125d	https://codeload.github.com/fabiangreffrath/crispy-doom/tar.gz/fdeabe4c23a833534b70aa84a22f1685aae7125d	200	https://github.com/fabiangreffrath/crispy-doom/archive/fdeabe4c23a833534b70aa84a22f1685aae7125d.tar.gz	2	ok	target/C075/archive.tar.gz
+2026-10-30T06:50:16Z	85	E2REP-1	https://pangeasoft.net/cromag	https://pangeasoft.net/cromag/	301	https://pangeasoft.net/cromag	1	ok	
+2026-10-30T06:50:16Z	85	E2REP-1	https://pangeasoft.net/cromag/	https://pangeasoft.net/cromag/	200	https://pangeasoft.net/cromag	2	ok	target/bodies/085/01.bin
+2026-10-30T06:50:17Z	85	E2REP-3	https://github.com/jorio/CroMagRally	https://github.com/jorio/CroMagRally	200	NONE	1	ok	target/bodies/085/03.bin
+2026-10-30T06:50:18Z	85	E2REP-3	https://github.com/jorio/Pomme	https://github.com/jorio/Pomme	200	NONE	1	ok	target/bodies/085/04.bin
+2026-10-30T06:50:18Z	86	E2REP-1	http://crossfire.real-time.com/	http://crossfire.real-time.com/		NONE	1	transport	
+2026-10-30T06:50:41Z	86	E2REP-1	http://crossfire.real-time.com/	http://crossfire.real-time.com/		NONE	2	transport	
+2026-10-30T06:51:02Z	86	E2REP-1	http://crossfire.real-time.com/	http://crossfire.real-time.com/		NONE	3	transport	
+2026-10-30T06:51:23Z	86	E2REP-1	https://downloads.sourceforge.net/sourceforge/crossfire/	https://downloads.sourceforge.net/sourceforge/crossfire/	404	NONE	1	definitive	target/bodies/086/04.bin
+2026-10-30T06:51:24Z	87	E2REP-1	https://cannonsmash.sourceforge.net/	https://cannonsmash.sourceforge.net/	200	NONE	1	ok	target/bodies/087/01.bin
+2026-10-30T06:51:24Z	87	E2REP-1	https://downloads.sourceforge.net/sourceforge/cannonsmash/	https://downloads.sourceforge.net/sourceforge/cannonsmash/	404	NONE	1	definitive	target/bodies/087/02.bin

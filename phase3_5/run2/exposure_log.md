@@ -139,3 +139,8 @@
 | 2026-10-30T06:42:37Z | 75 | http://www.sourceforge.net/ | step-2 link 'SourceForge': target is not a repository root (project-page); observed once, not read | used: no |
 | 2026-10-30T06:42:38Z | 75 | http://sourceforge.net/project/?group_id=4055 | step-2 link 'http://sourceforge.net/project/?group_id=4055': target is not a repository root (project-page); observed once, not read | used: no |
 | 2026-10-30T06:42:43Z | 78 | https://github.com/CorsixTH/CorsixTH | landing page rendered a README (7859 chars of page text); not used | used: no |
+| 2026-10-30T06:48:40Z | 81 | https://sourceforge.net/project/showfiles.php?group_id=160188 | step-2 link 'source code': target is not a repository root (distfile-location); observed once, not read | used: no |
+| 2026-10-30T06:50:04Z | 82 | http://www.livejournal.com/users/gnu_lorien/ | step-2 link 'Development Journal': target is not a repository root (project-page); observed once, not read | used: no |
+| 2026-10-30T06:50:15Z | 84 | https://github.com/fabiangreffrath/crispy-doom | landing page rendered a README (12983 chars of page text); not used | used: no |
+| 2026-10-30T06:50:17Z | 85 | https://github.com/jorio/CroMagRally | landing page rendered a README (5833 chars of page text); not used | used: no |
+| 2026-10-30T06:50:18Z | 85 | https://github.com/jorio/Pomme | landing page rendered a README (5347 chars of page text); not used | used: no |

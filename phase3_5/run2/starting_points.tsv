@@ -165,3 +165,24 @@ frame_rank	url	source	klass	action	final_url	final_class	observed_at_utc	http_st
 78	https://github.com/CorsixTH/CorsixTH	GH	repository-root	observed	https://github.com/CorsixTH/CorsixTH	repository-root	2026-10-30T06:42:43Z	200	official-source-location	
 79	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html	HOMEPAGE		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/cosmosmash.html		2026-10-30T06:42:50Z			PI-TRANSPORT-INDETERMINATE after two retries
 79	http://perso.b2b2c.ca/~sarrazip/dev/	SITES		unreachable	http://perso.b2b2c.ca/~sarrazip/dev/		2026-10-30T06:42:50Z			PI-TRANSPORT-INDETERMINATE after two retries
+81	https://cpat.sourceforge.net/	HOMEPAGE		observed	https://cpat.sourceforge.net/	project-page	2026-10-30T06:48:39Z	200	official-project-page	
+81	https://downloads.sourceforge.net/sourceforge/cpat/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/cpat/	distfile-location	2026-10-30T06:48:40Z	404	distfile-location	HTTP 404
+82	http://www.nongnu.org/crack-attack/	HOMEPAGE		observed	http://www.nongnu.org/crack-attack/	project-page	2026-10-30T06:50:04Z	200	official-project-page	
+82	https://download.savannah.nongnu.org/releases/crack-attack/	SITES	distfile-location	observed	https://download.savannah.nongnu.org/releases/crack-attack/	distfile-location	2026-10-30T06:50:10Z	200	distfile-location	
+82	https://download-mirror.savannah.nongnu.org/releases/crack-attack/	SITES		observed	https://download-mirror.savannah.gnu.org/releases/crack-attack/	distfile-location	2026-10-30T06:48:41Z	200	distfile-location	
+82	https://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/	SITES+SITES		unreachable	https://ftp.cc.uoc.gr/mirrors/nongnu.org/crack-attack/		2026-10-30T06:48:44Z			PI-TRANSPORT-INDETERMINATE after two retries
+82	https://mirror.ossplanet.net/nongnu/crack-attack/	SITES		observed	https://mirror.ossplanet.net/nongnu/crack-attack/	distfile-location	2026-10-30T06:49:47Z	200	distfile-location	
+82	https://mirror.csclub.uwaterloo.ca/nongnu/crack-attack/	SITES		observed	https://mirror.csclub.uwaterloo.ca/nongnu/crack-attack/	distfile-location	2026-10-30T06:49:58Z	200	distfile-location	
+82	https://nongnu.askapache.com/crack-attack/	SITES		observed	https://nongnu.askapache.com/crack-attack/	distfile-location	2026-10-30T06:49:59Z	200	distfile-location	
+82	http://savannah.c3sl.ufpr.br/crack-attack/	SITES		observed	http://savannah.c3sl.ufpr.br/crack-attack/	distfile-location	2026-10-30T06:49:59Z	200	distfile-location	
+83	http://crimson.seul.org/	HOMEPAGE		unclassifiable	https://crimson.seul.org/	unclassifiable	2026-10-30T06:50:13Z	200		
+83	http://crimson.seul.org/files/	SITES		observed	https://crimson.seul.org/files/	distfile-location	2026-10-30T06:50:12Z	200	distfile-location	
+84	https://fabiangreffrath.github.io/crispy-homepage/	HOMEPAGE		observed	https://fabiangreffrath.github.io/crispy-homepage/	project-page	2026-10-30T06:50:15Z	200	official-project-page	
+84	https://github.com/fabiangreffrath/crispy-doom	DIST_TUPLE	repository-root	observed	https://github.com/fabiangreffrath/crispy-doom	repository-root	2026-10-30T06:50:15Z	200	official-source-location	
+85	https://pangeasoft.net/cromag	HOMEPAGE		observed	https://pangeasoft.net/cromag/	project-page	2026-10-30T06:50:16Z	200	official-project-page	
+85	https://github.com/jorio/CroMagRally	DIST_TUPLE	repository-root	observed	https://github.com/jorio/CroMagRally	repository-root	2026-10-30T06:50:17Z	200	admitted-starting-point	
+85	https://github.com/jorio/Pomme	DIST_TUPLE	repository-root	observed	https://github.com/jorio/Pomme	repository-root	2026-10-30T06:50:18Z	200	admitted-starting-point	
+86	http://crossfire.real-time.com/	HOMEPAGE		unreachable	http://crossfire.real-time.com/		2026-10-30T06:50:18Z			PI-TRANSPORT-INDETERMINATE after two retries
+86	https://downloads.sourceforge.net/sourceforge/crossfire/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/crossfire/	distfile-location	2026-10-30T06:51:23Z	404	distfile-location	HTTP 404
+87	https://cannonsmash.sourceforge.net/	HOMEPAGE		observed	https://cannonsmash.sourceforge.net/	project-page	2026-10-30T06:51:24Z	200	official-project-page	
+87	https://downloads.sourceforge.net/sourceforge/cannonsmash/	SITES	distfile-location	observed	https://downloads.sourceforge.net/sourceforge/cannonsmash/	distfile-location	2026-10-30T06:51:24Z	404	distfile-location	HTTP 404
