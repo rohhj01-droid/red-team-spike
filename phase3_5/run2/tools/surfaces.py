@@ -25,6 +25,7 @@ SURFACE_TABLE: list[tuple[str, str, str]] = [
     (r"^codeload\.github\.com$", r".*", "release-assets"),                      # archive downloads (RQA-12)
     (r"^(gitlab\.com|gitlab\..+)$", r"(/-/(releases|archive|tags)(/|$)|/uploads/)", "release-assets"),
     (r"^codeberg\.org$", r"^/[^/]+/[^/]+/(releases|archive)(/|$)", "release-assets"),
+    (r"^(sr\.ht|git\.sr\.ht)$", r"^/~[^/]+/[^/]+/(refs|archive)(/|$)", "release-assets"),     # tags, downloads, archives (RQA-37)
     (r"^bitbucket\.org$", r"^/[^/]+/[^/]+/downloads(/|$)", "release-assets"),
     # tracker-page (forbidden: issues / PRs / wiki / discussions, the sealed contract's own list) -- RQA-02 (g)
     (r"^(github\.com|codeberg\.org|bitbucket\.org)$", r"^/[^/]+/[^/]+/(issues|pulls|pull|discussions|wiki|projects|security|actions)(/|$)", "tracker-page"),

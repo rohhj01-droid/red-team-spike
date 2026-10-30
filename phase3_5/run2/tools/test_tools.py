@@ -850,6 +850,13 @@ def test_pin_of_another_repository_under_the_id_is_not_reused():   # RQA-32
         raise AssertionError("a pin of another repository was reused")
 
 
+def test_sourcehut_refs_and_archive_are_release_assets():      # RQA-37: sourcehut's tag, download and archive areas
+    for u in ("https://git.sr.ht/~someone/proj/refs/download/v2.2.0/", "https://git.sr.ht/~someone/proj/refs/v2.2.0",
+              "https://git.sr.ht/~someone/proj/refs", "https://git.sr.ht/~someone/proj/archive/v2.2.0.tar.gz"):
+        assert surfaces.classify(u) == "release-assets", u
+    assert surfaces.classify("https://git.sr.ht/~someone/proj") == "repository-root"
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0
