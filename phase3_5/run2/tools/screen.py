@@ -360,6 +360,8 @@ def _e2rep(ctx: dict) -> dict:
     pin_json = os.path.join(ctx["state"]["target"], ctx["cid"], "pin.json")
     if os.path.exists(pin_json):
         recpin = json.load(io.open(pin_json, encoding="utf-8"))
+        if recpin["url"] != surfaces.git_url_of(canonical):     # RQA-32: a pin found under this id must be of this repository
+            raise RuntimeError("rank %s: %s pins %s, not %s" % (ctx["rank"], pin_json, recpin["url"], canonical))
     else:
         try:
             recpin = pin.pin_repository(ctx["cid"], surfaces.git_url_of(canonical), ctx["state"]["target"], ARCHIVE_FMT.get(host),

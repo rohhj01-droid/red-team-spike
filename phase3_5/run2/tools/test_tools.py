@@ -834,6 +834,22 @@ def test_tuple_moved_into_a_subdirectory_is_not_a_second_identity():   # RQA-31
     assert surfaces.identity_key(dict(m, tuple_dirs=[".", "."]), {})[0] == "FAIL_AMBIGUOUS"   # two main trees still disagree
 
 
+def test_pin_of_another_repository_under_the_id_is_not_reused():   # RQA-32
+    import json
+    st = _state("s26")
+    d = os.path.join(st["target"], "C001")
+    os.makedirs(d, exist_ok=True)
+    with open(os.path.join(d, "pin.json"), "w", encoding="utf-8") as f:
+        json.dump(dict(candidate_id="C001", url="https://github.com/other/thing", sha="0" * 40, tracked_files=1), f)
+    try:
+        screen.screen_item(1, "x11/gamma", FIX + "/ports", witnesses=[], state=st,
+                           fetch=canned_map(GAMMA_MAP), clock=fixed_clock, git=fake_git_factory())
+    except RuntimeError as ex:
+        assert "other/thing" in str(ex), ex
+    else:
+        raise AssertionError("a pin of another repository was reused")
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in list(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0
