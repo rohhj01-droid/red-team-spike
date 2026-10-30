@@ -314,3 +314,8 @@ Each of the three stays UNRESOLVED at E2-REP (`PI-UNCLASSIFIED-SHAPE`). Ranks 10
 - Rank 71 (C065, classicube): the HOMEPAGE, resolved from its DIST_TUPLE, is the repository, whose description has no designation word. UNRESOLVED.
 - Rank 72 (clidle): `MODULES = lang/go` with no SITES, no GH pair and no DIST_TUPLE: `PI-METADATA-UNRESOLVED` at UR (RQA-02 (a)).
 **Effect on the record:** none on the rules.
+
+## RQA-46 -- batch 9 accepted in the owner's words 「진행해줘」; RQA-44's reading stands (2026-10-30)
+**Step:** R4 (batch 9's review)   **Clause(s):** contract 11 (the owner answers 통과 or names a rank; review time runs from the commit to the owner's 통과); RQA-19, RQA-24, RQA-27, RQA-30, RQA-34, RQA-36 and RQA-43 (the same words read as 통과); RQA-44 ("The owner decides at batch 9's review which reading stands")
+**What happened or was decided:** Batch 9 was committed at 2026-10-30 15:37:20 KST (1887e45); its hold message, sent at 15:37:49 KST, asked for 통과 or a failing rank, set out RQA-44's reading of rank 70 and said that 「통과」 keeps it, and reported rank 65 as ELIGIBLE with its witnesses. The owner answered at 15:39:50 KST, in their words: 「진행해줘」. Readings taken: (a) it is batch 9's 통과, since no rank is named, so review_s = 150, measured from the commit as contract 11 defines it; (b) RQA-44's reading stands, so rank 70 stays `REJECTED` at UR; (c) RQA-45's readings stand, rank 65's ELIGIBLE among them. Reading not taken: holding batch 10 for a separate answer on rank 70.
+**Effect on the record:** `screening_cost.tsv` batch 9 rows completed with review_s = 150 (`ledger.record_review`); batch 10 (ranks 73-80) proceeds.
